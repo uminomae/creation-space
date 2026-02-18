@@ -55,6 +55,11 @@ export const DistortionShader = {
         'uQWaveDarken':      { value: quantumWaveParams.darken },
         'uQWaveTurbulence':  { value: quantumWaveParams.turbulence },
         'uQWaveSharpness':   { value: quantumWaveParams.sharpness },
+        'uQWaveRefractMix':  { value: quantumWaveParams.refractMix },
+        'uQWaveTransparency':{ value: quantumWaveParams.transparency },
+        'uQWaveSpecular':    { value: quantumWaveParams.specular },
+        'uQWaveSpecPower':   { value: quantumWaveParams.specularPower },
+        'uQWaveFresnel':     { value: quantumWaveParams.fresnel },
     },
 
     vertexShader: /* glsl */`
@@ -114,6 +119,11 @@ export const DistortionShader = {
         uniform float uQWaveDarken;
         uniform float uQWaveTurbulence;
         uniform float uQWaveSharpness;
+        uniform float uQWaveRefractMix;
+        uniform float uQWaveTransparency;
+        uniform float uQWaveSpecular;
+        uniform float uQWaveSpecPower;
+        uniform float uQWaveFresnel;
         varying vec2 vUv;
 
         float hash(vec2 p) {
@@ -316,8 +326,11 @@ export const DistortionShader = {
                     qRefracted.b = texture2D(tDiffuse, vUv + qOffset * (1.0 - ca)).b;
                 }
 
-                // 屈折適用
-                color = mix(color, qRefracted, envelope);
+                // 屈折適用（透明度を持つ液体レンズ感）
+                float refractMask = clamp(envelope * (0.35 + psiAbs * 0.85), 0.0, 1.0);
+                refractMask *= clamp(uQWaveRefractMix, 0.0, 1.0);
+                refractMask *= mix(0.45, 1.0, clamp(uQWaveTransparency, 0.0, 1.0));
+                color = mix(color, qRefracted, refractMask);
 
                 // --- 暗化 ---
                 if (uQWaveDarken > 0.001) {
@@ -329,7 +342,9 @@ export const DistortionShader = {
                 if (uQWaveFogDensity > 0.001) {
                     vec3 fogColor = vec3(uQWaveFogColorR, uQWaveFogColorG, uQWaveFogColorB);
                     float fogMask = psiAbs * envelope * uQWaveFogDensity;
-                    color = mix(color, fogColor, fogMask);
+                    fogMask *= (1.0 - clamp(uQWaveTransparency, 0.0, 1.0));
+                    vec3 milky = mix(qRefracted, fogColor, 0.45);
+                    color = mix(color, milky, fogMask);
                 }
 
                 // --- 発光 ---
@@ -337,6 +352,17 @@ export const DistortionShader = {
                     vec3 glowColor = vec3(uQWaveGlowColorR, uQWaveGlowColorG, uQWaveGlowColorB);
                     float glowMask = psiAbs * psiAbs * envelope * uQWaveGlowAmount;
                     color += glowColor * glowMask;
+                }
+
+                // --- 液体光沢（スペキュラ + フレネル）---
+                if (uQWaveSpecular > 0.001 || uQWaveFresnel > 0.001) {
+                    vec3 normal = normalize(vec3(-qGradX * 0.45, -qGradY * 0.45, 1.0));
+                    vec3 lightDir = normalize(vec3(-0.32, 0.41, 0.85));
+                    float spec = pow(max(dot(normal, lightDir), 0.0), max(uQWaveSpecPower, 1.0));
+                    float fresnel = pow(1.0 - max(normal.z, 0.0), 3.0);
+                    float glossMask = envelope * (0.35 + psiAbs * 0.65);
+                    vec3 glossColor = vec3(0.92, 0.97, 1.0);
+                    color += glossColor * (spec * uQWaveSpecular + fresnel * uQWaveFresnel) * glossMask;
                 }
 
                 // --- リムライト ---
