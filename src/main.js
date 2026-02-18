@@ -4,10 +4,11 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 
 import { breathValue } from './animation-utils.js';
-import { initControls, updateControls, getScrollProgress } from './controls.js';
+import { initControls, setCameraPosition, updateControls, getScrollProgress } from './controls.js';
 import { initMouseTracking, updateMouseSmoothing } from './mouse-state.js';
 import { createScene, updateScene } from './scene.js';
 import { initScrollUI, updateScrollUI } from './scroll-ui.js';
+import { initDevPanel } from './dev-panel.js';
 import { createFluidSystem } from './shaders/fluid-field.js';
 import { createLiquidSystem } from './shaders/liquid.js';
 import { CameraDofShader, DistortionShader } from './shaders/distortion-pass.js';
@@ -17,6 +18,7 @@ import {
     fluidParams,
     liquidParams,
     quantumWaveParams,
+    sceneParams,
     toggles,
 } from './config.js';
 import { detectLang } from './i18n.js';
@@ -157,6 +159,12 @@ function main() {
     initScrollUI();
     attachResize({ camera, renderer, composer });
 
+    initDevPanel({
+        onStateChanged: () => {
+            setCameraPosition(sceneParams.camX, sceneParams.camY, sceneParams.camZ);
+        },
+    });
+
     const liquidMousePos = new THREE.Vector2();
     const liquidMouseVel = new THREE.Vector2();
     const clock = new THREE.Clock();
@@ -171,10 +179,15 @@ function main() {
         updateScrollUI(scrollProg, breathVal);
         const mouse = updateMouseSmoothing();
 
+        setCameraPosition(sceneParams.camX, sceneParams.camY, sceneParams.camZ);
         updateControls(time, breathVal);
         updateScene(time);
 
         if (toggles.fluidField) {
+            fluidSystem.uniforms.uForce.value = fluidParams.force;
+            fluidSystem.uniforms.uCurl.value = fluidParams.curl;
+            fluidSystem.uniforms.uDecay.value = fluidParams.decay;
+            fluidSystem.uniforms.uRadius.value = fluidParams.radius;
             distortionPass.uniforms.uFluidInfluence.value = fluidParams.influence;
             fluidSystem.uniforms.uMouse.value.set(mouse.smoothX, mouse.smoothY);
             fluidSystem.uniforms.uMouseVelocity.value.set(mouse.velX, mouse.velY);
@@ -186,6 +199,17 @@ function main() {
         }
 
         if (toggles.liquid) {
+            liquidSystem.uniforms.simulation.uTimestep.value = liquidParams.timestep;
+            liquidSystem.uniforms.simulation.uDissipation.value = liquidParams.dissipation;
+            liquidSystem.uniforms.force.uRadius.value = liquidParams.forceRadius;
+            liquidSystem.uniforms.splat.uRadius.value = liquidParams.forceRadius;
+            liquidSystem.uniforms.force.uStrength.value = liquidParams.forceStrength;
+            liquidSystem.uniforms.render.uDensityMul.value = liquidParams.densityMul;
+            liquidSystem.uniforms.render.uNoiseScale.value = liquidParams.noiseScale;
+            liquidSystem.uniforms.render.uNoiseSpeed.value = liquidParams.noiseSpeed;
+            liquidSystem.uniforms.render.uSpecPow.value = liquidParams.specularPow;
+            liquidSystem.uniforms.render.uSpecInt.value = liquidParams.specularInt;
+
             liquidMousePos.set(mouse.smoothX, mouse.smoothY);
             liquidMouseVel.set(mouse.velX, mouse.velY);
             liquidSystem.update(liquidMousePos, liquidMouseVel);
@@ -193,6 +217,8 @@ function main() {
             liquidSystem.copyDensityTo(liquidTarget);
             distortionPass.uniforms.tLiquid.value = liquidTarget.texture;
             distortionPass.uniforms.uLiquidStrength.value = liquidParams.densityMul;
+            distortionPass.uniforms.uLiquidOffsetScale.value = liquidParams.refractOffsetScale;
+            distortionPass.uniforms.uLiquidThreshold.value = liquidParams.refractThreshold;
         } else {
             distortionPass.uniforms.uLiquidStrength.value = 0;
         }
@@ -221,7 +247,11 @@ function main() {
         }
 
         renderer.clear();
-        composer.render();
+        if (toggles.postProcess) {
+            composer.render();
+        } else {
+            renderer.render(scene, camera);
+        }
     }
 
     animate();
