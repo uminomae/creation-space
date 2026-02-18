@@ -19,7 +19,8 @@ let _bgMaterial;
 let _bgMesh;
 let _fieldMaterial;
 let _fieldMesh;
-let _particleCloud;
+let _starFieldGroup;
+let _starMaterials = [];
 
 const _fogColor = new THREE.Color();
 
@@ -90,34 +91,140 @@ function createFieldMesh() {
     return mesh;
 }
 
-function createParticleCloud() {
-    const count = 1800;
+function createStarMaterial() {
+    const material = new THREE.ShaderMaterial({
+        uniforms: {
+            uTime: { value: 0.0 },
+            uOpacity: { value: 1.0 },
+        },
+        vertexShader: `
+            attribute float aSize;
+            attribute float aPhase;
+            attribute float aTemp;
+            varying float vTwinkle;
+            varying float vTemp;
+
+            uniform float uTime;
+
+            void main() {
+                vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+
+                float twinkle = 0.62 + 0.38 * sin(uTime * 0.8 + aPhase * 6.2831853);
+                vTwinkle = twinkle;
+                vTemp = aTemp;
+
+                float pointSize = aSize * (0.85 + 0.75 * twinkle);
+                gl_PointSize = pointSize * (320.0 / max(-mvPosition.z, 0.001));
+                gl_Position = projectionMatrix * mvPosition;
+            }
+        `,
+        fragmentShader: `
+            varying float vTwinkle;
+            varying float vTemp;
+            uniform float uOpacity;
+
+            void main() {
+                vec2 uv = gl_PointCoord * 2.0 - 1.0;
+                float r = length(uv);
+                if (r > 1.0) discard;
+
+                float core = smoothstep(0.38, 0.0, r);
+                float halo = smoothstep(1.0, 0.0, r) * 0.42;
+                float spikeX = smoothstep(0.08, 0.0, abs(uv.x)) * smoothstep(0.92, 0.0, abs(uv.y));
+                float spikeY = smoothstep(0.08, 0.0, abs(uv.y)) * smoothstep(0.92, 0.0, abs(uv.x));
+                float spikes = (spikeX + spikeY) * 0.35;
+
+                float luminance = core * 1.15 + halo + spikes;
+                luminance *= vTwinkle;
+
+                vec3 cold = vec3(0.60, 0.76, 1.00);
+                vec3 warm = vec3(1.00, 0.90, 0.72);
+                vec3 starColor = mix(cold, warm, vTemp);
+                vec3 color = starColor * luminance;
+
+                float alpha = clamp(luminance * uOpacity, 0.0, 1.0);
+                gl_FragColor = vec4(color, alpha);
+            }
+        `,
+        transparent: true,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+        vertexColors: false,
+    });
+
+    _starMaterials.push(material);
+    return material;
+}
+
+function createStarLayer({
+    count,
+    radiusMin,
+    radiusMax,
+    sizeMin,
+    sizeMax,
+    yStretch,
+}) {
     const positions = new Float32Array(count * 3);
+    const sizes = new Float32Array(count);
+    const phases = new Float32Array(count);
+    const temps = new Float32Array(count);
 
     for (let i = 0; i < count; i++) {
-        const r = 18 + Math.random() * 38;
-        const a = Math.random() * Math.PI * 2;
-        const y = (Math.random() - 0.5) * 28;
-        positions[i * 3 + 0] = Math.cos(a) * r;
+        const u = Math.random();
+        const v = Math.random();
+        const theta = 2.0 * Math.PI * u;
+        const phi = Math.acos(2.0 * v - 1.0);
+        const radius = radiusMin + Math.random() * (radiusMax - radiusMin);
+
+        const x = radius * Math.sin(phi) * Math.cos(theta);
+        const y = radius * Math.cos(phi) * yStretch;
+        const z = radius * Math.sin(phi) * Math.sin(theta);
+
+        positions[i * 3 + 0] = x;
         positions[i * 3 + 1] = y;
-        positions[i * 3 + 2] = Math.sin(a) * r;
+        positions[i * 3 + 2] = z;
+        sizes[i] = sizeMin + Math.random() * (sizeMax - sizeMin);
+        phases[i] = Math.random();
+        temps[i] = Math.pow(Math.random(), 1.8);
     }
 
     const geometry = new THREE.BufferGeometry();
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('aSize', new THREE.BufferAttribute(sizes, 1));
+    geometry.setAttribute('aPhase', new THREE.BufferAttribute(phases, 1));
+    geometry.setAttribute('aTemp', new THREE.BufferAttribute(temps, 1));
 
-    const material = new THREE.PointsMaterial({
-        color: 0x8fb5ff,
-        size: 0.12,
-        transparent: true,
-        opacity: 0.42,
-        depthWrite: false,
-        blending: THREE.AdditiveBlending,
+    return new THREE.Points(geometry, createStarMaterial());
+}
+
+function createStarField() {
+    _starMaterials = [];
+
+    const group = new THREE.Group();
+
+    const farLayer = createStarLayer({
+        count: 2800,
+        radiusMin: 70,
+        radiusMax: 130,
+        sizeMin: 0.7,
+        sizeMax: 1.5,
+        yStretch: 0.85,
     });
 
-    const points = new THREE.Points(geometry, material);
-    points.position.y = -8;
-    return points;
+    const midLayer = createStarLayer({
+        count: 1400,
+        radiusMin: 46,
+        radiusMax: 82,
+        sizeMin: 0.9,
+        sizeMax: 1.8,
+        yStretch: 0.75,
+    });
+
+    farLayer.position.y = -4;
+    midLayer.position.y = -7;
+
+    group.add(farLayer, midLayer);
+    return group;
 }
 
 export function createScene(container) {
@@ -143,10 +250,10 @@ export function createScene(container) {
     container.appendChild(renderer.domElement);
 
     _fieldMesh = createFieldMesh();
-    _particleCloud = createParticleCloud();
+    _starFieldGroup = createStarField();
 
     scene.add(_fieldMesh);
-    scene.add(_particleCloud);
+    scene.add(_starFieldGroup);
 
     return { scene, camera, renderer };
 }
@@ -175,8 +282,15 @@ export function updateScene(time) {
         _fieldMesh.rotation.z = time * 0.02;
     }
 
-    if (_particleCloud) {
-        _particleCloud.rotation.y = time * 0.05;
-        _particleCloud.rotation.x = Math.sin(time * 0.2) * 0.08;
+    if (_starMaterials.length > 0) {
+        _starMaterials.forEach((mat, index) => {
+            mat.uniforms.uTime.value = time + index * 0.7;
+            mat.uniforms.uOpacity.value = 0.8;
+        });
+    }
+
+    if (_starFieldGroup) {
+        _starFieldGroup.rotation.y = time * 0.018;
+        _starFieldGroup.rotation.x = Math.sin(time * 0.16) * 0.035;
     }
 }
