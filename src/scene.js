@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import {
     backgroundParams,
+    fieldParams,
     sceneParams,
     toggles,
     FOG_V002_COLOR,
@@ -44,7 +45,13 @@ function createFieldMesh() {
         uniforms: {
             uTime: { value: 0.0 },
             uAspect: { value: window.innerWidth / window.innerHeight },
-            uIntensity: { value: 1.0 },
+            uIntensity: { value: fieldParams.intensity },
+            uAlpha: { value: fieldParams.alpha },
+            uLineLow: { value: fieldParams.lineLow },
+            uLineHigh: { value: fieldParams.lineHigh },
+            uBottomClip: { value: fieldParams.bottomClip },
+            uBottomFeather: { value: fieldParams.bottomFeather },
+            uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
         },
         vertexShader: `
             varying vec2 vUv;
@@ -57,6 +64,12 @@ function createFieldMesh() {
             uniform float uTime;
             uniform float uAspect;
             uniform float uIntensity;
+            uniform float uAlpha;
+            uniform float uLineLow;
+            uniform float uLineHigh;
+            uniform float uBottomClip;
+            uniform float uBottomFeather;
+            uniform vec2 uResolution;
             varying vec2 vUv;
 
             void main() {
@@ -77,13 +90,19 @@ function createFieldMesh() {
                 float r = length(p);
                 float envelope = exp(-r * r * 0.85);
                 float band = abs(waves) * 0.42;
-                float filaments = smoothstep(0.28, 0.74, band);
+                float lineLow = min(uLineLow, uLineHigh - 0.01);
+                float lineHigh = max(uLineHigh, lineLow + 0.01);
+                float filaments = smoothstep(lineLow, lineHigh, band);
 
                 vec3 colorA = vec3(0.11, 0.22, 0.42);
                 vec3 colorB = vec3(0.52, 0.74, 1.0);
                 vec3 color = mix(colorA, colorB, filaments) * envelope * uIntensity;
 
-                float alpha = filaments * envelope * 0.36;
+                float screenY = gl_FragCoord.y / max(uResolution.y, 1.0);
+                float bottomMask = smoothstep(uBottomClip, uBottomClip + uBottomFeather, screenY);
+                color *= bottomMask;
+
+                float alpha = filaments * envelope * uAlpha * bottomMask;
                 if (alpha < 0.001) discard;
                 gl_FragColor = vec4(color, alpha);
             }
@@ -319,10 +338,20 @@ export function updateScene(time) {
     if (_fieldMaterial) {
         _fieldMaterial.uniforms.uTime.value = time;
         _fieldMaterial.uniforms.uAspect.value = window.innerWidth / window.innerHeight;
+        _fieldMaterial.uniforms.uIntensity.value = fieldParams.intensity;
+        _fieldMaterial.uniforms.uAlpha.value = fieldParams.alpha;
+        _fieldMaterial.uniforms.uLineLow.value = fieldParams.lineLow;
+        _fieldMaterial.uniforms.uLineHigh.value = fieldParams.lineHigh;
+        _fieldMaterial.uniforms.uBottomClip.value = fieldParams.bottomClip;
+        _fieldMaterial.uniforms.uBottomFeather.value = fieldParams.bottomFeather;
+        _fieldMaterial.uniforms.uResolution.value.set(window.innerWidth, window.innerHeight);
     }
 
     if (_fieldMesh) {
-        _fieldMesh.rotation.z = time * 0.02;
+        _fieldMesh.visible = toggles.field;
+        if (toggles.field) {
+            _fieldMesh.rotation.z = time * 0.02;
+        }
     }
 
     if (_starMaterials.length > 0) {

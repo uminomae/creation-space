@@ -45,6 +45,7 @@ const STRINGS = {
 function applyCreationPreset() {
     Object.assign(toggles, {
         background: true,
+        field: true,
         fog: true,
         fovBreath: true,
         htmlBreath: true,

@@ -2,6 +2,7 @@ import * as THREE from 'three';
 
 export const toggles = {
     background: true,
+    field: true,
     fog: true,
     fovBreath: true,
     htmlBreath: true,
@@ -53,6 +54,15 @@ export const sceneParams = {
     camY: 0,
     camZ: 34,
     camTargetY: -1,
+};
+
+export const fieldParams = {
+    intensity: 1.0,
+    alpha: 0.36,
+    lineLow: 0.36,
+    lineHigh: 0.78,
+    bottomClip: 0.24,
+    bottomFeather: 0.22,
 };
 
 export const fluidParams = {
