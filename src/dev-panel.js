@@ -3,6 +3,7 @@ import {
     breathConfig,
     distortionParams,
     fieldParams,
+    flowParams,
     fluidParams,
     liquidParams,
     quantumWaveParams,
@@ -19,6 +20,7 @@ const PARAM_GROUPS = [
         fields: [
             ['background', 'Background'],
             ['field', 'Field Layer'],
+            ['flowObjects', 'Flow Objects'],
             ['fog', 'Fog'],
             ['fluidField', 'Fluid Field'],
             ['liquid', 'Liquid'],
@@ -56,6 +58,20 @@ const PARAM_GROUPS = [
             ['lineHigh', 'Line High', 0.1, 1.4, 0.005],
             ['bottomClip', 'Bottom Clip', 0.0, 0.8, 0.005],
             ['bottomFeather', 'Bottom Feather', 0.01, 0.6, 0.005],
+        ],
+    },
+    {
+        id: 'flow',
+        title: 'Flow',
+        type: 'range',
+        target: flowParams,
+        fields: [
+            ['seedOpacity', 'Seed Opacity', 0.0, 1.0, 0.01],
+            ['filamentOpacity', 'Filament Opacity', 0.0, 1.0, 0.01],
+            ['seedDrift', 'Seed Drift', 0.1, 2.5, 0.01],
+            ['chaos', 'Chaos', 0.1, 2.5, 0.01],
+            ['bundleTightness', 'Bundle Tightness', 0.1, 1.5, 0.01],
+            ['centerBandRatio', 'Center Band', 0.2, 0.8, 0.005],
         ],
     },
     {
@@ -163,6 +179,7 @@ function cloneState() {
         toggles: { ...toggles },
         sceneParams: { ...sceneParams },
         fieldParams: { ...fieldParams },
+        flowParams: { ...flowParams },
         backgroundParams: { ...backgroundParams },
         fluidParams: { ...fluidParams },
         liquidParams: { ...liquidParams },
@@ -418,6 +435,7 @@ export function initDevPanel({
             applyPartial(toggles, payload.toggles);
             applyPartial(sceneParams, payload.sceneParams);
             applyPartial(fieldParams, payload.fieldParams);
+            applyPartial(flowParams, payload.flowParams);
             applyPartial(backgroundParams, payload.backgroundParams);
             applyPartial(fluidParams, payload.fluidParams);
             applyPartial(liquidParams, payload.liquidParams);

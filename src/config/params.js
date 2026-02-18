@@ -2,7 +2,8 @@ import * as THREE from 'three';
 
 export const toggles = {
     background: true,
-    field: true,
+    field: false,
+    flowObjects: true,
     fog: true,
     fovBreath: true,
     htmlBreath: true,
@@ -63,6 +64,15 @@ export const fieldParams = {
     lineHigh: 0.78,
     bottomClip: 0.24,
     bottomFeather: 0.22,
+};
+
+export const flowParams = {
+    seedOpacity: 0.72,
+    filamentOpacity: 0.86,
+    seedDrift: 1.0,
+    chaos: 1.0,
+    bundleTightness: 0.56,
+    centerBandRatio: 0.25,
 };
 
 export const fluidParams = {
