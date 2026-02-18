@@ -67,12 +67,12 @@ export const fieldParams = {
 };
 
 export const flowParams = {
-    seedOpacity: 0.72,
-    filamentOpacity: 0.86,
-    seedDrift: 1.0,
-    chaos: 1.0,
-    bundleTightness: 0.56,
-    centerBandRatio: 0.25,
+    seedOpacity: 0.93,
+    filamentOpacity: 0.83,
+    seedDrift: 1.35,
+    chaos: 2.39,
+    bundleTightness: 0.57,
+    centerBandRatio: 0.225,
 };
 
 export const fluidParams = {
