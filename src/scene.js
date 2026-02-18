@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import {
+    backgroundParams,
     sceneParams,
     toggles,
     FOG_V002_COLOR,
@@ -23,6 +24,14 @@ let _starFieldGroup;
 let _starMaterials = [];
 
 const _fogColor = new THREE.Color();
+const _bgCenterA = new THREE.Color();
+const _bgCenterB = new THREE.Color();
+const _bgEdgeA = new THREE.Color();
+const _bgEdgeB = new THREE.Color();
+
+function clamp01(v) {
+    return Math.min(1, Math.max(0, v));
+}
 
 function calcCamZ(aspect) {
     if (aspect >= 1) return sceneParams.camZ;
@@ -264,7 +273,39 @@ export function updateScene(time) {
     const m = (Math.sin(time * Math.PI / sceneParams.mixCycle) + 1.0) * 0.5;
 
     if (toggles.background && _bgMaterial) {
+        const pulse = (m * 2.0 - 1.0) * backgroundParams.pulse;
+        const centerAFactor = clamp01(1.0 - pulse * 0.45);
+        const centerBFactor = clamp01(1.0 + pulse * 0.45);
+        const edgeAFactor = clamp01(1.0 - pulse * 0.25);
+        const edgeBFactor = clamp01(1.0 + pulse * 0.25);
+
+        _bgCenterA.setRGB(
+            clamp01(backgroundParams.centerR * centerAFactor),
+            clamp01(backgroundParams.centerG * centerAFactor),
+            clamp01(backgroundParams.centerB * centerAFactor)
+        );
+        _bgCenterB.setRGB(
+            clamp01(backgroundParams.centerR * centerBFactor),
+            clamp01(backgroundParams.centerG * centerBFactor),
+            clamp01(backgroundParams.centerB * centerBFactor)
+        );
+        _bgEdgeA.setRGB(
+            clamp01(backgroundParams.edgeR * edgeAFactor),
+            clamp01(backgroundParams.edgeG * edgeAFactor),
+            clamp01(backgroundParams.edgeB * edgeAFactor)
+        );
+        _bgEdgeB.setRGB(
+            clamp01(backgroundParams.edgeR * edgeBFactor),
+            clamp01(backgroundParams.edgeG * edgeBFactor),
+            clamp01(backgroundParams.edgeB * edgeBFactor)
+        );
+
+        _bgMaterial.uniforms.uColorCenterA.value.copy(_bgCenterA);
+        _bgMaterial.uniforms.uColorCenterB.value.copy(_bgCenterB);
+        _bgMaterial.uniforms.uColorEdgeA.value.copy(_bgEdgeA);
+        _bgMaterial.uniforms.uColorEdgeB.value.copy(_bgEdgeB);
         _bgMaterial.uniforms.uMix.value = m;
+        _bgMaterial.uniforms.uOpacity.value = backgroundParams.opacity;
     }
 
     if (toggles.fog && _scene?.fog) {

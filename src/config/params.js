@@ -24,10 +24,21 @@ export const breathConfig = {
     fovAmplitude: 1.0,
 };
 
-export const BG_V002_CENTER = new THREE.Color(0x050508);
-export const BG_V002_EDGE = new THREE.Color(0x050508);
-export const BG_V004_CENTER = new THREE.Color(0x1a2538);
-export const BG_V004_EDGE = new THREE.Color(0x070d17);
+export const BG_V002_CENTER = new THREE.Color(0x0b1130);
+export const BG_V002_EDGE = new THREE.Color(0x02040f);
+export const BG_V004_CENTER = new THREE.Color(0x1c2a63);
+export const BG_V004_EDGE = new THREE.Color(0x060b22);
+
+export const backgroundParams = {
+    centerR: 0.08,
+    centerG: 0.12,
+    centerB: 0.31,
+    edgeR: 0.01,
+    edgeG: 0.02,
+    edgeB: 0.09,
+    pulse: 0.32,
+    opacity: 1.0,
+};
 
 export const FOG_V002_COLOR = new THREE.Color(0x050508);
 export const FOG_V002_DENSITY = 0.02;

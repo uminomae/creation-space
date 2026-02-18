@@ -1,4 +1,5 @@
 import {
+    backgroundParams,
     breathConfig,
     distortionParams,
     fluidParams,
@@ -39,6 +40,22 @@ const PARAM_GROUPS = [
             ['camY', 'Cam Y', -30, 30, 0.1],
             ['camZ', 'Cam Z', 8, 80, 0.1],
             ['mixCycle', 'Mix Cycle', 2.0, 30.0, 0.1],
+        ],
+    },
+    {
+        id: 'background',
+        title: 'Background',
+        type: 'range',
+        target: backgroundParams,
+        fields: [
+            ['centerR', 'Center R', 0.0, 1.0, 0.001],
+            ['centerG', 'Center G', 0.0, 1.0, 0.001],
+            ['centerB', 'Center B', 0.0, 1.0, 0.001],
+            ['edgeR', 'Edge R', 0.0, 1.0, 0.001],
+            ['edgeG', 'Edge G', 0.0, 1.0, 0.001],
+            ['edgeB', 'Edge B', 0.0, 1.0, 0.001],
+            ['pulse', 'Pulse', 0.0, 1.0, 0.005],
+            ['opacity', 'Opacity', 0.0, 1.0, 0.005],
         ],
     },
     {
@@ -129,6 +146,7 @@ function cloneState() {
     return {
         toggles: { ...toggles },
         sceneParams: { ...sceneParams },
+        backgroundParams: { ...backgroundParams },
         fluidParams: { ...fluidParams },
         liquidParams: { ...liquidParams },
         quantumWaveParams: { ...quantumWaveParams },
@@ -382,6 +400,7 @@ export function initDevPanel({
 
             applyPartial(toggles, payload.toggles);
             applyPartial(sceneParams, payload.sceneParams);
+            applyPartial(backgroundParams, payload.backgroundParams);
             applyPartial(fluidParams, payload.fluidParams);
             applyPartial(liquidParams, payload.liquidParams);
             applyPartial(quantumWaveParams, payload.quantumWaveParams);
