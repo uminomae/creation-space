@@ -23,6 +23,10 @@ import {
 } from './config.js';
 import { detectLang } from './i18n.js';
 
+const DEV_MODE = new URLSearchParams(window.location.search).has('dev');
+let devStatsBegin = () => {};
+let devStatsEnd = () => {};
+
 const STRINGS = {
     ja: {
         title: '創造とは',
@@ -161,6 +165,24 @@ function main() {
     initScrollUI();
     attachResize({ camera, renderer, composer });
 
+    if (DEV_MODE) {
+        import('./dev-links-panel.js').then(({ initDevLinksPanel }) => {
+            initDevLinksPanel();
+        }).catch((err) => {
+            console.warn('[dev-links] init failed:', err.message);
+        });
+
+        import('./dev-stats.js').then(({ initDevStats, statsBegin, statsEnd }) => {
+            devStatsBegin = statsBegin;
+            devStatsEnd = statsEnd;
+            initDevStats().catch((err) => {
+                console.warn('[dev-stats] init failed:', err.message);
+            });
+        }).catch((err) => {
+            console.warn('[dev-stats] import failed:', err.message);
+        });
+    }
+
     initDevPanel({
         onStateChanged: () => {
             setCameraPosition(sceneParams.camX, sceneParams.camY, sceneParams.camZ);
@@ -173,6 +195,7 @@ function main() {
 
     function animate() {
         requestAnimationFrame(animate);
+        devStatsBegin();
 
         const time = clock.getElapsedTime();
         const breathVal = breathValue(time, breathConfig.period);
@@ -254,6 +277,7 @@ function main() {
         } else {
             renderer.render(scene, camera);
         }
+        devStatsEnd();
     }
 
     animate();
