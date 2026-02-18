@@ -11,7 +11,7 @@ export const toggles = {
     liquid: true,
     heatHaze: false,
     dof: true,
-    quantumWave: false,
+    quantumWave: true,
 };
 
 export const breathConfig = {
@@ -30,13 +30,13 @@ export const BG_V004_CENTER = new THREE.Color(0x1c2a63);
 export const BG_V004_EDGE = new THREE.Color(0x060b22);
 
 export const backgroundParams = {
-    centerR: 0.08,
-    centerG: 0.12,
-    centerB: 0.31,
-    edgeR: 0.01,
-    edgeG: 0.02,
-    edgeB: 0.09,
-    pulse: 0.32,
+    centerR: 0.042,
+    centerG: 0.041,
+    centerB: 0.066,
+    edgeR: 0.041,
+    edgeG: 0.168,
+    edgeB: 0.268,
+    pulse: 0.105,
     opacity: 1.0,
 };
 
