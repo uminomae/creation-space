@@ -1,0 +1,47 @@
+body.creation-page {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(46, 72, 116, 0.18), transparent 45%),
+    radial-gradient(circle at 78% 34%, rgba(74, 114, 179, 0.12), transparent 42%),
+    #050508;
+}
+
+.creation-page #overlay {
+  bottom: 10%;
+}
+
+.creation-page #title-h1 {
+  letter-spacing: clamp(0.18em, 1.0vmin, 0.38em);
+}
+
+.creation-page #taglines {
+  max-width: min(60vw, 580px);
+}
+
+.creation-page .tagline {
+  color: rgba(210, 225, 250, 0.72);
+}
+
+#hero-spacer {
+  height: 140vh;
+}
+
+#articles-spacer {
+  height: 0;
+}
+
+#creation-spacer {
+  position: relative;
+  height: 220vh;
+  z-index: 2;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .creation-page #taglines {
+    max-width: 82vw;
+  }
+
+  #creation-spacer {
+    height: 190vh;
+  }
+}

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <script type="module">
+    import { initScrollCoordinator } from './src/scroll-coordinator.js';
+    initScrollCoordinator();
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>創造とは - Creation Space</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./src/styles/main.css">
+  <link rel="stylesheet" href="./src/styles/creation.css">
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+
+  <script type="module" src="./src/main.js"></script>
+</head>
+<body class="creation-page">
+  <div id="canvas-container" aria-hidden="true"></div>
+
+  <div id="credit">
+    <div class="credit-line" id="credit-collab">Quantum field sketch</div>
+    <div class="credit-signature" id="credit-signature">creation-space</div>
+  </div>
+
+  <div id="overlay">
+    <div id="taglines"></div>
+    <h1 id="title-h1">創造とは</h1>
+    <p class="subtitle" id="title-sub">Creation Field</p>
+  </div>
+
+  <div id="control-guide">
+    <div class="guide-row guide-desktop">
+      <span class="guide-key" data-ja="ドラッグ" data-en="drag">drag</span>
+      <span class="guide-sep">—</span>
+      <span class="guide-action" data-ja="回転" data-en="rotate">rotate</span>
+    </div>
+    <div class="guide-row guide-desktop">
+      <span class="guide-key">Ctrl + wheel</span>
+      <span class="guide-sep">—</span>
+      <span class="guide-action" data-ja="ズーム" data-en="zoom">zoom</span>
+    </div>
+    <div class="guide-row guide-desktop">
+      <span class="guide-key" data-ja="スクロール" data-en="scroll">scroll</span>
+      <span class="guide-sep">—</span>
+      <span class="guide-action" data-ja="潜水" data-en="dive">dive</span>
+    </div>
+    <div class="guide-row guide-touch">
+      <span class="guide-key" data-ja="横スワイプ" data-en="swipe">swipe</span>
+      <span class="guide-sep">—</span>
+      <span class="guide-action" data-ja="回転" data-en="rotate">rotate</span>
+    </div>
+    <div class="guide-row guide-touch">
+      <span class="guide-key" data-ja="ピンチ" data-en="pinch">pinch</span>
+      <span class="guide-sep">—</span>
+      <span class="guide-action" data-ja="ズーム" data-en="zoom">zoom</span>
+    </div>
+    <div class="guide-row guide-touch">
+      <span class="guide-key" data-ja="縦スクロール" data-en="scroll">scroll</span>
+      <span class="guide-sep">—</span>
+      <span class="guide-action" data-ja="潜水" data-en="dive">dive</span>
+    </div>
+  </div>
+
+  <div id="scroll-hint">
+    <span>scroll</span>
+    <div class="arrow">▾</div>
+  </div>
+
+  <div id="scroll-hint-top">
+    <div class="arrow">▴</div>
+    <span>scroll</span>
+  </div>
+
+  <div id="hero-spacer"></div>
+  <div id="articles-spacer"></div>
+  <div id="creation-spacer"></div>
+
+  <button id="surface-btn" aria-label="ページ上部に戻る">↑ surface</button>
+</body>
+</html>
