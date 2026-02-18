@@ -138,8 +138,9 @@ function createStarMaterial() {
                 luminance *= vTwinkle;
 
                 vec3 cold = vec3(0.60, 0.76, 1.00);
-                vec3 warm = vec3(1.00, 0.90, 0.72);
-                vec3 starColor = mix(cold, warm, vTemp);
+                vec3 warm = vec3(0.84, 0.88, 0.93);
+                // Warm side is intentionally muted to keep sea/cosmos ambiguity.
+                vec3 starColor = mix(cold, warm, vTemp * 0.28);
                 vec3 color = starColor * luminance;
 
                 float alpha = clamp(luminance * uOpacity, 0.0, 1.0);
@@ -185,7 +186,8 @@ function createStarLayer({
         positions[i * 3 + 2] = z;
         sizes[i] = sizeMin + Math.random() * (sizeMax - sizeMin);
         phases[i] = Math.random();
-        temps[i] = Math.pow(Math.random(), 1.8);
+        // Bias toward colder stars so red/orange dust does not dominate.
+        temps[i] = Math.pow(Math.random(), 4.0);
     }
 
     const geometry = new THREE.BufferGeometry();
