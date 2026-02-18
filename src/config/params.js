@@ -108,19 +108,14 @@ export const quantumWaveParams = {
     glowColorB: 1.0,
     caberration: 0.0015,
     rimBright: 0.22,
-    blurAmount: 0.018,
-    fogDensity: 0.012,
+    blurAmount: 0.01,
+    fogDensity: 0.03,
     fogColorR: 0.34,
     fogColorG: 0.46,
     fogColorB: 0.62,
     darken: 0.05,
     turbulence: 0.08,
     sharpness: 0.74,
-    refractMix: 0.82,
-    transparency: 0.74,
-    specular: 0.48,
-    specularPower: 16.0,
-    fresnel: 0.26,
 };
 
 export const distortionParams = {

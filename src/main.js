@@ -113,11 +113,6 @@ function applyQuantumWaveUniforms(distortionPass) {
     du.uQWaveDarken.value = qp.darken;
     du.uQWaveTurbulence.value = qp.turbulence;
     du.uQWaveSharpness.value = qp.sharpness;
-    du.uQWaveRefractMix.value = qp.refractMix;
-    du.uQWaveTransparency.value = qp.transparency;
-    du.uQWaveSpecular.value = qp.specular;
-    du.uQWaveSpecPower.value = qp.specularPower;
-    du.uQWaveFresnel.value = qp.fresnel;
 }
 
 function attachResize({ camera, renderer, composer }) {
