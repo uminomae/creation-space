@@ -1,6 +1,9 @@
 import {
+    backgroundParams,
     breathConfig,
     distortionParams,
+    fieldParams,
+    flowParams,
     fluidParams,
     liquidParams,
     quantumWaveParams,
@@ -16,6 +19,8 @@ const PARAM_GROUPS = [
         target: toggles,
         fields: [
             ['background', 'Background'],
+            ['field', 'Field Layer'],
+            ['flowObjects', 'Flow Objects'],
             ['fog', 'Fog'],
             ['fluidField', 'Fluid Field'],
             ['liquid', 'Liquid'],
@@ -39,6 +44,50 @@ const PARAM_GROUPS = [
             ['camY', 'Cam Y', -30, 30, 0.1],
             ['camZ', 'Cam Z', 8, 80, 0.1],
             ['mixCycle', 'Mix Cycle', 2.0, 30.0, 0.1],
+        ],
+    },
+    {
+        id: 'field',
+        title: 'Field',
+        type: 'range',
+        target: fieldParams,
+        fields: [
+            ['intensity', 'Field Intensity', 0.0, 3.0, 0.01],
+            ['alpha', 'Field Alpha', 0.0, 1.0, 0.005],
+            ['lineLow', 'Line Low', 0.05, 1.2, 0.005],
+            ['lineHigh', 'Line High', 0.1, 1.4, 0.005],
+            ['bottomClip', 'Bottom Clip', 0.0, 0.8, 0.005],
+            ['bottomFeather', 'Bottom Feather', 0.01, 0.6, 0.005],
+        ],
+    },
+    {
+        id: 'flow',
+        title: 'Flow',
+        type: 'range',
+        target: flowParams,
+        fields: [
+            ['seedOpacity', 'Seed Opacity', 0.0, 1.0, 0.01],
+            ['filamentOpacity', 'Filament Opacity', 0.0, 1.0, 0.01],
+            ['seedDrift', 'Seed Drift', 0.1, 2.5, 0.01],
+            ['chaos', 'Chaos', 0.1, 2.5, 0.01],
+            ['bundleTightness', 'Bundle Tightness', 0.1, 1.5, 0.01],
+            ['centerBandRatio', 'Center Band', 0.2, 0.8, 0.005],
+        ],
+    },
+    {
+        id: 'background',
+        title: 'Background',
+        type: 'range',
+        target: backgroundParams,
+        fields: [
+            ['centerR', 'Center R', 0.0, 1.0, 0.001],
+            ['centerG', 'Center G', 0.0, 1.0, 0.001],
+            ['centerB', 'Center B', 0.0, 1.0, 0.001],
+            ['edgeR', 'Edge R', 0.0, 1.0, 0.001],
+            ['edgeG', 'Edge G', 0.0, 1.0, 0.001],
+            ['edgeB', 'Edge B', 0.0, 1.0, 0.001],
+            ['pulse', 'Pulse', 0.0, 1.0, 0.005],
+            ['opacity', 'Opacity', 0.0, 1.0, 0.005],
         ],
     },
     {
@@ -129,6 +178,9 @@ function cloneState() {
     return {
         toggles: { ...toggles },
         sceneParams: { ...sceneParams },
+        fieldParams: { ...fieldParams },
+        flowParams: { ...flowParams },
+        backgroundParams: { ...backgroundParams },
         fluidParams: { ...fluidParams },
         liquidParams: { ...liquidParams },
         quantumWaveParams: { ...quantumWaveParams },
@@ -382,6 +434,9 @@ export function initDevPanel({
 
             applyPartial(toggles, payload.toggles);
             applyPartial(sceneParams, payload.sceneParams);
+            applyPartial(fieldParams, payload.fieldParams);
+            applyPartial(flowParams, payload.flowParams);
+            applyPartial(backgroundParams, payload.backgroundParams);
             applyPartial(fluidParams, payload.fluidParams);
             applyPartial(liquidParams, payload.liquidParams);
             applyPartial(quantumWaveParams, payload.quantumWaveParams);

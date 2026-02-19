@@ -1,0 +1,13 @@
+{
+  "basePath": "./",
+  "presets": {
+    "sample_overlay_anchor": {
+      "label": "Sample: Overlay Anchor",
+      "path": "./",
+      "hash": "overlay",
+      "query": {
+        "dev": 1
+      }
+    }
+  }
+}

@@ -2,6 +2,8 @@ import * as THREE from 'three';
 
 export const toggles = {
     background: true,
+    field: false,
+    flowObjects: true,
     fog: true,
     fovBreath: true,
     htmlBreath: true,
@@ -11,7 +13,7 @@ export const toggles = {
     liquid: true,
     heatHaze: false,
     dof: true,
-    quantumWave: false,
+    quantumWave: true,
 };
 
 export const breathConfig = {
@@ -24,10 +26,21 @@ export const breathConfig = {
     fovAmplitude: 1.0,
 };
 
-export const BG_V002_CENTER = new THREE.Color(0x050508);
-export const BG_V002_EDGE = new THREE.Color(0x050508);
-export const BG_V004_CENTER = new THREE.Color(0x1a2538);
-export const BG_V004_EDGE = new THREE.Color(0x070d17);
+export const BG_V002_CENTER = new THREE.Color(0x0b1130);
+export const BG_V002_EDGE = new THREE.Color(0x02040f);
+export const BG_V004_CENTER = new THREE.Color(0x1c2a63);
+export const BG_V004_EDGE = new THREE.Color(0x060b22);
+
+export const backgroundParams = {
+    centerR: 0.042,
+    centerG: 0.041,
+    centerB: 0.066,
+    edgeR: 0.041,
+    edgeG: 0.168,
+    edgeB: 0.268,
+    pulse: 0.105,
+    opacity: 1.0,
+};
 
 export const FOG_V002_COLOR = new THREE.Color(0x050508);
 export const FOG_V002_DENSITY = 0.02;
@@ -42,6 +55,24 @@ export const sceneParams = {
     camY: 0,
     camZ: 34,
     camTargetY: -1,
+};
+
+export const fieldParams = {
+    intensity: 1.0,
+    alpha: 0.36,
+    lineLow: 0.36,
+    lineHigh: 0.78,
+    bottomClip: 0.24,
+    bottomFeather: 0.22,
+};
+
+export const flowParams = {
+    seedOpacity: 0.93,
+    filamentOpacity: 0.83,
+    seedDrift: 1.35,
+    chaos: 2.39,
+    bundleTightness: 0.57,
+    centerBandRatio: 0.225,
 };
 
 export const fluidParams = {
@@ -91,19 +122,19 @@ export const quantumWaveParams = {
     waveCount: 8.0,
     envelope: 0.82,
     yInfluence: 0.7,
-    glowAmount: 0.07,
+    glowAmount: 0.0,
     glowColorR: 0.45,
     glowColorG: 0.72,
     glowColorB: 1.0,
-    caberration: 0.0015,
-    rimBright: 0.22,
-    blurAmount: 0.01,
-    fogDensity: 0.03,
+    caberration: 0.0,
+    rimBright: 0.0,
+    blurAmount: 0.0,
+    fogDensity: 0.0,
     fogColorR: 0.34,
     fogColorG: 0.46,
     fogColorB: 0.62,
-    darken: 0.05,
-    turbulence: 0.08,
+    darken: 0.0,
+    turbulence: 0.0,
     sharpness: 0.74,
 };
 
