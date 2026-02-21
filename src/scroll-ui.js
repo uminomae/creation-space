@@ -14,8 +14,6 @@ let _langToggle;
 let _scrollHintBottom;
 let _scrollHintTop;
 let _surfaceBtn;
-let _devlogHeader;
-let _devlogSection;
 let _articlesSection;
 
 // --- T-014: クリーンアップ ---
@@ -34,13 +32,7 @@ export function initScrollUI() {
     _scrollHintBottom = document.getElementById('scroll-hint');
     _scrollHintTop = document.getElementById('scroll-hint-top');
     _surfaceBtn = document.getElementById('surface-btn');
-    _devlogHeader = document.getElementById('devlog-gallery-header');
-    _devlogSection = document.getElementById('devlog-gallery-section');
     _articlesSection = document.getElementById('articles-section');
-
-    if (_devlogHeader) {
-        _devlogHeader.classList.remove('is-visible');
-    }
 
     // 浮上ボタン: クリックでページ最上部へ
     if (_surfaceBtn) {
@@ -161,8 +153,6 @@ export function updateScrollUI(scrollProg, breathVal) {
         _surfaceBtn.style.pointerEvents = showSurface ? 'auto' : 'none';
     }
 
-    // --- Devlogタイトル: セクション内でのみ表示 ---
-    updateDevlogHeaderVisibility(scrollProg);
     updateArticlesFocusability(scrollProg);
 }
 
@@ -198,21 +188,6 @@ function updateArticlesFocusability(scrollProg) {
         }
         el.setAttribute('tabindex', '-1');
     });
-}
-
-function updateDevlogHeaderVisibility(scrollProg) {
-    if (!_devlogHeader) return;
-    const rect = _devlogSection ? _devlogSection.getBoundingClientRect() : null;
-    const windowH = window.innerHeight || document.documentElement.clientHeight;
-    const exitLine = windowH * 0.05;
-    const TRACES_ENTER_Y = 0; // px: TRACES出現の基準ライン（調整用）
-    const spacer = document.getElementById('articles-spacer');
-    const spacerPassed = spacer
-        ? spacer.getBoundingClientRect().top <= TRACES_ENTER_Y
-        : scrollProg > 0.3;
-    const stillInRange = rect ? rect.bottom >= exitLine : true;
-    const isVisible = spacerPassed && stillInRange;
-    _devlogHeader.classList.toggle('is-visible', isVisible);
 }
 
 /**
