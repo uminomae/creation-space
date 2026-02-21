@@ -678,6 +678,9 @@ function createHopfPointMaterial(linkParam) {
             uParticleBrightness: { value: creationLinkParams.particleBrightness },
             uParticleSoftness: { value: creationLinkParams.particleSoftness },
             uFluidDrift: { value: creationLinkParams.fluidDrift },
+            uPointerBurstStrength: { value: creationLinkParams.pointerBurstStrength },
+            uPointerBurstSpread: { value: creationLinkParams.pointerBurstSpread },
+            uColorContrast: { value: creationLinkParams.colorContrast },
             uColorA: { value: new THREE.Color(linkParam.colorAR, linkParam.colorAG, linkParam.colorAB) },
             uColorB: { value: new THREE.Color(linkParam.colorBR, linkParam.colorBG, linkParam.colorBB) },
         },
@@ -692,6 +695,9 @@ function createHopfPointMaterial(linkParam) {
             uniform float uColorSplitSoftness;
             uniform float uParticleBrightness;
             uniform float uFluidDrift;
+            uniform float uPointerBurstStrength;
+            uniform float uPointerBurstSpread;
+            uniform float uColorContrast;
             uniform vec3 uColorA;
             uniform vec3 uColorB;
 
@@ -763,19 +769,31 @@ function createHopfPointMaterial(linkParam) {
                 p3 = normalize(p3 + vec3(0.0001)) * min(max(0.08, uSphereFill), length(p3));
                 p3 *= uScale;
 
+                float hoverBurst = clamp(uHover * uPointerBurstStrength, 0.0, 1.0);
+                float burstMask = smoothstep(0.45, 1.0, (p4.w + 1.0) * 0.5);
+                float stereoDen = max(0.012, 1.0 - p4.w);
+                vec3 stereo = p4.xyz / stereoDen;
+                vec3 burstDir = normalize(stereo + vec3(0.0001));
+                vec3 burstPos = stereo * (1.0 + hoverBurst * (2.4 + burstMask * 4.0));
+                burstPos += burstDir * hoverBurst * uPointerBurstSpread * (0.35 + burstMask);
+                p3 = mix(p3, burstPos, hoverBurst * 0.96);
+
                 vec4 mvPosition = modelViewMatrix * vec4(p3, 1.0);
                 float depthFactor = clamp(1.0 / max(-mvPosition.z, 0.001), 0.0, 1.2);
-                gl_PointSize = aSize * (290.0 * depthFactor) * (1.0 + uHover * 0.2);
+                float burstPointScale = mix(1.0, 0.65, hoverBurst);
+                gl_PointSize = aSize * (280.0 * depthFactor) * (1.0 + uHover * 0.2) * burstPointScale;
                 gl_Position = projectionMatrix * mvPosition;
 
                 float split = smoothstep(-uColorSplitSoftness, uColorSplitSoftness, p3.x);
                 float colorMix = clamp(0.85 * split + 0.15 * (aFlowDir * 0.5 + 0.5), 0.0, 1.0);
                 vec3 baseColor = mix(uColorA, uColorB, colorMix);
+                float c = clamp(uColorContrast, 0.0, 1.8);
+                baseColor = clamp((baseColor - 0.5) * (1.0 + c) + 0.5, 0.0, 1.0);
                 float pulse = 0.48 + 0.52 * sin(phase * 1.4 + eta * 2.1);
                 float brightness = clamp(uParticleBrightness, 0.05, 2.0);
-                vColor = baseColor * (0.35 + pulse * 0.32 + uHover * 0.16) * brightness;
+                vColor = baseColor * (0.33 + pulse * 0.28 + uHover * 0.14) * brightness;
                 float alphaGain = 0.18 + uAlpha * 1.25;
-                vAlpha = (0.18 + pulse * 0.2) * alphaGain;
+                vAlpha = (0.14 + pulse * 0.16) * alphaGain * mix(1.0, 0.48, hoverBurst);
             }
         `,
         fragmentShader: `
@@ -1051,6 +1069,9 @@ export function updateScene(time) {
         const particleBrightness = clamp(creationLinkParams.particleBrightness, 0.05, 2.0);
         const particleSoftness = clamp(creationLinkParams.particleSoftness, 1.2, 8.0);
         const fluidDrift = clamp(creationLinkParams.fluidDrift, 0.0, 1.0);
+        const pointerBurstStrength = clamp(creationLinkParams.pointerBurstStrength, 0.0, 2.0);
+        const pointerBurstSpread = clamp(creationLinkParams.pointerBurstSpread, 0.0, 64.0);
+        const colorContrast = clamp(creationLinkParams.colorContrast, 0.0, 2.0);
         const floatAmp = clamp(creationLinkParams.floatAmp, 0.0, 2.5);
         const floatOffset = clamp(creationLinkParams.floatOffset, -2.0, 2.0);
         const yawSpeed = clamp(creationLinkParams.yawSpeed, 0.0, 3.0);
@@ -1088,6 +1109,9 @@ export function updateScene(time) {
             target.material.uniforms.uParticleBrightness.value = particleBrightness;
             target.material.uniforms.uParticleSoftness.value = particleSoftness;
             target.material.uniforms.uFluidDrift.value = fluidDrift;
+            target.material.uniforms.uPointerBurstStrength.value = pointerBurstStrength;
+            target.material.uniforms.uPointerBurstSpread.value = pointerBurstSpread;
+            target.material.uniforms.uColorContrast.value = colorContrast;
             target.material.uniforms.uColorA.value.copy(target.colorA);
             target.material.uniforms.uColorB.value.copy(target.colorB);
 
