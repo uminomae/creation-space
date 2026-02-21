@@ -17,6 +17,7 @@ const GROUP_HELP_JA = {
     creationLink1: 'オブジェクト1の個別設定。位置・サイズ・色・クリック判定半径を調整します。',
     creationLink2: 'オブジェクト2の個別設定。位置・サイズ・色・クリック判定半径を調整します。',
     creationLink3: 'オブジェクト3の個別設定。位置・サイズ・色・クリック判定半径を調整します。',
+    background: 'B案の背景設定。筒状空間の奥行き・リキッド流れ・星の柔らかさを調整します。',
 };
 
 const CREATION_GLOBAL_HELP_JA = {
@@ -64,6 +65,29 @@ const CREATION_LINK_HELP_JA = {
     link1ColorBB: '二色B側カラーのB成分です。',
 };
 
+const BACKGROUND_HELP_JA = {
+    centerR: '背景の中心色R成分です。',
+    centerG: '背景の中心色G成分です。',
+    centerB: '背景の中心色B成分です。',
+    edgeR: '背景の外縁色R成分です。',
+    edgeG: '背景の外縁色G成分です。',
+    edgeB: '背景の外縁色B成分です。',
+    pulse: '背景色の呼吸（明滅）強度です。',
+    opacity: '背景全体の不透明度です。',
+    tubeRadius: '筒状空間の半径。上げると包み込む空間が広がります。',
+    tubeLength: '筒状空間の長さ。上げると奥行き感が伸びます。',
+    tubeFlowSpeed: 'リキッド背景の流速。上げると潮流が速くなります。',
+    tubeNoiseScale: '流体ノイズの細かさ。上げると模様が密になります。',
+    tubeWarpStrength: '流体のうねり強度。上げると歪みが強くなります。',
+    tubeSoftness: '流れ境界の柔らかさ。上げると滑らかになります。',
+    tubeDepthFade: '奥行き方向の減衰量。上げると遠方が霧に溶けます。',
+    tubeBrightness: '背景リキッドの明るさ。下げると深海のように暗くなります。',
+    tubeSwirl: '筒内での渦巻き感。上げると螺旋の印象が強くなります。',
+    starOpacity: '星レイヤーの見え方。下げるとノイズ感が減ります。',
+    starSoftness: '星粒のエッジの柔らかさ。上げるとクッキリ感が減ります。',
+    starSize: '星粒サイズ倍率。下げると背景に馴染みます。',
+};
+
 function getFieldHelpText(groupId, key) {
     if (groupId === 'creationGlobal') {
         return CREATION_GLOBAL_HELP_JA[key] || '';
@@ -71,6 +95,9 @@ function getFieldHelpText(groupId, key) {
     if (groupId === 'creationLink1' || groupId === 'creationLink2' || groupId === 'creationLink3') {
         const normalizedKey = key.replace(/^link[123]/, 'link1');
         return CREATION_LINK_HELP_JA[normalizedKey] || '';
+    }
+    if (groupId === 'background') {
+        return BACKGROUND_HELP_JA[key] || '';
     }
     return '';
 }
@@ -249,6 +276,18 @@ const PARAM_GROUPS = [
             ['edgeB', 'Edge B', 0.0, 1.0, 0.001],
             ['pulse', 'Pulse', 0.0, 1.0, 0.005],
             ['opacity', 'Opacity', 0.0, 1.0, 0.005],
+            ['tubeRadius', 'Tube Radius', 20.0, 240.0, 0.5],
+            ['tubeLength', 'Tube Length', 80.0, 900.0, 1.0],
+            ['tubeFlowSpeed', 'Tube Flow Speed', 0.0, 0.4, 0.001],
+            ['tubeNoiseScale', 'Tube Noise Scale', 0.2, 12.0, 0.01],
+            ['tubeWarpStrength', 'Tube Warp', 0.0, 2.0, 0.01],
+            ['tubeSoftness', 'Tube Softness', 0.01, 1.0, 0.01],
+            ['tubeDepthFade', 'Tube Depth Fade', 0.0, 1.0, 0.01],
+            ['tubeBrightness', 'Tube Brightness', 0.0, 1.2, 0.01],
+            ['tubeSwirl', 'Tube Swirl', 0.0, 2.5, 0.01],
+            ['starOpacity', 'Star Opacity', 0.0, 1.0, 0.01],
+            ['starSoftness', 'Star Softness', 1.2, 8.0, 0.01],
+            ['starSize', 'Star Size', 0.2, 2.0, 0.01],
         ],
     },
     {

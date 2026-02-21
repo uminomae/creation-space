@@ -13,7 +13,7 @@ export const toggles = {
     liquid: true,
     heatHaze: false,
     dof: true,
-    quantumWave: false,
+    quantumWave: true,
 };
 
 export const breathConfig = {
@@ -32,14 +32,26 @@ export const BG_V004_CENTER = new THREE.Color(0x1c2a63);
 export const BG_V004_EDGE = new THREE.Color(0x060b22);
 
 export const backgroundParams = {
-    centerR: 0.042,
-    centerG: 0.041,
-    centerB: 0.066,
-    edgeR: 0.041,
-    edgeG: 0.168,
-    edgeB: 0.268,
-    pulse: 0.105,
-    opacity: 1.0,
+    centerR: 0.0,
+    centerG: 0.085,
+    centerB: 0.326,
+    edgeR: 0.005,
+    edgeG: 0.28,
+    edgeB: 0.355,
+    pulse: 0.9,
+    opacity: 0.94,
+    tubeRadius: 89.5,
+    tubeLength: 768.0,
+    tubeFlowSpeed: 0.091,
+    tubeNoiseScale: 8.73,
+    tubeWarpStrength: 1.54,
+    tubeSoftness: 0.66,
+    tubeDepthFade: 0.83,
+    tubeBrightness: 0.99,
+    tubeSwirl: 2.22,
+    starOpacity: 1.0,
+    starSoftness: 8.0,
+    starSize: 1.27,
 };
 
 export const FOG_V002_COLOR = new THREE.Color(0x050508);
