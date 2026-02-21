@@ -18,9 +18,13 @@ const GROUP_HELP_JA = {
     creationLink2: 'オブジェクト2の個別設定。位置・サイズ・色・クリック判定半径を調整します。',
     creationLink3: 'オブジェクト3の個別設定。位置・サイズ・色・クリック判定半径を調整します。',
     background: 'B案の背景設定。筒状空間の奥行き・リキッド流れ・星の柔らかさを調整します。',
+    flow: '光の束（flowObjects）の密度と散らばりを調整します。depthScatterを上げると奥行き方向に広がります。',
 };
 
 const CREATION_GLOBAL_HELP_JA = {
+    sizeGain: 'オブジェクト全体の見かけサイズ倍率。上げると一気に大きく表示されます。',
+    linkSpread: '3つのオブジェクトの横方向の間隔倍率。上げるほど左右に離れます。',
+    linkDepthSpread: '左右オブジェクトの前後ずらし量。上げると重なりが減って奥行きが出ます。',
     pulseSpeed: '呼吸（上下移動・拡縮）の速さ。上げるとせわしなく動きます。',
     vortexSpeed: '球内部の渦回転速度。上げると内部フローが速くなります。',
     swirlStrength: '渦のねじれ量。上げると巻き感が強くなります。',
@@ -28,6 +32,7 @@ const CREATION_GLOBAL_HELP_JA = {
     colorSplitSoftness: '二色境界のぼかし幅。下げると境界がくっきりします。',
     particleBrightness: '粒子の発光明度。下げると全体が暗く落ち着きます。',
     particleSoftness: '粒子エッジの柔らかさ。上げるとクッキリ感が減ります。',
+    coreSharpness: '粒子コアの輪郭強度。上げるとオブジェクトがクッキリします。',
     fluidDrift: '液体風の流れ揺らぎ。上げると流動感が増します。',
     pointerBurstStrength: 'ポインタ/カメラ接近時の拡散強度。上げるほど画面へ広がります。',
     pointerBurstSpread: 'ポインタ時の拡散距離。上げるとより遠くへ飛びます。',
@@ -163,6 +168,7 @@ const PARAM_GROUPS = [
             ['chaos', 'Chaos', 0.1, 2.5, 0.01],
             ['bundleTightness', 'Bundle Tightness', 0.1, 1.5, 0.01],
             ['centerBandRatio', 'Center Band', 0.2, 0.8, 0.005],
+            ['depthScatter', 'Depth Scatter', 0.0, 2.0, 0.01],
         ],
     },
     {
@@ -171,6 +177,9 @@ const PARAM_GROUPS = [
         type: 'range',
         target: creationLinkParams,
         fields: [
+            ['sizeGain', 'Size Gain', 0.2, 6.0, 0.01],
+            ['linkSpread', 'Link Spread', 0.5, 3.0, 0.01],
+            ['linkDepthSpread', 'Link Depth Spread', 0.0, 2.0, 0.01],
             ['pulseSpeed', 'Pulse Speed', 0.1, 3.0, 0.01],
             ['vortexSpeed', 'Vortex Speed', 0.1, 2.4, 0.01],
             ['swirlStrength', 'Swirl Strength', 0.0, 1.0, 0.01],
@@ -178,6 +187,7 @@ const PARAM_GROUPS = [
             ['colorSplitSoftness', 'Color Split Soft', 0.005, 0.3, 0.005],
             ['particleBrightness', 'Particle Bright', 0.2, 1.5, 0.01],
             ['particleSoftness', 'Particle Soft', 1.5, 6.0, 0.01],
+            ['coreSharpness', 'Core Sharpness', 0.2, 2.5, 0.01],
             ['fluidDrift', 'Fluid Drift', 0.0, 0.6, 0.01],
             ['pointerBurstStrength', 'Pointer Burst', 0.0, 1.5, 0.01],
             ['pointerBurstSpread', 'Burst Spread', 0.0, 36.0, 0.1],
