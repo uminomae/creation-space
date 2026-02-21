@@ -690,6 +690,12 @@ function createHopfPointMaterial(linkParam) {
             varying vec3 vColor;
             varying float vAlpha;
 
+            vec2 rotate2(vec2 p, float a) {
+                float s = sin(a);
+                float c = cos(a);
+                return mat2(c, -s, s, c) * p;
+            }
+
             vec4 qmul(vec4 q1, vec4 q2) {
                 return vec4(
                     q1.w * q2.x + q1.x * q2.w + q1.y * q2.z - q1.z * q2.y,
@@ -708,34 +714,51 @@ function createHopfPointMaterial(linkParam) {
             }
 
             void main() {
-                float t = uTime * (0.34 + uHover * 0.26);
+                float t = uTime * (0.38 + uHover * 0.22);
                 float phase = aPhase + t * aFlowDir;
 
-                vec4 qx = normalize(vec4(sin(phase * 0.5) * 0.72, 0.0, 0.0, cos(phase * 0.5)));
-                vec4 qy = normalize(vec4(0.0, sin((phase + 1.31) * 1.0) * 0.62, 0.0, cos((phase + 1.31) * 1.0)));
-                vec4 qz = normalize(vec4(0.0, 0.0, sin((phase + 0.57) * 0.7) * 0.45, cos((phase + 0.57) * 0.7)));
-                vec4 rot = normalize(qmul(qmul(qx, qy), qz));
+                vec4 qx = normalize(vec4(sin(phase * 0.5) * 0.68, 0.0, 0.0, cos(phase * 0.5)));
+                vec4 qy = normalize(vec4(0.0, sin((phase + 1.2) * 0.95) * 0.58, 0.0, cos((phase + 1.2) * 0.95)));
+                vec4 rot = normalize(qmul(qx, qy));
 
                 vec4 p4 = qrotate(aInitial4, rot);
-                float denom = max(0.24, 1.0 - p4.w);
-                vec3 p3 = p4.xyz / denom;
+                float denom = max(0.3, 1.0 - p4.w);
+                vec3 hopf = p4.xyz / denom;
 
-                float swirl = sin(phase * 2.2 + aPhase * 0.35) * 0.11;
-                vec2 dir = normalize(p3.xy + vec2(0.0001));
-                p3.xy += dir * swirl;
-                p3.z += cos(phase * 1.8 + aPhase) * 0.16;
+                float eta = acos(clamp(aInitial4.w, -1.0, 1.0));
+                float theta = phase + eta * 1.35;
+                float phi = phase * 1.9 + aInitial4.z * 3.1;
+
+                float major = 1.18;
+                float minor = 0.34 + 0.18 * sin(eta * 2.0 + aPhase * 0.5);
+                vec3 torus = vec3(
+                    (major + minor * cos(phi)) * cos(theta),
+                    minor * sin(phi) * 0.88,
+                    (major + minor * cos(phi)) * sin(theta)
+                );
+
+                vec3 lobeCenter = vec3(aFlowDir * 0.92, 0.0, 0.0);
+                float tailBias = smoothstep(-1.0, 1.0, aFlowDir * cos(theta));
+                torus.y *= mix(0.58, 1.08, tailBias);
+                torus += lobeCenter;
+
+                torus.xz = rotate2(torus.xz, t * 0.42);
+                hopf.xz = rotate2(hopf.xz, t * 0.31);
+
+                vec3 p3 = mix(hopf * 0.52, torus, 0.74);
                 p3 *= uScale;
 
                 vec4 mvPosition = modelViewMatrix * vec4(p3, 1.0);
                 float depthFactor = clamp(1.0 / max(-mvPosition.z, 0.001), 0.0, 1.2);
-                gl_PointSize = aSize * (310.0 * depthFactor) * (1.0 + uHover * 0.34);
+                gl_PointSize = aSize * (360.0 * depthFactor) * (1.0 + uHover * 0.28);
                 gl_Position = projectionMatrix * mvPosition;
 
                 float colorMix = aFlowDir * 0.5 + 0.5;
                 vec3 baseColor = mix(uColorA, uColorB, colorMix);
-                float lum = 0.54 + 0.46 * sin(phase * 1.5 + aPhase * 0.73);
-                vColor = baseColor * (0.62 + lum * 0.74 + uHover * 0.26);
-                vAlpha = (0.46 + lum * 0.4) * uAlpha;
+                float pulse = 0.48 + 0.52 * sin(phase * 1.4 + eta * 2.1);
+                vColor = baseColor * (0.68 + pulse * 0.9 + uHover * 0.3);
+                float alphaGain = 0.25 + uAlpha * 2.5;
+                vAlpha = (0.36 + pulse * 0.42) * alphaGain;
             }
         `,
         fragmentShader: `
@@ -781,7 +804,7 @@ function createHopfPoints(def, linkParam) {
         initial4[p4 + 2] = z * invLen;
         initial4[p4 + 3] = w * invLen;
 
-        flowDir[i] = i % 2 === 0 ? 1.0 : -1.0;
+        flowDir[i] = i < pointCount * 0.5 ? 1.0 : -1.0;
         sizes[i] = randRange(1.8, 4.8);
         phases[i] = Math.random() * Math.PI * 2.0;
     }
@@ -798,27 +821,6 @@ function createHopfPoints(def, linkParam) {
     points.renderOrder = 40;
 
     return { points, material };
-}
-
-function createLinkShell(def) {
-    let geometry;
-    if (def.shape === 'ring') {
-        geometry = new THREE.TorusKnotGeometry(0.72, 0.22, 150, 18, 2, 3);
-    } else if (def.shape === 'frame') {
-        geometry = new THREE.OctahedronGeometry(1.1, 0);
-    } else {
-        geometry = new THREE.IcosahedronGeometry(1.05, 1);
-    }
-
-    const edges = new THREE.EdgesGeometry(geometry, 20);
-    const material = new THREE.LineBasicMaterial({
-        color: 0xffffff,
-        transparent: true,
-        opacity: creationLinkParams.shellOpacityBase,
-    });
-    const line = new THREE.LineSegments(edges, material);
-    line.renderOrder = 39;
-    return line;
 }
 
 function createLinkHalo(linkParam) {
@@ -866,9 +868,6 @@ function createCreationLinks() {
         const { points, material } = createHopfPoints(def, linkParam);
         node.add(points);
 
-        const shell = createLinkShell(def);
-        node.add(shell);
-
         const halo = createLinkHalo(linkParam);
         if (halo) node.add(halo);
 
@@ -887,7 +886,6 @@ function createCreationLinks() {
             id: def.id,
             group: node,
             material,
-            shell,
             halo,
             mesh: proxy,
             hoverValue: 0,
@@ -1037,10 +1035,6 @@ export function updateScene(time) {
         const hoverScaleBoost = clamp(creationLinkParams.hoverScaleBoost, 0.0, 1.0);
         const hoverLerp = clamp(creationLinkParams.hoverLerp, 0.01, 1.0);
         const pointAlpha = clamp01(creationLinkParams.pointAlpha);
-        const shellOpacityBase = clamp01(creationLinkParams.shellOpacityBase);
-        const shellOpacityPulse = clamp(creationLinkParams.shellOpacityPulse, 0.0, 1.0);
-        const shellOpacityHover = clamp(creationLinkParams.shellOpacityHover, 0.0, 1.0);
-        const shellSpinSpeed = clamp(creationLinkParams.shellSpinSpeed, 0.0, 3.0);
         const haloScalePulse = clamp(creationLinkParams.haloScalePulse, 0.0, 6.0);
         const haloScaleHover = clamp(creationLinkParams.haloScaleHover, 0.0, 4.0);
         const haloOpacityBase = clamp01(creationLinkParams.haloOpacityBase);
@@ -1075,13 +1069,6 @@ export function updateScene(time) {
             const scale = baseScaleMul + pulse01 * pulseScaleAmp + target.hoverValue * hoverScaleBoost;
             target.group.scale.setScalar(scale);
 
-            target.shell.material.color.copy(target.colorB);
-            target.shell.material.opacity = clamp(
-                shellOpacityBase + pulse01 * shellOpacityPulse + target.hoverValue * shellOpacityHover,
-                0.0,
-                0.98
-            );
-            target.shell.rotation.z = time * shellSpinSpeed + target.phaseOffset * 1.8;
             target.mesh.scale.setScalar(Math.max(0.1, linkParam.hitRadius));
 
             if (target.halo) {
