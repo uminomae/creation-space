@@ -6,12 +6,13 @@ import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 import { breathValue } from './animation-utils.js';
 import { initControls, setCameraPosition, updateControls, getScrollProgress } from './controls.js';
 import { initMouseTracking, updateMouseSmoothing } from './mouse-state.js';
-import { createScene, updateScene } from './scene.js';
+import { createScene, getCreationLinkTargetMeshes, updateScene } from './scene.js';
 import { initScrollUI, updateScrollUI } from './scroll-ui.js';
 import { initDevPanel } from './dev-panel.js';
 import { createFluidSystem } from './shaders/fluid-field.js';
 import { createLiquidSystem } from './shaders/liquid.js';
 import { CameraDofShader, DistortionShader } from './shaders/distortion-pass.js';
+import { initCreationLinkInteractions } from './creation-link-interactions.js';
 import {
     breathConfig,
     distortionParams,
@@ -80,13 +81,13 @@ function applyCreationPreset() {
         fog: true,
         fovBreath: true,
         htmlBreath: true,
-        autoRotate: true,
+        autoRotate: false,
         postProcess: true,
         fluidField: true,
         liquid: true,
         heatHaze: false,
         dof: true,
-        quantumWave: true,
+        quantumWave: false,
     });
 }
 
@@ -218,6 +219,11 @@ function main() {
     composer.addPass(dofPass);
 
     initControls(camera, container, renderer);
+    initCreationLinkInteractions({
+        camera,
+        domElement: renderer.domElement,
+        getTargets: getCreationLinkTargetMeshes,
+    });
     initScrollUI();
     attachResize({ camera, renderer, composer });
 
