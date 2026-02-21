@@ -959,6 +959,7 @@ function createCreationLinks() {
             mesh: proxy,
             hoverValue: 0,
             phaseOffset: index * 0.37,
+            orbitYaw: index * (Math.PI * 2.0 / 3.0),
             colorA: new THREE.Color(linkParam.colorAR, linkParam.colorAG, linkParam.colorAB),
             colorB: new THREE.Color(linkParam.colorBR, linkParam.colorBG, linkParam.colorBB),
         });
@@ -1123,6 +1124,8 @@ export function updateScene(time) {
         const sizeGainRoot = Math.sqrt(sizeGain);
         const linkSpread = clamp(creationLinkParams.linkSpread ?? 1.0, 0.5, 3.0);
         const linkDepthSpread = clamp(creationLinkParams.linkDepthSpread ?? 0.0, 0.0, 2.0);
+        const orbitSpeed = clamp(pulseSpeed * 0.36, 0.05, 3.2);
+        const gazeY = sceneParams.camTargetY;
         const vortexSpeed = clamp(creationLinkParams.vortexSpeed, 0.01, 4.0);
         const swirlStrength = clamp(creationLinkParams.swirlStrength, 0.0, 1.5);
         const sphereFill = clamp(creationLinkParams.sphereFill, 0.2, 1.5);
@@ -1187,12 +1190,21 @@ export function updateScene(time) {
             target.material.uniforms.uColorA.value.copy(target.colorA);
             target.material.uniforms.uColorB.value.copy(target.colorB);
 
-            const spreadX = linkParam.posX * linkSpread;
-            const depthOffset = Math.sign(linkParam.posX || 0) * Math.abs(linkParam.posX) * 0.12 * linkDepthSpread;
+            const orbitPhase = time * orbitSpeed + linkParam.phase + target.phaseOffset;
+            const orbitA = Math.max(5.0, Math.abs(linkParam.posX) * linkSpread * 0.28);
+            const orbitB = Math.max(2.4, Math.abs(linkParam.posZ) * (0.16 + linkDepthSpread * 0.11));
+            const localX = orbitA * (Math.cos(orbitPhase) - 1.0);
+            const localZ = orbitB * Math.sin(orbitPhase);
+            const yaw = target.orbitYaw;
+            const cosYaw = Math.cos(yaw);
+            const sinYaw = Math.sin(yaw);
+            const orbitX = localX * cosYaw - localZ * sinYaw;
+            const orbitZ = localX * sinYaw + localZ * cosYaw;
+            const orbitY = gazeY + Math.sin(orbitPhase * 0.5) * (0.2 + floatAmp * 0.8) + floatOffset * 0.05;
             target.group.position.set(
-                spreadX,
-                linkParam.posY + (pulse + floatOffset) * floatAmp,
-                linkParam.posZ + depthOffset
+                orbitX,
+                orbitY,
+                orbitZ
             );
             target.group.rotation.y = time * yawSpeed + target.phaseOffset;
             target.group.rotation.x = Math.sin(time * tiltSpeed + target.phaseOffset) * tiltAmp;
