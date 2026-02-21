@@ -77,6 +77,10 @@ export const flowParams = {
 
 export const creationLinkParams = {
     pulseSpeed: 0.37,
+    vortexSpeed: 0.92,
+    swirlStrength: 0.26,
+    sphereFill: 0.95,
+    colorSplitSoftness: 0.08,
     floatAmp: 0.32,
     floatOffset: -0.1,
     yawSpeed: 0.24,
