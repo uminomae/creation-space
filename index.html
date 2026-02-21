@@ -8,6 +8,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>創造とは - Creation Space</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
@@ -30,12 +31,59 @@
 <body class="creation-page">
   <div id="canvas-container" aria-hidden="true"></div>
 
-  <div id="credit">
-    <div class="credit-line" id="credit-collab">Quantum field sketch</div>
-    <div class="credit-signature" id="credit-signature">creation-space</div>
-  </div>
+  <header id="kesson-topbar" class="navbar navbar-expand-md navbar-dark" aria-label="Main menu">
+    <div class="container-fluid px-3 px-md-4">
+      <div class="topbar-brand-wrap">
+        <a id="topbar-main-title" class="navbar-brand topbar-main-title" href="#">
+          創造とは
+        </a>
+        <span id="topbar-subtitle" class="topbar-subtitle">Creation Space</span>
+        <span class="topbar-meta topbar-meta--author" id="credit-signature">Project Concept: What Is Creation</span>
+      </div>
+      <button
+        class="navbar-toggler topbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#kessonTopbarNav"
+        aria-controls="kessonTopbarNav"
+        aria-expanded="false"
+        aria-label="Toggle menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="kessonTopbarNav">
+        <ul class="navbar-nav align-items-md-center gap-md-1">
+          <li class="nav-item">
+            <a id="topbar-home-link" class="nav-link topbar-link" href="#">HOME</a>
+          </li>
+          <li class="nav-item">
+            <button
+              id="topbar-articles-btn"
+              type="button"
+              class="nav-link topbar-link topbar-link-btn"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#articlesOffcanvas"
+              aria-controls="articlesOffcanvas">
+              ARTICLES
+            </button>
+          </li>
+          <li class="nav-item topbar-lang-item">
+            <button
+              type="button"
+              id="lang-toggle"
+              class="nav-link topbar-link topbar-link-btn topbar-lang-btn"
+              aria-label="言語を英語に切り替え">
+              English
+            </button>
+          </li>
+          <li class="nav-item topbar-collab-item">
+            <span id="credit-collab" class="topbar-collab-note">AIとの協働で探索中</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </header>
 
-  <div id="overlay">
+  <div id="overlay" role="presentation">
     <div id="taglines"></div>
     <h1 id="title-h1">創造とは</h1>
     <p class="subtitle" id="title-sub">Creation Field</p>
@@ -52,11 +100,6 @@
       <span class="guide-sep">—</span>
       <span class="guide-action" data-ja="ズーム" data-en="zoom">zoom</span>
     </div>
-    <div class="guide-row guide-desktop">
-      <span class="guide-key" data-ja="スクロール" data-en="scroll">scroll</span>
-      <span class="guide-sep">—</span>
-      <span class="guide-action" data-ja="潜水" data-en="dive">dive</span>
-    </div>
     <div class="guide-row guide-touch">
       <span class="guide-key" data-ja="横スワイプ" data-en="swipe">swipe</span>
       <span class="guide-sep">—</span>
@@ -66,11 +109,6 @@
       <span class="guide-key" data-ja="ピンチ" data-en="pinch">pinch</span>
       <span class="guide-sep">—</span>
       <span class="guide-action" data-ja="ズーム" data-en="zoom">zoom</span>
-    </div>
-    <div class="guide-row guide-touch">
-      <span class="guide-key" data-ja="縦スクロール" data-en="scroll">scroll</span>
-      <span class="guide-sep">—</span>
-      <span class="guide-action" data-ja="潜水" data-en="dive">dive</span>
     </div>
   </div>
 
@@ -86,7 +124,76 @@
 
   <div id="hero-spacer"></div>
   <div id="articles-spacer"></div>
+
+  <section id="articles-section">
+    <div class="section-content-wrap">
+      <div class="container">
+        <h2 class="section-heading">
+          <a id="articles-section-heading" href="#articles-section" class="section-heading-link" aria-label="ARTICLES セクションへジャンプ">
+            ARTICLES
+          </a>
+        </h2>
+        <div id="articles-error" class="d-none"></div>
+        <div id="articles-grid" class="row g-3"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="creation-cards-section">
+    <div class="section-content-wrap">
+      <div class="container">
+        <h2 class="section-heading">
+          <span id="creation-cards-heading">CREATION CARDS</span>
+        </h2>
+        <div id="creation-cards-container" class="row g-3">
+          <article class="col-12 col-md-6 col-xl-4">
+            <div class="creation-card-placeholder">
+              <h3 id="creation-card-slot-1-title">Card Slot 01</h3>
+              <p id="creation-card-slot-1-body">content to be specified</p>
+            </div>
+          </article>
+          <article class="col-12 col-md-6 col-xl-4">
+            <div class="creation-card-placeholder">
+              <h3 id="creation-card-slot-2-title">Card Slot 02</h3>
+              <p id="creation-card-slot-2-body">content to be specified</p>
+            </div>
+          </article>
+          <article class="col-12 col-md-6 col-xl-4">
+            <div class="creation-card-placeholder">
+              <h3 id="creation-card-slot-3-title">Card Slot 03</h3>
+              <p id="creation-card-slot-3-body">content to be specified</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <div id="creation-spacer"></div>
+
+  <footer id="tech-footer">
+    <div class="tech-footer-line">GitHub Pages</div>
+    <div class="tech-footer-line">Vanilla JS · ES Modules</div>
+    <div class="tech-footer-line">Three.js · Bootstrap</div>
+  </footer>
+
+  <div class="offcanvas offcanvas-end offcanvas-kesson" tabindex="-1" id="articlesOffcanvas" data-bs-backdrop="true">
+    <div class="offcanvas-header border-bottom border-secondary">
+      <div>
+        <h5 id="offcanvas-articles-title" class="text-light mb-0 offcanvas-title-spaced">ARTICLES</h5>
+        <small class="text-muted" id="offcanvas-articles-count"></small>
+      </div>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body p-3">
+      <div id="articles-filter-group" class="articles-filter-group mb-3" role="group" aria-label="Filter articles by type">
+        <button type="button" class="articles-filter-btn is-active" data-type="all" aria-pressed="true">All</button>
+        <button type="button" class="articles-filter-btn" data-type="page" aria-pressed="false">Page</button>
+        <button type="button" class="articles-filter-btn" data-type="post" aria-pressed="false">Post</button>
+      </div>
+      <div id="offcanvas-articles-grid" class="row g-3"></div>
+    </div>
+  </div>
 
   <button id="surface-btn" aria-label="ページ上部に戻る">↑ surface</button>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -32,17 +32,43 @@ const STRINGS = {
         title: '創造とは',
         subtitle: 'Creation Field',
         taglines: [
-            '量子の場のように、透明な揺らぎが重なって立ち上がる。',
-            '観測の手前にある波の層を、ゆっくり潜って見る。',
+            '関係し合う欠片が、まだ名前を持たない輪郭を生む。',
+            '観測と選択のあいだで、創造は静かに立ち上がる。',
         ],
+        topbarMainTitle: '創造とは',
+        topbarSubtitle: 'Creation Space',
+        topbarHome: 'HOME',
+        topbarArticles: 'ARTICLES',
+        topbarCollab: 'AIとの協働で探索中',
+        creditSignature: 'Project Concept: What Is Creation',
+        articlesSectionHeading: 'ARTICLES',
+        offcanvasArticlesTitle: 'ARTICLES',
+        creationCardsHeading: 'CREATION CARDS',
+        creationCardTitlePrefix: 'Card Slot',
+        creationCardBody: '内容は後続指定',
+        langToggleLabel: 'English',
+        langToggleAria: '言語を英語に切り替え',
     },
     en: {
         title: 'What Is Creation',
         subtitle: 'Creation Field',
         taglines: [
-            'Transparent waves overlap like a quantum field.',
-            'Dive into layered fluctuations before they collapse into form.',
+            'Fragments in relation generate forms before they are named.',
+            'Creation rises quietly between observation and choice.',
         ],
+        topbarMainTitle: 'What Is Creation',
+        topbarSubtitle: 'Creation Space',
+        topbarHome: 'HOME',
+        topbarArticles: 'ARTICLES',
+        topbarCollab: 'Exploring with AI collaboration',
+        creditSignature: 'Project Concept: What Is Creation',
+        articlesSectionHeading: 'ARTICLES',
+        offcanvasArticlesTitle: 'ARTICLES',
+        creationCardsHeading: 'CREATION CARDS',
+        creationCardTitlePrefix: 'Card Slot',
+        creationCardBody: 'content to be specified',
+        langToggleLabel: '日本語',
+        langToggleAria: 'Switch language to Japanese',
     },
 };
 
@@ -70,9 +96,39 @@ function applyPageLanguage(lang) {
     const titleH1 = document.getElementById('title-h1');
     const titleSub = document.getElementById('title-sub');
     const taglineContainer = document.getElementById('taglines');
+    const topbarMainTitle = document.getElementById('topbar-main-title');
+    const topbarSubtitle = document.getElementById('topbar-subtitle');
+    const topbarHomeLink = document.getElementById('topbar-home-link');
+    const topbarArticlesBtn = document.getElementById('topbar-articles-btn');
+    const topbarCollab = document.getElementById('credit-collab');
+    const creditSignature = document.getElementById('credit-signature');
+    const articlesSectionHeading = document.getElementById('articles-section-heading');
+    const offcanvasArticlesTitle = document.getElementById('offcanvas-articles-title');
+    const creationCardsHeading = document.getElementById('creation-cards-heading');
+    const langToggle = document.getElementById('lang-toggle');
 
     if (titleH1) titleH1.textContent = strings.title;
     if (titleSub) titleSub.textContent = strings.subtitle;
+    if (topbarMainTitle) topbarMainTitle.textContent = strings.topbarMainTitle;
+    if (topbarSubtitle) topbarSubtitle.textContent = strings.topbarSubtitle;
+    if (topbarHomeLink) topbarHomeLink.textContent = strings.topbarHome;
+    if (topbarArticlesBtn) topbarArticlesBtn.textContent = strings.topbarArticles;
+    if (topbarCollab) topbarCollab.textContent = strings.topbarCollab;
+    if (creditSignature) creditSignature.textContent = strings.creditSignature;
+    if (articlesSectionHeading) articlesSectionHeading.textContent = strings.articlesSectionHeading;
+    if (offcanvasArticlesTitle) offcanvasArticlesTitle.textContent = strings.offcanvasArticlesTitle;
+    if (creationCardsHeading) creationCardsHeading.textContent = strings.creationCardsHeading;
+    if (langToggle) {
+        langToggle.textContent = strings.langToggleLabel;
+        langToggle.setAttribute('aria-label', strings.langToggleAria);
+    }
+
+    [1, 2, 3].forEach((slotIndex) => {
+        const titleNode = document.getElementById(`creation-card-slot-${slotIndex}-title`);
+        const bodyNode = document.getElementById(`creation-card-slot-${slotIndex}-body`);
+        if (titleNode) titleNode.textContent = `${strings.creationCardTitlePrefix} ${String(slotIndex).padStart(2, '0')}`;
+        if (bodyNode) bodyNode.textContent = strings.creationCardBody;
+    });
 
     if (taglineContainer) {
         taglineContainer.innerHTML = '';
