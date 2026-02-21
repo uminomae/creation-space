@@ -38,6 +38,8 @@ const _bgCenterA = new THREE.Color();
 const _bgCenterB = new THREE.Color();
 const _bgEdgeA = new THREE.Color();
 const _bgEdgeB = new THREE.Color();
+const _bgForward = new THREE.Vector3();
+const _bgAxisOffset = new THREE.Quaternion().setFromEuler(new THREE.Euler(Math.PI * 0.5, 0, 0));
 
 const FLOW_X_MIN = -46.0;
 const FLOW_X_MAX = 46.0;
@@ -503,6 +505,8 @@ function createStarMaterial() {
         uniforms: {
             uTime: { value: 0.0 },
             uOpacity: { value: 1.0 },
+            uSoftness: { value: 2.2 },
+            uSizeScale: { value: 0.82 },
         },
         vertexShader: `
             attribute float aSize;
@@ -512,6 +516,7 @@ function createStarMaterial() {
             varying float vTemp;
 
             uniform float uTime;
+            uniform float uSizeScale;
 
             void main() {
                 vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
@@ -521,7 +526,7 @@ function createStarMaterial() {
                 vTemp = aTemp;
 
                 float pointSize = aSize * (0.85 + 0.75 * twinkle);
-                gl_PointSize = pointSize * (320.0 / max(-mvPosition.z, 0.001));
+                gl_PointSize = pointSize * uSizeScale * (320.0 / max(-mvPosition.z, 0.001));
                 gl_Position = projectionMatrix * mvPosition;
             }
         `,
@@ -529,19 +534,17 @@ function createStarMaterial() {
             varying float vTwinkle;
             varying float vTemp;
             uniform float uOpacity;
+            uniform float uSoftness;
 
             void main() {
                 vec2 uv = gl_PointCoord * 2.0 - 1.0;
                 float r = length(uv);
                 if (r > 1.0) discard;
 
-                float core = smoothstep(0.38, 0.0, r);
-                float halo = smoothstep(1.0, 0.0, r) * 0.42;
-                float spikeX = smoothstep(0.08, 0.0, abs(uv.x)) * smoothstep(0.92, 0.0, abs(uv.y));
-                float spikeY = smoothstep(0.08, 0.0, abs(uv.y)) * smoothstep(0.92, 0.0, abs(uv.x));
-                float spikes = (spikeX + spikeY) * 0.35;
-
-                float luminance = core * 1.15 + halo + spikes;
+                float softness = max(1.2, uSoftness);
+                float gaussian = exp(-r * r * softness);
+                float halo = smoothstep(1.0, 0.0, r) * 0.32;
+                float luminance = (gaussian * 1.08 + halo) * (0.78 + gaussian * 0.22);
                 luminance *= vTwinkle;
 
                 vec3 cold = vec3(0.60, 0.76, 1.00);
@@ -1016,6 +1019,26 @@ export function updateScene(time) {
         _bgMaterial.uniforms.uColorEdgeB.value.copy(_bgEdgeB);
         _bgMaterial.uniforms.uMix.value = m;
         _bgMaterial.uniforms.uOpacity.value = backgroundParams.opacity;
+        _bgMaterial.uniforms.uTime.value = time;
+        _bgMaterial.uniforms.uFlowSpeed.value = clamp(backgroundParams.tubeFlowSpeed, 0.0, 0.4);
+        _bgMaterial.uniforms.uNoiseScale.value = clamp(backgroundParams.tubeNoiseScale, 0.2, 12.0);
+        _bgMaterial.uniforms.uWarpStrength.value = clamp(backgroundParams.tubeWarpStrength, 0.0, 2.0);
+        _bgMaterial.uniforms.uSoftness.value = clamp(backgroundParams.tubeSoftness, 0.01, 1.0);
+        _bgMaterial.uniforms.uDepthFade.value = clamp(backgroundParams.tubeDepthFade, 0.0, 1.0);
+        _bgMaterial.uniforms.uBrightness.value = clamp(backgroundParams.tubeBrightness, 0.0, 1.2);
+        _bgMaterial.uniforms.uSwirl.value = clamp(backgroundParams.tubeSwirl, 0.0, 2.5);
+    }
+
+    if (_bgMesh) {
+        _bgMesh.visible = toggles.background;
+        const radius = clamp(backgroundParams.tubeRadius, 20.0, 240.0);
+        const length = clamp(backgroundParams.tubeLength, 80.0, 900.0);
+        _bgMesh.scale.set(radius, length, radius);
+        if (_camera) {
+            _bgForward.set(0, 0, -1).applyQuaternion(_camera.quaternion);
+            _bgMesh.position.copy(_camera.position).addScaledVector(_bgForward, length * 0.18);
+            _bgMesh.quaternion.copy(_camera.quaternion).multiply(_bgAxisOffset);
+        }
     }
 
     if (toggles.fog && _scene?.fog) {
@@ -1053,9 +1076,14 @@ export function updateScene(time) {
     }
 
     if (_starMaterials.length > 0) {
+        const starOpacity = clamp(backgroundParams.starOpacity, 0.0, 1.0);
+        const starSoftness = clamp(backgroundParams.starSoftness, 1.2, 8.0);
+        const starSize = clamp(backgroundParams.starSize, 0.2, 2.0);
         _starMaterials.forEach((mat, index) => {
             mat.uniforms.uTime.value = time + index * 0.7;
-            mat.uniforms.uOpacity.value = 0.8;
+            mat.uniforms.uOpacity.value = starOpacity;
+            mat.uniforms.uSoftness.value = starSoftness;
+            mat.uniforms.uSizeScale.value = starSize;
         });
     }
 

@@ -13,6 +13,7 @@ import { createFluidSystem } from './shaders/fluid-field.js';
 import { createLiquidSystem } from './shaders/liquid.js';
 import { CameraDofShader, DistortionShader } from './shaders/distortion-pass.js';
 import { initCreationLinkInteractions } from './creation-link-interactions.js';
+import { DEV_VERSION } from './version.js';
 import {
     breathConfig,
     distortionParams,
@@ -87,7 +88,7 @@ function applyCreationPreset() {
         liquid: true,
         heatHaze: false,
         dof: true,
-        quantumWave: false,
+        quantumWave: true,
     });
 }
 
@@ -188,6 +189,20 @@ function attachResize({ camera, renderer, composer }) {
     window.addEventListener('resize', onResize);
 }
 
+function initDevVersionBadge() {
+    const existing = document.getElementById('dev-version-badge');
+    if (existing) existing.remove();
+
+    const params = new URLSearchParams(window.location.search);
+    const queryVersion = params.get('ver');
+    const badge = document.createElement('div');
+    badge.id = 'dev-version-badge';
+    badge.textContent = queryVersion
+        ? `ver ${DEV_VERSION} · ${queryVersion}`
+        : `ver ${DEV_VERSION}`;
+    document.body.appendChild(badge);
+}
+
 function main() {
     applyCreationPreset();
     applyPageLanguage(detectLang());
@@ -228,6 +243,7 @@ function main() {
     attachResize({ camera, renderer, composer });
 
     if (DEV_MODE) {
+        initDevVersionBadge();
         import('./dev-links-panel.js').then(({ initDevLinksPanel }) => {
             initDevLinksPanel();
         }).catch((err) => {

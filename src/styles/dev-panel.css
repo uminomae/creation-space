@@ -125,6 +125,23 @@
   border-color: #5d8fe3;
 }
 
+#dev-version-badge {
+  position: fixed;
+  left: 12px;
+  bottom: 12px;
+  z-index: 150;
+  padding: 0.28rem 0.56rem;
+  border-radius: 999px;
+  border: 1px solid rgba(120, 164, 235, 0.45);
+  background: rgba(8, 14, 26, 0.78);
+  color: rgba(205, 224, 255, 0.9);
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  backdrop-filter: blur(7px);
+  pointer-events: none;
+}
+
 @media (max-width: 640px) {
   #dev-panel-toggle {
     top: 10px;
@@ -133,5 +150,11 @@
 
   #dev-panel {
     width: 100vw;
+  }
+
+  #dev-version-badge {
+    left: 10px;
+    bottom: 10px;
+    font-size: 0.62rem;
   }
 }
