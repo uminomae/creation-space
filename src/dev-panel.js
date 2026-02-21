@@ -82,6 +82,10 @@ const PARAM_GROUPS = [
         target: creationLinkParams,
         fields: [
             ['pulseSpeed', 'Pulse Speed', 0.1, 3.0, 0.01],
+            ['vortexSpeed', 'Vortex Speed', 0.1, 2.4, 0.01],
+            ['swirlStrength', 'Swirl Strength', 0.0, 1.0, 0.01],
+            ['sphereFill', 'Sphere Fill', 0.2, 1.2, 0.01],
+            ['colorSplitSoftness', 'Color Split Soft', 0.005, 0.3, 0.005],
             ['floatAmp', 'Float Amp', 0.0, 1.2, 0.01],
             ['floatOffset', 'Float Offset', -1.0, 1.0, 0.01],
             ['yawSpeed', 'Yaw Speed', 0.0, 1.5, 0.01],

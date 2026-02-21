@@ -671,6 +671,10 @@ function createHopfPointMaterial(linkParam) {
             uHover: { value: 0.0 },
             uScale: { value: linkParam.scale },
             uAlpha: { value: creationLinkParams.pointAlpha },
+            uVortexSpeed: { value: creationLinkParams.vortexSpeed },
+            uSwirlStrength: { value: creationLinkParams.swirlStrength },
+            uSphereFill: { value: creationLinkParams.sphereFill },
+            uColorSplitSoftness: { value: creationLinkParams.colorSplitSoftness },
             uColorA: { value: new THREE.Color(linkParam.colorAR, linkParam.colorAG, linkParam.colorAB) },
             uColorB: { value: new THREE.Color(linkParam.colorBR, linkParam.colorBG, linkParam.colorBB) },
         },
@@ -679,6 +683,10 @@ function createHopfPointMaterial(linkParam) {
             uniform float uHover;
             uniform float uScale;
             uniform float uAlpha;
+            uniform float uVortexSpeed;
+            uniform float uSwirlStrength;
+            uniform float uSphereFill;
+            uniform float uColorSplitSoftness;
             uniform vec3 uColorA;
             uniform vec3 uColorB;
 
@@ -726,26 +734,22 @@ function createHopfPointMaterial(linkParam) {
                 vec3 hopf = p4.xyz / denom;
 
                 float eta = acos(clamp(aInitial4.w, -1.0, 1.0));
-                float theta = phase + eta * 1.35;
-                float phi = phase * 1.9 + aInitial4.z * 3.1;
+                float theta = phase * uVortexSpeed + eta * 1.12;
+                float phi = phase * (1.45 + 0.45 * aFlowDir) + aInitial4.z * 3.2;
 
-                float major = 1.18;
-                float minor = 0.34 + 0.18 * sin(eta * 2.0 + aPhase * 0.5);
-                vec3 torus = vec3(
-                    (major + minor * cos(phi)) * cos(theta),
-                    minor * sin(phi) * 0.88,
-                    (major + minor * cos(phi)) * sin(theta)
-                );
+                vec3 dir = normalize(hopf + vec3(0.0001));
+                dir.xz = rotate2(dir.xz, theta);
+                dir.y += sin(phi) * 0.35;
+                dir = normalize(dir);
 
-                vec3 lobeCenter = vec3(aFlowDir * 0.92, 0.0, 0.0);
-                float tailBias = smoothstep(-1.0, 1.0, aFlowDir * cos(theta));
-                torus.y *= mix(0.58, 1.08, tailBias);
-                torus += lobeCenter;
+                float radialNoise = 0.5 + 0.5 * sin(phi * 1.35 + aPhase * 0.62);
+                float radialSeed = clamp(length(hopf) * 0.22, 0.0, 1.0);
+                float radius = mix(0.16, max(0.18, uSphereFill), radialSeed * 0.5 + radialNoise * 0.5);
 
-                torus.xz = rotate2(torus.xz, t * 0.42);
-                hopf.xz = rotate2(hopf.xz, t * 0.31);
-
-                vec3 p3 = mix(hopf * 0.52, torus, 0.74);
+                vec3 p3 = dir * radius;
+                vec3 tangent = vec3(-p3.z, 0.0, p3.x);
+                p3 += tangent * (uSwirlStrength * (0.35 + 0.65 * (1.0 - radius)) * aFlowDir);
+                p3 = normalize(p3 + vec3(0.0001)) * min(max(0.08, uSphereFill), length(p3));
                 p3 *= uScale;
 
                 vec4 mvPosition = modelViewMatrix * vec4(p3, 1.0);
@@ -753,7 +757,8 @@ function createHopfPointMaterial(linkParam) {
                 gl_PointSize = aSize * (360.0 * depthFactor) * (1.0 + uHover * 0.28);
                 gl_Position = projectionMatrix * mvPosition;
 
-                float colorMix = aFlowDir * 0.5 + 0.5;
+                float split = smoothstep(-uColorSplitSoftness, uColorSplitSoftness, p3.x);
+                float colorMix = clamp(0.85 * split + 0.15 * (aFlowDir * 0.5 + 0.5), 0.0, 1.0);
                 vec3 baseColor = mix(uColorA, uColorB, colorMix);
                 float pulse = 0.48 + 0.52 * sin(phase * 1.4 + eta * 2.1);
                 vColor = baseColor * (0.68 + pulse * 0.9 + uHover * 0.3);
@@ -1025,6 +1030,10 @@ export function updateScene(time) {
 
     if (_creationLinkTargets.length > 0) {
         const pulseSpeed = clamp(creationLinkParams.pulseSpeed, 0.01, 6.0);
+        const vortexSpeed = clamp(creationLinkParams.vortexSpeed, 0.01, 4.0);
+        const swirlStrength = clamp(creationLinkParams.swirlStrength, 0.0, 1.5);
+        const sphereFill = clamp(creationLinkParams.sphereFill, 0.2, 1.5);
+        const colorSplitSoftness = clamp(creationLinkParams.colorSplitSoftness, 0.001, 0.5);
         const floatAmp = clamp(creationLinkParams.floatAmp, 0.0, 2.5);
         const floatOffset = clamp(creationLinkParams.floatOffset, -2.0, 2.0);
         const yawSpeed = clamp(creationLinkParams.yawSpeed, 0.0, 3.0);
@@ -1055,6 +1064,10 @@ export function updateScene(time) {
             target.material.uniforms.uHover.value = target.hoverValue;
             target.material.uniforms.uScale.value = Math.max(0.05, linkParam.scale);
             target.material.uniforms.uAlpha.value = pointAlpha;
+            target.material.uniforms.uVortexSpeed.value = vortexSpeed;
+            target.material.uniforms.uSwirlStrength.value = swirlStrength;
+            target.material.uniforms.uSphereFill.value = sphereFill;
+            target.material.uniforms.uColorSplitSoftness.value = colorSplitSoftness;
             target.material.uniforms.uColorA.value.copy(target.colorA);
             target.material.uniforms.uColorB.value.copy(target.colorB);
 
