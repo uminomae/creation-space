@@ -260,6 +260,7 @@ function resetSeedParticle(system, i) {
     system.velocities[p3 + 1] = randRange(-0.02, 0.02);
     system.velocities[p3 + 2] = randRange(-0.01, 0.01);
     system.lanes[i] = randRange(-FLOW_FULL_HALF_Y, FLOW_FULL_HALF_Y);
+    system.depthLanes[i] = randRange(-FLOW_FULL_HALF_Z, FLOW_FULL_HALF_Z);
 }
 
 function createFlowObjects() {
@@ -273,6 +274,7 @@ function createFlowObjects() {
     const seedPhases = new Float32Array(seedCount);
     const seedTemps = new Float32Array(seedCount);
     const seedLanes = new Float32Array(seedCount);
+    const seedDepthLanes = new Float32Array(seedCount);
 
     for (let i = 0; i < seedCount; i++) {
         seedSizes[i] = randRange(1.4, 3.2);
@@ -300,6 +302,7 @@ function createFlowObjects() {
         positions: seedPositions,
         velocities: seedVelocities,
         lanes: seedLanes,
+        depthLanes: seedDepthLanes,
         count: seedCount,
     };
 
@@ -314,6 +317,7 @@ function createFlowObjects() {
     const filamentPhases = new Float32Array(filamentCount);
     const filamentTemps = new Float32Array(filamentCount);
     const filamentLanes = new Float32Array(filamentCount);
+    const filamentDepthBias = new Float32Array(filamentCount);
     const filamentSpeeds = new Float32Array(filamentCount);
     const filamentWobbles = new Float32Array(filamentCount);
     const laneCount = 23;
@@ -323,6 +327,7 @@ function createFlowObjects() {
         filamentPhases[i] = Math.random();
         filamentTemps[i] = Math.random();
         filamentLanes[i] = Math.floor(Math.random() * laneCount);
+        filamentDepthBias[i] = randRange(-1.0, 1.0);
         filamentSpeeds[i] = randRange(0.09, 0.17);
         filamentWobbles[i] = randRange(0.75, 1.25);
     }
@@ -346,6 +351,7 @@ function createFlowObjects() {
         points: filamentPoints,
         positions: filamentPositions,
         lanes: filamentLanes,
+        depthBias: filamentDepthBias,
         phases: filamentPhases,
         speeds: filamentSpeeds,
         wobbles: filamentWobbles,
@@ -364,6 +370,7 @@ function updateSeedParticles(time, dtScale) {
     const chaos = flowParams.chaos;
     const drift = flowParams.seedDrift;
     const tight = flowParams.bundleTightness;
+    const depthScatter = clamp(flowParams.depthScatter ?? 1.0, 0.0, 2.0);
 
     for (let i = 0; i < _seedSystem.count; i++) {
         const p3 = i * 3;
@@ -382,7 +389,8 @@ function updateSeedParticles(time, dtScale) {
             vx += (0.112 * drift - vx) * 0.052 * dtScale;
             vy += (-y) * lerp(0.008, 0.026, t) * dtScale;
             vy += randRange(-0.003, 0.003) * dtScale * chaos;
-            vz += (-z) * 0.01 * dtScale + randRange(-0.002, 0.002) * dtScale;
+            const zTarget = _seedSystem.depthLanes[i] * 0.38 * depthScatter;
+            vz += (zTarget - z) * 0.012 * dtScale + randRange(-0.0025, 0.0025) * dtScale * depthScatter;
         // Middle: keep chaos but confine to center band.
         } else if (progress < FLOW_CENTER_END) {
             const centerX = 0.0;
@@ -395,18 +403,24 @@ function updateSeedParticles(time, dtScale) {
             const toCenterX = (centerX - x) * 0.006 * chaos;
             const overflow = Math.max(0.0, Math.abs(y) - centerBandHalf);
             const bandSpring = -Math.sign(y || 1) * overflow * 0.045;
+            const depthPhase = time * (1.25 + depthScatter * 0.5) + i * 0.19 + x * 0.05;
+            const orbitalZ = Math.sin(depthPhase) * FLOW_FULL_HALF_Z * 0.26 * (0.45 + depthScatter * 0.55);
+            const laneDepth = _seedSystem.depthLanes[i] * centerBandRatio * (0.35 + 0.45 * depthScatter);
+            const targetZ = orbitalZ + laneDepth;
 
             vx += (swirlX + toCenterX + randRange(-0.0025, 0.0025)) * dtScale;
             vy += (swirlY + bandSpring + randRange(-0.003, 0.003)) * dtScale;
-            vz += (-z * 0.014 + randRange(-0.002, 0.002)) * dtScale;
+            vz += (targetZ - z) * 0.026 * dtScale + randRange(-0.0025, 0.0025) * dtScale * depthScatter;
         // Right: from center-band density to full-height spread.
         } else {
             const spread = smoothstep(FLOW_CENTER_END, 1.0, progress);
             const targetY = _seedSystem.lanes[i] * lerp(centerBandRatio, 1.0, spread);
-            const targetZ = Math.sin(time * 1.0 + i * 0.13) * FLOW_FULL_HALF_Z * (0.08 + spread * 0.22);
+            const laneDepth = _seedSystem.depthLanes[i] * lerp(centerBandRatio * 0.35, 1.0, spread);
+            const spiralZ = Math.sin(time * 1.0 + i * 0.13 + x * 0.04) * FLOW_FULL_HALF_Z * (0.08 + spread * 0.34 * depthScatter);
+            const targetZ = laneDepth * 0.58 + spiralZ;
             vx += (0.13 * drift - vx) * 0.065 * dtScale;
             vy += (targetY - y) * 0.022 * dtScale * tight;
-            vz += (targetZ - z) * 0.019 * dtScale;
+            vz += (targetZ - z) * 0.021 * dtScale;
         }
 
         const damping = Math.pow(0.986, dtScale);
@@ -444,10 +458,12 @@ function updateFilamentParticles(time) {
     const centerBandRatio = clamp(flowParams.centerBandRatio, 0.2, 0.8);
     const centerLane = (_filamentSystem.laneCount - 1) * 0.5;
     const tight = flowParams.bundleTightness;
+    const depthScatter = clamp(flowParams.depthScatter ?? 1.0, 0.0, 2.0);
 
     for (let i = 0; i < _filamentSystem.count; i++) {
         const p3 = i * 3;
         const lane = _filamentSystem.lanes[i];
+        const depthBias = _filamentSystem.depthBias[i];
         const phase = _filamentSystem.phases[i];
         const speed = _filamentSystem.speeds[i];
         const wobble = _filamentSystem.wobbles[i];
@@ -468,9 +484,14 @@ function updateFilamentParticles(time) {
         const twist = Math.sin(t * 11.0 - time * 2.2 + lane * 0.75) * 0.55 * wobble * jitterScale;
         const ripple = Math.sin(t * 20.0 + time * 1.6 + i * 0.02) * 0.14 * jitterScale;
         const spreadNoise = Math.sin(time * 1.25 + i * 0.09) * FLOW_FULL_HALF_Y * 0.05 * rightSpread * (1.0 - tight * 0.4);
+        const depthLift = depthBias * FLOW_FULL_HALF_Z * 0.34 * bandScale * (0.45 + depthScatter * 0.55);
+        const depthSpiral = Math.sin(t * 14.0 - time * (1.6 + depthScatter * 0.4) + lane * 0.33)
+            * FLOW_FULL_HALF_Z * 0.2 * (0.3 + rightSpread * 0.9 * depthScatter);
 
         let y = fullY * bandScale + twist + ripple + spreadNoise;
+        y += Math.cos(t * 10.0 + depthBias * 2.2 + time * 0.9) * 0.2 * bandScale * depthScatter;
         let z = fullZ * bandScale + Math.cos(t * 12.0 - time * 1.8 + lane * 0.42) * 0.65 * wobble * jitterScale;
+        z += depthLift + depthSpiral;
 
         _filamentSystem.positions[p3 + 0] = x;
         _filamentSystem.positions[p3 + 1] = y;
@@ -680,6 +701,7 @@ function createHopfPointMaterial(linkParam) {
             uColorSplitSoftness: { value: creationLinkParams.colorSplitSoftness },
             uParticleBrightness: { value: creationLinkParams.particleBrightness },
             uParticleSoftness: { value: creationLinkParams.particleSoftness },
+            uCoreSharpness: { value: creationLinkParams.coreSharpness ?? 1.0 },
             uFluidDrift: { value: creationLinkParams.fluidDrift },
             uPointerBurstStrength: { value: creationLinkParams.pointerBurstStrength },
             uPointerBurstSpread: { value: creationLinkParams.pointerBurstSpread },
@@ -807,6 +829,7 @@ function createHopfPointMaterial(linkParam) {
             varying vec3 vColor;
             varying float vAlpha;
             uniform float uParticleSoftness;
+            uniform float uCoreSharpness;
 
             void main() {
                 vec2 uv = gl_PointCoord * 2.0 - 1.0;
@@ -815,9 +838,11 @@ function createHopfPointMaterial(linkParam) {
 
                 float softness = max(1.2, uParticleSoftness);
                 float gaussian = exp(-r * r * softness);
+                float coreExp = mix(1.1, 4.2, clamp(uCoreSharpness * 0.5, 0.0, 1.0));
+                float core = pow(max(0.0, 1.0 - r), coreExp);
                 float edge = smoothstep(1.0, 0.0, r);
-                float alpha = clamp(gaussian * edge * vAlpha, 0.0, 1.0);
-                vec3 color = vColor * (0.35 + gaussian * 0.85);
+                float alpha = clamp((gaussian * 0.56 + core * 0.84) * edge * vAlpha, 0.0, 1.0);
+                vec3 color = vColor * (0.3 + gaussian * 0.62 + core * 0.72);
                 gl_FragColor = vec4(color, alpha);
             }
         `,
@@ -1094,12 +1119,17 @@ export function updateScene(time) {
 
     if (_creationLinkTargets.length > 0) {
         const pulseSpeed = clamp(creationLinkParams.pulseSpeed, 0.01, 6.0);
+        const sizeGain = clamp(creationLinkParams.sizeGain ?? 1.0, 0.2, 6.0);
+        const sizeGainRoot = Math.sqrt(sizeGain);
+        const linkSpread = clamp(creationLinkParams.linkSpread ?? 1.0, 0.5, 3.0);
+        const linkDepthSpread = clamp(creationLinkParams.linkDepthSpread ?? 0.0, 0.0, 2.0);
         const vortexSpeed = clamp(creationLinkParams.vortexSpeed, 0.01, 4.0);
         const swirlStrength = clamp(creationLinkParams.swirlStrength, 0.0, 1.5);
         const sphereFill = clamp(creationLinkParams.sphereFill, 0.2, 1.5);
         const colorSplitSoftness = clamp(creationLinkParams.colorSplitSoftness, 0.001, 0.5);
         const particleBrightness = clamp(creationLinkParams.particleBrightness, 0.05, 2.0);
         const particleSoftness = clamp(creationLinkParams.particleSoftness, 1.2, 8.0);
+        const coreSharpness = clamp(creationLinkParams.coreSharpness ?? 1.0, 0.2, 2.5);
         const fluidDrift = clamp(creationLinkParams.fluidDrift, 0.0, 1.0);
         const pointerBurstStrength = clamp(creationLinkParams.pointerBurstStrength, 0.0, 2.0);
         const pointerBurstSpread = clamp(creationLinkParams.pointerBurstSpread, 0.0, 64.0);
@@ -1132,7 +1162,7 @@ export function updateScene(time) {
 
             target.material.uniforms.uTime.value = time + target.phaseOffset;
             target.material.uniforms.uHover.value = target.hoverValue;
-            target.material.uniforms.uScale.value = clamp(linkParam.scale, 0.05, 15.0);
+            target.material.uniforms.uScale.value = clamp(linkParam.scale, 0.05, 15.0) * sizeGainRoot;
             target.material.uniforms.uAlpha.value = pointAlpha;
             target.material.uniforms.uVortexSpeed.value = vortexSpeed;
             target.material.uniforms.uSwirlStrength.value = swirlStrength;
@@ -1140,6 +1170,7 @@ export function updateScene(time) {
             target.material.uniforms.uColorSplitSoftness.value = colorSplitSoftness;
             target.material.uniforms.uParticleBrightness.value = particleBrightness;
             target.material.uniforms.uParticleSoftness.value = particleSoftness;
+            target.material.uniforms.uCoreSharpness.value = coreSharpness;
             target.material.uniforms.uFluidDrift.value = fluidDrift;
             target.material.uniforms.uPointerBurstStrength.value = pointerBurstStrength;
             target.material.uniforms.uPointerBurstSpread.value = pointerBurstSpread;
@@ -1156,15 +1187,17 @@ export function updateScene(time) {
             target.material.uniforms.uColorA.value.copy(target.colorA);
             target.material.uniforms.uColorB.value.copy(target.colorB);
 
+            const spreadX = linkParam.posX * linkSpread;
+            const depthOffset = Math.sign(linkParam.posX || 0) * Math.abs(linkParam.posX) * 0.12 * linkDepthSpread;
             target.group.position.set(
-                linkParam.posX,
+                spreadX,
                 linkParam.posY + (pulse + floatOffset) * floatAmp,
-                linkParam.posZ
+                linkParam.posZ + depthOffset
             );
             target.group.rotation.y = time * yawSpeed + target.phaseOffset;
             target.group.rotation.x = Math.sin(time * tiltSpeed + target.phaseOffset) * tiltAmp;
 
-            const scale = baseScaleMul + pulse01 * pulseScaleAmp + target.hoverValue * hoverScaleBoost;
+            const scale = (baseScaleMul + pulse01 * pulseScaleAmp + target.hoverValue * hoverScaleBoost) * sizeGainRoot;
             target.group.scale.setScalar(scale);
 
             target.mesh.scale.setScalar(Math.max(0.1, linkParam.hitRadius));
