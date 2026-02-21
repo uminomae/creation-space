@@ -81,13 +81,13 @@ function applyCreationPreset() {
         fog: true,
         fovBreath: true,
         htmlBreath: true,
-        autoRotate: true,
+        autoRotate: false,
         postProcess: true,
         fluidField: true,
         liquid: true,
         heatHaze: false,
         dof: true,
-        quantumWave: true,
+        quantumWave: false,
     });
 }
 
