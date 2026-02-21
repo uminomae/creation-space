@@ -12,6 +12,66 @@ import {
     toggles,
 } from './config.js';
 
+const GROUP_HELP_JA = {
+    creationGlobal: 'A案の全体挙動。渦の速度・球内の密度・色分割・明るさ・流動感をまとめて調整します。',
+    creationLink1: 'オブジェクト1の個別設定。位置・サイズ・色・クリック判定半径を調整します。',
+    creationLink2: 'オブジェクト2の個別設定。位置・サイズ・色・クリック判定半径を調整します。',
+    creationLink3: 'オブジェクト3の個別設定。位置・サイズ・色・クリック判定半径を調整します。',
+};
+
+const CREATION_GLOBAL_HELP_JA = {
+    pulseSpeed: '呼吸（上下移動・拡縮）の速さ。上げるとせわしなく動きます。',
+    vortexSpeed: '球内部の渦回転速度。上げると内部フローが速くなります。',
+    swirlStrength: '渦のねじれ量。上げると巻き感が強くなります。',
+    sphereFill: '粒子が占める球の体積感。上げると外側まで満ちます。',
+    colorSplitSoftness: '二色境界のぼかし幅。下げると境界がくっきりします。',
+    particleBrightness: '粒子の発光明度。下げると全体が暗く落ち着きます。',
+    particleSoftness: '粒子エッジの柔らかさ。上げるとクッキリ感が減ります。',
+    fluidDrift: '液体風の流れ揺らぎ。上げると流動感が増します。',
+    floatAmp: 'オブジェクト全体の上下振幅です。',
+    floatOffset: '上下運動の基準位置オフセットです。',
+    yawSpeed: 'オブジェクト全体のY回転速度です。',
+    tiltSpeed: '傾き揺れの速度です。',
+    tiltAmp: '傾き揺れの角度量です。',
+    baseScaleMul: 'オブジェクト全体の基準サイズ倍率です。',
+    pulseScaleAmp: '呼吸によるサイズ変化幅です。',
+    hoverScaleBoost: 'ホバー時の追加拡大量です。',
+    hoverLerp: 'ホバー追従速度。上げると即反応、下げると粘ります。',
+    pointAlpha: '粒子そのものの透明度です。',
+    haloScalePulse: 'ハローの呼吸スケール増分です。',
+    haloScaleHover: 'ホバー時ハロー拡大量です。',
+    haloOpacityBase: 'ハロー基本不透明度です。',
+    haloOpacityPulse: '呼吸で増えるハロー不透明度です。',
+    haloOpacityHover: 'ホバー時に増えるハロー不透明度です。',
+};
+
+const CREATION_LINK_HELP_JA = {
+    link1PosX: '3D配置のX座標です。',
+    link1PosY: '3D配置のY座標です。',
+    link1PosZ: '3D配置のZ座標です。',
+    link1Scale: '球内部渦のサイズです。',
+    link1GlowScale: 'ハローの基準サイズです。',
+    link1HitRadius: 'クリック判定の半径です（見た目とは別）。',
+    link1Phase: '位相オフセット。動きのズレを作ります。',
+    link1ColorAR: '二色A側カラーのR成分です。',
+    link1ColorAG: '二色A側カラーのG成分です。',
+    link1ColorAB: '二色A側カラーのB成分です。',
+    link1ColorBR: '二色B側カラーのR成分です。',
+    link1ColorBG: '二色B側カラーのG成分です。',
+    link1ColorBB: '二色B側カラーのB成分です。',
+};
+
+function getFieldHelpText(groupId, key) {
+    if (groupId === 'creationGlobal') {
+        return CREATION_GLOBAL_HELP_JA[key] || '';
+    }
+    if (groupId === 'creationLink1' || groupId === 'creationLink2' || groupId === 'creationLink3') {
+        const normalizedKey = key.replace(/^link[123]/, 'link1');
+        return CREATION_LINK_HELP_JA[normalizedKey] || '';
+    }
+    return '';
+}
+
 const PARAM_GROUPS = [
     {
         id: 'toggles',
@@ -86,6 +146,9 @@ const PARAM_GROUPS = [
             ['swirlStrength', 'Swirl Strength', 0.0, 1.0, 0.01],
             ['sphereFill', 'Sphere Fill', 0.2, 1.2, 0.01],
             ['colorSplitSoftness', 'Color Split Soft', 0.005, 0.3, 0.005],
+            ['particleBrightness', 'Particle Bright', 0.2, 1.5, 0.01],
+            ['particleSoftness', 'Particle Soft', 1.5, 6.0, 0.01],
+            ['fluidDrift', 'Fluid Drift', 0.0, 0.6, 0.01],
             ['floatAmp', 'Float Amp', 0.0, 1.2, 0.01],
             ['floatOffset', 'Float Offset', -1.0, 1.0, 0.01],
             ['yawSpeed', 'Yaw Speed', 0.0, 1.5, 0.01],
@@ -447,8 +510,16 @@ export function initDevPanel({
 
         registerControl(path, input, valueEl, step);
 
+        const helpText = getFieldHelpText(group.id, key);
+
         wrapper.appendChild(meta);
         wrapper.appendChild(input);
+        if (helpText) {
+            const help = document.createElement('div');
+            help.className = 'dev-row-help';
+            help.textContent = helpText;
+            wrapper.appendChild(help);
+        }
         return wrapper;
     }
 
@@ -471,6 +542,13 @@ export function initDevPanel({
         `;
 
         const body = item.querySelector('.accordion-body');
+        const groupHelp = GROUP_HELP_JA[group.id];
+        if (groupHelp) {
+            const helpNode = document.createElement('p');
+            helpNode.className = 'dev-group-help';
+            helpNode.textContent = groupHelp;
+            body.appendChild(helpNode);
+        }
         group.fields.forEach((field) => {
             const node = group.type === 'toggle'
                 ? buildToggleControl(group, field)

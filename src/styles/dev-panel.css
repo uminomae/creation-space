@@ -79,6 +79,20 @@
   margin-bottom: 0.75rem;
 }
 
+#dev-panel .dev-group-help {
+  margin: 0 0 0.75rem;
+  font-size: 0.66rem;
+  line-height: 1.45;
+  color: rgba(176, 201, 238, 0.82);
+}
+
+#dev-panel .dev-row-help {
+  margin-top: 0.2rem;
+  font-size: 0.62rem;
+  line-height: 1.35;
+  color: rgba(162, 188, 228, 0.72);
+}
+
 #dev-panel .dev-row-meta {
   display: flex;
   align-items: center;

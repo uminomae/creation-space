@@ -675,6 +675,9 @@ function createHopfPointMaterial(linkParam) {
             uSwirlStrength: { value: creationLinkParams.swirlStrength },
             uSphereFill: { value: creationLinkParams.sphereFill },
             uColorSplitSoftness: { value: creationLinkParams.colorSplitSoftness },
+            uParticleBrightness: { value: creationLinkParams.particleBrightness },
+            uParticleSoftness: { value: creationLinkParams.particleSoftness },
+            uFluidDrift: { value: creationLinkParams.fluidDrift },
             uColorA: { value: new THREE.Color(linkParam.colorAR, linkParam.colorAG, linkParam.colorAB) },
             uColorB: { value: new THREE.Color(linkParam.colorBR, linkParam.colorBG, linkParam.colorBB) },
         },
@@ -687,6 +690,8 @@ function createHopfPointMaterial(linkParam) {
             uniform float uSwirlStrength;
             uniform float uSphereFill;
             uniform float uColorSplitSoftness;
+            uniform float uParticleBrightness;
+            uniform float uFluidDrift;
             uniform vec3 uColorA;
             uniform vec3 uColorB;
 
@@ -749,36 +754,45 @@ function createHopfPointMaterial(linkParam) {
                 vec3 p3 = dir * radius;
                 vec3 tangent = vec3(-p3.z, 0.0, p3.x);
                 p3 += tangent * (uSwirlStrength * (0.35 + 0.65 * (1.0 - radius)) * aFlowDir);
+                vec3 fluid = vec3(
+                    sin(phi + t * 0.7),
+                    cos(theta * 1.2 - t * 0.55),
+                    sin(phi * 0.65 - t * 0.8)
+                );
+                p3 += fluid * (uFluidDrift * (0.25 + 0.75 * (1.0 - radius)));
                 p3 = normalize(p3 + vec3(0.0001)) * min(max(0.08, uSphereFill), length(p3));
                 p3 *= uScale;
 
                 vec4 mvPosition = modelViewMatrix * vec4(p3, 1.0);
                 float depthFactor = clamp(1.0 / max(-mvPosition.z, 0.001), 0.0, 1.2);
-                gl_PointSize = aSize * (360.0 * depthFactor) * (1.0 + uHover * 0.28);
+                gl_PointSize = aSize * (290.0 * depthFactor) * (1.0 + uHover * 0.2);
                 gl_Position = projectionMatrix * mvPosition;
 
                 float split = smoothstep(-uColorSplitSoftness, uColorSplitSoftness, p3.x);
                 float colorMix = clamp(0.85 * split + 0.15 * (aFlowDir * 0.5 + 0.5), 0.0, 1.0);
                 vec3 baseColor = mix(uColorA, uColorB, colorMix);
                 float pulse = 0.48 + 0.52 * sin(phase * 1.4 + eta * 2.1);
-                vColor = baseColor * (0.68 + pulse * 0.9 + uHover * 0.3);
-                float alphaGain = 0.25 + uAlpha * 2.5;
-                vAlpha = (0.36 + pulse * 0.42) * alphaGain;
+                float brightness = clamp(uParticleBrightness, 0.05, 2.0);
+                vColor = baseColor * (0.35 + pulse * 0.32 + uHover * 0.16) * brightness;
+                float alphaGain = 0.18 + uAlpha * 1.25;
+                vAlpha = (0.18 + pulse * 0.2) * alphaGain;
             }
         `,
         fragmentShader: `
             varying vec3 vColor;
             varying float vAlpha;
+            uniform float uParticleSoftness;
 
             void main() {
                 vec2 uv = gl_PointCoord * 2.0 - 1.0;
                 float r = length(uv);
                 if (r > 1.0) discard;
 
-                float core = smoothstep(0.48, 0.0, r);
-                float halo = smoothstep(1.0, 0.0, r) * 0.42;
-                float alpha = clamp((core * 1.2 + halo) * vAlpha, 0.0, 1.0);
-                vec3 color = vColor * (core * 1.08 + halo * 0.84);
+                float softness = max(1.2, uParticleSoftness);
+                float gaussian = exp(-r * r * softness);
+                float edge = smoothstep(1.0, 0.0, r);
+                float alpha = clamp(gaussian * edge * vAlpha, 0.0, 1.0);
+                vec3 color = vColor * (0.35 + gaussian * 0.85);
                 gl_FragColor = vec4(color, alpha);
             }
         `,
@@ -1034,6 +1048,9 @@ export function updateScene(time) {
         const swirlStrength = clamp(creationLinkParams.swirlStrength, 0.0, 1.5);
         const sphereFill = clamp(creationLinkParams.sphereFill, 0.2, 1.5);
         const colorSplitSoftness = clamp(creationLinkParams.colorSplitSoftness, 0.001, 0.5);
+        const particleBrightness = clamp(creationLinkParams.particleBrightness, 0.05, 2.0);
+        const particleSoftness = clamp(creationLinkParams.particleSoftness, 1.2, 8.0);
+        const fluidDrift = clamp(creationLinkParams.fluidDrift, 0.0, 1.0);
         const floatAmp = clamp(creationLinkParams.floatAmp, 0.0, 2.5);
         const floatOffset = clamp(creationLinkParams.floatOffset, -2.0, 2.0);
         const yawSpeed = clamp(creationLinkParams.yawSpeed, 0.0, 3.0);
@@ -1068,6 +1085,9 @@ export function updateScene(time) {
             target.material.uniforms.uSwirlStrength.value = swirlStrength;
             target.material.uniforms.uSphereFill.value = sphereFill;
             target.material.uniforms.uColorSplitSoftness.value = colorSplitSoftness;
+            target.material.uniforms.uParticleBrightness.value = particleBrightness;
+            target.material.uniforms.uParticleSoftness.value = particleSoftness;
+            target.material.uniforms.uFluidDrift.value = fluidDrift;
             target.material.uniforms.uColorA.value.copy(target.colorA);
             target.material.uniforms.uColorB.value.copy(target.colorB);
 
