@@ -29,6 +29,8 @@ let _filamentSystem;
 let _lastFlowTime = 0;
 let _starFieldGroup;
 let _starMaterials = [];
+let _creationLinkGroup;
+let _creationLinkTargets = [];
 
 const _fogColor = new THREE.Color();
 const _bgCenterA = new THREE.Color();
@@ -42,6 +44,50 @@ const FLOW_FULL_HALF_Y = 20.0;
 const FLOW_FULL_HALF_Z = 11.5;
 const FLOW_LEFT_END = 0.42;
 const FLOW_CENTER_END = 0.64;
+const CREATION_LINK_DEFS = [
+    {
+        label: 'Creation Notes I',
+        draftUrl: 'https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/pdf/kesson-general-draft.md',
+        sourceUrl: 'https://uminomae.github.io/pjdhiro/assets/pdf/kesson-general.pdf',
+        colorA: 0x62a2ff,
+        colorB: 0x7ae8ff,
+        shape: 'crystal',
+        scale: 2.05,
+        pointCount: 1800,
+        glowScale: 4.8,
+        hitRadius: 2.0,
+        position: new THREE.Vector3(-9.0, -2.1, -8.0),
+        phase: 0.15,
+    },
+    {
+        label: 'Creation Notes II',
+        draftUrl: 'https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/pdf/kesson-designer-draft.md',
+        sourceUrl: 'https://uminomae.github.io/pjdhiro/assets/pdf/kesson-designer.pdf',
+        colorA: 0x7f8bff,
+        colorB: 0xaec8ff,
+        shape: 'ring',
+        scale: 2.2,
+        pointCount: 2100,
+        glowScale: 5.2,
+        hitRadius: 2.2,
+        position: new THREE.Vector3(0.1, -0.8, -9.4),
+        phase: 1.4,
+    },
+    {
+        label: 'Creation Notes III',
+        draftUrl: 'https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/pdf/kesson-academic-draft.md',
+        sourceUrl: 'https://uminomae.github.io/pjdhiro/assets/pdf/kesson-academic.pdf',
+        colorA: 0x8a96ff,
+        colorB: 0xceb8ff,
+        shape: 'frame',
+        scale: 1.95,
+        pointCount: 1700,
+        glowScale: 4.5,
+        hitRadius: 1.95,
+        position: new THREE.Vector3(9.2, -1.95, -7.1),
+        phase: 2.8,
+    },
+];
 
 function clamp01(v) {
     return Math.min(1, Math.max(0, v));
@@ -588,6 +634,269 @@ function createStarField() {
     return group;
 }
 
+function createGlowTexture(colorHex) {
+    const size = 128;
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return null;
+
+    const color = new THREE.Color(colorHex);
+    const rgb = `${Math.round(color.r * 255)}, ${Math.round(color.g * 255)}, ${Math.round(color.b * 255)}`;
+    const gradient = ctx.createRadialGradient(size * 0.5, size * 0.5, 0, size * 0.5, size * 0.5, size * 0.5);
+    gradient.addColorStop(0.0, `rgba(${rgb}, 0.95)`);
+    gradient.addColorStop(0.25, `rgba(${rgb}, 0.68)`);
+    gradient.addColorStop(0.6, `rgba(${rgb}, 0.28)`);
+    gradient.addColorStop(1.0, `rgba(${rgb}, 0.0)`);
+
+    ctx.clearRect(0, 0, size, size);
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    ctx.arc(size * 0.5, size * 0.5, size * 0.5, 0, Math.PI * 2);
+    ctx.fill();
+
+    const texture = new THREE.CanvasTexture(canvas);
+    texture.needsUpdate = true;
+    return texture;
+}
+
+function createHopfPointMaterial(def) {
+    return new THREE.ShaderMaterial({
+        uniforms: {
+            uTime: { value: 0.0 },
+            uHover: { value: 0.0 },
+            uScale: { value: def.scale },
+            uAlpha: { value: 0.85 },
+            uColorA: { value: new THREE.Color(def.colorA) },
+            uColorB: { value: new THREE.Color(def.colorB) },
+        },
+        vertexShader: `
+            uniform float uTime;
+            uniform float uHover;
+            uniform float uScale;
+            uniform float uAlpha;
+            uniform vec3 uColorA;
+            uniform vec3 uColorB;
+
+            attribute vec4 aInitial4;
+            attribute float aFlowDir;
+            attribute float aSize;
+            attribute float aPhase;
+
+            varying vec3 vColor;
+            varying float vAlpha;
+
+            vec4 qmul(vec4 q1, vec4 q2) {
+                return vec4(
+                    q1.w * q2.x + q1.x * q2.w + q1.y * q2.z - q1.z * q2.y,
+                    q1.w * q2.y - q1.x * q2.z + q1.y * q2.w + q1.z * q2.x,
+                    q1.w * q2.z + q1.x * q2.y - q1.y * q2.x + q1.z * q2.w,
+                    q1.w * q2.w - q1.x * q2.x - q1.y * q2.y - q1.z * q2.z
+                );
+            }
+
+            vec4 qconj(vec4 q) {
+                return vec4(-q.x, -q.y, -q.z, q.w);
+            }
+
+            vec4 qrotate(vec4 p, vec4 q) {
+                return qmul(qmul(q, p), qconj(q));
+            }
+
+            void main() {
+                float t = uTime * (0.34 + uHover * 0.26);
+                float phase = aPhase + t * aFlowDir;
+
+                vec4 qx = normalize(vec4(sin(phase * 0.5) * 0.72, 0.0, 0.0, cos(phase * 0.5)));
+                vec4 qy = normalize(vec4(0.0, sin((phase + 1.31) * 1.0) * 0.62, 0.0, cos((phase + 1.31) * 1.0)));
+                vec4 qz = normalize(vec4(0.0, 0.0, sin((phase + 0.57) * 0.7) * 0.45, cos((phase + 0.57) * 0.7)));
+                vec4 rot = normalize(qmul(qmul(qx, qy), qz));
+
+                vec4 p4 = qrotate(aInitial4, rot);
+                float denom = max(0.24, 1.0 - p4.w);
+                vec3 p3 = p4.xyz / denom;
+
+                float swirl = sin(phase * 2.2 + aPhase * 0.35) * 0.11;
+                vec2 dir = normalize(p3.xy + vec2(0.0001));
+                p3.xy += dir * swirl;
+                p3.z += cos(phase * 1.8 + aPhase) * 0.16;
+                p3 *= uScale;
+
+                vec4 mvPosition = modelViewMatrix * vec4(p3, 1.0);
+                float depthFactor = clamp(1.0 / max(-mvPosition.z, 0.001), 0.0, 1.2);
+                gl_PointSize = aSize * (310.0 * depthFactor) * (1.0 + uHover * 0.34);
+                gl_Position = projectionMatrix * mvPosition;
+
+                float colorMix = aFlowDir * 0.5 + 0.5;
+                vec3 baseColor = mix(uColorA, uColorB, colorMix);
+                float lum = 0.54 + 0.46 * sin(phase * 1.5 + aPhase * 0.73);
+                vColor = baseColor * (0.62 + lum * 0.74 + uHover * 0.26);
+                vAlpha = (0.46 + lum * 0.4) * uAlpha;
+            }
+        `,
+        fragmentShader: `
+            varying vec3 vColor;
+            varying float vAlpha;
+
+            void main() {
+                vec2 uv = gl_PointCoord * 2.0 - 1.0;
+                float r = length(uv);
+                if (r > 1.0) discard;
+
+                float core = smoothstep(0.48, 0.0, r);
+                float halo = smoothstep(1.0, 0.0, r) * 0.42;
+                float alpha = clamp((core * 1.2 + halo) * vAlpha, 0.0, 1.0);
+                vec3 color = vColor * (core * 1.08 + halo * 0.84);
+                gl_FragColor = vec4(color, alpha);
+            }
+        `,
+        transparent: true,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+    });
+}
+
+function createHopfPoints(def) {
+    const pointCount = def.pointCount;
+    const basePositions = new Float32Array(pointCount * 3);
+    const initial4 = new Float32Array(pointCount * 4);
+    const flowDir = new Float32Array(pointCount);
+    const sizes = new Float32Array(pointCount);
+    const phases = new Float32Array(pointCount);
+
+    for (let i = 0; i < pointCount; i++) {
+        const p4 = i * 4;
+        const x = Math.random() * 2.0 - 1.0;
+        const y = Math.random() * 2.0 - 1.0;
+        const z = Math.random() * 2.0 - 1.0;
+        const w = Math.random() * 2.0 - 1.0;
+        const invLen = 1.0 / Math.max(0.0001, Math.hypot(x, y, z, w));
+
+        initial4[p4 + 0] = x * invLen;
+        initial4[p4 + 1] = y * invLen;
+        initial4[p4 + 2] = z * invLen;
+        initial4[p4 + 3] = w * invLen;
+
+        flowDir[i] = i % 2 === 0 ? 1.0 : -1.0;
+        sizes[i] = randRange(1.8, 4.8);
+        phases[i] = Math.random() * Math.PI * 2.0;
+    }
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(basePositions, 3));
+    geometry.setAttribute('aInitial4', new THREE.BufferAttribute(initial4, 4));
+    geometry.setAttribute('aFlowDir', new THREE.BufferAttribute(flowDir, 1));
+    geometry.setAttribute('aSize', new THREE.BufferAttribute(sizes, 1));
+    geometry.setAttribute('aPhase', new THREE.BufferAttribute(phases, 1));
+
+    const material = createHopfPointMaterial(def);
+    const points = new THREE.Points(geometry, material);
+    points.renderOrder = 40;
+
+    return { points, material };
+}
+
+function createLinkShell(def) {
+    let geometry;
+    if (def.shape === 'ring') {
+        geometry = new THREE.TorusKnotGeometry(0.72, 0.22, 150, 18, 2, 3);
+    } else if (def.shape === 'frame') {
+        geometry = new THREE.OctahedronGeometry(1.1, 0);
+    } else {
+        geometry = new THREE.IcosahedronGeometry(1.05, 1);
+    }
+
+    const edges = new THREE.EdgesGeometry(geometry, 20);
+    const material = new THREE.LineBasicMaterial({
+        color: def.colorB,
+        transparent: true,
+        opacity: 0.28,
+    });
+    const line = new THREE.LineSegments(edges, material);
+    line.renderOrder = 39;
+    return line;
+}
+
+function createLinkHalo(def) {
+    const glowTexture = createGlowTexture(def.colorB);
+    if (!glowTexture) return null;
+
+    const glowMaterial = new THREE.SpriteMaterial({
+        map: glowTexture,
+        transparent: true,
+        opacity: 0.34,
+        color: def.colorB,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+    });
+
+    const glow = new THREE.Sprite(glowMaterial);
+    glow.scale.setScalar(def.glowScale);
+    glow.renderOrder = 38;
+    return glow;
+}
+
+function createCreationHitProxy(def) {
+    return new THREE.Mesh(
+        new THREE.IcosahedronGeometry(def.hitRadius, 1),
+        new THREE.MeshBasicMaterial({
+            color: 0xffffff,
+            transparent: true,
+            opacity: 0.0,
+            depthWrite: false,
+        })
+    );
+}
+
+function createCreationLinks() {
+    _creationLinkTargets = [];
+
+    const group = new THREE.Group();
+    CREATION_LINK_DEFS.forEach((def, index) => {
+        const node = new THREE.Group();
+        node.position.copy(def.position);
+        node.userData.basePosition = def.position.clone();
+        node.userData.phase = def.phase;
+
+        const { points, material } = createHopfPoints(def);
+        node.add(points);
+
+        const shell = createLinkShell(def);
+        node.add(shell);
+
+        const halo = createLinkHalo(def);
+        if (halo) node.add(halo);
+
+        const proxy = createCreationHitProxy(def);
+        proxy.userData.isCreationLinkTarget = true;
+        proxy.userData.draftUrl = def.draftUrl;
+        proxy.userData.sourceUrl = def.sourceUrl;
+        proxy.userData.label = def.label;
+        proxy.userData.isHovered = false;
+        proxy.renderOrder = 41;
+        node.add(proxy);
+
+        group.add(node);
+        _creationLinkTargets.push({
+            group: node,
+            material,
+            shell,
+            halo,
+            mesh: proxy,
+            hoverValue: 0,
+            phaseOffset: index * 0.37,
+        });
+    });
+
+    return group;
+}
+
+export function getCreationLinkTargetMeshes() {
+    return _creationLinkTargets.map((target) => target.mesh);
+}
+
 export function createScene(container) {
     const scene = new THREE.Scene();
     _scene = scene;
@@ -614,10 +923,12 @@ export function createScene(container) {
     _flowGroup = createFlowObjects();
     _lastFlowTime = 0;
     _starFieldGroup = createStarField();
+    _creationLinkGroup = createCreationLinks();
 
     scene.add(_fieldMesh);
     scene.add(_flowGroup);
     scene.add(_starFieldGroup);
+    scene.add(_creationLinkGroup);
 
     return { scene, camera, renderer };
 }
@@ -705,5 +1016,33 @@ export function updateScene(time) {
     if (_starFieldGroup) {
         _starFieldGroup.rotation.y = time * 0.018;
         _starFieldGroup.rotation.x = Math.sin(time * 0.16) * 0.035;
+    }
+
+    if (_creationLinkTargets.length > 0) {
+        _creationLinkTargets.forEach((target) => {
+            const pulse = Math.sin(time * 1.2 + target.group.userData.phase + target.phaseOffset);
+            const pulse01 = pulse * 0.5 + 0.5;
+            const hoverTarget = target.mesh.userData.isHovered ? 1.0 : 0.0;
+            target.hoverValue = lerp(target.hoverValue, hoverTarget, 0.14);
+
+            target.material.uniforms.uTime.value = time + target.phaseOffset;
+            target.material.uniforms.uHover.value = target.hoverValue;
+
+            target.group.position.copy(target.group.userData.basePosition);
+            target.group.position.y += (pulse - 0.1) * 0.32;
+            target.group.rotation.y = time * 0.24 + target.phaseOffset;
+            target.group.rotation.x = Math.sin(time * 0.38 + target.phaseOffset) * 0.14;
+
+            const scale = 1.0 + pulse01 * 0.03 + target.hoverValue * 0.08;
+            target.group.scale.setScalar(scale);
+
+            target.shell.material.opacity = clamp(0.2 + pulse01 * 0.18 + target.hoverValue * 0.22, 0.0, 0.95);
+            target.shell.rotation.z = time * 0.42 + target.phaseOffset * 1.8;
+
+            if (target.halo) {
+                target.halo.scale.setScalar(3.8 + pulse01 * 1.7 + target.hoverValue * 0.9);
+                target.halo.material.opacity = clamp(0.16 + pulse01 * 0.22 + target.hoverValue * 0.2, 0.0, 0.95);
+            }
+        });
     }
 }
