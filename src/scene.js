@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import {
     backgroundParams,
+    creationLinkParams,
     fieldParams,
     flowParams,
     sceneParams,
@@ -46,46 +47,28 @@ const FLOW_LEFT_END = 0.42;
 const FLOW_CENTER_END = 0.64;
 const CREATION_LINK_DEFS = [
     {
+        id: 1,
         label: 'Creation Notes I',
         draftUrl: 'https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/pdf/kesson-general-draft.md',
         sourceUrl: 'https://uminomae.github.io/pjdhiro/assets/pdf/kesson-general.pdf',
-        colorA: 0x62a2ff,
-        colorB: 0x7ae8ff,
         shape: 'crystal',
-        scale: 2.05,
         pointCount: 1800,
-        glowScale: 4.8,
-        hitRadius: 2.0,
-        position: new THREE.Vector3(-9.0, -2.1, -8.0),
-        phase: 0.15,
     },
     {
+        id: 2,
         label: 'Creation Notes II',
         draftUrl: 'https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/pdf/kesson-designer-draft.md',
         sourceUrl: 'https://uminomae.github.io/pjdhiro/assets/pdf/kesson-designer.pdf',
-        colorA: 0x7f8bff,
-        colorB: 0xaec8ff,
         shape: 'ring',
-        scale: 2.2,
         pointCount: 2100,
-        glowScale: 5.2,
-        hitRadius: 2.2,
-        position: new THREE.Vector3(0.1, -0.8, -9.4),
-        phase: 1.4,
     },
     {
+        id: 3,
         label: 'Creation Notes III',
         draftUrl: 'https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/pdf/kesson-academic-draft.md',
         sourceUrl: 'https://uminomae.github.io/pjdhiro/assets/pdf/kesson-academic.pdf',
-        colorA: 0x8a96ff,
-        colorB: 0xceb8ff,
         shape: 'frame',
-        scale: 1.95,
         pointCount: 1700,
-        glowScale: 4.5,
-        hitRadius: 1.95,
-        position: new THREE.Vector3(9.2, -1.95, -7.1),
-        phase: 2.8,
     },
 ];
 
@@ -105,6 +88,25 @@ function calcCamZ(aspect) {
     if (aspect >= 1) return sceneParams.camZ;
     const t = Math.max(0, (aspect - 0.5) * 2.0);
     return sceneParams.camZ * t;
+}
+
+function getCreationLinkParam(id) {
+    const key = `link${id}`;
+    return {
+        posX: creationLinkParams[`${key}PosX`],
+        posY: creationLinkParams[`${key}PosY`],
+        posZ: creationLinkParams[`${key}PosZ`],
+        scale: creationLinkParams[`${key}Scale`],
+        glowScale: creationLinkParams[`${key}GlowScale`],
+        hitRadius: creationLinkParams[`${key}HitRadius`],
+        phase: creationLinkParams[`${key}Phase`],
+        colorAR: clamp(creationLinkParams[`${key}ColorAR`], 0.0, 1.0),
+        colorAG: clamp(creationLinkParams[`${key}ColorAG`], 0.0, 1.0),
+        colorAB: clamp(creationLinkParams[`${key}ColorAB`], 0.0, 1.0),
+        colorBR: clamp(creationLinkParams[`${key}ColorBR`], 0.0, 1.0),
+        colorBG: clamp(creationLinkParams[`${key}ColorBG`], 0.0, 1.0),
+        colorBB: clamp(creationLinkParams[`${key}ColorBB`], 0.0, 1.0),
+    };
 }
 
 function createFieldMesh() {
@@ -662,15 +664,15 @@ function createGlowTexture(colorHex) {
     return texture;
 }
 
-function createHopfPointMaterial(def) {
+function createHopfPointMaterial(linkParam) {
     return new THREE.ShaderMaterial({
         uniforms: {
             uTime: { value: 0.0 },
             uHover: { value: 0.0 },
-            uScale: { value: def.scale },
-            uAlpha: { value: 0.85 },
-            uColorA: { value: new THREE.Color(def.colorA) },
-            uColorB: { value: new THREE.Color(def.colorB) },
+            uScale: { value: linkParam.scale },
+            uAlpha: { value: creationLinkParams.pointAlpha },
+            uColorA: { value: new THREE.Color(linkParam.colorAR, linkParam.colorAG, linkParam.colorAB) },
+            uColorB: { value: new THREE.Color(linkParam.colorBR, linkParam.colorBG, linkParam.colorBB) },
         },
         vertexShader: `
             uniform float uTime;
@@ -758,7 +760,7 @@ function createHopfPointMaterial(def) {
     });
 }
 
-function createHopfPoints(def) {
+function createHopfPoints(def, linkParam) {
     const pointCount = def.pointCount;
     const basePositions = new Float32Array(pointCount * 3);
     const initial4 = new Float32Array(pointCount * 4);
@@ -791,7 +793,7 @@ function createHopfPoints(def) {
     geometry.setAttribute('aSize', new THREE.BufferAttribute(sizes, 1));
     geometry.setAttribute('aPhase', new THREE.BufferAttribute(phases, 1));
 
-    const material = createHopfPointMaterial(def);
+    const material = createHopfPointMaterial(linkParam);
     const points = new THREE.Points(geometry, material);
     points.renderOrder = 40;
 
@@ -810,37 +812,38 @@ function createLinkShell(def) {
 
     const edges = new THREE.EdgesGeometry(geometry, 20);
     const material = new THREE.LineBasicMaterial({
-        color: def.colorB,
+        color: 0xffffff,
         transparent: true,
-        opacity: 0.28,
+        opacity: creationLinkParams.shellOpacityBase,
     });
     const line = new THREE.LineSegments(edges, material);
     line.renderOrder = 39;
     return line;
 }
 
-function createLinkHalo(def) {
-    const glowTexture = createGlowTexture(def.colorB);
+function createLinkHalo(linkParam) {
+    const color = new THREE.Color(linkParam.colorBR, linkParam.colorBG, linkParam.colorBB);
+    const glowTexture = createGlowTexture(color.getHex());
     if (!glowTexture) return null;
 
     const glowMaterial = new THREE.SpriteMaterial({
         map: glowTexture,
         transparent: true,
-        opacity: 0.34,
-        color: def.colorB,
+        opacity: creationLinkParams.haloOpacityBase,
+        color,
         blending: THREE.AdditiveBlending,
         depthWrite: false,
     });
 
     const glow = new THREE.Sprite(glowMaterial);
-    glow.scale.setScalar(def.glowScale);
+    glow.scale.setScalar(linkParam.glowScale);
     glow.renderOrder = 38;
     return glow;
 }
 
-function createCreationHitProxy(def) {
+function createCreationHitProxy() {
     return new THREE.Mesh(
-        new THREE.IcosahedronGeometry(def.hitRadius, 1),
+        new THREE.IcosahedronGeometry(1, 1),
         new THREE.MeshBasicMaterial({
             color: 0xffffff,
             transparent: true,
@@ -855,21 +858,22 @@ function createCreationLinks() {
 
     const group = new THREE.Group();
     CREATION_LINK_DEFS.forEach((def, index) => {
+        const linkParam = getCreationLinkParam(def.id);
         const node = new THREE.Group();
-        node.position.copy(def.position);
-        node.userData.basePosition = def.position.clone();
-        node.userData.phase = def.phase;
+        node.position.set(linkParam.posX, linkParam.posY, linkParam.posZ);
+        node.userData.phaseOffset = index * 0.37;
 
-        const { points, material } = createHopfPoints(def);
+        const { points, material } = createHopfPoints(def, linkParam);
         node.add(points);
 
         const shell = createLinkShell(def);
         node.add(shell);
 
-        const halo = createLinkHalo(def);
+        const halo = createLinkHalo(linkParam);
         if (halo) node.add(halo);
 
-        const proxy = createCreationHitProxy(def);
+        const proxy = createCreationHitProxy();
+        proxy.scale.setScalar(linkParam.hitRadius);
         proxy.userData.isCreationLinkTarget = true;
         proxy.userData.draftUrl = def.draftUrl;
         proxy.userData.sourceUrl = def.sourceUrl;
@@ -880,6 +884,7 @@ function createCreationLinks() {
 
         group.add(node);
         _creationLinkTargets.push({
+            id: def.id,
             group: node,
             material,
             shell,
@@ -887,6 +892,8 @@ function createCreationLinks() {
             mesh: proxy,
             hoverValue: 0,
             phaseOffset: index * 0.37,
+            colorA: new THREE.Color(linkParam.colorAR, linkParam.colorAG, linkParam.colorAB),
+            colorB: new THREE.Color(linkParam.colorBR, linkParam.colorBG, linkParam.colorBB),
         });
     });
 
@@ -1019,29 +1026,74 @@ export function updateScene(time) {
     }
 
     if (_creationLinkTargets.length > 0) {
+        const pulseSpeed = clamp(creationLinkParams.pulseSpeed, 0.01, 6.0);
+        const floatAmp = clamp(creationLinkParams.floatAmp, 0.0, 2.5);
+        const floatOffset = clamp(creationLinkParams.floatOffset, -2.0, 2.0);
+        const yawSpeed = clamp(creationLinkParams.yawSpeed, 0.0, 3.0);
+        const tiltSpeed = clamp(creationLinkParams.tiltSpeed, 0.0, 4.0);
+        const tiltAmp = clamp(creationLinkParams.tiltAmp, 0.0, 1.2);
+        const baseScaleMul = clamp(creationLinkParams.baseScaleMul, 0.05, 3.0);
+        const pulseScaleAmp = clamp(creationLinkParams.pulseScaleAmp, 0.0, 1.0);
+        const hoverScaleBoost = clamp(creationLinkParams.hoverScaleBoost, 0.0, 1.0);
+        const hoverLerp = clamp(creationLinkParams.hoverLerp, 0.01, 1.0);
+        const pointAlpha = clamp01(creationLinkParams.pointAlpha);
+        const shellOpacityBase = clamp01(creationLinkParams.shellOpacityBase);
+        const shellOpacityPulse = clamp(creationLinkParams.shellOpacityPulse, 0.0, 1.0);
+        const shellOpacityHover = clamp(creationLinkParams.shellOpacityHover, 0.0, 1.0);
+        const shellSpinSpeed = clamp(creationLinkParams.shellSpinSpeed, 0.0, 3.0);
+        const haloScalePulse = clamp(creationLinkParams.haloScalePulse, 0.0, 6.0);
+        const haloScaleHover = clamp(creationLinkParams.haloScaleHover, 0.0, 4.0);
+        const haloOpacityBase = clamp01(creationLinkParams.haloOpacityBase);
+        const haloOpacityPulse = clamp(creationLinkParams.haloOpacityPulse, 0.0, 1.0);
+        const haloOpacityHover = clamp(creationLinkParams.haloOpacityHover, 0.0, 1.0);
+
         _creationLinkTargets.forEach((target) => {
-            const pulse = Math.sin(time * 1.2 + target.group.userData.phase + target.phaseOffset);
+            const linkParam = getCreationLinkParam(target.id);
+            const pulse = Math.sin(time * pulseSpeed + linkParam.phase + target.phaseOffset);
             const pulse01 = pulse * 0.5 + 0.5;
             const hoverTarget = target.mesh.userData.isHovered ? 1.0 : 0.0;
-            target.hoverValue = lerp(target.hoverValue, hoverTarget, 0.14);
+            target.hoverValue = lerp(target.hoverValue, hoverTarget, hoverLerp);
+
+            target.colorA.setRGB(linkParam.colorAR, linkParam.colorAG, linkParam.colorAB);
+            target.colorB.setRGB(linkParam.colorBR, linkParam.colorBG, linkParam.colorBB);
 
             target.material.uniforms.uTime.value = time + target.phaseOffset;
             target.material.uniforms.uHover.value = target.hoverValue;
+            target.material.uniforms.uScale.value = Math.max(0.05, linkParam.scale);
+            target.material.uniforms.uAlpha.value = pointAlpha;
+            target.material.uniforms.uColorA.value.copy(target.colorA);
+            target.material.uniforms.uColorB.value.copy(target.colorB);
 
-            target.group.position.copy(target.group.userData.basePosition);
-            target.group.position.y += (pulse - 0.1) * 0.32;
-            target.group.rotation.y = time * 0.24 + target.phaseOffset;
-            target.group.rotation.x = Math.sin(time * 0.38 + target.phaseOffset) * 0.14;
+            target.group.position.set(
+                linkParam.posX,
+                linkParam.posY + (pulse + floatOffset) * floatAmp,
+                linkParam.posZ
+            );
+            target.group.rotation.y = time * yawSpeed + target.phaseOffset;
+            target.group.rotation.x = Math.sin(time * tiltSpeed + target.phaseOffset) * tiltAmp;
 
-            const scale = 1.0 + pulse01 * 0.03 + target.hoverValue * 0.08;
+            const scale = baseScaleMul + pulse01 * pulseScaleAmp + target.hoverValue * hoverScaleBoost;
             target.group.scale.setScalar(scale);
 
-            target.shell.material.opacity = clamp(0.2 + pulse01 * 0.18 + target.hoverValue * 0.22, 0.0, 0.95);
-            target.shell.rotation.z = time * 0.42 + target.phaseOffset * 1.8;
+            target.shell.material.color.copy(target.colorB);
+            target.shell.material.opacity = clamp(
+                shellOpacityBase + pulse01 * shellOpacityPulse + target.hoverValue * shellOpacityHover,
+                0.0,
+                0.98
+            );
+            target.shell.rotation.z = time * shellSpinSpeed + target.phaseOffset * 1.8;
+            target.mesh.scale.setScalar(Math.max(0.1, linkParam.hitRadius));
 
             if (target.halo) {
-                target.halo.scale.setScalar(3.8 + pulse01 * 1.7 + target.hoverValue * 0.9);
-                target.halo.material.opacity = clamp(0.16 + pulse01 * 0.22 + target.hoverValue * 0.2, 0.0, 0.95);
+                target.halo.material.color.copy(target.colorB);
+                target.halo.scale.setScalar(
+                    Math.max(0.1, linkParam.glowScale + pulse01 * haloScalePulse + target.hoverValue * haloScaleHover)
+                );
+                target.halo.material.opacity = clamp(
+                    haloOpacityBase + pulse01 * haloOpacityPulse + target.hoverValue * haloOpacityHover,
+                    0.0,
+                    0.98
+                );
             }
         });
     }
