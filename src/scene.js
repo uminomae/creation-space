@@ -681,6 +681,7 @@ function createHopfPointMaterial(linkParam) {
             uPointerBurstStrength: { value: creationLinkParams.pointerBurstStrength },
             uPointerBurstSpread: { value: creationLinkParams.pointerBurstSpread },
             uColorContrast: { value: creationLinkParams.colorContrast },
+            uCameraProximity: { value: 0.0 },
             uColorA: { value: new THREE.Color(linkParam.colorAR, linkParam.colorAG, linkParam.colorAB) },
             uColorB: { value: new THREE.Color(linkParam.colorBR, linkParam.colorBG, linkParam.colorBB) },
         },
@@ -698,6 +699,7 @@ function createHopfPointMaterial(linkParam) {
             uniform float uPointerBurstStrength;
             uniform float uPointerBurstSpread;
             uniform float uColorContrast;
+            uniform float uCameraProximity;
             uniform vec3 uColorA;
             uniform vec3 uColorB;
 
@@ -769,7 +771,9 @@ function createHopfPointMaterial(linkParam) {
                 p3 = normalize(p3 + vec3(0.0001)) * min(max(0.08, uSphereFill), length(p3));
                 p3 *= uScale;
 
-                float hoverBurst = clamp(uHover * uPointerBurstStrength, 0.0, 1.0);
+                float cameraBurst = pow(clamp(uCameraProximity, 0.0, 1.0), 1.35);
+                float burstDrive = max(uHover, cameraBurst);
+                float hoverBurst = clamp(burstDrive * uPointerBurstStrength, 0.0, 1.0);
                 float burstMask = smoothstep(0.45, 1.0, (p4.w + 1.0) * 0.5);
                 float stereoDen = max(0.012, 1.0 - p4.w);
                 vec3 stereo = p4.xyz / stereoDen;
@@ -1100,7 +1104,7 @@ export function updateScene(time) {
 
             target.material.uniforms.uTime.value = time + target.phaseOffset;
             target.material.uniforms.uHover.value = target.hoverValue;
-            target.material.uniforms.uScale.value = Math.max(0.05, linkParam.scale);
+            target.material.uniforms.uScale.value = clamp(linkParam.scale, 0.05, 15.0);
             target.material.uniforms.uAlpha.value = pointAlpha;
             target.material.uniforms.uVortexSpeed.value = vortexSpeed;
             target.material.uniforms.uSwirlStrength.value = swirlStrength;
@@ -1112,6 +1116,15 @@ export function updateScene(time) {
             target.material.uniforms.uPointerBurstStrength.value = pointerBurstStrength;
             target.material.uniforms.uPointerBurstSpread.value = pointerBurstSpread;
             target.material.uniforms.uColorContrast.value = colorContrast;
+            if (_camera) {
+                const distance = _camera.position.distanceTo(target.group.position);
+                const near = 8.0;
+                const far = 30.0;
+                const proximity = clamp01(1.0 - (distance - near) / (far - near));
+                target.material.uniforms.uCameraProximity.value = proximity;
+            } else {
+                target.material.uniforms.uCameraProximity.value = 0.0;
+            }
             target.material.uniforms.uColorA.value.copy(target.colorA);
             target.material.uniforms.uColorB.value.copy(target.colorB);
 
