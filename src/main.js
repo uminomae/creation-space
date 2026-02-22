@@ -25,8 +25,8 @@ import {
 import { detectLang } from './i18n.js';
 
 const DEV_MODE = new URLSearchParams(window.location.search).has('dev');
-let devStatsBegin = () => {};
-let devStatsEnd = () => {};
+let devStatsBegin = () => { };
+let devStatsEnd = () => { };
 
 const STRINGS = {
     ja: {
@@ -76,7 +76,7 @@ const STRINGS = {
 function applyCreationPreset() {
     Object.assign(toggles, {
         background: true,
-        field: false,
+        field: true,
         flowObjects: true,
         fog: true,
         fovBreath: true,
@@ -84,7 +84,7 @@ function applyCreationPreset() {
         autoRotate: false,
         postProcess: true,
         fluidField: true,
-        liquid: true,
+        liquid: false,
         heatHaze: false,
         dof: true,
         quantumWave: false,

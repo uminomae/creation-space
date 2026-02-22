@@ -39,36 +39,20 @@ const _bgCenterB = new THREE.Color();
 const _bgEdgeA = new THREE.Color();
 const _bgEdgeB = new THREE.Color();
 
-const FLOW_X_MIN = -46.0;
-const FLOW_X_MAX = 46.0;
-const FLOW_FULL_HALF_Y = 20.0;
-const FLOW_FULL_HALF_Z = 11.5;
+const FLOW_X_MIN = -30.0;
+const FLOW_X_MAX = 30.0;
+const FLOW_FULL_HALF_Y = 15.0;
+const FLOW_FULL_HALF_Z = 9.0;
 const FLOW_LEFT_END = 0.42;
 const FLOW_CENTER_END = 0.64;
 const CREATION_LINK_DEFS = [
     {
         id: 1,
-        label: 'Creation Notes I',
+        label: 'Creation Field',
         draftUrl: 'https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/pdf/kesson-general-draft.md',
         sourceUrl: 'https://uminomae.github.io/pjdhiro/assets/pdf/kesson-general.pdf',
         shape: 'crystal',
-        pointCount: 1800,
-    },
-    {
-        id: 2,
-        label: 'Creation Notes II',
-        draftUrl: 'https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/pdf/kesson-designer-draft.md',
-        sourceUrl: 'https://uminomae.github.io/pjdhiro/assets/pdf/kesson-designer.pdf',
-        shape: 'ring',
-        pointCount: 2100,
-    },
-    {
-        id: 3,
-        label: 'Creation Notes III',
-        draftUrl: 'https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/pdf/kesson-academic-draft.md',
-        sourceUrl: 'https://uminomae.github.io/pjdhiro/assets/pdf/kesson-academic.pdf',
-        shape: 'frame',
-        pointCount: 1700,
+        pointCount: 3200,
     },
 ];
 
@@ -184,7 +168,7 @@ function createFieldMesh() {
 
     const mesh = new THREE.Mesh(new THREE.PlaneGeometry(120, 120, 1, 1), _fieldMaterial);
     mesh.rotation.x = -Math.PI / 2;
-    mesh.position.set(0, -14, 0);
+    mesh.position.set(0, -8, 0);
     return mesh;
 }
 
@@ -363,6 +347,11 @@ function updateSeedParticles(time, dtScale) {
     const drift = flowParams.seedDrift;
     const tight = flowParams.bundleTightness;
 
+    // Hopf object position for gravitational attraction (single center)
+    const hopfX = creationLinkParams.link1PosX;
+    const hopfY = creationLinkParams.link1PosY;
+    const hopfZ = creationLinkParams.link1PosZ;
+
     for (let i = 0; i < _seedSystem.count; i++) {
         const p3 = i * 3;
         let x = _seedSystem.positions[p3 + 0];
@@ -381,7 +370,7 @@ function updateSeedParticles(time, dtScale) {
             vy += (-y) * lerp(0.008, 0.026, t) * dtScale;
             vy += randRange(-0.003, 0.003) * dtScale * chaos;
             vz += (-z) * 0.01 * dtScale + randRange(-0.002, 0.002) * dtScale;
-        // Middle: keep chaos but confine to center band.
+            // Middle: keep chaos but confine to center band.
         } else if (progress < FLOW_CENTER_END) {
             const centerX = 0.0;
             const centerY = 0.0;
@@ -397,7 +386,7 @@ function updateSeedParticles(time, dtScale) {
             vx += (swirlX + toCenterX + randRange(-0.0025, 0.0025)) * dtScale;
             vy += (swirlY + bandSpring + randRange(-0.003, 0.003)) * dtScale;
             vz += (-z * 0.014 + randRange(-0.002, 0.002)) * dtScale;
-        // Right: from center-band density to full-height spread.
+            // Right: from center-band density to full-height spread.
         } else {
             const spread = smoothstep(FLOW_CENTER_END, 1.0, progress);
             const targetY = _seedSystem.lanes[i] * lerp(centerBandRatio, 1.0, spread);
@@ -405,6 +394,20 @@ function updateSeedParticles(time, dtScale) {
             vx += (0.13 * drift - vx) * 0.065 * dtScale;
             vy += (targetY - y) * 0.022 * dtScale * tight;
             vz += (targetZ - z) * 0.019 * dtScale;
+        }
+
+        // Gravitational attraction toward central Hopf object
+        {
+            const gdx = hopfX - x;
+            const gdy = hopfY - y;
+            const gdz = hopfZ - z;
+            const distSq = gdx * gdx + gdy * gdy + gdz * gdz;
+            if (distSq < 200.0 && distSq > 1.0) {
+                const strength = 0.04 / (distSq + 4.0);
+                vx += gdx * strength * dtScale;
+                vy += gdy * strength * dtScale;
+                vz += gdz * strength * dtScale;
+            }
         }
 
         const damping = Math.pow(0.986, dtScale);
