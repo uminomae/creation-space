@@ -14,6 +14,7 @@ export const toggles = {
     heatHaze: false,
     dof: true,
     quantumWave: false,
+    showSwirl: true,
 };
 
 export const breathConfig = {
@@ -67,12 +68,23 @@ export const fieldParams = {
 };
 
 export const flowParams = {
-    seedOpacity: 0.93,
-    filamentOpacity: 0.83,
-    seedDrift: 1.35,
-    chaos: 2.39,
-    bundleTightness: 0.57,
-    centerBandRatio: 0.225,
+    seedOpacity: 0.65,
+    filamentOpacity: 0.5,
+    seedDrift: 1.25,
+    chaos: 1.8,
+    bundleTightness: 0.25,
+    centerBandRatio: 0.25, // For forcing the tight center pinch
+    centerThickness: 0.5,
+};
+
+export const swirlParams = {
+    opacity: 0.35,
+    chaos: 3.5, // Extreme chaos for swarm
+    speed: 0.20,
+    radius: 12.0, // Tight central cluster
+    heightRatio: 1.0, // Full sphere, no squeezing
+    colorA: new THREE.Color(0.20, 0.45, 0.8),
+    colorB: new THREE.Color(0.60, 0.80, 0.9),
 };
 
 export const creationLinkParams = {
