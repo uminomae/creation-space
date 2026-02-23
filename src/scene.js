@@ -39,8 +39,8 @@ const _bgCenterB = new THREE.Color();
 const _bgEdgeA = new THREE.Color();
 const _bgEdgeB = new THREE.Color();
 
-const FLOW_X_MIN = -30.0;
-const FLOW_X_MAX = 30.0;
+const FLOW_X_MIN = -150.0;
+const FLOW_X_MAX = 150.0;
 const FLOW_FULL_HALF_Y = 15.0;
 const FLOW_FULL_HALF_Z = 9.0;
 const FLOW_LEFT_END = 0.42;
@@ -199,7 +199,7 @@ function createFlowPointMaterial({ colorA, colorB }) {
                 float flicker = 0.72 + 0.28 * sin(uTime * 1.1 + aPhase * 6.2831853);
                 vTwinkle = flicker;
                 vTemp = aTemp;
-                gl_PointSize = aSize * (250.0 / max(-mvPosition.z, 0.001));
+                gl_PointSize = aSize * (400.0 / max(-mvPosition.z, 0.001)); // Increased size for probability clouds
                 gl_Position = projectionMatrix * mvPosition;
             }
         `,
@@ -215,9 +215,8 @@ function createFlowPointMaterial({ colorA, colorB }) {
                 float r = length(uv);
                 if (r > 1.0) discard;
 
-                float core = smoothstep(0.48, 0.0, r);
-                float halo = smoothstep(1.0, 0.0, r) * 0.44;
-                float lum = (core * 1.05 + halo) * vTwinkle;
+                // Probability cloud using Gaussian falloff
+                float lum = exp(-r * r * 4.5) * 1.25 * vTwinkle;
                 vec3 c = mix(uColorA, uColorB, vTemp) * lum;
                 float a = clamp(lum * uOpacity, 0.0, 1.0);
                 gl_FragColor = vec4(c, a);
@@ -234,14 +233,25 @@ function createFlowPointMaterial({ colorA, colorB }) {
 
 function resetSeedParticle(system, i) {
     const p3 = i * 3;
-    system.positions[p3 + 0] = randRange(FLOW_X_MIN * 1.03, -10.0);
-    system.positions[p3 + 1] = randRange(-FLOW_FULL_HALF_Y, FLOW_FULL_HALF_Y);
-    system.positions[p3 + 2] = randRange(-FLOW_FULL_HALF_Z, FLOW_FULL_HALF_Z);
+    const startX = randRange(FLOW_X_MIN, FLOW_X_MIN + 50.0); // Spawn deep in space
+    system.positions[p3 + 0] = startX;
 
-    system.velocities[p3 + 0] = randRange(-0.02, 0.04);
-    system.velocities[p3 + 1] = randRange(-0.02, 0.02);
-    system.velocities[p3 + 2] = randRange(-0.01, 0.01);
-    system.lanes[i] = randRange(-FLOW_FULL_HALF_Y, FLOW_FULL_HALF_Y);
+    const theta = system.thetas[i];
+    const rNorm = system.radiiNorm[i];
+
+    const absX = Math.abs(startX);
+    const scale = flowParams.centerThickness + Math.pow(absX / 35.0, 1.5) * 1.5;
+
+    const y = Math.sin(theta) * rNorm * FLOW_FULL_HALF_Y * scale;
+    const z = Math.cos(theta) * rNorm * FLOW_FULL_HALF_Z * scale;
+
+    system.positions[p3 + 1] = y + randRange(-5, 5);
+    system.positions[p3 + 2] = z + randRange(-5, 5);
+
+    // Blast forward (gravity handles acceleration, but start with high speed)
+    system.velocities[p3 + 0] = randRange(0.8, 2.0);
+    system.velocities[p3 + 1] = 0.0;
+    system.velocities[p3 + 2] = 0.0;
 }
 
 function createFlowObjects() {
@@ -254,12 +264,15 @@ function createFlowObjects() {
     const seedSizes = new Float32Array(seedCount);
     const seedPhases = new Float32Array(seedCount);
     const seedTemps = new Float32Array(seedCount);
-    const seedLanes = new Float32Array(seedCount);
+    const seedThetas = new Float32Array(seedCount);
+    const seedRadiiNorm = new Float32Array(seedCount);
 
     for (let i = 0; i < seedCount; i++) {
         seedSizes[i] = randRange(1.4, 3.2);
         seedPhases[i] = Math.random();
         seedTemps[i] = Math.pow(Math.random(), 0.8);
+        seedThetas[i] = Math.random() * Math.PI * 2.0;
+        seedRadiiNorm[i] = Math.pow(Math.random(), 0.5);
     }
 
     const seedGeometry = new THREE.BufferGeometry();
@@ -281,7 +294,8 @@ function createFlowObjects() {
         points: seedPoints,
         positions: seedPositions,
         velocities: seedVelocities,
-        lanes: seedLanes,
+        thetas: seedThetas,
+        radiiNorm: seedRadiiNorm,
         count: seedCount,
     };
 
@@ -295,16 +309,17 @@ function createFlowObjects() {
     const filamentSizes = new Float32Array(filamentCount);
     const filamentPhases = new Float32Array(filamentCount);
     const filamentTemps = new Float32Array(filamentCount);
-    const filamentLanes = new Float32Array(filamentCount);
+    const filamentThetas = new Float32Array(filamentCount);
+    const filamentRadii = new Float32Array(filamentCount);
     const filamentSpeeds = new Float32Array(filamentCount);
     const filamentWobbles = new Float32Array(filamentCount);
-    const laneCount = 23;
 
     for (let i = 0; i < filamentCount; i++) {
-        filamentSizes[i] = randRange(1.7, 3.9);
+        filamentSizes[i] = randRange(1.7, 4.5);
         filamentPhases[i] = Math.random();
         filamentTemps[i] = Math.random();
-        filamentLanes[i] = Math.floor(Math.random() * laneCount);
+        filamentThetas[i] = Math.random() * Math.PI * 2.0;
+        filamentRadii[i] = Math.pow(Math.random(), 0.7); // Bias slightly towards center
         filamentSpeeds[i] = randRange(0.09, 0.17);
         filamentWobbles[i] = randRange(0.75, 1.25);
     }
@@ -327,11 +342,11 @@ function createFlowObjects() {
     _filamentSystem = {
         points: filamentPoints,
         positions: filamentPositions,
-        lanes: filamentLanes,
+        thetas: filamentThetas,
+        radiiNorm: filamentRadii,
         phases: filamentPhases,
         speeds: filamentSpeeds,
         wobbles: filamentWobbles,
-        laneCount,
         count: filamentCount,
     };
 
@@ -341,13 +356,11 @@ function createFlowObjects() {
 function updateSeedParticles(time, dtScale) {
     if (!_seedSystem) return;
 
-    const centerBandRatio = clamp(flowParams.centerBandRatio, 0.2, 0.8);
-    const centerBandHalf = FLOW_FULL_HALF_Y * centerBandRatio;
     const chaos = flowParams.chaos;
     const drift = flowParams.seedDrift;
     const tight = flowParams.bundleTightness;
 
-    // Hopf object position for gravitational attraction (single center)
+    // Hopf position
     const hopfX = creationLinkParams.link1PosX;
     const hopfY = creationLinkParams.link1PosY;
     const hopfZ = creationLinkParams.link1PosZ;
@@ -361,56 +374,45 @@ function updateSeedParticles(time, dtScale) {
         let vy = _seedSystem.velocities[p3 + 1];
         let vz = _seedSystem.velocities[p3 + 2];
 
-        const progress = clamp01((x - FLOW_X_MIN) / (FLOW_X_MAX - FLOW_X_MIN));
+        const theta = _seedSystem.thetas[i];
+        const rNorm = _seedSystem.radiiNorm[i];
 
-        // Left: full-height random field converging toward center.
-        if (progress < FLOW_LEFT_END) {
-            const t = progress / FLOW_LEFT_END;
-            vx += (0.112 * drift - vx) * 0.052 * dtScale;
-            vy += (-y) * lerp(0.008, 0.026, t) * dtScale;
-            vy += randRange(-0.003, 0.003) * dtScale * chaos;
-            vz += (-z) * 0.01 * dtScale + randRange(-0.002, 0.002) * dtScale;
-            // Middle: keep chaos but confine to center band.
-        } else if (progress < FLOW_CENTER_END) {
-            const centerX = 0.0;
-            const centerY = 0.0;
-            const dx = x - centerX;
-            const dy = y - centerY;
-            const inv = 1.0 / (dx * dx + dy * dy + 2.6);
-            const swirlX = -dy * inv * 0.12 * chaos;
-            const swirlY = dx * inv * 0.12 * chaos;
-            const toCenterX = (centerX - x) * 0.006 * chaos;
-            const overflow = Math.max(0.0, Math.abs(y) - centerBandHalf);
-            const bandSpring = -Math.sign(y || 1) * overflow * 0.045;
+        // The exact hourglass exponent logic based on absolute distance to the pinch center
+        const absX = Math.abs(x - hopfX);
 
-            vx += (swirlX + toCenterX + randRange(-0.0025, 0.0025)) * dtScale;
-            vy += (swirlY + bandSpring + randRange(-0.003, 0.003)) * dtScale;
-            vz += (-z * 0.014 + randRange(-0.002, 0.002)) * dtScale;
-            // Right: from center-band density to full-height spread.
+        // Use centerThickness to define how thick the 'pinch' should be
+        const scale = flowParams.centerThickness + Math.pow(absX / 35.0, 1.5) * 1.5;
+
+        const targetY = hopfY + Math.sin(theta) * rNorm * FLOW_FULL_HALF_Y * scale;
+        const targetZ = hopfZ + Math.cos(theta) * rNorm * FLOW_FULL_HALF_Z * scale;
+
+        // Central pinch force calculation
+        const pullStrength = 0.005 + 4.0 / (absX + 5.0);
+
+        // Smoothing the right side (flowing out like water) by strengthening alignment to the target positions
+        const stabilize = (x > hopfX) ? 2.5 : 1.0;
+
+        vy += (targetY - y) * pullStrength * dtScale * tight * stabilize;
+        vz += (targetZ - z) * pullStrength * dtScale * tight * stabilize;
+
+        // Accelerate X as it gets closer to center (gravity slingshot), constant drift when far
+        const xAccel = 0.04 + 10.0 / (absX + 10.0);
+        vx += (xAccel * drift - vx) * 0.1 * dtScale;
+
+        // Add extreme chaos only on the left and center. Fade out rapidly on the right for water-like flow.
+        let pinchChaos = 0.0;
+        if (x < hopfX) {
+            pinchChaos = chaos * Math.max(0.0, 1.0 - absX / 30.0);
         } else {
-            const spread = smoothstep(FLOW_CENTER_END, 1.0, progress);
-            const targetY = _seedSystem.lanes[i] * lerp(centerBandRatio, 1.0, spread);
-            const targetZ = Math.sin(time * 1.0 + i * 0.13) * FLOW_FULL_HALF_Z * (0.08 + spread * 0.22);
-            vx += (0.13 * drift - vx) * 0.065 * dtScale;
-            vy += (targetY - y) * 0.022 * dtScale * tight;
-            vz += (targetZ - z) * 0.019 * dtScale;
+            pinchChaos = chaos * Math.max(0.0, 1.0 - absX / 8.0); // Smooths out fast!
         }
 
-        // Gravitational attraction toward central Hopf object
-        {
-            const gdx = hopfX - x;
-            const gdy = hopfY - y;
-            const gdz = hopfZ - z;
-            const distSq = gdx * gdx + gdy * gdy + gdz * gdz;
-            if (distSq < 200.0 && distSq > 1.0) {
-                const strength = 0.04 / (distSq + 4.0);
-                vx += gdx * strength * dtScale;
-                vy += gdy * strength * dtScale;
-                vz += gdz * strength * dtScale;
-            }
+        if (pinchChaos > 0.001) {
+            vy += randRange(-0.04, 0.04) * pinchChaos * dtScale;
+            vz += randRange(-0.04, 0.04) * pinchChaos * dtScale;
         }
 
-        const damping = Math.pow(0.986, dtScale);
+        const damping = Math.pow(0.92, dtScale); // High friction to prevent physics explosion
         vx *= damping;
         vy *= damping;
         vz *= damping;
@@ -419,11 +421,8 @@ function updateSeedParticles(time, dtScale) {
         y += vy * dtScale;
         z += vz * dtScale;
 
-        if (
-            x > FLOW_X_MAX * 1.06 ||
-            Math.abs(y) > FLOW_FULL_HALF_Y * 1.28 ||
-            Math.abs(z) > FLOW_FULL_HALF_Z * 1.35
-        ) {
+        // Reset if they pass the Right edge
+        if (x > FLOW_X_MAX) {
             resetSeedParticle(_seedSystem, i);
             continue;
         }
@@ -442,36 +441,38 @@ function updateSeedParticles(time, dtScale) {
 function updateFilamentParticles(time) {
     if (!_filamentSystem) return;
 
-    const centerBandRatio = clamp(flowParams.centerBandRatio, 0.2, 0.8);
-    const centerLane = (_filamentSystem.laneCount - 1) * 0.5;
-    const tight = flowParams.bundleTightness;
+    const hopfX = creationLinkParams.link1PosX;
+    const hopfY = creationLinkParams.link1PosY;
+    const hopfZ = creationLinkParams.link1PosZ;
 
     for (let i = 0; i < _filamentSystem.count; i++) {
         const p3 = i * 3;
-        const lane = _filamentSystem.lanes[i];
+        const thetaBase = _filamentSystem.thetas[i];
+        const rNorm = _filamentSystem.radiiNorm[i];
         const phase = _filamentSystem.phases[i];
         const speed = _filamentSystem.speeds[i];
         const wobble = _filamentSystem.wobbles[i];
-        const t = (phase + time * speed) % 1.0;
 
-        const laneNorm = (lane - centerLane) / Math.max(centerLane, 1.0);
-        const fullY = laneNorm * FLOW_FULL_HALF_Y;
-        const fullZ = Math.sin(laneNorm * 2.4 + i * 0.01) * FLOW_FULL_HALF_Z * 0.32;
-        let x = lerp(FLOW_X_MIN, FLOW_X_MAX, t);
+        // Sweeping from -MAX to +MAX continuously
+        const progress = (phase + time * speed * flowParams.seedDrift * 0.1) % 1.0;
+        let x = lerp(FLOW_X_MIN, FLOW_X_MAX, progress);
 
-        // Left->Center: compress to center band, then keep dense, then spread to full on right.
-        const leftToCenter = smoothstep(0.0, FLOW_LEFT_END, t);
-        const rightSpread = smoothstep(FLOW_CENTER_END, 1.0, t);
-        let bandScale = lerp(1.0, centerBandRatio, leftToCenter);
-        bandScale = lerp(bandScale, 1.0, rightSpread);
+        // Exponential spatial spread algorithm
+        const absX = Math.abs(x - hopfX);
+        const scale = flowParams.centerThickness + Math.pow(absX / 35.0, 1.5) * 1.5;
 
-        const jitterScale = lerp(1.0, centerBandRatio, leftToCenter);
-        const twist = Math.sin(t * 11.0 - time * 2.2 + lane * 0.75) * 0.55 * wobble * jitterScale;
-        const ripple = Math.sin(t * 20.0 + time * 1.6 + i * 0.02) * 0.14 * jitterScale;
-        const spreadNoise = Math.sin(time * 1.25 + i * 0.09) * FLOW_FULL_HALF_Y * 0.05 * rightSpread * (1.0 - tight * 0.4);
+        // Apply chaotic twisting while passing through center. Water-like smoothness on the right.
+        let wobbleMult = 0.0;
+        if (x < hopfX) {
+            wobbleMult = (absX < 40.0) ? (1.0 - absX / 40.0) : 0.0;
+        } else {
+            wobbleMult = (absX < 10.0) ? (1.0 - absX / 10.0) : 0.0; // Rapidly removes twist
+        }
+        const twistWobble = Math.sin(time * 3.5 + i) * wobble * flowParams.chaos * wobbleMult;
+        const theta = thetaBase + twistWobble;
 
-        let y = fullY * bandScale + twist + ripple + spreadNoise;
-        let z = fullZ * bandScale + Math.cos(t * 12.0 - time * 1.8 + lane * 0.42) * 0.65 * wobble * jitterScale;
+        let y = hopfY + Math.sin(theta) * rNorm * FLOW_FULL_HALF_Y * scale;
+        let z = hopfZ + Math.cos(theta) * rNorm * FLOW_FULL_HALF_Z * scale;
 
         _filamentSystem.positions[p3 + 0] = x;
         _filamentSystem.positions[p3 + 1] = y;
@@ -490,15 +491,153 @@ function updateFlowObjects(time) {
 
     updateSeedParticles(time, dtScale);
     updateFilamentParticles(time);
+    if (toggles.showSwirl) {
+        updateSwirlObjects(time);
+    }
 
     _flowMaterials.forEach((mat) => {
         mat.uniforms.uTime.value = time;
         if (mat.userData.kind === 'seed') {
             mat.uniforms.uOpacity.value = flowParams.seedOpacity;
+        } else if (mat.userData.kind === 'swirl') {
+            mat.uniforms.uOpacity.value = swirlParams.opacity;
+            mat.uniforms.uColorA.value.copy(swirlParams.colorA);
+            mat.uniforms.uColorB.value.copy(swirlParams.colorB);
         } else {
             mat.uniforms.uOpacity.value = flowParams.filamentOpacity;
         }
     });
+}
+
+// ========================
+// SWIRL SYSTEM
+// ========================
+let _swirlSystem;
+
+function createSwirlObjects() {
+    const group = new THREE.Group();
+
+    // Drastically increase particle count so it stays dense when expanded
+    const count = 4000;
+    const positions = new Float32Array(count * 3);
+    const sizes = new Float32Array(count);
+    const phases = new Float32Array(count);
+    const temps = new Float32Array(count);
+    const radii = new Float32Array(count);
+    const thetas = new Float32Array(count);
+    const phis = new Float32Array(count);
+
+    for (let i = 0; i < count; i++) {
+        // We will no longer strictly bind them to a sphere, but rather a dynamic coordinate system mapping
+        // r here acts as a base distance multiplier for the chaos function
+        const r = Math.pow(Math.random(), 0.5) * swirlParams.radius;
+        const theta = Math.random() * Math.PI * 2.0;
+        const phi = Math.acos((Math.random() * 2.0) - 1.0);
+
+        positions[i * 3 + 0] = r * Math.sin(phi) * Math.cos(theta); // Initial dummy placement
+        positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+        positions[i * 3 + 2] = r * Math.cos(phi);
+
+        // Substantially larger base sizes so they look like big fuzzy probability clouds
+        sizes[i] = randRange(4.0, 15.0);
+        phases[i] = Math.random();
+        temps[i] = Math.pow(Math.random(), 0.8);
+
+        radii[i] = r;
+        thetas[i] = theta;
+        phis[i] = phi;
+    }
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('aSize', new THREE.BufferAttribute(sizes, 1));
+    geometry.setAttribute('aPhase', new THREE.BufferAttribute(phases, 1));
+    geometry.setAttribute('aTemp', new THREE.BufferAttribute(temps, 1));
+
+    const material = createFlowPointMaterial({
+        colorA: swirlParams.colorA,
+        colorB: swirlParams.colorB,
+    });
+    material.userData.kind = 'swirl';
+
+    const points = new THREE.Points(geometry, material);
+    group.add(points);
+
+    _swirlSystem = {
+        points,
+        positions,
+        radii,
+        thetas,
+        phis,
+        count,
+    };
+
+    return group;
+}
+
+function updateSwirlObjects(time) {
+    if (!_swirlSystem || !toggles.showSwirl) {
+        if (_swirlSystem) _swirlSystem.points.visible = false;
+        return;
+    }
+    _swirlSystem.points.visible = true;
+
+    const speed = swirlParams.speed;
+    const chaos = swirlParams.chaos;
+
+    // Hopf position for anchoring the swarm
+    const hopfX = creationLinkParams.link1PosX;
+    const hopfY = creationLinkParams.link1PosY;
+    const hopfZ = creationLinkParams.link1PosZ;
+
+    for (let i = 0; i < _swirlSystem.count; i++) {
+        const p3 = i * 3;
+        const rBase = _swirlSystem.radii[i];
+        const thetaBase = _swirlSystem.thetas[i];
+        const phiBase = _swirlSystem.phis[i];
+
+        // Chaotic random radius that pulses and throbs unpredictably
+        // Breaking the pure sphere into a noisy, bubbling volume
+        const phaseShift = i * 1.37;
+        const sizePulse = 0.5 + 1.5 * Math.pow(Math.sin(time * 2.2 + phaseShift), 2.0);
+        const dynamicR = rBase * sizePulse;
+
+        const erraticSpeed = speed * (1.5 + (swirlParams.radius - rBase) / swirlParams.radius * 3.0);
+
+        // Buzzing flies random offset
+        const wobbleX = Math.sin(time * 3.1 + i * 2.1) * chaos;
+        const wobbleY = Math.cos(time * 2.7 + i * 1.8) * chaos;
+        const wobbleZ = Math.sin(time * 3.5 + i * 2.5) * chaos;
+
+        // Extremely chaotic orbits, frequently changing direction or shaking
+        const thetaShake = Math.sin(time * 4.0 + i) * chaos * 0.15;
+        const theta = thetaBase + (time * erraticSpeed) * (i % 2 === 0 ? 1 : -1) + thetaShake;
+
+        const phiShake = Math.cos(time * 3.2 + i * 1.5) * chaos * 0.15;
+        const phi = phiBase + Math.sin(time * 0.8 + i) * 0.7 + phiShake;
+
+        // Base relative position (X axis offset inside the swarm)
+        const dx = dynamicR * Math.sin(phi) * Math.cos(theta);
+
+        // Shape transformation: wide on the left (dx < 0), narrow on the right (dx > 0)
+        let coneScale = 1.0;
+        if (dx < 0.0) {
+            // Expand strongly towards the left
+            coneScale = 1.0 + Math.abs(dx) / (swirlParams.radius * 0.35); // Big flare
+        } else {
+            // Squeeze tightly towards the right
+            coneScale = 1.0 / (1.0 + (dx * 1.5) / swirlParams.radius); // Taper
+        }
+
+        const dy = dynamicR * Math.sin(phi) * Math.sin(theta) * coneScale * swirlParams.heightRatio;
+        const dz = dynamicR * Math.cos(phi) * coneScale;
+
+        _swirlSystem.positions[p3 + 0] = hopfX + dx + wobbleX;
+        _swirlSystem.positions[p3 + 1] = hopfY + dy + wobbleY;
+        _swirlSystem.positions[p3 + 2] = hopfZ + dz + wobbleZ;
+    }
+
+    _swirlSystem.points.geometry.attributes.position.needsUpdate = true;
 }
 
 function createStarMaterial() {
@@ -538,22 +677,16 @@ function createStarMaterial() {
                 float r = length(uv);
                 if (r > 1.0) discard;
 
-                float core = smoothstep(0.38, 0.0, r);
-                float halo = smoothstep(1.0, 0.0, r) * 0.42;
-                float spikeX = smoothstep(0.08, 0.0, abs(uv.x)) * smoothstep(0.92, 0.0, abs(uv.y));
-                float spikeY = smoothstep(0.08, 0.0, abs(uv.y)) * smoothstep(0.92, 0.0, abs(uv.x));
-                float spikes = (spikeX + spikeY) * 0.35;
-
-                float luminance = core * 1.15 + halo + spikes;
-                luminance *= vTwinkle;
+                // Probability cloud using Gaussian falloff
+                float lum = exp(-r * r * 5.0) * 1.5 * vTwinkle;
 
                 vec3 cold = vec3(0.60, 0.76, 1.00);
                 vec3 warm = vec3(0.84, 0.88, 0.93);
                 // Warm side is intentionally muted to keep sea/cosmos ambiguity.
                 vec3 starColor = mix(cold, warm, vTemp * 0.28);
-                vec3 color = starColor * luminance;
+                vec3 color = starColor * lum;
 
-                float alpha = clamp(luminance * uOpacity, 0.0, 1.0);
+                float alpha = clamp(lum * uOpacity, 0.0, 1.0);
                 gl_FragColor = vec4(color, alpha);
             }
         `,
