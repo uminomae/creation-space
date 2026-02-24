@@ -6,13 +6,16 @@ import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 import { breathValue } from './animation-utils.js';
 import { initControls, setCameraPosition, updateControls, getScrollProgress } from './controls.js';
 import { initMouseTracking, updateMouseSmoothing } from './mouse-state.js';
-import { createScene, getCreationLinkTargetMeshes, updateScene } from './scene.js';
-import { initScrollUI, updateScrollUI } from './scroll-ui.js';
+import { initScrollUI, refreshGuideLang, updateScrollUI } from './scroll-ui.js';
 import { initDevPanel } from './dev-panel.js';
 import { createFluidSystem } from './shaders/fluid-field.js';
 import { createLiquidSystem } from './shaders/liquid.js';
 import { CameraDofShader, DistortionShader } from './shaders/distortion-pass.js';
 import { initCreationLinkInteractions } from './creation-link-interactions.js';
+import { initArticles, setArticlesLanguage } from './articles.js';
+import { applyConfigState, cloneConfigState } from './config-state.js';
+import { applyScenePreset, getScenePresetVersion, resolveSceneVariant } from './scene-presets.js';
+import { DEV_VERSION } from './version.js';
 import {
     breathConfig,
     distortionParams,
@@ -27,11 +30,76 @@ import { detectLang } from './i18n.js';
 const DEV_MODE = new URLSearchParams(window.location.search).has('dev');
 let devStatsBegin = () => {};
 let devStatsEnd = () => {};
+const GRAPHIC_MODE_DEFAULT = 'hold';
+const GRAPHIC_MODE_OPTIONS = new Set(['hold', 'wabi']);
+const DEV_PANEL_STATE_STORAGE_PREFIX = 'creation-dev-panel-state-v1';
+
+function getSceneStateStorageKey(sceneVariant) {
+    return `${DEV_PANEL_STATE_STORAGE_PREFIX}:${sceneVariant}`;
+}
+
+function loadSceneState(sceneVariant) {
+    let storage;
+    try {
+        storage = window.localStorage;
+    } catch (error) {
+        return null;
+    }
+    if (!storage) return null;
+
+    try {
+        const raw = storage.getItem(getSceneStateStorageKey(sceneVariant));
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (!parsed || typeof parsed !== 'object') return null;
+
+        const expectedPresetVersion = getScenePresetVersion(sceneVariant);
+        const statePayload = parsed.state;
+        const presetVersion = parsed.presetVersion;
+
+        if (
+            typeof presetVersion === 'string' &&
+            presetVersion === expectedPresetVersion &&
+            statePayload &&
+            typeof statePayload === 'object'
+        ) {
+            return statePayload;
+        }
+
+        // Drop legacy or stale state so current scene defaults become effective.
+        storage.removeItem(getSceneStateStorageKey(sceneVariant));
+        return null;
+    } catch (error) {
+        console.warn('[dev-panel] failed to load scene state:', error);
+        return null;
+    }
+}
+
+function saveSceneState(sceneVariant, state) {
+    if (!state || typeof state !== 'object') return;
+    let storage;
+    try {
+        storage = window.localStorage;
+    } catch (error) {
+        return;
+    }
+    if (!storage) return;
+
+    try {
+        const payload = {
+            presetVersion: getScenePresetVersion(sceneVariant),
+            state,
+        };
+        storage.setItem(getSceneStateStorageKey(sceneVariant), JSON.stringify(payload));
+    } catch (error) {
+        console.warn('[dev-panel] failed to save scene state:', error);
+    }
+}
 
 const STRINGS = {
     ja: {
         title: '創造とは',
-        subtitle: 'Creation Field',
+        subtitle: 'Creation Space',
         taglines: [
             '関係し合う欠片が、まだ名前を持たない輪郭を生む。',
             '観測と選択のあいだで、創造は静かに立ち上がる。',
@@ -39,9 +107,11 @@ const STRINGS = {
         topbarMainTitle: '創造とは',
         topbarSubtitle: 'Creation Space',
         topbarHome: 'HOME',
+        topbarDev: 'DEV',
         topbarArticles: 'ARTICLES',
+        topbarBlog: 'BLOG',
         topbarCollab: 'AIとの協働で探索中',
-        creditSignature: 'Project Concept: What Is Creation',
+        creditSignature: 'Project Designer: pjdhiro',
         articlesSectionHeading: 'ARTICLES',
         offcanvasArticlesTitle: 'ARTICLES',
         creationCardsHeading: 'CREATION CARDS',
@@ -52,7 +122,7 @@ const STRINGS = {
     },
     en: {
         title: 'What Is Creation',
-        subtitle: 'Creation Field',
+        subtitle: 'Creation Space',
         taglines: [
             'Fragments in relation generate forms before they are named.',
             'Creation rises quietly between observation and choice.',
@@ -60,9 +130,11 @@ const STRINGS = {
         topbarMainTitle: 'What Is Creation',
         topbarSubtitle: 'Creation Space',
         topbarHome: 'HOME',
+        topbarDev: 'DEV',
         topbarArticles: 'ARTICLES',
+        topbarBlog: 'BLOG',
         topbarCollab: 'Exploring with AI collaboration',
-        creditSignature: 'Project Concept: What Is Creation',
+        creditSignature: 'Project Designer: pjdhiro',
         articlesSectionHeading: 'ARTICLES',
         offcanvasArticlesTitle: 'ARTICLES',
         creationCardsHeading: 'CREATION CARDS',
@@ -73,22 +145,11 @@ const STRINGS = {
     },
 };
 
-function applyCreationPreset() {
-    Object.assign(toggles, {
-        background: true,
-        field: false,
-        flowObjects: true,
-        fog: true,
-        fovBreath: true,
-        htmlBreath: true,
-        autoRotate: false,
-        postProcess: true,
-        fluidField: true,
-        liquid: true,
-        heatHaze: false,
-        dof: true,
-        quantumWave: false,
-    });
+async function loadSceneModule(sceneVariant) {
+    if (sceneVariant === 'wabi') {
+        return import('./scene.js');
+    }
+    return import('./scene-hold.js');
 }
 
 function applyPageLanguage(lang) {
@@ -100,7 +161,9 @@ function applyPageLanguage(lang) {
     const topbarMainTitle = document.getElementById('topbar-main-title');
     const topbarSubtitle = document.getElementById('topbar-subtitle');
     const topbarHomeLink = document.getElementById('topbar-home-link');
+    const topbarDevLink = document.getElementById('topbar-dev-link');
     const topbarArticlesBtn = document.getElementById('topbar-articles-btn');
+    const topbarBlogLink = document.getElementById('topbar-blog-link');
     const topbarCollab = document.getElementById('credit-collab');
     const creditSignature = document.getElementById('credit-signature');
     const articlesSectionHeading = document.getElementById('articles-section-heading');
@@ -113,7 +176,9 @@ function applyPageLanguage(lang) {
     if (topbarMainTitle) topbarMainTitle.textContent = strings.topbarMainTitle;
     if (topbarSubtitle) topbarSubtitle.textContent = strings.topbarSubtitle;
     if (topbarHomeLink) topbarHomeLink.textContent = strings.topbarHome;
+    if (topbarDevLink) topbarDevLink.textContent = strings.topbarDev;
     if (topbarArticlesBtn) topbarArticlesBtn.textContent = strings.topbarArticles;
+    if (topbarBlogLink) topbarBlogLink.textContent = strings.topbarBlog;
     if (topbarCollab) topbarCollab.textContent = strings.topbarCollab;
     if (creditSignature) creditSignature.textContent = strings.creditSignature;
     if (articlesSectionHeading) articlesSectionHeading.textContent = strings.articlesSectionHeading;
@@ -143,6 +208,72 @@ function applyPageLanguage(lang) {
     }
 
     document.documentElement.lang = lang;
+}
+
+function normalizeLang(lang) {
+    return lang === 'en' ? 'en' : 'ja';
+}
+
+function syncLangQuery(lang) {
+    if (!window.history?.replaceState) return;
+    const url = new URL(window.location.href);
+    if (lang === 'en') {
+        url.searchParams.set('lang', 'en');
+    } else {
+        url.searchParams.delete('lang');
+    }
+    window.history.replaceState(window.history.state, '', url.toString());
+}
+
+function initLanguageToggle(initialLang) {
+    const langToggle = document.getElementById('lang-toggle');
+    if (!langToggle) return;
+
+    let currentLang = normalizeLang(initialLang);
+    langToggle.addEventListener('click', () => {
+        currentLang = currentLang === 'ja' ? 'en' : 'ja';
+        syncLangQuery(currentLang);
+        applyPageLanguage(currentLang);
+        refreshGuideLang();
+        setArticlesLanguage(currentLang);
+    });
+}
+
+function normalizeGraphicMode(mode) {
+    return GRAPHIC_MODE_OPTIONS.has(mode) ? mode : GRAPHIC_MODE_DEFAULT;
+}
+
+function syncGraphicModeQuery(mode) {
+    if (!window.history?.replaceState) return;
+    const url = new URL(window.location.href);
+    if (mode === GRAPHIC_MODE_DEFAULT) {
+        url.searchParams.delete('graphic');
+    } else {
+        url.searchParams.set('graphic', mode);
+    }
+    window.history.replaceState(window.history.state, '', url.toString());
+}
+
+function setGraphicButtonState(mode) {
+    document.querySelectorAll('[data-graphic-mode]').forEach((button) => {
+        if (!(button instanceof HTMLButtonElement)) return;
+        const isActive = normalizeGraphicMode(button.dataset.graphicMode) === mode;
+        button.classList.toggle('active', isActive);
+        button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    });
+}
+
+function initGraphicModeButtons(initialMode, onChange) {
+    setGraphicButtonState(initialMode);
+
+    document.querySelectorAll('[data-graphic-mode]').forEach((button) => {
+        if (!(button instanceof HTMLButtonElement)) return;
+        button.addEventListener('click', () => {
+            const nextMode = normalizeGraphicMode(button.dataset.graphicMode);
+            setGraphicButtonState(nextMode);
+            onChange(nextMode);
+        });
+    });
 }
 
 function applyQuantumWaveUniforms(distortionPass) {
@@ -188,16 +319,77 @@ function attachResize({ camera, renderer, composer }) {
     window.addEventListener('resize', onResize);
 }
 
-function main() {
-    applyCreationPreset();
-    applyPageLanguage(detectLang());
+function initDevVersionBadge() {
+    const existing = document.getElementById('dev-version-badge');
+    if (existing) existing.remove();
+
+    const params = new URLSearchParams(window.location.search);
+    const queryVersion = params.get('ver');
+    const badge = document.createElement('div');
+    badge.id = 'dev-version-badge';
+    badge.textContent = queryVersion
+        ? `開発版 ver ${DEV_VERSION} · ${queryVersion}`
+        : `開発版 ver ${DEV_VERSION}`;
+    const brandWrap = document.querySelector('#kesson-topbar .topbar-brand-wrap');
+    if (brandWrap) {
+        brandWrap.appendChild(badge);
+    } else {
+        document.body.appendChild(badge);
+    }
+}
+
+function initInlineVersionLabel() {
+    const label = document.getElementById('dev-version-inline');
+    if (!label) return;
+
+    const params = new URLSearchParams(window.location.search);
+    const queryVersion = params.get('ver');
+    label.textContent = queryVersion
+        ? `開発ver ${DEV_VERSION} · ${queryVersion}`
+        : `開発ver ${DEV_VERSION}`;
+}
+
+async function main() {
+    const initialLang = normalizeLang(detectLang());
+    const initialGraphicMode = normalizeGraphicMode(new URLSearchParams(window.location.search).get('graphic'));
+    const initialSceneVariant = resolveSceneVariant(initialGraphicMode);
+    applyScenePreset(initialSceneVariant);
+    const initialSceneState = loadSceneState(initialSceneVariant);
+    if (initialSceneState) {
+        applyConfigState(initialSceneState);
+    }
+    applyPageLanguage(initialLang);
+    initInlineVersionLabel();
     initMouseTracking();
 
     const container = document.getElementById('canvas-container');
     if (!container) return;
 
+    const sceneModule = await loadSceneModule(initialSceneVariant);
+    const { createScene, getCreationLinkTargetMeshes, updateScene } = sceneModule;
+
     const { scene, camera, renderer } = createScene(container);
     renderer.autoClear = false;
+    let active3dSceneVariant = initialSceneVariant;
+
+    function applyGraphicMode(nextMode, { shouldSyncQuery = true } = {}) {
+        const normalizedMode = normalizeGraphicMode(nextMode);
+        const nextSceneVariant = resolveSceneVariant(normalizedMode);
+        if (nextSceneVariant !== active3dSceneVariant) {
+            saveSceneState(active3dSceneVariant, cloneConfigState());
+            if (shouldSyncQuery) {
+                syncGraphicModeQuery(normalizedMode);
+            }
+            window.location.reload();
+            return;
+        }
+
+        setGraphicButtonState(normalizedMode);
+
+        if (shouldSyncQuery) {
+            syncGraphicModeQuery(normalizedMode);
+        }
+    }
 
     const fluidSystem = createFluidSystem(renderer);
     const liquidSystem = createLiquidSystem(renderer);
@@ -225,9 +417,18 @@ function main() {
         getTargets: getCreationLinkTargetMeshes,
     });
     initScrollUI();
+    initLanguageToggle(initialLang);
+    initGraphicModeButtons(initialGraphicMode, (nextMode) => {
+        applyGraphicMode(nextMode);
+    });
+    applyGraphicMode(initialGraphicMode, { shouldSyncQuery: false });
+    initArticles({ lang: initialLang }).catch((error) => {
+        console.warn('[articles] init failed:', error);
+    });
     attachResize({ camera, renderer, composer });
 
     if (DEV_MODE) {
+        initDevVersionBadge();
         import('./dev-links-panel.js').then(({ initDevLinksPanel }) => {
             initDevLinksPanel();
         }).catch((err) => {
@@ -245,11 +446,16 @@ function main() {
         });
     }
 
-    initDevPanel({
-        onStateChanged: () => {
-            setCameraPosition(sceneParams.camX, sceneParams.camY, sceneParams.camZ);
-        },
-    });
+    if (DEV_MODE) {
+        initDevPanel({
+            onStateChanged: () => {
+                setCameraPosition(sceneParams.camX, sceneParams.camY, sceneParams.camZ);
+            },
+            onStateSnapshot: (state) => {
+                saveSceneState(active3dSceneVariant, state);
+            },
+        });
+    }
 
     const liquidMousePos = new THREE.Vector2();
     const liquidMouseVel = new THREE.Vector2();
@@ -264,10 +470,10 @@ function main() {
         const scrollProg = getScrollProgress();
 
         updateScrollUI(scrollProg, breathVal);
-        const mouse = updateMouseSmoothing();
-
         setCameraPosition(sceneParams.camX, sceneParams.camY, sceneParams.camZ);
         updateControls(time, breathVal);
+        const mouse = updateMouseSmoothing();
+
         updateScene(time);
 
         if (toggles.fluidField) {
@@ -345,4 +551,6 @@ function main() {
     animate();
 }
 
-main();
+main().catch((error) => {
+    console.error('[main] init failed:', error);
+});

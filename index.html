@@ -36,11 +36,11 @@
   <header id="kesson-topbar" class="navbar navbar-expand-md navbar-dark" aria-label="Main menu">
     <div class="container-fluid px-3 px-md-4">
       <div class="topbar-brand-wrap">
-        <a id="topbar-main-title" class="navbar-brand topbar-main-title" href="#">
+        <a id="topbar-main-title" class="navbar-brand topbar-main-title" href="https://uminomae.github.io/pjdhiro/dialogueCreation/" target="_blank" rel="noopener">
           創造とは
         </a>
         <span id="topbar-subtitle" class="topbar-subtitle">Creation Space</span>
-        <span class="topbar-meta topbar-meta--author" id="credit-signature">Project Concept: What Is Creation</span>
+        <span class="topbar-meta topbar-meta--author" id="credit-signature">Project Designer: pjdhiro</span>
       </div>
       <button
         class="navbar-toggler topbar-toggler"
@@ -58,6 +58,9 @@
             <a id="topbar-home-link" class="nav-link topbar-link" href="#">HOME</a>
           </li>
           <li class="nav-item">
+            <a id="topbar-dev-link" class="nav-link topbar-link" href="./?dev">DEV</a>
+          </li>
+          <li class="nav-item">
             <button
               id="topbar-articles-btn"
               type="button"
@@ -67,6 +70,17 @@
               aria-controls="articlesOffcanvas">
               ARTICLES
             </button>
+          </li>
+          <li class="nav-item">
+            <a
+              id="topbar-blog-link"
+              class="nav-link topbar-link"
+              href="https://uminomae.github.io/pjdhiro/dialogueCreation/"
+              target="_blank"
+              rel="noopener"
+              aria-label="BLOG: 創造とは？">
+              BLOG
+            </a>
           </li>
           <li class="nav-item topbar-lang-item">
             <button
@@ -85,10 +99,15 @@
     </div>
   </header>
 
+  <div id="graphic-switcher" class="btn-group btn-group-sm" role="group" aria-label="グラフィック切り替え">
+    <button type="button" class="btn btn-outline-light active" data-graphic-mode="hold" aria-pressed="true">保持</button>
+    <button type="button" class="btn btn-outline-light" data-graphic-mode="wabi" aria-pressed="false">忍</button>
+  </div>
+
   <div id="overlay" role="presentation">
     <div id="taglines"></div>
     <h1 id="title-h1">創造とは</h1>
-    <p class="subtitle" id="title-sub">Creation Field</p>
+    <p class="subtitle" id="title-sub">Creation Space</p>
   </div>
 
   <div id="control-guide">
@@ -177,6 +196,7 @@
     <div class="tech-footer-line">GitHub Pages</div>
     <div class="tech-footer-line">Vanilla JS · ES Modules</div>
     <div class="tech-footer-line">Three.js · Bootstrap</div>
+    <div id="dev-version-inline" class="tech-footer-line"></div>
   </footer>
 
   <div class="offcanvas offcanvas-end offcanvas-kesson" tabindex="-1" id="articlesOffcanvas" data-bs-backdrop="true">

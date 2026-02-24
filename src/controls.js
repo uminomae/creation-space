@@ -18,6 +18,7 @@ import {
     ZOOM_SENSITIVITY,
     MIN_ZOOM,
     MAX_ZOOM,
+    MAX_ROTATE_ANGLE,
     INERTIA_DECAY,
     VELOCITY_THRESHOLD,
     AUTO_ROTATE_TIME_SCALE,
@@ -245,6 +246,9 @@ export function updateControls(time, breathVal = 0.5) {
         _manualAngle += _rotateVelocity;
         _rotateVelocity *= INERTIA_DECAY;
     }
+
+    // --- 回転角度の制限 ---
+    _manualAngle = Math.max(-MAX_ROTATE_ANGLE, Math.min(MAX_ROTATE_ANGLE, _manualAngle));
 
     // --- スクロール進捗 ---
     const diveScrollPx = window.innerHeight * DIVE_SCROLL_VH;
