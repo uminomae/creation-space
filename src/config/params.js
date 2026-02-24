@@ -9,9 +9,8 @@ export const toggles = {
     htmlBreath: true,
     autoRotate: true,
     postProcess: true,
-    fluidField: true,
+    fluidField: false,
     liquid: false,
-    heatHaze: false,
     dof: true,
     quantumWave: false,
     showPlasma: true,
@@ -257,9 +256,6 @@ export const distortionParams = {
     haloColorR: 0.3,
     haloColorG: 0.2,
     haloColorB: 0.05,
-    heatHaze: 0.024,
-    heatHazeRadius: 0.5,
-    heatHazeSpeed: 1,
     dofStrength: 0.006,
     dofFocusRadius: 0.26
 };
