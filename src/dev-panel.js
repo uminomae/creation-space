@@ -379,10 +379,6 @@ const PARAM_GROUPS = [
 const HIDDEN_GROUP_IDS_BY_VARIANT = {
     hold: new Set([
         'plasma',
-        'creationGlobal',
-        'creationLink1',
-        'creationLink2',
-        'creationLink3',
     ]),
     wabi: new Set([
         'creationLink2',
