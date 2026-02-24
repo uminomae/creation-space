@@ -99,7 +99,7 @@ function saveSceneState(sceneVariant, state) {
 const STRINGS = {
     ja: {
         title: '創造とは',
-        subtitle: 'Creation Field',
+        subtitle: 'Creation Space',
         taglines: [
             '関係し合う欠片が、まだ名前を持たない輪郭を生む。',
             '観測と選択のあいだで、創造は静かに立ち上がる。',
@@ -107,9 +107,11 @@ const STRINGS = {
         topbarMainTitle: '創造とは',
         topbarSubtitle: 'Creation Space',
         topbarHome: 'HOME',
+        topbarDev: 'DEV',
         topbarArticles: 'ARTICLES',
+        topbarBlog: 'BLOG',
         topbarCollab: 'AIとの協働で探索中',
-        creditSignature: 'Project Concept: What Is Creation',
+        creditSignature: 'Project Designer: pjdhiro',
         articlesSectionHeading: 'ARTICLES',
         offcanvasArticlesTitle: 'ARTICLES',
         creationCardsHeading: 'CREATION CARDS',
@@ -120,7 +122,7 @@ const STRINGS = {
     },
     en: {
         title: 'What Is Creation',
-        subtitle: 'Creation Field',
+        subtitle: 'Creation Space',
         taglines: [
             'Fragments in relation generate forms before they are named.',
             'Creation rises quietly between observation and choice.',
@@ -128,9 +130,11 @@ const STRINGS = {
         topbarMainTitle: 'What Is Creation',
         topbarSubtitle: 'Creation Space',
         topbarHome: 'HOME',
+        topbarDev: 'DEV',
         topbarArticles: 'ARTICLES',
+        topbarBlog: 'BLOG',
         topbarCollab: 'Exploring with AI collaboration',
-        creditSignature: 'Project Concept: What Is Creation',
+        creditSignature: 'Project Designer: pjdhiro',
         articlesSectionHeading: 'ARTICLES',
         offcanvasArticlesTitle: 'ARTICLES',
         creationCardsHeading: 'CREATION CARDS',
@@ -157,7 +161,9 @@ function applyPageLanguage(lang) {
     const topbarMainTitle = document.getElementById('topbar-main-title');
     const topbarSubtitle = document.getElementById('topbar-subtitle');
     const topbarHomeLink = document.getElementById('topbar-home-link');
+    const topbarDevLink = document.getElementById('topbar-dev-link');
     const topbarArticlesBtn = document.getElementById('topbar-articles-btn');
+    const topbarBlogLink = document.getElementById('topbar-blog-link');
     const topbarCollab = document.getElementById('credit-collab');
     const creditSignature = document.getElementById('credit-signature');
     const articlesSectionHeading = document.getElementById('articles-section-heading');
@@ -170,7 +176,9 @@ function applyPageLanguage(lang) {
     if (topbarMainTitle) topbarMainTitle.textContent = strings.topbarMainTitle;
     if (topbarSubtitle) topbarSubtitle.textContent = strings.topbarSubtitle;
     if (topbarHomeLink) topbarHomeLink.textContent = strings.topbarHome;
+    if (topbarDevLink) topbarDevLink.textContent = strings.topbarDev;
     if (topbarArticlesBtn) topbarArticlesBtn.textContent = strings.topbarArticles;
+    if (topbarBlogLink) topbarBlogLink.textContent = strings.topbarBlog;
     if (topbarCollab) topbarCollab.textContent = strings.topbarCollab;
     if (creditSignature) creditSignature.textContent = strings.creditSignature;
     if (articlesSectionHeading) articlesSectionHeading.textContent = strings.articlesSectionHeading;
@@ -320,9 +328,14 @@ function initDevVersionBadge() {
     const badge = document.createElement('div');
     badge.id = 'dev-version-badge';
     badge.textContent = queryVersion
-        ? `ver ${DEV_VERSION} · ${queryVersion}`
-        : `ver ${DEV_VERSION}`;
-    document.body.appendChild(badge);
+        ? `開発版 ver ${DEV_VERSION} · ${queryVersion}`
+        : `開発版 ver ${DEV_VERSION}`;
+    const brandWrap = document.querySelector('#kesson-topbar .topbar-brand-wrap');
+    if (brandWrap) {
+        brandWrap.appendChild(badge);
+    } else {
+        document.body.appendChild(badge);
+    }
 }
 
 function initInlineVersionLabel() {
