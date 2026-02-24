@@ -458,9 +458,38 @@ const WABI_PRESET = {
     },
 };
 
+const INTENT_PRESET = {
+    ...HOLD_PRESET,
+    toggles: {
+        ...HOLD_PRESET.toggles,
+        background: false,
+        field: false,
+        flowObjects: false,
+        fog: false,
+        postProcess: false,
+        fluidField: false,
+        liquid: false,
+        dof: false,
+        quantumWave: false,
+        showPlasma: false,
+    },
+    sceneParams: {
+        ...HOLD_PRESET.sceneParams,
+        camX: 0,
+        camY: 4,
+        camZ: 24,
+        camTargetY: -2.6,
+    },
+    breathConfig: {
+        ...HOLD_PRESET.breathConfig,
+        fovAmplitude: 0.18,
+    },
+};
+
 const SCENE_PRESETS = {
     hold: HOLD_PRESET,
     wabi: WABI_PRESET,
+    intent: INTENT_PRESET,
 };
 
 function hashString(value) {
@@ -528,5 +557,7 @@ export function applyScenePreset(sceneName) {
 }
 
 export function resolveSceneVariant(graphicMode) {
-    return graphicMode === 'wabi' ? 'wabi' : 'hold';
+    if (graphicMode === 'wabi') return 'wabi';
+    if (graphicMode === 'intent') return 'intent';
+    return 'hold';
 }

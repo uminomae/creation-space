@@ -31,7 +31,7 @@ const DEV_MODE = new URLSearchParams(window.location.search).has('dev');
 let devStatsBegin = () => {};
 let devStatsEnd = () => {};
 const GRAPHIC_MODE_DEFAULT = 'hold';
-const GRAPHIC_MODE_OPTIONS = new Set(['hold', 'wabi']);
+const GRAPHIC_MODE_OPTIONS = new Set(['hold', 'wabi', 'intent']);
 const DEV_PANEL_STATE_STORAGE_PREFIX = 'creation-dev-panel-state-v1';
 
 function getSceneStateStorageKey(sceneVariant) {
@@ -146,6 +146,9 @@ const STRINGS = {
 };
 
 async function loadSceneModule(sceneVariant) {
+    if (sceneVariant === 'intent') {
+        return import('./scene-intent.js');
+    }
     if (sceneVariant === 'wabi') {
         return import('./scene.js');
     }
@@ -236,6 +239,21 @@ function initLanguageToggle(initialLang) {
         applyPageLanguage(currentLang);
         refreshGuideLang();
         setArticlesLanguage(currentLang);
+    });
+}
+
+function initMobileNavAutoCollapse() {
+    const nav = document.getElementById('kessonTopbarNav');
+    if (!nav) return;
+
+    nav.querySelectorAll('.nav-link, [data-bs-toggle="offcanvas"]').forEach((el) => {
+        el.addEventListener('click', () => {
+            if (window.innerWidth >= 768) return;
+            const collapseApi = window.bootstrap?.Collapse;
+            if (!collapseApi) return;
+            const collapse = collapseApi.getOrCreateInstance(nav, { toggle: false });
+            collapse.hide();
+        });
     });
 }
 
@@ -418,6 +436,7 @@ async function main() {
     });
     initScrollUI();
     initLanguageToggle(initialLang);
+    initMobileNavAutoCollapse();
     initGraphicModeButtons(initialGraphicMode, (nextMode) => {
         applyGraphicMode(nextMode);
     });
