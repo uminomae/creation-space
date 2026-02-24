@@ -7,12 +7,14 @@ import { breathValue } from './animation-utils.js';
 import { initControls, setCameraPosition, updateControls, getScrollProgress } from './controls.js';
 import { initMouseTracking, updateMouseSmoothing } from './mouse-state.js';
 import { createScene, getCreationLinkTargetMeshes, updateScene } from './scene.js';
-import { initScrollUI, updateScrollUI } from './scroll-ui.js';
+import { initScrollUI, refreshGuideLang, updateScrollUI } from './scroll-ui.js';
 import { initDevPanel } from './dev-panel.js';
 import { createFluidSystem } from './shaders/fluid-field.js';
 import { createLiquidSystem } from './shaders/liquid.js';
 import { CameraDofShader, DistortionShader } from './shaders/distortion-pass.js';
 import { initCreationLinkInteractions } from './creation-link-interactions.js';
+import { initArticles, setArticlesLanguage } from './articles.js';
+import { initGraphicCanvasSwitcher } from './graphics-switcher.js';
 import { DEV_VERSION } from './version.js';
 import {
     breathConfig,
@@ -28,6 +30,8 @@ import { detectLang } from './i18n.js';
 const DEV_MODE = new URLSearchParams(window.location.search).has('dev');
 let devStatsBegin = () => {};
 let devStatsEnd = () => {};
+const GRAPHIC_MODE_DEFAULT = 'hold';
+const GRAPHIC_MODE_OPTIONS = new Set(['hold', 'ripple', 'lattice']);
 
 const STRINGS = {
     ja: {
@@ -146,6 +150,72 @@ function applyPageLanguage(lang) {
     document.documentElement.lang = lang;
 }
 
+function normalizeLang(lang) {
+    return lang === 'en' ? 'en' : 'ja';
+}
+
+function syncLangQuery(lang) {
+    if (!window.history?.replaceState) return;
+    const url = new URL(window.location.href);
+    if (lang === 'en') {
+        url.searchParams.set('lang', 'en');
+    } else {
+        url.searchParams.delete('lang');
+    }
+    window.history.replaceState(window.history.state, '', url.toString());
+}
+
+function initLanguageToggle(initialLang) {
+    const langToggle = document.getElementById('lang-toggle');
+    if (!langToggle) return;
+
+    let currentLang = normalizeLang(initialLang);
+    langToggle.addEventListener('click', () => {
+        currentLang = currentLang === 'ja' ? 'en' : 'ja';
+        syncLangQuery(currentLang);
+        applyPageLanguage(currentLang);
+        refreshGuideLang();
+        setArticlesLanguage(currentLang);
+    });
+}
+
+function normalizeGraphicMode(mode) {
+    return GRAPHIC_MODE_OPTIONS.has(mode) ? mode : GRAPHIC_MODE_DEFAULT;
+}
+
+function syncGraphicModeQuery(mode) {
+    if (!window.history?.replaceState) return;
+    const url = new URL(window.location.href);
+    if (mode === GRAPHIC_MODE_DEFAULT) {
+        url.searchParams.delete('graphic');
+    } else {
+        url.searchParams.set('graphic', mode);
+    }
+    window.history.replaceState(window.history.state, '', url.toString());
+}
+
+function setGraphicButtonState(mode) {
+    document.querySelectorAll('[data-graphic-mode]').forEach((button) => {
+        if (!(button instanceof HTMLButtonElement)) return;
+        const isActive = normalizeGraphicMode(button.dataset.graphicMode) === mode;
+        button.classList.toggle('active', isActive);
+        button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    });
+}
+
+function initGraphicModeButtons(initialMode, onChange) {
+    setGraphicButtonState(initialMode);
+
+    document.querySelectorAll('[data-graphic-mode]').forEach((button) => {
+        if (!(button instanceof HTMLButtonElement)) return;
+        button.addEventListener('click', () => {
+            const nextMode = normalizeGraphicMode(button.dataset.graphicMode);
+            setGraphicButtonState(nextMode);
+            onChange(nextMode);
+        });
+    });
+}
+
 function applyQuantumWaveUniforms(distortionPass) {
     if (!toggles.quantumWave) {
         distortionPass.uniforms.uQWaveStrength.value = 0;
@@ -205,7 +275,9 @@ function initDevVersionBadge() {
 
 function main() {
     applyCreationPreset();
-    applyPageLanguage(detectLang());
+    const initialLang = normalizeLang(detectLang());
+    const initialGraphicMode = normalizeGraphicMode(new URLSearchParams(window.location.search).get('graphic'));
+    applyPageLanguage(initialLang);
     initMouseTracking();
 
     const container = document.getElementById('canvas-container');
@@ -213,6 +285,24 @@ function main() {
 
     const { scene, camera, renderer } = createScene(container);
     renderer.autoClear = false;
+    const graphicCanvasSwitcher = initGraphicCanvasSwitcher({
+        container,
+        initialMode: initialGraphicMode,
+    });
+    let activeGraphicMode = initialGraphicMode;
+
+    function applyGraphicMode(nextMode, { shouldSyncQuery = true } = {}) {
+        activeGraphicMode = normalizeGraphicMode(nextMode);
+        const showCreation = activeGraphicMode === GRAPHIC_MODE_DEFAULT;
+        renderer.domElement.style.display = showCreation ? 'block' : 'none';
+        renderer.domElement.style.pointerEvents = showCreation ? 'auto' : 'none';
+        graphicCanvasSwitcher.setMode(activeGraphicMode);
+        setGraphicButtonState(activeGraphicMode);
+
+        if (shouldSyncQuery) {
+            syncGraphicModeQuery(activeGraphicMode);
+        }
+    }
 
     const fluidSystem = createFluidSystem(renderer);
     const liquidSystem = createLiquidSystem(renderer);
@@ -240,6 +330,14 @@ function main() {
         getTargets: getCreationLinkTargetMeshes,
     });
     initScrollUI();
+    initLanguageToggle(initialLang);
+    initGraphicModeButtons(initialGraphicMode, (nextMode) => {
+        applyGraphicMode(nextMode);
+    });
+    applyGraphicMode(initialGraphicMode, { shouldSyncQuery: false });
+    initArticles({ lang: initialLang }).catch((error) => {
+        console.warn('[articles] init failed:', error);
+    });
     attachResize({ camera, renderer, composer });
 
     if (DEV_MODE) {
@@ -280,80 +378,84 @@ function main() {
         const scrollProg = getScrollProgress();
 
         updateScrollUI(scrollProg, breathVal);
-        const mouse = updateMouseSmoothing();
-
         setCameraPosition(sceneParams.camX, sceneParams.camY, sceneParams.camZ);
         updateControls(time, breathVal);
-        updateScene(time);
+        if (activeGraphicMode === GRAPHIC_MODE_DEFAULT) {
+            const mouse = updateMouseSmoothing();
 
-        if (toggles.fluidField) {
-            fluidSystem.uniforms.uForce.value = fluidParams.force;
-            fluidSystem.uniforms.uCurl.value = fluidParams.curl;
-            fluidSystem.uniforms.uDecay.value = fluidParams.decay;
-            fluidSystem.uniforms.uRadius.value = fluidParams.radius;
-            distortionPass.uniforms.uFluidInfluence.value = fluidParams.influence;
-            fluidSystem.uniforms.uMouse.value.set(mouse.smoothX, mouse.smoothY);
-            fluidSystem.uniforms.uMouseVelocity.value.set(mouse.velX, mouse.velY);
-            fluidSystem.uniforms.uAspect.value = window.innerWidth / window.innerHeight;
-            fluidSystem.update();
-            distortionPass.uniforms.tFluidField.value = fluidSystem.getTexture();
+            updateScene(time);
+
+            if (toggles.fluidField) {
+                fluidSystem.uniforms.uForce.value = fluidParams.force;
+                fluidSystem.uniforms.uCurl.value = fluidParams.curl;
+                fluidSystem.uniforms.uDecay.value = fluidParams.decay;
+                fluidSystem.uniforms.uRadius.value = fluidParams.radius;
+                distortionPass.uniforms.uFluidInfluence.value = fluidParams.influence;
+                fluidSystem.uniforms.uMouse.value.set(mouse.smoothX, mouse.smoothY);
+                fluidSystem.uniforms.uMouseVelocity.value.set(mouse.velX, mouse.velY);
+                fluidSystem.uniforms.uAspect.value = window.innerWidth / window.innerHeight;
+                fluidSystem.update();
+                distortionPass.uniforms.tFluidField.value = fluidSystem.getTexture();
+            } else {
+                distortionPass.uniforms.uFluidInfluence.value = 0;
+            }
+
+            if (toggles.liquid) {
+                liquidSystem.uniforms.simulation.uTimestep.value = liquidParams.timestep;
+                liquidSystem.uniforms.simulation.uDissipation.value = liquidParams.dissipation;
+                liquidSystem.uniforms.force.uRadius.value = liquidParams.forceRadius;
+                liquidSystem.uniforms.splat.uRadius.value = liquidParams.forceRadius;
+                liquidSystem.uniforms.force.uStrength.value = liquidParams.forceStrength;
+                liquidSystem.uniforms.render.uDensityMul.value = liquidParams.densityMul;
+                liquidSystem.uniforms.render.uNoiseScale.value = liquidParams.noiseScale;
+                liquidSystem.uniforms.render.uNoiseSpeed.value = liquidParams.noiseSpeed;
+                liquidSystem.uniforms.render.uSpecPow.value = liquidParams.specularPow;
+                liquidSystem.uniforms.render.uSpecInt.value = liquidParams.specularInt;
+
+                liquidMousePos.set(mouse.smoothX, mouse.smoothY);
+                liquidMouseVel.set(mouse.velX, mouse.velY);
+                liquidSystem.update(liquidMousePos, liquidMouseVel);
+                liquidSystem.setTime(time);
+                liquidSystem.copyDensityTo(liquidTarget);
+                distortionPass.uniforms.tLiquid.value = liquidTarget.texture;
+                distortionPass.uniforms.uLiquidStrength.value = liquidParams.densityMul;
+                distortionPass.uniforms.uLiquidOffsetScale.value = liquidParams.refractOffsetScale;
+                distortionPass.uniforms.uLiquidThreshold.value = liquidParams.refractThreshold;
+            } else {
+                distortionPass.uniforms.uLiquidStrength.value = 0;
+            }
+
+            applyQuantumWaveUniforms(distortionPass);
+
+            distortionPass.uniforms.uAspect.value = window.innerWidth / window.innerHeight;
+            distortionPass.uniforms.uTime.value = time;
+            distortionPass.uniforms.uMouse.value.set(mouse.smoothX, mouse.smoothY);
+            dofPass.uniforms.uAspect.value = window.innerWidth / window.innerHeight;
+            dofPass.uniforms.uMouse.value.set(mouse.smoothX, mouse.smoothY);
+
+            if (toggles.heatHaze) {
+                distortionPass.uniforms.uHeatHaze.value = distortionParams.heatHaze;
+                distortionPass.uniforms.uHeatHazeRadius.value = distortionParams.heatHazeRadius;
+                distortionPass.uniforms.uHeatHazeSpeed.value = distortionParams.heatHazeSpeed;
+            } else {
+                distortionPass.uniforms.uHeatHaze.value = 0;
+            }
+
+            if (toggles.dof) {
+                dofPass.uniforms.uDofStrength.value = distortionParams.dofStrength;
+                dofPass.uniforms.uDofFocusRadius.value = distortionParams.dofFocusRadius;
+            } else {
+                dofPass.uniforms.uDofStrength.value = 0;
+            }
+
+            renderer.clear();
+            if (toggles.postProcess) {
+                composer.render();
+            } else {
+                renderer.render(scene, camera);
+            }
         } else {
-            distortionPass.uniforms.uFluidInfluence.value = 0;
-        }
-
-        if (toggles.liquid) {
-            liquidSystem.uniforms.simulation.uTimestep.value = liquidParams.timestep;
-            liquidSystem.uniforms.simulation.uDissipation.value = liquidParams.dissipation;
-            liquidSystem.uniforms.force.uRadius.value = liquidParams.forceRadius;
-            liquidSystem.uniforms.splat.uRadius.value = liquidParams.forceRadius;
-            liquidSystem.uniforms.force.uStrength.value = liquidParams.forceStrength;
-            liquidSystem.uniforms.render.uDensityMul.value = liquidParams.densityMul;
-            liquidSystem.uniforms.render.uNoiseScale.value = liquidParams.noiseScale;
-            liquidSystem.uniforms.render.uNoiseSpeed.value = liquidParams.noiseSpeed;
-            liquidSystem.uniforms.render.uSpecPow.value = liquidParams.specularPow;
-            liquidSystem.uniforms.render.uSpecInt.value = liquidParams.specularInt;
-
-            liquidMousePos.set(mouse.smoothX, mouse.smoothY);
-            liquidMouseVel.set(mouse.velX, mouse.velY);
-            liquidSystem.update(liquidMousePos, liquidMouseVel);
-            liquidSystem.setTime(time);
-            liquidSystem.copyDensityTo(liquidTarget);
-            distortionPass.uniforms.tLiquid.value = liquidTarget.texture;
-            distortionPass.uniforms.uLiquidStrength.value = liquidParams.densityMul;
-            distortionPass.uniforms.uLiquidOffsetScale.value = liquidParams.refractOffsetScale;
-            distortionPass.uniforms.uLiquidThreshold.value = liquidParams.refractThreshold;
-        } else {
-            distortionPass.uniforms.uLiquidStrength.value = 0;
-        }
-
-        applyQuantumWaveUniforms(distortionPass);
-
-        distortionPass.uniforms.uAspect.value = window.innerWidth / window.innerHeight;
-        distortionPass.uniforms.uTime.value = time;
-        distortionPass.uniforms.uMouse.value.set(mouse.smoothX, mouse.smoothY);
-        dofPass.uniforms.uAspect.value = window.innerWidth / window.innerHeight;
-        dofPass.uniforms.uMouse.value.set(mouse.smoothX, mouse.smoothY);
-
-        if (toggles.heatHaze) {
-            distortionPass.uniforms.uHeatHaze.value = distortionParams.heatHaze;
-            distortionPass.uniforms.uHeatHazeRadius.value = distortionParams.heatHazeRadius;
-            distortionPass.uniforms.uHeatHazeSpeed.value = distortionParams.heatHazeSpeed;
-        } else {
-            distortionPass.uniforms.uHeatHaze.value = 0;
-        }
-
-        if (toggles.dof) {
-            dofPass.uniforms.uDofStrength.value = distortionParams.dofStrength;
-            dofPass.uniforms.uDofFocusRadius.value = distortionParams.dofFocusRadius;
-        } else {
-            dofPass.uniforms.uDofStrength.value = 0;
-        }
-
-        renderer.clear();
-        if (toggles.postProcess) {
-            composer.render();
-        } else {
-            renderer.render(scene, camera);
+            graphicCanvasSwitcher.render(time);
         }
         devStatsEnd();
     }
