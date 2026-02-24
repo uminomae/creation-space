@@ -7,7 +7,7 @@ export const toggles = {
     fog: true,
     fovBreath: true,
     htmlBreath: true,
-    autoRotate: false,
+    autoRotate: true,
     postProcess: true,
     fluidField: true,
     liquid: false,
