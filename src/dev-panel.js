@@ -12,6 +12,7 @@ import {
     plasmaParams,
     toggles,
 } from './config.js';
+import { applyConfigState, cloneConfigState } from './config-state.js';
 
 const GROUP_HELP_JA = {
     creationGlobal: 'A案の全体挙動。渦の速度・球内の密度・色分割・明るさ・流動感をまとめて調整します。',
@@ -27,6 +28,9 @@ const PLASMA_HELP_JA = {
     speed: '回転・飛び交う速度です。',
     radius: '群れの全体的な空間サイズ（半径基準）です。',
     heightRatio: '縦方向の潰れ具合です。',
+    autoChaosAmp: '秩序/拡散の自動呼吸に使うカオス増幅量です。',
+    wSeparation: '四元数のW軸分離量です。陰陽の帯の分かれ方を調整します。',
+    projectionScale: 'ステレオ投影の基準スケールです。全体の広がり方を調整します。',
     colorA: '色Aです。',
     colorB: '色Bです。',
 };
@@ -168,6 +172,11 @@ const PARAM_GROUPS = [
             ['speed', 'Speed', 0.0, 15.0, 0.05],
             ['radius', 'Radius', 1.0, 100.0, 0.5],
             ['heightRatio', 'Height Ratio', 0.1, 10.0, 0.1],
+            ['autoChaosAmp', 'Auto Chaos Amp', 0.0, 80.0, 0.2],
+            ['wSeparation', 'W Separation', 0.0, 1.2, 0.01],
+            ['projectionScale', 'Projection Scale', 0.05, 1.2, 0.01],
+            { type: 'color', key: 'colorA', label: 'Color A' },
+            { type: 'color', key: 'colorB', label: 'Color B' },
         ],
     },
     {
@@ -367,42 +376,6 @@ const PARAM_GROUPS = [
     },
 ];
 
-function cloneState() {
-    return {
-        toggles: { ...toggles },
-        sceneParams: { ...sceneParams },
-        fieldParams: { ...fieldParams },
-        flowParams: { ...flowParams },
-        plasmaParams: { ...plasmaParams },
-        backgroundParams: { ...backgroundParams },
-        fluidParams: { ...fluidParams },
-        liquidParams: { ...liquidParams },
-        creationLinkParams: { ...creationLinkParams },
-        quantumWaveParams: { ...quantumWaveParams },
-        distortionParams: { ...distortionParams },
-        breathConfig: { ...breathConfig },
-    };
-}
-
-function applyPartial(target, source) {
-    if (!source || typeof source !== 'object') return;
-    Object.keys(source).forEach((key) => {
-        if (!(key in target)) return;
-        const cur = target[key];
-        const incoming = source[key];
-
-        if (typeof cur === 'boolean') {
-            target[key] = Boolean(incoming);
-            return;
-        }
-
-        if (typeof cur === 'number') {
-            const next = Number(incoming);
-            if (Number.isFinite(next)) target[key] = next;
-        }
-    });
-}
-
 function formatNumber(value, step) {
     const decimals = String(step).includes('.')
         ? String(step).split('.')[1].length
@@ -410,9 +383,15 @@ function formatNumber(value, step) {
     return Number(value).toFixed(Math.min(decimals, 4));
 }
 
+function formatHex(value) {
+    return `#${Math.max(0, Math.min(0xffffff, Math.round(value))).toString(16).padStart(6, '0')}`;
+}
+
 export function initDevPanel({
     onStateChanged = null,
+    onStateSnapshot = null,
     panelStartsOpen = false,
+    initialState = null,
 } = {}) {
     const toggleBtn = document.createElement('button');
     toggleBtn.id = 'dev-panel-toggle';
@@ -452,15 +431,19 @@ export function initDevPanel({
     const jsonStatus = panel.querySelector('#dev-json-status');
 
     const controlIndex = new Map();
+    const colorControlIndex = new Map();
 
     function notifyStateChanged() {
         if (typeof onStateChanged === 'function') {
             onStateChanged();
         }
+        if (typeof onStateSnapshot === 'function') {
+            onStateSnapshot(cloneConfigState());
+        }
     }
 
     function refreshJson() {
-        jsonArea.value = JSON.stringify(cloneState(), null, 2);
+        jsonArea.value = JSON.stringify(cloneConfigState(), null, 2);
     }
 
     function setStatus(message, isError = false) {
@@ -477,6 +460,18 @@ export function initDevPanel({
 
     function registerControl(path, input, valueNode, step) {
         controlIndex.set(path, { input, valueNode, step });
+    }
+
+    function updateColorControlValue(path, color) {
+        const entry = colorControlIndex.get(path);
+        if (!entry || !color || typeof color.getHex !== 'function') return;
+        const hex = color.getHex();
+        entry.input.value = formatHex(hex);
+        entry.valueNode.textContent = formatHex(hex);
+    }
+
+    function registerColorControl(path, input, valueNode) {
+        colorControlIndex.set(path, { input, valueNode });
     }
 
     function buildToggleControl(group, field) {
@@ -562,6 +557,58 @@ export function initDevPanel({
         return wrapper;
     }
 
+    function buildColorControl(group, field) {
+        const { key, label } = field;
+        const path = `${group.id}.${key}`;
+        const color = group.target[key];
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'dev-row';
+
+        const meta = document.createElement('div');
+        meta.className = 'dev-row-meta';
+
+        const labelEl = document.createElement('label');
+        labelEl.className = 'form-label';
+        labelEl.setAttribute('for', `dev-${path}`);
+        labelEl.textContent = label;
+
+        const valueEl = document.createElement('span');
+        valueEl.className = 'dev-value';
+        valueEl.textContent = formatHex(color.getHex());
+
+        meta.appendChild(labelEl);
+        meta.appendChild(valueEl);
+
+        const input = document.createElement('input');
+        input.className = 'form-control form-control-color';
+        input.type = 'color';
+        input.id = `dev-${path}`;
+        input.value = formatHex(color.getHex());
+        input.title = label;
+
+        input.addEventListener('input', () => {
+            group.target[key].set(input.value);
+            valueEl.textContent = formatHex(group.target[key].getHex());
+            notifyStateChanged();
+        });
+
+        input.addEventListener('change', refreshJson);
+
+        registerColorControl(path, input, valueEl);
+
+        const helpText = getFieldHelpText(group.id, key);
+        wrapper.appendChild(meta);
+        wrapper.appendChild(input);
+        if (helpText) {
+            const help = document.createElement('div');
+            help.className = 'dev-row-help';
+            help.textContent = helpText;
+            wrapper.appendChild(help);
+        }
+        return wrapper;
+    }
+
     PARAM_GROUPS.forEach((group, idx) => {
         const item = document.createElement('div');
         item.className = 'accordion-item';
@@ -591,7 +638,7 @@ export function initDevPanel({
         group.fields.forEach((field) => {
             const node = group.type === 'toggle'
                 ? buildToggleControl(group, field)
-                : buildRangeControl(group, field);
+                : (field.type === 'color' ? buildColorControl(group, field) : buildRangeControl(group, field));
             body.appendChild(node);
         });
 
@@ -601,12 +648,17 @@ export function initDevPanel({
     function syncUIFromState() {
         PARAM_GROUPS.forEach((group) => {
             group.fields.forEach((field) => {
-                const key = field[0];
+                const key = field.type === 'color' ? field.key : field[0];
                 const path = `${group.id}.${key}`;
 
                 if (group.type === 'toggle') {
                     const input = panel.querySelector(`#dev-${path}`);
                     if (input) input.checked = Boolean(group.target[key]);
+                    return;
+                }
+
+                if (field.type === 'color') {
+                    updateColorControlValue(path, group.target[key]);
                     return;
                 }
 
@@ -642,18 +694,7 @@ export function initDevPanel({
                 throw new Error('Invalid JSON object.');
             }
 
-            applyPartial(toggles, payload.toggles);
-            applyPartial(sceneParams, payload.sceneParams);
-            applyPartial(fieldParams, payload.fieldParams);
-            applyPartial(flowParams, payload.flowParams);
-            applyPartial(plasmaParams, payload.plasmaParams);
-            applyPartial(backgroundParams, payload.backgroundParams);
-            applyPartial(fluidParams, payload.fluidParams);
-            applyPartial(liquidParams, payload.liquidParams);
-            applyPartial(creationLinkParams, payload.creationLinkParams);
-            applyPartial(quantumWaveParams, payload.quantumWaveParams);
-            applyPartial(distortionParams, payload.distortionParams);
-            applyPartial(breathConfig, payload.breathConfig);
+            applyConfigState(payload);
 
             notifyStateChanged();
             syncUIFromState();
@@ -676,6 +717,11 @@ export function initDevPanel({
     panel.querySelector('#dev-json-paste').addEventListener('click', pasteJson);
     panel.querySelector('#dev-json-apply').addEventListener('click', applyJson);
 
+    if (initialState && typeof initialState === 'object') {
+        applyConfigState(initialState);
+        notifyStateChanged();
+    }
+    syncUIFromState();
     refreshJson();
 
     return {
@@ -688,6 +734,9 @@ export function initDevPanel({
         destroy() {
             toggleBtn.remove();
             panel.remove();
+        },
+        getStateSnapshot() {
+            return cloneConfigState();
         },
     };
 }

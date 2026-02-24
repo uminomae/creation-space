@@ -41,6 +41,18 @@ export const backgroundParams = {
     edgeB: 0.268,
     pulse: 0.105,
     opacity: 1,
+    tubeRadius: 89.5,
+    tubeLength: 768.0,
+    tubeFlowSpeed: 0.031,
+    tubeNoiseScale: 4.36,
+    tubeWarpStrength: 1.21,
+    tubeSoftness: 0.85,
+    tubeDepthFade: 0.78,
+    tubeBrightness: 0.62,
+    tubeSwirl: 2.5,
+    starOpacity: 0.84,
+    starSoftness: 7.0,
+    starSize: 1.15,
 };
 
 export const FOG_V002_COLOR = new THREE.Color(0x050508);
@@ -75,6 +87,7 @@ export const flowParams = {
     bundleTightness: 0.25,
     centerBandRatio: 0.25,
     centerThickness: 0.97,
+    depthScatter: 1.28,
     speed: 1.0, // Added speed parameter per user request
 };
 
@@ -85,11 +98,17 @@ export const plasmaParams = {
     chaos: 0.6,
     speed: 0.8,
     heightRatio: 0.6,
+    autoChaosAmp: 30,
+    wSeparation: 0.35,
+    projectionScale: 0.4,
     colorA: new THREE.Color(8172519), // Convert from int
     colorB: new THREE.Color(13363187), // Convert from int
 };
 
 export const creationLinkParams = {
+    sizeGain: 5.81,
+    linkSpread: 2.96,
+    linkDepthSpread: 1.57,
     pulseSpeed: 0.37,
     vortexSpeed: 0.92,
     swirlStrength: 0.26,
@@ -97,6 +116,7 @@ export const creationLinkParams = {
     colorSplitSoftness: 0.08,
     particleBrightness: 0.72,
     particleSoftness: 3.2,
+    coreSharpness: 0.72,
     fluidDrift: 0.14,
     pointerBurstStrength: 1,
     pointerBurstSpread: 20,
@@ -133,7 +153,33 @@ export const creationLinkParams = {
     link1ColorAB: 0.74,
     link1ColorBR: 0.84,
     link1ColorBG: 0.96,
-    link1ColorBB: 1
+    link1ColorBB: 1,
+    link2PosX: 0.1,
+    link2PosY: -0.8,
+    link2PosZ: -9.4,
+    link2Scale: 10.0,
+    link2GlowScale: 5.2,
+    link2HitRadius: 2.2,
+    link2Phase: 1.4,
+    link2ColorAR: 1.0,
+    link2ColorAG: 1.0,
+    link2ColorAB: 1.0,
+    link2ColorBR: 0.06,
+    link2ColorBG: 0.72,
+    link2ColorBB: 0.72,
+    link3PosX: 9.2,
+    link3PosY: -1.95,
+    link3PosZ: -7.1,
+    link3Scale: 10.0,
+    link3GlowScale: 4.5,
+    link3HitRadius: 1.95,
+    link3Phase: 2.8,
+    link3ColorAR: 1.0,
+    link3ColorAG: 1.0,
+    link3ColorAB: 1.0,
+    link3ColorBR: 0.06,
+    link3ColorBG: 0.72,
+    link3ColorBB: 0.72,
 };
 
 export const fluidParams = {
