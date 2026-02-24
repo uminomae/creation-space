@@ -14,17 +14,17 @@ export const toggles = {
     heatHaze: false,
     dof: true,
     quantumWave: false,
-    showSwirl: true,
+    showPlasma: true,
 };
 
 export const breathConfig = {
-    period: 8.0,
+    period: 8,
     htmlMinOpacity: 0.1,
     htmlMaxOpacity: 0.8,
-    htmlMaxBlur: 3.0,
+    htmlMaxBlur: 3,
     htmlMinScale: 0.95,
     fovBase: 60,
-    fovAmplitude: 1.0,
+    fovAmplitude: 1,
 };
 
 export const BG_V002_CENTER = new THREE.Color(0x0b1130);
@@ -40,7 +40,7 @@ export const backgroundParams = {
     edgeG: 0.168,
     edgeB: 0.268,
     pulse: 0.105,
-    opacity: 1.0,
+    opacity: 1,
 };
 
 export const FOG_V002_COLOR = new THREE.Color(0x050508);
@@ -49,8 +49,8 @@ export const FOG_V004_COLOR = new THREE.Color(0x0a1520);
 export const FOG_V004_DENSITY = 0.015;
 
 export const sceneParams = {
-    mixCycle: 16.0,
-    styleCycle: 22.0,
+    mixCycle: 16,
+    styleCycle: 22,
     fogDensity: 0.008,
     camX: -2,
     camY: 0,
@@ -61,30 +61,32 @@ export const sceneParams = {
 export const fieldParams = {
     intensity: 1.2,
     alpha: 0.42,
-    lineLow: 0.30,
+    lineLow: 0.3,
     lineHigh: 0.72,
-    bottomClip: 0.0,
+    bottomClip: 0,
     bottomFeather: 0.15,
 };
 
 export const flowParams = {
-    seedOpacity: 0.65,
+    seedOpacity: 0.53,
     filamentOpacity: 0.5,
-    seedDrift: 1.25,
+    seedDrift: 1.34,
     chaos: 1.8,
     bundleTightness: 0.25,
-    centerBandRatio: 0.25, // For forcing the tight center pinch
-    centerThickness: 0.5,
+    centerBandRatio: 0.25,
+    centerThickness: 0.97,
+    speed: 1.0, // Added speed parameter per user request
 };
 
-export const swirlParams = {
-    opacity: 0.35,
-    chaos: 3.5, // Extreme chaos for swarm
-    speed: 0.20,
-    radius: 12.0, // Tight central cluster
-    heightRatio: 1.0, // Full sphere, no squeezing
-    colorA: new THREE.Color(0.20, 0.45, 0.8),
-    colorB: new THREE.Color(0.60, 0.80, 0.9),
+export const plasmaParams = {
+    coreOpacity: 0,
+    chaosOpacity: 0.05,
+    radius: 14,
+    chaos: 0.6,
+    speed: 0.8,
+    heightRatio: 0.6,
+    colorA: new THREE.Color(8172519), // Convert from int
+    colorB: new THREE.Color(13363187), // Convert from int
 };
 
 export const creationLinkParams = {
@@ -96,15 +98,15 @@ export const creationLinkParams = {
     particleBrightness: 0.72,
     particleSoftness: 3.2,
     fluidDrift: 0.14,
-    pointerBurstStrength: 1.0,
-    pointerBurstSpread: 20.0,
+    pointerBurstStrength: 1,
+    pointerBurstSpread: 20,
     colorContrast: 0.55,
     floatAmp: 0.25,
     floatOffset: -0.1,
     yawSpeed: 0.18,
-    tiltSpeed: 0.30,
+    tiltSpeed: 0.3,
     tiltAmp: 0.08,
-    baseScaleMul: 1.0,
+    baseScaleMul: 1,
     pulseScaleAmp: 0.065,
     hoverScaleBoost: 0.48,
     hoverLerp: 0.025,
@@ -119,11 +121,11 @@ export const creationLinkParams = {
     haloOpacityPulse: 0.28,
     haloOpacityHover: 0.34,
 
-    link1PosX: 0.0,
-    link1PosY: -1.0,
-    link1PosZ: -2.0,
-    link1Scale: 13.0,
-    link1GlowScale: 6.0,
+    link1PosX: 0,
+    link1PosY: -1,
+    link1PosZ: -2,
+    link1Scale: 13,
+    link1GlowScale: 6,
     link1HitRadius: 2.8,
     link1Phase: 0.15,
     link1ColorAR: 0.09,
@@ -131,12 +133,12 @@ export const creationLinkParams = {
     link1ColorAB: 0.74,
     link1ColorBR: 0.84,
     link1ColorBG: 0.96,
-    link1ColorBB: 1.0,
+    link1ColorBB: 1
 };
 
 export const fluidParams = {
-    force: 1.0,
-    curl: 1.0,
+    force: 1,
+    curl: 1,
     decay: 0.948,
     radius: 0.21,
     influence: 0.06,
@@ -149,12 +151,12 @@ export const liquidParams = {
     iterations: 12,
     forceRadius: 0.08,
     forceStrength: 4.5,
-    splatGain: 5.0,
+    splatGain: 5,
     densityMul: 1.8,
     noiseScale: 9.5,
     noiseSpeed: 0.02,
     noiseAmp: 0.1,
-    specularPow: 8.0,
+    specularPow: 8,
     specularInt: 1.8,
     normalZ: 0.3,
     diffuseGain: 0.3,
@@ -168,7 +170,7 @@ export const liquidParams = {
     baseColorB: 0.85,
     highlightR: 0.9,
     highlightG: 0.9,
-    highlightB: 0.9,
+    highlightB: 0.9
 };
 
 export const quantumWaveParams = {
@@ -178,23 +180,23 @@ export const quantumWaveParams = {
     dispersion: 0.11,
     noiseAmp: 0.25,
     noiseScale: 2.1,
-    waveCount: 8.0,
+    waveCount: 8,
     envelope: 0.82,
     yInfluence: 0.7,
-    glowAmount: 0.0,
+    glowAmount: 0,
     glowColorR: 0.45,
     glowColorG: 0.72,
-    glowColorB: 1.0,
-    caberration: 0.0,
-    rimBright: 0.0,
-    blurAmount: 0.0,
-    fogDensity: 0.0,
+    glowColorB: 1,
+    caberration: 0,
+    rimBright: 0,
+    blurAmount: 0,
+    fogDensity: 0,
     fogColorR: 0.34,
     fogColorG: 0.46,
     fogColorB: 0.62,
-    darken: 0.0,
-    turbulence: 0.0,
-    sharpness: 0.74,
+    darken: 0,
+    turbulence: 0,
+    sharpness: 0.74
 };
 
 export const distortionParams = {
@@ -205,13 +207,13 @@ export const distortionParams = {
     blurAmount: 0.05,
     innerGlow: 0.1,
     haloIntensity: 0.2,
-    haloWidth: 1.0,
+    haloWidth: 1,
     haloColorR: 0.3,
     haloColorG: 0.2,
     haloColorB: 0.05,
     heatHaze: 0.024,
     heatHazeRadius: 0.5,
-    heatHazeSpeed: 1.0,
+    heatHazeSpeed: 1,
     dofStrength: 0.006,
-    dofFocusRadius: 0.26,
+    dofFocusRadius: 0.26
 };
