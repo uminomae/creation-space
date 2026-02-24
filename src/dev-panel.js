@@ -9,7 +9,7 @@ import {
     liquidParams,
     quantumWaveParams,
     sceneParams,
-    swirlParams,
+    plasmaParams,
     toggles,
 } from './config.js';
 
@@ -18,10 +18,10 @@ const GROUP_HELP_JA = {
     creationLink1: 'オブジェクト1の個別設定。位置・サイズ・色・クリック判定半径を調整します。',
     creationLink2: 'オブジェクト2の個別設定。位置・サイズ・色・クリック判定半径を調整します。',
     creationLink3: 'オブジェクト3の個別設定。位置・サイズ・色・クリック判定半径を調整します。',
-    swirl: '中心の乱数（虫の群れ）の設定。カオス度や回転速度・空間サイズを調整します。',
+    plasma: '中心の乱数（虫の群れ）の設定。カオス度や回転速度・空間サイズを調整します。',
 };
 
-const SWIRL_HELP_JA = {
+const PLASMA_HELP_JA = {
     opacity: '不透明度です。',
     chaos: 'カオス度（暴れ具合・揺らぎ）です。大きくすると激しく散らばります。',
     speed: '回転・飛び交う速度です。',
@@ -84,8 +84,8 @@ function getFieldHelpText(groupId, key) {
         const normalizedKey = key.replace(/^link[123]/, 'link1');
         return CREATION_LINK_HELP_JA[normalizedKey] || '';
     }
-    if (groupId === 'swirl') {
-        return SWIRL_HELP_JA[key] || '';
+    if (groupId === 'plasma') {
+        return PLASMA_HELP_JA[key] || '';
     }
     return '';
 }
@@ -110,6 +110,7 @@ const PARAM_GROUPS = [
             ['fovBreath', 'FOV Breath'],
             ['htmlBreath', 'HTML Breath'],
             ['heatHaze', 'Heat Haze'],
+            ['showPlasma', 'Plasma'],
         ],
     },
     {
@@ -152,15 +153,17 @@ const PARAM_GROUPS = [
             ['bundleTightness', 'Bundle Tightness', 0.1, 1.5, 0.01],
             ['centerBandRatio', 'Center Band', 0.2, 0.8, 0.005],
             ['centerThickness', 'Center Thick', 0.0, 1.0, 0.01],
+            ['speed', 'Speed', 0.0, 5.0, 0.01],
         ],
     },
     {
-        id: 'swirl',
-        title: 'Swirl',
+        id: 'plasma',
+        title: 'Plasma',
         type: 'range',
-        target: swirlParams,
+        target: plasmaParams,
         fields: [
-            ['opacity', 'Opacity', 0.0, 1.0, 0.01],
+            ['coreOpacity', 'Core Opacity', 0.0, 1.0, 0.01],
+            ['chaosOpacity', 'Chaos Opacity', 0.0, 1.0, 0.01],
             ['chaos', 'Chaos', 0.0, 50.0, 0.2],
             ['speed', 'Speed', 0.0, 15.0, 0.05],
             ['radius', 'Radius', 1.0, 100.0, 0.5],
@@ -370,7 +373,7 @@ function cloneState() {
         sceneParams: { ...sceneParams },
         fieldParams: { ...fieldParams },
         flowParams: { ...flowParams },
-        swirlParams: { ...swirlParams },
+        plasmaParams: { ...plasmaParams },
         backgroundParams: { ...backgroundParams },
         fluidParams: { ...fluidParams },
         liquidParams: { ...liquidParams },
@@ -643,7 +646,7 @@ export function initDevPanel({
             applyPartial(sceneParams, payload.sceneParams);
             applyPartial(fieldParams, payload.fieldParams);
             applyPartial(flowParams, payload.flowParams);
-            applyPartial(swirlParams, payload.swirlParams);
+            applyPartial(plasmaParams, payload.plasmaParams);
             applyPartial(backgroundParams, payload.backgroundParams);
             applyPartial(fluidParams, payload.fluidParams);
             applyPartial(liquidParams, payload.liquidParams);

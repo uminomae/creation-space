@@ -10,6 +10,7 @@ import {
     FOG_V002_DENSITY,
     FOG_V004_COLOR,
     FOG_V004_DENSITY,
+    plasmaParams,
 } from './config.js';
 import { CAMERA_FOV, CAMERA_NEAR, CAMERA_FAR, CAMERA_LOOK_AT_Z } from './constants.js';
 import { lerp } from './animation-utils.js';
@@ -27,6 +28,7 @@ let _flowGroup;
 let _flowMaterials = [];
 let _seedSystem;
 let _filamentSystem;
+let _plasmaSystem; // Added for plasma system
 let _lastFlowTime = 0;
 let _starFieldGroup;
 let _starMaterials = [];
@@ -177,11 +179,12 @@ function smoothstep(edge0, edge1, x) {
     return t * t * (3 - 2 * t);
 }
 
-function createFlowPointMaterial({ colorA, colorB }) {
+function createFlowPointMaterial({ colorA, colorB, blending = THREE.AdditiveBlending }) {
     const material = new THREE.ShaderMaterial({
         uniforms: {
             uTime: { value: 0.0 },
-            uOpacity: { value: 1.0 },
+            uCoreOpacity: { value: 1.0 },
+            uChaosOpacity: { value: 1.0 },
             uColorA: { value: colorA.clone() },
             uColorB: { value: colorB.clone() },
         },
@@ -189,8 +192,10 @@ function createFlowPointMaterial({ colorA, colorB }) {
             attribute float aSize;
             attribute float aPhase;
             attribute float aTemp;
+            attribute float aChaosVal;
             varying float vTwinkle;
             varying float vTemp;
+            varying float vChaosVal;
 
             uniform float uTime;
 
@@ -199,16 +204,19 @@ function createFlowPointMaterial({ colorA, colorB }) {
                 float flicker = 0.72 + 0.28 * sin(uTime * 1.1 + aPhase * 6.2831853);
                 vTwinkle = flicker;
                 vTemp = aTemp;
+                vChaosVal = aChaosVal;
                 gl_PointSize = aSize * (400.0 / max(-mvPosition.z, 0.001)); // Increased size for probability clouds
                 gl_Position = projectionMatrix * mvPosition;
             }
         `,
         fragmentShader: `
-            uniform float uOpacity;
+            uniform float uCoreOpacity;
+            uniform float uChaosOpacity;
             uniform vec3 uColorA;
             uniform vec3 uColorB;
             varying float vTwinkle;
             varying float vTemp;
+            varying float vChaosVal;
 
             void main() {
                 vec2 uv = gl_PointCoord * 2.0 - 1.0;
@@ -218,12 +226,14 @@ function createFlowPointMaterial({ colorA, colorB }) {
                 // Probability cloud using Gaussian falloff
                 float lum = exp(-r * r * 4.5) * 1.25 * vTwinkle;
                 vec3 c = mix(uColorA, uColorB, vTemp) * lum;
-                float a = clamp(lum * uOpacity, 0.0, 1.0);
+                
+                float targetOpacity = mix(uCoreOpacity, uChaosOpacity, vChaosVal);
+                float a = clamp(lum * targetOpacity, 0.0, 1.0);
                 gl_FragColor = vec4(c, a);
             }
         `,
         transparent: true,
-        blending: THREE.AdditiveBlending,
+        blending: blending,
         depthWrite: false,
     });
 
@@ -254,10 +264,7 @@ function resetSeedParticle(system, i) {
     system.velocities[p3 + 2] = 0.0;
 }
 
-function createFlowObjects() {
-    _flowMaterials = [];
-    const group = new THREE.Group();
-
+function createSeedObjects() {
     const seedCount = 420;
     const seedPositions = new Float32Array(seedCount * 3);
     const seedVelocities = new Float32Array(seedCount * 3);
@@ -275,11 +282,14 @@ function createFlowObjects() {
         seedRadiiNorm[i] = Math.pow(Math.random(), 0.5);
     }
 
+    const seedChaosVals = new Float32Array(seedCount).fill(0.0);
+
     const seedGeometry = new THREE.BufferGeometry();
     seedGeometry.setAttribute('position', new THREE.BufferAttribute(seedPositions, 3));
     seedGeometry.setAttribute('aSize', new THREE.BufferAttribute(seedSizes, 1));
     seedGeometry.setAttribute('aPhase', new THREE.BufferAttribute(seedPhases, 1));
     seedGeometry.setAttribute('aTemp', new THREE.BufferAttribute(seedTemps, 1));
+    seedGeometry.setAttribute('aChaosVal', new THREE.BufferAttribute(seedChaosVals, 1));
 
     const seedMaterial = createFlowPointMaterial({
         colorA: new THREE.Color(0.42, 0.66, 0.95),
@@ -288,7 +298,6 @@ function createFlowObjects() {
     seedMaterial.userData.kind = 'seed';
 
     const seedPoints = new THREE.Points(seedGeometry, seedMaterial);
-    group.add(seedPoints);
 
     _seedSystem = {
         points: seedPoints,
@@ -304,6 +313,10 @@ function createFlowObjects() {
     }
     seedGeometry.attributes.position.needsUpdate = true;
 
+    return seedPoints;
+}
+
+function createFilamentObjects() {
     const filamentCount = 620;
     const filamentPositions = new Float32Array(filamentCount * 3);
     const filamentSizes = new Float32Array(filamentCount);
@@ -324,11 +337,14 @@ function createFlowObjects() {
         filamentWobbles[i] = randRange(0.75, 1.25);
     }
 
+    const filamentChaosVals = new Float32Array(filamentCount).fill(0.0);
+
     const filamentGeometry = new THREE.BufferGeometry();
     filamentGeometry.setAttribute('position', new THREE.BufferAttribute(filamentPositions, 3));
     filamentGeometry.setAttribute('aSize', new THREE.BufferAttribute(filamentSizes, 1));
     filamentGeometry.setAttribute('aPhase', new THREE.BufferAttribute(filamentPhases, 1));
     filamentGeometry.setAttribute('aTemp', new THREE.BufferAttribute(filamentTemps, 1));
+    filamentGeometry.setAttribute('aChaosVal', new THREE.BufferAttribute(filamentChaosVals, 1));
 
     const filamentMaterial = createFlowPointMaterial({
         colorA: new THREE.Color(0.45, 0.78, 1.0),
@@ -337,7 +353,6 @@ function createFlowObjects() {
     filamentMaterial.userData.kind = 'filament';
 
     const filamentPoints = new THREE.Points(filamentGeometry, filamentMaterial);
-    group.add(filamentPoints);
 
     _filamentSystem = {
         points: filamentPoints,
@@ -350,15 +365,19 @@ function createFlowObjects() {
         count: filamentCount,
     };
 
-    return group;
+    return filamentPoints;
 }
 
-function updateSeedParticles(time, dtScale) {
+function updateSeedParticles(dtScale, time) {
     if (!_seedSystem) return;
 
     const chaos = flowParams.chaos;
     const drift = flowParams.seedDrift;
     const tight = flowParams.bundleTightness;
+    const speedMultiplier = flowParams.speed !== undefined ? flowParams.speed : 1.0;
+
+    // Safety clamp to avoid physics explosions at high speeds
+    const safeDtScale = Math.min(dtScale * speedMultiplier, 3.0);
 
     // Hopf position
     const hopfX = creationLinkParams.link1PosX;
@@ -381,7 +400,8 @@ function updateSeedParticles(time, dtScale) {
         const absX = Math.abs(x - hopfX);
 
         // Use centerThickness to define how thick the 'pinch' should be
-        const scale = flowParams.centerThickness + Math.pow(absX / 35.0, 1.5) * 1.5;
+        // Creating a sharp hyperbolic funnel (wormhole) that flares out quickly
+        const scale = flowParams.centerThickness + Math.pow(absX / 20.0, 2.5) * 2.0;
 
         const targetY = hopfY + Math.sin(theta) * rNorm * FLOW_FULL_HALF_Y * scale;
         const targetZ = hopfZ + Math.cos(theta) * rNorm * FLOW_FULL_HALF_Z * scale;
@@ -392,12 +412,12 @@ function updateSeedParticles(time, dtScale) {
         // Smoothing the right side (flowing out like water) by strengthening alignment to the target positions
         const stabilize = (x > hopfX) ? 2.5 : 1.0;
 
-        vy += (targetY - y) * pullStrength * dtScale * tight * stabilize;
-        vz += (targetZ - z) * pullStrength * dtScale * tight * stabilize;
+        vy += (targetY - y) * pullStrength * safeDtScale * tight * stabilize;
+        vz += (targetZ - z) * pullStrength * safeDtScale * tight * stabilize;
 
         // Accelerate X as it gets closer to center (gravity slingshot), constant drift when far
         const xAccel = 0.04 + 10.0 / (absX + 10.0);
-        vx += (xAccel * drift - vx) * 0.1 * dtScale;
+        vx += (xAccel * drift - vx) * 0.1 * safeDtScale;
 
         // Add extreme chaos only on the left and center. Fade out rapidly on the right for water-like flow.
         let pinchChaos = 0.0;
@@ -408,18 +428,18 @@ function updateSeedParticles(time, dtScale) {
         }
 
         if (pinchChaos > 0.001) {
-            vy += randRange(-0.04, 0.04) * pinchChaos * dtScale;
-            vz += randRange(-0.04, 0.04) * pinchChaos * dtScale;
+            vy += randRange(-0.04, 0.04) * pinchChaos * safeDtScale;
+            vz += randRange(-0.04, 0.04) * pinchChaos * safeDtScale;
         }
 
-        const damping = Math.pow(0.92, dtScale); // High friction to prevent physics explosion
+        const damping = Math.pow(0.92, safeDtScale); // High friction to prevent physics explosion
         vx *= damping;
         vy *= damping;
         vz *= damping;
 
-        x += vx * dtScale;
-        y += vy * dtScale;
-        z += vz * dtScale;
+        x += vx * safeDtScale;
+        y += vy * safeDtScale;
+        z += vz * safeDtScale;
 
         // Reset if they pass the Right edge
         if (x > FLOW_X_MAX) {
@@ -438,7 +458,7 @@ function updateSeedParticles(time, dtScale) {
     _seedSystem.points.geometry.attributes.position.needsUpdate = true;
 }
 
-function updateFilamentParticles(time) {
+function updateFilamentParticles(dt, time) {
     if (!_filamentSystem) return;
 
     const hopfX = creationLinkParams.link1PosX;
@@ -452,14 +472,15 @@ function updateFilamentParticles(time) {
         const phase = _filamentSystem.phases[i];
         const speed = _filamentSystem.speeds[i];
         const wobble = _filamentSystem.wobbles[i];
+        const globalSpeed = flowParams.speed !== undefined ? flowParams.speed : 1.0;
 
         // Sweeping from -MAX to +MAX continuously
-        const progress = (phase + time * speed * flowParams.seedDrift * 0.1) % 1.0;
+        const progress = (phase + time * speed * flowParams.seedDrift * 0.1 * globalSpeed) % 1.0;
         let x = lerp(FLOW_X_MIN, FLOW_X_MAX, progress);
 
-        // Exponential spatial spread algorithm
+        // Exponential spatial spread algorithm (wormhole funnel)
         const absX = Math.abs(x - hopfX);
-        const scale = flowParams.centerThickness + Math.pow(absX / 35.0, 1.5) * 1.5;
+        const scale = flowParams.centerThickness + Math.pow(absX / 20.0, 2.5) * 2.0;
 
         // Apply chaotic twisting while passing through center. Water-like smoothness on the right.
         let wobbleMult = 0.0;
@@ -489,63 +510,74 @@ function updateFlowObjects(time) {
     _lastFlowTime = time;
     const dtScale = dt * 60.0;
 
-    updateSeedParticles(time, dtScale);
-    updateFilamentParticles(time);
-    if (toggles.showSwirl) {
-        updateSwirlObjects(time);
-    }
+    updateSeedParticles(dtScale, time);
+    updateFilamentParticles(dtScale, time);
+    updatePlasmaObjects(time);
+    updateStarField(time);
 
     _flowMaterials.forEach((mat) => {
         mat.uniforms.uTime.value = time;
         if (mat.userData.kind === 'seed') {
-            mat.uniforms.uOpacity.value = flowParams.seedOpacity;
-        } else if (mat.userData.kind === 'swirl') {
-            mat.uniforms.uOpacity.value = swirlParams.opacity;
-            mat.uniforms.uColorA.value.copy(swirlParams.colorA);
-            mat.uniforms.uColorB.value.copy(swirlParams.colorB);
+            mat.uniforms.uCoreOpacity.value = flowParams.seedOpacity;
+            mat.uniforms.uChaosOpacity.value = flowParams.seedOpacity;
+        } else if (mat.userData.kind === 'plasma') {
+            mat.uniforms.uCoreOpacity.value = plasmaParams.coreOpacity;
+            mat.uniforms.uChaosOpacity.value = plasmaParams.chaosOpacity;
+            mat.uniforms.uColorA.value.copy(plasmaParams.colorA);
+            mat.uniforms.uColorB.value.copy(plasmaParams.colorB);
         } else {
-            mat.uniforms.uOpacity.value = flowParams.filamentOpacity;
+            mat.uniforms.uCoreOpacity.value = flowParams.filamentOpacity;
+            mat.uniforms.uChaosOpacity.value = flowParams.filamentOpacity;
         }
     });
 }
 
 // ========================
-// SWIRL SYSTEM
+// PLASMA CORE SYSTEM (Zero-Base Rebuild)
 // ========================
-let _swirlSystem;
 
-function createSwirlObjects() {
+function createPlasmaObjects() {
     const group = new THREE.Group();
 
-    // Drastically increase particle count so it stays dense when expanded
-    const count = 4000;
+    const count = 3000;
     const positions = new Float32Array(count * 3);
     const sizes = new Float32Array(count);
     const phases = new Float32Array(count);
     const temps = new Float32Array(count);
-    const radii = new Float32Array(count);
-    const thetas = new Float32Array(count);
-    const phis = new Float32Array(count);
+    const chaosVals = new Float32Array(count);
+
+    // Core parameters for each particle: Coordinates on the 3-sphere (S3)
+    const angles = new Float32Array(count * 3); // alpha, beta/u, gamma for Hopf coordinates
 
     for (let i = 0; i < count; i++) {
-        // We will no longer strictly bind them to a sphere, but rather a dynamic coordinate system mapping
-        // r here acts as a base distance multiplier for the chaos function
-        const r = Math.pow(Math.random(), 0.5) * swirlParams.radius;
-        const theta = Math.random() * Math.PI * 2.0;
-        const phi = Math.acos((Math.random() * 2.0) - 1.0);
+        // Magatama distribution! (Comma shape Yin-Yang)
+        // 'u' represents the position along the comma body, 0 = head, 1 = tail tip.
+        // We square random to bias heavily towards the head where the bulk is.
+        let u = Math.pow(Math.random(), 2.0);
 
-        positions[i * 3 + 0] = r * Math.sin(phi) * Math.cos(theta); // Initial dummy placement
-        positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-        positions[i * 3 + 2] = r * Math.cos(phi);
+        // alpha defines the offset from the core ring axis 
+        // We give the head more thickness than the tail
+        angles[i * 3 + 0] = Math.PI / 4.0 + (Math.random() - 0.5) * 0.45 * (1.0 - u * 0.5);
 
-        // Substantially larger base sizes so they look like big fuzzy probability clouds
-        sizes[i] = randRange(4.0, 15.0);
+        // We store 'u' in the second slot to use in the update loop for the trailing effect
+        angles[i * 3 + 1] = u;
+
+        // Offset around the tube for volume
+        angles[i * 3 + 2] = Math.random() * Math.PI * 2.0;
+
+        positions[i * 3 + 0] = 0;
+        positions[i * 3 + 1] = 0;
+        positions[i * 3 + 2] = 0;
+
+        // Size drastically falls off towards the tail giving a teardrop/comma shape
+        sizes[i] = randRange(2.5, 7.5) * (1.1 - u);
         phases[i] = Math.random();
-        temps[i] = Math.pow(Math.random(), 0.8);
+        chaosVals[i] = 0.0;
 
-        radii[i] = r;
-        thetas[i] = theta;
-        phis[i] = phi;
+        // Explicit Yin-Yang Separation:
+        // Even indices are Yin (ColorA, aTemp = 0.0)
+        // Odd indices are Yang (ColorB, aTemp = 1.0)
+        temps[i] = (i % 2 === 0) ? 0.0 : 1.0;
     }
 
     const geometry = new THREE.BufferGeometry();
@@ -553,91 +585,145 @@ function createSwirlObjects() {
     geometry.setAttribute('aSize', new THREE.BufferAttribute(sizes, 1));
     geometry.setAttribute('aPhase', new THREE.BufferAttribute(phases, 1));
     geometry.setAttribute('aTemp', new THREE.BufferAttribute(temps, 1));
+    geometry.setAttribute('aChaosVal', new THREE.BufferAttribute(chaosVals, 1));
 
     const material = createFlowPointMaterial({
-        colorA: swirlParams.colorA,
-        colorB: swirlParams.colorB,
+        colorA: plasmaParams.colorA,
+        colorB: plasmaParams.colorB,
+        blending: THREE.NormalBlending, // Normal Blending to occlude background as "Dark Matter"
     });
-    material.userData.kind = 'swirl';
+    material.userData.kind = 'plasma';
 
     const points = new THREE.Points(geometry, material);
+
+    // Safety check against culling issues
+    points.frustumCulled = false;
+
     group.add(points);
 
-    _swirlSystem = {
+    _plasmaSystem = {
         points,
         positions,
-        radii,
-        thetas,
-        phis,
-        count,
+        angles,
+        chaosVals,
+        count
     };
 
     return group;
 }
 
-function updateSwirlObjects(time) {
-    if (!_swirlSystem || !toggles.showSwirl) {
-        if (_swirlSystem) _swirlSystem.points.visible = false;
+function updatePlasmaObjects(time) {
+    if (!_plasmaSystem || !toggles.showPlasma) {
+        if (_plasmaSystem) _plasmaSystem.points.visible = false;
         return;
     }
-    _swirlSystem.points.visible = true;
+    _plasmaSystem.points.visible = true;
 
-    const speed = swirlParams.speed;
-    const chaos = swirlParams.chaos;
+    // Safety checks
+    let speed = isNaN(plasmaParams.speed) ? 0.5 : plasmaParams.speed;
+    let baseChaos = isNaN(plasmaParams.chaos) ? 0.0 : plasmaParams.chaos;
+    let maxRadius = isNaN(plasmaParams.radius) ? 12.0 : plasmaParams.radius;
+    let heightRatio = isNaN(plasmaParams.heightRatio) ? 1.0 : plasmaParams.heightRatio;
 
-    // Hopf position for anchoring the swarm
-    const hopfX = creationLinkParams.link1PosX;
-    const hopfY = creationLinkParams.link1PosY;
-    const hopfZ = creationLinkParams.link1PosZ;
+    // Auto-oscillating chaos to create an alternating "Order (Sphere)" and "Chaos (Diffusion)" breath
+    // Using a slow sine wave: when it's positive, we clamp to 0 (Sphere phase).
+    // When it's negative, it rises up to 30.0 (Diffusion phase).
+    const autoChaos = Math.max(0.0, -Math.sin(time * 0.4)) * 30.0;
+    const chaos = baseChaos + autoChaos;
 
-    for (let i = 0; i < _swirlSystem.count; i++) {
+    const hopfX = isNaN(creationLinkParams.link1PosX) ? 0 : creationLinkParams.link1PosX;
+    const hopfY = isNaN(creationLinkParams.link1PosY) ? 0 : creationLinkParams.link1PosY;
+    const hopfZ = isNaN(creationLinkParams.link1PosZ) ? 0 : creationLinkParams.link1PosZ;
+
+    for (let i = 0; i < _plasmaSystem.count; i++) {
         const p3 = i * 3;
-        const rBase = _swirlSystem.radii[i];
-        const thetaBase = _swirlSystem.thetas[i];
-        const phiBase = _swirlSystem.phis[i];
 
-        // Chaotic random radius that pulses and throbs unpredictably
-        // Breaking the pure sphere into a noisy, bubbling volume
-        const phaseShift = i * 1.37;
-        const sizePulse = 0.5 + 1.5 * Math.pow(Math.sin(time * 2.2 + phaseShift), 2.0);
-        const dynamicR = rBase * sizePulse;
+        let alpha = _plasmaSystem.angles[p3 + 0];
+        let u = _plasmaSystem.angles[p3 + 1];
+        let randomOffset = _plasmaSystem.angles[p3 + 2];
 
-        const erraticSpeed = speed * (1.5 + (swirlParams.radius - rBase) / swirlParams.radius * 3.0);
+        const isYang = (i % 2 !== 0);
 
-        // Buzzing flies random offset
-        const wobbleX = Math.sin(time * 3.1 + i * 2.1) * chaos;
-        const wobbleY = Math.cos(time * 2.7 + i * 1.8) * chaos;
-        const wobbleZ = Math.sin(time * 3.5 + i * 2.5) * chaos;
+        // Magatama 4D Spinor rotation
+        // Base angle defines the current position of the head. Yin and Yang are 180 degrees (PI) apart.
+        const evolution = time * speed;
+        const headAngle = evolution + (isYang ? Math.PI : 0.0);
 
-        // Extremely chaotic orbits, frequently changing direction or shaking
-        const thetaShake = Math.sin(time * 4.0 + i) * chaos * 0.15;
-        const theta = thetaBase + (time * erraticSpeed) * (i % 2 === 0 ? 1 : -1) + thetaShake;
+        // Gamma extends backwards forming the tail
+        let gamma = headAngle - u * Math.PI * 1.5;
 
-        const phiShake = Math.cos(time * 3.2 + i * 1.5) * chaos * 0.15;
-        const phi = phiBase + Math.sin(time * 0.8 + i) * 0.7 + phiShake;
+        // Beta rotates around the tube itself
+        let beta = time * speed * 2.0 + randomOffset;
 
-        // Base relative position (X axis offset inside the swarm)
-        const dx = dynamicR * Math.sin(phi) * Math.cos(theta);
+        // Chaos injects turbulent non-linear progression
+        const turbulence = chaos * 0.05 * Math.sin(gamma * 3.0 + i * 0.01 + time * speed);
 
-        // Shape transformation: wide on the left (dx < 0), narrow on the right (dx > 0)
-        let coneScale = 1.0;
-        if (dx < 0.0) {
-            // Expand strongly towards the left
-            coneScale = 1.0 + Math.abs(dx) / (swirlParams.radius * 0.35); // Big flare
-        } else {
-            // Squeeze tightly towards the right
-            coneScale = 1.0 / (1.0 + (dx * 1.5) / swirlParams.radius); // Taper
+        beta += turbulence;
+        gamma -= turbulence;
+
+        // Map S3 Hopf Coordinates to 4D Vector (X, Y, Z, W)
+        // Unit quaternion constraint: X^2 + Y^2 + Z^2 + W^2 = 1
+        let X = Math.sin(alpha) * Math.cos(beta);
+        let Y = Math.sin(alpha) * Math.sin(beta);
+        let Z = Math.cos(alpha) * Math.cos(gamma);
+        let W = Math.cos(alpha) * Math.sin(gamma);
+
+        // STEREOGRAPHIC PROJECTION from S3 to R3
+        // Strongly separating the W coordinate creates two highly distinct, interlocking toroidal bands
+        const wOffset = isYang ? 0.35 : -0.35;
+
+        // When chaos increases, we reduce the W separation so that the explosion 
+        // integrates into a single unified spherical shell instead of two distinct ones.
+        const dynamicWOffset = wOffset * (1.0 - Math.min(1.0, chaos / 20.0));
+
+        const denom = (1.0 - (W + dynamicWOffset)) + 0.01;
+
+        // Base mapping to R3. A slightly wider base radius spreads the spirals out.
+        let dx = (X / denom) * (maxRadius * 0.4);
+        let dy = (Y / denom) * (maxRadius * 0.4);
+        let dz = (Z / denom) * (maxRadius * 0.4);
+
+        const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+        // --- 180-Degree Omnidirectional Diffusion (Spherical Mapping) ---
+        // Use Math.atan to smoothly map the infinite stereographic projection into a finite spherical volume.
+        // As dist approaches infinity (denom -> 0), mappedDist approaches maxSpread, creating a perfect sphere surface.
+        const maxSpread = maxRadius * (1.0 + chaos * 0.15);
+
+        // We use a scale factor (maxRadius * 0.5) to keep the inner core relatively untweaked,
+        // while squashing the outer infinities onto the maxSpread shell.
+        const mappedDist = Math.atan(dist / (maxRadius * 0.5)) * (2.0 / Math.PI) * maxSpread;
+
+        if (dist > 0.0001) {
+            const factor = mappedDist / dist;
+            dx *= factor;
+            dy *= factor;
+            dz *= factor;
         }
 
-        const dy = dynamicR * Math.sin(phi) * Math.sin(theta) * coneScale * swirlParams.heightRatio;
-        const dz = dynamicR * Math.cos(phi) * coneScale;
+        let chaosVal = 0.0;
 
-        _swirlSystem.positions[p3 + 0] = hopfX + dx + wobbleX;
-        _swirlSystem.positions[p3 + 1] = hopfY + dy + wobbleY;
-        _swirlSystem.positions[p3 + 2] = hopfZ + dz + wobbleZ;
+        // Calculate chaos opacity based on how far it was mapped outward
+        if (mappedDist > maxRadius * 0.8) {
+            chaosVal = Math.min(1.0, (mappedDist - maxRadius * 0.8) / (maxRadius * 0.5));
+        } else if (chaos > 0.1) {
+            // Even particles inside core get a touch of chaos transparency if global chaos is high
+            chaosVal = Math.min(1.0, chaos / 30.0);
+        }
+
+        // Output chaos values to buffer for shader Opacity split
+        _plasmaSystem.chaosVals[i] = chaosVal;
+
+        // Apply global squash via heightRatio safely
+        dy *= heightRatio;
+
+        _plasmaSystem.positions[p3 + 0] = hopfX + dx;
+        _plasmaSystem.positions[p3 + 1] = hopfY + dy;
+        _plasmaSystem.positions[p3 + 2] = hopfZ + dz;
     }
 
-    _swirlSystem.points.geometry.attributes.position.needsUpdate = true;
+    _plasmaSystem.points.geometry.attributes.position.needsUpdate = true;
+    _plasmaSystem.points.geometry.attributes.aChaosVal.needsUpdate = true;
 }
 
 function createStarMaterial() {
@@ -770,6 +856,20 @@ function createStarField() {
 
     group.add(farLayer, midLayer);
     return group;
+}
+
+function updateStarField(time) {
+    if (_starMaterials.length > 0) {
+        _starMaterials.forEach((mat, index) => {
+            mat.uniforms.uTime.value = time + index * 0.7;
+            mat.uniforms.uOpacity.value = 0.8;
+        });
+    }
+
+    if (_starFieldGroup) {
+        _starFieldGroup.rotation.y = time * 0.018;
+        _starFieldGroup.rotation.x = Math.sin(time * 0.16) * 0.035;
+    }
 }
 
 function createGlowTexture(colorHex) {
@@ -1102,7 +1202,10 @@ export function createScene(container) {
     container.appendChild(renderer.domElement);
 
     _fieldMesh = createFieldMesh();
-    _flowGroup = createFlowObjects();
+    _flowGroup = new THREE.Group(); // Initialize _flowGroup here
+    _flowGroup.add(createSeedObjects());
+    _flowGroup.add(createFilamentObjects());
+    _flowGroup.add(createPlasmaObjects());
     _lastFlowTime = 0;
     _starFieldGroup = createStarField();
     _creationLinkGroup = createCreationLinks();
