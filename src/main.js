@@ -394,13 +394,16 @@ async function main() {
         }
     }
 
-    const fluidSystem = createFluidSystem(renderer);
-    const liquidSystem = createLiquidSystem(renderer);
-    const liquidTarget = new THREE.WebGLRenderTarget(liquidParams.textureSize, liquidParams.textureSize, {
+    const createLiquidRenderTarget = () => new THREE.WebGLRenderTarget(liquidParams.textureSize, liquidParams.textureSize, {
         minFilter: THREE.LinearFilter,
         magFilter: THREE.LinearFilter,
         format: THREE.RGBAFormat,
     });
+
+    // Delay heavy simulation allocations when the active graphic preset doesn't use them.
+    let fluidSystem = toggles.fluidField ? createFluidSystem(renderer) : null;
+    let liquidSystem = toggles.liquid ? createLiquidSystem(renderer) : null;
+    let liquidTarget = toggles.liquid ? createLiquidRenderTarget() : null;
 
     const composer = new EffectComposer(renderer);
     composer.addPass(new RenderPass(scene, camera));
@@ -482,6 +485,9 @@ async function main() {
         updateScene(time);
 
         if (toggles.fluidField) {
+            if (!fluidSystem) {
+                fluidSystem = createFluidSystem(renderer);
+            }
             fluidSystem.uniforms.uForce.value = fluidParams.force;
             fluidSystem.uniforms.uCurl.value = fluidParams.curl;
             fluidSystem.uniforms.uDecay.value = fluidParams.decay;
@@ -497,6 +503,12 @@ async function main() {
         }
 
         if (toggles.liquid) {
+            if (!liquidSystem) {
+                liquidSystem = createLiquidSystem(renderer);
+            }
+            if (!liquidTarget) {
+                liquidTarget = createLiquidRenderTarget();
+            }
             liquidSystem.uniforms.simulation.uTimestep.value = liquidParams.timestep;
             liquidSystem.uniforms.simulation.uDissipation.value = liquidParams.dissipation;
             liquidSystem.uniforms.force.uRadius.value = liquidParams.forceRadius;
