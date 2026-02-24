@@ -541,7 +541,8 @@ async function main() {
         dofPass.uniforms.uAspect.value = window.innerWidth / window.innerHeight;
         dofPass.uniforms.uMouse.value.set(mouse.smoothX, mouse.smoothY);
 
-        if (toggles.heatHaze) {
+        const heatHazeEnabled = active3dSceneVariant !== 'hold' && toggles.heatHaze;
+        if (heatHazeEnabled) {
             distortionPass.uniforms.uHeatHaze.value = distortionParams.heatHaze;
             distortionPass.uniforms.uHeatHazeRadius.value = distortionParams.heatHazeRadius;
             distortionPass.uniforms.uHeatHazeSpeed.value = distortionParams.heatHazeSpeed;
