@@ -1,6 +1,10 @@
 {
   "basePath": "./",
   "presets": {
+    "dev_mode": {
+      "label": "Dev Mode",
+      "path": "./?dev"
+    },
     "sample_overlay_anchor": {
       "label": "Sample: Overlay Anchor",
       "path": "./",

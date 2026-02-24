@@ -125,6 +125,29 @@
   border-color: #5d8fe3;
 }
 
+#dev-version-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.5rem;
+  padding: 0.2rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid rgba(120, 164, 235, 0.45);
+  background: rgba(8, 14, 26, 0.78);
+  color: rgba(205, 224, 255, 0.9);
+  font-size: 0.58rem;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  backdrop-filter: blur(7px);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+@media (max-width: 767.98px) {
+  #dev-version-badge {
+    display: none;
+  }
+}
+
 @media (max-width: 640px) {
   #dev-panel-toggle {
     top: 10px;

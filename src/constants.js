@@ -16,8 +16,9 @@ export const LOOKAT_BASE_Y = -1;
 
 export const ROTATE_SENSITIVITY = 0.006;
 export const ZOOM_SENSITIVITY = 0.008;
-export const MIN_ZOOM = 0.5;
-export const MAX_ZOOM = 2.5;
+export const MIN_ZOOM = 0.7;
+export const MAX_ZOOM = 1.8;
+export const MAX_ROTATE_ANGLE = Math.PI / 4;  // ±45°
 
 export const INERTIA_DECAY = 0.92;
 export const VELOCITY_THRESHOLD = 0.0001;
