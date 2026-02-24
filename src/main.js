@@ -30,8 +30,8 @@ import { detectLang } from './i18n.js';
 const DEV_MODE = new URLSearchParams(window.location.search).has('dev');
 let devStatsBegin = () => {};
 let devStatsEnd = () => {};
-const GRAPHIC_MODE_DEFAULT = 'hold';
-const GRAPHIC_MODE_OPTIONS = new Set(['hold', 'wabi', 'intent']);
+const GRAPHIC_MODE_DEFAULT = 'hoji';
+const GRAPHIC_MODE_OPTIONS = new Set(['hoji', 'sinobi', 'i']);
 const DEV_PANEL_STATE_STORAGE_PREFIX = 'creation-dev-panel-state-v1';
 
 function getSceneStateStorageKey(sceneVariant) {
@@ -106,7 +106,7 @@ const STRINGS = {
         ],
         topbarMainTitle: '創造とは',
         topbarSubtitle: 'Creation Space',
-        topbarHome: 'HOME',
+        topbarHome: 'kesson-driven',
         topbarDev: 'DEV',
         topbarArticles: 'ARTICLES',
         topbarBlog: 'BLOG',
@@ -129,7 +129,7 @@ const STRINGS = {
         ],
         topbarMainTitle: 'What Is Creation',
         topbarSubtitle: 'Creation Space',
-        topbarHome: 'HOME',
+        topbarHome: 'kesson-driven',
         topbarDev: 'DEV',
         topbarArticles: 'ARTICLES',
         topbarBlog: 'BLOG',
@@ -168,7 +168,7 @@ function applyPageLanguage(lang) {
     const topbarArticlesBtn = document.getElementById('topbar-articles-btn');
     const topbarBlogLink = document.getElementById('topbar-blog-link');
     const topbarCollab = document.getElementById('credit-collab');
-    const creditSignature = document.getElementById('credit-signature');
+    const footerSignature = document.getElementById('footer-signature');
     const articlesSectionHeading = document.getElementById('articles-section-heading');
     const offcanvasArticlesTitle = document.getElementById('offcanvas-articles-title');
     const creationCardsHeading = document.getElementById('creation-cards-heading');
@@ -183,7 +183,7 @@ function applyPageLanguage(lang) {
     if (topbarArticlesBtn) topbarArticlesBtn.textContent = strings.topbarArticles;
     if (topbarBlogLink) topbarBlogLink.textContent = strings.topbarBlog;
     if (topbarCollab) topbarCollab.textContent = strings.topbarCollab;
-    if (creditSignature) creditSignature.textContent = strings.creditSignature;
+    if (footerSignature) footerSignature.textContent = strings.creditSignature;
     if (articlesSectionHeading) articlesSectionHeading.textContent = strings.articlesSectionHeading;
     if (offcanvasArticlesTitle) offcanvasArticlesTitle.textContent = strings.offcanvasArticlesTitle;
     if (creationCardsHeading) creationCardsHeading.textContent = strings.creationCardsHeading;
@@ -258,17 +258,16 @@ function initMobileNavAutoCollapse() {
 }
 
 function normalizeGraphicMode(mode) {
+    if (mode === 'hold') return 'hoji';
+    if (mode === 'wabi') return 'sinobi';
+    if (mode === 'intent') return 'i';
     return GRAPHIC_MODE_OPTIONS.has(mode) ? mode : GRAPHIC_MODE_DEFAULT;
 }
 
 function syncGraphicModeQuery(mode) {
     if (!window.history?.replaceState) return;
     const url = new URL(window.location.href);
-    if (mode === GRAPHIC_MODE_DEFAULT) {
-        url.searchParams.delete('graphic');
-    } else {
-        url.searchParams.set('graphic', mode);
-    }
+    url.searchParams.set('graphic', mode);
     window.history.replaceState(window.history.state, '', url.toString());
 }
 
@@ -338,33 +337,19 @@ function attachResize({ camera, renderer, composer }) {
 }
 
 function initDevVersionBadge() {
-    const existing = document.getElementById('dev-version-badge');
-    if (existing) existing.remove();
-
+    const label = document.getElementById('dev-version-inline');
+    if (!label) return;
     const params = new URLSearchParams(window.location.search);
     const queryVersion = params.get('ver');
-    const badge = document.createElement('div');
-    badge.id = 'dev-version-badge';
-    badge.textContent = queryVersion
+    label.textContent = queryVersion
         ? `開発版 ver ${DEV_VERSION} · ${queryVersion}`
         : `開発版 ver ${DEV_VERSION}`;
-    const brandWrap = document.querySelector('#kesson-topbar .topbar-brand-wrap');
-    if (brandWrap) {
-        brandWrap.appendChild(badge);
-    } else {
-        document.body.appendChild(badge);
-    }
 }
 
 function initInlineVersionLabel() {
     const label = document.getElementById('dev-version-inline');
     if (!label) return;
-
-    const params = new URLSearchParams(window.location.search);
-    const queryVersion = params.get('ver');
-    label.textContent = queryVersion
-        ? `開発ver ${DEV_VERSION} · ${queryVersion}`
-        : `開発ver ${DEV_VERSION}`;
+    label.textContent = `開発版 ver ${DEV_VERSION}`;
 }
 
 async function main() {

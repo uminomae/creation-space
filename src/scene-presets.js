@@ -557,7 +557,7 @@ export function applyScenePreset(sceneName) {
 }
 
 export function resolveSceneVariant(graphicMode) {
-    if (graphicMode === 'wabi') return 'wabi';
-    if (graphicMode === 'intent') return 'intent';
+    if (graphicMode === 'sinobi' || graphicMode === 'wabi') return 'wabi';
+    if (graphicMode === 'i' || graphicMode === 'intent') return 'intent';
     return 'hold';
 }
