@@ -452,6 +452,7 @@ async function main() {
 
     if (DEV_MODE) {
         initDevPanel({
+            sceneVariant: active3dSceneVariant,
             onStateChanged: () => {
                 setCameraPosition(sceneParams.camX, sceneParams.camY, sceneParams.camZ);
             },

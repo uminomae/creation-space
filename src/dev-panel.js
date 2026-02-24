@@ -376,6 +376,37 @@ const PARAM_GROUPS = [
     },
 ];
 
+const HIDDEN_GROUP_IDS_BY_VARIANT = {
+    hold: new Set([
+        'plasma',
+    ]),
+    wabi: new Set([
+        'creationLink2',
+        'creationLink3',
+    ]),
+    intent: new Set([
+        'field',
+        'flow',
+        'plasma',
+        'background',
+        'creationGlobal',
+        'creationLink1',
+        'creationLink2',
+        'creationLink3',
+    ]),
+};
+
+function normalizeSceneVariant(sceneVariant) {
+    if (sceneVariant === 'wabi' || sceneVariant === 'intent') return sceneVariant;
+    return 'hold';
+}
+
+function resolveVisibleParamGroups(sceneVariant) {
+    const variant = normalizeSceneVariant(sceneVariant);
+    const hiddenGroupIds = HIDDEN_GROUP_IDS_BY_VARIANT[variant] || new Set();
+    return PARAM_GROUPS.filter((group) => !hiddenGroupIds.has(group.id));
+}
+
 function formatNumber(value, step) {
     const decimals = String(step).includes('.')
         ? String(step).split('.')[1].length
@@ -392,6 +423,7 @@ export function initDevPanel({
     onStateSnapshot = null,
     panelStartsOpen = false,
     initialState = null,
+    sceneVariant = 'hold',
 } = {}) {
     const toggleBtn = document.createElement('button');
     toggleBtn.id = 'dev-panel-toggle';
@@ -432,6 +464,7 @@ export function initDevPanel({
 
     const controlIndex = new Map();
     const colorControlIndex = new Map();
+    const visibleParamGroups = resolveVisibleParamGroups(sceneVariant);
 
     function notifyStateChanged() {
         if (typeof onStateChanged === 'function') {
@@ -609,7 +642,7 @@ export function initDevPanel({
         return wrapper;
     }
 
-    PARAM_GROUPS.forEach((group, idx) => {
+    visibleParamGroups.forEach((group, idx) => {
         const item = document.createElement('div');
         item.className = 'accordion-item';
 
@@ -646,7 +679,7 @@ export function initDevPanel({
     });
 
     function syncUIFromState() {
-        PARAM_GROUPS.forEach((group) => {
+        visibleParamGroups.forEach((group) => {
             group.fields.forEach((field) => {
                 const key = field.type === 'color' ? field.key : field[0];
                 const path = `${group.id}.${key}`;
