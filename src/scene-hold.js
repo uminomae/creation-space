@@ -49,24 +49,27 @@ const CREATION_LINK_DEFS = [
     {
         id: 1,
         label: 'Creation Notes I',
-        draftUrl: 'https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/pdf/kesson-general-draft.md',
-        sourceUrl: 'https://uminomae.github.io/pjdhiro/assets/pdf/kesson-general.pdf',
+        interactive: false,
+        draftUrl: '',
+        sourceUrl: '',
         shape: 'crystal',
         pointCount: 1800,
     },
     {
         id: 2,
         label: 'Creation Notes II',
-        draftUrl: 'https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/pdf/kesson-designer-draft.md',
-        sourceUrl: 'https://uminomae.github.io/pjdhiro/assets/pdf/kesson-designer.pdf',
+        interactive: false,
+        draftUrl: '',
+        sourceUrl: '',
         shape: 'ring',
         pointCount: 2100,
     },
     {
         id: 3,
         label: 'Creation Notes III',
-        draftUrl: 'https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/pdf/kesson-academic-draft.md',
-        sourceUrl: 'https://uminomae.github.io/pjdhiro/assets/pdf/kesson-academic.pdf',
+        interactive: false,
+        draftUrl: '',
+        sourceUrl: '',
         shape: 'frame',
         pointCount: 1700,
     },
@@ -943,7 +946,7 @@ function createCreationLinks() {
 
         const proxy = createCreationHitProxy();
         proxy.scale.setScalar(linkParam.hitRadius);
-        proxy.userData.isCreationLinkTarget = true;
+        proxy.userData.isCreationLinkTarget = def.interactive !== false;
         proxy.userData.draftUrl = def.draftUrl;
         proxy.userData.sourceUrl = def.sourceUrl;
         proxy.userData.label = def.label;
@@ -970,7 +973,9 @@ function createCreationLinks() {
 }
 
 export function getCreationLinkTargetMeshes() {
-    return _creationLinkTargets.map((target) => target.mesh);
+    return _creationLinkTargets
+        .map((target) => target.mesh)
+        .filter((mesh) => mesh?.userData?.isCreationLinkTarget);
 }
 
 export function createScene(container) {

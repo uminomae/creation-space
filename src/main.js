@@ -13,8 +13,8 @@ import { createLiquidSystem } from './shaders/liquid.js';
 import { CameraDofShader, DistortionShader } from './shaders/distortion-pass.js';
 import { initCreationLinkInteractions } from './creation-link-interactions.js';
 import { initArticles, setArticlesLanguage } from './articles.js';
-import { initGraphicCanvasSwitcher } from './graphics-switcher.js';
-import { applyScenePreset, resolveSceneVariant } from './scene-presets.js';
+import { applyConfigState, cloneConfigState } from './config-state.js';
+import { applyScenePreset, getScenePresetVersion, resolveSceneVariant } from './scene-presets.js';
 import { DEV_VERSION } from './version.js';
 import {
     breathConfig,
@@ -31,8 +31,70 @@ const DEV_MODE = new URLSearchParams(window.location.search).has('dev');
 let devStatsBegin = () => {};
 let devStatsEnd = () => {};
 const GRAPHIC_MODE_DEFAULT = 'hold';
-const GRAPHIC_MODE_OPTIONS = new Set(['hold', 'wabi', 'ripple', 'lattice']);
-const REALTIME_CANVAS_MODES = new Set(['ripple', 'lattice']);
+const GRAPHIC_MODE_OPTIONS = new Set(['hold', 'wabi']);
+const DEV_PANEL_STATE_STORAGE_PREFIX = 'creation-dev-panel-state-v1';
+
+function getSceneStateStorageKey(sceneVariant) {
+    return `${DEV_PANEL_STATE_STORAGE_PREFIX}:${sceneVariant}`;
+}
+
+function loadSceneState(sceneVariant) {
+    let storage;
+    try {
+        storage = window.localStorage;
+    } catch (error) {
+        return null;
+    }
+    if (!storage) return null;
+
+    try {
+        const raw = storage.getItem(getSceneStateStorageKey(sceneVariant));
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (!parsed || typeof parsed !== 'object') return null;
+
+        const expectedPresetVersion = getScenePresetVersion(sceneVariant);
+        const statePayload = parsed.state;
+        const presetVersion = parsed.presetVersion;
+
+        if (
+            typeof presetVersion === 'string' &&
+            presetVersion === expectedPresetVersion &&
+            statePayload &&
+            typeof statePayload === 'object'
+        ) {
+            return statePayload;
+        }
+
+        // Drop legacy or stale state so current scene defaults become effective.
+        storage.removeItem(getSceneStateStorageKey(sceneVariant));
+        return null;
+    } catch (error) {
+        console.warn('[dev-panel] failed to load scene state:', error);
+        return null;
+    }
+}
+
+function saveSceneState(sceneVariant, state) {
+    if (!state || typeof state !== 'object') return;
+    let storage;
+    try {
+        storage = window.localStorage;
+    } catch (error) {
+        return;
+    }
+    if (!storage) return;
+
+    try {
+        const payload = {
+            presetVersion: getScenePresetVersion(sceneVariant),
+            state,
+        };
+        storage.setItem(getSceneStateStorageKey(sceneVariant), JSON.stringify(payload));
+    } catch (error) {
+        console.warn('[dev-panel] failed to save scene state:', error);
+    }
+}
 
 const STRINGS = {
     ja: {
@@ -263,12 +325,28 @@ function initDevVersionBadge() {
     document.body.appendChild(badge);
 }
 
+function initInlineVersionLabel() {
+    const label = document.getElementById('dev-version-inline');
+    if (!label) return;
+
+    const params = new URLSearchParams(window.location.search);
+    const queryVersion = params.get('ver');
+    label.textContent = queryVersion
+        ? `開発ver ${DEV_VERSION} · ${queryVersion}`
+        : `開発ver ${DEV_VERSION}`;
+}
+
 async function main() {
     const initialLang = normalizeLang(detectLang());
     const initialGraphicMode = normalizeGraphicMode(new URLSearchParams(window.location.search).get('graphic'));
     const initialSceneVariant = resolveSceneVariant(initialGraphicMode);
     applyScenePreset(initialSceneVariant);
+    const initialSceneState = loadSceneState(initialSceneVariant);
+    if (initialSceneState) {
+        applyConfigState(initialSceneState);
+    }
     applyPageLanguage(initialLang);
+    initInlineVersionLabel();
     initMouseTracking();
 
     const container = document.getElementById('canvas-container');
@@ -279,34 +357,24 @@ async function main() {
 
     const { scene, camera, renderer } = createScene(container);
     renderer.autoClear = false;
-    const graphicCanvasSwitcher = initGraphicCanvasSwitcher({
-        container,
-        initialMode: initialGraphicMode,
-    });
-    let activeGraphicMode = initialGraphicMode;
-    let activeSceneVariant = initialSceneVariant;
+    let active3dSceneVariant = initialSceneVariant;
 
     function applyGraphicMode(nextMode, { shouldSyncQuery = true } = {}) {
-        activeGraphicMode = normalizeGraphicMode(nextMode);
-        const nextSceneVariant = resolveSceneVariant(activeGraphicMode);
-        const showCreation = !REALTIME_CANVAS_MODES.has(activeGraphicMode);
-
-        if (showCreation && nextSceneVariant !== activeSceneVariant) {
+        const normalizedMode = normalizeGraphicMode(nextMode);
+        const nextSceneVariant = resolveSceneVariant(normalizedMode);
+        if (nextSceneVariant !== active3dSceneVariant) {
+            saveSceneState(active3dSceneVariant, cloneConfigState());
             if (shouldSyncQuery) {
-                syncGraphicModeQuery(activeGraphicMode);
+                syncGraphicModeQuery(normalizedMode);
             }
             window.location.reload();
             return;
         }
 
-        activeSceneVariant = nextSceneVariant;
-        renderer.domElement.style.display = showCreation ? 'block' : 'none';
-        renderer.domElement.style.pointerEvents = showCreation ? 'auto' : 'none';
-        graphicCanvasSwitcher.setMode(activeGraphicMode);
-        setGraphicButtonState(activeGraphicMode);
+        setGraphicButtonState(normalizedMode);
 
         if (shouldSyncQuery) {
-            syncGraphicModeQuery(activeGraphicMode);
+            syncGraphicModeQuery(normalizedMode);
         }
     }
 
@@ -365,11 +433,16 @@ async function main() {
         });
     }
 
-    initDevPanel({
-        onStateChanged: () => {
-            setCameraPosition(sceneParams.camX, sceneParams.camY, sceneParams.camZ);
-        },
-    });
+    if (DEV_MODE) {
+        initDevPanel({
+            onStateChanged: () => {
+                setCameraPosition(sceneParams.camX, sceneParams.camY, sceneParams.camZ);
+            },
+            onStateSnapshot: (state) => {
+                saveSceneState(active3dSceneVariant, state);
+            },
+        });
+    }
 
     const liquidMousePos = new THREE.Vector2();
     const liquidMouseVel = new THREE.Vector2();
@@ -386,82 +459,78 @@ async function main() {
         updateScrollUI(scrollProg, breathVal);
         setCameraPosition(sceneParams.camX, sceneParams.camY, sceneParams.camZ);
         updateControls(time, breathVal);
-        if (!REALTIME_CANVAS_MODES.has(activeGraphicMode)) {
-            const mouse = updateMouseSmoothing();
+        const mouse = updateMouseSmoothing();
 
-            updateScene(time);
+        updateScene(time);
 
-            if (toggles.fluidField) {
-                fluidSystem.uniforms.uForce.value = fluidParams.force;
-                fluidSystem.uniforms.uCurl.value = fluidParams.curl;
-                fluidSystem.uniforms.uDecay.value = fluidParams.decay;
-                fluidSystem.uniforms.uRadius.value = fluidParams.radius;
-                distortionPass.uniforms.uFluidInfluence.value = fluidParams.influence;
-                fluidSystem.uniforms.uMouse.value.set(mouse.smoothX, mouse.smoothY);
-                fluidSystem.uniforms.uMouseVelocity.value.set(mouse.velX, mouse.velY);
-                fluidSystem.uniforms.uAspect.value = window.innerWidth / window.innerHeight;
-                fluidSystem.update();
-                distortionPass.uniforms.tFluidField.value = fluidSystem.getTexture();
-            } else {
-                distortionPass.uniforms.uFluidInfluence.value = 0;
-            }
-
-            if (toggles.liquid) {
-                liquidSystem.uniforms.simulation.uTimestep.value = liquidParams.timestep;
-                liquidSystem.uniforms.simulation.uDissipation.value = liquidParams.dissipation;
-                liquidSystem.uniforms.force.uRadius.value = liquidParams.forceRadius;
-                liquidSystem.uniforms.splat.uRadius.value = liquidParams.forceRadius;
-                liquidSystem.uniforms.force.uStrength.value = liquidParams.forceStrength;
-                liquidSystem.uniforms.render.uDensityMul.value = liquidParams.densityMul;
-                liquidSystem.uniforms.render.uNoiseScale.value = liquidParams.noiseScale;
-                liquidSystem.uniforms.render.uNoiseSpeed.value = liquidParams.noiseSpeed;
-                liquidSystem.uniforms.render.uSpecPow.value = liquidParams.specularPow;
-                liquidSystem.uniforms.render.uSpecInt.value = liquidParams.specularInt;
-
-                liquidMousePos.set(mouse.smoothX, mouse.smoothY);
-                liquidMouseVel.set(mouse.velX, mouse.velY);
-                liquidSystem.update(liquidMousePos, liquidMouseVel);
-                liquidSystem.setTime(time);
-                liquidSystem.copyDensityTo(liquidTarget);
-                distortionPass.uniforms.tLiquid.value = liquidTarget.texture;
-                distortionPass.uniforms.uLiquidStrength.value = liquidParams.densityMul;
-                distortionPass.uniforms.uLiquidOffsetScale.value = liquidParams.refractOffsetScale;
-                distortionPass.uniforms.uLiquidThreshold.value = liquidParams.refractThreshold;
-            } else {
-                distortionPass.uniforms.uLiquidStrength.value = 0;
-            }
-
-            applyQuantumWaveUniforms(distortionPass);
-
-            distortionPass.uniforms.uAspect.value = window.innerWidth / window.innerHeight;
-            distortionPass.uniforms.uTime.value = time;
-            distortionPass.uniforms.uMouse.value.set(mouse.smoothX, mouse.smoothY);
-            dofPass.uniforms.uAspect.value = window.innerWidth / window.innerHeight;
-            dofPass.uniforms.uMouse.value.set(mouse.smoothX, mouse.smoothY);
-
-            if (toggles.heatHaze) {
-                distortionPass.uniforms.uHeatHaze.value = distortionParams.heatHaze;
-                distortionPass.uniforms.uHeatHazeRadius.value = distortionParams.heatHazeRadius;
-                distortionPass.uniforms.uHeatHazeSpeed.value = distortionParams.heatHazeSpeed;
-            } else {
-                distortionPass.uniforms.uHeatHaze.value = 0;
-            }
-
-            if (toggles.dof) {
-                dofPass.uniforms.uDofStrength.value = distortionParams.dofStrength;
-                dofPass.uniforms.uDofFocusRadius.value = distortionParams.dofFocusRadius;
-            } else {
-                dofPass.uniforms.uDofStrength.value = 0;
-            }
-
-            renderer.clear();
-            if (toggles.postProcess) {
-                composer.render();
-            } else {
-                renderer.render(scene, camera);
-            }
+        if (toggles.fluidField) {
+            fluidSystem.uniforms.uForce.value = fluidParams.force;
+            fluidSystem.uniforms.uCurl.value = fluidParams.curl;
+            fluidSystem.uniforms.uDecay.value = fluidParams.decay;
+            fluidSystem.uniforms.uRadius.value = fluidParams.radius;
+            distortionPass.uniforms.uFluidInfluence.value = fluidParams.influence;
+            fluidSystem.uniforms.uMouse.value.set(mouse.smoothX, mouse.smoothY);
+            fluidSystem.uniforms.uMouseVelocity.value.set(mouse.velX, mouse.velY);
+            fluidSystem.uniforms.uAspect.value = window.innerWidth / window.innerHeight;
+            fluidSystem.update();
+            distortionPass.uniforms.tFluidField.value = fluidSystem.getTexture();
         } else {
-            graphicCanvasSwitcher.render(time);
+            distortionPass.uniforms.uFluidInfluence.value = 0;
+        }
+
+        if (toggles.liquid) {
+            liquidSystem.uniforms.simulation.uTimestep.value = liquidParams.timestep;
+            liquidSystem.uniforms.simulation.uDissipation.value = liquidParams.dissipation;
+            liquidSystem.uniforms.force.uRadius.value = liquidParams.forceRadius;
+            liquidSystem.uniforms.splat.uRadius.value = liquidParams.forceRadius;
+            liquidSystem.uniforms.force.uStrength.value = liquidParams.forceStrength;
+            liquidSystem.uniforms.render.uDensityMul.value = liquidParams.densityMul;
+            liquidSystem.uniforms.render.uNoiseScale.value = liquidParams.noiseScale;
+            liquidSystem.uniforms.render.uNoiseSpeed.value = liquidParams.noiseSpeed;
+            liquidSystem.uniforms.render.uSpecPow.value = liquidParams.specularPow;
+            liquidSystem.uniforms.render.uSpecInt.value = liquidParams.specularInt;
+
+            liquidMousePos.set(mouse.smoothX, mouse.smoothY);
+            liquidMouseVel.set(mouse.velX, mouse.velY);
+            liquidSystem.update(liquidMousePos, liquidMouseVel);
+            liquidSystem.setTime(time);
+            liquidSystem.copyDensityTo(liquidTarget);
+            distortionPass.uniforms.tLiquid.value = liquidTarget.texture;
+            distortionPass.uniforms.uLiquidStrength.value = liquidParams.densityMul;
+            distortionPass.uniforms.uLiquidOffsetScale.value = liquidParams.refractOffsetScale;
+            distortionPass.uniforms.uLiquidThreshold.value = liquidParams.refractThreshold;
+        } else {
+            distortionPass.uniforms.uLiquidStrength.value = 0;
+        }
+
+        applyQuantumWaveUniforms(distortionPass);
+
+        distortionPass.uniforms.uAspect.value = window.innerWidth / window.innerHeight;
+        distortionPass.uniforms.uTime.value = time;
+        distortionPass.uniforms.uMouse.value.set(mouse.smoothX, mouse.smoothY);
+        dofPass.uniforms.uAspect.value = window.innerWidth / window.innerHeight;
+        dofPass.uniforms.uMouse.value.set(mouse.smoothX, mouse.smoothY);
+
+        if (toggles.heatHaze) {
+            distortionPass.uniforms.uHeatHaze.value = distortionParams.heatHaze;
+            distortionPass.uniforms.uHeatHazeRadius.value = distortionParams.heatHazeRadius;
+            distortionPass.uniforms.uHeatHazeSpeed.value = distortionParams.heatHazeSpeed;
+        } else {
+            distortionPass.uniforms.uHeatHaze.value = 0;
+        }
+
+        if (toggles.dof) {
+            dofPass.uniforms.uDofStrength.value = distortionParams.dofStrength;
+            dofPass.uniforms.uDofFocusRadius.value = distortionParams.dofFocusRadius;
+        } else {
+            dofPass.uniforms.uDofStrength.value = 0;
+        }
+
+        renderer.clear();
+        if (toggles.postProcess) {
+            composer.render();
+        } else {
+            renderer.render(scene, camera);
         }
         devStatsEnd();
     }

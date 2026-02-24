@@ -624,11 +624,14 @@ function updatePlasmaObjects(time) {
     let baseChaos = isNaN(plasmaParams.chaos) ? 0.0 : plasmaParams.chaos;
     let maxRadius = isNaN(plasmaParams.radius) ? 12.0 : plasmaParams.radius;
     let heightRatio = isNaN(plasmaParams.heightRatio) ? 1.0 : plasmaParams.heightRatio;
+    let autoChaosAmp = isNaN(plasmaParams.autoChaosAmp) ? 30.0 : Math.max(0.0, plasmaParams.autoChaosAmp);
+    let wSeparation = isNaN(plasmaParams.wSeparation) ? 0.35 : Math.max(0.0, plasmaParams.wSeparation);
+    let projectionScale = isNaN(plasmaParams.projectionScale) ? 0.4 : Math.max(0.01, plasmaParams.projectionScale);
 
     // Auto-oscillating chaos to create an alternating "Order (Sphere)" and "Chaos (Diffusion)" breath
     // Using a slow sine wave: when it's positive, we clamp to 0 (Sphere phase).
     // When it's negative, it rises up to 30.0 (Diffusion phase).
-    const autoChaos = Math.max(0.0, -Math.sin(time * 0.4)) * 30.0;
+    const autoChaos = Math.max(0.0, -Math.sin(time * 0.4)) * autoChaosAmp;
     const chaos = baseChaos + autoChaos;
 
     const hopfX = isNaN(creationLinkParams.link1PosX) ? 0 : creationLinkParams.link1PosX;
@@ -670,7 +673,7 @@ function updatePlasmaObjects(time) {
 
         // STEREOGRAPHIC PROJECTION from S3 to R3
         // Strongly separating the W coordinate creates two highly distinct, interlocking toroidal bands
-        const wOffset = isYang ? 0.35 : -0.35;
+        const wOffset = isYang ? wSeparation : -wSeparation;
 
         // When chaos increases, we reduce the W separation so that the explosion 
         // integrates into a single unified spherical shell instead of two distinct ones.
@@ -679,9 +682,9 @@ function updatePlasmaObjects(time) {
         const denom = (1.0 - (W + dynamicWOffset)) + 0.01;
 
         // Base mapping to R3. A slightly wider base radius spreads the spirals out.
-        let dx = (X / denom) * (maxRadius * 0.4);
-        let dy = (Y / denom) * (maxRadius * 0.4);
-        let dz = (Z / denom) * (maxRadius * 0.4);
+        let dx = (X / denom) * (maxRadius * projectionScale);
+        let dy = (Y / denom) * (maxRadius * projectionScale);
+        let dz = (Z / denom) * (maxRadius * projectionScale);
 
         const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
 

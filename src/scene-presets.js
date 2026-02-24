@@ -36,7 +36,7 @@ const HOLD_PRESET = {
         fogDensity: 0.016,
         camX: -14,
         camY: 0,
-        camZ: 45.6,
+        camZ: 80.0,
         camTargetY: -1,
     },
     fieldParams: {
@@ -65,6 +65,9 @@ const HOLD_PRESET = {
         chaos: 0.6,
         speed: 0.8,
         heightRatio: 0.6,
+        autoChaosAmp: 30.0,
+        wSeparation: 0.35,
+        projectionScale: 0.4,
         colorA: 8172519,
         colorB: 13363187,
     },
@@ -299,12 +302,15 @@ const WABI_PRESET = {
         speed: 1,
     },
     plasmaParams: {
-        coreOpacity: 0,
-        chaosOpacity: 0.05,
-        radius: 14,
-        chaos: 0.6,
-        speed: 0.8,
+        coreOpacity: 0.04,
+        chaosOpacity: 0.15,
+        radius: 5,
+        chaos: 50,
+        speed: 0.65,
         heightRatio: 0.6,
+        autoChaosAmp: 80,
+        wSeparation: 1.2,
+        projectionScale: 1.2,
         colorA: 8172519,
         colorB: 13363187,
     },
@@ -457,6 +463,42 @@ const SCENE_PRESETS = {
     wabi: WABI_PRESET,
 };
 
+function hashString(value) {
+    let hash = 2166136261;
+    for (let i = 0; i < value.length; i++) {
+        hash ^= value.charCodeAt(i);
+        hash = Math.imul(hash, 16777619);
+    }
+    return (hash >>> 0).toString(36);
+}
+
+function cloneValue(value) {
+    if (value && typeof value === 'object' && !Array.isArray(value)) {
+        const out = {};
+        Object.entries(value).forEach(([k, v]) => {
+            out[k] = cloneValue(v);
+        });
+        return out;
+    }
+    return value;
+}
+
+export function getScenePreset(sceneName) {
+    const preset = SCENE_PRESETS[sceneName] || SCENE_PRESETS.hold;
+    return cloneValue(preset);
+}
+
+const SCENE_PRESET_VERSIONS = Object.fromEntries(
+    Object.entries(SCENE_PRESETS).map(([sceneName, preset]) => [
+        sceneName,
+        hashString(JSON.stringify(preset)),
+    ])
+);
+
+export function getScenePresetVersion(sceneName) {
+    return SCENE_PRESET_VERSIONS[sceneName] || SCENE_PRESET_VERSIONS.hold;
+}
+
 function applyGroup(target, values) {
     Object.entries(values).forEach(([key, value]) => {
         const current = target[key];
@@ -469,7 +511,7 @@ function applyGroup(target, values) {
 }
 
 export function applyScenePreset(sceneName) {
-    const preset = SCENE_PRESETS[sceneName] || SCENE_PRESETS.hold;
+    const preset = getScenePreset(sceneName);
 
     applyGroup(toggles, preset.toggles);
     applyGroup(sceneParams, preset.sceneParams);
