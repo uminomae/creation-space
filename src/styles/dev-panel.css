@@ -126,20 +126,26 @@
 }
 
 #dev-version-badge {
-  position: fixed;
-  left: 12px;
-  bottom: 12px;
-  z-index: 150;
-  padding: 0.28rem 0.56rem;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.5rem;
+  padding: 0.2rem 0.45rem;
   border-radius: 999px;
   border: 1px solid rgba(120, 164, 235, 0.45);
   background: rgba(8, 14, 26, 0.78);
   color: rgba(205, 224, 255, 0.9);
-  font-size: 0.66rem;
+  font-size: 0.58rem;
   letter-spacing: 0.04em;
   line-height: 1;
   backdrop-filter: blur(7px);
   pointer-events: none;
+  white-space: nowrap;
+}
+
+@media (max-width: 767.98px) {
+  #dev-version-badge {
+    display: none;
+  }
 }
 
 @media (max-width: 640px) {
@@ -150,11 +156,5 @@
 
   #dev-panel {
     width: 100vw;
-  }
-
-  #dev-version-badge {
-    left: 10px;
-    bottom: 10px;
-    font-size: 0.62rem;
   }
 }
