@@ -356,6 +356,7 @@ const HIDDEN_GROUP_IDS_BY_VARIANT = {
         'creationLink3',
     ]),
     intent: new Set([
+        'scene',
         'toggles',
         'field',
         'flow',
@@ -380,12 +381,6 @@ const HIDDEN_FIELD_KEYS_BY_VARIANT = {
         flow: new Set([
             'centerThickness',
             'speed',
-        ]),
-    },
-    intent: {
-        scene: new Set([
-            'fogDensity',
-            'mixCycle',
         ]),
     },
 };
