@@ -36,11 +36,9 @@
   <header id="kesson-topbar" class="navbar navbar-expand-md navbar-dark" aria-label="Main menu">
     <div class="container-fluid px-3 px-md-4">
       <div class="topbar-brand-wrap">
-        <a id="topbar-main-title" class="navbar-brand topbar-main-title" href="https://uminomae.github.io/pjdhiro/dialogueCreation/" target="_blank" rel="noopener">
+        <a id="topbar-main-title" class="navbar-brand topbar-main-title" href="./">
           創造とは
         </a>
-        <span id="topbar-subtitle" class="topbar-subtitle">Creation Space</span>
-        <span class="topbar-meta topbar-meta--author" id="credit-signature">Project Designer: pjdhiro</span>
       </div>
       <button
         class="navbar-toggler topbar-toggler"
@@ -55,7 +53,7 @@
       <div class="collapse navbar-collapse justify-content-end" id="kessonTopbarNav">
         <ul class="navbar-nav align-items-md-center gap-md-1">
           <li class="nav-item">
-            <a id="topbar-home-link" class="nav-link topbar-link" href="#">HOME</a>
+            <a id="topbar-home-link" class="nav-link topbar-link" href="../kesson-space/">kesson-driven</a>
           </li>
           <li class="nav-item">
             <a id="topbar-dev-link" class="nav-link topbar-link" href="./?dev">DEV</a>
@@ -100,10 +98,11 @@
   </header>
 
   <div id="graphic-switcher" class="btn-group btn-group-sm" role="group" aria-label="グラフィック切り替え">
-    <button type="button" class="btn btn-outline-light active" data-graphic-mode="hold" aria-pressed="true">保持</button>
-    <button type="button" class="btn btn-outline-light" data-graphic-mode="wabi" aria-pressed="false">忍</button>
-    <button type="button" class="btn btn-outline-light" data-graphic-mode="intent" aria-pressed="false">意</button>
+    <button type="button" class="btn btn-outline-light active" data-graphic-mode="hoji" aria-pressed="true">保持</button>
+    <button type="button" class="btn btn-outline-light" data-graphic-mode="sinobi" aria-pressed="false">忍</button>
+    <button type="button" class="btn btn-outline-light" data-graphic-mode="i" aria-pressed="false">意</button>
   </div>
+  <div id="dev-version-inline" class="dev-version-inline" aria-live="polite"></div>
 
   <div id="overlay" role="presentation">
     <div id="taglines"></div>
@@ -197,7 +196,7 @@
     <div class="tech-footer-line">GitHub Pages</div>
     <div class="tech-footer-line">Vanilla JS · ES Modules</div>
     <div class="tech-footer-line">Three.js · Bootstrap</div>
-    <div id="dev-version-inline" class="tech-footer-line"></div>
+    <div id="footer-signature" class="footer-signature">Project Designer: pjdhiro</div>
   </footer>
 
   <div class="offcanvas offcanvas-end offcanvas-kesson" tabindex="-1" id="articlesOffcanvas" data-bs-backdrop="true">
