@@ -374,6 +374,7 @@ async function main() {
     const { scene, camera, renderer } = createScene(container);
     renderer.autoClear = false;
     let active3dSceneVariant = initialSceneVariant;
+    const isIntentScene = () => active3dSceneVariant === 'intent';
 
     function applyGraphicMode(nextMode, { shouldSyncQuery = true } = {}) {
         const normalizedMode = normalizeGraphicMode(nextMode);
@@ -401,9 +402,9 @@ async function main() {
     });
 
     // Delay heavy simulation allocations when the active graphic preset doesn't use them.
-    let fluidSystem = toggles.fluidField ? createFluidSystem(renderer) : null;
-    let liquidSystem = toggles.liquid ? createLiquidSystem(renderer) : null;
-    let liquidTarget = toggles.liquid ? createLiquidRenderTarget() : null;
+    let fluidSystem = !isIntentScene() && toggles.fluidField ? createFluidSystem(renderer) : null;
+    let liquidSystem = !isIntentScene() && toggles.liquid ? createLiquidSystem(renderer) : null;
+    let liquidTarget = !isIntentScene() && toggles.liquid ? createLiquidRenderTarget() : null;
 
     const composer = new EffectComposer(renderer);
     composer.addPass(new RenderPass(scene, camera));
@@ -481,10 +482,11 @@ async function main() {
         setCameraPosition(sceneParams.camX, sceneParams.camY, sceneParams.camZ);
         updateControls(time, breathVal);
         const mouse = updateMouseSmoothing();
+        const intentScene = isIntentScene();
 
         updateScene(time);
 
-        if (toggles.fluidField) {
+        if (!intentScene && toggles.fluidField) {
             if (!fluidSystem) {
                 fluidSystem = createFluidSystem(renderer);
             }
@@ -502,7 +504,7 @@ async function main() {
             distortionPass.uniforms.uFluidInfluence.value = 0;
         }
 
-        if (toggles.liquid) {
+        if (!intentScene && toggles.liquid) {
             if (!liquidSystem) {
                 liquidSystem = createLiquidSystem(renderer);
             }
@@ -533,14 +535,18 @@ async function main() {
             distortionPass.uniforms.uLiquidStrength.value = 0;
         }
 
-        applyQuantumWaveUniforms(distortionPass);
+        if (!intentScene) {
+            applyQuantumWaveUniforms(distortionPass);
+        } else {
+            distortionPass.uniforms.uQWaveStrength.value = 0;
+        }
 
         distortionPass.uniforms.uAspect.value = window.innerWidth / window.innerHeight;
         distortionPass.uniforms.uTime.value = time;
         dofPass.uniforms.uAspect.value = window.innerWidth / window.innerHeight;
         dofPass.uniforms.uMouse.value.set(mouse.smoothX, mouse.smoothY);
 
-        if (toggles.dof) {
+        if (!intentScene && toggles.dof) {
             dofPass.uniforms.uDofStrength.value = distortionParams.dofStrength;
             dofPass.uniforms.uDofFocusRadius.value = distortionParams.dofFocusRadius;
         } else {
@@ -548,7 +554,7 @@ async function main() {
         }
 
         renderer.clear();
-        if (toggles.postProcess) {
+        if (!intentScene && toggles.postProcess) {
             composer.render();
         } else {
             renderer.render(scene, camera);
