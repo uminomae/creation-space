@@ -45,35 +45,7 @@ const FLOW_FULL_HALF_Y = 20.0;
 const FLOW_FULL_HALF_Z = 11.5;
 const FLOW_LEFT_END = 0.42;
 const FLOW_CENTER_END = 0.64;
-const CREATION_LINK_DEFS = [
-    {
-        id: 1,
-        label: 'Creation Notes I',
-        interactive: false,
-        draftUrl: '',
-        sourceUrl: '',
-        shape: 'crystal',
-        pointCount: 1800,
-    },
-    {
-        id: 2,
-        label: 'Creation Notes II',
-        interactive: false,
-        draftUrl: '',
-        sourceUrl: '',
-        shape: 'ring',
-        pointCount: 2100,
-    },
-    {
-        id: 3,
-        label: 'Creation Notes III',
-        interactive: false,
-        draftUrl: '',
-        sourceUrl: '',
-        shape: 'frame',
-        pointCount: 1700,
-    },
-];
+const CREATION_LINK_DEFS = [];
 
 function clamp01(v) {
     return Math.min(1, Math.max(0, v));
