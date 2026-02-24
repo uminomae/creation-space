@@ -378,6 +378,7 @@ const PARAM_GROUPS = [
 
 const HIDDEN_GROUP_IDS_BY_VARIANT = {
     hold: new Set([
+        'field',
         'plasma',
     ]),
     wabi: new Set([
@@ -396,6 +397,21 @@ const HIDDEN_GROUP_IDS_BY_VARIANT = {
     ]),
 };
 
+const HIDDEN_FIELD_KEYS_BY_VARIANT = {
+    hold: {
+        toggles: new Set([
+            'field',
+            'heatHaze',
+            'showPlasma',
+        ]),
+        post: new Set([
+            'heatHaze',
+            'heatHazeRadius',
+            'heatHazeSpeed',
+        ]),
+    },
+};
+
 function normalizeSceneVariant(sceneVariant) {
     if (sceneVariant === 'wabi' || sceneVariant === 'intent') return sceneVariant;
     return 'hold';
@@ -405,6 +421,20 @@ function resolveVisibleParamGroups(sceneVariant) {
     const variant = normalizeSceneVariant(sceneVariant);
     const hiddenGroupIds = HIDDEN_GROUP_IDS_BY_VARIANT[variant] || new Set();
     return PARAM_GROUPS.filter((group) => !hiddenGroupIds.has(group.id));
+}
+
+function getFieldKey(field) {
+    return field && typeof field === 'object' && 'key' in field ? field.key : field[0];
+}
+
+function resolveVisibleFields(sceneVariant, group) {
+    const variant = normalizeSceneVariant(sceneVariant);
+    const hiddenByGroup = HIDDEN_FIELD_KEYS_BY_VARIANT[variant];
+    const hiddenFieldKeys = hiddenByGroup?.[group.id];
+    if (!hiddenFieldKeys || hiddenFieldKeys.size === 0) {
+        return group.fields;
+    }
+    return group.fields.filter((field) => !hiddenFieldKeys.has(getFieldKey(field)));
 }
 
 function formatNumber(value, step) {
@@ -465,6 +495,9 @@ export function initDevPanel({
     const controlIndex = new Map();
     const colorControlIndex = new Map();
     const visibleParamGroups = resolveVisibleParamGroups(sceneVariant);
+    const visiblePanelGroups = visibleParamGroups
+        .map((group) => ({ group, fields: resolveVisibleFields(sceneVariant, group) }))
+        .filter(({ fields }) => fields.length > 0);
 
     function notifyStateChanged() {
         if (typeof onStateChanged === 'function') {
@@ -642,7 +675,7 @@ export function initDevPanel({
         return wrapper;
     }
 
-    visibleParamGroups.forEach((group, idx) => {
+    visiblePanelGroups.forEach(({ group, fields }, idx) => {
         const item = document.createElement('div');
         item.className = 'accordion-item';
 
@@ -668,7 +701,7 @@ export function initDevPanel({
             helpNode.textContent = groupHelp;
             body.appendChild(helpNode);
         }
-        group.fields.forEach((field) => {
+        fields.forEach((field) => {
             const node = group.type === 'toggle'
                 ? buildToggleControl(group, field)
                 : (field.type === 'color' ? buildColorControl(group, field) : buildRangeControl(group, field));
@@ -679,8 +712,8 @@ export function initDevPanel({
     });
 
     function syncUIFromState() {
-        visibleParamGroups.forEach((group) => {
-            group.fields.forEach((field) => {
+        visiblePanelGroups.forEach(({ group, fields }) => {
+            fields.forEach((field) => {
                 const key = field.type === 'color' ? field.key : field[0];
                 const path = `${group.id}.${key}`;
 
