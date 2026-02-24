@@ -81,7 +81,7 @@ const STRINGS = {
 function applyCreationPreset() {
     Object.assign(toggles, {
         background: true,
-        field: false,
+        field: true,
         flowObjects: true,
         fog: true,
         fovBreath: true,
@@ -89,10 +89,10 @@ function applyCreationPreset() {
         autoRotate: false,
         postProcess: true,
         fluidField: true,
-        liquid: true,
+        liquid: false,
         heatHaze: false,
         dof: true,
-        quantumWave: true,
+        quantumWave: false,
     });
 }
 

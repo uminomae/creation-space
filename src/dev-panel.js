@@ -9,6 +9,7 @@ import {
     liquidParams,
     quantumWaveParams,
     sceneParams,
+    plasmaParams,
     toggles,
 } from './config.js';
 
@@ -17,14 +18,20 @@ const GROUP_HELP_JA = {
     creationLink1: 'オブジェクト1の個別設定。位置・サイズ・色・クリック判定半径を調整します。',
     creationLink2: 'オブジェクト2の個別設定。位置・サイズ・色・クリック判定半径を調整します。',
     creationLink3: 'オブジェクト3の個別設定。位置・サイズ・色・クリック判定半径を調整します。',
-    background: 'B案の背景設定。筒状空間の奥行き・リキッド流れ・星の柔らかさを調整します。',
-    flow: '光の束（flowObjects）の密度と散らばりを調整します。depthScatterを上げると奥行き方向に広がります。',
+    plasma: '中心の乱数（虫の群れ）の設定。カオス度や回転速度・空間サイズを調整します。',
+};
+
+const PLASMA_HELP_JA = {
+    opacity: '不透明度です。',
+    chaos: 'カオス度（暴れ具合・揺らぎ）です。大きくすると激しく散らばります。',
+    speed: '回転・飛び交う速度です。',
+    radius: '群れの全体的な空間サイズ（半径基準）です。',
+    heightRatio: '縦方向の潰れ具合です。',
+    colorA: '色Aです。',
+    colorB: '色Bです。',
 };
 
 const CREATION_GLOBAL_HELP_JA = {
-    sizeGain: 'オブジェクト全体の見かけサイズ倍率。上げると一気に大きく表示されます。',
-    linkSpread: '3つのオブジェクトの横方向の間隔倍率。上げるほど左右に離れます。',
-    linkDepthSpread: '左右オブジェクトの前後ずらし量。上げると重なりが減って奥行きが出ます。',
     pulseSpeed: '呼吸（上下移動・拡縮）の速さ。上げるとせわしなく動きます。',
     vortexSpeed: '球内部の渦回転速度。上げると内部フローが速くなります。',
     swirlStrength: '渦のねじれ量。上げると巻き感が強くなります。',
@@ -32,7 +39,6 @@ const CREATION_GLOBAL_HELP_JA = {
     colorSplitSoftness: '二色境界のぼかし幅。下げると境界がくっきりします。',
     particleBrightness: '粒子の発光明度。下げると全体が暗く落ち着きます。',
     particleSoftness: '粒子エッジの柔らかさ。上げるとクッキリ感が減ります。',
-    coreSharpness: '粒子コアの輪郭強度。上げるとオブジェクトがクッキリします。',
     fluidDrift: '液体風の流れ揺らぎ。上げると流動感が増します。',
     pointerBurstStrength: 'ポインタ/カメラ接近時の拡散強度。上げるほど画面へ広がります。',
     pointerBurstSpread: 'ポインタ時の拡散距離。上げるとより遠くへ飛びます。',
@@ -70,29 +76,6 @@ const CREATION_LINK_HELP_JA = {
     link1ColorBB: '二色B側カラーのB成分です。',
 };
 
-const BACKGROUND_HELP_JA = {
-    centerR: '背景の中心色R成分です。',
-    centerG: '背景の中心色G成分です。',
-    centerB: '背景の中心色B成分です。',
-    edgeR: '背景の外縁色R成分です。',
-    edgeG: '背景の外縁色G成分です。',
-    edgeB: '背景の外縁色B成分です。',
-    pulse: '背景色の呼吸（明滅）強度です。',
-    opacity: '背景全体の不透明度です。',
-    tubeRadius: '筒状空間の半径。上げると包み込む空間が広がります。',
-    tubeLength: '筒状空間の長さ。上げると奥行き感が伸びます。',
-    tubeFlowSpeed: 'リキッド背景の流速。上げると潮流が速くなります。',
-    tubeNoiseScale: '流体ノイズの細かさ。上げると模様が密になります。',
-    tubeWarpStrength: '流体のうねり強度。上げると歪みが強くなります。',
-    tubeSoftness: '流れ境界の柔らかさ。上げると滑らかになります。',
-    tubeDepthFade: '奥行き方向の減衰量。上げると遠方が霧に溶けます。',
-    tubeBrightness: '背景リキッドの明るさ。下げると深海のように暗くなります。',
-    tubeSwirl: '筒内での渦巻き感。上げると螺旋の印象が強くなります。',
-    starOpacity: '星レイヤーの見え方。下げるとノイズ感が減ります。',
-    starSoftness: '星粒のエッジの柔らかさ。上げるとクッキリ感が減ります。',
-    starSize: '星粒サイズ倍率。下げると背景に馴染みます。',
-};
-
 function getFieldHelpText(groupId, key) {
     if (groupId === 'creationGlobal') {
         return CREATION_GLOBAL_HELP_JA[key] || '';
@@ -101,8 +84,8 @@ function getFieldHelpText(groupId, key) {
         const normalizedKey = key.replace(/^link[123]/, 'link1');
         return CREATION_LINK_HELP_JA[normalizedKey] || '';
     }
-    if (groupId === 'background') {
-        return BACKGROUND_HELP_JA[key] || '';
+    if (groupId === 'plasma') {
+        return PLASMA_HELP_JA[key] || '';
     }
     return '';
 }
@@ -127,6 +110,7 @@ const PARAM_GROUPS = [
             ['fovBreath', 'FOV Breath'],
             ['htmlBreath', 'HTML Breath'],
             ['heatHaze', 'Heat Haze'],
+            ['showPlasma', 'Plasma'],
         ],
     },
     {
@@ -168,7 +152,22 @@ const PARAM_GROUPS = [
             ['chaos', 'Chaos', 0.1, 2.5, 0.01],
             ['bundleTightness', 'Bundle Tightness', 0.1, 1.5, 0.01],
             ['centerBandRatio', 'Center Band', 0.2, 0.8, 0.005],
-            ['depthScatter', 'Depth Scatter', 0.0, 2.0, 0.01],
+            ['centerThickness', 'Center Thick', 0.0, 1.0, 0.01],
+            ['speed', 'Speed', 0.0, 5.0, 0.01],
+        ],
+    },
+    {
+        id: 'plasma',
+        title: 'Plasma',
+        type: 'range',
+        target: plasmaParams,
+        fields: [
+            ['coreOpacity', 'Core Opacity', 0.0, 1.0, 0.01],
+            ['chaosOpacity', 'Chaos Opacity', 0.0, 1.0, 0.01],
+            ['chaos', 'Chaos', 0.0, 50.0, 0.2],
+            ['speed', 'Speed', 0.0, 15.0, 0.05],
+            ['radius', 'Radius', 1.0, 100.0, 0.5],
+            ['heightRatio', 'Height Ratio', 0.1, 10.0, 0.1],
         ],
     },
     {
@@ -177,9 +176,6 @@ const PARAM_GROUPS = [
         type: 'range',
         target: creationLinkParams,
         fields: [
-            ['sizeGain', 'Size Gain', 0.2, 6.0, 0.01],
-            ['linkSpread', 'Link Spread', 0.5, 3.0, 0.01],
-            ['linkDepthSpread', 'Link Depth Spread', 0.0, 2.0, 0.01],
             ['pulseSpeed', 'Pulse Speed', 0.1, 3.0, 0.01],
             ['vortexSpeed', 'Vortex Speed', 0.1, 2.4, 0.01],
             ['swirlStrength', 'Swirl Strength', 0.0, 1.0, 0.01],
@@ -187,7 +183,6 @@ const PARAM_GROUPS = [
             ['colorSplitSoftness', 'Color Split Soft', 0.005, 0.3, 0.005],
             ['particleBrightness', 'Particle Bright', 0.2, 1.5, 0.01],
             ['particleSoftness', 'Particle Soft', 1.5, 6.0, 0.01],
-            ['coreSharpness', 'Core Sharpness', 0.2, 2.5, 0.01],
             ['fluidDrift', 'Fluid Drift', 0.0, 0.6, 0.01],
             ['pointerBurstStrength', 'Pointer Burst', 0.0, 1.5, 0.01],
             ['pointerBurstSpread', 'Burst Spread', 0.0, 36.0, 0.1],
@@ -286,18 +281,6 @@ const PARAM_GROUPS = [
             ['edgeB', 'Edge B', 0.0, 1.0, 0.001],
             ['pulse', 'Pulse', 0.0, 1.0, 0.005],
             ['opacity', 'Opacity', 0.0, 1.0, 0.005],
-            ['tubeRadius', 'Tube Radius', 20.0, 240.0, 0.5],
-            ['tubeLength', 'Tube Length', 80.0, 900.0, 1.0],
-            ['tubeFlowSpeed', 'Tube Flow Speed', 0.0, 0.4, 0.001],
-            ['tubeNoiseScale', 'Tube Noise Scale', 0.2, 12.0, 0.01],
-            ['tubeWarpStrength', 'Tube Warp', 0.0, 2.0, 0.01],
-            ['tubeSoftness', 'Tube Softness', 0.01, 1.0, 0.01],
-            ['tubeDepthFade', 'Tube Depth Fade', 0.0, 1.0, 0.01],
-            ['tubeBrightness', 'Tube Brightness', 0.0, 1.2, 0.01],
-            ['tubeSwirl', 'Tube Swirl', 0.0, 2.5, 0.01],
-            ['starOpacity', 'Star Opacity', 0.0, 1.0, 0.01],
-            ['starSoftness', 'Star Softness', 1.2, 8.0, 0.01],
-            ['starSize', 'Star Size', 0.2, 2.0, 0.01],
         ],
     },
     {
@@ -390,6 +373,7 @@ function cloneState() {
         sceneParams: { ...sceneParams },
         fieldParams: { ...fieldParams },
         flowParams: { ...flowParams },
+        plasmaParams: { ...plasmaParams },
         backgroundParams: { ...backgroundParams },
         fluidParams: { ...fluidParams },
         liquidParams: { ...liquidParams },
@@ -662,6 +646,7 @@ export function initDevPanel({
             applyPartial(sceneParams, payload.sceneParams);
             applyPartial(fieldParams, payload.fieldParams);
             applyPartial(flowParams, payload.flowParams);
+            applyPartial(plasmaParams, payload.plasmaParams);
             applyPartial(backgroundParams, payload.backgroundParams);
             applyPartial(fluidParams, payload.fluidParams);
             applyPartial(liquidParams, payload.liquidParams);
