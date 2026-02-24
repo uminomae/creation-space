@@ -6,7 +6,6 @@ import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 import { breathValue } from './animation-utils.js';
 import { initControls, setCameraPosition, updateControls, getScrollProgress } from './controls.js';
 import { initMouseTracking, updateMouseSmoothing } from './mouse-state.js';
-import { createScene, getCreationLinkTargetMeshes, updateScene } from './scene.js';
 import { initScrollUI, refreshGuideLang, updateScrollUI } from './scroll-ui.js';
 import { initDevPanel } from './dev-panel.js';
 import { createFluidSystem } from './shaders/fluid-field.js';
@@ -15,6 +14,7 @@ import { CameraDofShader, DistortionShader } from './shaders/distortion-pass.js'
 import { initCreationLinkInteractions } from './creation-link-interactions.js';
 import { initArticles, setArticlesLanguage } from './articles.js';
 import { initGraphicCanvasSwitcher } from './graphics-switcher.js';
+import { applyScenePreset, resolveSceneVariant } from './scene-presets.js';
 import { DEV_VERSION } from './version.js';
 import {
     breathConfig,
@@ -31,7 +31,8 @@ const DEV_MODE = new URLSearchParams(window.location.search).has('dev');
 let devStatsBegin = () => {};
 let devStatsEnd = () => {};
 const GRAPHIC_MODE_DEFAULT = 'hold';
-const GRAPHIC_MODE_OPTIONS = new Set(['hold', 'ripple', 'lattice']);
+const GRAPHIC_MODE_OPTIONS = new Set(['hold', 'wabi', 'ripple', 'lattice']);
+const REALTIME_CANVAS_MODES = new Set(['ripple', 'lattice']);
 
 const STRINGS = {
     ja: {
@@ -78,22 +79,11 @@ const STRINGS = {
     },
 };
 
-function applyCreationPreset() {
-    Object.assign(toggles, {
-        background: true,
-        field: true,
-        flowObjects: true,
-        fog: true,
-        fovBreath: true,
-        htmlBreath: true,
-        autoRotate: false,
-        postProcess: true,
-        fluidField: true,
-        liquid: false,
-        heatHaze: false,
-        dof: true,
-        quantumWave: false,
-    });
+async function loadSceneModule(sceneVariant) {
+    if (sceneVariant === 'wabi') {
+        return import('./scene.js');
+    }
+    return import('./scene-hold.js');
 }
 
 function applyPageLanguage(lang) {
@@ -273,15 +263,19 @@ function initDevVersionBadge() {
     document.body.appendChild(badge);
 }
 
-function main() {
-    applyCreationPreset();
+async function main() {
     const initialLang = normalizeLang(detectLang());
     const initialGraphicMode = normalizeGraphicMode(new URLSearchParams(window.location.search).get('graphic'));
+    const initialSceneVariant = resolveSceneVariant(initialGraphicMode);
+    applyScenePreset(initialSceneVariant);
     applyPageLanguage(initialLang);
     initMouseTracking();
 
     const container = document.getElementById('canvas-container');
     if (!container) return;
+
+    const sceneModule = await loadSceneModule(initialSceneVariant);
+    const { createScene, getCreationLinkTargetMeshes, updateScene } = sceneModule;
 
     const { scene, camera, renderer } = createScene(container);
     renderer.autoClear = false;
@@ -290,10 +284,22 @@ function main() {
         initialMode: initialGraphicMode,
     });
     let activeGraphicMode = initialGraphicMode;
+    let activeSceneVariant = initialSceneVariant;
 
     function applyGraphicMode(nextMode, { shouldSyncQuery = true } = {}) {
         activeGraphicMode = normalizeGraphicMode(nextMode);
-        const showCreation = activeGraphicMode === GRAPHIC_MODE_DEFAULT;
+        const nextSceneVariant = resolveSceneVariant(activeGraphicMode);
+        const showCreation = !REALTIME_CANVAS_MODES.has(activeGraphicMode);
+
+        if (showCreation && nextSceneVariant !== activeSceneVariant) {
+            if (shouldSyncQuery) {
+                syncGraphicModeQuery(activeGraphicMode);
+            }
+            window.location.reload();
+            return;
+        }
+
+        activeSceneVariant = nextSceneVariant;
         renderer.domElement.style.display = showCreation ? 'block' : 'none';
         renderer.domElement.style.pointerEvents = showCreation ? 'auto' : 'none';
         graphicCanvasSwitcher.setMode(activeGraphicMode);
@@ -380,7 +386,7 @@ function main() {
         updateScrollUI(scrollProg, breathVal);
         setCameraPosition(sceneParams.camX, sceneParams.camY, sceneParams.camZ);
         updateControls(time, breathVal);
-        if (activeGraphicMode === GRAPHIC_MODE_DEFAULT) {
+        if (!REALTIME_CANVAS_MODES.has(activeGraphicMode)) {
             const mouse = updateMouseSmoothing();
 
             updateScene(time);
@@ -463,4 +469,6 @@ function main() {
     animate();
 }
 
-main();
+main().catch((error) => {
+    console.error('[main] init failed:', error);
+});
