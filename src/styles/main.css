@@ -46,6 +46,74 @@
       z-index: 1;
     }
 
+    #alt-graphic-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    #graphic-switcher {
+      position: fixed;
+      top: calc(var(--kesson-topbar-height) + 0.55rem);
+      left: 0.95rem;
+      z-index: 58;
+      border-radius: 999px;
+      padding: 0.2rem;
+      background: rgba(10, 14, 24, 0.62);
+      border: 1px solid rgba(130, 170, 240, 0.25);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.26);
+    }
+
+    #graphic-switcher .btn {
+      border-radius: 999px;
+      border-color: rgba(130, 170, 240, 0.5);
+      color: rgba(220, 235, 255, 0.82);
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 0.64rem;
+      letter-spacing: 0.08em;
+      text-transform: none;
+      padding: 0.23rem 0.62rem;
+      min-width: 3.7rem;
+      background: transparent;
+    }
+
+    #graphic-switcher .btn:hover,
+    #graphic-switcher .btn:focus-visible {
+      color: rgba(240, 248, 255, 0.96);
+      border-color: rgba(150, 190, 250, 0.78);
+      background: rgba(116, 165, 244, 0.18);
+      box-shadow: none;
+    }
+
+    #graphic-switcher .btn.active {
+      color: rgba(245, 250, 255, 0.98);
+      border-color: rgba(166, 202, 255, 0.94);
+      background: linear-gradient(
+        135deg,
+        rgba(100, 152, 246, 0.3),
+        rgba(92, 142, 212, 0.42)
+      );
+    }
+
+    @media (max-width: 767.98px) {
+      #graphic-switcher {
+        top: calc(var(--kesson-topbar-height) + 0.5rem);
+        left: 0.6rem;
+        padding: 0.16rem;
+      }
+
+      #graphic-switcher .btn {
+        font-size: 0.6rem;
+        min-width: 3.3rem;
+        padding: 0.2rem 0.44rem;
+      }
+    }
+
     /* ============================
        Top menu bar (Bootstrap navbar)
        ============================ */
