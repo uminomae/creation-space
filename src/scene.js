@@ -38,8 +38,6 @@ const _bgCenterA = new THREE.Color();
 const _bgCenterB = new THREE.Color();
 const _bgEdgeA = new THREE.Color();
 const _bgEdgeB = new THREE.Color();
-const _bgForward = new THREE.Vector3();
-const _bgAxisOffset = new THREE.Quaternion().setFromEuler(new THREE.Euler(Math.PI * 0.5, 0, 0));
 
 const FLOW_X_MIN = -46.0;
 const FLOW_X_MAX = 46.0;
@@ -217,7 +215,7 @@ function createFlowPointMaterial({ colorA, colorB }) {
                 float flicker = 0.72 + 0.28 * sin(uTime * 1.1 + aPhase * 6.2831853);
                 vTwinkle = flicker;
                 vTemp = aTemp;
-                gl_PointSize = aSize * (250.0 / max(-mvPosition.z, 0.001));
+                gl_PointSize = aSize * (340.0 / max(-mvPosition.z, 0.001));
                 gl_Position = projectionMatrix * mvPosition;
             }
         `,
@@ -233,11 +231,11 @@ function createFlowPointMaterial({ colorA, colorB }) {
                 float r = length(uv);
                 if (r > 1.0) discard;
 
-                float core = smoothstep(0.48, 0.0, r);
-                float halo = smoothstep(1.0, 0.0, r) * 0.44;
-                float lum = (core * 1.05 + halo) * vTwinkle;
+                float core = smoothstep(0.52, 0.0, r);
+                float halo = smoothstep(1.0, 0.0, r) * 0.56;
+                float lum = (core * 1.22 + halo) * vTwinkle;
                 vec3 c = mix(uColorA, uColorB, vTemp) * lum;
-                float a = clamp(lum * uOpacity, 0.0, 1.0);
+                float a = clamp(lum * uOpacity * 1.18, 0.0, 1.0);
                 gl_FragColor = vec4(c, a);
             }
         `,
@@ -813,16 +811,19 @@ function createHopfPointMaterial(linkParam) {
                 gl_PointSize = aSize * (280.0 * depthFactor) * (1.0 + uHover * 0.2) * burstPointScale;
                 gl_Position = projectionMatrix * mvPosition;
 
-                float split = smoothstep(-uColorSplitSoftness, uColorSplitSoftness, p3.x);
-                float colorMix = clamp(0.85 * split + 0.15 * (aFlowDir * 0.5 + 0.5), 0.0, 1.0);
+                float splitSoft = max(0.01, uColorSplitSoftness * 0.35);
+                float split = smoothstep(-splitSoft, splitSoft, p3.x);
+                float flowSplit = aFlowDir * 0.5 + 0.5;
+                float colorMix = clamp(mix(flowSplit, split, 0.42), 0.0, 1.0);
                 vec3 baseColor = mix(uColorA, uColorB, colorMix);
                 float c = clamp(uColorContrast, 0.0, 1.8);
-                baseColor = clamp((baseColor - 0.5) * (1.0 + c) + 0.5, 0.0, 1.0);
+                float contrastGain = 1.0 + c * 0.55;
+                baseColor = clamp((baseColor - 0.5) * contrastGain + 0.5, 0.03, 1.0);
                 float pulse = 0.48 + 0.52 * sin(phase * 1.4 + eta * 2.1);
                 float brightness = clamp(uParticleBrightness, 0.05, 2.0);
-                vColor = baseColor * (0.33 + pulse * 0.28 + uHover * 0.14) * brightness;
-                float alphaGain = 0.18 + uAlpha * 1.25;
-                vAlpha = (0.14 + pulse * 0.16) * alphaGain * mix(1.0, 0.48, hoverBurst);
+                vColor = baseColor * (0.46 + pulse * 0.44 + uHover * 0.2) * brightness;
+                float alphaGain = 0.35 + uAlpha * 2.2;
+                vAlpha = (0.35 + pulse * 0.4) * alphaGain * mix(1.0, 0.6, hoverBurst);
             }
         `,
         fragmentShader: `
@@ -841,8 +842,8 @@ function createHopfPointMaterial(linkParam) {
                 float coreExp = mix(1.1, 4.2, clamp(uCoreSharpness * 0.5, 0.0, 1.0));
                 float core = pow(max(0.0, 1.0 - r), coreExp);
                 float edge = smoothstep(1.0, 0.0, r);
-                float alpha = clamp((gaussian * 0.56 + core * 0.84) * edge * vAlpha, 0.0, 1.0);
-                vec3 color = vColor * (0.3 + gaussian * 0.62 + core * 0.72);
+                float alpha = clamp((gaussian * 0.84 + core * 1.12) * edge * vAlpha, 0.0, 1.0);
+                vec3 color = vColor * (0.42 + gaussian * 0.88 + core * 1.08);
                 gl_FragColor = vec4(color, alpha);
             }
         `,
@@ -1057,13 +1058,12 @@ export function updateScene(time) {
 
     if (_bgMesh) {
         _bgMesh.visible = toggles.background;
-        const radius = clamp(backgroundParams.tubeRadius, 20.0, 240.0);
-        const length = clamp(backgroundParams.tubeLength, 80.0, 900.0);
-        _bgMesh.scale.set(radius, length, radius);
+        const radiusBase = clamp(backgroundParams.tubeRadius, 20.0, 240.0);
+        const radiusFromLength = clamp(backgroundParams.tubeLength * 0.16, 20.0, 240.0);
+        const radius = Math.max(radiusBase, radiusFromLength) * 1.25;
+        _bgMesh.scale.setScalar(radius);
         if (_camera) {
-            _bgForward.set(0, 0, -1).applyQuaternion(_camera.quaternion);
-            _bgMesh.position.copy(_camera.position).addScaledVector(_bgForward, length * 0.18);
-            _bgMesh.quaternion.copy(_camera.quaternion).multiply(_bgAxisOffset);
+            _bgMesh.position.copy(_camera.position);
         }
     }
 
