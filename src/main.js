@@ -537,18 +537,8 @@ async function main() {
 
         distortionPass.uniforms.uAspect.value = window.innerWidth / window.innerHeight;
         distortionPass.uniforms.uTime.value = time;
-        distortionPass.uniforms.uMouse.value.set(mouse.smoothX, mouse.smoothY);
         dofPass.uniforms.uAspect.value = window.innerWidth / window.innerHeight;
         dofPass.uniforms.uMouse.value.set(mouse.smoothX, mouse.smoothY);
-
-        const heatHazeEnabled = active3dSceneVariant !== 'hold' && toggles.heatHaze;
-        if (heatHazeEnabled) {
-            distortionPass.uniforms.uHeatHaze.value = distortionParams.heatHaze;
-            distortionPass.uniforms.uHeatHazeRadius.value = distortionParams.heatHazeRadius;
-            distortionPass.uniforms.uHeatHazeSpeed.value = distortionParams.heatHazeSpeed;
-        } else {
-            distortionPass.uniforms.uHeatHaze.value = 0;
-        }
 
         if (toggles.dof) {
             dofPass.uniforms.uDofStrength.value = distortionParams.dofStrength;

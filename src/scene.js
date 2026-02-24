@@ -1260,6 +1260,10 @@ export function updateScene(time) {
         _bgMaterial.uniforms.uOpacity.value = backgroundParams.opacity;
     }
 
+    if (_bgMesh) {
+        _bgMesh.visible = toggles.background;
+    }
+
     if (toggles.fog && _scene?.fog) {
         _fogColor.lerpColors(FOG_V002_COLOR, FOG_V004_COLOR, m);
         _scene.fog.color.copy(_fogColor);
@@ -1295,15 +1299,19 @@ export function updateScene(time) {
     }
 
     if (_starMaterials.length > 0) {
+        const starOpacity = toggles.background ? 0.8 : 0.0;
         _starMaterials.forEach((mat, index) => {
             mat.uniforms.uTime.value = time + index * 0.7;
-            mat.uniforms.uOpacity.value = 0.8;
+            mat.uniforms.uOpacity.value = starOpacity;
         });
     }
 
     if (_starFieldGroup) {
-        _starFieldGroup.rotation.y = time * 0.018;
-        _starFieldGroup.rotation.x = Math.sin(time * 0.16) * 0.035;
+        _starFieldGroup.visible = toggles.background;
+        if (toggles.background) {
+            _starFieldGroup.rotation.y = time * 0.018;
+            _starFieldGroup.rotation.x = Math.sin(time * 0.16) * 0.035;
+        }
     }
 
     if (_creationLinkTargets.length > 0) {

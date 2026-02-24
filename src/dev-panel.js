@@ -5,8 +5,6 @@ import {
     distortionParams,
     fieldParams,
     flowParams,
-    fluidParams,
-    liquidParams,
     quantumWaveParams,
     sceneParams,
     plasmaParams,
@@ -15,6 +13,14 @@ import {
 import { applyConfigState, cloneConfigState } from './config-state.js';
 
 const GROUP_HELP_JA = {
+    toggles: '表示や機能のON/OFFを切り替えます。',
+    scene: 'カメラ位置や霧の濃さなど、シーン全体を調整します。',
+    field: '場のレイヤー表現の強度と線の出方を調整します。',
+    flow: '流体オブジェクトの密度感・まとまり・揺らぎを調整します。',
+    background: '背景グラデーションの色と脈動を調整します。',
+    quantum: '量子波による屈折・発光・霧表現を調整します。',
+    post: '被写界深度やポスト効果の強さを調整します。',
+    breath: '呼吸演出によるFOVやUIの変化量を調整します。',
     creationGlobal: 'A案の全体挙動。渦の速度・球内の密度・色分割・明るさ・流動感をまとめて調整します。',
     creationLink1: 'オブジェクト1の個別設定。位置・サイズ・色・クリック判定半径を調整します。',
     creationLink2: 'オブジェクト2の個別設定。位置・サイズ・色・クリック判定半径を調整します。',
@@ -105,15 +111,12 @@ const PARAM_GROUPS = [
             ['field', 'Field Layer'],
             ['flowObjects', 'Flow Objects'],
             ['fog', 'Fog'],
-            ['fluidField', 'Fluid Field'],
-            ['liquid', 'Liquid'],
             ['quantumWave', 'Quantum Wave'],
             ['dof', 'DOF'],
             ['postProcess', 'Post Process'],
             ['autoRotate', 'Auto Rotate'],
             ['fovBreath', 'FOV Breath'],
             ['htmlBreath', 'HTML Breath'],
-            ['heatHaze', 'Heat Haze'],
             ['showPlasma', 'Plasma'],
         ],
     },
@@ -293,36 +296,6 @@ const PARAM_GROUPS = [
         ],
     },
     {
-        id: 'fluid',
-        title: 'Fluid',
-        type: 'range',
-        target: fluidParams,
-        fields: [
-            ['influence', 'Influence', 0.0, 0.3, 0.001],
-            ['force', 'Force', 0.0, 5.0, 0.01],
-            ['curl', 'Curl', 0.0, 5.0, 0.01],
-            ['decay', 'Decay', 0.8, 1.0, 0.001],
-            ['radius', 'Radius', 0.01, 0.6, 0.001],
-        ],
-    },
-    {
-        id: 'liquid',
-        title: 'Liquid',
-        type: 'range',
-        target: liquidParams,
-        fields: [
-            ['densityMul', 'Density Mul', 0.0, 4.0, 0.01],
-            ['refractOffsetScale', 'Refract Offset', 0.0, 0.2, 0.001],
-            ['refractThreshold', 'Refract Threshold', 0.0, 0.05, 0.0005],
-            ['forceRadius', 'Force Radius', 0.01, 0.3, 0.001],
-            ['forceStrength', 'Force Strength', 0.0, 12.0, 0.01],
-            ['noiseScale', 'Noise Scale', 0.1, 20.0, 0.1],
-            ['noiseSpeed', 'Noise Speed', 0.0, 0.2, 0.001],
-            ['specularPow', 'Specular Pow', 0.1, 20.0, 0.1],
-            ['specularInt', 'Specular Int', 0.0, 4.0, 0.01],
-        ],
-    },
-    {
         id: 'quantum',
         title: 'Quantum Wave',
         type: 'range',
@@ -355,9 +328,6 @@ const PARAM_GROUPS = [
         fields: [
             ['dofStrength', 'DOF Strength', 0.0, 0.05, 0.0005],
             ['dofFocusRadius', 'DOF Focus', 0.05, 0.8, 0.005],
-            ['heatHaze', 'Heat Haze', 0.0, 0.08, 0.0005],
-            ['heatHazeRadius', 'Heat Radius', 0.05, 1.0, 0.005],
-            ['heatHazeSpeed', 'Heat Speed', 0.05, 3.0, 0.01],
         ],
     },
     {
@@ -401,13 +371,11 @@ const HIDDEN_FIELD_KEYS_BY_VARIANT = {
     hold: {
         toggles: new Set([
             'field',
-            'heatHaze',
             'showPlasma',
         ]),
-        post: new Set([
-            'heatHaze',
-            'heatHazeRadius',
-            'heatHazeSpeed',
+        flow: new Set([
+            'centerThickness',
+            'speed',
         ]),
     },
 };

@@ -1,5 +1,5 @@
 // distortion-pass.js — ポストプロセスシェーダー
-// 流体フィールド + 鬼火屈折 + 熱波 + リキッド（DOFは最終パスで適用）
+// 流体フィールド + 鬼火屈折 + リキッド（DOFは最終パスで適用）
 // ★ 初期値は config.js の distortionParams / fluidParams / liquidParams を参照
 
 import * as THREE from 'three';
@@ -28,10 +28,6 @@ export const DistortionShader = {
         'uBlurAmount':    { value: distortionParams.blurAmount },
         'uBaseBlur':      { value: distortionParams.baseBlur },
         'uInnerGlow':     { value: distortionParams.innerGlow },
-        'uMouse':         { value: new THREE.Vector2(0.5, 0.5) },
-        'uHeatHaze':      { value: distortionParams.heatHaze },
-        'uHeatHazeRadius':{ value: distortionParams.heatHazeRadius },
-        'uHeatHazeSpeed': { value: distortionParams.heatHazeSpeed },
         'uQWaveStrength':   { value: quantumWaveParams.strength },
         'uQWaveSpeed':      { value: quantumWaveParams.speed },
         'uQWaveBaseFreq':   { value: quantumWaveParams.baseFreq },
@@ -87,10 +83,6 @@ export const DistortionShader = {
         uniform float uBlurAmount;
         uniform float uBaseBlur;
         uniform float uInnerGlow;
-        uniform vec2 uMouse;
-        uniform float uHeatHaze;
-        uniform float uHeatHazeRadius;
-        uniform float uHeatHazeSpeed;
         uniform float uQWaveStrength;
         uniform float uQWaveSpeed;
         uniform float uQWaveBaseFreq;
@@ -144,14 +136,6 @@ export const DistortionShader = {
             return f;
         }
 
-        float fbmFast(vec2 p) {
-            float f = 0.0;
-            f += 0.5 * valueNoise(p);
-            p = p * 2.0 + vec2(uTime * uHeatHazeSpeed * 0.3, uTime * uHeatHazeSpeed * 0.2);
-            f += 0.25 * valueNoise(p);
-            return f;
-        }
-
         vec3 discBlur(vec2 uv, float blurAmt) {
             vec3 col = texture2D(tDiffuse, uv).rgb;
             if (blurAmt < 0.0005) return col;
@@ -177,20 +161,9 @@ export const DistortionShader = {
             vec2 fluidOffset = texture2D(tFluidField, uv).rg * uFluidInfluence;
             uv += fluidOffset;
 
-            // 1. 熱波エフェクト
-            vec2 mouseAspect = vec2((uv.x - uMouse.x) * uAspect, uv.y - uMouse.y);
-            float mouseDist = length(mouseAspect);
-            float heatMask = smoothstep(uHeatHazeRadius, 0.0, mouseDist);
-            if (heatMask > 0.001 && uHeatHaze > 0.0001) {
-                vec2 heatCoord = uv * 15.0 + uMouse * 5.0;
-                float hx = fbmFast(heatCoord) - 0.5;
-                float hy = fbmFast(heatCoord + vec2(3.7, 8.1)) - 0.5;
-                uv += vec2(hx, hy) * uHeatHaze * heatMask;
-            }
-
             vec3 color = texture2D(tDiffuse, uv).rgb;
 
-            // 2. 鬼火オーブ屈折
+            // 1. 鬼火オーブ屈折
             float totalHalo = 0.0;
             float totalInnerGlow = 0.0;
             for (int i = 0; i < 3; i++) {
@@ -237,7 +210,7 @@ export const DistortionShader = {
             color += uHaloColor * totalHalo * uHaloIntensity;
             color += uHaloColor * totalInnerGlow * uInnerGlow;
 
-            // 3. リキッドエフェクト（マウス追従・透明屈折のみ）
+            // 2. リキッドエフェクト（マウス追従・透明屈折のみ）
             vec4 liquid = texture2D(tLiquid, vUv);
             if (liquid.a > uLiquidThreshold && uLiquidStrength > uLiquidThreshold) {
                 // 液体の屈折効果のみ（色なし・透明）
@@ -247,7 +220,7 @@ export const DistortionShader = {
                 color = mix(color, refractedColor, liquid.a * uLiquidStrength);
             }
 
-            // 4. 量子波屈折（透明リキッドレンズ + 拡張エフェクト）
+            // 3. 量子波屈折（透明リキッドレンズ + 拡張エフェクト）
             if (uQWaveStrength > 0.0001) {
                 float qGradX = 0.0;
                 float qGradY = 0.0;
