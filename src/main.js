@@ -1,7 +1,4 @@
 import * as THREE from 'three';
-import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 
 import { breathValue } from './animation-utils.js';
 import {
@@ -16,9 +13,6 @@ import {
 import { initMouseTracking, updateMouseSmoothing } from './mouse-state.js';
 import { initScrollUI, refreshGuideLang, updateScrollUI } from './scroll-ui.js';
 import { initDevPanel } from './dev-panel.js';
-import { createFluidSystem } from './shaders/fluid-field.js';
-import { createLiquidSystem } from './shaders/liquid.js';
-import { CameraDofShader, DistortionShader } from './shaders/distortion-pass.js';
 import { initCreationLinkInteractions } from './creation-link-interactions.js';
 import { initArticles, setArticlesLanguage } from './articles.js';
 import { applyConfigState, cloneConfigState } from './config-state.js';
@@ -230,6 +224,42 @@ async function loadSceneModule(sceneVariant) {
     return import('./scene-hold.js');
 }
 
+let postFxDepsPromise = null;
+let fluidFactoryPromise = null;
+let liquidFactoryPromise = null;
+
+function loadPostFxDeps() {
+    if (!postFxDepsPromise) {
+        postFxDepsPromise = Promise.all([
+            import('three/addons/postprocessing/EffectComposer.js'),
+            import('three/addons/postprocessing/RenderPass.js'),
+            import('three/addons/postprocessing/ShaderPass.js'),
+            import('./shaders/distortion-pass.js'),
+        ]).then(([composerModule, renderPassModule, shaderPassModule, distortionModule]) => ({
+            EffectComposer: composerModule.EffectComposer,
+            RenderPass: renderPassModule.RenderPass,
+            ShaderPass: shaderPassModule.ShaderPass,
+            DistortionShader: distortionModule.DistortionShader,
+            CameraDofShader: distortionModule.CameraDofShader,
+        }));
+    }
+    return postFxDepsPromise;
+}
+
+function loadFluidFactory() {
+    if (!fluidFactoryPromise) {
+        fluidFactoryPromise = import('./shaders/fluid-field.js').then((module) => module.createFluidSystem);
+    }
+    return fluidFactoryPromise;
+}
+
+function loadLiquidFactory() {
+    if (!liquidFactoryPromise) {
+        liquidFactoryPromise = import('./shaders/liquid.js').then((module) => module.createLiquidSystem);
+    }
+    return liquidFactoryPromise;
+}
+
 function applyPageLanguage(lang) {
     const strings = STRINGS[lang] || STRINGS.ja;
 
@@ -401,12 +431,15 @@ function applyQuantumWaveUniforms(distortionPass) {
     du.uQWaveSharpness.value = qp.sharpness;
 }
 
-function attachResize({ camera, renderer, composer }) {
+function attachResize({ camera, renderer, getComposer }) {
     function onResize() {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
-        composer.setSize(window.innerWidth, window.innerHeight);
+        const composer = typeof getComposer === 'function' ? getComposer() : null;
+        if (composer) {
+            composer.setSize(window.innerWidth, window.innerHeight);
+        }
     }
     window.addEventListener('resize', onResize);
 }
@@ -663,21 +696,117 @@ async function main() {
         format: THREE.RGBAFormat,
     });
 
-    // Delay heavy simulation allocations when the active graphic preset doesn't use them.
-    let fluidSystem = !isIntentScene() && toggles.fluidField ? createFluidSystem(renderer) : null;
-    let liquidSystem = !isIntentScene() && toggles.liquid ? createLiquidSystem(renderer) : null;
-    let liquidTarget = !isIntentScene() && toggles.liquid ? createLiquidRenderTarget() : null;
+    let createFluidSystemFactory = null;
+    let createLiquidSystemFactory = null;
+    let fluidSystem = null;
+    let liquidSystem = null;
+    let liquidTarget = null;
 
-    const composer = new EffectComposer(renderer);
-    composer.addPass(new RenderPass(scene, camera));
+    let composer = null;
+    let distortionPass = null;
+    let dofPass = null;
 
-    const distortionPass = new ShaderPass(DistortionShader);
-    distortionPass.uniforms.uLiquidOffsetScale.value = liquidParams.refractOffsetScale;
-    distortionPass.uniforms.uLiquidThreshold.value = liquidParams.refractThreshold;
-    composer.addPass(distortionPass);
+    let postFxLoadingPromise = null;
+    let fluidFactoryLoadingPromise = null;
+    let liquidFactoryLoadingPromise = null;
 
-    const dofPass = new ShaderPass(CameraDofShader);
-    composer.addPass(dofPass);
+    function shouldPreparePostFx(intentScene = isIntentScene()) {
+        return !intentScene && toggles.postProcess;
+    }
+
+    function ensurePostFxPipeline() {
+        if (composer && distortionPass && dofPass) {
+            return Promise.resolve(true);
+        }
+        if (postFxLoadingPromise) {
+            return postFxLoadingPromise;
+        }
+        postFxLoadingPromise = loadPostFxDeps()
+            .then((deps) => {
+                const {
+                    EffectComposer,
+                    RenderPass,
+                    ShaderPass,
+                    DistortionShader,
+                    CameraDofShader,
+                } = deps;
+
+                composer = new EffectComposer(renderer);
+                composer.addPass(new RenderPass(scene, camera));
+
+                distortionPass = new ShaderPass(DistortionShader);
+                distortionPass.uniforms.uLiquidOffsetScale.value = liquidParams.refractOffsetScale;
+                distortionPass.uniforms.uLiquidThreshold.value = liquidParams.refractThreshold;
+                composer.addPass(distortionPass);
+
+                dofPass = new ShaderPass(CameraDofShader);
+                composer.addPass(dofPass);
+                composer.setSize(window.innerWidth, window.innerHeight);
+                return true;
+            })
+            .catch((error) => {
+                console.warn('[postfx] init failed:', error);
+                return false;
+            })
+            .finally(() => {
+                postFxLoadingPromise = null;
+            });
+        return postFxLoadingPromise;
+    }
+
+    function ensureFluidFactory() {
+        if (createFluidSystemFactory) {
+            return Promise.resolve(createFluidSystemFactory);
+        }
+        if (fluidFactoryLoadingPromise) {
+            return fluidFactoryLoadingPromise;
+        }
+        fluidFactoryLoadingPromise = loadFluidFactory()
+            .then((factory) => {
+                createFluidSystemFactory = factory;
+                return createFluidSystemFactory;
+            })
+            .catch((error) => {
+                console.warn('[fluid] import failed:', error);
+                return null;
+            })
+            .finally(() => {
+                fluidFactoryLoadingPromise = null;
+            });
+        return fluidFactoryLoadingPromise;
+    }
+
+    function ensureLiquidFactory() {
+        if (createLiquidSystemFactory) {
+            return Promise.resolve(createLiquidSystemFactory);
+        }
+        if (liquidFactoryLoadingPromise) {
+            return liquidFactoryLoadingPromise;
+        }
+        liquidFactoryLoadingPromise = loadLiquidFactory()
+            .then((factory) => {
+                createLiquidSystemFactory = factory;
+                return createLiquidSystemFactory;
+            })
+            .catch((error) => {
+                console.warn('[liquid] import failed:', error);
+                return null;
+            })
+            .finally(() => {
+                liquidFactoryLoadingPromise = null;
+            });
+        return liquidFactoryLoadingPromise;
+    }
+
+    if (shouldPreparePostFx()) {
+        void ensurePostFxPipeline();
+    }
+    if (!isIntentScene() && toggles.postProcess && toggles.fluidField) {
+        void ensureFluidFactory();
+    }
+    if (!isIntentScene() && toggles.postProcess && toggles.liquid) {
+        void ensureLiquidFactory();
+    }
 
     initControls(camera, container, renderer);
     initCreationLinkInteractions({
@@ -695,7 +824,11 @@ async function main() {
     initArticles({ lang: initialLang }).catch((error) => {
         console.warn('[articles] init failed:', error);
     });
-    attachResize({ camera, renderer, composer });
+    attachResize({
+        camera,
+        renderer,
+        getComposer: () => composer,
+    });
 
     if (DEV_MODE) {
         initDevVersionBadge();
@@ -840,75 +973,95 @@ async function main() {
 
         updateScene(time);
 
-        if (!intentScene && toggles.fluidField) {
-            if (!fluidSystem) {
-                fluidSystem = createFluidSystem(renderer);
-            }
-            fluidSystem.uniforms.uForce.value = fluidParams.force;
-            fluidSystem.uniforms.uCurl.value = fluidParams.curl;
-            fluidSystem.uniforms.uDecay.value = fluidParams.decay;
-            fluidSystem.uniforms.uRadius.value = fluidParams.radius;
-            distortionPass.uniforms.uFluidInfluence.value = fluidParams.influence;
-            fluidSystem.uniforms.uMouse.value.set(mouse.smoothX, mouse.smoothY);
-            fluidSystem.uniforms.uMouseVelocity.value.set(mouse.velX, mouse.velY);
-            fluidSystem.uniforms.uAspect.value = window.innerWidth / window.innerHeight;
-            fluidSystem.update();
-            distortionPass.uniforms.tFluidField.value = fluidSystem.getTexture();
-        } else {
-            distortionPass.uniforms.uFluidInfluence.value = 0;
+        const shouldRunPostFx = !intentScene && toggles.postProcess;
+        if (shouldPreparePostFx(intentScene) && !(composer && distortionPass && dofPass)) {
+            void ensurePostFxPipeline();
+        }
+        if (shouldRunPostFx && toggles.fluidField && !createFluidSystemFactory) {
+            void ensureFluidFactory();
+        }
+        if (shouldRunPostFx && toggles.liquid && !createLiquidSystemFactory) {
+            void ensureLiquidFactory();
         }
 
-        if (!intentScene && toggles.liquid) {
-            if (!liquidSystem) {
-                liquidSystem = createLiquidSystem(renderer);
+        if (distortionPass && dofPass) {
+            if (shouldRunPostFx && toggles.fluidField) {
+                if (!fluidSystem && createFluidSystemFactory) {
+                    fluidSystem = createFluidSystemFactory(renderer);
+                }
+                if (fluidSystem) {
+                    fluidSystem.uniforms.uForce.value = fluidParams.force;
+                    fluidSystem.uniforms.uCurl.value = fluidParams.curl;
+                    fluidSystem.uniforms.uDecay.value = fluidParams.decay;
+                    fluidSystem.uniforms.uRadius.value = fluidParams.radius;
+                    distortionPass.uniforms.uFluidInfluence.value = fluidParams.influence;
+                    fluidSystem.uniforms.uMouse.value.set(mouse.smoothX, mouse.smoothY);
+                    fluidSystem.uniforms.uMouseVelocity.value.set(mouse.velX, mouse.velY);
+                    fluidSystem.uniforms.uAspect.value = window.innerWidth / window.innerHeight;
+                    fluidSystem.update();
+                    distortionPass.uniforms.tFluidField.value = fluidSystem.getTexture();
+                } else {
+                    distortionPass.uniforms.uFluidInfluence.value = 0;
+                }
+            } else {
+                distortionPass.uniforms.uFluidInfluence.value = 0;
             }
-            if (!liquidTarget) {
-                liquidTarget = createLiquidRenderTarget();
+
+            if (shouldRunPostFx && toggles.liquid) {
+                if (!liquidSystem && createLiquidSystemFactory) {
+                    liquidSystem = createLiquidSystemFactory(renderer);
+                }
+                if (liquidSystem && !liquidTarget) {
+                    liquidTarget = createLiquidRenderTarget();
+                }
+                if (liquidSystem && liquidTarget) {
+                    liquidSystem.uniforms.simulation.uTimestep.value = liquidParams.timestep;
+                    liquidSystem.uniforms.simulation.uDissipation.value = liquidParams.dissipation;
+                    liquidSystem.uniforms.force.uRadius.value = liquidParams.forceRadius;
+                    liquidSystem.uniforms.splat.uRadius.value = liquidParams.forceRadius;
+                    liquidSystem.uniforms.force.uStrength.value = liquidParams.forceStrength;
+                    liquidSystem.uniforms.render.uDensityMul.value = liquidParams.densityMul;
+                    liquidSystem.uniforms.render.uNoiseScale.value = liquidParams.noiseScale;
+                    liquidSystem.uniforms.render.uNoiseSpeed.value = liquidParams.noiseSpeed;
+                    liquidSystem.uniforms.render.uSpecPow.value = liquidParams.specularPow;
+                    liquidSystem.uniforms.render.uSpecInt.value = liquidParams.specularInt;
+
+                    liquidMousePos.set(mouse.smoothX, mouse.smoothY);
+                    liquidMouseVel.set(mouse.velX, mouse.velY);
+                    liquidSystem.update(liquidMousePos, liquidMouseVel);
+                    liquidSystem.setTime(time);
+                    liquidSystem.copyDensityTo(liquidTarget);
+                    distortionPass.uniforms.tLiquid.value = liquidTarget.texture;
+                    distortionPass.uniforms.uLiquidStrength.value = liquidParams.densityMul;
+                    distortionPass.uniforms.uLiquidOffsetScale.value = liquidParams.refractOffsetScale;
+                    distortionPass.uniforms.uLiquidThreshold.value = liquidParams.refractThreshold;
+                } else {
+                    distortionPass.uniforms.uLiquidStrength.value = 0;
+                }
+            } else {
+                distortionPass.uniforms.uLiquidStrength.value = 0;
             }
-            liquidSystem.uniforms.simulation.uTimestep.value = liquidParams.timestep;
-            liquidSystem.uniforms.simulation.uDissipation.value = liquidParams.dissipation;
-            liquidSystem.uniforms.force.uRadius.value = liquidParams.forceRadius;
-            liquidSystem.uniforms.splat.uRadius.value = liquidParams.forceRadius;
-            liquidSystem.uniforms.force.uStrength.value = liquidParams.forceStrength;
-            liquidSystem.uniforms.render.uDensityMul.value = liquidParams.densityMul;
-            liquidSystem.uniforms.render.uNoiseScale.value = liquidParams.noiseScale;
-            liquidSystem.uniforms.render.uNoiseSpeed.value = liquidParams.noiseSpeed;
-            liquidSystem.uniforms.render.uSpecPow.value = liquidParams.specularPow;
-            liquidSystem.uniforms.render.uSpecInt.value = liquidParams.specularInt;
 
-            liquidMousePos.set(mouse.smoothX, mouse.smoothY);
-            liquidMouseVel.set(mouse.velX, mouse.velY);
-            liquidSystem.update(liquidMousePos, liquidMouseVel);
-            liquidSystem.setTime(time);
-            liquidSystem.copyDensityTo(liquidTarget);
-            distortionPass.uniforms.tLiquid.value = liquidTarget.texture;
-            distortionPass.uniforms.uLiquidStrength.value = liquidParams.densityMul;
-            distortionPass.uniforms.uLiquidOffsetScale.value = liquidParams.refractOffsetScale;
-            distortionPass.uniforms.uLiquidThreshold.value = liquidParams.refractThreshold;
-        } else {
-            distortionPass.uniforms.uLiquidStrength.value = 0;
-        }
+            if (shouldRunPostFx) {
+                applyQuantumWaveUniforms(distortionPass);
+            } else {
+                distortionPass.uniforms.uQWaveStrength.value = 0;
+            }
 
-        if (!intentScene) {
-            applyQuantumWaveUniforms(distortionPass);
-        } else {
-            distortionPass.uniforms.uQWaveStrength.value = 0;
-        }
-
-        distortionPass.uniforms.uAspect.value = window.innerWidth / window.innerHeight;
-        distortionPass.uniforms.uTime.value = time;
-        dofPass.uniforms.uAspect.value = window.innerWidth / window.innerHeight;
-        dofPass.uniforms.uMouse.value.set(mouse.smoothX, mouse.smoothY);
-
-        if (!intentScene && toggles.dof) {
-            dofPass.uniforms.uDofStrength.value = distortionParams.dofStrength;
-            dofPass.uniforms.uDofFocusRadius.value = distortionParams.dofFocusRadius;
-        } else {
-            dofPass.uniforms.uDofStrength.value = 0;
+            distortionPass.uniforms.uAspect.value = window.innerWidth / window.innerHeight;
+            distortionPass.uniforms.uTime.value = time;
+            dofPass.uniforms.uAspect.value = window.innerWidth / window.innerHeight;
+            dofPass.uniforms.uMouse.value.set(mouse.smoothX, mouse.smoothY);
+            if (shouldRunPostFx && toggles.dof) {
+                dofPass.uniforms.uDofStrength.value = distortionParams.dofStrength;
+                dofPass.uniforms.uDofFocusRadius.value = distortionParams.dofFocusRadius;
+            } else {
+                dofPass.uniforms.uDofStrength.value = 0;
+            }
         }
 
         renderer.clear();
-        if (!intentScene && toggles.postProcess) {
+        if (shouldRunPostFx && composer) {
             composer.render();
         } else {
             renderer.render(scene, camera);
