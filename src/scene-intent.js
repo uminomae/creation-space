@@ -3,6 +3,8 @@ import { breathConfig, intentConsciousnessParams, intentMotionParams, sceneParam
 import { CAMERA_FOV, CAMERA_NEAR, CAMERA_FAR, CAMERA_LOOK_AT_Z } from './constants.js';
 import {
     computeIntentRuntimeTimeline,
+    resolveIntentLoopAnchorSec,
+    resolveIntentLoopDriftSec,
 } from './intent-timeline.js';
 
 const INTENT_SHORT_EDGE_BREAKPOINT = 900;

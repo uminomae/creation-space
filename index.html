@@ -1,6 +1,54 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <script>
+    (function () {
+      function showBootError(message) {
+        var doc = window.document;
+        if (!doc) return;
+        var text = String(message || 'Unknown boot error');
+        var pre = doc.getElementById('boot-error-overlay');
+        if (!pre) {
+          pre = doc.createElement('pre');
+          pre.id = 'boot-error-overlay';
+          pre.style.position = 'fixed';
+          pre.style.top = '0';
+          pre.style.left = '0';
+          pre.style.right = '0';
+          pre.style.maxHeight = '52vh';
+          pre.style.margin = '0';
+          pre.style.padding = '10px 12px';
+          pre.style.zIndex = '100000';
+          pre.style.overflow = 'auto';
+          pre.style.whiteSpace = 'pre-wrap';
+          pre.style.fontFamily = 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
+          pre.style.fontSize = '12px';
+          pre.style.lineHeight = '1.45';
+          pre.style.background = 'rgba(44, 12, 14, 0.96)';
+          pre.style.color = '#ffd8de';
+          pre.style.borderBottom = '1px solid rgba(255, 173, 186, 0.45)';
+          var parent = doc.body || doc.documentElement;
+          if (parent) parent.appendChild(pre);
+        }
+        pre.textContent = '[boot-error]\\n' + text;
+      }
+      window.addEventListener('error', function (event) {
+        var location = event && event.filename
+          ? '\\n' + event.filename + ':' + event.lineno + ':' + event.colno
+          : '';
+        showBootError((event && event.message) || event || 'Script error');
+        if (location) {
+          var pre = document.getElementById('boot-error-overlay');
+          if (pre) pre.textContent += location;
+        }
+      });
+      window.addEventListener('unhandledrejection', function (event) {
+        var reason = event && event.reason;
+        var text = reason && (reason.stack || reason.message) ? (reason.stack || reason.message) : String(reason || 'Unhandled rejection');
+        showBootError(text);
+      });
+    })();
+  </script>
   <script type="module">
     import { initScrollCoordinator } from './src/scroll-coordinator.js';
     initScrollCoordinator();
