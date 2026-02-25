@@ -1,7 +1,12 @@
 import * as THREE from 'three';
 import { breathConfig, intentConsciousnessParams, intentMotionParams, sceneParams } from './config.js';
 import { CAMERA_FOV, CAMERA_NEAR, CAMERA_FAR, CAMERA_LOOK_AT_Z } from './constants.js';
-import { computeIntentTimeline } from './intent-timeline.js';
+import {
+    computeIntentTimeline,
+    isIntentSeamlessLoopEnabled,
+    resolveIntentLoopAnchorSec,
+    resolveIntentLoopDriftSec,
+} from './intent-timeline.js';
 
 const INTENT_SHORT_EDGE_BREAKPOINT = 900;
 
@@ -209,12 +214,6 @@ function clamp(value, min, max) {
     return Math.min(max, Math.max(min, value));
 }
 
-function isSeamlessLoopEnabled(value) {
-    if (typeof value === 'boolean') return value;
-    const numeric = Number(value);
-    return Number.isFinite(numeric) && numeric >= 0.5;
-}
-
 function detectStepLimit() {
     const mobileSteps = Math.max(8, Math.round(finiteOr(intentConsciousnessParams.maxStepsMobile, 34)));
     const desktopSteps = Math.max(8, Math.round(finiteOr(intentConsciousnessParams.maxStepsDesktop, 52)));
@@ -274,8 +273,8 @@ function createConsciousnessMaterial() {
             uLoopEnabled: { value: 0.0 },
             uLoopSin: { value: 0.0 },
             uLoopCos: { value: 1.0 },
-            uLoopAnchorSec: { value: finiteOr(intentMotionParams.loopAnchorSec, 0.0) },
-            uLoopDriftSec: { value: Math.max(0.0, finiteOr(intentMotionParams.loopDriftSec, 180.0)) },
+            uLoopAnchorSec: { value: resolveIntentLoopAnchorSec(intentMotionParams) },
+            uLoopDriftSec: { value: resolveIntentLoopDriftSec(intentMotionParams) },
             uBreath: { value: 0.5 },
             uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
             uMaxSteps: { value: detectStepLimit() },
@@ -361,13 +360,15 @@ export function updateScene(time) {
     const breath = clamp01(0.5 + 0.5 * Math.sin(angle * breathCycles - (Math.PI / 2.0)));
     const uniforms = _material.uniforms;
     syncConsciousnessUniforms(uniforms);
+    const loopAnchorSec = resolveIntentLoopAnchorSec(intentMotionParams);
+    const loopDriftSec = resolveIntentLoopDriftSec(intentMotionParams);
 
     uniforms.uTime.value = shaderTimeSec;
-    uniforms.uLoopEnabled.value = isSeamlessLoopEnabled(intentMotionParams.seamlessLoop) ? 1.0 : 0.0;
+    uniforms.uLoopEnabled.value = isIntentSeamlessLoopEnabled(intentMotionParams) ? 1.0 : 0.0;
     uniforms.uLoopSin.value = timeline.loopSin;
     uniforms.uLoopCos.value = timeline.loopCos;
-    uniforms.uLoopAnchorSec.value = finiteOr(intentMotionParams.loopAnchorSec, 0.0);
-    uniforms.uLoopDriftSec.value = Math.max(0.0, finiteOr(intentMotionParams.loopDriftSec, 180.0));
+    uniforms.uLoopAnchorSec.value = loopAnchorSec;
+    uniforms.uLoopDriftSec.value = loopDriftSec;
     uniforms.uBreath.value = breath;
     uniforms.uResolution.value.set(window.innerWidth, window.innerHeight);
     uniforms.uMaxSteps.value = detectStepLimit();

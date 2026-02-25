@@ -25,7 +25,12 @@ import { applyConfigState, cloneConfigState } from './config-state.js';
 import { applyScenePreset, getScenePresetVersion, resolveSceneVariant } from './scene-presets.js';
 import { DEV_VERSION } from './version.js';
 import {
+    computeIntentLoopOrbitByAngle,
+    computeIntentShaderTime,
     computeIntentTimeline,
+    isIntentSeamlessLoopEnabled,
+    resolveIntentLoopAnchorSec,
+    resolveIntentLoopDriftSec,
     solveStartTimingMinForElapsedSecNow,
     solveStartTimingMinForPhaseNow,
     startTimingMinForElapsedSecAtZero,
@@ -542,6 +547,7 @@ function initIntentTimelineHud({
                 `loopMode: ${timeline.seamlessLoopEnabled ? 'seamless' : 'explore'}`,
                 `loopAnchorSec: ${timeline.loopAnchorSec.toFixed(3)}`,
                 `loopDriftSec: ${timeline.loopDriftSec.toFixed(3)}`,
+                `loopOrbitSec: ${timeline.loopOrbitSec.toFixed(3)}`,
                 `sin/cos: ${timeline.loopSin.toFixed(4)} / ${timeline.loopCos.toFixed(4)}`,
             ].join('\n');
             if (nextReadout !== lastReadoutText) {
@@ -701,17 +707,27 @@ async function main() {
         onCaptureLoopStart: () => {
             const nowSec = clock.getElapsedTime();
             const current = computeIntentTimeline(nowSec, intentMotionParams);
-            intentMotionParams.loopAnchorSec = current.elapsedSec;
+            const loopDriftSec = resolveIntentLoopDriftSec(intentMotionParams);
+            const orbitSec = computeIntentLoopOrbitByAngle(current.angle, loopDriftSec);
+            const shaderTimeSec = computeIntentShaderTime(current, intentMotionParams);
+            intentMotionParams.loopAnchorSec = shaderTimeSec - orbitSec;
             saveSceneState(active3dSceneVariant, cloneConfigState());
         },
         onEnableSeamlessLoop: () => {
             const nowSec = clock.getElapsedTime();
             const current = computeIntentTimeline(nowSec, intentMotionParams);
-            intentMotionParams.loopAnchorSec = current.elapsedSec;
+            const loopDriftSec = resolveIntentLoopDriftSec(intentMotionParams);
+            const orbitSec = computeIntentLoopOrbitByAngle(current.angle, loopDriftSec);
+            const shaderTimeSec = computeIntentShaderTime(current, intentMotionParams);
+            intentMotionParams.loopAnchorSec = shaderTimeSec - orbitSec;
             intentMotionParams.seamlessLoop = true;
             saveSceneState(active3dSceneVariant, cloneConfigState());
         },
         onDisableSeamlessLoop: () => {
+            const nowSec = clock.getElapsedTime();
+            const current = computeIntentTimeline(nowSec, intentMotionParams);
+            const shaderTimeSec = computeIntentShaderTime(current, intentMotionParams);
+            intentMotionParams.startTimingMin = solveStartTimingMinForElapsedSecNow(shaderTimeSec, nowSec, intentMotionParams);
             intentMotionParams.seamlessLoop = false;
             saveSceneState(active3dSceneVariant, cloneConfigState());
         },
@@ -726,15 +742,20 @@ async function main() {
         const scrollProg = getScrollProgress();
         const intentScene = isIntentScene();
         const computedIntentTimeline = computeIntentTimeline(time, intentMotionParams);
-        const seamlessLoopEnabled = intentMotionParams.seamlessLoop === true
-            || (Number.isFinite(Number(intentMotionParams.seamlessLoop)) && Number(intentMotionParams.seamlessLoop) >= 0.5);
-        const loopAnchorSec = Number.isFinite(intentMotionParams.loopAnchorSec) ? intentMotionParams.loopAnchorSec : 0.0;
-        const loopDriftSec = Math.max(0.0, Number.isFinite(intentMotionParams.loopDriftSec) ? intentMotionParams.loopDriftSec : 180.0);
+        const seamlessLoopEnabled = isIntentSeamlessLoopEnabled(intentMotionParams);
+        const loopAnchorSec = resolveIntentLoopAnchorSec(intentMotionParams);
+        const loopDriftSec = resolveIntentLoopDriftSec(intentMotionParams);
+        const loopOrbitSec = computeIntentLoopOrbitByAngle(computedIntentTimeline.angle, loopDriftSec);
+        const shaderTimeSec = seamlessLoopEnabled
+            ? loopAnchorSec + loopOrbitSec
+            : computedIntentTimeline.elapsedSec;
         const intentTimeline = {
             ...computedIntentTimeline,
+            shaderTimeSec,
             seamlessLoopEnabled,
             loopAnchorSec,
             loopDriftSec,
+            loopOrbitSec,
         };
 
         updateScrollUI(scrollProg, breathVal);

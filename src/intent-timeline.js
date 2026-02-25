@@ -2,9 +2,52 @@ function finiteOr(value, fallback) {
     return Number.isFinite(value) ? value : fallback;
 }
 
+function normalizeUnitPhase(value) {
+    if (!Number.isFinite(value)) return 0.0;
+    return ((value % 1.0) + 1.0) % 1.0;
+}
+
 function wrap(value, period) {
     if (!Number.isFinite(period) || period <= 0) return 0;
     return ((value % period) + period) % period;
+}
+
+export function isIntentSeamlessLoopEnabled(intentMotionParams = {}) {
+    const value = intentMotionParams.seamlessLoop;
+    if (typeof value === 'boolean') return value;
+    const numeric = Number(value);
+    return Number.isFinite(numeric) && numeric >= 0.5;
+}
+
+export function resolveIntentLoopAnchorSec(intentMotionParams = {}) {
+    return finiteOr(intentMotionParams.loopAnchorSec, 0.0);
+}
+
+export function resolveIntentLoopDriftSec(intentMotionParams = {}) {
+    return Math.max(0.0, finiteOr(intentMotionParams.loopDriftSec, 180.0));
+}
+
+export function computeIntentLoopOrbitByPhase(phase, loopDriftSec) {
+    const unitPhase = normalizeUnitPhase(phase);
+    const angle = unitPhase * Math.PI * 2.0;
+    const loopSin = Math.sin(angle);
+    const loopCos = Math.cos(angle);
+    const sin2 = 2.0 * loopSin * loopCos;
+    const cos2 = loopCos * loopCos - loopSin * loopSin;
+    return loopSin * loopDriftSec
+        + sin2 * loopDriftSec * 0.35
+        + cos2 * loopDriftSec * 0.2;
+}
+
+export function computeIntentLoopOrbitByAngle(angle, loopDriftSec) {
+    if (!Number.isFinite(angle)) return computeIntentLoopOrbitByPhase(0.0, loopDriftSec);
+    const loopSin = Math.sin(angle);
+    const loopCos = Math.cos(angle);
+    const sin2 = 2.0 * loopSin * loopCos;
+    const cos2 = loopCos * loopCos - loopSin * loopSin;
+    return loopSin * loopDriftSec
+        + sin2 * loopDriftSec * 0.35
+        + cos2 * loopDriftSec * 0.2;
 }
 
 export function resolveIntentTimingParams(intentMotionParams = {}) {
@@ -36,6 +79,17 @@ export function computeIntentTimeline(timeSec, intentMotionParams = {}) {
         loopSin: Math.sin(angle),
         loopCos: Math.cos(angle),
     };
+}
+
+export function computeIntentShaderTime(timeline, intentMotionParams = {}) {
+    if (!timeline || typeof timeline !== 'object') return 0.0;
+    if (!isIntentSeamlessLoopEnabled(intentMotionParams)) {
+        return finiteOr(timeline.elapsedSec, 0.0);
+    }
+    const anchorSec = resolveIntentLoopAnchorSec(intentMotionParams);
+    const driftSec = resolveIntentLoopDriftSec(intentMotionParams);
+    const orbitSec = computeIntentLoopOrbitByAngle(timeline.angle, driftSec);
+    return anchorSec + orbitSec;
 }
 
 export function solveStartTimingMinForPhaseNow(targetPhase, timeSec, intentMotionParams = {}) {
