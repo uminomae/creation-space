@@ -48,11 +48,64 @@ import { detectLang } from './i18n.js';
 
 const DEV_MODE = new URLSearchParams(window.location.search).has('dev');
 const DEV_PANEL_STATE_PERSIST = new URLSearchParams(window.location.search).get('devstate') === 'persist';
+const CAPTURE_ENABLE_MAX_DELTA_SEC = 0.3;
 let devStatsBegin = () => {};
 let devStatsEnd = () => {};
 const GRAPHIC_MODE_DEFAULT = 'hoji';
 const GRAPHIC_MODE_OPTIONS = new Set(['hoji', 'sinobi', 'i']);
 const DEV_PANEL_STATE_STORAGE_PREFIX = 'creation-dev-panel-state-v1';
+
+function formatStartupError(errorLike) {
+    if (!errorLike) return 'Unknown startup error';
+    if (typeof errorLike === 'string') return errorLike;
+    if (errorLike instanceof Error) {
+        return errorLike.stack || `${errorLike.name}: ${errorLike.message}`;
+    }
+    try {
+        return JSON.stringify(errorLike, null, 2);
+    } catch {
+        return String(errorLike);
+    }
+}
+
+function showStartupErrorOverlay(errorLike) {
+    const doc = window.document;
+    if (!doc) return;
+    const message = formatStartupError(errorLike);
+    let overlay = doc.getElementById('app-startup-error-overlay');
+    if (!overlay) {
+        overlay = doc.createElement('pre');
+        overlay.id = 'app-startup-error-overlay';
+        overlay.style.position = 'fixed';
+        overlay.style.top = '0';
+        overlay.style.left = '0';
+        overlay.style.right = '0';
+        overlay.style.maxHeight = '55vh';
+        overlay.style.margin = '0';
+        overlay.style.padding = '12px 14px';
+        overlay.style.zIndex = '99999';
+        overlay.style.overflow = 'auto';
+        overlay.style.whiteSpace = 'pre-wrap';
+        overlay.style.fontFamily = 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
+        overlay.style.fontSize = '12px';
+        overlay.style.lineHeight = '1.45';
+        overlay.style.background = 'rgba(31, 9, 13, 0.95)';
+        overlay.style.color = '#ffd5db';
+        overlay.style.borderBottom = '1px solid rgba(255, 173, 186, 0.42)';
+        const parent = doc.body || doc.documentElement;
+        if (parent) parent.appendChild(overlay);
+    }
+    overlay.textContent = `[startup-error]\n${message}`;
+}
+
+window.addEventListener('error', (event) => {
+    const value = event?.error || event?.message || event;
+    showStartupErrorOverlay(value);
+});
+
+window.addEventListener('unhandledrejection', (event) => {
+    showStartupErrorOverlay(event?.reason || event);
+});
 
 function getSceneStateStorageKey(sceneVariant) {
     return `${DEV_PANEL_STATE_STORAGE_PREFIX}:${sceneVariant}`;
@@ -546,6 +599,8 @@ function initIntentTimelineHud({
                 `loopAnchorSec: ${timeline.loopAnchorSec.toFixed(3)}`,
                 `loopDriftSec: ${timeline.loopDriftSec.toFixed(3)}`,
                 `loopOrbitSec: ${timeline.loopOrbitSec.toFixed(3)}`,
+                `capture(sec): ${Number.isFinite(timeline.capturedLoopStartSec) ? timeline.capturedLoopStartSec.toFixed(3) : '-'}`,
+                `captureDelta(sec): ${Number.isFinite(timeline.captureDeltaSec) ? timeline.captureDeltaSec.toFixed(3) : '-'}`,
                 `sin/cos: ${timeline.loopSin.toFixed(4)} / ${timeline.loopCos.toFixed(4)}`,
             ].join('\n');
             if (nextReadout !== lastReadoutText) {
@@ -676,23 +731,31 @@ async function main() {
     const liquidMousePos = new THREE.Vector2();
     const liquidMouseVel = new THREE.Vector2();
     const clock = new THREE.Clock();
+    let capturedLoopStartShaderSec = null;
+    function markLoopAnchorDirty() {
+        capturedLoopStartShaderSec = null;
+    }
     const intentTimelineHud = DEV_MODE ? initIntentTimelineHud({
         onApplyPhaseNow: (phase) => {
             const nowSec = clock.getElapsedTime();
             intentMotionParams.startTimingMin = solveStartTimingMinForPhaseNow(phase, nowSec, intentMotionParams);
+            markLoopAnchorDirty();
             saveSceneState(active3dSceneVariant, cloneConfigState());
         },
         onApplyPhaseAtStart: (phase) => {
             intentMotionParams.startTimingMin = startTimingMinForPhaseAtZero(phase, intentMotionParams);
+            markLoopAnchorDirty();
             saveSceneState(active3dSceneVariant, cloneConfigState());
         },
         onApplySecNow: (targetElapsedSec) => {
             const nowSec = clock.getElapsedTime();
             intentMotionParams.startTimingMin = solveStartTimingMinForElapsedSecNow(targetElapsedSec, nowSec, intentMotionParams);
+            markLoopAnchorDirty();
             saveSceneState(active3dSceneVariant, cloneConfigState());
         },
         onApplySecAtStart: (targetElapsedSec) => {
             intentMotionParams.startTimingMin = startTimingMinForElapsedSecAtZero(targetElapsedSec);
+            markLoopAnchorDirty();
             saveSceneState(active3dSceneVariant, cloneConfigState());
         },
         onShiftSec: (deltaSec) => {
@@ -700,16 +763,32 @@ async function main() {
             const current = computeIntentTimeline(nowSec, intentMotionParams);
             const targetElapsedSec = current.elapsedSec + deltaSec;
             intentMotionParams.startTimingMin = solveStartTimingMinForElapsedSecNow(targetElapsedSec, nowSec, intentMotionParams);
+            markLoopAnchorDirty();
             saveSceneState(active3dSceneVariant, cloneConfigState());
         },
         onCaptureLoopStart: () => {
             const nowSec = clock.getElapsedTime();
-            intentMotionParams.loopAnchorSec = resolveIntentLoopAnchorSecForContinuity(nowSec, intentMotionParams);
+            const runtime = computeIntentRuntimeTimeline(nowSec, intentMotionParams);
+            capturedLoopStartShaderSec = runtime.shaderTimeSec;
+            const orbitSec = runtime.loopOrbitSec;
+            intentMotionParams.loopAnchorSec = capturedLoopStartShaderSec - orbitSec;
             saveSceneState(active3dSceneVariant, cloneConfigState());
         },
         onEnableSeamlessLoop: () => {
             const nowSec = clock.getElapsedTime();
-            intentMotionParams.loopAnchorSec = resolveIntentLoopAnchorSecForContinuity(nowSec, intentMotionParams);
+            if (Number.isFinite(capturedLoopStartShaderSec)) {
+                const runtime = computeIntentRuntimeTimeline(nowSec, intentMotionParams);
+                const captureDeltaSec = capturedLoopStartShaderSec - runtime.shaderTimeSec;
+                if (Math.abs(captureDeltaSec) <= CAPTURE_ENABLE_MAX_DELTA_SEC) {
+                    const orbitSec = runtime.loopOrbitSec;
+                    intentMotionParams.loopAnchorSec = capturedLoopStartShaderSec - orbitSec;
+                } else {
+                    intentMotionParams.loopAnchorSec = resolveIntentLoopAnchorSecForContinuity(nowSec, intentMotionParams);
+                    capturedLoopStartShaderSec = null;
+                }
+            } else {
+                intentMotionParams.loopAnchorSec = resolveIntentLoopAnchorSecForContinuity(nowSec, intentMotionParams);
+            }
             intentMotionParams.seamlessLoop = true;
             saveSceneState(active3dSceneVariant, cloneConfigState());
         },
@@ -717,6 +796,7 @@ async function main() {
             const nowSec = clock.getElapsedTime();
             intentMotionParams.startTimingMin = resolveIntentStartTimingMinForRawContinuity(nowSec, intentMotionParams);
             intentMotionParams.seamlessLoop = false;
+            markLoopAnchorDirty();
             saveSceneState(active3dSceneVariant, cloneConfigState());
         },
     }) : null;
@@ -730,6 +810,14 @@ async function main() {
         const scrollProg = getScrollProgress();
         const intentScene = isIntentScene();
         const intentTimeline = computeIntentRuntimeTimeline(time, intentMotionParams);
+        const captureDeltaSec = Number.isFinite(capturedLoopStartShaderSec)
+            ? capturedLoopStartShaderSec - intentTimeline.shaderTimeSec
+            : null;
+        const intentTimelineDebug = {
+            ...intentTimeline,
+            capturedLoopStartSec: capturedLoopStartShaderSec,
+            captureDeltaSec,
+        };
 
         updateScrollUI(scrollProg, breathVal);
         setCameraPosition(sceneParams.camX, sceneParams.camY, sceneParams.camZ);
@@ -745,7 +833,7 @@ async function main() {
         }
         if (intentTimelineHud) {
             intentTimelineHud.setVisible(intentScene);
-            if (intentScene) intentTimelineHud.update(intentTimeline);
+            if (intentScene) intentTimelineHud.update(intentTimelineDebug);
         }
         updateControls(time, breathVal);
         const mouse = updateMouseSmoothing();
@@ -833,4 +921,5 @@ async function main() {
 
 main().catch((error) => {
     console.error('[main] init failed:', error);
+    showStartupErrorOverlay(error);
 });
