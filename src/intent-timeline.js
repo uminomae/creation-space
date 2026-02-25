@@ -92,6 +92,25 @@ export function computeIntentShaderTime(timeline, intentMotionParams = {}) {
     return anchorSec + orbitSec;
 }
 
+export function computeIntentRuntimeTimeline(timeSec, intentMotionParams = {}) {
+    const timeline = computeIntentTimeline(timeSec, intentMotionParams);
+    const seamlessLoopEnabled = isIntentSeamlessLoopEnabled(intentMotionParams);
+    const loopAnchorSec = resolveIntentLoopAnchorSec(intentMotionParams);
+    const loopDriftSec = resolveIntentLoopDriftSec(intentMotionParams);
+    const loopOrbitSec = computeIntentLoopOrbitByAngle(timeline.angle, loopDriftSec);
+    const shaderTimeSec = seamlessLoopEnabled
+        ? loopAnchorSec + loopOrbitSec
+        : timeline.elapsedSec;
+    return {
+        ...timeline,
+        shaderTimeSec,
+        seamlessLoopEnabled,
+        loopAnchorSec,
+        loopDriftSec,
+        loopOrbitSec,
+    };
+}
+
 export function solveStartTimingMinForPhaseNow(targetPhase, timeSec, intentMotionParams = {}) {
     const timing = resolveIntentTimingParams(intentMotionParams);
     const targetRawPhase = finiteOr(targetPhase, 0.0);
@@ -111,6 +130,20 @@ export function solveStartTimingMinForElapsedSecNow(targetElapsedSec, timeSec, i
     const target = finiteOr(targetElapsedSec, 0.0);
     const startOffsetSec = target - timeSec * timing.timeScale;
     return startOffsetSec / 60.0;
+}
+
+export function resolveIntentLoopAnchorSecForContinuity(timeSec, intentMotionParams = {}) {
+    const timeline = computeIntentTimeline(timeSec, intentMotionParams);
+    const driftSec = resolveIntentLoopDriftSec(intentMotionParams);
+    const orbitSec = computeIntentLoopOrbitByAngle(timeline.angle, driftSec);
+    const shaderTimeSec = computeIntentShaderTime(timeline, intentMotionParams);
+    return shaderTimeSec - orbitSec;
+}
+
+export function resolveIntentStartTimingMinForRawContinuity(timeSec, intentMotionParams = {}) {
+    const timeline = computeIntentTimeline(timeSec, intentMotionParams);
+    const shaderTimeSec = computeIntentShaderTime(timeline, intentMotionParams);
+    return solveStartTimingMinForElapsedSecNow(shaderTimeSec, timeSec, intentMotionParams);
 }
 
 export function startTimingMinForElapsedSecAtZero(targetElapsedSec) {

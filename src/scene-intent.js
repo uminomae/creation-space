@@ -2,10 +2,7 @@ import * as THREE from 'three';
 import { breathConfig, intentConsciousnessParams, intentMotionParams, sceneParams } from './config.js';
 import { CAMERA_FOV, CAMERA_NEAR, CAMERA_FAR, CAMERA_LOOK_AT_Z } from './constants.js';
 import {
-    computeIntentTimeline,
-    isIntentSeamlessLoopEnabled,
-    resolveIntentLoopAnchorSec,
-    resolveIntentLoopDriftSec,
+    computeIntentRuntimeTimeline,
 } from './intent-timeline.js';
 
 const INTENT_SHORT_EDGE_BREAKPOINT = 900;
@@ -353,18 +350,23 @@ export function updateScene(time) {
     if (!_mesh || !_camera || !_material) return;
     syncRendererQuality();
 
-    const timeline = computeIntentTimeline(time, intentMotionParams);
-    const { angle, loopPeriodSec, shaderTimeSec } = timeline;
+    const timeline = computeIntentRuntimeTimeline(time, intentMotionParams);
+    const {
+        angle,
+        loopPeriodSec,
+        shaderTimeSec,
+        seamlessLoopEnabled,
+        loopAnchorSec,
+        loopDriftSec,
+    } = timeline;
     const breathPeriod = Math.max(0.001, finiteOr(breathConfig.period, 8.0));
     const breathCycles = Math.max(1, Math.round(loopPeriodSec / breathPeriod));
     const breath = clamp01(0.5 + 0.5 * Math.sin(angle * breathCycles - (Math.PI / 2.0)));
     const uniforms = _material.uniforms;
     syncConsciousnessUniforms(uniforms);
-    const loopAnchorSec = resolveIntentLoopAnchorSec(intentMotionParams);
-    const loopDriftSec = resolveIntentLoopDriftSec(intentMotionParams);
 
     uniforms.uTime.value = shaderTimeSec;
-    uniforms.uLoopEnabled.value = isIntentSeamlessLoopEnabled(intentMotionParams) ? 1.0 : 0.0;
+    uniforms.uLoopEnabled.value = seamlessLoopEnabled ? 1.0 : 0.0;
     uniforms.uLoopSin.value = timeline.loopSin;
     uniforms.uLoopCos.value = timeline.loopCos;
     uniforms.uLoopAnchorSec.value = loopAnchorSec;
