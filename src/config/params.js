@@ -259,3 +259,48 @@ export const distortionParams = {
     dofStrength: 0.006,
     dofFocusRadius: 0.26
 };
+
+export const intentMotionParams = {
+    cameraRotateSpeed: 1.0,
+    startTimingMin: 7.638,
+    loopPeriodSec: 480.0,
+    timeScale: 1.0,
+    seamlessLoop: false,
+    loopAnchorSec: 458.278,
+    loopDriftSec: 180.0,
+};
+
+export const intentConsciousnessParams = {
+    maxStepsMobile: 34,
+    maxStepsDesktop: 52,
+    renderPixelRatioCap: 1.4,
+    renderScale: 0.9,
+    far: 12.0,
+    detail: 0.0045,
+    overlayDistance: 6.0,
+    coverageScale: 1.06,
+    csFlowSpeed: 0.21,
+    csFreqLow: 2.5,
+    csFreqHigh: 1.0,
+    csThicknessLow: 0.095,
+    csThicknessHigh: 0.17,
+    csEnvelopeRadius: 2.44,
+    csDensityGain: 0.2,
+    csStepNear: 0.084,
+    csStepFar: 0.215,
+    csGateTint: 0.88,
+    csVignette: 0.01,
+    csMouseParallax: 0.0,
+    csLightBoost: 1.55,
+    csPreGamma: 2.04,
+    csExposure: 2.45,
+    csCoolR: 0.12,
+    csCoolG: 0.2,
+    csCoolB: 0.68,
+    csWarmR: 1.0,
+    csWarmG: 0.96,
+    csWarmB: 0.96,
+    csGateR: 1.3,
+    csGateG: 0.9,
+    csGateB: 0.2,
+};

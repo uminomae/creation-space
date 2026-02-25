@@ -5,6 +5,8 @@ import {
     distortionParams,
     fieldParams,
     flowParams,
+    intentConsciousnessParams,
+    intentMotionParams,
     fluidParams,
     liquidParams,
     plasmaParams,
@@ -26,6 +28,8 @@ const GROUP_TARGETS = {
     quantumWaveParams,
     distortionParams,
     breathConfig,
+    intentMotionParams,
+    intentConsciousnessParams,
 };
 
 function cloneGroupState(target) {
@@ -111,4 +115,3 @@ export function applyConfigState(state) {
         applyPartial(target, state[groupName]);
     });
 }
-
