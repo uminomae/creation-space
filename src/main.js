@@ -4,7 +4,15 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 
 import { breathValue } from './animation-utils.js';
-import { initControls, setCameraPosition, updateControls, getScrollProgress } from './controls.js';
+import {
+    initControls,
+    setAutoRotateSpeed,
+    setAutoRotateLoopPhase,
+    setAutoRotateStartOffsetSec,
+    setCameraPosition,
+    updateControls,
+    getScrollProgress,
+} from './controls.js';
 import { initMouseTracking, updateMouseSmoothing } from './mouse-state.js';
 import { initScrollUI, refreshGuideLang, updateScrollUI } from './scroll-ui.js';
 import { initDevPanel } from './dev-panel.js';
@@ -17,9 +25,17 @@ import { applyConfigState, cloneConfigState } from './config-state.js';
 import { applyScenePreset, getScenePresetVersion, resolveSceneVariant } from './scene-presets.js';
 import { DEV_VERSION } from './version.js';
 import {
+    computeIntentTimeline,
+    solveStartTimingMinForElapsedSecNow,
+    solveStartTimingMinForPhaseNow,
+    startTimingMinForElapsedSecAtZero,
+    startTimingMinForPhaseAtZero,
+} from './intent-timeline.js';
+import {
     breathConfig,
     distortionParams,
     fluidParams,
+    intentMotionParams,
     liquidParams,
     quantumWaveParams,
     sceneParams,
@@ -28,6 +44,7 @@ import {
 import { detectLang } from './i18n.js';
 
 const DEV_MODE = new URLSearchParams(window.location.search).has('dev');
+const DEV_PANEL_STATE_PERSIST = new URLSearchParams(window.location.search).get('devstate') === 'persist';
 let devStatsBegin = () => {};
 let devStatsEnd = () => {};
 const GRAPHIC_MODE_DEFAULT = 'hoji';
@@ -39,6 +56,7 @@ function getSceneStateStorageKey(sceneVariant) {
 }
 
 function loadSceneState(sceneVariant) {
+    if (!DEV_PANEL_STATE_PERSIST) return null;
     let storage;
     try {
         storage = window.localStorage;
@@ -76,6 +94,7 @@ function loadSceneState(sceneVariant) {
 }
 
 function saveSceneState(sceneVariant, state) {
+    if (!DEV_PANEL_STATE_PERSIST) return;
     if (!state || typeof state !== 'object') return;
     let storage;
     try {
@@ -352,6 +371,190 @@ function initInlineVersionLabel() {
     label.textContent = `開発版 ver ${DEV_VERSION}`;
 }
 
+function initIntentTimelineHud({
+    onApplyPhaseNow,
+    onApplyPhaseAtStart,
+    onApplySecNow,
+    onApplySecAtStart,
+    onShiftSec,
+    onCaptureLoopStart,
+    onEnableSeamlessLoop,
+    onDisableSeamlessLoop,
+}) {
+    const HUD_REFRESH_INTERVAL_MS = 120;
+    const hud = document.createElement('aside');
+    hud.id = 'intent-timeline-hud';
+    hud.setAttribute('aria-live', 'polite');
+    hud.innerHTML = `
+        <div class="intent-timeline-hud-title">Intent Timeline</div>
+        <pre class="intent-timeline-hud-readout" id="intent-timeline-hud-readout">phase: -</pre>
+        <div class="intent-timeline-hud-controls">
+            <label for="intent-timeline-phase-input">Phase (raw / unbounded)</label>
+            <input id="intent-timeline-phase-input" type="number" step="0.0001" value="0.0000">
+            <div class="intent-timeline-hud-actions">
+                <button type="button" id="intent-timeline-apply-now">Jump Phase Now</button>
+                <button type="button" id="intent-timeline-apply-start">Set Phase Start</button>
+            </div>
+        </div>
+        <div class="intent-timeline-hud-controls">
+            <label for="intent-timeline-sec-input">Timeline Sec (raw)</label>
+            <input id="intent-timeline-sec-input" type="number" step="0.001" value="0.000">
+            <div class="intent-timeline-hud-actions">
+                <button type="button" id="intent-timeline-sec-now">Jump Sec Now</button>
+                <button type="button" id="intent-timeline-sec-start">Set Sec Start</button>
+            </div>
+        </div>
+        <div class="intent-timeline-hud-controls">
+            <label for="intent-timeline-shift-sec-input">Shift Sec (+/-)</label>
+            <input id="intent-timeline-shift-sec-input" type="number" step="1" value="300">
+            <div class="intent-timeline-hud-actions">
+                <button type="button" id="intent-timeline-shift-plus">Jump +Sec</button>
+                <button type="button" id="intent-timeline-shift-minus">Jump -Sec</button>
+            </div>
+        </div>
+        <div class="intent-timeline-hud-controls">
+            <label>Seamless Loop (2-step)</label>
+            <div class="intent-timeline-hud-actions">
+                <button type="button" id="intent-timeline-loop-capture">Capture Start Now</button>
+                <button type="button" id="intent-timeline-loop-on">Loop ON</button>
+            </div>
+            <div class="intent-timeline-hud-actions intent-timeline-hud-actions-single">
+                <button type="button" id="intent-timeline-loop-off">Loop OFF</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(hud);
+
+    const readout = hud.querySelector('#intent-timeline-hud-readout');
+    const phaseInput = hud.querySelector('#intent-timeline-phase-input');
+    const secInput = hud.querySelector('#intent-timeline-sec-input');
+    const shiftSecInput = hud.querySelector('#intent-timeline-shift-sec-input');
+    const applyNowButton = hud.querySelector('#intent-timeline-apply-now');
+    const applyStartButton = hud.querySelector('#intent-timeline-apply-start');
+    const applySecNowButton = hud.querySelector('#intent-timeline-sec-now');
+    const applySecStartButton = hud.querySelector('#intent-timeline-sec-start');
+    const shiftPlusButton = hud.querySelector('#intent-timeline-shift-plus');
+    const shiftMinusButton = hud.querySelector('#intent-timeline-shift-minus');
+    const loopCaptureButton = hud.querySelector('#intent-timeline-loop-capture');
+    const loopOnButton = hud.querySelector('#intent-timeline-loop-on');
+    const loopOffButton = hud.querySelector('#intent-timeline-loop-off');
+
+    let latestTimeline = null;
+    let hudVisible = false;
+    let lastRefreshMs = 0;
+    let lastReadoutText = '';
+
+    function parseNumberInput(inputElement) {
+        const text = String(inputElement.value ?? '').trim();
+        if (text.length === 0) return null;
+        const raw = Number(text);
+        if (!Number.isFinite(raw)) return null;
+        return raw;
+    }
+
+    function parsePhaseInput() {
+        return parseNumberInput(phaseInput);
+    }
+
+    function parseSecInput() {
+        return parseNumberInput(secInput);
+    }
+
+    function parseShiftSecInput() {
+        return parseNumberInput(shiftSecInput);
+    }
+
+    function applyIfValid(parseFn, applyFn) {
+        const value = parseFn();
+        if (value === null) return;
+        applyFn(value);
+    }
+
+    applyNowButton.addEventListener('click', () => {
+        applyIfValid(parsePhaseInput, onApplyPhaseNow);
+    });
+
+    applyStartButton.addEventListener('click', () => {
+        applyIfValid(parsePhaseInput, onApplyPhaseAtStart);
+    });
+
+    applySecNowButton.addEventListener('click', () => {
+        applyIfValid(parseSecInput, onApplySecNow);
+    });
+
+    applySecStartButton.addEventListener('click', () => {
+        applyIfValid(parseSecInput, onApplySecAtStart);
+    });
+
+    shiftPlusButton.addEventListener('click', () => {
+        applyIfValid(parseShiftSecInput, onShiftSec);
+    });
+
+    shiftMinusButton.addEventListener('click', () => {
+        applyIfValid(parseShiftSecInput, (value) => onShiftSec(-value));
+    });
+
+    loopCaptureButton.addEventListener('click', () => {
+        onCaptureLoopStart();
+    });
+
+    loopOnButton.addEventListener('click', () => {
+        onEnableSeamlessLoop();
+    });
+
+    loopOffButton.addEventListener('click', () => {
+        onDisableSeamlessLoop();
+    });
+
+    return {
+        setVisible(isVisible) {
+            const nextVisible = Boolean(isVisible);
+            if (nextVisible !== hudVisible) {
+                lastRefreshMs = 0;
+            }
+            hudVisible = nextVisible;
+            hud.classList.toggle('is-visible', nextVisible);
+        },
+        update(timeline) {
+            latestTimeline = timeline;
+            if (!hudVisible) return;
+
+            const nowMs = window.performance?.now?.() ?? Date.now();
+            const activeElement = document.activeElement;
+            const isHudInteracting = Boolean(activeElement && hud.contains(activeElement));
+            if (!isHudInteracting && (nowMs - lastRefreshMs) < HUD_REFRESH_INTERVAL_MS) {
+                return;
+            }
+            lastRefreshMs = nowMs;
+
+            if (!isHudInteracting) {
+                phaseInput.value = timeline.rawPhase.toFixed(6);
+                secInput.value = timeline.elapsedSec.toFixed(3);
+            }
+            const nextReadout = [
+                `phase(raw/wrapped): ${timeline.rawPhase.toFixed(6)} / ${timeline.phase.toFixed(6)}`,
+                `uTime(shader sec): ${timeline.shaderTimeSec.toFixed(3)}`,
+                `loopAngle(rad): ${timeline.angle.toFixed(6)}`,
+                `wrappedSec: ${timeline.wrappedSec.toFixed(3)} / ${timeline.loopPeriodSec.toFixed(3)}`,
+                `elapsedSec(raw): ${timeline.elapsedSec.toFixed(3)}`,
+                `startTimingMin: ${timeline.startTimingMin.toFixed(4)}`,
+                `timeScale: ${timeline.timeScale.toFixed(4)}`,
+                `loopMode: ${timeline.seamlessLoopEnabled ? 'seamless' : 'explore'}`,
+                `loopAnchorSec: ${timeline.loopAnchorSec.toFixed(3)}`,
+                `loopDriftSec: ${timeline.loopDriftSec.toFixed(3)}`,
+                `sin/cos: ${timeline.loopSin.toFixed(4)} / ${timeline.loopCos.toFixed(4)}`,
+            ].join('\n');
+            if (nextReadout !== lastReadoutText) {
+                readout.textContent = nextReadout;
+                lastReadoutText = nextReadout;
+            }
+        },
+        getLatestTimeline() {
+            return latestTimeline;
+        },
+    };
+}
+
 async function main() {
     const initialLang = normalizeLang(detectLang());
     const initialGraphicMode = normalizeGraphicMode(new URLSearchParams(window.location.search).get('graphic'));
@@ -469,6 +672,50 @@ async function main() {
     const liquidMousePos = new THREE.Vector2();
     const liquidMouseVel = new THREE.Vector2();
     const clock = new THREE.Clock();
+    const intentTimelineHud = DEV_MODE ? initIntentTimelineHud({
+        onApplyPhaseNow: (phase) => {
+            const nowSec = clock.getElapsedTime();
+            intentMotionParams.startTimingMin = solveStartTimingMinForPhaseNow(phase, nowSec, intentMotionParams);
+            saveSceneState(active3dSceneVariant, cloneConfigState());
+        },
+        onApplyPhaseAtStart: (phase) => {
+            intentMotionParams.startTimingMin = startTimingMinForPhaseAtZero(phase, intentMotionParams);
+            saveSceneState(active3dSceneVariant, cloneConfigState());
+        },
+        onApplySecNow: (targetElapsedSec) => {
+            const nowSec = clock.getElapsedTime();
+            intentMotionParams.startTimingMin = solveStartTimingMinForElapsedSecNow(targetElapsedSec, nowSec, intentMotionParams);
+            saveSceneState(active3dSceneVariant, cloneConfigState());
+        },
+        onApplySecAtStart: (targetElapsedSec) => {
+            intentMotionParams.startTimingMin = startTimingMinForElapsedSecAtZero(targetElapsedSec);
+            saveSceneState(active3dSceneVariant, cloneConfigState());
+        },
+        onShiftSec: (deltaSec) => {
+            const nowSec = clock.getElapsedTime();
+            const current = computeIntentTimeline(nowSec, intentMotionParams);
+            const targetElapsedSec = current.elapsedSec + deltaSec;
+            intentMotionParams.startTimingMin = solveStartTimingMinForElapsedSecNow(targetElapsedSec, nowSec, intentMotionParams);
+            saveSceneState(active3dSceneVariant, cloneConfigState());
+        },
+        onCaptureLoopStart: () => {
+            const nowSec = clock.getElapsedTime();
+            const current = computeIntentTimeline(nowSec, intentMotionParams);
+            intentMotionParams.loopAnchorSec = current.elapsedSec;
+            saveSceneState(active3dSceneVariant, cloneConfigState());
+        },
+        onEnableSeamlessLoop: () => {
+            const nowSec = clock.getElapsedTime();
+            const current = computeIntentTimeline(nowSec, intentMotionParams);
+            intentMotionParams.loopAnchorSec = current.elapsedSec;
+            intentMotionParams.seamlessLoop = true;
+            saveSceneState(active3dSceneVariant, cloneConfigState());
+        },
+        onDisableSeamlessLoop: () => {
+            intentMotionParams.seamlessLoop = false;
+            saveSceneState(active3dSceneVariant, cloneConfigState());
+        },
+    }) : null;
 
     function animate() {
         requestAnimationFrame(animate);
@@ -477,12 +724,37 @@ async function main() {
         const time = clock.getElapsedTime();
         const breathVal = breathValue(time, breathConfig.period);
         const scrollProg = getScrollProgress();
+        const intentScene = isIntentScene();
+        const computedIntentTimeline = computeIntentTimeline(time, intentMotionParams);
+        const seamlessLoopEnabled = intentMotionParams.seamlessLoop === true
+            || (Number.isFinite(Number(intentMotionParams.seamlessLoop)) && Number(intentMotionParams.seamlessLoop) >= 0.5);
+        const loopAnchorSec = Number.isFinite(intentMotionParams.loopAnchorSec) ? intentMotionParams.loopAnchorSec : 0.0;
+        const loopDriftSec = Math.max(0.0, Number.isFinite(intentMotionParams.loopDriftSec) ? intentMotionParams.loopDriftSec : 180.0);
+        const intentTimeline = {
+            ...computedIntentTimeline,
+            seamlessLoopEnabled,
+            loopAnchorSec,
+            loopDriftSec,
+        };
 
         updateScrollUI(scrollProg, breathVal);
         setCameraPosition(sceneParams.camX, sceneParams.camY, sceneParams.camZ);
+        if (intentScene) {
+            toggles.autoRotate = true;
+            setAutoRotateSpeed(intentMotionParams.cameraRotateSpeed);
+            setAutoRotateStartOffsetSec(0.0);
+            setAutoRotateLoopPhase(intentTimeline.phase);
+        } else {
+            setAutoRotateSpeed(1.0);
+            setAutoRotateStartOffsetSec(0.0);
+            setAutoRotateLoopPhase(null);
+        }
+        if (intentTimelineHud) {
+            intentTimelineHud.setVisible(intentScene);
+            if (intentScene) intentTimelineHud.update(intentTimeline);
+        }
         updateControls(time, breathVal);
         const mouse = updateMouseSmoothing();
-        const intentScene = isIntentScene();
 
         updateScene(time);
 
