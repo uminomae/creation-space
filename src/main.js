@@ -1,7 +1,5 @@
 import * as THREE from 'three';
 
-import { createIntentShiftTurnState } from './intent-shift-turn-state.js';
-import { createIntentTimelineRuntime } from './intent-timeline-runtime.js';
 import { createGraphicModeApplier } from './graphic-mode-apply.js';
 import { cloneConfigState } from './config-state.js';
 import { getScenePresetVersion, resolveSceneVariant } from './scene-presets.js';
@@ -9,6 +7,7 @@ import { DEV_VERSION } from './version.js';
 import { createSceneStateStore } from './dev-scene-state.js';
 import { installStartupErrorHandlers, showStartupErrorOverlay } from './startup-error-overlay.js';
 import { initMainDevRuntime } from './main-dev-runtime.js';
+import { initMainIntentRuntime } from './main-intent-runtime.js';
 import { createMainSceneRuntime, prepareMainBootstrap } from './main-bootstrap.js';
 import { initMainContentRuntime } from './main-content-runtime.js';
 import { createMainFrameRuntime } from './main-frame-runtime.js';
@@ -18,13 +17,6 @@ import {
     syncGraphicModeQuery,
     setGraphicButtonState,
 } from './graphic-mode.js';
-import {
-    resolveIntentShiftTurnRange,
-} from './intent-timeline.js';
-import {
-    intentMotionParams,
-} from './config.js';
-
 const DEV_MODE = new URLSearchParams(window.location.search).has('dev');
 const DEV_PANEL_STATE_PERSIST = new URLSearchParams(window.location.search).get('devstate') === 'persist';
 const CAPTURE_ENABLE_MAX_DELTA_SEC = 0.3;
@@ -93,11 +85,14 @@ async function main() {
         devMode: DEV_MODE,
         devVersion: DEV_VERSION,
     });
-    const shiftTurnState = createIntentShiftTurnState({
-        intentMotionParams,
-        resolveIntentShiftTurnRange,
+    const clock = new THREE.Clock();
+    const { shiftTurnState, intentTimelineRuntime } = initMainIntentRuntime({
+        devMode: DEV_MODE,
+        clock,
+        captureEnableMaxDeltaSec: CAPTURE_ENABLE_MAX_DELTA_SEC,
+        sceneStateStore,
+        getSceneVariant: () => active3dSceneVariant,
     });
-    shiftTurnState.syncFromParams();
 
     initMainDevRuntime({
         devMode: DEV_MODE,
@@ -107,18 +102,6 @@ async function main() {
         setStatsHandlers: (statsBegin, statsEnd) => {
             devStatsBegin = statsBegin;
             devStatsEnd = statsEnd;
-        },
-    });
-
-    const clock = new THREE.Clock();
-    const intentTimelineRuntime = createIntentTimelineRuntime({
-        devMode: DEV_MODE,
-        clock,
-        captureEnableMaxDeltaSec: CAPTURE_ENABLE_MAX_DELTA_SEC,
-        intentMotionParams,
-        shiftTurnState,
-        saveSceneState: () => {
-            sceneStateStore.save(active3dSceneVariant, cloneConfigState());
         },
     });
 
