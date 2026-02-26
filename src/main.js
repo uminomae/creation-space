@@ -17,6 +17,7 @@ import { initDevPanel } from './dev-panel.js';
 import { initCreationLinkInteractions } from './creation-link-interactions.js';
 import { initArticles, setArticlesLanguage } from './articles.js';
 import { initIntentTimelineHud } from './intent-timeline-hud.js';
+import { createIntentShiftTurnState } from './intent-shift-turn-state.js';
 import { createPostFxBootstrap } from './postfx-bootstrap.js';
 import { createGraphicModeApplier } from './graphic-mode-apply.js';
 import { initMobileNavAutoCollapse } from './topbar-nav.js';
@@ -169,6 +170,12 @@ async function main() {
         getComposer: () => postFx.getComposer(),
     });
 
+    const shiftTurnState = createIntentShiftTurnState({
+        intentMotionParams,
+        resolveIntentShiftTurnRange,
+    });
+    shiftTurnState.syncFromParams();
+
     if (DEV_MODE) {
         import('./dev-links-panel.js').then(({ initDevLinksPanel }) => {
             initDevLinksPanel();
@@ -197,7 +204,7 @@ async function main() {
                     sceneParams.camTargetY ?? 0,
                     sceneParams.camTargetZ ?? 0,
                 );
-                syncShiftTurnRangeFromPanel();
+                shiftTurnState.syncFromParams();
             },
             onStateSnapshot: (state) => {
                 sceneStateStore.save(active3dSceneVariant, state);
@@ -209,41 +216,9 @@ async function main() {
     const liquidMouseVel = new THREE.Vector2();
     const clock = new THREE.Clock();
     let capturedLoopStartShaderSec = null;
-    const shiftTurnState = {
-        startSec: Number(intentMotionParams.shiftTurnStartSec),
-        endSec: Number(intentMotionParams.shiftTurnEndSec),
-    };
     function markLoopAnchorDirty() {
         capturedLoopStartShaderSec = null;
     }
-    function syncShiftTurnRangeFromPanel() {
-        // Intent:
-        // 1) keep runtime range in a dedicated state object (shiftTurnState)
-        // 2) dev panel edits are the only post-init update source
-        // 3) mirror sanitized values back to config so timeline/render stay consistent
-        const nextStartSec = Number(intentMotionParams.shiftTurnStartSec);
-        const nextEndSec = Number(intentMotionParams.shiftTurnEndSec);
-        if (Number.isFinite(nextStartSec)) {
-            shiftTurnState.startSec = nextStartSec;
-        }
-        if (Number.isFinite(nextEndSec)) {
-            shiftTurnState.endSec = nextEndSec;
-        }
-        if (!Number.isFinite(shiftTurnState.startSec)) {
-            shiftTurnState.startSec = 0.0;
-        }
-        if (!Number.isFinite(shiftTurnState.endSec)) {
-            shiftTurnState.endSec = resolveIntentShiftTurnRange({
-                shiftTurnStartSec: shiftTurnState.startSec,
-            }).endSec;
-        }
-        const normalized = resolveIntentShiftTurnRange(shiftTurnState);
-        shiftTurnState.startSec = normalized.startSec;
-        shiftTurnState.endSec = normalized.endSec;
-        intentMotionParams.shiftTurnStartSec = normalized.startSec;
-        intentMotionParams.shiftTurnEndSec = normalized.endSec;
-    }
-    syncShiftTurnRangeFromPanel();
     const intentTimelineHud = DEV_MODE ? initIntentTimelineHud({
         onApplyPhaseNow: (phase) => {
             const nowSec = clock.getElapsedTime();
@@ -262,7 +237,7 @@ async function main() {
         },
         onShiftSec: (deltaSec) => {
             const nowSec = clock.getElapsedTime();
-            const range = resolveIntentShiftTurnRange(shiftTurnState);
+            const range = shiftTurnState.getRange();
             const current = computeIntentRuntimeTimeline(nowSec, intentMotionParams);
             // Shift +/- must operate on the same folded path that shader uTime uses.
             // We therefore shift path-space first, then map back to elapsed seconds.
