@@ -38,6 +38,7 @@ export async function runMainOrchestrator({
         sceneStateStore,
     });
     const {
+        scene,
         camera,
         renderer,
         updateScene,
@@ -67,6 +68,7 @@ export async function runMainOrchestrator({
 
     const frameRuntime = createMainFrameRuntime({
         clock,
+        scene,
         renderer,
         camera,
         isIntentScene,

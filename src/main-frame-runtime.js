@@ -14,6 +14,7 @@ import { breathConfig, intentMotionParams, sceneParams, toggles } from './config
 
 export function createMainFrameRuntime({
     clock,
+    scene,
     renderer,
     camera,
     isIntentScene,
