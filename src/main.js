@@ -17,12 +17,15 @@ import { initDevPanel } from './dev-panel.js';
 import { initCreationLinkInteractions } from './creation-link-interactions.js';
 import { initArticles, setArticlesLanguage } from './articles.js';
 import { initIntentTimelineHud } from './intent-timeline-hud.js';
+import { initMobileNavAutoCollapse } from './topbar-nav.js';
+import { attachResize } from './render-resize.js';
 import { applyConfigState, cloneConfigState } from './config-state.js';
 import { applyScenePreset, getScenePresetVersion, resolveSceneVariant } from './scene-presets.js';
 import { DEV_VERSION } from './version.js';
 import { createSceneStateStore } from './dev-scene-state.js';
 import { installStartupErrorHandlers, showStartupErrorOverlay } from './startup-error-overlay.js';
 import { applyPageLanguage, initLanguageToggle } from './page-language.js';
+import { applyQuantumWaveUniforms } from './quantum-wave-uniforms.js';
 import {
     normalizeGraphicMode,
     syncGraphicModeQuery,
@@ -67,67 +70,6 @@ const sceneStateStore = createSceneStateStore({
 });
 
 installStartupErrorHandlers();
-
-function initMobileNavAutoCollapse() {
-    const nav = document.getElementById('kessonTopbarNav');
-    if (!nav) return;
-
-    nav.querySelectorAll('.nav-link, [data-bs-toggle="offcanvas"]').forEach((el) => {
-        el.addEventListener('click', () => {
-            if (window.innerWidth >= 768) return;
-            const collapseApi = window.bootstrap?.Collapse;
-            if (!collapseApi) return;
-            const collapse = collapseApi.getOrCreateInstance(nav, { toggle: false });
-            collapse.hide();
-        });
-    });
-}
-
-function applyQuantumWaveUniforms(distortionPass) {
-    if (!toggles.quantumWave) {
-        distortionPass.uniforms.uQWaveStrength.value = 0;
-        return;
-    }
-
-    const qp = quantumWaveParams;
-    const du = distortionPass.uniforms;
-    du.uQWaveStrength.value = qp.strength;
-    du.uQWaveSpeed.value = qp.speed;
-    du.uQWaveBaseFreq.value = qp.baseFreq;
-    du.uQWaveDispersion.value = qp.dispersion;
-    du.uQWaveNoiseAmp.value = qp.noiseAmp;
-    du.uQWaveNoiseScale.value = qp.noiseScale;
-    du.uQWaveCount.value = qp.waveCount;
-    du.uQWaveEnvelope.value = qp.envelope;
-    du.uQWaveYInfluence.value = qp.yInfluence;
-    du.uQWaveGlowAmount.value = qp.glowAmount;
-    du.uQWaveGlowColorR.value = qp.glowColorR;
-    du.uQWaveGlowColorG.value = qp.glowColorG;
-    du.uQWaveGlowColorB.value = qp.glowColorB;
-    du.uQWaveCaberration.value = qp.caberration;
-    du.uQWaveRimBright.value = qp.rimBright;
-    du.uQWaveBlurAmount.value = qp.blurAmount;
-    du.uQWaveFogDensity.value = qp.fogDensity;
-    du.uQWaveFogColorR.value = qp.fogColorR;
-    du.uQWaveFogColorG.value = qp.fogColorG;
-    du.uQWaveFogColorB.value = qp.fogColorB;
-    du.uQWaveDarken.value = qp.darken;
-    du.uQWaveTurbulence.value = qp.turbulence;
-    du.uQWaveSharpness.value = qp.sharpness;
-}
-
-function attachResize({ camera, renderer, getComposer }) {
-    function onResize() {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        const composer = typeof getComposer === 'function' ? getComposer() : null;
-        if (composer) {
-            composer.setSize(window.innerWidth, window.innerHeight);
-        }
-    }
-    window.addEventListener('resize', onResize);
-}
 
 async function main() {
     const initialLang = normalizeLang(detectLang());
@@ -567,7 +509,10 @@ async function main() {
             }
 
             if (shouldRunPostFx) {
-                applyQuantumWaveUniforms(distortionPass);
+                applyQuantumWaveUniforms(distortionPass, {
+                    enabled: toggles.quantumWave,
+                    params: quantumWaveParams,
+                });
             } else {
                 distortionPass.uniforms.uQWaveStrength.value = 0;
             }
