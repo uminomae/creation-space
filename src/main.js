@@ -2,7 +2,6 @@ import * as THREE from 'three';
 
 import { breathValue } from './animation-utils.js';
 import {
-    initControls,
     setAutoRotateSpeed,
     setAutoRotateLoopPhase,
     setAutoRotateStartOffsetSec,
@@ -12,28 +11,26 @@ import {
     getScrollProgress,
 } from './controls.js';
 import { initMouseTracking, updateMouseSmoothing } from './mouse-state.js';
-import { initScrollUI, refreshGuideLang, updateScrollUI } from './scroll-ui.js';
+import { updateScrollUI } from './scroll-ui.js';
 import { initDevAuxTools, initDevPanelRuntime } from './dev-runtime.js';
-import { initCreationLinkInteractions } from './creation-link-interactions.js';
 import { initArticles, setArticlesLanguage } from './articles.js';
 import { initIntentTimelineHud } from './intent-timeline-hud.js';
 import { createIntentShiftTurnState } from './intent-shift-turn-state.js';
 import { createPostFxBootstrap } from './postfx-bootstrap.js';
 import { createGraphicModeApplier } from './graphic-mode-apply.js';
-import { initMobileNavAutoCollapse } from './topbar-nav.js';
 import { attachResize } from './render-resize.js';
 import { applyConfigState, cloneConfigState } from './config-state.js';
 import { applyScenePreset, getScenePresetVersion, resolveSceneVariant } from './scene-presets.js';
 import { DEV_VERSION } from './version.js';
 import { createSceneStateStore } from './dev-scene-state.js';
 import { installStartupErrorHandlers, showStartupErrorOverlay } from './startup-error-overlay.js';
-import { applyPageLanguage, initLanguageToggle } from './page-language.js';
+import { applyPageLanguage } from './page-language.js';
 import { applyQuantumWaveUniforms } from './quantum-wave-uniforms.js';
+import { initMainUiRuntime } from './main-ui-runtime.js';
 import {
     normalizeGraphicMode,
     syncGraphicModeQuery,
     setGraphicButtonState,
-    initGraphicModeButtons,
 } from './graphic-mode.js';
 import {
     loadSceneModule,
@@ -144,21 +141,17 @@ async function main() {
         });
     }
 
-    initControls(camera, container, renderer);
-    initCreationLinkInteractions({
+    initMainUiRuntime({
         camera,
-        domElement: renderer.domElement,
-        getTargets: getCreationLinkTargetMeshes,
-    });
-    initScrollUI();
-    initLanguageToggle(initialLang, (currentLang) => {
-        applyPageLanguage(currentLang, { devMode: DEV_MODE, devVersion: DEV_VERSION });
-        refreshGuideLang();
-        setArticlesLanguage(currentLang);
-    });
-    initMobileNavAutoCollapse();
-    initGraphicModeButtons(initialGraphicMode, (nextMode) => {
-        applyGraphicMode(nextMode);
+        container,
+        renderer,
+        getCreationLinkTargetMeshes,
+        initialLang,
+        initialGraphicMode,
+        applyGraphicMode,
+        devMode: DEV_MODE,
+        devVersion: DEV_VERSION,
+        setArticlesLanguage,
     });
     applyGraphicMode(initialGraphicMode, { shouldSyncQuery: false });
     initArticles({ lang: initialLang }).catch((error) => {
