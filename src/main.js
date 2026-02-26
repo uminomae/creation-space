@@ -1,17 +1,9 @@
 import * as THREE from 'three';
 
-import { breathValue } from './animation-utils.js';
 import {
-    setAutoRotateSpeed,
-    setAutoRotateLoopPhase,
-    setAutoRotateStartOffsetSec,
     setCameraPosition,
     setCameraTarget,
-    updateControls,
-    getScrollProgress,
 } from './controls.js';
-import { updateMouseSmoothing } from './mouse-state.js';
-import { updateScrollUI } from './scroll-ui.js';
 import { initDevAuxTools, initDevPanelRuntime } from './dev-runtime.js';
 import { initArticles, setArticlesLanguage } from './articles.js';
 import { createIntentShiftTurnState } from './intent-shift-turn-state.js';
@@ -27,6 +19,7 @@ import { installStartupErrorHandlers, showStartupErrorOverlay } from './startup-
 import { initMainUiRuntime } from './main-ui-runtime.js';
 import { createPostFxRuntime } from './postfx-runtime.js';
 import { createMainSceneRuntime, prepareMainBootstrap } from './main-bootstrap.js';
+import { createMainFrameRuntime } from './main-frame-runtime.js';
 import {
     normalizeGraphicMode,
     syncGraphicModeQuery,
@@ -41,13 +34,11 @@ import {
     resolveIntentShiftTurnRange,
 } from './intent-timeline.js';
 import {
-    breathConfig,
     distortionParams,
     fluidParams,
     intentMotionParams,
     liquidParams,
     quantumWaveParams,
-    sceneParams,
     toggles,
 } from './config.js';
 
@@ -186,56 +177,19 @@ async function main() {
         },
     });
 
-    function animate() {
-        requestAnimationFrame(animate);
-        devStatsBegin();
+    const frameRuntime = createMainFrameRuntime({
+        clock,
+        renderer,
+        camera,
+        isIntentScene,
+        intentTimelineRuntime,
+        updateScene,
+        postFxRuntime,
+        getDevStatsBegin: () => devStatsBegin,
+        getDevStatsEnd: () => devStatsEnd,
+    });
 
-        const time = clock.getElapsedTime();
-        const breathVal = breathValue(time, breathConfig.period);
-        const scrollProg = getScrollProgress();
-        const intentScene = isIntentScene();
-        const timelineState = intentTimelineRuntime.getTimelineState(time);
-        const intentTimeline = timelineState.runtime;
-
-        updateScrollUI(scrollProg, breathVal);
-        setCameraPosition(sceneParams.camX, sceneParams.camY, sceneParams.camZ);
-        setCameraTarget(
-            sceneParams.camTargetX ?? 0,
-            sceneParams.camTargetY ?? 0,
-            sceneParams.camTargetZ ?? 0,
-        );
-        if (intentScene) {
-            toggles.autoRotate = true;
-            setAutoRotateSpeed(intentMotionParams.cameraRotateSpeed);
-            setAutoRotateStartOffsetSec(0.0);
-            setAutoRotateLoopPhase(intentTimeline.phase);
-        } else {
-            setAutoRotateSpeed(1.0);
-            setAutoRotateStartOffsetSec(0.0);
-            setAutoRotateLoopPhase(null);
-        }
-        intentTimelineRuntime.updateHudVisibility(intentScene, timelineState.debug);
-        updateControls(time, breathVal);
-        const mouse = updateMouseSmoothing();
-
-        updateScene(time);
-
-        const { shouldRunPostFx, composer } = postFxRuntime.update({
-            time,
-            mouse,
-            intentScene,
-        });
-
-        renderer.clear();
-        if (shouldRunPostFx && composer) {
-            composer.render();
-        } else {
-            renderer.render(scene, camera);
-        }
-        devStatsEnd();
-    }
-
-    animate();
+    frameRuntime.start();
 }
 
 main().catch((error) => {
