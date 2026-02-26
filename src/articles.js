@@ -1,61 +1,40 @@
 const ARTICLES_DATA_URLS = [
+    'https://uminomae.github.io/pjdhiro/api/creation-articles.json',
     '/pjdhiro/api/creation-articles.json',
     '../kesson-space/assets/page-links.json',
     './assets/page-links.json',
 ];
 
-const CREATION_TOPIC_TOKENS = new Set(['創造', 'creation']);
-const CREATION_TAXONOMY_KEYS = [
-    'category',
-    'categories',
-    'tag',
-    'tags',
-    'topic',
-    'topics',
-    'category_ja',
-    'categories_ja',
-    'tag_ja',
-    'tags_ja',
-    'topic_ja',
-    'topics_ja',
-    'category_en',
-    'categories_en',
-    'tag_en',
-    'tags_en',
-    'topic_en',
-    'topics_en',
-];
+const INITIAL_DISPLAY = 3;
 
 const UI_STRINGS = {
     ja: {
-        open: '開く',
-        empty: '公開中の記事はまだありません。',
-        error: '記事一覧の読み込みに失敗しました。',
-        local: 'ローカル',
-        external: '外部',
+        articleLabel: '記事',
+        openArticle: 'を読む',
+        readMore: '▸ 続きを見る',
+        viewAll: '▸ すべて表示',
+        countUnit: '件',
         typeLabel: {
             all: 'すべて',
             page: 'ページ',
             post: '投稿',
         },
-        creationTopicLabel: '創造',
-        creationEmpty: '「創造」カテゴリ/タグの記事はまだありません。',
-        count: (visible, total) => `${visible}件 / 全${total}件`,
+        empty: '公開中の記事はまだありません。',
+        error: '記事一覧の読み込みに失敗しました。',
     },
     en: {
-        open: 'Open',
-        empty: 'No articles are available yet.',
-        error: 'Failed to load the article list.',
-        local: 'Local',
-        external: 'External',
+        articleLabel: 'article',
+        openArticle: 'Read',
+        readMore: '▸ Read More',
+        viewAll: '▸ View All',
+        countUnit: 'articles',
         typeLabel: {
             all: 'All',
             page: 'Page',
             post: 'Post',
         },
-        creationTopicLabel: 'Creation',
-        creationEmpty: 'No articles found for the "Creation" category/tag.',
-        count: (visible, total) => `${visible} / ${total}`,
+        empty: 'No articles are available yet.',
+        error: 'Failed to load article data.',
     },
 };
 
@@ -68,20 +47,38 @@ const state = {
     dom: {
         mainGrid: null,
         offcanvasGrid: null,
-        creationCardsContainer: null,
         error: null,
         count: null,
         filterButtons: [],
     },
 };
 
-function getStrings(lang) {
-    return UI_STRINGS[lang] || UI_STRINGS.ja;
+function normalizeLang(lang) {
+    return lang === 'en' ? 'en' : 'ja';
+}
+
+function getStrings(lang = state.lang) {
+    return UI_STRINGS[normalizeLang(lang)];
 }
 
 function normalizeFilterType(type) {
     if (type === 'page' || type === 'post') return type;
     return 'all';
+}
+
+function sanitizeHttpUrl(url, fallback = '#', baseHref = window.location.href) {
+    if (typeof url !== 'string') return fallback;
+    const trimmed = url.trim();
+    if (!trimmed) return fallback;
+    try {
+        const parsed = new URL(trimmed, baseHref);
+        if (/^https?:$/i.test(parsed.protocol)) {
+            return parsed.toString();
+        }
+    } catch {
+        return fallback;
+    }
+    return fallback;
 }
 
 function buildUrl(basePath, item) {
@@ -122,99 +119,82 @@ function normalizeType(item, url) {
     return 'page';
 }
 
-function normalizeTopicToken(value) {
-    if (typeof value !== 'string') return '';
-    return value.trim().replace(/^#/, '').toLowerCase();
-}
-
-function collectTopicValues(value, output) {
-    if (value === null || value === undefined) return;
-    if (Array.isArray(value)) {
-        value.forEach((item) => collectTopicValues(item, output));
-        return;
-    }
-
-    if (typeof value === 'string') {
-        value
-            .split(/[,\u3001]/)
-            .map((part) => normalizeTopicToken(part))
-            .filter(Boolean)
-            .forEach((token) => output.add(token));
-        return;
-    }
-
-    if (typeof value === 'object') {
-        ['name', 'label', 'slug', 'value'].forEach((key) => {
-            const candidate = value[key];
-            if (typeof candidate === 'string') {
-                const token = normalizeTopicToken(candidate);
-                if (token) output.add(token);
-            }
-        });
-    }
-}
-
-function extractTopicTokens(rawItem) {
-    const tokens = new Set();
-    if (!rawItem || typeof rawItem !== 'object') return tokens;
-
-    CREATION_TAXONOMY_KEYS.forEach((key) => {
-        collectTopicValues(rawItem[key], tokens);
-    });
-
-    if (rawItem.meta && typeof rawItem.meta === 'object') {
-        CREATION_TAXONOMY_KEYS.forEach((key) => {
-            collectTopicValues(rawItem.meta[key], tokens);
-        });
-    }
-
-    if (rawItem.taxonomy && typeof rawItem.taxonomy === 'object') {
-        CREATION_TAXONOMY_KEYS.forEach((key) => {
-            collectTopicValues(rawItem.taxonomy[key], tokens);
-        });
-    }
-
-    return tokens;
-}
-
-function isCreationTopicArticle(article) {
-    const tokens = extractTopicTokens(article?.raw);
-    return Array.from(tokens).some((token) => CREATION_TOPIC_TOKENS.has(token));
-}
-
-function pickLocalized(item, key, lang) {
+function getLocalizedText(item, key, lang) {
     if (!item || typeof item !== 'object') return '';
 
-    const direct = item[`${key}_${lang}`];
-    if (typeof direct === 'string' && direct.trim()) return direct.trim();
+    const normalizedLang = normalizeLang(lang);
+    const fallbackLang = normalizedLang === 'en' ? 'ja' : 'en';
+    const byLangKey = `${key}_${normalizedLang}`;
+    const fallbackByLangKey = `${key}_${fallbackLang}`;
 
-    const fallbackLang = lang === 'ja' ? 'en' : 'ja';
-    const fallback = item[`${key}_${fallbackLang}`];
-    if (typeof fallback === 'string' && fallback.trim()) return fallback.trim();
+    if (typeof item[byLangKey] === 'string' && item[byLangKey].trim()) {
+        return item[byLangKey].trim();
+    }
+    if (typeof item[fallbackByLangKey] === 'string' && item[fallbackByLangKey].trim()) {
+        return item[fallbackByLangKey].trim();
+    }
+
+    const i18nValue = item[`${key}_i18n`];
+    if (i18nValue && typeof i18nValue === 'object') {
+        if (typeof i18nValue[normalizedLang] === 'string' && i18nValue[normalizedLang].trim()) {
+            return i18nValue[normalizedLang].trim();
+        }
+        if (typeof i18nValue[fallbackLang] === 'string' && i18nValue[fallbackLang].trim()) {
+            return i18nValue[fallbackLang].trim();
+        }
+    }
 
     const base = item[key];
-    if (typeof base === 'string' && base.trim()) return base.trim();
+    if (typeof base === 'string' && base.trim()) {
+        return base.trim();
+    }
+    if (base && typeof base === 'object') {
+        if (typeof base[normalizedLang] === 'string' && base[normalizedLang].trim()) {
+            return base[normalizedLang].trim();
+        }
+        if (typeof base[fallbackLang] === 'string' && base[fallbackLang].trim()) {
+            return base[fallbackLang].trim();
+        }
+    }
+
     return '';
 }
 
-function fallbackDescription(url, lang) {
-    const path = url.pathname || '/';
-    const info = [];
-    if (path && path !== '/') info.push(path);
-    if (url.hash) info.push(`#${url.hash.replace(/^#/, '')}`);
+function formatDate(dateStr, lang) {
+    if (!dateStr) return '';
 
-    if (info.length > 0) return info.join(' · ');
-    return lang === 'ja' ? 'リンク先ページ' : 'Linked page';
+    const normalizedLang = normalizeLang(lang);
+    const locale = normalizedLang === 'en' ? 'en-US' : 'ja-JP';
+
+    try {
+        return new Date(dateStr).toLocaleDateString(locale, {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+        });
+    } catch {
+        return '';
+    }
+}
+
+function buildArticleAriaLabel(titleText, lang) {
+    const strings = getStrings(lang);
+    const safeTitle = titleText || strings.articleLabel;
+    if (normalizeLang(lang) === 'en') {
+        return `${strings.openArticle}: ${safeTitle}`;
+    }
+    return `${safeTitle}${strings.openArticle}`;
 }
 
 function normalizeArticle(key, item, basePath) {
     const url = buildUrl(basePath, item);
+    const parsedDate = Date.parse(item?.date || '');
     return {
-        id: key,
+        id: String(key),
         url: url.toString(),
-        isExternal: url.origin !== window.location.origin,
         type: normalizeType(item, url),
         raw: item,
+        dateMs: Number.isFinite(parsedDate) ? parsedDate : Number.NaN,
     };
 }
 
@@ -244,7 +224,7 @@ function resolveArticleEntries(data) {
             entries: list
                 .filter((item) => item && typeof item === 'object')
                 .map((item, idx) => {
-                    const id = item.id || item.slug || item.key || `article_${idx + 1}`;
+                    const id = item.id || item.slug || item.key || item.url || `article_${idx + 1}`;
                     return [String(id), item];
                 }),
         };
@@ -294,7 +274,8 @@ function clearNode(node) {
     if (node) node.innerHTML = '';
 }
 
-function createEmptyCard(strings, useWideLayout) {
+function createEmptyCard(useWideLayout) {
+    const strings = getStrings(state.lang);
     const col = document.createElement('article');
     col.className = useWideLayout ? 'col-12 col-md-6 col-xl-4' : 'col-12';
 
@@ -316,101 +297,158 @@ function createEmptyCard(strings, useWideLayout) {
 }
 
 function createArticleCard(article, useWideLayout) {
-    const strings = getStrings(state.lang);
-    const title = pickLocalized(article.raw, 'label', state.lang) || article.id;
-    const description = pickLocalized(article.raw, 'description', state.lang)
-        || pickLocalized(article.raw, 'summary', state.lang)
-        || fallbackDescription(new URL(article.url), state.lang);
+    const lang = normalizeLang(state.lang);
+    const strings = getStrings(lang);
+    const titleText = getLocalizedText(article.raw, 'title', lang)
+        || getLocalizedText(article.raw, 'label', lang)
+        || article.id;
+    const excerptText = getLocalizedText(article.raw, 'excerpt', lang)
+        || getLocalizedText(article.raw, 'description', lang)
+        || getLocalizedText(article.raw, 'summary', lang);
+    const dateText = formatDate(article.raw?.date, lang);
+    const safeUrl = sanitizeHttpUrl(article.url, '#');
+    const safeTeaserUrl = sanitizeHttpUrl(article.raw?.teaser, '');
 
     const col = document.createElement('article');
     col.className = useWideLayout ? 'col-12 col-md-6 col-xl-4' : 'col-12';
 
     const anchor = document.createElement('a');
-    anchor.className = 'card kesson-card h-100 text-decoration-none';
-    anchor.href = article.url;
+    anchor.href = safeUrl;
     anchor.target = '_blank';
     anchor.rel = 'noopener';
-    anchor.setAttribute('aria-label', `${title} (${strings.open})`);
-    anchor.classList.add('cursor-pointer');
+    anchor.className = 'text-decoration-none';
+    anchor.setAttribute('aria-label', buildArticleAriaLabel(titleText, lang));
+
+    const card = document.createElement('div');
+    card.className = 'card kesson-card h-100';
+
+    if (safeTeaserUrl) {
+        const teaserImg = document.createElement('img');
+        teaserImg.src = safeTeaserUrl;
+        teaserImg.className = 'card-img-top';
+        teaserImg.alt = '';
+        teaserImg.addEventListener('error', () => {
+            teaserImg.style.display = 'none';
+        });
+        card.appendChild(teaserImg);
+    }
 
     const body = document.createElement('div');
-    body.className = 'card-body d-flex flex-column';
+    body.className = 'card-body';
 
-    const headingRow = document.createElement('div');
-    headingRow.className = 'd-flex justify-content-between align-items-start gap-2';
+    const badge = document.createElement('span');
+    badge.className = 'badge bg-secondary mb-2 badge-article-type';
+    badge.textContent = strings.typeLabel[article.type];
 
-    const titleEl = document.createElement('h3');
-    titleEl.className = 'card-title mb-1';
-    titleEl.textContent = title;
+    const title = document.createElement('h6');
+    title.className = 'card-title mb-1';
+    title.textContent = titleText;
 
-    const typeBadge = document.createElement('span');
-    typeBadge.className = 'badge rounded-pill text-bg-secondary badge-article-type';
-    typeBadge.textContent = strings.typeLabel[article.type];
+    const date = document.createElement('small');
+    date.textContent = dateText;
 
-    const textEl = document.createElement('p');
-    textEl.className = 'card-text mb-3 flex-grow-1';
-    textEl.textContent = description;
+    body.appendChild(badge);
+    body.appendChild(title);
 
-    const cta = document.createElement('span');
-    cta.className = 'btn-read-more mt-auto align-self-start';
-    cta.textContent = strings.open;
+    if (excerptText) {
+        const excerpt = document.createElement('p');
+        excerpt.className = 'card-text';
+        excerpt.textContent = excerptText;
+        body.appendChild(excerpt);
+    }
 
-    const meta = document.createElement('small');
-    meta.className = 'd-block mt-2';
-    meta.textContent = article.isExternal ? strings.external : strings.local;
-
-    headingRow.appendChild(titleEl);
-    headingRow.appendChild(typeBadge);
-    body.appendChild(headingRow);
-    body.appendChild(textEl);
-    body.appendChild(cta);
-    body.appendChild(meta);
-    anchor.appendChild(body);
+    body.appendChild(date);
+    card.appendChild(body);
+    anchor.appendChild(card);
     col.appendChild(anchor);
     return col;
 }
 
-function createCreationEmptyCard() {
+function createReadMoreButton(totalCount, visibleCount) {
     const strings = getStrings(state.lang);
-    const col = document.createElement('article');
-    col.className = 'col-12';
+    const btnContainer = document.createElement('div');
+    btnContainer.className = 'text-center mt-3';
+    btnContainer.dataset.role = 'articles-readmore-wrap';
 
-    const card = document.createElement('div');
-    card.className = 'creation-card-placeholder';
+    const btn = document.createElement('button');
+    btn.className = 'btn-read-more';
+    btn.setAttribute('data-bs-toggle', 'offcanvas');
+    btn.setAttribute('data-bs-target', '#articlesOffcanvas');
+    btn.setAttribute('aria-controls', 'articlesOffcanvas');
 
-    const title = document.createElement('h3');
-    title.textContent = strings.creationTopicLabel;
+    const remaining = totalCount - visibleCount;
+    btn.textContent = remaining > 0
+        ? `${strings.readMore} (${remaining})`
+        : `${strings.viewAll} (${totalCount})`;
 
-    const body = document.createElement('p');
-    body.textContent = strings.creationEmpty;
-
-    card.appendChild(title);
-    card.appendChild(body);
-    col.appendChild(card);
-    return col;
+    btnContainer.appendChild(btn);
+    return btnContainer;
 }
 
-function renderCreationCards() {
-    const container = state.dom.creationCardsContainer;
-    if (!container) return;
+function renderMainArticles(articles) {
+    const grid = state.dom.mainGrid;
+    if (!grid) return;
 
-    clearNode(container);
-    const creationArticles = state.articles.filter(isCreationTopicArticle).slice(0, 3);
-    if (!creationArticles.length) {
-        container.appendChild(createCreationEmptyCard());
+    clearNode(grid);
+
+    const existingReadMore = grid.parentNode
+        ? grid.parentNode.querySelector('[data-role="articles-readmore-wrap"]')
+        : null;
+    if (existingReadMore) {
+        existingReadMore.remove();
+    }
+
+    if (!articles.length) {
+        grid.appendChild(createEmptyCard(true));
         return;
     }
 
-    const fragment = document.createDocumentFragment();
-    creationArticles.forEach((article) => {
-        fragment.appendChild(createArticleCard(article, true));
+    const initialItems = articles.slice(0, INITIAL_DISPLAY);
+    const mainFrag = document.createDocumentFragment();
+    initialItems.forEach((article) => {
+        mainFrag.appendChild(createArticleCard(article, true));
     });
-    container.appendChild(fragment);
+    grid.appendChild(mainFrag);
+
+    if (grid.parentNode) {
+        const readMoreButton = createReadMoreButton(articles.length, initialItems.length);
+        grid.parentNode.insertBefore(readMoreButton, grid.nextSibling);
+    }
+}
+
+function renderOffcanvasArticles(filteredArticles) {
+    const grid = state.dom.offcanvasGrid;
+    if (!grid) return;
+
+    clearNode(grid);
+
+    if (!filteredArticles.length) {
+        grid.appendChild(createEmptyCard(false));
+        return;
+    }
+
+    const frag = document.createDocumentFragment();
+    filteredArticles.forEach((article) => {
+        frag.appendChild(createArticleCard(article, false));
+    });
+    grid.appendChild(frag);
+}
+
+function updateOffcanvasCount(filteredCount) {
+    const count = state.dom.count;
+    if (!count) return;
+    const strings = getStrings(state.lang);
+    if (state.activeType === 'all') {
+        count.textContent = `${state.articles.length} ${strings.countUnit}`;
+        return;
+    }
+    count.textContent = `${filteredCount} / ${state.articles.length} ${strings.countUnit}`;
 }
 
 function renderArticles() {
-    const { mainGrid, offcanvasGrid, count } = state.dom;
-    if (!mainGrid && !offcanvasGrid && !state.dom.creationCardsContainer) return;
+    if (!state.dom.mainGrid && !state.dom.offcanvasGrid) {
+        return;
+    }
 
     updateFilterButtonLabels();
 
@@ -418,40 +456,9 @@ function renderArticles() {
         ? state.articles
         : state.articles.filter((article) => article.type === state.activeType);
 
-    const strings = getStrings(state.lang);
-    if (count) {
-        count.textContent = strings.count(filtered.length, state.articles.length);
-    }
-
-    clearNode(mainGrid);
-    clearNode(offcanvasGrid);
-
-    if (!filtered.length) {
-        if (mainGrid) {
-            mainGrid.appendChild(createEmptyCard(strings, true));
-        }
-        if (offcanvasGrid) {
-            offcanvasGrid.appendChild(createEmptyCard(strings, false));
-        }
-        renderCreationCards();
-        return;
-    }
-
-    const mainFrag = document.createDocumentFragment();
-    const offcanvasFrag = document.createDocumentFragment();
-
-    filtered.forEach((article) => {
-        mainFrag.appendChild(createArticleCard(article, true));
-        offcanvasFrag.appendChild(createArticleCard(article, false));
-    });
-
-    if (mainGrid) {
-        mainGrid.appendChild(mainFrag);
-    }
-    if (offcanvasGrid) {
-        offcanvasGrid.appendChild(offcanvasFrag);
-    }
-    renderCreationCards();
+    renderMainArticles(state.articles);
+    renderOffcanvasArticles(filtered);
+    updateOffcanvasCount(filtered.length);
 }
 
 function bindFilterButtons() {
@@ -491,16 +498,18 @@ async function loadArticles(dataUrls) {
     }
 
     const { basePath, entries } = resolveArticleEntries(data);
-
     state.articles = entries
         .map(([key, item]) => normalizeArticle(key, item, basePath))
-        .sort((a, b) => a.id.localeCompare(b.id));
+        .sort((a, b) => {
+            const diff = b.dateMs - a.dateMs;
+            if (Number.isFinite(diff) && diff !== 0) return diff;
+            return a.id.localeCompare(b.id);
+        });
 }
 
 function cacheDom() {
     state.dom.mainGrid = document.getElementById('articles-grid');
     state.dom.offcanvasGrid = document.getElementById('offcanvas-articles-grid');
-    state.dom.creationCardsContainer = document.getElementById('creation-cards-container');
     state.dom.error = document.getElementById('articles-error');
     state.dom.count = document.getElementById('offcanvas-articles-count');
     state.dom.filterButtons = Array.from(document.querySelectorAll('.articles-filter-btn'));
@@ -508,7 +517,7 @@ function cacheDom() {
 
 export async function initArticles({ lang = 'ja', dataUrls = ARTICLES_DATA_URLS } = {}) {
     cacheDom();
-    state.lang = lang === 'en' ? 'en' : 'ja';
+    state.lang = normalizeLang(lang);
     state.activeType = 'all';
 
     updateFilterButtonLabels();
@@ -529,7 +538,7 @@ export async function initArticles({ lang = 'ja', dataUrls = ARTICLES_DATA_URLS 
 }
 
 export function setArticlesLanguage(lang) {
-    state.lang = lang === 'en' ? 'en' : 'ja';
+    state.lang = normalizeLang(lang);
     setError(state.loadError ? getStrings(state.lang).error : '');
     renderArticles();
 }

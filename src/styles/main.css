@@ -670,6 +670,41 @@
       50% { transform: translateX(-50%) translateY(4px); }
     }
 
+    /* --- 左中央 kesson-space リンク --- */
+    #left-kesson-link {
+      position: fixed;
+      top: 50%;
+      left: 16px;
+      transform: translateY(-50%);
+      z-index: 15;
+      text-align: center;
+      text-decoration: none;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    #left-kesson-link span {
+      display: block;
+      font-size: clamp(0.4rem, 1.8vmin, 0.65rem);
+      color: rgba(var(--color-sub-text), 0.3);
+      font-family: 'Georgia', serif;
+      letter-spacing: 0.1em;
+      margin-bottom: 4px;
+    }
+    #left-kesson-link .arrow {
+      font-size: clamp(0.7rem, 3.5vmin, 1.2rem);
+      color: rgba(var(--color-sub-text), 0.25);
+      display: inline-block;
+      transform: rotate(90deg);
+      margin-top: 0;
+    }
+    #left-kesson-link:hover span,
+    #left-kesson-link:hover .arrow {
+      color: rgba(var(--color-sub-text), 0.6);
+    }
+    #left-kesson-link:focus-visible {
+      outline: 2px solid var(--kesson-focus-ring-soft);
+      outline-offset: 3px;
+    }
+
     /* --- 上部 scroll hint --- */
     #scroll-hint-top {
       position: fixed;

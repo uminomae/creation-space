@@ -29,19 +29,8 @@ body.creation-page {
   height: 0;
 }
 
-#creation-spacer {
-  position: relative;
-  height: 220vh;
-  z-index: 2;
-  pointer-events: none;
-}
-
 @media (max-width: 768px) {
   .creation-page #taglines {
     max-width: 82vw;
-  }
-
-  #creation-spacer {
-    height: 190vh;
   }
 }
