@@ -8,7 +8,14 @@
     "date": "2026-01-26T00:00:00+09:00",
     "excerpt": "デザイン思考：私の場合：欠けを探す旅\"",
     "excerpt_ja": "デザイン思考：私の場合：欠けを探す旅\"",
-    "excerpt_en": "Design thinking, in my own way: a journey to seek what is missing."
+    "excerpt_en": "Design thinking, in my own way: a journey to seek what is missing.",
+    "tags": [],
+    "categories": [
+      "創造",
+      "Love駆動開発",
+      "デザイン思考"
+    ],
+    "teaser": "https://uminomae.github.io/pjdhiro/assets/images/pages/pd/thinking/spec.jpg"
   },
   {
     "type": "page",
@@ -19,7 +26,14 @@
     "date": "2025-12-18T00:00:00+09:00",
     "excerpt": "このページは進化中です。13年前の「渦」を束に変えてきました。",
     "excerpt_ja": "このページは進化中です。13年前の「渦」を束に変えてきました。",
-    "excerpt_en": "This page is evolving. It gathers the 'vortex' from 13 years ago into a coherent bundle."
+    "excerpt_en": "This page is evolving. It gathers the 'vortex' from 13 years ago into a coherent bundle.",
+    "tags": [],
+    "categories": [
+      "対話",
+      "創造",
+      "Love駆動開発"
+    ],
+    "teaser": "https://uminomae.github.io/pjdhiro/assets/images/blog/20251218/Creation12.jpg"
   },
   {
     "type": "post",
@@ -30,6 +44,23 @@
     "date": "2025-06-17T19:30:31+09:00",
     "excerpt": "回転の平方根が気になる。パウリにトライ。彼の心理はユングのせいで世界にダダ漏れ。そんな親近感。",
     "excerpt_ja": "回転の平方根が気になる。パウリにトライ。彼の心理はユングのせいで世界にダダ漏れ。そんな親近感。",
-    "excerpt_en": "An exploration of the square root of rotation through Pauli, Jung, myth, and quaternions."
+    "excerpt_en": "An exploration of the square root of rotation through Pauli, Jung, myth, and quaternions.",
+    "tags": [
+      "間主観性",
+      "場",
+      "スピノル",
+      "民話",
+      "ユング",
+      "パウリ",
+      "日本神話",
+      "四元数",
+      "ゼロイチ"
+    ],
+    "categories": [
+      "量子",
+      "民話",
+      "創造"
+    ],
+    "teaser": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Clifford-torus.gif"
   }
 ]

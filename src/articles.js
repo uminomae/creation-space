@@ -1,3 +1,5 @@
+import { normalizeLang } from './i18n.js';
+
 const ARTICLES_DATA_URLS = [
     'https://uminomae.github.io/pjdhiro/api/creation-articles.json',
     '/pjdhiro/api/creation-articles.json',
@@ -9,6 +11,8 @@ const ARTICLES_I18N_CACHE_URLS = [
 ];
 
 const INITIAL_DISPLAY = 3;
+const ARTICLE_COL_CLASS_WIDE = 'col-12 col-md-6 col-xl-4';
+const ARTICLE_COL_CLASS_OFFCANVAS = 'col-12 col-md-6 col-lg-4';
 
 const UI_STRINGS = {
     ja: {
@@ -55,10 +59,6 @@ const state = {
         filterButtons: [],
     },
 };
-
-function normalizeLang(lang) {
-    return lang === 'en' ? 'en' : 'ja';
-}
 
 function getStrings(lang = state.lang) {
     return UI_STRINGS[normalizeLang(lang)];
@@ -311,10 +311,14 @@ function clearNode(node) {
     if (node) node.innerHTML = '';
 }
 
+function getArticleColumnClass(useWideLayout) {
+    return useWideLayout ? ARTICLE_COL_CLASS_WIDE : ARTICLE_COL_CLASS_OFFCANVAS;
+}
+
 function createEmptyCard(useWideLayout) {
     const strings = getStrings(state.lang);
     const col = document.createElement('article');
-    col.className = useWideLayout ? 'col-12 col-md-6 col-xl-4' : 'col-12 col-md-6 col-lg-4';
+    col.className = getArticleColumnClass(useWideLayout);
 
     const card = document.createElement('div');
     card.className = 'card kesson-card h-100';
@@ -347,7 +351,7 @@ function createArticleCard(article, useWideLayout) {
     const safeTeaserUrl = sanitizeHttpUrl(article.raw?.teaser, '');
 
     const col = document.createElement('article');
-    col.className = useWideLayout ? 'col-12 col-md-6 col-xl-4' : 'col-12 col-md-6 col-lg-4';
+    col.className = getArticleColumnClass(useWideLayout);
 
     const anchor = document.createElement('a');
     anchor.href = safeUrl;

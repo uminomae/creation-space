@@ -4,6 +4,14 @@ const CLICK_MOVE_THRESHOLD_PX = 8;
 
 const raycaster = new THREE.Raycaster();
 const pointerNdc = new THREE.Vector2();
+let viewerImportPromise = null;
+
+function loadViewerModule() {
+    if (!viewerImportPromise) {
+        viewerImportPromise = import('./viewer.js');
+    }
+    return viewerImportPromise;
+}
 
 function setPointerFromEvent(event, domElement) {
     const rect = domElement.getBoundingClientRect();
@@ -73,7 +81,7 @@ export function initCreationLinkInteractions({ camera, domElement, getTargets })
         const target = pickTarget(event);
         if (!target?.userData?.draftUrl) return;
 
-        import('./viewer.js').then(({ openDraftViewer }) => {
+        loadViewerModule().then(({ openDraftViewer }) => {
             openDraftViewer(target.userData.draftUrl, target.userData.label, target.userData.sourceUrl);
         }).catch((error) => {
             console.warn('[creation-link] viewer import failed:', error);

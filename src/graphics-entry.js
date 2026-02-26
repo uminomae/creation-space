@@ -1,27 +1,12 @@
 import { applyScenePreset, resolveSceneVariant } from './scene-presets.js';
+import { normalizeGraphicMode, GRAPHIC_MODE_DEFAULT } from './graphic-mode.js';
+import { loadSceneModule } from './scene-module-loader.js';
 
-const GRAPHIC_MODE_DEFAULT = 'hoji';
 const SCENE_VARIANTS = new Set(['hold', 'wabi', 'intent']);
-
-function normalizeGraphicMode(mode) {
-    if (mode === 'sinobi') return 'sinobi';
-    if (mode === 'i') return 'i';
-    return GRAPHIC_MODE_DEFAULT;
-}
 
 function normalizeSceneVariant(sceneVariant, graphicMode) {
     if (SCENE_VARIANTS.has(sceneVariant)) return sceneVariant;
     return resolveSceneVariant(normalizeGraphicMode(graphicMode));
-}
-
-async function loadSceneModule(sceneVariant) {
-    if (sceneVariant === 'intent') {
-        return import('./scene-intent.js');
-    }
-    if (sceneVariant === 'wabi') {
-        return import('./scene.js');
-    }
-    return import('./scene-hold.js');
 }
 
 function resolveContainer(container) {
