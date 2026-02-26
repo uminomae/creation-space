@@ -3,9 +3,7 @@ import * as THREE from 'three';
 import { initArticles, setArticlesLanguage } from './articles.js';
 import { createIntentShiftTurnState } from './intent-shift-turn-state.js';
 import { createIntentTimelineRuntime } from './intent-timeline-runtime.js';
-import { createPostFxBootstrap } from './postfx-bootstrap.js';
 import { createGraphicModeApplier } from './graphic-mode-apply.js';
-import { attachResize } from './render-resize.js';
 import { cloneConfigState } from './config-state.js';
 import { getScenePresetVersion, resolveSceneVariant } from './scene-presets.js';
 import { DEV_VERSION } from './version.js';
@@ -13,29 +11,19 @@ import { createSceneStateStore } from './dev-scene-state.js';
 import { installStartupErrorHandlers, showStartupErrorOverlay } from './startup-error-overlay.js';
 import { initMainUiRuntime } from './main-ui-runtime.js';
 import { initMainDevRuntime } from './main-dev-runtime.js';
-import { createPostFxRuntime } from './postfx-runtime.js';
 import { createMainSceneRuntime, prepareMainBootstrap } from './main-bootstrap.js';
 import { createMainFrameRuntime } from './main-frame-runtime.js';
+import { initMainPostFxRuntime } from './main-postfx-runtime.js';
 import {
     normalizeGraphicMode,
     syncGraphicModeQuery,
     setGraphicButtonState,
 } from './graphic-mode.js';
 import {
-    loadPostFxDeps,
-    loadFluidFactory,
-    loadLiquidFactory,
-} from './scene-module-loader.js';
-import {
     resolveIntentShiftTurnRange,
 } from './intent-timeline.js';
 import {
-    distortionParams,
-    fluidParams,
     intentMotionParams,
-    liquidParams,
-    quantumWaveParams,
-    toggles,
 } from './config.js';
 
 const DEV_MODE = new URLSearchParams(window.location.search).has('dev');
@@ -88,26 +76,12 @@ async function main() {
         setGraphicButtonState,
     });
 
-    const postFx = createPostFxBootstrap({
+    const { postFxRuntime } = initMainPostFxRuntime({
         renderer,
         scene,
         camera,
-        liquidParams,
-        loadPostFxDeps,
-        loadFluidFactory,
-        loadLiquidFactory,
+        isIntentScene,
     });
-    const postFxRuntime = createPostFxRuntime({
-        postFx,
-        renderer,
-        toggles,
-        distortionParams,
-        fluidParams,
-        liquidParams,
-        quantumWaveParams,
-    });
-
-    postFxRuntime.prewarm(isIntentScene());
 
     initMainUiRuntime({
         camera,
@@ -125,12 +99,6 @@ async function main() {
     initArticles({ lang: initialLang }).catch((error) => {
         console.warn('[articles] init failed:', error);
     });
-    attachResize({
-        camera,
-        renderer,
-        getComposer: () => postFx.getComposer(),
-    });
-
     const shiftTurnState = createIntentShiftTurnState({
         intentMotionParams,
         resolveIntentShiftTurnRange,
