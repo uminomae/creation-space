@@ -1,0 +1,35 @@
+[
+  {
+    "type": "page",
+    "title": "欠損駆動思考 - Kesson-Driven Thinking",
+    "title_ja": "欠損駆動思考 - Kesson-Driven Thinking",
+    "title_en": "Kesson-Driven Thinking",
+    "url": "https://uminomae.github.io/pjdhiro/thinking-kesson/",
+    "date": "2026-01-26T00:00:00+09:00",
+    "excerpt": "デザイン思考：私の場合：欠けを探す旅\"",
+    "excerpt_ja": "デザイン思考：私の場合：欠けを探す旅\"",
+    "excerpt_en": "Design thinking, in my own way: a journey to seek what is missing."
+  },
+  {
+    "type": "page",
+    "title": "対話：創造とは",
+    "title_ja": "対話：創造とは",
+    "title_en": "Dialogue: What Is Creation?",
+    "url": "https://uminomae.github.io/pjdhiro/dialogueCreation/",
+    "date": "2025-12-18T00:00:00+09:00",
+    "excerpt": "このページは進化中です。13年前の「渦」を束に変えてきました。",
+    "excerpt_ja": "このページは進化中です。13年前の「渦」を束に変えてきました。",
+    "excerpt_en": "This page is evolving. It gathers the 'vortex' from 13 years ago into a coherent bundle."
+  },
+  {
+    "type": "post",
+    "title": "スピノル場の理解のために民話をあててみる",
+    "title_ja": "スピノル場の理解のために民話をあててみる",
+    "title_en": "Applying Folk Tales to Understand Spinor Fields",
+    "url": "https://uminomae.github.io/pjdhiro/20250616baToMinwa/",
+    "date": "2025-06-17T19:30:31+09:00",
+    "excerpt": "回転の平方根が気になる。パウリにトライ。彼の心理はユングのせいで世界にダダ漏れ。そんな親近感。",
+    "excerpt_ja": "回転の平方根が気になる。パウリにトライ。彼の心理はユングのせいで世界にダダ漏れ。そんな親近感。",
+    "excerpt_en": "An exploration of the square root of rotation through Pauli, Jung, myth, and quaternions."
+  }
+]

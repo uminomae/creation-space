@@ -10,6 +10,18 @@ cd <your-local-path>/creation-space
 # then open http://localhost:3001/
 ```
 
+## Codex session bootstrap
+
+For Codex conversations targeting this repository, run this first:
+
+```bash
+node scripts/articles-en-semi-auto.mjs --mode check
+```
+
+Purpose:
+- detect new items from `https://uminomae.github.io/pjdhiro/api/creation-articles.json`
+- show pending EN cache fields (`title_en`, `excerpt_en`) before implementation work
+
 ## Embed API (for external pages)
 
 `src/graphics-entry.js` exports `createEmbeddedGraphic()` for mounting the graphics into a target element.
@@ -43,3 +55,17 @@ cd <your-local-path>/creation-space
 Notes:
 - Cross-site import requires CORS (`Access-Control-Allow-Origin`) on the script host.
 - This project uses ES Modules and bare specifier `three`, so host page must provide an import map (or bundler equivalent).
+
+## Articles EN semi-auto
+
+`assets/articles/articles.json` (EN cache) can be synced against the live API with:
+
+```bash
+node scripts/articles-en-semi-auto.mjs --mode check
+node scripts/articles-en-semi-auto.mjs --mode sync
+```
+
+Modes:
+- `check`: compare API vs local cache and print pending EN queue.
+- `sync`: update local cache with new/updated API items while preserving `title_en` / `excerpt_en`.
+- `routine`: same as `sync` and optionally posts a summary to GitHub issue (`--notify-issue`).

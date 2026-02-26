@@ -10,7 +10,6 @@ import { pxFromViewportHeight } from './nav/responsive.js';
 let _overlay;
 let _credit;
 let _controlGuide;
-let _langToggle;
 let _scrollHintBottom;
 let _scrollHintTop;
 let _surfaceBtn;
@@ -28,7 +27,6 @@ export function initScrollUI() {
     _overlay = document.getElementById('overlay');
     _credit = document.getElementById('credit');
     _controlGuide = document.getElementById('control-guide');
-    _langToggle = document.getElementById('lang-toggle');
     _scrollHintBottom = document.getElementById('scroll-hint');
     _scrollHintTop = document.getElementById('scroll-hint-top');
     _surfaceBtn = document.getElementById('surface-btn');
@@ -119,13 +117,7 @@ export function updateScrollUI(scrollProg, breathVal) {
         _controlGuide.style.opacity = topFade;
     }
 
-    // --- 言語トグル: credit と同じタイミングでフェードアウト ---
-    if (_langToggle) {
-        // lang-toggle.js が初期 opacity を CSS で 0.4 相当に設定しているため、
-        // scrollFade をそのまま掛け算する（0.4 * topFade が実効値）
-        _langToggle.style.opacity = topFade;
-        _langToggle.style.pointerEvents = topFade > 0.05 ? 'auto' : 'none';
-    }
+    // Language toggle is part of the fixed top navbar and must not follow scroll fade.
 
     // --- 下部 scroll hint: 最下部で非表示 ---
     if (_scrollHintBottom) {
