@@ -166,6 +166,7 @@ function saveSceneState(sceneVariant, state) {
 
 const STRINGS = {
     ja: {
+        documentTitle: '創造とは - Creation Space',
         title: '創造とは',
         subtitle: 'Creation Space',
         taglines: [
@@ -178,17 +179,26 @@ const STRINGS = {
         topbarDev: 'DEV',
         topbarArticles: 'ARTICLES',
         topbarBlog: 'BLOG',
+        topbarBlogAria: 'BLOG: 創造とは？',
         topbarCollab: 'AIとの協働で探索中',
+        graphicSwitcherAria: 'グラフィック切り替え',
+        graphicModeHoji: '保持',
+        graphicModeSinobi: '忍',
+        graphicModeIntent: '意',
         creditSignature: 'Project Designer: pjdhiro',
         articlesSectionHeading: 'ARTICLES',
+        articlesSectionHeadingAria: 'ARTICLES セクションへジャンプ',
         offcanvasArticlesTitle: 'ARTICLES',
         creationCardsHeading: 'CREATION CARDS',
         creationCardTitlePrefix: 'Card Slot',
         creationCardBody: '内容は後続指定',
+        surfaceButtonAria: 'ページ上部に戻る',
+        devVersionPrefix: '開発版 ver',
         langToggleLabel: 'English',
         langToggleAria: '言語を英語に切り替え',
     },
     en: {
+        documentTitle: 'What Is Creation - Creation Space',
         title: 'What Is Creation',
         subtitle: 'Creation Space',
         taglines: [
@@ -201,13 +211,21 @@ const STRINGS = {
         topbarDev: 'DEV',
         topbarArticles: 'ARTICLES',
         topbarBlog: 'BLOG',
+        topbarBlogAria: 'BLOG: What Is Creation?',
         topbarCollab: 'Exploring with AI collaboration',
+        graphicSwitcherAria: 'Switch graphics mode',
+        graphicModeHoji: 'Hold',
+        graphicModeSinobi: 'Shinobi',
+        graphicModeIntent: 'Intent',
         creditSignature: 'Project Designer: pjdhiro',
         articlesSectionHeading: 'ARTICLES',
+        articlesSectionHeadingAria: 'Jump to ARTICLES section',
         offcanvasArticlesTitle: 'ARTICLES',
         creationCardsHeading: 'CREATION CARDS',
         creationCardTitlePrefix: 'Card Slot',
         creationCardBody: 'content to be specified',
+        surfaceButtonAria: 'Back to top',
+        devVersionPrefix: 'Dev ver',
         langToggleLabel: '日本語',
         langToggleAria: 'Switch language to Japanese',
     },
@@ -277,6 +295,11 @@ function applyPageLanguage(lang) {
     const offcanvasArticlesTitle = document.getElementById('offcanvas-articles-title');
     const creationCardsHeading = document.getElementById('creation-cards-heading');
     const langToggle = document.getElementById('lang-toggle');
+    const graphicSwitcher = document.getElementById('graphic-switcher');
+    const graphicHojiButton = document.querySelector('[data-graphic-mode="hoji"]');
+    const graphicSinobiButton = document.querySelector('[data-graphic-mode="sinobi"]');
+    const graphicIntentButton = document.querySelector('[data-graphic-mode="i"]');
+    const surfaceButton = document.getElementById('surface-btn');
 
     if (titleH1) titleH1.textContent = strings.title;
     if (titleSub) titleSub.textContent = strings.subtitle;
@@ -285,12 +308,23 @@ function applyPageLanguage(lang) {
     if (topbarHomeLink) topbarHomeLink.textContent = strings.topbarHome;
     if (topbarDevLink) topbarDevLink.textContent = strings.topbarDev;
     if (topbarArticlesBtn) topbarArticlesBtn.textContent = strings.topbarArticles;
-    if (topbarBlogLink) topbarBlogLink.textContent = strings.topbarBlog;
+    if (topbarBlogLink) {
+        topbarBlogLink.textContent = strings.topbarBlog;
+        topbarBlogLink.setAttribute('aria-label', strings.topbarBlogAria);
+    }
     if (topbarCollab) topbarCollab.textContent = strings.topbarCollab;
     if (footerSignature) footerSignature.textContent = strings.creditSignature;
-    if (articlesSectionHeading) articlesSectionHeading.textContent = strings.articlesSectionHeading;
+    if (articlesSectionHeading) {
+        articlesSectionHeading.textContent = strings.articlesSectionHeading;
+        articlesSectionHeading.setAttribute('aria-label', strings.articlesSectionHeadingAria);
+    }
     if (offcanvasArticlesTitle) offcanvasArticlesTitle.textContent = strings.offcanvasArticlesTitle;
     if (creationCardsHeading) creationCardsHeading.textContent = strings.creationCardsHeading;
+    if (graphicSwitcher) graphicSwitcher.setAttribute('aria-label', strings.graphicSwitcherAria);
+    if (graphicHojiButton) graphicHojiButton.textContent = strings.graphicModeHoji;
+    if (graphicSinobiButton) graphicSinobiButton.textContent = strings.graphicModeSinobi;
+    if (graphicIntentButton) graphicIntentButton.textContent = strings.graphicModeIntent;
+    if (surfaceButton) surfaceButton.setAttribute('aria-label', strings.surfaceButtonAria);
     if (langToggle) {
         langToggle.textContent = strings.langToggleLabel;
         langToggle.setAttribute('aria-label', strings.langToggleAria);
@@ -315,6 +349,12 @@ function applyPageLanguage(lang) {
     }
 
     document.documentElement.lang = lang;
+    document.title = strings.documentTitle;
+    if (DEV_MODE) {
+        initDevVersionBadge(lang);
+    } else {
+        initInlineVersionLabel(lang);
+    }
 }
 
 function normalizeLang(lang) {
@@ -443,20 +483,27 @@ function attachResize({ camera, renderer, getComposer }) {
     window.addEventListener('resize', onResize);
 }
 
-function initDevVersionBadge() {
+function formatDevVersionLabel(lang, queryVersion = null) {
+    const resolvedLang = normalizeLang(lang);
+    const strings = STRINGS[resolvedLang] || STRINGS.ja;
+    const prefix = strings.devVersionPrefix;
+    return queryVersion
+        ? `${prefix} ${DEV_VERSION} · ${queryVersion}`
+        : `${prefix} ${DEV_VERSION}`;
+}
+
+function initDevVersionBadge(lang = null) {
     const label = document.getElementById('dev-version-inline');
     if (!label) return;
     const params = new URLSearchParams(window.location.search);
     const queryVersion = params.get('ver');
-    label.textContent = queryVersion
-        ? `開発版 ver ${DEV_VERSION} · ${queryVersion}`
-        : `開発版 ver ${DEV_VERSION}`;
+    label.textContent = formatDevVersionLabel(lang ?? document.documentElement.lang, queryVersion);
 }
 
-function initInlineVersionLabel() {
+function initInlineVersionLabel(lang = null) {
     const label = document.getElementById('dev-version-inline');
     if (!label) return;
-    label.textContent = `開発版 ver ${DEV_VERSION}`;
+    label.textContent = formatDevVersionLabel(lang ?? document.documentElement.lang);
 }
 
 function initIntentTimelineHud({
