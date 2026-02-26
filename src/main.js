@@ -19,6 +19,21 @@ import { initArticles, setArticlesLanguage } from './articles.js';
 import { applyConfigState, cloneConfigState } from './config-state.js';
 import { applyScenePreset, getScenePresetVersion, resolveSceneVariant } from './scene-presets.js';
 import { DEV_VERSION } from './version.js';
+import { createSceneStateStore } from './dev-scene-state.js';
+import { installStartupErrorHandlers, showStartupErrorOverlay } from './startup-error-overlay.js';
+import { applyPageLanguage, initLanguageToggle } from './page-language.js';
+import {
+    normalizeGraphicMode,
+    syncGraphicModeQuery,
+    setGraphicButtonState,
+    initGraphicModeButtons,
+} from './graphic-mode.js';
+import {
+    loadSceneModule,
+    loadPostFxDeps,
+    loadFluidFactory,
+    loadLiquidFactory,
+} from './scene-module-loader.js';
 import {
     computeIntentRuntimeTimeline,
     resolveIntentLoopAnchorSecForContinuity,
@@ -38,347 +53,19 @@ import {
     sceneParams,
     toggles,
 } from './config.js';
-import { detectLang } from './i18n.js';
+import { detectLang, normalizeLang } from './i18n.js';
 
 const DEV_MODE = new URLSearchParams(window.location.search).has('dev');
 const DEV_PANEL_STATE_PERSIST = new URLSearchParams(window.location.search).get('devstate') === 'persist';
 const CAPTURE_ENABLE_MAX_DELTA_SEC = 0.3;
 let devStatsBegin = () => {};
 let devStatsEnd = () => {};
-const GRAPHIC_MODE_DEFAULT = 'hoji';
-const GRAPHIC_MODE_OPTIONS = new Set(['hoji', 'sinobi', 'i']);
-const DEV_PANEL_STATE_STORAGE_PREFIX = 'creation-dev-panel-state-v1';
-
-function formatStartupError(errorLike) {
-    if (!errorLike) return 'Unknown startup error';
-    if (typeof errorLike === 'string') return errorLike;
-    if (errorLike instanceof Error) {
-        return errorLike.stack || `${errorLike.name}: ${errorLike.message}`;
-    }
-    try {
-        return JSON.stringify(errorLike, null, 2);
-    } catch {
-        return String(errorLike);
-    }
-}
-
-function showStartupErrorOverlay(errorLike) {
-    const doc = window.document;
-    if (!doc) return;
-    const message = formatStartupError(errorLike);
-    let overlay = doc.getElementById('app-startup-error-overlay');
-    if (!overlay) {
-        overlay = doc.createElement('pre');
-        overlay.id = 'app-startup-error-overlay';
-        overlay.style.position = 'fixed';
-        overlay.style.top = '0';
-        overlay.style.left = '0';
-        overlay.style.right = '0';
-        overlay.style.maxHeight = '55vh';
-        overlay.style.margin = '0';
-        overlay.style.padding = '12px 14px';
-        overlay.style.zIndex = '99999';
-        overlay.style.overflow = 'auto';
-        overlay.style.whiteSpace = 'pre-wrap';
-        overlay.style.fontFamily = 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
-        overlay.style.fontSize = '12px';
-        overlay.style.lineHeight = '1.45';
-        overlay.style.background = 'rgba(31, 9, 13, 0.95)';
-        overlay.style.color = '#ffd5db';
-        overlay.style.borderBottom = '1px solid rgba(255, 173, 186, 0.42)';
-        const parent = doc.body || doc.documentElement;
-        if (parent) parent.appendChild(overlay);
-    }
-    overlay.textContent = `[startup-error]\n${message}`;
-}
-
-window.addEventListener('error', (event) => {
-    const value = event?.error || event?.message || event;
-    showStartupErrorOverlay(value);
+const sceneStateStore = createSceneStateStore({
+    enabled: DEV_PANEL_STATE_PERSIST,
+    getPresetVersion: getScenePresetVersion,
 });
 
-window.addEventListener('unhandledrejection', (event) => {
-    showStartupErrorOverlay(event?.reason || event);
-});
-
-function getSceneStateStorageKey(sceneVariant) {
-    return `${DEV_PANEL_STATE_STORAGE_PREFIX}:${sceneVariant}`;
-}
-
-function loadSceneState(sceneVariant) {
-    if (!DEV_PANEL_STATE_PERSIST) return null;
-    let storage;
-    try {
-        storage = window.localStorage;
-    } catch (error) {
-        return null;
-    }
-    if (!storage) return null;
-
-    try {
-        const raw = storage.getItem(getSceneStateStorageKey(sceneVariant));
-        if (!raw) return null;
-        const parsed = JSON.parse(raw);
-        if (!parsed || typeof parsed !== 'object') return null;
-
-        const expectedPresetVersion = getScenePresetVersion(sceneVariant);
-        const statePayload = parsed.state;
-        const presetVersion = parsed.presetVersion;
-
-        if (
-            typeof presetVersion === 'string' &&
-            presetVersion === expectedPresetVersion &&
-            statePayload &&
-            typeof statePayload === 'object'
-        ) {
-            return statePayload;
-        }
-
-        // Drop legacy or stale state so current scene defaults become effective.
-        storage.removeItem(getSceneStateStorageKey(sceneVariant));
-        return null;
-    } catch (error) {
-        console.warn('[dev-panel] failed to load scene state:', error);
-        return null;
-    }
-}
-
-function saveSceneState(sceneVariant, state) {
-    if (!DEV_PANEL_STATE_PERSIST) return;
-    if (!state || typeof state !== 'object') return;
-    let storage;
-    try {
-        storage = window.localStorage;
-    } catch (error) {
-        return;
-    }
-    if (!storage) return;
-
-    try {
-        const payload = {
-            presetVersion: getScenePresetVersion(sceneVariant),
-            state,
-        };
-        storage.setItem(getSceneStateStorageKey(sceneVariant), JSON.stringify(payload));
-    } catch (error) {
-        console.warn('[dev-panel] failed to save scene state:', error);
-    }
-}
-
-const STRINGS = {
-    ja: {
-        documentTitle: '創造とは - Creation Space',
-        title: '創造とは',
-        subtitle: 'Creation Space',
-        taglines: [
-            '関係し合う欠片が、まだ名前を持たない輪郭を生む。',
-            '観測と選択のあいだで、創造は静かに立ち上がる。',
-        ],
-        topbarMainTitle: '創造とは',
-        topbarSubtitle: 'Creation Space',
-        topbarHome: 'kesson-driven',
-        topbarDev: 'DEV',
-        topbarArticles: 'ARTICLES',
-        topbarBlog: 'BLOG',
-        topbarBlogAria: 'BLOG: 創造とは？',
-        topbarCollab: 'AIとの協働で探索中',
-        graphicSwitcherAria: 'グラフィック切り替え',
-        graphicModeHoji: '保持',
-        graphicModeSinobi: '忍',
-        graphicModeIntent: '意',
-        creditSignature: 'Project Designer: pjdhiro',
-        articlesSectionHeading: 'ARTICLES',
-        articlesSectionHeadingAria: 'ARTICLES セクションへジャンプ',
-        offcanvasArticlesTitle: 'ARTICLES',
-        leftKessonLinkLabel: '欠損駆動思考',
-        leftKessonLinkAria: 'kesson-spaceへ移動',
-        surfaceButtonAria: 'ページ上部に戻る',
-        devVersionPrefix: '開発版 ver',
-        langToggleLabel: 'English',
-        langToggleAria: '言語を英語に切り替え',
-    },
-    en: {
-        documentTitle: 'What Is Creation - Creation Space',
-        title: 'What Is Creation',
-        subtitle: 'Creation Space',
-        taglines: [
-            'Fragments in relation generate forms before they are named.',
-            'Creation rises quietly between observation and choice.',
-        ],
-        topbarMainTitle: 'What Is Creation',
-        topbarSubtitle: 'Creation Space',
-        topbarHome: 'kesson-driven',
-        topbarDev: 'DEV',
-        topbarArticles: 'ARTICLES',
-        topbarBlog: 'BLOG',
-        topbarBlogAria: 'BLOG: What Is Creation?',
-        topbarCollab: 'Exploring with AI collaboration',
-        graphicSwitcherAria: 'Switch graphics mode',
-        graphicModeHoji: 'Hold',
-        graphicModeSinobi: 'Shinobi',
-        graphicModeIntent: 'Intent',
-        creditSignature: 'Project Designer: pjdhiro',
-        articlesSectionHeading: 'ARTICLES',
-        articlesSectionHeadingAria: 'Jump to ARTICLES section',
-        offcanvasArticlesTitle: 'ARTICLES',
-        leftKessonLinkLabel: 'kesson-driven',
-        leftKessonLinkAria: 'Go to kesson-space',
-        surfaceButtonAria: 'Back to top',
-        devVersionPrefix: 'Dev ver',
-        langToggleLabel: '日本語',
-        langToggleAria: 'Switch language to Japanese',
-    },
-};
-
-async function loadSceneModule(sceneVariant) {
-    if (sceneVariant === 'intent') {
-        return import('./scene-intent.js');
-    }
-    if (sceneVariant === 'wabi') {
-        return import('./scene.js');
-    }
-    return import('./scene-hold.js');
-}
-
-let postFxDepsPromise = null;
-let fluidFactoryPromise = null;
-let liquidFactoryPromise = null;
-
-function loadPostFxDeps() {
-    if (!postFxDepsPromise) {
-        postFxDepsPromise = Promise.all([
-            import('three/addons/postprocessing/EffectComposer.js'),
-            import('three/addons/postprocessing/RenderPass.js'),
-            import('three/addons/postprocessing/ShaderPass.js'),
-            import('./shaders/distortion-pass.js'),
-        ]).then(([composerModule, renderPassModule, shaderPassModule, distortionModule]) => ({
-            EffectComposer: composerModule.EffectComposer,
-            RenderPass: renderPassModule.RenderPass,
-            ShaderPass: shaderPassModule.ShaderPass,
-            DistortionShader: distortionModule.DistortionShader,
-            CameraDofShader: distortionModule.CameraDofShader,
-        }));
-    }
-    return postFxDepsPromise;
-}
-
-function loadFluidFactory() {
-    if (!fluidFactoryPromise) {
-        fluidFactoryPromise = import('./shaders/fluid-field.js').then((module) => module.createFluidSystem);
-    }
-    return fluidFactoryPromise;
-}
-
-function loadLiquidFactory() {
-    if (!liquidFactoryPromise) {
-        liquidFactoryPromise = import('./shaders/liquid.js').then((module) => module.createLiquidSystem);
-    }
-    return liquidFactoryPromise;
-}
-
-function applyPageLanguage(lang) {
-    const strings = STRINGS[lang] || STRINGS.ja;
-
-    const titleH1 = document.getElementById('title-h1');
-    const titleSub = document.getElementById('title-sub');
-    const taglineContainer = document.getElementById('taglines');
-    const topbarMainTitle = document.getElementById('topbar-main-title');
-    const topbarSubtitle = document.getElementById('topbar-subtitle');
-    const topbarHomeLink = document.getElementById('topbar-home-link');
-    const topbarDevLink = document.getElementById('topbar-dev-link');
-    const topbarArticlesBtn = document.getElementById('topbar-articles-btn');
-    const topbarBlogLink = document.getElementById('topbar-blog-link');
-    const topbarCollab = document.getElementById('credit-collab');
-    const footerSignature = document.getElementById('footer-signature');
-    const articlesSectionHeading = document.getElementById('articles-section-heading');
-    const offcanvasArticlesTitle = document.getElementById('offcanvas-articles-title');
-    const leftKessonLink = document.getElementById('left-kesson-link');
-    const leftKessonLinkLabel = document.getElementById('left-kesson-link-label');
-    const langToggle = document.getElementById('lang-toggle');
-    const graphicSwitcher = document.getElementById('graphic-switcher');
-    const graphicHojiButton = document.querySelector('[data-graphic-mode="hoji"]');
-    const graphicSinobiButton = document.querySelector('[data-graphic-mode="sinobi"]');
-    const graphicIntentButton = document.querySelector('[data-graphic-mode="i"]');
-    const surfaceButton = document.getElementById('surface-btn');
-
-    if (titleH1) titleH1.textContent = strings.title;
-    if (titleSub) titleSub.textContent = strings.subtitle;
-    if (topbarMainTitle) topbarMainTitle.textContent = strings.topbarMainTitle;
-    if (topbarSubtitle) topbarSubtitle.textContent = strings.topbarSubtitle;
-    if (topbarHomeLink) topbarHomeLink.textContent = strings.topbarHome;
-    if (topbarDevLink) topbarDevLink.textContent = strings.topbarDev;
-    if (topbarArticlesBtn) topbarArticlesBtn.textContent = strings.topbarArticles;
-    if (topbarBlogLink) {
-        topbarBlogLink.textContent = strings.topbarBlog;
-        topbarBlogLink.setAttribute('aria-label', strings.topbarBlogAria);
-    }
-    if (topbarCollab) topbarCollab.textContent = strings.topbarCollab;
-    if (footerSignature) footerSignature.textContent = strings.creditSignature;
-    if (articlesSectionHeading) {
-        articlesSectionHeading.textContent = strings.articlesSectionHeading;
-        articlesSectionHeading.setAttribute('aria-label', strings.articlesSectionHeadingAria);
-    }
-    if (offcanvasArticlesTitle) offcanvasArticlesTitle.textContent = strings.offcanvasArticlesTitle;
-    if (leftKessonLinkLabel) leftKessonLinkLabel.textContent = strings.leftKessonLinkLabel;
-    if (leftKessonLink) leftKessonLink.setAttribute('aria-label', strings.leftKessonLinkAria);
-    if (graphicSwitcher) graphicSwitcher.setAttribute('aria-label', strings.graphicSwitcherAria);
-    if (graphicHojiButton) graphicHojiButton.textContent = strings.graphicModeHoji;
-    if (graphicSinobiButton) graphicSinobiButton.textContent = strings.graphicModeSinobi;
-    if (graphicIntentButton) graphicIntentButton.textContent = strings.graphicModeIntent;
-    if (surfaceButton) surfaceButton.setAttribute('aria-label', strings.surfaceButtonAria);
-    if (langToggle) {
-        langToggle.textContent = strings.langToggleLabel;
-        langToggle.setAttribute('aria-label', strings.langToggleAria);
-    }
-
-    if (taglineContainer) {
-        taglineContainer.innerHTML = '';
-        const isEn = lang === 'en';
-        strings.taglines.forEach((text) => {
-            const p = document.createElement('p');
-            p.className = isEn ? 'tagline-en' : 'tagline';
-            p.textContent = text;
-            taglineContainer.appendChild(p);
-        });
-    }
-
-    document.documentElement.lang = lang;
-    document.title = strings.documentTitle;
-    if (DEV_MODE) {
-        initDevVersionBadge(lang);
-    } else {
-        initInlineVersionLabel(lang);
-    }
-}
-
-function normalizeLang(lang) {
-    return lang === 'en' ? 'en' : 'ja';
-}
-
-function syncLangQuery(lang) {
-    if (!window.history?.replaceState) return;
-    const url = new URL(window.location.href);
-    if (lang === 'en') {
-        url.searchParams.set('lang', 'en');
-    } else {
-        url.searchParams.delete('lang');
-    }
-    window.history.replaceState(window.history.state, '', url.toString());
-}
-
-function initLanguageToggle(initialLang) {
-    const langToggle = document.getElementById('lang-toggle');
-    if (!langToggle) return;
-
-    let currentLang = normalizeLang(initialLang);
-    langToggle.addEventListener('click', () => {
-        currentLang = currentLang === 'ja' ? 'en' : 'ja';
-        syncLangQuery(currentLang);
-        applyPageLanguage(currentLang);
-        refreshGuideLang();
-        setArticlesLanguage(currentLang);
-    });
-}
+installStartupErrorHandlers();
 
 function initMobileNavAutoCollapse() {
     const nav = document.getElementById('kessonTopbarNav');
@@ -391,42 +78,6 @@ function initMobileNavAutoCollapse() {
             if (!collapseApi) return;
             const collapse = collapseApi.getOrCreateInstance(nav, { toggle: false });
             collapse.hide();
-        });
-    });
-}
-
-function normalizeGraphicMode(mode) {
-    if (mode === 'hold') return 'hoji';
-    if (mode === 'wabi') return 'sinobi';
-    if (mode === 'intent') return 'i';
-    return GRAPHIC_MODE_OPTIONS.has(mode) ? mode : GRAPHIC_MODE_DEFAULT;
-}
-
-function syncGraphicModeQuery(mode) {
-    if (!window.history?.replaceState) return;
-    const url = new URL(window.location.href);
-    url.searchParams.set('graphic', mode);
-    window.history.replaceState(window.history.state, '', url.toString());
-}
-
-function setGraphicButtonState(mode) {
-    document.querySelectorAll('[data-graphic-mode]').forEach((button) => {
-        if (!(button instanceof HTMLButtonElement)) return;
-        const isActive = normalizeGraphicMode(button.dataset.graphicMode) === mode;
-        button.classList.toggle('active', isActive);
-        button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-    });
-}
-
-function initGraphicModeButtons(initialMode, onChange) {
-    setGraphicButtonState(initialMode);
-
-    document.querySelectorAll('[data-graphic-mode]').forEach((button) => {
-        if (!(button instanceof HTMLButtonElement)) return;
-        button.addEventListener('click', () => {
-            const nextMode = normalizeGraphicMode(button.dataset.graphicMode);
-            setGraphicButtonState(nextMode);
-            onChange(nextMode);
         });
     });
 }
@@ -475,29 +126,6 @@ function attachResize({ camera, renderer, getComposer }) {
         }
     }
     window.addEventListener('resize', onResize);
-}
-
-function formatDevVersionLabel(lang, queryVersion = null) {
-    const resolvedLang = normalizeLang(lang);
-    const strings = STRINGS[resolvedLang] || STRINGS.ja;
-    const prefix = strings.devVersionPrefix;
-    return queryVersion
-        ? `${prefix} ${DEV_VERSION} · ${queryVersion}`
-        : `${prefix} ${DEV_VERSION}`;
-}
-
-function initDevVersionBadge(lang = null) {
-    const label = document.getElementById('dev-version-inline');
-    if (!label) return;
-    const params = new URLSearchParams(window.location.search);
-    const queryVersion = params.get('ver');
-    label.textContent = formatDevVersionLabel(lang ?? document.documentElement.lang, queryVersion);
-}
-
-function initInlineVersionLabel(lang = null) {
-    const label = document.getElementById('dev-version-inline');
-    if (!label) return;
-    label.textContent = formatDevVersionLabel(lang ?? document.documentElement.lang);
 }
 
 function initIntentTimelineHud({
@@ -681,12 +309,11 @@ async function main() {
     const initialGraphicMode = normalizeGraphicMode(new URLSearchParams(window.location.search).get('graphic'));
     const initialSceneVariant = resolveSceneVariant(initialGraphicMode);
     applyScenePreset(initialSceneVariant);
-    const initialSceneState = loadSceneState(initialSceneVariant);
+    const initialSceneState = sceneStateStore.load(initialSceneVariant);
     if (initialSceneState) {
         applyConfigState(initialSceneState);
     }
-    applyPageLanguage(initialLang);
-    initInlineVersionLabel();
+    applyPageLanguage(initialLang, { devMode: DEV_MODE, devVersion: DEV_VERSION });
     initMouseTracking();
 
     const container = document.getElementById('canvas-container');
@@ -704,7 +331,7 @@ async function main() {
         const normalizedMode = normalizeGraphicMode(nextMode);
         const nextSceneVariant = resolveSceneVariant(normalizedMode);
         if (nextSceneVariant !== active3dSceneVariant) {
-            saveSceneState(active3dSceneVariant, cloneConfigState());
+            sceneStateStore.save(active3dSceneVariant, cloneConfigState());
             if (shouldSyncQuery) {
                 syncGraphicModeQuery(normalizedMode);
             }
@@ -844,7 +471,11 @@ async function main() {
         getTargets: getCreationLinkTargetMeshes,
     });
     initScrollUI();
-    initLanguageToggle(initialLang);
+    initLanguageToggle(initialLang, (currentLang) => {
+        applyPageLanguage(currentLang, { devMode: DEV_MODE, devVersion: DEV_VERSION });
+        refreshGuideLang();
+        setArticlesLanguage(currentLang);
+    });
     initMobileNavAutoCollapse();
     initGraphicModeButtons(initialGraphicMode, (nextMode) => {
         applyGraphicMode(nextMode);
@@ -860,7 +491,6 @@ async function main() {
     });
 
     if (DEV_MODE) {
-        initDevVersionBadge();
         import('./dev-links-panel.js').then(({ initDevLinksPanel }) => {
             initDevLinksPanel();
         }).catch((err) => {
@@ -891,7 +521,7 @@ async function main() {
                 syncShiftTurnRangeFromPanel();
             },
             onStateSnapshot: (state) => {
-                saveSceneState(active3dSceneVariant, state);
+                sceneStateStore.save(active3dSceneVariant, state);
             },
         });
     }
@@ -942,14 +572,14 @@ async function main() {
             // Keep Shift turn range controlled by config/dev panel.
             // Do not silently overwrite start/end when timeline is jumped.
             markLoopAnchorDirty();
-            saveSceneState(active3dSceneVariant, cloneConfigState());
+            sceneStateStore.save(active3dSceneVariant, cloneConfigState());
         },
         onApplySecNow: (targetElapsedSec) => {
             const nowSec = clock.getElapsedTime();
             intentMotionParams.startTimingMin = solveStartTimingMinForElapsedSecNow(targetElapsedSec, nowSec, intentMotionParams);
             // Keep Shift turn range controlled by config/dev panel.
             markLoopAnchorDirty();
-            saveSceneState(active3dSceneVariant, cloneConfigState());
+            sceneStateStore.save(active3dSceneVariant, cloneConfigState());
         },
         onShiftSec: (deltaSec) => {
             const nowSec = clock.getElapsedTime();
@@ -961,7 +591,7 @@ async function main() {
             const targetElapsedSec = resolveIntentShiftTurnElapsedSecByPathSec(nextPathSec, range);
             intentMotionParams.startTimingMin = solveStartTimingMinForElapsedSecNow(targetElapsedSec, nowSec, intentMotionParams);
             markLoopAnchorDirty();
-            saveSceneState(active3dSceneVariant, cloneConfigState());
+            sceneStateStore.save(active3dSceneVariant, cloneConfigState());
         },
         onCaptureLoopStart: () => {
             const nowSec = clock.getElapsedTime();
@@ -969,7 +599,7 @@ async function main() {
             capturedLoopStartShaderSec = runtime.shaderTimeSec;
             const orbitSec = runtime.loopOrbitSec;
             intentMotionParams.loopAnchorSec = capturedLoopStartShaderSec - orbitSec;
-            saveSceneState(active3dSceneVariant, cloneConfigState());
+            sceneStateStore.save(active3dSceneVariant, cloneConfigState());
         },
         onEnableSeamlessLoop: () => {
             const nowSec = clock.getElapsedTime();
@@ -987,14 +617,14 @@ async function main() {
                 intentMotionParams.loopAnchorSec = resolveIntentLoopAnchorSecForContinuity(nowSec, intentMotionParams);
             }
             intentMotionParams.seamlessLoop = true;
-            saveSceneState(active3dSceneVariant, cloneConfigState());
+            sceneStateStore.save(active3dSceneVariant, cloneConfigState());
         },
         onDisableSeamlessLoop: () => {
             const nowSec = clock.getElapsedTime();
             intentMotionParams.startTimingMin = resolveIntentStartTimingMinForRawContinuity(nowSec, intentMotionParams);
             intentMotionParams.seamlessLoop = false;
             markLoopAnchorDirty();
-            saveSceneState(active3dSceneVariant, cloneConfigState());
+            sceneStateStore.save(active3dSceneVariant, cloneConfigState());
         },
     }) : null;
 

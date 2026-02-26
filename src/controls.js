@@ -48,7 +48,6 @@ let _manualAngle = 0;           // ユーザー操作による回転オフセッ
 let _zoomFactor = 1.0;          // 軌道半径の倍率
 
 // --- タッチ状態 ---
-let _touchStartX = 0;
 let _lastTouchX = 0;
 let _lastPinchDist = 0;
 let _activeTouches = 0;
@@ -124,7 +123,6 @@ function onTouchStart(e) {
     _rotateVelocity = 0; // 慣性停止
 
     if (e.touches.length === 1) {
-        _touchStartX = e.touches[0].clientX;
         _lastTouchX = e.touches[0].clientX;
     } else if (e.touches.length === 2) {
         _lastPinchDist = getPinchDistance(e.touches);
@@ -166,7 +164,7 @@ function onTouchEnd(e) {
 function getPinchDistance(touches) {
     const dx = touches[0].clientX - touches[1].clientX;
     const dy = touches[0].clientY - touches[1].clientY;
-    return Math.sqrt(dx * dx + dy * dy);
+    return Math.hypot(dx, dy);
 }
 
 // =============================
