@@ -1,10 +1,5 @@
 import * as THREE from 'three';
 
-import {
-    setCameraPosition,
-    setCameraTarget,
-} from './controls.js';
-import { initDevAuxTools, initDevPanelRuntime } from './dev-runtime.js';
 import { initArticles, setArticlesLanguage } from './articles.js';
 import { createIntentShiftTurnState } from './intent-shift-turn-state.js';
 import { createIntentTimelineRuntime } from './intent-timeline-runtime.js';
@@ -17,6 +12,7 @@ import { DEV_VERSION } from './version.js';
 import { createSceneStateStore } from './dev-scene-state.js';
 import { installStartupErrorHandlers, showStartupErrorOverlay } from './startup-error-overlay.js';
 import { initMainUiRuntime } from './main-ui-runtime.js';
+import { initMainDevRuntime } from './main-dev-runtime.js';
 import { createPostFxRuntime } from './postfx-runtime.js';
 import { createMainSceneRuntime, prepareMainBootstrap } from './main-bootstrap.js';
 import { createMainFrameRuntime } from './main-frame-runtime.js';
@@ -141,29 +137,16 @@ async function main() {
     });
     shiftTurnState.syncFromParams();
 
-    if (DEV_MODE) {
-        initDevAuxTools({
-            setStatsHandlers: (statsBegin, statsEnd) => {
-                devStatsBegin = statsBegin;
-                devStatsEnd = statsEnd;
-            },
-        });
-    }
-
-    if (DEV_MODE) {
-        initDevPanelRuntime({
-            sceneVariant: active3dSceneVariant,
-            sceneParams,
-            setCameraPosition,
-            setCameraTarget,
-            onSyncShiftTurn: () => {
-                shiftTurnState.syncFromParams();
-            },
-            onStateSnapshot: (state) => {
-                sceneStateStore.save(active3dSceneVariant, state);
-            },
-        });
-    }
+    initMainDevRuntime({
+        devMode: DEV_MODE,
+        getSceneVariant: () => active3dSceneVariant,
+        shiftTurnState,
+        sceneStateStore,
+        setStatsHandlers: (statsBegin, statsEnd) => {
+            devStatsBegin = statsBegin;
+            devStatsEnd = statsEnd;
+        },
+    });
 
     const clock = new THREE.Clock();
     const intentTimelineRuntime = createIntentTimelineRuntime({
