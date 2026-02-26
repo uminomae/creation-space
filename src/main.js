@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 
-import { initArticles, setArticlesLanguage } from './articles.js';
 import { createIntentShiftTurnState } from './intent-shift-turn-state.js';
 import { createIntentTimelineRuntime } from './intent-timeline-runtime.js';
 import { createGraphicModeApplier } from './graphic-mode-apply.js';
@@ -9,9 +8,9 @@ import { getScenePresetVersion, resolveSceneVariant } from './scene-presets.js';
 import { DEV_VERSION } from './version.js';
 import { createSceneStateStore } from './dev-scene-state.js';
 import { installStartupErrorHandlers, showStartupErrorOverlay } from './startup-error-overlay.js';
-import { initMainUiRuntime } from './main-ui-runtime.js';
 import { initMainDevRuntime } from './main-dev-runtime.js';
 import { createMainSceneRuntime, prepareMainBootstrap } from './main-bootstrap.js';
+import { initMainContentRuntime } from './main-content-runtime.js';
 import { createMainFrameRuntime } from './main-frame-runtime.js';
 import { initMainPostFxRuntime } from './main-postfx-runtime.js';
 import {
@@ -83,7 +82,7 @@ async function main() {
         isIntentScene,
     });
 
-    initMainUiRuntime({
+    initMainContentRuntime({
         camera,
         container,
         renderer,
@@ -93,11 +92,6 @@ async function main() {
         applyGraphicMode,
         devMode: DEV_MODE,
         devVersion: DEV_VERSION,
-        setArticlesLanguage,
-    });
-    applyGraphicMode(initialGraphicMode, { shouldSyncQuery: false });
-    initArticles({ lang: initialLang }).catch((error) => {
-        console.warn('[articles] init failed:', error);
     });
     const shiftTurnState = createIntentShiftTurnState({
         intentMotionParams,
