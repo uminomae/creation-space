@@ -18,6 +18,7 @@ import { initCreationLinkInteractions } from './creation-link-interactions.js';
 import { initArticles, setArticlesLanguage } from './articles.js';
 import { initIntentTimelineHud } from './intent-timeline-hud.js';
 import { createPostFxBootstrap } from './postfx-bootstrap.js';
+import { createGraphicModeApplier } from './graphic-mode-apply.js';
 import { initMobileNavAutoCollapse } from './topbar-nav.js';
 import { attachResize } from './render-resize.js';
 import { applyConfigState, cloneConfigState } from './config-state.js';
@@ -95,24 +96,16 @@ async function main() {
     let active3dSceneVariant = initialSceneVariant;
     const isIntentScene = () => active3dSceneVariant === 'intent';
 
-    function applyGraphicMode(nextMode, { shouldSyncQuery = true } = {}) {
-        const normalizedMode = normalizeGraphicMode(nextMode);
-        const nextSceneVariant = resolveSceneVariant(normalizedMode);
-        if (nextSceneVariant !== active3dSceneVariant) {
-            sceneStateStore.save(active3dSceneVariant, cloneConfigState());
-            if (shouldSyncQuery) {
-                syncGraphicModeQuery(normalizedMode);
-            }
-            window.location.reload();
-            return;
-        }
-
-        setGraphicButtonState(normalizedMode);
-
-        if (shouldSyncQuery) {
-            syncGraphicModeQuery(normalizedMode);
-        }
-    }
+    const applyGraphicMode = createGraphicModeApplier({
+        getActiveSceneVariant: () => active3dSceneVariant,
+        normalizeGraphicMode,
+        resolveSceneVariant,
+        saveSceneState: (sceneVariant) => {
+            sceneStateStore.save(sceneVariant, cloneConfigState());
+        },
+        syncGraphicModeQuery,
+        setGraphicButtonState,
+    });
 
     const createLiquidRenderTarget = () => new THREE.WebGLRenderTarget(liquidParams.textureSize, liquidParams.textureSize, {
         minFilter: THREE.LinearFilter,
