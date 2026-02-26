@@ -4,6 +4,9 @@ const ARTICLES_DATA_URLS = [
     '../kesson-space/assets/page-links.json',
     './assets/page-links.json',
 ];
+const ARTICLES_I18N_CACHE_URLS = [
+    './assets/articles/articles.json',
+];
 
 const INITIAL_DISPLAY = 3;
 
@@ -247,6 +250,40 @@ function resolveArticleEntries(data) {
     };
 }
 
+function normalizeArticlesFromData(data) {
+    const { basePath, entries } = resolveArticleEntries(data);
+    return entries.map(([key, item]) => normalizeArticle(key, item, basePath));
+}
+
+function mergeArticleI18nFromCache(primaryArticles, cacheArticles) {
+    if (!Array.isArray(primaryArticles) || !Array.isArray(cacheArticles) || !cacheArticles.length) {
+        return primaryArticles;
+    }
+
+    const cacheByUrl = new Map();
+    cacheArticles.forEach((article) => {
+        const key = sanitizeHttpUrl(article.url, '');
+        if (key) cacheByUrl.set(key, article.raw || {});
+    });
+
+    return primaryArticles.map((article) => {
+        const key = sanitizeHttpUrl(article.url, '');
+        const cached = key ? cacheByUrl.get(key) : null;
+        if (!cached || typeof cached !== 'object') return article;
+
+        return {
+            ...article,
+            raw: {
+                ...article.raw,
+                title_ja: article.raw?.title_ja || cached.title_ja,
+                title_en: article.raw?.title_en || cached.title_en,
+                excerpt_ja: article.raw?.excerpt_ja || cached.excerpt_ja,
+                excerpt_en: article.raw?.excerpt_en || cached.excerpt_en,
+            },
+        };
+    });
+}
+
 function setError(message) {
     const errorNode = state.dom.error;
     if (!errorNode) return;
@@ -277,7 +314,7 @@ function clearNode(node) {
 function createEmptyCard(useWideLayout) {
     const strings = getStrings(state.lang);
     const col = document.createElement('article');
-    col.className = useWideLayout ? 'col-12 col-md-6 col-xl-4' : 'col-12';
+    col.className = useWideLayout ? 'col-12 col-md-6 col-xl-4' : 'col-12 col-md-6 col-lg-4';
 
     const card = document.createElement('div');
     card.className = 'card kesson-card h-100';
@@ -310,7 +347,7 @@ function createArticleCard(article, useWideLayout) {
     const safeTeaserUrl = sanitizeHttpUrl(article.raw?.teaser, '');
 
     const col = document.createElement('article');
-    col.className = useWideLayout ? 'col-12 col-md-6 col-xl-4' : 'col-12';
+    col.className = useWideLayout ? 'col-12 col-md-6 col-xl-4' : 'col-12 col-md-6 col-lg-4';
 
     const anchor = document.createElement('a');
     anchor.href = safeUrl;
@@ -476,7 +513,7 @@ function bindFilterButtons() {
 
 async function loadArticles(dataUrls) {
     const candidates = Array.isArray(dataUrls) ? dataUrls : [dataUrls];
-    let data = null;
+    let loaded = null;
     let lastError = null;
 
     for (const candidate of candidates) {
@@ -486,25 +523,42 @@ async function loadArticles(dataUrls) {
             if (!res.ok) {
                 throw new Error(`HTTP ${res.status}`);
             }
-            data = await res.json();
+            loaded = await res.json();
             break;
         } catch (error) {
             lastError = error;
         }
     }
 
-    if (!data) {
+    if (!loaded) {
         throw (lastError || new Error('No article data available.'));
     }
 
-    const { basePath, entries } = resolveArticleEntries(data);
-    state.articles = entries
-        .map(([key, item]) => normalizeArticle(key, item, basePath))
-        .sort((a, b) => {
-            const diff = b.dateMs - a.dateMs;
-            if (Number.isFinite(diff) && diff !== 0) return diff;
-            return a.id.localeCompare(b.id);
-        });
+    return loaded;
+}
+
+function sortArticlesByDate(articles) {
+    return articles.sort((a, b) => {
+        const diff = b.dateMs - a.dateMs;
+        if (Number.isFinite(diff) && diff !== 0) return diff;
+        return a.id.localeCompare(b.id);
+    });
+}
+
+async function loadAndMergeArticles(dataUrls, i18nUrls) {
+    const primaryData = await loadArticles(dataUrls);
+    const primaryArticles = normalizeArticlesFromData(primaryData);
+
+    let cacheArticles = [];
+    try {
+        const cacheData = await loadArticles(i18nUrls);
+        cacheArticles = normalizeArticlesFromData(cacheData);
+    } catch (error) {
+        console.warn('[articles] i18n cache unavailable:', error);
+    }
+
+    const merged = mergeArticleI18nFromCache(primaryArticles, cacheArticles);
+    return sortArticlesByDate(merged);
 }
 
 function cacheDom() {
@@ -515,7 +569,11 @@ function cacheDom() {
     state.dom.filterButtons = Array.from(document.querySelectorAll('.articles-filter-btn'));
 }
 
-export async function initArticles({ lang = 'ja', dataUrls = ARTICLES_DATA_URLS } = {}) {
+export async function initArticles({
+    lang = 'ja',
+    dataUrls = ARTICLES_DATA_URLS,
+    i18nUrls = ARTICLES_I18N_CACHE_URLS,
+} = {}) {
     cacheDom();
     state.lang = normalizeLang(lang);
     state.activeType = 'all';
@@ -525,7 +583,7 @@ export async function initArticles({ lang = 'ja', dataUrls = ARTICLES_DATA_URLS 
 
     try {
         setError('');
-        await loadArticles(dataUrls);
+        state.articles = await loadAndMergeArticles(dataUrls, i18nUrls);
         state.loadError = false;
     } catch (error) {
         state.articles = [];
