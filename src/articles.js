@@ -1,4 +1,30 @@
-const ARTICLES_DATA_URL = './assets/page-links.json';
+const ARTICLES_DATA_URLS = [
+    '/pjdhiro/api/creation-articles.json',
+    '../kesson-space/assets/page-links.json',
+    './assets/page-links.json',
+];
+
+const CREATION_TOPIC_TOKENS = new Set(['創造', 'creation']);
+const CREATION_TAXONOMY_KEYS = [
+    'category',
+    'categories',
+    'tag',
+    'tags',
+    'topic',
+    'topics',
+    'category_ja',
+    'categories_ja',
+    'tag_ja',
+    'tags_ja',
+    'topic_ja',
+    'topics_ja',
+    'category_en',
+    'categories_en',
+    'tag_en',
+    'tags_en',
+    'topic_en',
+    'topics_en',
+];
 
 const UI_STRINGS = {
     ja: {
@@ -12,6 +38,8 @@ const UI_STRINGS = {
             page: 'ページ',
             post: '投稿',
         },
+        creationTopicLabel: '創造',
+        creationEmpty: '「創造」カテゴリ/タグの記事はまだありません。',
         count: (visible, total) => `${visible}件 / 全${total}件`,
     },
     en: {
@@ -25,6 +53,8 @@ const UI_STRINGS = {
             page: 'Page',
             post: 'Post',
         },
+        creationTopicLabel: 'Creation',
+        creationEmpty: 'No articles found for the "Creation" category/tag.',
         count: (visible, total) => `${visible} / ${total}`,
     },
 };
@@ -38,6 +68,7 @@ const state = {
     dom: {
         mainGrid: null,
         offcanvasGrid: null,
+        creationCardsContainer: null,
         error: null,
         count: null,
         filterButtons: [],
@@ -54,9 +85,16 @@ function normalizeFilterType(type) {
 }
 
 function buildUrl(basePath, item) {
-    const path = typeof item?.path === 'string' && item.path.trim()
+    const explicitUrl = typeof item?.url === 'string' && item.url.trim()
+        ? item.url.trim()
+        : (typeof item?.href === 'string' && item.href.trim()
+            ? item.href.trim()
+            : (typeof item?.link === 'string' && item.link.trim()
+                ? item.link.trim()
+                : null));
+    const path = explicitUrl || (typeof item?.path === 'string' && item.path.trim()
         ? item.path.trim()
-        : (basePath || './');
+        : (basePath || './'));
     const url = new URL(path, window.location.href);
     const query = item?.query;
 
@@ -82,6 +120,66 @@ function normalizeType(item, url) {
     if (pathname.includes('/post/') || pathname.includes('/posts/')) return 'post';
     if (pathname.endsWith('.md') || pathname.endsWith('.markdown')) return 'post';
     return 'page';
+}
+
+function normalizeTopicToken(value) {
+    if (typeof value !== 'string') return '';
+    return value.trim().replace(/^#/, '').toLowerCase();
+}
+
+function collectTopicValues(value, output) {
+    if (value === null || value === undefined) return;
+    if (Array.isArray(value)) {
+        value.forEach((item) => collectTopicValues(item, output));
+        return;
+    }
+
+    if (typeof value === 'string') {
+        value
+            .split(/[,\u3001]/)
+            .map((part) => normalizeTopicToken(part))
+            .filter(Boolean)
+            .forEach((token) => output.add(token));
+        return;
+    }
+
+    if (typeof value === 'object') {
+        ['name', 'label', 'slug', 'value'].forEach((key) => {
+            const candidate = value[key];
+            if (typeof candidate === 'string') {
+                const token = normalizeTopicToken(candidate);
+                if (token) output.add(token);
+            }
+        });
+    }
+}
+
+function extractTopicTokens(rawItem) {
+    const tokens = new Set();
+    if (!rawItem || typeof rawItem !== 'object') return tokens;
+
+    CREATION_TAXONOMY_KEYS.forEach((key) => {
+        collectTopicValues(rawItem[key], tokens);
+    });
+
+    if (rawItem.meta && typeof rawItem.meta === 'object') {
+        CREATION_TAXONOMY_KEYS.forEach((key) => {
+            collectTopicValues(rawItem.meta[key], tokens);
+        });
+    }
+
+    if (rawItem.taxonomy && typeof rawItem.taxonomy === 'object') {
+        CREATION_TAXONOMY_KEYS.forEach((key) => {
+            collectTopicValues(rawItem.taxonomy[key], tokens);
+        });
+    }
+
+    return tokens;
+}
+
+function isCreationTopicArticle(article) {
+    const tokens = extractTopicTokens(article?.raw);
+    return Array.from(tokens).some((token) => CREATION_TOPIC_TOKENS.has(token));
 }
 
 function pickLocalized(item, key, lang) {
@@ -117,6 +215,55 @@ function normalizeArticle(key, item, basePath) {
         isExternal: url.origin !== window.location.origin,
         type: normalizeType(item, url),
         raw: item,
+    };
+}
+
+function resolveArticleEntries(data) {
+    if (!data || typeof data !== 'object') {
+        return {
+            basePath: './',
+            entries: [],
+        };
+    }
+
+    const basePath = typeof data.basePath === 'string' ? data.basePath : './';
+
+    if (data.presets && typeof data.presets === 'object') {
+        return {
+            basePath,
+            entries: Object.entries(data.presets),
+        };
+    }
+
+    const list = Array.isArray(data.articles)
+        ? data.articles
+        : (Array.isArray(data.items) ? data.items : (Array.isArray(data) ? data : null));
+    if (list) {
+        return {
+            basePath,
+            entries: list
+                .filter((item) => item && typeof item === 'object')
+                .map((item, idx) => {
+                    const id = item.id || item.slug || item.key || `article_${idx + 1}`;
+                    return [String(id), item];
+                }),
+        };
+    }
+
+    const mapEntries = Object.entries(data)
+        .filter(([key, value]) => {
+            if (key === 'basePath') return false;
+            if (!value || typeof value !== 'object') return false;
+            const hasPathLike = typeof value.path === 'string'
+                || typeof value.url === 'string'
+                || typeof value.href === 'string'
+                || typeof value.link === 'string';
+            return hasPathLike;
+        });
+
+    return {
+        basePath,
+        entries: mapEntries,
     };
 }
 
@@ -223,9 +370,47 @@ function createArticleCard(article, useWideLayout) {
     return col;
 }
 
+function createCreationEmptyCard() {
+    const strings = getStrings(state.lang);
+    const col = document.createElement('article');
+    col.className = 'col-12';
+
+    const card = document.createElement('div');
+    card.className = 'creation-card-placeholder';
+
+    const title = document.createElement('h3');
+    title.textContent = strings.creationTopicLabel;
+
+    const body = document.createElement('p');
+    body.textContent = strings.creationEmpty;
+
+    card.appendChild(title);
+    card.appendChild(body);
+    col.appendChild(card);
+    return col;
+}
+
+function renderCreationCards() {
+    const container = state.dom.creationCardsContainer;
+    if (!container) return;
+
+    clearNode(container);
+    const creationArticles = state.articles.filter(isCreationTopicArticle).slice(0, 3);
+    if (!creationArticles.length) {
+        container.appendChild(createCreationEmptyCard());
+        return;
+    }
+
+    const fragment = document.createDocumentFragment();
+    creationArticles.forEach((article) => {
+        fragment.appendChild(createArticleCard(article, true));
+    });
+    container.appendChild(fragment);
+}
+
 function renderArticles() {
     const { mainGrid, offcanvasGrid, count } = state.dom;
-    if (!mainGrid || !offcanvasGrid) return;
+    if (!mainGrid && !offcanvasGrid && !state.dom.creationCardsContainer) return;
 
     updateFilterButtonLabels();
 
@@ -242,8 +427,13 @@ function renderArticles() {
     clearNode(offcanvasGrid);
 
     if (!filtered.length) {
-        mainGrid.appendChild(createEmptyCard(strings, true));
-        offcanvasGrid.appendChild(createEmptyCard(strings, false));
+        if (mainGrid) {
+            mainGrid.appendChild(createEmptyCard(strings, true));
+        }
+        if (offcanvasGrid) {
+            offcanvasGrid.appendChild(createEmptyCard(strings, false));
+        }
+        renderCreationCards();
         return;
     }
 
@@ -255,8 +445,13 @@ function renderArticles() {
         offcanvasFrag.appendChild(createArticleCard(article, false));
     });
 
-    mainGrid.appendChild(mainFrag);
-    offcanvasGrid.appendChild(offcanvasFrag);
+    if (mainGrid) {
+        mainGrid.appendChild(mainFrag);
+    }
+    if (offcanvasGrid) {
+        offcanvasGrid.appendChild(offcanvasFrag);
+    }
+    renderCreationCards();
 }
 
 function bindFilterButtons() {
@@ -272,19 +467,32 @@ function bindFilterButtons() {
     state.filtersBound = true;
 }
 
-async function loadArticles(dataUrl) {
-    const res = await fetch(dataUrl, { cache: 'no-store' });
-    if (!res.ok) {
-        throw new Error(`HTTP ${res.status}`);
+async function loadArticles(dataUrls) {
+    const candidates = Array.isArray(dataUrls) ? dataUrls : [dataUrls];
+    let data = null;
+    let lastError = null;
+
+    for (const candidate of candidates) {
+        if (typeof candidate !== 'string' || !candidate.trim()) continue;
+        try {
+            const res = await fetch(candidate, { cache: 'no-store' });
+            if (!res.ok) {
+                throw new Error(`HTTP ${res.status}`);
+            }
+            data = await res.json();
+            break;
+        } catch (error) {
+            lastError = error;
+        }
     }
 
-    const data = await res.json();
-    const basePath = typeof data?.basePath === 'string' ? data.basePath : './';
-    const presets = data?.presets && typeof data.presets === 'object'
-        ? data.presets
-        : {};
+    if (!data) {
+        throw (lastError || new Error('No article data available.'));
+    }
 
-    state.articles = Object.entries(presets)
+    const { basePath, entries } = resolveArticleEntries(data);
+
+    state.articles = entries
         .map(([key, item]) => normalizeArticle(key, item, basePath))
         .sort((a, b) => a.id.localeCompare(b.id));
 }
@@ -292,12 +500,13 @@ async function loadArticles(dataUrl) {
 function cacheDom() {
     state.dom.mainGrid = document.getElementById('articles-grid');
     state.dom.offcanvasGrid = document.getElementById('offcanvas-articles-grid');
+    state.dom.creationCardsContainer = document.getElementById('creation-cards-container');
     state.dom.error = document.getElementById('articles-error');
     state.dom.count = document.getElementById('offcanvas-articles-count');
     state.dom.filterButtons = Array.from(document.querySelectorAll('.articles-filter-btn'));
 }
 
-export async function initArticles({ lang = 'ja', dataUrl = ARTICLES_DATA_URL } = {}) {
+export async function initArticles({ lang = 'ja', dataUrls = ARTICLES_DATA_URLS } = {}) {
     cacheDom();
     state.lang = lang === 'en' ? 'en' : 'ja';
     state.activeType = 'all';
@@ -307,7 +516,7 @@ export async function initArticles({ lang = 'ja', dataUrl = ARTICLES_DATA_URL } 
 
     try {
         setError('');
-        await loadArticles(dataUrl);
+        await loadArticles(dataUrls);
         state.loadError = false;
     } catch (error) {
         state.articles = [];
