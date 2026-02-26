@@ -14,7 +14,6 @@ import { updateMouseSmoothing } from './mouse-state.js';
 import { updateScrollUI } from './scroll-ui.js';
 import { initDevAuxTools, initDevPanelRuntime } from './dev-runtime.js';
 import { initArticles, setArticlesLanguage } from './articles.js';
-import { initIntentTimelineHud } from './intent-timeline-hud.js';
 import { createIntentShiftTurnState } from './intent-shift-turn-state.js';
 import { createIntentTimelineRuntime } from './intent-timeline-runtime.js';
 import { createPostFxBootstrap } from './postfx-bootstrap.js';
@@ -39,13 +38,7 @@ import {
     loadLiquidFactory,
 } from './scene-module-loader.js';
 import {
-    computeIntentRuntimeTimeline,
-    resolveIntentLoopAnchorSecForContinuity,
-    resolveIntentStartTimingMinForRawContinuity,
-    solveStartTimingMinForElapsedSecNow,
-    solveStartTimingMinForPhaseNow,
     resolveIntentShiftTurnRange,
-    resolveIntentShiftTurnElapsedSecByPathSec,
 } from './intent-timeline.js';
 import {
     breathConfig,
@@ -188,13 +181,6 @@ async function main() {
         captureEnableMaxDeltaSec: CAPTURE_ENABLE_MAX_DELTA_SEC,
         intentMotionParams,
         shiftTurnState,
-        initIntentTimelineHud,
-        computeIntentRuntimeTimeline,
-        solveStartTimingMinForPhaseNow,
-        solveStartTimingMinForElapsedSecNow,
-        resolveIntentShiftTurnElapsedSecByPathSec,
-        resolveIntentLoopAnchorSecForContinuity,
-        resolveIntentStartTimingMinForRawContinuity,
         saveSceneState: () => {
             sceneStateStore.save(active3dSceneVariant, cloneConfigState());
         },

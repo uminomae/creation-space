@@ -1,16 +1,19 @@
+import { initIntentTimelineHud } from './intent-timeline-hud.js';
+import {
+    computeIntentRuntimeTimeline,
+    resolveIntentLoopAnchorSecForContinuity,
+    resolveIntentShiftTurnElapsedSecByPathSec,
+    resolveIntentStartTimingMinForRawContinuity,
+    solveStartTimingMinForElapsedSecNow,
+    solveStartTimingMinForPhaseNow,
+} from './intent-timeline.js';
+
 export function createIntentTimelineRuntime({
     devMode,
     clock,
     captureEnableMaxDeltaSec,
     intentMotionParams,
     shiftTurnState,
-    initIntentTimelineHud,
-    computeIntentRuntimeTimeline,
-    solveStartTimingMinForPhaseNow,
-    solveStartTimingMinForElapsedSecNow,
-    resolveIntentShiftTurnElapsedSecByPathSec,
-    resolveIntentLoopAnchorSecForContinuity,
-    resolveIntentStartTimingMinForRawContinuity,
     saveSceneState,
 }) {
     let capturedLoopStartShaderSec = null;
