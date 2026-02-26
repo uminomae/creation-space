@@ -1,8 +1,6 @@
 import * as THREE from 'three';
 
-import { getScenePresetVersion } from './scene-presets.js';
 import { DEV_VERSION } from './version.js';
-import { createSceneStateStore } from './dev-scene-state.js';
 import { installStartupErrorHandlers, showStartupErrorOverlay } from './startup-error-overlay.js';
 import { initMainDevRuntime } from './main-dev-runtime.js';
 import { initMainIntentRuntime } from './main-intent-runtime.js';
@@ -11,16 +9,13 @@ import { initMainContentRuntime } from './main-content-runtime.js';
 import { createMainFrameRuntime } from './main-frame-runtime.js';
 import { initMainGraphicModeRuntime } from './main-graphic-mode-runtime.js';
 import { initMainPostFxRuntime } from './main-postfx-runtime.js';
+import { createMainRuntimeContext } from './main-runtime-context.js';
 
-const DEV_MODE = new URLSearchParams(window.location.search).has('dev');
-const DEV_PANEL_STATE_PERSIST = new URLSearchParams(window.location.search).get('devstate') === 'persist';
-const CAPTURE_ENABLE_MAX_DELTA_SEC = 0.3;
+const runtimeContext = createMainRuntimeContext();
+const DEV_MODE = runtimeContext.devMode;
 let devStatsBegin = () => {};
 let devStatsEnd = () => {};
-const sceneStateStore = createSceneStateStore({
-    enabled: DEV_PANEL_STATE_PERSIST,
-    getPresetVersion: getScenePresetVersion,
-});
+const sceneStateStore = runtimeContext.sceneStateStore;
 
 installStartupErrorHandlers();
 
@@ -78,7 +73,7 @@ async function main() {
     const { shiftTurnState, intentTimelineRuntime } = initMainIntentRuntime({
         devMode: DEV_MODE,
         clock,
-        captureEnableMaxDeltaSec: CAPTURE_ENABLE_MAX_DELTA_SEC,
+        captureEnableMaxDeltaSec: runtimeContext.captureEnableMaxDeltaSec,
         sceneStateStore,
         getSceneVariant: () => active3dSceneVariant,
     });
