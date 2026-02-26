@@ -5,8 +5,8 @@ import {
     distortionParams,
     fieldParams,
     flowParams,
-    fluidParams,
-    liquidParams,
+    intentConsciousnessParams,
+    intentMotionParams,
     quantumWaveParams,
     sceneParams,
     plasmaParams,
@@ -15,6 +15,18 @@ import {
 import { applyConfigState, cloneConfigState } from './config-state.js';
 
 const GROUP_HELP_JA = {
+    toggles: '表示や機能のON/OFFを切り替えます。',
+    scene: 'カメラ位置や霧の濃さなど、シーン全体を調整します。',
+    intentCamera: '意グラフィックのカメラ位置と注視点を調整します。',
+    intentMotion: '意グラフィックの時間軸。開始タイミング・回転速度・速度倍率を調整します。',
+    intentLoop: '意グラフィックの2段階ループ設定。探索位置を固定してシームレスに循環させます。',
+    intentConsciousness: '意グラフィック本体の密度・速度・収束感を調整します。',
+    field: '場のレイヤー表現の強度と線の出方を調整します。',
+    flow: '流体オブジェクトの密度感・まとまり・揺らぎを調整します。',
+    background: '背景グラデーションの色と脈動を調整します。',
+    quantum: '量子波による屈折・発光・霧表現を調整します。',
+    post: '被写界深度やポスト効果の強さを調整します。',
+    breath: '呼吸演出によるFOVやUIの変化量を調整します。',
     creationGlobal: 'A案の全体挙動。渦の速度・球内の密度・色分割・明るさ・流動感をまとめて調整します。',
     creationLink1: 'オブジェクト1の個別設定。位置・サイズ・色・クリック判定半径を調整します。',
     creationLink2: 'オブジェクト2の個別設定。位置・サイズ・色・クリック判定半径を調整します。',
@@ -80,7 +92,64 @@ const CREATION_LINK_HELP_JA = {
     link1ColorBB: '二色B側カラーのB成分です。',
 };
 
+const INTENT_CAMERA_HELP_JA = {
+    camX: 'カメラのX位置です。',
+    camY: 'カメラのY位置です。',
+    camZ: 'カメラのZ位置です。',
+    camTargetY: '注視点のY座標です。',
+};
+
+const INTENT_MOTION_HELP_JA = {
+    cameraRotateSpeed: '自動回転速度です。0で停止、1が基準速度です。',
+    startTimingMin: '開始時間ポイント（分）です。ループ周期上の開始位置を決めます。',
+    loopPeriodSec: '1周の秒数です。大きいほどゆっくり変化します。',
+    timeScale: '全体の時間進行倍率です。',
+    shiftTurnStartSec: 'Shift Secターン往復の開始秒です。通常は開始地点を固定したい時に使います。',
+    shiftTurnEndSec: 'Shift Secターン往復の終了秒です。開始秒との間を往復します。',
+    loopAnchorSec: 'シームレスループ時の基準時刻（秒）です。探索で見つけた位置を固定します。',
+    loopDriftSec: '基準時刻の周囲を往復する幅（秒）です。大きいほど変化幅が広がります。',
+};
+
+const INTENT_LOOP_HELP_JA = {
+    seamlessLoop: 'ONでシームレス循環モード。OFFで探索モード（raw時間）です。',
+};
+
+const INTENT_CONSCIOUSNESS_HELP_JA = {
+    maxStepsMobile: 'モバイル時のレイマーチ最大ステップ数です。',
+    maxStepsDesktop: 'デスクトップ時のレイマーチ最大ステップ数です。',
+    renderPixelRatioCap: '描画ピクセル比の上限です。下げるほどGPU負荷が下がります。',
+    renderScale: '内部描画スケールです。下げるほど負荷が下がります。',
+    far: '描画の奥行き距離です。',
+    detail: '細部の密度です。高いほど細かくなります。',
+    overlayDistance: 'カメラ前方に置く面の距離です。',
+    coverageScale: '画面を覆うスケール倍率です。',
+    csFlowSpeed: '意識流の進行速度です。',
+    csFreqLow: '低周波の空間周波数です。',
+    csFreqHigh: '高周波の空間周波数です。',
+    csThicknessLow: '膜の最小厚みです。',
+    csThicknessHigh: '膜の最大厚みです。',
+    csEnvelopeRadius: '密度が集まる半径です。',
+    csDensityGain: '発光密度ゲインです。',
+    csStepNear: '近距離ステップ長です。',
+    csStepFar: '遠距離ステップ長です。',
+    csLightBoost: '全体の光量ブーストです。',
+    csExposure: '露光量です。',
+    csVignette: '周辺減光の強さです。',
+};
+
 function getFieldHelpText(groupId, key) {
+    if (groupId === 'intentCamera') {
+        return INTENT_CAMERA_HELP_JA[key] || '';
+    }
+    if (groupId === 'intentMotion') {
+        return INTENT_MOTION_HELP_JA[key] || '';
+    }
+    if (groupId === 'intentLoop') {
+        return INTENT_LOOP_HELP_JA[key] || '';
+    }
+    if (groupId === 'intentConsciousness') {
+        return INTENT_CONSCIOUSNESS_HELP_JA[key] || '';
+    }
     if (groupId === 'creationGlobal') {
         return CREATION_GLOBAL_HELP_JA[key] || '';
     }
@@ -105,15 +174,12 @@ const PARAM_GROUPS = [
             ['field', 'Field Layer'],
             ['flowObjects', 'Flow Objects'],
             ['fog', 'Fog'],
-            ['fluidField', 'Fluid Field'],
-            ['liquid', 'Liquid'],
             ['quantumWave', 'Quantum Wave'],
             ['dof', 'DOF'],
             ['postProcess', 'Post Process'],
             ['autoRotate', 'Auto Rotate'],
             ['fovBreath', 'FOV Breath'],
             ['htmlBreath', 'HTML Breath'],
-            ['heatHaze', 'Heat Haze'],
             ['showPlasma', 'Plasma'],
         ],
     },
@@ -128,6 +194,71 @@ const PARAM_GROUPS = [
             ['camY', 'Cam Y', -30, 30, 0.1],
             ['camZ', 'Cam Z', 8, 80, 0.1],
             ['mixCycle', 'Mix Cycle', 2.0, 30.0, 0.1],
+        ],
+    },
+    {
+        id: 'intentCamera',
+        title: 'Intent Camera',
+        type: 'range',
+        target: sceneParams,
+        fields: [
+            ['camX', 'Cam X', -60.0, 60.0, 0.1],
+            ['camY', 'Cam Y', -40.0, 40.0, 0.1],
+            ['camZ', 'Cam Z', 4.0, 120.0, 0.1],
+            ['camTargetY', 'Cam Target Y', -40.0, 40.0, 0.1],
+        ],
+    },
+    {
+        id: 'intentMotion',
+        title: 'Intent Motion',
+        type: 'range',
+        target: intentMotionParams,
+        fields: [
+            ['cameraRotateSpeed', 'Camera Rotate Speed', 0.0, 4.0, 0.01],
+            ['startTimingMin', 'Start Timing Min', -120.0, 1440.0, 0.1],
+            ['loopPeriodSec', 'Loop Period Sec', 1.0, 3600.0, 0.1],
+            ['timeScale', 'Time Scale', 0.0, 4.0, 0.01],
+            ['shiftTurnStartSec', 'Shift Turn Start Sec', -72000.0, 72000.0, 0.1],
+            ['shiftTurnEndSec', 'Shift Turn End Sec', -72000.0, 72000.0, 0.1],
+            ['loopAnchorSec', 'Loop Anchor Sec', -36000.0, 36000.0, 0.1],
+            ['loopDriftSec', 'Loop Drift Sec', 0.0, 7200.0, 0.1],
+        ],
+    },
+    {
+        id: 'intentLoop',
+        title: 'Intent Loop',
+        type: 'toggle',
+        target: intentMotionParams,
+        fields: [
+            ['seamlessLoop', 'Seamless Loop'],
+        ],
+    },
+    {
+        id: 'intentConsciousness',
+        title: 'Intent Consciousness',
+        type: 'range',
+        target: intentConsciousnessParams,
+        fields: [
+            ['maxStepsMobile', 'Max Steps Mobile', 8.0, 64.0, 1.0],
+            ['maxStepsDesktop', 'Max Steps Desktop', 8.0, 64.0, 1.0],
+            ['renderPixelRatioCap', 'Render PixelRatio Cap', 0.75, 2.0, 0.01],
+            ['renderScale', 'Render Scale', 0.5, 1.0, 0.01],
+            ['far', 'Render Far', 2.0, 40.0, 0.1],
+            ['detail', 'Detail', 0.0005, 0.02, 0.0001],
+            ['overlayDistance', 'Overlay Distance', 0.5, 20.0, 0.1],
+            ['coverageScale', 'Coverage Scale', 0.5, 2.0, 0.01],
+            ['csFlowSpeed', 'Flow Speed', -2.0, 2.0, 0.01],
+            ['csFreqLow', 'Freq Low', 0.2, 6.0, 0.01],
+            ['csFreqHigh', 'Freq High', 0.2, 6.0, 0.01],
+            ['csThicknessLow', 'Thickness Low', 0.01, 0.4, 0.001],
+            ['csThicknessHigh', 'Thickness High', 0.01, 0.6, 0.001],
+            ['csEnvelopeRadius', 'Envelope Radius', 0.2, 5.0, 0.01],
+            ['csDensityGain', 'Density Gain', 0.01, 1.0, 0.01],
+            ['csStepNear', 'Step Near', 0.01, 0.2, 0.001],
+            ['csStepFar', 'Step Far', 0.02, 0.5, 0.001],
+            ['csLightBoost', 'Light Boost', 0.2, 4.0, 0.01],
+            ['csExposure', 'Exposure', 0.2, 5.0, 0.01],
+            ['csVignette', 'Vignette', 0.0, 1.0, 0.001],
         ],
     },
     {
@@ -293,36 +424,6 @@ const PARAM_GROUPS = [
         ],
     },
     {
-        id: 'fluid',
-        title: 'Fluid',
-        type: 'range',
-        target: fluidParams,
-        fields: [
-            ['influence', 'Influence', 0.0, 0.3, 0.001],
-            ['force', 'Force', 0.0, 5.0, 0.01],
-            ['curl', 'Curl', 0.0, 5.0, 0.01],
-            ['decay', 'Decay', 0.8, 1.0, 0.001],
-            ['radius', 'Radius', 0.01, 0.6, 0.001],
-        ],
-    },
-    {
-        id: 'liquid',
-        title: 'Liquid',
-        type: 'range',
-        target: liquidParams,
-        fields: [
-            ['densityMul', 'Density Mul', 0.0, 4.0, 0.01],
-            ['refractOffsetScale', 'Refract Offset', 0.0, 0.2, 0.001],
-            ['refractThreshold', 'Refract Threshold', 0.0, 0.05, 0.0005],
-            ['forceRadius', 'Force Radius', 0.01, 0.3, 0.001],
-            ['forceStrength', 'Force Strength', 0.0, 12.0, 0.01],
-            ['noiseScale', 'Noise Scale', 0.1, 20.0, 0.1],
-            ['noiseSpeed', 'Noise Speed', 0.0, 0.2, 0.001],
-            ['specularPow', 'Specular Pow', 0.1, 20.0, 0.1],
-            ['specularInt', 'Specular Int', 0.0, 4.0, 0.01],
-        ],
-    },
-    {
         id: 'quantum',
         title: 'Quantum Wave',
         type: 'range',
@@ -355,9 +456,6 @@ const PARAM_GROUPS = [
         fields: [
             ['dofStrength', 'DOF Strength', 0.0, 0.05, 0.0005],
             ['dofFocusRadius', 'DOF Focus', 0.05, 0.8, 0.005],
-            ['heatHaze', 'Heat Haze', 0.0, 0.08, 0.0005],
-            ['heatHazeRadius', 'Heat Radius', 0.05, 1.0, 0.005],
-            ['heatHazeSpeed', 'Heat Speed', 0.05, 3.0, 0.01],
         ],
     },
     {
@@ -376,6 +474,78 @@ const PARAM_GROUPS = [
     },
 ];
 
+const HIDDEN_GROUP_IDS_BY_VARIANT = {
+    hold: new Set([
+        'intentCamera',
+        'intentMotion',
+        'intentLoop',
+        'intentConsciousness',
+        'field',
+        'plasma',
+    ]),
+    wabi: new Set([
+        'intentCamera',
+        'intentMotion',
+        'intentLoop',
+        'intentConsciousness',
+        'creationLink2',
+        'creationLink3',
+    ]),
+    intent: new Set([
+        'scene',
+        'toggles',
+        'field',
+        'flow',
+        'plasma',
+        'background',
+        'quantum',
+        'post',
+        'breath',
+        'creationGlobal',
+        'creationLink1',
+        'creationLink2',
+        'creationLink3',
+    ]),
+};
+
+const HIDDEN_FIELD_KEYS_BY_VARIANT = {
+    hold: {
+        toggles: new Set([
+            'field',
+            'showPlasma',
+        ]),
+        flow: new Set([
+            'centerThickness',
+            'speed',
+        ]),
+    },
+};
+
+function normalizeSceneVariant(sceneVariant) {
+    if (sceneVariant === 'wabi' || sceneVariant === 'intent') return sceneVariant;
+    return 'hold';
+}
+
+function resolveVisibleParamGroups(sceneVariant) {
+    const variant = normalizeSceneVariant(sceneVariant);
+    const hiddenGroupIds = HIDDEN_GROUP_IDS_BY_VARIANT[variant] || new Set();
+    return PARAM_GROUPS.filter((group) => !hiddenGroupIds.has(group.id));
+}
+
+function getFieldKey(field) {
+    return field && typeof field === 'object' && 'key' in field ? field.key : field[0];
+}
+
+function resolveVisibleFields(sceneVariant, group) {
+    const variant = normalizeSceneVariant(sceneVariant);
+    const hiddenByGroup = HIDDEN_FIELD_KEYS_BY_VARIANT[variant];
+    const hiddenFieldKeys = hiddenByGroup?.[group.id];
+    if (!hiddenFieldKeys || hiddenFieldKeys.size === 0) {
+        return group.fields;
+    }
+    return group.fields.filter((field) => !hiddenFieldKeys.has(getFieldKey(field)));
+}
+
 function formatNumber(value, step) {
     const decimals = String(step).includes('.')
         ? String(step).split('.')[1].length
@@ -392,6 +562,7 @@ export function initDevPanel({
     onStateSnapshot = null,
     panelStartsOpen = false,
     initialState = null,
+    sceneVariant = 'hold',
 } = {}) {
     const toggleBtn = document.createElement('button');
     toggleBtn.id = 'dev-panel-toggle';
@@ -432,6 +603,10 @@ export function initDevPanel({
 
     const controlIndex = new Map();
     const colorControlIndex = new Map();
+    const visibleParamGroups = resolveVisibleParamGroups(sceneVariant);
+    const visiblePanelGroups = visibleParamGroups
+        .map((group) => ({ group, fields: resolveVisibleFields(sceneVariant, group) }))
+        .filter(({ fields }) => fields.length > 0);
 
     function notifyStateChanged() {
         if (typeof onStateChanged === 'function') {
@@ -609,7 +784,7 @@ export function initDevPanel({
         return wrapper;
     }
 
-    PARAM_GROUPS.forEach((group, idx) => {
+    visiblePanelGroups.forEach(({ group, fields }, idx) => {
         const item = document.createElement('div');
         item.className = 'accordion-item';
 
@@ -635,7 +810,7 @@ export function initDevPanel({
             helpNode.textContent = groupHelp;
             body.appendChild(helpNode);
         }
-        group.fields.forEach((field) => {
+        fields.forEach((field) => {
             const node = group.type === 'toggle'
                 ? buildToggleControl(group, field)
                 : (field.type === 'color' ? buildColorControl(group, field) : buildRangeControl(group, field));
@@ -646,8 +821,8 @@ export function initDevPanel({
     });
 
     function syncUIFromState() {
-        PARAM_GROUPS.forEach((group) => {
-            group.fields.forEach((field) => {
+        visiblePanelGroups.forEach(({ group, fields }) => {
+            fields.forEach((field) => {
                 const key = field.type === 'color' ? field.key : field[0];
                 const path = `${group.id}.${key}`;
 

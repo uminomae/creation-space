@@ -13,12 +13,10 @@ import {
     REF_HEIGHT,
     DIVE_DEPTH,
     DIVE_SCROLL_VH,
-    LOOKAT_BASE_Y,
     ROTATE_SENSITIVITY,
     ZOOM_SENSITIVITY,
     MIN_ZOOM,
     MAX_ZOOM,
-    MAX_ROTATE_ANGLE,
     INERTIA_DECAY,
     VELOCITY_THRESHOLD,
     AUTO_ROTATE_TIME_SCALE,
@@ -30,6 +28,8 @@ let _canvas;
 
 // 自動回転
 let _autoRotateSpeed = 1.0;
+let _autoRotateTimeOffsetSec = 0.0;
+let _autoRotateLoopPhase = null;
 let _baseCamY = 0;
 let _baseCamX = -14;
 let _baseCamZ = 34;
@@ -203,6 +203,18 @@ export function setAutoRotateSpeed(speed) {
     _autoRotateSpeed = speed;
 }
 
+export function setAutoRotateStartOffsetSec(offsetSec) {
+    _autoRotateTimeOffsetSec = Number.isFinite(offsetSec) ? offsetSec : 0.0;
+}
+
+export function setAutoRotateLoopPhase(phase) {
+    if (!Number.isFinite(phase)) {
+        _autoRotateLoopPhase = null;
+        return;
+    }
+    _autoRotateLoopPhase = ((phase % 1.0) + 1.0) % 1.0;
+}
+
 export function setCameraPosition(x, y, z) {
     _baseCamX = x;
     _baseCamY = y;
@@ -247,9 +259,6 @@ export function updateControls(time, breathVal = 0.5) {
         _rotateVelocity *= INERTIA_DECAY;
     }
 
-    // --- 回転角度の制限 ---
-    _manualAngle = Math.max(-MAX_ROTATE_ANGLE, Math.min(MAX_ROTATE_ANGLE, _manualAngle));
-
     // --- スクロール進捗 ---
     const diveScrollPx = window.innerHeight * DIVE_SCROLL_VH;
     _scrollProgress = Math.min(1, window.scrollY / diveScrollPx);
@@ -275,7 +284,12 @@ export function updateControls(time, breathVal = 0.5) {
 
     // 自動回転
     if (toggles.autoRotate) {
-        angle += time * _autoRotateSpeed * AUTO_ROTATE_TIME_SCALE;
+        if (Number.isFinite(_autoRotateLoopPhase)) {
+            angle += _autoRotateLoopPhase * Math.PI * 2.0 * _autoRotateSpeed;
+        } else {
+            const autoTime = time + _autoRotateTimeOffsetSec;
+            angle += autoTime * _autoRotateSpeed * AUTO_ROTATE_TIME_SCALE;
+        }
     }
 
     // 手動回転を加算
@@ -288,6 +302,6 @@ export function updateControls(time, breathVal = 0.5) {
     const diveY = _baseCamY - eased * DIVE_DEPTH;
 
     _camera.position.set(rotX, diveY, rotZ);
-    // lookAt: 原点中心（オーブの三角形重心と一致）
-    _camera.lookAt(0, LOOKAT_BASE_Y - eased * DIVE_DEPTH * 0.5, 0);
+    const lookAtY = sceneParams.camTargetY - eased * DIVE_DEPTH * 0.5;
+    _camera.lookAt(0, lookAtY, 0);
 }

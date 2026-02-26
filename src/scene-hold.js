@@ -2,7 +2,6 @@ import * as THREE from 'three';
 import {
     backgroundParams,
     creationLinkParams,
-    fieldParams,
     flowParams,
     sceneParams,
     toggles,
@@ -21,8 +20,6 @@ let _scene;
 let _camera;
 let _bgMaterial;
 let _bgMesh;
-let _fieldMaterial;
-let _fieldMesh;
 let _flowGroup;
 let _flowMaterials = [];
 let _seedSystem;
@@ -110,85 +107,6 @@ function getCreationLinkParam(id) {
         colorBG: clamp(creationLinkParams[`${key}ColorBG`], 0.0, 1.0),
         colorBB: clamp(creationLinkParams[`${key}ColorBB`], 0.0, 1.0),
     };
-}
-
-function createFieldMesh() {
-    _fieldMaterial = new THREE.ShaderMaterial({
-        uniforms: {
-            uTime: { value: 0.0 },
-            uAspect: { value: window.innerWidth / window.innerHeight },
-            uIntensity: { value: fieldParams.intensity },
-            uAlpha: { value: fieldParams.alpha },
-            uLineLow: { value: fieldParams.lineLow },
-            uLineHigh: { value: fieldParams.lineHigh },
-            uBottomClip: { value: fieldParams.bottomClip },
-            uBottomFeather: { value: fieldParams.bottomFeather },
-            uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
-        },
-        vertexShader: `
-            varying vec2 vUv;
-            void main() {
-                vUv = uv;
-                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-            }
-        `,
-        fragmentShader: `
-            uniform float uTime;
-            uniform float uAspect;
-            uniform float uIntensity;
-            uniform float uAlpha;
-            uniform float uLineLow;
-            uniform float uLineHigh;
-            uniform float uBottomClip;
-            uniform float uBottomFeather;
-            uniform vec2 uResolution;
-            varying vec2 vUv;
-
-            void main() {
-                vec2 p = (vUv - 0.5) * 2.0;
-                p.x *= uAspect;
-
-                float t = uTime * 0.22;
-                float waves = 0.0;
-                for (int i = 0; i < 6; i++) {
-                    float fi = float(i);
-                    float a = fi * 0.62 + sin(t * 0.3 + fi * 1.7) * 0.18;
-                    vec2 k = vec2(cos(a), sin(a));
-                    float w = 2.0 + fi * 0.35;
-                    float omega = 0.1 * w * w;
-                    waves += sin(dot(p, k) * w - omega * t + fi * 1.618) / (1.0 + fi * 0.35);
-                }
-
-                float r = length(p);
-                float envelope = exp(-r * r * 0.85);
-                float band = abs(waves) * 0.42;
-                float lineLow = min(uLineLow, uLineHigh - 0.01);
-                float lineHigh = max(uLineHigh, lineLow + 0.01);
-                float filaments = smoothstep(lineLow, lineHigh, band);
-
-                vec3 colorA = vec3(0.11, 0.22, 0.42);
-                vec3 colorB = vec3(0.52, 0.74, 1.0);
-                vec3 color = mix(colorA, colorB, filaments) * envelope * uIntensity;
-
-                float screenY = gl_FragCoord.y / max(uResolution.y, 1.0);
-                float bottomMask = smoothstep(uBottomClip, uBottomClip + uBottomFeather, screenY);
-                color *= bottomMask;
-
-                float alpha = filaments * envelope * uAlpha * bottomMask;
-                if (alpha < 0.001) discard;
-                gl_FragColor = vec4(color, alpha);
-            }
-        `,
-        transparent: true,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false,
-        side: THREE.DoubleSide,
-    });
-
-    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(120, 120, 1, 1), _fieldMaterial);
-    mesh.rotation.x = -Math.PI / 2;
-    mesh.position.set(0, -14, 0);
-    return mesh;
 }
 
 function smoothstep(edge0, edge1, x) {
@@ -1000,13 +918,11 @@ export function createScene(container) {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     container.appendChild(renderer.domElement);
 
-    _fieldMesh = createFieldMesh();
     _flowGroup = createFlowObjects();
     _lastFlowTime = 0;
     _starFieldGroup = createStarField();
     _creationLinkGroup = createCreationLinks();
 
-    scene.add(_fieldMesh);
     scene.add(_flowGroup);
     scene.add(_starFieldGroup);
     scene.add(_creationLinkGroup);
@@ -1078,25 +994,6 @@ export function updateScene(time) {
         _scene.fog.density = lerp(FOG_V002_DENSITY, sceneParams.fogDensity, m);
     } else if (_scene?.fog) {
         _scene.fog.density = 0;
-    }
-
-    if (_fieldMaterial) {
-        _fieldMaterial.uniforms.uTime.value = time;
-        _fieldMaterial.uniforms.uAspect.value = window.innerWidth / window.innerHeight;
-        _fieldMaterial.uniforms.uIntensity.value = fieldParams.intensity;
-        _fieldMaterial.uniforms.uAlpha.value = fieldParams.alpha;
-        _fieldMaterial.uniforms.uLineLow.value = fieldParams.lineLow;
-        _fieldMaterial.uniforms.uLineHigh.value = fieldParams.lineHigh;
-        _fieldMaterial.uniforms.uBottomClip.value = fieldParams.bottomClip;
-        _fieldMaterial.uniforms.uBottomFeather.value = fieldParams.bottomFeather;
-        _fieldMaterial.uniforms.uResolution.value.set(window.innerWidth, window.innerHeight);
-    }
-
-    if (_fieldMesh) {
-        _fieldMesh.visible = toggles.field;
-        if (toggles.field) {
-            _fieldMesh.rotation.z = time * 0.02;
-        }
     }
 
     if (_flowGroup) {

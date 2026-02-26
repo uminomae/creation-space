@@ -94,6 +94,93 @@
       -webkit-backdrop-filter: blur(7px);
     }
 
+    #intent-timeline-hud {
+      position: fixed;
+      top: calc(var(--kesson-topbar-height) + 4.1rem);
+      left: 0.95rem;
+      z-index: 58;
+      width: min(90vw, 20rem);
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      border: 1px solid rgba(120, 164, 235, 0.42);
+      background: rgba(8, 14, 26, 0.84);
+      color: rgba(205, 224, 255, 0.92);
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 0.62rem;
+      line-height: 1.45;
+      display: none;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    #intent-timeline-hud.is-visible {
+      display: block;
+    }
+
+    .intent-timeline-hud-title {
+      font-size: 0.66rem;
+      letter-spacing: 0.08em;
+      color: rgba(226, 238, 255, 0.95);
+      margin-bottom: 0.38rem;
+    }
+
+    .intent-timeline-hud-readout {
+      margin: 0;
+      white-space: pre;
+      color: rgba(198, 217, 245, 0.9);
+    }
+
+    .intent-timeline-hud-controls {
+      margin-top: 0.46rem;
+      display: grid;
+      gap: 0.28rem;
+    }
+
+    .intent-timeline-hud-controls label {
+      color: rgba(185, 206, 238, 0.82);
+      letter-spacing: 0.05em;
+    }
+
+    #intent-timeline-phase-input,
+    #intent-timeline-sec-input,
+    #intent-timeline-shift-sec-input {
+      width: 100%;
+      border: 1px solid rgba(130, 170, 240, 0.35);
+      border-radius: 0.32rem;
+      background: rgba(10, 18, 32, 0.88);
+      color: rgba(220, 235, 255, 0.95);
+      padding: 0.22rem 0.38rem;
+      font-family: inherit;
+      font-size: 0.66rem;
+      line-height: 1.2;
+    }
+
+    .intent-timeline-hud-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.28rem;
+    }
+
+    .intent-timeline-hud-actions-single {
+      grid-template-columns: 1fr;
+    }
+
+    .intent-timeline-hud-actions button {
+      border: 1px solid rgba(130, 170, 240, 0.45);
+      border-radius: 0.32rem;
+      background: rgba(100, 152, 246, 0.2);
+      color: rgba(238, 246, 255, 0.96);
+      padding: 0.22rem 0.32rem;
+      font-family: inherit;
+      font-size: 0.62rem;
+      line-height: 1.2;
+      cursor: pointer;
+    }
+
+    .intent-timeline-hud-actions button:hover {
+      background: rgba(116, 165, 244, 0.32);
+    }
+
     #graphic-switcher .btn {
       border-radius: 999px;
       border-color: rgba(130, 170, 240, 0.5);
@@ -143,6 +230,12 @@
         top: calc(var(--kesson-topbar-height) + 2.68rem);
         left: 0.6rem;
         max-width: min(95vw, 17rem);
+      }
+
+      #intent-timeline-hud {
+        top: calc(var(--kesson-topbar-height) + 3.8rem);
+        left: 0.6rem;
+        width: min(95vw, 18rem);
       }
     }
 
