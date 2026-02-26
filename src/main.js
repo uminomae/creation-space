@@ -17,6 +17,7 @@ import { initDevPanel } from './dev-panel.js';
 import { initCreationLinkInteractions } from './creation-link-interactions.js';
 import { initArticles, setArticlesLanguage } from './articles.js';
 import { initIntentTimelineHud } from './intent-timeline-hud.js';
+import { createPostFxBootstrap } from './postfx-bootstrap.js';
 import { initMobileNavAutoCollapse } from './topbar-nav.js';
 import { attachResize } from './render-resize.js';
 import { applyConfigState, cloneConfigState } from './config-state.js';
@@ -125,110 +126,28 @@ async function main() {
     let liquidSystem = null;
     let liquidTarget = null;
 
-    let composer = null;
-    let distortionPass = null;
-    let dofPass = null;
+    const postFx = createPostFxBootstrap({
+        renderer,
+        scene,
+        camera,
+        liquidParams,
+        loadPostFxDeps,
+        loadFluidFactory,
+        loadLiquidFactory,
+    });
 
-    let postFxLoadingPromise = null;
-    let fluidFactoryLoadingPromise = null;
-    let liquidFactoryLoadingPromise = null;
-
-    function shouldPreparePostFx(intentScene = isIntentScene()) {
-        return !intentScene && toggles.postProcess;
-    }
-
-    function ensurePostFxPipeline() {
-        if (composer && distortionPass && dofPass) {
-            return Promise.resolve(true);
-        }
-        if (postFxLoadingPromise) {
-            return postFxLoadingPromise;
-        }
-        postFxLoadingPromise = loadPostFxDeps()
-            .then((deps) => {
-                const {
-                    EffectComposer,
-                    RenderPass,
-                    ShaderPass,
-                    DistortionShader,
-                    CameraDofShader,
-                } = deps;
-
-                composer = new EffectComposer(renderer);
-                composer.addPass(new RenderPass(scene, camera));
-
-                distortionPass = new ShaderPass(DistortionShader);
-                distortionPass.uniforms.uLiquidOffsetScale.value = liquidParams.refractOffsetScale;
-                distortionPass.uniforms.uLiquidThreshold.value = liquidParams.refractThreshold;
-                composer.addPass(distortionPass);
-
-                dofPass = new ShaderPass(CameraDofShader);
-                composer.addPass(dofPass);
-                composer.setSize(window.innerWidth, window.innerHeight);
-                return true;
-            })
-            .catch((error) => {
-                console.warn('[postfx] init failed:', error);
-                return false;
-            })
-            .finally(() => {
-                postFxLoadingPromise = null;
-            });
-        return postFxLoadingPromise;
-    }
-
-    function ensureFluidFactory() {
-        if (createFluidSystemFactory) {
-            return Promise.resolve(createFluidSystemFactory);
-        }
-        if (fluidFactoryLoadingPromise) {
-            return fluidFactoryLoadingPromise;
-        }
-        fluidFactoryLoadingPromise = loadFluidFactory()
-            .then((factory) => {
-                createFluidSystemFactory = factory;
-                return createFluidSystemFactory;
-            })
-            .catch((error) => {
-                console.warn('[fluid] import failed:', error);
-                return null;
-            })
-            .finally(() => {
-                fluidFactoryLoadingPromise = null;
-            });
-        return fluidFactoryLoadingPromise;
-    }
-
-    function ensureLiquidFactory() {
-        if (createLiquidSystemFactory) {
-            return Promise.resolve(createLiquidSystemFactory);
-        }
-        if (liquidFactoryLoadingPromise) {
-            return liquidFactoryLoadingPromise;
-        }
-        liquidFactoryLoadingPromise = loadLiquidFactory()
-            .then((factory) => {
-                createLiquidSystemFactory = factory;
-                return createLiquidSystemFactory;
-            })
-            .catch((error) => {
-                console.warn('[liquid] import failed:', error);
-                return null;
-            })
-            .finally(() => {
-                liquidFactoryLoadingPromise = null;
-            });
-        return liquidFactoryLoadingPromise;
-    }
-
-    if (shouldPreparePostFx()) {
-        void ensurePostFxPipeline();
+    if (postFx.shouldPrepare(isIntentScene(), toggles)) {
+        void postFx.ensurePipeline();
     }
     if (!isIntentScene() && toggles.postProcess && toggles.fluidField) {
-        void ensureFluidFactory();
+        void postFx.ensureFluidFactory(createFluidSystemFactory).then((factory) => {
+            if (factory) createFluidSystemFactory = factory;
+        });
     }
     if (!isIntentScene() && toggles.postProcess && toggles.liquid) {
-        void ensureLiquidFactory();
+        void postFx.ensureLiquidFactory(createLiquidSystemFactory).then((factory) => {
+            if (factory) createLiquidSystemFactory = factory;
+        });
     }
 
     initControls(camera, container, renderer);
@@ -254,7 +173,7 @@ async function main() {
     attachResize({
         camera,
         renderer,
-        getComposer: () => composer,
+        getComposer: () => postFx.getComposer(),
     });
 
     if (DEV_MODE) {
@@ -440,16 +359,23 @@ async function main() {
         updateScene(time);
 
         const shouldRunPostFx = !intentScene && toggles.postProcess;
-        if (shouldPreparePostFx(intentScene) && !(composer && distortionPass && dofPass)) {
-            void ensurePostFxPipeline();
+        if (postFx.shouldPrepare(intentScene, toggles) && !postFx.hasPipeline()) {
+            void postFx.ensurePipeline();
         }
         if (shouldRunPostFx && toggles.fluidField && !createFluidSystemFactory) {
-            void ensureFluidFactory();
+            void postFx.ensureFluidFactory(createFluidSystemFactory).then((factory) => {
+                if (factory) createFluidSystemFactory = factory;
+            });
         }
         if (shouldRunPostFx && toggles.liquid && !createLiquidSystemFactory) {
-            void ensureLiquidFactory();
+            void postFx.ensureLiquidFactory(createLiquidSystemFactory).then((factory) => {
+                if (factory) createLiquidSystemFactory = factory;
+            });
         }
 
+        const composer = postFx.getComposer();
+        const distortionPass = postFx.getDistortionPass();
+        const dofPass = postFx.getDofPass();
         if (distortionPass && dofPass) {
             if (shouldRunPostFx && toggles.fluidField) {
                 if (!fluidSystem && createFluidSystemFactory) {
