@@ -22,11 +22,10 @@ import {
     computeIntentRuntimeTimeline,
     resolveIntentLoopAnchorSecForContinuity,
     resolveIntentStartTimingMinForRawContinuity,
-    computeIntentTimeline,
     solveStartTimingMinForElapsedSecNow,
     solveStartTimingMinForPhaseNow,
-    startTimingMinForElapsedSecAtZero,
-    startTimingMinForPhaseAtZero,
+    resolveIntentShiftTurnRange,
+    resolveIntentShiftTurnElapsedSecByPathSec,
 } from './intent-timeline.js';
 import {
     breathConfig,
@@ -462,9 +461,7 @@ function initInlineVersionLabel() {
 
 function initIntentTimelineHud({
     onApplyPhaseNow,
-    onApplyPhaseAtStart,
     onApplySecNow,
-    onApplySecAtStart,
     onShiftSec,
     onCaptureLoopStart,
     onEnableSeamlessLoop,
@@ -480,17 +477,15 @@ function initIntentTimelineHud({
         <div class="intent-timeline-hud-controls">
             <label for="intent-timeline-phase-input">Phase (raw / unbounded)</label>
             <input id="intent-timeline-phase-input" type="number" step="0.0001" value="0.0000">
-            <div class="intent-timeline-hud-actions">
+            <div class="intent-timeline-hud-actions intent-timeline-hud-actions-single">
                 <button type="button" id="intent-timeline-apply-now">Jump Phase Now</button>
-                <button type="button" id="intent-timeline-apply-start">Set Phase Start</button>
             </div>
         </div>
         <div class="intent-timeline-hud-controls">
             <label for="intent-timeline-sec-input">Timeline Sec (raw)</label>
             <input id="intent-timeline-sec-input" type="number" step="0.001" value="0.000">
-            <div class="intent-timeline-hud-actions">
+            <div class="intent-timeline-hud-actions intent-timeline-hud-actions-single">
                 <button type="button" id="intent-timeline-sec-now">Jump Sec Now</button>
-                <button type="button" id="intent-timeline-sec-start">Set Sec Start</button>
             </div>
         </div>
         <div class="intent-timeline-hud-controls">
@@ -519,9 +514,7 @@ function initIntentTimelineHud({
     const secInput = hud.querySelector('#intent-timeline-sec-input');
     const shiftSecInput = hud.querySelector('#intent-timeline-shift-sec-input');
     const applyNowButton = hud.querySelector('#intent-timeline-apply-now');
-    const applyStartButton = hud.querySelector('#intent-timeline-apply-start');
     const applySecNowButton = hud.querySelector('#intent-timeline-sec-now');
-    const applySecStartButton = hud.querySelector('#intent-timeline-sec-start');
     const shiftPlusButton = hud.querySelector('#intent-timeline-shift-plus');
     const shiftMinusButton = hud.querySelector('#intent-timeline-shift-minus');
     const loopCaptureButton = hud.querySelector('#intent-timeline-loop-capture');
@@ -563,16 +556,8 @@ function initIntentTimelineHud({
         applyIfValid(parsePhaseInput, onApplyPhaseNow);
     });
 
-    applyStartButton.addEventListener('click', () => {
-        applyIfValid(parsePhaseInput, onApplyPhaseAtStart);
-    });
-
     applySecNowButton.addEventListener('click', () => {
         applyIfValid(parseSecInput, onApplySecNow);
-    });
-
-    applySecStartButton.addEventListener('click', () => {
-        applyIfValid(parseSecInput, onApplySecAtStart);
     });
 
     shiftPlusButton.addEventListener('click', () => {
@@ -626,6 +611,9 @@ function initIntentTimelineHud({
                 `loopAngle(rad): ${timeline.angle.toFixed(6)}`,
                 `wrappedSec: ${timeline.wrappedSec.toFixed(3)} / ${timeline.loopPeriodSec.toFixed(3)}`,
                 `elapsedSec(raw): ${timeline.elapsedSec.toFixed(3)}`,
+                `elapsedSec(turn): ${timeline.shiftTurnElapsedSec.toFixed(3)}`,
+                `turnSec(start/end): ${timeline.shiftTurnStartSec.toFixed(3)} / ${timeline.shiftTurnEndSec.toFixed(3)}`,
+                `turnSpanSec: ${timeline.shiftTurnSpanSec.toFixed(3)}`,
                 `startTimingMin: ${timeline.startTimingMin.toFixed(4)}`,
                 `timeScale: ${timeline.timeScale.toFixed(4)}`,
                 `loopMode: ${timeline.seamlessLoopEnabled ? 'seamless' : 'explore'}`,
@@ -854,6 +842,7 @@ async function main() {
             sceneVariant: active3dSceneVariant,
             onStateChanged: () => {
                 setCameraPosition(sceneParams.camX, sceneParams.camY, sceneParams.camZ);
+                syncShiftTurnRangeFromPanel();
             },
             onStateSnapshot: (state) => {
                 saveSceneState(active3dSceneVariant, state);
@@ -865,36 +854,65 @@ async function main() {
     const liquidMouseVel = new THREE.Vector2();
     const clock = new THREE.Clock();
     let capturedLoopStartShaderSec = null;
+    const shiftTurnState = {
+        startSec: Number(intentMotionParams.shiftTurnStartSec),
+        endSec: Number(intentMotionParams.shiftTurnEndSec),
+    };
     function markLoopAnchorDirty() {
         capturedLoopStartShaderSec = null;
     }
+    function syncShiftTurnRangeFromPanel() {
+        // Intent:
+        // 1) keep runtime range in a dedicated state object (shiftTurnState)
+        // 2) dev panel edits are the only post-init update source
+        // 3) mirror sanitized values back to config so timeline/render stay consistent
+        const nextStartSec = Number(intentMotionParams.shiftTurnStartSec);
+        const nextEndSec = Number(intentMotionParams.shiftTurnEndSec);
+        if (Number.isFinite(nextStartSec)) {
+            shiftTurnState.startSec = nextStartSec;
+        }
+        if (Number.isFinite(nextEndSec)) {
+            shiftTurnState.endSec = nextEndSec;
+        }
+        if (!Number.isFinite(shiftTurnState.startSec)) {
+            shiftTurnState.startSec = 0.0;
+        }
+        if (!Number.isFinite(shiftTurnState.endSec)) {
+            shiftTurnState.endSec = resolveIntentShiftTurnRange({
+                shiftTurnStartSec: shiftTurnState.startSec,
+            }).endSec;
+        }
+        const normalized = resolveIntentShiftTurnRange(shiftTurnState);
+        shiftTurnState.startSec = normalized.startSec;
+        shiftTurnState.endSec = normalized.endSec;
+        intentMotionParams.shiftTurnStartSec = normalized.startSec;
+        intentMotionParams.shiftTurnEndSec = normalized.endSec;
+    }
+    syncShiftTurnRangeFromPanel();
     const intentTimelineHud = DEV_MODE ? initIntentTimelineHud({
         onApplyPhaseNow: (phase) => {
             const nowSec = clock.getElapsedTime();
             intentMotionParams.startTimingMin = solveStartTimingMinForPhaseNow(phase, nowSec, intentMotionParams);
-            markLoopAnchorDirty();
-            saveSceneState(active3dSceneVariant, cloneConfigState());
-        },
-        onApplyPhaseAtStart: (phase) => {
-            intentMotionParams.startTimingMin = startTimingMinForPhaseAtZero(phase, intentMotionParams);
+            // Keep Shift turn range controlled by config/dev panel.
+            // Do not silently overwrite start/end when timeline is jumped.
             markLoopAnchorDirty();
             saveSceneState(active3dSceneVariant, cloneConfigState());
         },
         onApplySecNow: (targetElapsedSec) => {
             const nowSec = clock.getElapsedTime();
             intentMotionParams.startTimingMin = solveStartTimingMinForElapsedSecNow(targetElapsedSec, nowSec, intentMotionParams);
-            markLoopAnchorDirty();
-            saveSceneState(active3dSceneVariant, cloneConfigState());
-        },
-        onApplySecAtStart: (targetElapsedSec) => {
-            intentMotionParams.startTimingMin = startTimingMinForElapsedSecAtZero(targetElapsedSec);
+            // Keep Shift turn range controlled by config/dev panel.
             markLoopAnchorDirty();
             saveSceneState(active3dSceneVariant, cloneConfigState());
         },
         onShiftSec: (deltaSec) => {
             const nowSec = clock.getElapsedTime();
-            const current = computeIntentTimeline(nowSec, intentMotionParams);
-            const targetElapsedSec = current.elapsedSec + deltaSec;
+            const range = resolveIntentShiftTurnRange(shiftTurnState);
+            const current = computeIntentRuntimeTimeline(nowSec, intentMotionParams);
+            // Shift +/- must operate on the same folded path that shader uTime uses.
+            // We therefore shift path-space first, then map back to elapsed seconds.
+            const nextPathSec = current.shiftTurnPathSec + deltaSec;
+            const targetElapsedSec = resolveIntentShiftTurnElapsedSecByPathSec(nextPathSec, range);
             intentMotionParams.startTimingMin = solveStartTimingMinForElapsedSecNow(targetElapsedSec, nowSec, intentMotionParams);
             markLoopAnchorDirty();
             saveSceneState(active3dSceneVariant, cloneConfigState());

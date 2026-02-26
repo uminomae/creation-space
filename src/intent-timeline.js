@@ -12,6 +12,56 @@ function wrap(value, period) {
     return ((value % period) + period) % period;
 }
 
+const SHIFT_TURN_DEFAULT_SPAN_SEC = 2100.0;
+const SHIFT_TURN_MIN_SPAN_SEC = 0.001;
+
+// Shift Turn range is a directed lane:
+// start -> end when direction = +1, start <- end when direction = -1.
+// We keep direction explicit so reversed ranges (start > end) work identically.
+export function resolveIntentShiftTurnRange(intentMotionParams = {}) {
+    const startSec = finiteOr(intentMotionParams.shiftTurnStartSec, 0.0);
+    const requestedEndSec = finiteOr(
+        intentMotionParams.shiftTurnEndSec,
+        startSec + SHIFT_TURN_DEFAULT_SPAN_SEC
+    );
+    const spanSec = Math.max(SHIFT_TURN_MIN_SPAN_SEC, Math.abs(requestedEndSec - startSec));
+    const direction = requestedEndSec >= startSec ? 1.0 : -1.0;
+    return {
+        startSec,
+        endSec: requestedEndSec,
+        spanSec,
+        direction,
+    };
+}
+
+// Project raw elapsed time onto an endless back-and-forth path.
+// The returned value is in [0, span*2) on the directed lane.
+export function resolveIntentShiftTurnPathSec(rawElapsedSec, shiftTurnRange) {
+    const startSec = finiteOr(shiftTurnRange?.startSec, 0.0);
+    const spanSec = Math.max(SHIFT_TURN_MIN_SPAN_SEC, finiteOr(shiftTurnRange?.spanSec, SHIFT_TURN_DEFAULT_SPAN_SEC));
+    const direction = shiftTurnRange?.direction === -1.0 ? -1.0 : 1.0;
+    const laneSec = (finiteOr(rawElapsedSec, 0.0) - startSec) * direction;
+    const periodSec = spanSec * 2.0;
+    return wrap(laneSec, periodSec);
+}
+
+// Fold path position back into lane space (triangle wave),
+// then map it back to elapsed sec in world direction.
+export function resolveIntentShiftTurnElapsedSecByPathSec(pathSec, shiftTurnRange) {
+    const startSec = finiteOr(shiftTurnRange?.startSec, 0.0);
+    const spanSec = Math.max(SHIFT_TURN_MIN_SPAN_SEC, finiteOr(shiftTurnRange?.spanSec, SHIFT_TURN_DEFAULT_SPAN_SEC));
+    const direction = shiftTurnRange?.direction === -1.0 ? -1.0 : 1.0;
+    const periodSec = spanSec * 2.0;
+    const wrappedPathSec = wrap(pathSec, periodSec);
+    const foldedLaneSec = wrappedPathSec <= spanSec ? wrappedPathSec : periodSec - wrappedPathSec;
+    return startSec + foldedLaneSec * direction;
+}
+
+export function resolveIntentShiftTurnElapsedSec(rawElapsedSec, shiftTurnRange) {
+    const pathSec = resolveIntentShiftTurnPathSec(rawElapsedSec, shiftTurnRange);
+    return resolveIntentShiftTurnElapsedSecByPathSec(pathSec, shiftTurnRange);
+}
+
 export function isIntentSeamlessLoopEnabled(intentMotionParams = {}) {
     const value = intentMotionParams.seamlessLoop;
     if (typeof value === 'boolean') return value;
@@ -84,7 +134,8 @@ export function computeIntentTimeline(timeSec, intentMotionParams = {}) {
 export function computeIntentShaderTime(timeline, intentMotionParams = {}) {
     if (!timeline || typeof timeline !== 'object') return 0.0;
     if (!isIntentSeamlessLoopEnabled(intentMotionParams)) {
-        return finiteOr(timeline.elapsedSec, 0.0);
+        const shiftTurnRange = resolveIntentShiftTurnRange(intentMotionParams);
+        return resolveIntentShiftTurnElapsedSec(finiteOr(timeline.elapsedSec, 0.0), shiftTurnRange);
     }
     const anchorSec = resolveIntentLoopAnchorSec(intentMotionParams);
     const driftSec = resolveIntentLoopDriftSec(intentMotionParams);
@@ -97,10 +148,14 @@ export function computeIntentRuntimeTimeline(timeSec, intentMotionParams = {}) {
     const seamlessLoopEnabled = isIntentSeamlessLoopEnabled(intentMotionParams);
     const loopAnchorSec = resolveIntentLoopAnchorSec(intentMotionParams);
     const loopDriftSec = resolveIntentLoopDriftSec(intentMotionParams);
+    const shiftTurnRange = resolveIntentShiftTurnRange(intentMotionParams);
+    const shiftTurnPathPeriodSec = shiftTurnRange.spanSec * 2.0;
+    const shiftTurnPathSec = resolveIntentShiftTurnPathSec(timeline.elapsedSec, shiftTurnRange);
+    const shiftTurnElapsedSec = resolveIntentShiftTurnElapsedSecByPathSec(shiftTurnPathSec, shiftTurnRange);
     const loopOrbitSec = computeIntentLoopOrbitByAngle(timeline.angle, loopDriftSec);
     const shaderTimeSec = seamlessLoopEnabled
         ? loopAnchorSec + loopOrbitSec
-        : timeline.elapsedSec;
+        : shiftTurnElapsedSec;
     return {
         ...timeline,
         shaderTimeSec,
@@ -108,6 +163,12 @@ export function computeIntentRuntimeTimeline(timeSec, intentMotionParams = {}) {
         loopAnchorSec,
         loopDriftSec,
         loopOrbitSec,
+        shiftTurnStartSec: shiftTurnRange.startSec,
+        shiftTurnEndSec: shiftTurnRange.endSec,
+        shiftTurnSpanSec: shiftTurnRange.spanSec,
+        shiftTurnPathSec,
+        shiftTurnPathPeriodSec,
+        shiftTurnElapsedSec,
     };
 }
 
