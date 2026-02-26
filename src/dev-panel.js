@@ -104,6 +104,8 @@ const INTENT_MOTION_HELP_JA = {
     startTimingMin: '開始時間ポイント（分）です。ループ周期上の開始位置を決めます。',
     loopPeriodSec: '1周の秒数です。大きいほどゆっくり変化します。',
     timeScale: '全体の時間進行倍率です。',
+    shiftTurnStartSec: 'Shift Secターン往復の開始秒です。通常は開始地点を固定したい時に使います。',
+    shiftTurnEndSec: 'Shift Secターン往復の終了秒です。開始秒との間を往復します。',
     loopAnchorSec: 'シームレスループ時の基準時刻（秒）です。探索で見つけた位置を固定します。',
     loopDriftSec: '基準時刻の周囲を往復する幅（秒）です。大きいほど変化幅が広がります。',
 };
@@ -216,6 +218,8 @@ const PARAM_GROUPS = [
             ['startTimingMin', 'Start Timing Min', -120.0, 1440.0, 0.1],
             ['loopPeriodSec', 'Loop Period Sec', 1.0, 3600.0, 0.1],
             ['timeScale', 'Time Scale', 0.0, 4.0, 0.01],
+            ['shiftTurnStartSec', 'Shift Turn Start Sec', -72000.0, 72000.0, 0.1],
+            ['shiftTurnEndSec', 'Shift Turn End Sec', -72000.0, 72000.0, 0.1],
             ['loopAnchorSec', 'Loop Anchor Sec', -36000.0, 36000.0, 0.1],
             ['loopDriftSec', 'Loop Drift Sec', 0.0, 7200.0, 0.1],
         ],

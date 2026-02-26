@@ -486,6 +486,8 @@ const INTENT_PRESET = {
         startTimingMin: 7.638,
         loopPeriodSec: 480.0,
         timeScale: 1.0,
+        shiftTurnStartSec: 0.0,
+        shiftTurnEndSec: 2100.0,
         seamlessLoop: false,
         loopAnchorSec: 458.278,
         loopDriftSec: 180.0,
