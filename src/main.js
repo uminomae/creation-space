@@ -7,6 +7,7 @@ import {
     setAutoRotateLoopPhase,
     setAutoRotateStartOffsetSec,
     setCameraPosition,
+    setCameraTarget,
     updateControls,
     getScrollProgress,
 } from './controls.js';
@@ -189,9 +190,8 @@ const STRINGS = {
         articlesSectionHeading: 'ARTICLES',
         articlesSectionHeadingAria: 'ARTICLES セクションへジャンプ',
         offcanvasArticlesTitle: 'ARTICLES',
-        creationCardsHeading: 'CREATION CARDS',
-        creationCardTitlePrefix: 'Card Slot',
-        creationCardBody: '内容は後続指定',
+        leftKessonLinkLabel: '欠損駆動思考',
+        leftKessonLinkAria: 'kesson-spaceへ移動',
         surfaceButtonAria: 'ページ上部に戻る',
         devVersionPrefix: '開発版 ver',
         langToggleLabel: 'English',
@@ -221,9 +221,8 @@ const STRINGS = {
         articlesSectionHeading: 'ARTICLES',
         articlesSectionHeadingAria: 'Jump to ARTICLES section',
         offcanvasArticlesTitle: 'ARTICLES',
-        creationCardsHeading: 'CREATION CARDS',
-        creationCardTitlePrefix: 'Card Slot',
-        creationCardBody: 'content to be specified',
+        leftKessonLinkLabel: 'kesson-driven',
+        leftKessonLinkAria: 'Go to kesson-space',
         surfaceButtonAria: 'Back to top',
         devVersionPrefix: 'Dev ver',
         langToggleLabel: '日本語',
@@ -293,7 +292,8 @@ function applyPageLanguage(lang) {
     const footerSignature = document.getElementById('footer-signature');
     const articlesSectionHeading = document.getElementById('articles-section-heading');
     const offcanvasArticlesTitle = document.getElementById('offcanvas-articles-title');
-    const creationCardsHeading = document.getElementById('creation-cards-heading');
+    const leftKessonLink = document.getElementById('left-kesson-link');
+    const leftKessonLinkLabel = document.getElementById('left-kesson-link-label');
     const langToggle = document.getElementById('lang-toggle');
     const graphicSwitcher = document.getElementById('graphic-switcher');
     const graphicHojiButton = document.querySelector('[data-graphic-mode="hoji"]');
@@ -319,7 +319,8 @@ function applyPageLanguage(lang) {
         articlesSectionHeading.setAttribute('aria-label', strings.articlesSectionHeadingAria);
     }
     if (offcanvasArticlesTitle) offcanvasArticlesTitle.textContent = strings.offcanvasArticlesTitle;
-    if (creationCardsHeading) creationCardsHeading.textContent = strings.creationCardsHeading;
+    if (leftKessonLinkLabel) leftKessonLinkLabel.textContent = strings.leftKessonLinkLabel;
+    if (leftKessonLink) leftKessonLink.setAttribute('aria-label', strings.leftKessonLinkAria);
     if (graphicSwitcher) graphicSwitcher.setAttribute('aria-label', strings.graphicSwitcherAria);
     if (graphicHojiButton) graphicHojiButton.textContent = strings.graphicModeHoji;
     if (graphicSinobiButton) graphicSinobiButton.textContent = strings.graphicModeSinobi;
@@ -329,13 +330,6 @@ function applyPageLanguage(lang) {
         langToggle.textContent = strings.langToggleLabel;
         langToggle.setAttribute('aria-label', strings.langToggleAria);
     }
-
-    [1, 2, 3].forEach((slotIndex) => {
-        const titleNode = document.getElementById(`creation-card-slot-${slotIndex}-title`);
-        const bodyNode = document.getElementById(`creation-card-slot-${slotIndex}-body`);
-        if (titleNode) titleNode.textContent = `${strings.creationCardTitlePrefix} ${String(slotIndex).padStart(2, '0')}`;
-        if (bodyNode) bodyNode.textContent = strings.creationCardBody;
-    });
 
     if (taglineContainer) {
         taglineContainer.innerHTML = '';
@@ -889,6 +883,11 @@ async function main() {
             sceneVariant: active3dSceneVariant,
             onStateChanged: () => {
                 setCameraPosition(sceneParams.camX, sceneParams.camY, sceneParams.camZ);
+                setCameraTarget(
+                    sceneParams.camTargetX ?? 0,
+                    sceneParams.camTargetY ?? 0,
+                    sceneParams.camTargetZ ?? 0,
+                );
                 syncShiftTurnRangeFromPanel();
             },
             onStateSnapshot: (state) => {
@@ -1019,6 +1018,11 @@ async function main() {
 
         updateScrollUI(scrollProg, breathVal);
         setCameraPosition(sceneParams.camX, sceneParams.camY, sceneParams.camZ);
+        setCameraTarget(
+            sceneParams.camTargetX ?? 0,
+            sceneParams.camTargetY ?? 0,
+            sceneParams.camTargetZ ?? 0,
+        );
         if (intentScene) {
             toggles.autoRotate = true;
             setAutoRotateSpeed(intentMotionParams.cameraRotateSpeed);

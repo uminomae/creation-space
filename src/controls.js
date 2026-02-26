@@ -13,6 +13,7 @@ import {
     REF_HEIGHT,
     DIVE_DEPTH,
     DIVE_SCROLL_VH,
+    LOOKAT_BASE_Y,
     ROTATE_SENSITIVITY,
     ZOOM_SENSITIVITY,
     MIN_ZOOM,
@@ -33,6 +34,9 @@ let _autoRotateLoopPhase = null;
 let _baseCamY = 0;
 let _baseCamX = -14;
 let _baseCamZ = 34;
+let _baseTargetX = 0;
+let _baseTargetY = LOOKAT_BASE_Y;
+let _baseTargetZ = 0;
 
 // スクロール進捗 (0 = 水面, 1 = 完全潜水)
 let _scrollProgress = 0;
@@ -68,6 +72,9 @@ export function initControls(camera, container, renderer) {
     _baseCamY = sceneParams.camY;
     _baseCamX = sceneParams.camX;
     _baseCamZ = sceneParams.camZ;
+    _baseTargetX = Number.isFinite(sceneParams.camTargetX) ? sceneParams.camTargetX : 0;
+    _baseTargetY = Number.isFinite(sceneParams.camTargetY) ? sceneParams.camTargetY : LOOKAT_BASE_Y;
+    _baseTargetZ = Number.isFinite(sceneParams.camTargetZ) ? sceneParams.camTargetZ : 0;
 
     // --- touch-action: pan-y ---
     // ブラウザに「縦スクロールだけ任せる、横とピンチはJSで処理する」と宣言
@@ -221,6 +228,12 @@ export function setCameraPosition(x, y, z) {
     _baseCamZ = z;
 }
 
+export function setCameraTarget(x, y, z) {
+    _baseTargetX = x;
+    _baseTargetY = y;
+    _baseTargetZ = z;
+}
+
 // REMOVED: setTarget() — スクロール潜水モードでは未使用（lookAtはupdateControls内で計算）
 
 export function getScrollProgress() {
@@ -270,11 +283,19 @@ export function updateControls(time, breathVal = 0.5) {
 
     // --- FOV呼吸 ---
     const fovBase = getAdjustedFovBase();
+    let nextFov = fovBase;
     if (toggles.fovBreath) {
-        _camera.fov = fovBase + (breathVal * 2 - 1) * breathConfig.fovAmplitude;
-    } else {
-        _camera.fov = fovBase;
+        nextFov += (breathVal * 2 - 1) * breathConfig.fovAmplitude;
     }
+    const pulseAmp = Math.max(0, breathConfig.fovPulseAmplitude || 0);
+    if (pulseAmp > 0) {
+        const pulseSpeed = Math.max(0.05, breathConfig.fovPulseSpeed || 0.28);
+        const pulseSharpness = Math.max(1.0, breathConfig.fovPulseSharpness || 8.0);
+        const pulseCarrier = Math.max(0, Math.sin(time * pulseSpeed));
+        const pulse = Math.pow(pulseCarrier, pulseSharpness);
+        nextFov -= pulseAmp * pulse;
+    }
+    _camera.fov = Math.max(10, Math.min(CAMERA_MAX_FOV, nextFov));
     _camera.updateProjectionMatrix();
 
     // --- 軌道計算 ---
@@ -302,6 +323,5 @@ export function updateControls(time, breathVal = 0.5) {
     const diveY = _baseCamY - eased * DIVE_DEPTH;
 
     _camera.position.set(rotX, diveY, rotZ);
-    const lookAtY = sceneParams.camTargetY - eased * DIVE_DEPTH * 0.5;
-    _camera.lookAt(0, lookAtY, 0);
+    _camera.lookAt(_baseTargetX, _baseTargetY - eased * DIVE_DEPTH * 0.5, _baseTargetZ);
 }
