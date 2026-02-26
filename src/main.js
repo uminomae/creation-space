@@ -1,8 +1,6 @@
 import * as THREE from 'three';
 
-import { createGraphicModeApplier } from './graphic-mode-apply.js';
-import { cloneConfigState } from './config-state.js';
-import { getScenePresetVersion, resolveSceneVariant } from './scene-presets.js';
+import { getScenePresetVersion } from './scene-presets.js';
 import { DEV_VERSION } from './version.js';
 import { createSceneStateStore } from './dev-scene-state.js';
 import { installStartupErrorHandlers, showStartupErrorOverlay } from './startup-error-overlay.js';
@@ -11,12 +9,9 @@ import { initMainIntentRuntime } from './main-intent-runtime.js';
 import { createMainSceneRuntime, prepareMainBootstrap } from './main-bootstrap.js';
 import { initMainContentRuntime } from './main-content-runtime.js';
 import { createMainFrameRuntime } from './main-frame-runtime.js';
+import { initMainGraphicModeRuntime } from './main-graphic-mode-runtime.js';
 import { initMainPostFxRuntime } from './main-postfx-runtime.js';
-import {
-    normalizeGraphicMode,
-    syncGraphicModeQuery,
-    setGraphicButtonState,
-} from './graphic-mode.js';
+
 const DEV_MODE = new URLSearchParams(window.location.search).has('dev');
 const DEV_PANEL_STATE_PERSIST = new URLSearchParams(window.location.search).get('devstate') === 'persist';
 const CAPTURE_ENABLE_MAX_DELTA_SEC = 0.3;
@@ -53,18 +48,12 @@ async function main() {
         container,
         sceneVariant: initialSceneVariant,
     });
-    let active3dSceneVariant = initialSceneVariant;
+    const active3dSceneVariant = initialSceneVariant;
     const isIntentScene = () => active3dSceneVariant === 'intent';
 
-    const applyGraphicMode = createGraphicModeApplier({
+    const applyGraphicMode = initMainGraphicModeRuntime({
         getActiveSceneVariant: () => active3dSceneVariant,
-        normalizeGraphicMode,
-        resolveSceneVariant,
-        saveSceneState: (sceneVariant) => {
-            sceneStateStore.save(sceneVariant, cloneConfigState());
-        },
-        syncGraphicModeQuery,
-        setGraphicButtonState,
+        sceneStateStore,
     });
 
     const { postFxRuntime } = initMainPostFxRuntime({
