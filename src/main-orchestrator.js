@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 
 import { initMainDevRuntime } from './main-dev-runtime.js';
+import { createMainDevStatsBridge } from './main-dev-stats-bridge.js';
 import { initMainIntentRuntime } from './main-intent-runtime.js';
 import { prepareMainBootstrap } from './main-bootstrap.js';
 import { createMainFrameRuntime } from './main-frame-runtime.js';
@@ -12,8 +13,7 @@ export async function runMainOrchestrator({
 }) {
     const devMode = Boolean(runtimeContext?.devMode);
     const sceneStateStore = runtimeContext?.sceneStateStore;
-    let devStatsBegin = () => {};
-    let devStatsEnd = () => {};
+    const devStatsBridge = createMainDevStatsBridge();
 
     const {
         initialLang,
@@ -61,8 +61,7 @@ export async function runMainOrchestrator({
         shiftTurnState,
         sceneStateStore,
         setStatsHandlers: (statsBegin, statsEnd) => {
-            devStatsBegin = statsBegin;
-            devStatsEnd = statsEnd;
+            devStatsBridge.setHandlers(statsBegin, statsEnd);
         },
     });
 
@@ -74,8 +73,8 @@ export async function runMainOrchestrator({
         intentTimelineRuntime,
         updateScene,
         postFxRuntime,
-        getDevStatsBegin: () => devStatsBegin,
-        getDevStatsEnd: () => devStatsEnd,
+        getDevStatsBegin: () => devStatsBridge.getBegin(),
+        getDevStatsEnd: () => devStatsBridge.getEnd(),
     });
 
     frameRuntime.start();
