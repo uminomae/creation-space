@@ -2,11 +2,9 @@ import * as THREE from 'three';
 
 import { initMainDevRuntime } from './main-dev-runtime.js';
 import { initMainIntentRuntime } from './main-intent-runtime.js';
-import { createMainSceneRuntime, prepareMainBootstrap } from './main-bootstrap.js';
-import { initMainContentRuntime } from './main-content-runtime.js';
+import { prepareMainBootstrap } from './main-bootstrap.js';
 import { createMainFrameRuntime } from './main-frame-runtime.js';
-import { initMainGraphicModeRuntime } from './main-graphic-mode-runtime.js';
-import { initMainPostFxRuntime } from './main-postfx-runtime.js';
+import { initMainScenePipelineRuntime } from './main-scene-pipeline-runtime.js';
 
 export async function runMainOrchestrator({
     runtimeContext,
@@ -30,42 +28,23 @@ export async function runMainOrchestrator({
     const container = document.getElementById('canvas-container');
     if (!container) return;
 
-    const {
-        scene,
-        camera,
-        renderer,
-        getCreationLinkTargetMeshes,
-        updateScene,
-    } = await createMainSceneRuntime({
+    const scenePipeline = await initMainScenePipelineRuntime({
         container,
-        sceneVariant: initialSceneVariant,
-    });
-    const active3dSceneVariant = initialSceneVariant;
-    const isIntentScene = () => active3dSceneVariant === 'intent';
-
-    const applyGraphicMode = initMainGraphicModeRuntime({
-        getActiveSceneVariant: () => active3dSceneVariant,
-        sceneStateStore,
-    });
-
-    const { postFxRuntime } = initMainPostFxRuntime({
-        renderer,
-        scene,
-        camera,
-        isIntentScene,
-    });
-
-    initMainContentRuntime({
-        camera,
-        container,
-        renderer,
-        getCreationLinkTargetMeshes,
         initialLang,
         initialGraphicMode,
-        applyGraphicMode,
+        initialSceneVariant,
         devMode,
         devVersion,
+        sceneStateStore,
     });
+    const {
+        camera,
+        renderer,
+        updateScene,
+        isIntentScene,
+        getSceneVariant,
+        postFxRuntime,
+    } = scenePipeline;
 
     const clock = new THREE.Clock();
     const { shiftTurnState, intentTimelineRuntime } = initMainIntentRuntime({
@@ -73,12 +52,12 @@ export async function runMainOrchestrator({
         clock,
         captureEnableMaxDeltaSec: runtimeContext?.captureEnableMaxDeltaSec,
         sceneStateStore,
-        getSceneVariant: () => active3dSceneVariant,
+        getSceneVariant,
     });
 
     initMainDevRuntime({
         devMode,
-        getSceneVariant: () => active3dSceneVariant,
+        getSceneVariant,
         shiftTurnState,
         sceneStateStore,
         setStatsHandlers: (statsBegin, statsEnd) => {
