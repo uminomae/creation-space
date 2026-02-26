@@ -16,6 +16,7 @@ import { initDevAuxTools, initDevPanelRuntime } from './dev-runtime.js';
 import { initArticles, setArticlesLanguage } from './articles.js';
 import { initIntentTimelineHud } from './intent-timeline-hud.js';
 import { createIntentShiftTurnState } from './intent-shift-turn-state.js';
+import { createIntentTimelineRuntime } from './intent-timeline-runtime.js';
 import { createPostFxBootstrap } from './postfx-bootstrap.js';
 import { createGraphicModeApplier } from './graphic-mode-apply.js';
 import { attachResize } from './render-resize.js';
@@ -179,72 +180,23 @@ async function main() {
     }
 
     const clock = new THREE.Clock();
-    let capturedLoopStartShaderSec = null;
-    function markLoopAnchorDirty() {
-        capturedLoopStartShaderSec = null;
-    }
-    const intentTimelineHud = DEV_MODE ? initIntentTimelineHud({
-        onApplyPhaseNow: (phase) => {
-            const nowSec = clock.getElapsedTime();
-            intentMotionParams.startTimingMin = solveStartTimingMinForPhaseNow(phase, nowSec, intentMotionParams);
-            // Keep Shift turn range controlled by config/dev panel.
-            // Do not silently overwrite start/end when timeline is jumped.
-            markLoopAnchorDirty();
+    const intentTimelineRuntime = createIntentTimelineRuntime({
+        devMode: DEV_MODE,
+        clock,
+        captureEnableMaxDeltaSec: CAPTURE_ENABLE_MAX_DELTA_SEC,
+        intentMotionParams,
+        shiftTurnState,
+        initIntentTimelineHud,
+        computeIntentRuntimeTimeline,
+        solveStartTimingMinForPhaseNow,
+        solveStartTimingMinForElapsedSecNow,
+        resolveIntentShiftTurnElapsedSecByPathSec,
+        resolveIntentLoopAnchorSecForContinuity,
+        resolveIntentStartTimingMinForRawContinuity,
+        saveSceneState: () => {
             sceneStateStore.save(active3dSceneVariant, cloneConfigState());
         },
-        onApplySecNow: (targetElapsedSec) => {
-            const nowSec = clock.getElapsedTime();
-            intentMotionParams.startTimingMin = solveStartTimingMinForElapsedSecNow(targetElapsedSec, nowSec, intentMotionParams);
-            // Keep Shift turn range controlled by config/dev panel.
-            markLoopAnchorDirty();
-            sceneStateStore.save(active3dSceneVariant, cloneConfigState());
-        },
-        onShiftSec: (deltaSec) => {
-            const nowSec = clock.getElapsedTime();
-            const range = shiftTurnState.getRange();
-            const current = computeIntentRuntimeTimeline(nowSec, intentMotionParams);
-            // Shift +/- must operate on the same folded path that shader uTime uses.
-            // We therefore shift path-space first, then map back to elapsed seconds.
-            const nextPathSec = current.shiftTurnPathSec + deltaSec;
-            const targetElapsedSec = resolveIntentShiftTurnElapsedSecByPathSec(nextPathSec, range);
-            intentMotionParams.startTimingMin = solveStartTimingMinForElapsedSecNow(targetElapsedSec, nowSec, intentMotionParams);
-            markLoopAnchorDirty();
-            sceneStateStore.save(active3dSceneVariant, cloneConfigState());
-        },
-        onCaptureLoopStart: () => {
-            const nowSec = clock.getElapsedTime();
-            const runtime = computeIntentRuntimeTimeline(nowSec, intentMotionParams);
-            capturedLoopStartShaderSec = runtime.shaderTimeSec;
-            const orbitSec = runtime.loopOrbitSec;
-            intentMotionParams.loopAnchorSec = capturedLoopStartShaderSec - orbitSec;
-            sceneStateStore.save(active3dSceneVariant, cloneConfigState());
-        },
-        onEnableSeamlessLoop: () => {
-            const nowSec = clock.getElapsedTime();
-            if (Number.isFinite(capturedLoopStartShaderSec)) {
-                const runtime = computeIntentRuntimeTimeline(nowSec, intentMotionParams);
-                const captureDeltaSec = capturedLoopStartShaderSec - runtime.shaderTimeSec;
-                if (Math.abs(captureDeltaSec) <= CAPTURE_ENABLE_MAX_DELTA_SEC) {
-                    const orbitSec = runtime.loopOrbitSec;
-                    intentMotionParams.loopAnchorSec = capturedLoopStartShaderSec - orbitSec;
-                } else {
-                    intentMotionParams.loopAnchorSec = resolveIntentLoopAnchorSecForContinuity(nowSec, intentMotionParams);
-                    capturedLoopStartShaderSec = null;
-                }
-            } else {
-                intentMotionParams.loopAnchorSec = resolveIntentLoopAnchorSecForContinuity(nowSec, intentMotionParams);
-            }
-            intentMotionParams.seamlessLoop = true;
-            sceneStateStore.save(active3dSceneVariant, cloneConfigState());
-        },
-        onDisableSeamlessLoop: () => {
-            const nowSec = clock.getElapsedTime();
-            intentMotionParams.startTimingMin = resolveIntentStartTimingMinForRawContinuity(nowSec, intentMotionParams);
-            intentMotionParams.seamlessLoop = false;
-            markLoopAnchorDirty();
-            sceneStateStore.save(active3dSceneVariant, cloneConfigState());
-        },
-    }) : null;
+    });
 
     function animate() {
         requestAnimationFrame(animate);
@@ -254,15 +206,8 @@ async function main() {
         const breathVal = breathValue(time, breathConfig.period);
         const scrollProg = getScrollProgress();
         const intentScene = isIntentScene();
-        const intentTimeline = computeIntentRuntimeTimeline(time, intentMotionParams);
-        const captureDeltaSec = Number.isFinite(capturedLoopStartShaderSec)
-            ? capturedLoopStartShaderSec - intentTimeline.shaderTimeSec
-            : null;
-        const intentTimelineDebug = {
-            ...intentTimeline,
-            capturedLoopStartSec: capturedLoopStartShaderSec,
-            captureDeltaSec,
-        };
+        const timelineState = intentTimelineRuntime.getTimelineState(time);
+        const intentTimeline = timelineState.runtime;
 
         updateScrollUI(scrollProg, breathVal);
         setCameraPosition(sceneParams.camX, sceneParams.camY, sceneParams.camZ);
@@ -281,10 +226,7 @@ async function main() {
             setAutoRotateStartOffsetSec(0.0);
             setAutoRotateLoopPhase(null);
         }
-        if (intentTimelineHud) {
-            intentTimelineHud.setVisible(intentScene);
-            if (intentScene) intentTimelineHud.update(intentTimelineDebug);
-        }
+        intentTimelineRuntime.updateHudVisibility(intentScene, timelineState.debug);
         updateControls(time, breathVal);
         const mouse = updateMouseSmoothing();
 
