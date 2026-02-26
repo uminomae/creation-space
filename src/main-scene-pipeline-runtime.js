@@ -52,6 +52,7 @@ export async function initMainScenePipelineRuntime({
     });
 
     return {
+        scene,
         camera,
         renderer,
         updateScene,
