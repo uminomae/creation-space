@@ -13,7 +13,7 @@ import {
 } from './controls.js';
 import { initMouseTracking, updateMouseSmoothing } from './mouse-state.js';
 import { initScrollUI, refreshGuideLang, updateScrollUI } from './scroll-ui.js';
-import { initDevPanel } from './dev-panel.js';
+import { initDevAuxTools, initDevPanelRuntime } from './dev-runtime.js';
 import { initCreationLinkInteractions } from './creation-link-interactions.js';
 import { initArticles, setArticlesLanguage } from './articles.js';
 import { initIntentTimelineHud } from './intent-timeline-hud.js';
@@ -177,33 +177,21 @@ async function main() {
     shiftTurnState.syncFromParams();
 
     if (DEV_MODE) {
-        import('./dev-links-panel.js').then(({ initDevLinksPanel }) => {
-            initDevLinksPanel();
-        }).catch((err) => {
-            console.warn('[dev-links] init failed:', err.message);
-        });
-
-        import('./dev-stats.js').then(({ initDevStats, statsBegin, statsEnd }) => {
-            devStatsBegin = statsBegin;
-            devStatsEnd = statsEnd;
-            initDevStats().catch((err) => {
-                console.warn('[dev-stats] init failed:', err.message);
-            });
-        }).catch((err) => {
-            console.warn('[dev-stats] import failed:', err.message);
+        initDevAuxTools({
+            setStatsHandlers: (statsBegin, statsEnd) => {
+                devStatsBegin = statsBegin;
+                devStatsEnd = statsEnd;
+            },
         });
     }
 
     if (DEV_MODE) {
-        initDevPanel({
+        initDevPanelRuntime({
             sceneVariant: active3dSceneVariant,
-            onStateChanged: () => {
-                setCameraPosition(sceneParams.camX, sceneParams.camY, sceneParams.camZ);
-                setCameraTarget(
-                    sceneParams.camTargetX ?? 0,
-                    sceneParams.camTargetY ?? 0,
-                    sceneParams.camTargetZ ?? 0,
-                );
+            sceneParams,
+            setCameraPosition,
+            setCameraTarget,
+            onSyncShiftTurn: () => {
                 shiftTurnState.syncFromParams();
             },
             onStateSnapshot: (state) => {
