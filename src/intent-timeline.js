@@ -1,3 +1,7 @@
+import {
+    INTENT_SHIFT_TURN_DEFAULT_SPAN_SEC as SHIFT_TURN_DEFAULT_SPAN_SEC,
+} from './intent-motion-constants.js';
+
 function finiteOr(value, fallback) {
     return Number.isFinite(value) ? value : fallback;
 }
@@ -12,7 +16,6 @@ function wrap(value, period) {
     return ((value % period) + period) % period;
 }
 
-const SHIFT_TURN_DEFAULT_SPAN_SEC = 2100.0;
 const SHIFT_TURN_MIN_SPAN_SEC = 0.001;
 
 // Shift Turn range is a directed lane:

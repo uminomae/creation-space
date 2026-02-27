@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { INTENT_MOTION_DEFAULTS } from '../intent-motion-defaults.js';
 
 export const toggles = {
     background: true,
@@ -261,15 +262,7 @@ export const distortionParams = {
 };
 
 export const intentMotionParams = {
-    cameraRotateSpeed: 1.0,
-    startTimingMin: 7.638,
-    loopPeriodSec: 480.0,
-    timeScale: 1.0,
-    shiftTurnStartSec: 0.0,
-    shiftTurnEndSec: 2100.0,
-    seamlessLoop: false,
-    loopAnchorSec: 458.278,
-    loopDriftSec: 180.0,
+    ...INTENT_MOTION_DEFAULTS,
 };
 
 export const intentConsciousnessParams = {

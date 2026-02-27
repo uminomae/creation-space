@@ -1,16 +1,24 @@
 {
   "basePath": "./",
   "presets": {
-    "dev_mode": {
-      "label": "Dev Mode",
-      "path": "./?dev"
-    },
-    "sample_overlay_anchor": {
-      "label": "Sample: Overlay Anchor",
+    "intent_utime7500_cam40": {
+      "label": "Intent: uTime 7500 / Cam 40deg",
       "path": "./",
-      "hash": "overlay",
       "query": {
-        "dev": 1
+        "dev": 1,
+        "graphic": "i",
+        "utime": 7500,
+        "camdeg": 40
+      }
+    },
+    "intent_utime7500_cam220": {
+      "label": "Intent: uTime 7500 / Cam 220deg",
+      "path": "./",
+      "query": {
+        "dev": 1,
+        "graphic": "i",
+        "utime": 7500,
+        "camdeg": 220
       }
     }
   }
