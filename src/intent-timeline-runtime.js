@@ -1,104 +1,78 @@
 import { initIntentTimelineHud } from './intent-timeline-hud.js';
 import {
     computeIntentRuntimeTimeline,
-    resolveIntentLoopAnchorSecForContinuity,
-    resolveIntentShiftTurnElapsedSecByPathSec,
-    resolveIntentStartTimingMinForRawContinuity,
     solveStartTimingMinForElapsedSecNow,
-    solveStartTimingMinForPhaseNow,
 } from './intent-timeline.js';
+
+function toFiniteOrNull(value) {
+    const num = Number(value);
+    return Number.isFinite(num) ? num : null;
+}
+
+function resolveNowSecFromTimeline(timeline) {
+    return toFiniteOrNull(timeline?.nowSec);
+}
+
+function resolveShaderTimeSecFromTimeline(timeline) {
+    return toFiniteOrNull(timeline?.shaderTimeSec);
+}
+
+function applyTargetShaderTimeSec(targetUTimeSec, timeline, intentMotionParams) {
+    const normalizedTargetUTimeSec = toFiniteOrNull(targetUTimeSec);
+    if (!Number.isFinite(normalizedTargetUTimeSec)) return;
+
+    const nowSec = resolveNowSecFromTimeline(timeline);
+    if (Number.isFinite(nowSec)) {
+        intentMotionParams.startTimingMin = solveStartTimingMinForElapsedSecNow(
+            normalizedTargetUTimeSec,
+            nowSec,
+            intentMotionParams
+        );
+        return;
+    }
+
+    // Fallback path for very early lifecycle timing:
+    // if runtime "now" is not available yet, seed by zero-time equivalence.
+    intentMotionParams.startTimingMin = normalizedTargetUTimeSec / 60.0;
+}
 
 export function createIntentTimelineRuntime({
     devMode,
-    clock,
-    captureEnableMaxDeltaSec,
     intentMotionParams,
-    shiftTurnState,
-    saveSceneState,
 }) {
-    let capturedLoopStartShaderSec = null;
-
-    function markLoopAnchorDirty() {
-        capturedLoopStartShaderSec = null;
-    }
-
-    function persistState() {
-        if (typeof saveSceneState === 'function') {
-            saveSceneState();
-        }
-    }
-
-    const hud = devMode ? initIntentTimelineHud({
-        onApplyPhaseNow: (phase) => {
-            const nowSec = clock.getElapsedTime();
-            intentMotionParams.startTimingMin = solveStartTimingMinForPhaseNow(phase, nowSec, intentMotionParams);
-            markLoopAnchorDirty();
-            persistState();
-        },
-        onApplySecNow: (targetElapsedSec) => {
-            const nowSec = clock.getElapsedTime();
-            intentMotionParams.startTimingMin = solveStartTimingMinForElapsedSecNow(targetElapsedSec, nowSec, intentMotionParams);
-            markLoopAnchorDirty();
-            persistState();
-        },
-        onShiftSec: (deltaSec) => {
-            const nowSec = clock.getElapsedTime();
-            const range = shiftTurnState.getRange();
-            const current = computeIntentRuntimeTimeline(nowSec, intentMotionParams);
-            // Shift +/- follows wrapped path-space, then maps to elapsed seconds.
-            const nextPathSec = current.shiftTurnPathSec + deltaSec;
-            const targetElapsedSec = resolveIntentShiftTurnElapsedSecByPathSec(nextPathSec, range);
-            intentMotionParams.startTimingMin = solveStartTimingMinForElapsedSecNow(targetElapsedSec, nowSec, intentMotionParams);
-            markLoopAnchorDirty();
-            persistState();
-        },
-        onCaptureLoopStart: () => {
-            const nowSec = clock.getElapsedTime();
-            const runtime = computeIntentRuntimeTimeline(nowSec, intentMotionParams);
-            capturedLoopStartShaderSec = runtime.shaderTimeSec;
-            const orbitSec = runtime.loopOrbitSec;
-            intentMotionParams.loopAnchorSec = capturedLoopStartShaderSec - orbitSec;
-            persistState();
-        },
-        onEnableSeamlessLoop: () => {
-            const nowSec = clock.getElapsedTime();
-            if (Number.isFinite(capturedLoopStartShaderSec)) {
-                const runtime = computeIntentRuntimeTimeline(nowSec, intentMotionParams);
-                const captureDeltaSec = capturedLoopStartShaderSec - runtime.shaderTimeSec;
-                if (Math.abs(captureDeltaSec) <= captureEnableMaxDeltaSec) {
-                    const orbitSec = runtime.loopOrbitSec;
-                    intentMotionParams.loopAnchorSec = capturedLoopStartShaderSec - orbitSec;
-                } else {
-                    intentMotionParams.loopAnchorSec = resolveIntentLoopAnchorSecForContinuity(nowSec, intentMotionParams);
-                    capturedLoopStartShaderSec = null;
-                }
-            } else {
-                intentMotionParams.loopAnchorSec = resolveIntentLoopAnchorSecForContinuity(nowSec, intentMotionParams);
-            }
-            intentMotionParams.seamlessLoop = true;
-            persistState();
-        },
-        onDisableSeamlessLoop: () => {
-            const nowSec = clock.getElapsedTime();
-            intentMotionParams.startTimingMin = resolveIntentStartTimingMinForRawContinuity(nowSec, intentMotionParams);
-            intentMotionParams.seamlessLoop = false;
-            markLoopAnchorDirty();
-            persistState();
-        },
-    }) : null;
+    // Operator context (from this session):
+    // - Shareable URLs must deterministically seed Intent Loop camera angle and uTime.
+    // - "uTime edit" is represented by startTimingMin under the hood (not a direct uTime state variable).
+    // - HUD and Dev Panel are both live editors against intentMotionParams.
+    // Keep conversion rules centralized here so future refactors do not desync controls.
+    const hud = devMode
+        ? initIntentTimelineHud({
+            getCameraAngleDeg: () => Number(intentMotionParams.cameraAngleDeg),
+            onApplyCameraAngleDeg: (nextAngleDeg) => {
+                if (!Number.isFinite(nextAngleDeg)) return;
+                intentMotionParams.cameraAngleDeg = nextAngleDeg;
+            },
+            onApplyUTimeSec: (targetUTimeSec, timeline) => {
+                applyTargetShaderTimeSec(targetUTimeSec, timeline, intentMotionParams);
+            },
+            onShiftUTimeSec: (deltaSec, timeline) => {
+                const normalizedDeltaSec = toFiniteOrNull(deltaSec);
+                if (!Number.isFinite(normalizedDeltaSec)) return;
+                const currentUTimeSec = resolveShaderTimeSecFromTimeline(timeline);
+                if (!Number.isFinite(currentUTimeSec)) return;
+                applyTargetShaderTimeSec(currentUTimeSec + normalizedDeltaSec, timeline, intentMotionParams);
+            },
+        })
+        : null;
 
     function getTimelineState(nowSec) {
         const runtime = computeIntentRuntimeTimeline(nowSec, intentMotionParams);
-        const captureDeltaSec = Number.isFinite(capturedLoopStartShaderSec)
-            ? capturedLoopStartShaderSec - runtime.shaderTimeSec
-            : null;
 
         return {
             runtime,
             debug: {
                 ...runtime,
-                capturedLoopStartSec: capturedLoopStartShaderSec,
-                captureDeltaSec,
+                nowSec,
             },
         };
     }
@@ -112,5 +86,8 @@ export function createIntentTimelineRuntime({
     return {
         getTimelineState,
         updateHudVisibility,
+        destroy() {
+            hud?.destroy?.();
+        },
     };
 }

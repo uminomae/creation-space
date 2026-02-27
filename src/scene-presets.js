@@ -14,6 +14,7 @@ import {
     sceneParams,
     toggles,
 } from './config.js';
+import { INTENT_MOTION_DEFAULTS } from './intent-motion-defaults.js';
 
 const HOLD_PRESET = {
     toggles: {
@@ -482,15 +483,7 @@ const INTENT_PRESET = {
         fovAmplitude: 0.18,
     },
     intentMotionParams: {
-        cameraRotateSpeed: 1.0,
-        startTimingMin: 7.638,
-        loopPeriodSec: 480.0,
-        timeScale: 1.0,
-        shiftTurnStartSec: 0.0,
-        shiftTurnEndSec: 2100.0,
-        seamlessLoop: false,
-        loopAnchorSec: 458.278,
-        loopDriftSec: 180.0,
+        ...INTENT_MOTION_DEFAULTS,
     },
     intentConsciousnessParams: {
         maxStepsMobile: 34,

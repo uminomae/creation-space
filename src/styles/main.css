@@ -94,12 +94,16 @@
       -webkit-backdrop-filter: blur(7px);
     }
 
+    /* Intent Loop operator HUD:
+       summary readout + editable form panel are separate on purpose. */
     #intent-timeline-hud {
       position: fixed;
       top: calc(var(--kesson-topbar-height) + 4.1rem);
       left: 0.95rem;
       z-index: 58;
-      width: min(90vw, 20rem);
+      width: fit-content;
+      min-width: 0;
+      max-width: min(90vw, 20rem);
       padding: 0.5rem;
       border-radius: 0.5rem;
       border: 1px solid rgba(120, 164, 235, 0.42);
@@ -117,11 +121,25 @@
       display: block;
     }
 
-    .intent-timeline-hud-title {
-      font-size: 0.66rem;
-      letter-spacing: 0.08em;
-      color: rgba(226, 238, 255, 0.95);
-      margin-bottom: 0.38rem;
+    #intent-timeline-form-panel {
+      position: fixed;
+      z-index: 58;
+      display: none;
+      max-width: min(90vw, 20rem);
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      border: 1px solid rgba(120, 164, 235, 0.42);
+      background: rgba(8, 14, 26, 0.84);
+      color: rgba(205, 224, 255, 0.92);
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 0.62rem;
+      line-height: 1.45;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    #intent-timeline-form-panel.is-visible {
+      display: block;
     }
 
     .intent-timeline-hud-readout {
@@ -131,7 +149,7 @@
     }
 
     .intent-timeline-hud-controls {
-      margin-top: 0.46rem;
+      margin-top: 0;
       display: grid;
       gap: 0.28rem;
     }
@@ -141,8 +159,8 @@
       letter-spacing: 0.05em;
     }
 
-    #intent-timeline-phase-input,
-    #intent-timeline-sec-input,
+    #intent-timeline-angle-deg-input,
+    #intent-timeline-start-utime-input,
     #intent-timeline-shift-sec-input {
       width: 100%;
       border: 1px solid rgba(130, 170, 240, 0.35);
@@ -235,7 +253,13 @@
       #intent-timeline-hud {
         top: calc(var(--kesson-topbar-height) + 3.8rem);
         left: 0.6rem;
-        width: min(95vw, 18rem);
+        width: fit-content;
+        min-width: 0;
+        max-width: min(95vw, 18rem);
+      }
+
+      #intent-timeline-form-panel {
+        max-width: min(95vw, 18rem);
       }
     }
 

@@ -31,6 +31,7 @@ let _canvas;
 let _autoRotateSpeed = 1.0;
 let _autoRotateTimeOffsetSec = 0.0;
 let _autoRotateLoopPhase = null;
+let _autoRotateAngleOffsetRad = 0.0;
 let _baseCamY = 0;
 let _baseCamX = -14;
 let _baseCamZ = 34;
@@ -220,6 +221,10 @@ export function setAutoRotateLoopPhase(phase) {
     _autoRotateLoopPhase = ((phase % 1.0) + 1.0) % 1.0;
 }
 
+export function setAutoRotateAngleOffsetRad(offsetRad) {
+    _autoRotateAngleOffsetRad = Number.isFinite(offsetRad) ? offsetRad : 0.0;
+}
+
 export function setCameraPosition(x, y, z) {
     _baseCamX = x;
     _baseCamY = y;
@@ -310,6 +315,9 @@ export function updateControls(time, breathVal = 0.5) {
             angle += autoTime * _autoRotateSpeed * AUTO_ROTATE_TIME_SCALE;
         }
     }
+
+    // URL-seeded camera offset (rad), independent from auto-rotate speed.
+    angle += _autoRotateAngleOffsetRad;
 
     // 手動回転を加算
     angle += _manualAngle;

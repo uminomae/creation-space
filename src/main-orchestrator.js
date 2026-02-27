@@ -11,8 +11,12 @@ export async function runMainOrchestrator({
     runtimeContext,
     devVersion,
 }) {
-    const devMode = Boolean(runtimeContext?.devMode);
-    const sceneStateStore = runtimeContext?.sceneStateStore;
+    const {
+        devMode: runtimeDevMode = false,
+        sceneStateStore = null,
+        intentQuerySeed = null,
+    } = runtimeContext || {};
+    const devMode = Boolean(runtimeDevMode);
     const devStatsBridge = createMainDevStatsBridge();
 
     const {
@@ -23,6 +27,7 @@ export async function runMainOrchestrator({
         sceneStateStore,
         devMode,
         devVersion,
+        intentQuerySeed,
     });
 
     const container = document.getElementById('canvas-container');
@@ -50,10 +55,6 @@ export async function runMainOrchestrator({
     const clock = new THREE.Clock();
     const { shiftTurnState, intentTimelineRuntime } = initMainIntentRuntime({
         devMode,
-        clock,
-        captureEnableMaxDeltaSec: runtimeContext?.captureEnableMaxDeltaSec,
-        sceneStateStore,
-        getSceneVariant,
     });
 
     initMainDevRuntime({

@@ -29,6 +29,7 @@ export function initDevPanelRuntime({
 }) {
     initDevPanel({
         sceneVariant,
+        panelStartsOpen: false,
         onStateChanged: () => {
             setCameraPosition(sceneParams.camX, sceneParams.camY, sceneParams.camZ);
             setCameraTarget(
