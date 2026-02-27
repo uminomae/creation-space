@@ -1,13 +1,5 @@
 import { breathValue } from './animation-utils.js';
-import {
-    getScrollProgress,
-    setAutoRotateLoopPhase,
-    setAutoRotateSpeed,
-    setAutoRotateStartOffsetSec,
-    setCameraPosition,
-    setCameraTarget,
-    updateControls,
-} from './controls.js';
+import * as controls from './controls.js';
 import { updateMouseSmoothing } from './mouse-state.js';
 import { updateScrollUI } from './scroll-ui.js';
 import { breathConfig, intentMotionParams, sceneParams, toggles } from './config.js';
@@ -37,14 +29,14 @@ export function createMainFrameRuntime({
 
         const time = clock.getElapsedTime();
         const breathVal = breathValue(time, breathConfig.period);
-        const scrollProg = getScrollProgress();
+        const scrollProg = controls.getScrollProgress();
         const intentScene = isIntentScene();
         const timelineState = intentTimelineRuntime.getTimelineState(time);
         const intentTimeline = timelineState.runtime;
 
         updateScrollUI(scrollProg, breathVal);
-        setCameraPosition(sceneParams.camX, sceneParams.camY, sceneParams.camZ);
-        setCameraTarget(
+        controls.setCameraPosition(sceneParams.camX, sceneParams.camY, sceneParams.camZ);
+        controls.setCameraTarget(
             sceneParams.camTargetX ?? 0,
             sceneParams.camTargetY ?? 0,
             sceneParams.camTargetZ ?? 0,
@@ -52,17 +44,23 @@ export function createMainFrameRuntime({
 
         if (intentScene) {
             toggles.autoRotate = true;
-            setAutoRotateSpeed(intentMotionParams.cameraRotateSpeed);
-            setAutoRotateStartOffsetSec(0.0);
-            setAutoRotateLoopPhase(intentTimeline.phase);
+            controls.setAutoRotateSpeed(intentMotionParams.cameraRotateSpeed);
+            controls.setAutoRotateStartOffsetSec(0.0);
+            controls.setAutoRotateLoopPhase(intentTimeline.phase);
+            // cameraAngleDeg is the single operator-facing knob (query + dev panel).
+            const angleDeg = Number.isFinite(intentMotionParams.cameraAngleDeg)
+                ? intentMotionParams.cameraAngleDeg
+                : 0.0;
+            controls.setAutoRotateAngleOffsetRad?.((angleDeg * Math.PI) / 180.0);
         } else {
-            setAutoRotateSpeed(1.0);
-            setAutoRotateStartOffsetSec(0.0);
-            setAutoRotateLoopPhase(null);
+            controls.setAutoRotateSpeed(1.0);
+            controls.setAutoRotateStartOffsetSec(0.0);
+            controls.setAutoRotateLoopPhase(null);
+            controls.setAutoRotateAngleOffsetRad?.(0.0);
         }
 
         intentTimelineRuntime.updateHudVisibility(intentScene, timelineState.debug);
-        updateControls(time, breathVal);
+        controls.updateControls(time, breathVal);
         const mouse = updateMouseSmoothing();
 
         updateScene(time);

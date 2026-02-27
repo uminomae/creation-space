@@ -13,13 +13,16 @@ import {
     toggles,
 } from './config.js';
 import { applyConfigState, cloneConfigState } from './config-state.js';
+import {
+    INTENT_SHIFT_TURN_SLIDER_MAX_SEC,
+    INTENT_SHIFT_TURN_SLIDER_MIN_SEC,
+} from './intent-motion-constants.js';
 
 const GROUP_HELP_JA = {
     toggles: '表示や機能のON/OFFを切り替えます。',
     scene: 'カメラ位置や霧の濃さなど、シーン全体を調整します。',
     intentCamera: '意グラフィックのカメラ位置と注視点を調整します。',
-    intentMotion: '意グラフィックの時間軸。開始タイミング・回転速度・速度倍率を調整します。',
-    intentLoop: '意グラフィックの2段階ループ設定。探索位置を固定してシームレスに循環させます。',
+    intentMotion: '意グラフィックのループ軸。角度と時刻を中心に、回転・時間進行を調整します。',
     intentConsciousness: '意グラフィック本体の密度・速度・収束感を調整します。',
     field: '場のレイヤー表現の強度と線の出方を調整します。',
     flow: '流体オブジェクトの密度感・まとまり・揺らぎを調整します。',
@@ -99,20 +102,99 @@ const INTENT_CAMERA_HELP_JA = {
     camTargetY: '注視点のY座標です。',
 };
 
-const INTENT_MOTION_HELP_JA = {
-    cameraRotateSpeed: '自動回転速度です。0で停止、1が基準速度です。',
-    startTimingMin: '開始時間ポイント（分）です。ループ周期上の開始位置を決めます。',
-    loopPeriodSec: '1周の秒数です。大きいほどゆっくり変化します。',
-    timeScale: '全体の時間進行倍率です。',
-    shiftTurnStartSec: 'Shift Secターン往復の開始秒です。通常は開始地点を固定したい時に使います。',
-    shiftTurnEndSec: 'Shift Secターン往復の終了秒です。開始秒との間を往復します。',
-    loopAnchorSec: 'シームレスループ時の基準時刻（秒）です。探索で見つけた位置を固定します。',
-    loopDriftSec: '基準時刻の周囲を往復する幅（秒）です。大きいほど変化幅が広がります。',
-};
+const INTENT_LOOP_ANGLE_MIN_DEG = -360.0;
+const INTENT_LOOP_ANGLE_MAX_DEG = 360.0;
 
-const INTENT_LOOP_HELP_JA = {
-    seamlessLoop: 'ONでシームレス循環モード。OFFで探索モード（raw時間）です。',
-};
+// Session context:
+// - Operators actively tune Intent Loop via "angle + time".
+// - Keep this schema as the single source for label/range/help, so
+//   HUD/query/dev-panel terminology does not drift in later refactors.
+const INTENT_LOOP_FIELD_SPECS = [
+    {
+        key: 'cameraAngleDeg',
+        label: 'Camera Angle Deg',
+        min: INTENT_LOOP_ANGLE_MIN_DEG,
+        max: INTENT_LOOP_ANGLE_MAX_DEG,
+        step: 0.1,
+        help: 'カメラ自動回転の角度オフセット（度）です。-90 などで基準向きを指定します。',
+    },
+    {
+        key: 'startTimingMin',
+        label: 'Start Timing Min',
+        min: -120.0,
+        max: 1440.0,
+        step: 0.1,
+        help: '開始時間ポイント（分）です。ループ周期上の開始位置を決めます。',
+    },
+    {
+        key: 'cameraRotateSpeed',
+        label: 'Camera Rotate Speed',
+        min: 0.0,
+        max: 4.0,
+        step: 0.01,
+        help: '自動回転速度です。0で停止、1が基準速度です。',
+    },
+    {
+        key: 'loopPeriodSec',
+        label: 'Loop Period Sec',
+        min: 1.0,
+        max: 3600.0,
+        step: 0.1,
+        help: '1周の秒数です。大きいほどゆっくり変化します。',
+    },
+    {
+        key: 'timeScale',
+        label: 'Time Scale',
+        min: 0.0,
+        max: 4.0,
+        step: 0.01,
+        help: '全体の時間進行倍率です。',
+    },
+    {
+        key: 'shiftTurnStartSec',
+        label: 'Shift Turn Start Sec',
+        min: INTENT_SHIFT_TURN_SLIDER_MIN_SEC,
+        max: INTENT_SHIFT_TURN_SLIDER_MAX_SEC,
+        step: 0.1,
+        help: 'Shift Secターン往復の開始秒です。通常は開始地点を固定したい時に使います。',
+    },
+    {
+        key: 'shiftTurnEndSec',
+        label: 'Shift Turn End Sec',
+        min: INTENT_SHIFT_TURN_SLIDER_MIN_SEC,
+        max: INTENT_SHIFT_TURN_SLIDER_MAX_SEC,
+        step: 0.1,
+        help: 'Shift Secターン往復の終了秒です。開始秒との間を往復します。',
+    },
+    {
+        key: 'loopAnchorSec',
+        label: 'Loop Anchor Sec',
+        min: -36000.0,
+        max: 36000.0,
+        step: 0.1,
+        help: 'シームレスループ時の基準時刻（秒）です。探索で見つけた位置を固定します。',
+    },
+    {
+        key: 'loopDriftSec',
+        label: 'Loop Drift Sec',
+        min: 0.0,
+        max: 7200.0,
+        step: 0.1,
+        help: '基準時刻の周囲を往復する幅（秒）です。大きいほど変化幅が広がります。',
+    },
+];
+
+const INTENT_MOTION_HELP_JA = Object.fromEntries(
+    INTENT_LOOP_FIELD_SPECS.map(({ key, help }) => [key, help])
+);
+
+const INTENT_LOOP_FIELDS = INTENT_LOOP_FIELD_SPECS.map(({
+    key,
+    label,
+    min,
+    max,
+    step,
+}) => [key, label, min, max, step]);
 
 const INTENT_CONSCIOUSNESS_HELP_JA = {
     maxStepsMobile: 'モバイル時のレイマーチ最大ステップ数です。',
@@ -143,9 +225,6 @@ function getFieldHelpText(groupId, key) {
     }
     if (groupId === 'intentMotion') {
         return INTENT_MOTION_HELP_JA[key] || '';
-    }
-    if (groupId === 'intentLoop') {
-        return INTENT_LOOP_HELP_JA[key] || '';
     }
     if (groupId === 'intentConsciousness') {
         return INTENT_CONSCIOUSNESS_HELP_JA[key] || '';
@@ -210,28 +289,13 @@ const PARAM_GROUPS = [
     },
     {
         id: 'intentMotion',
-        title: 'Intent Motion',
+        // Keep id for backward compatibility (visibility rules, saved UI state),
+        // but restore the operator-facing label requested by the user.
+        title: 'Intent Loop',
         type: 'range',
         target: intentMotionParams,
-        fields: [
-            ['cameraRotateSpeed', 'Camera Rotate Speed', 0.0, 4.0, 0.01],
-            ['startTimingMin', 'Start Timing Min', -120.0, 1440.0, 0.1],
-            ['loopPeriodSec', 'Loop Period Sec', 1.0, 3600.0, 0.1],
-            ['timeScale', 'Time Scale', 0.0, 4.0, 0.01],
-            ['shiftTurnStartSec', 'Shift Turn Start Sec', -72000.0, 72000.0, 0.1],
-            ['shiftTurnEndSec', 'Shift Turn End Sec', -72000.0, 72000.0, 0.1],
-            ['loopAnchorSec', 'Loop Anchor Sec', -36000.0, 36000.0, 0.1],
-            ['loopDriftSec', 'Loop Drift Sec', 0.0, 7200.0, 0.1],
-        ],
-    },
-    {
-        id: 'intentLoop',
-        title: 'Intent Loop',
-        type: 'toggle',
-        target: intentMotionParams,
-        fields: [
-            ['seamlessLoop', 'Seamless Loop'],
-        ],
+        // Single schema drives labels/ranges/help to reduce drift.
+        fields: INTENT_LOOP_FIELDS,
     },
     {
         id: 'intentConsciousness',
@@ -478,7 +542,6 @@ const HIDDEN_GROUP_IDS_BY_VARIANT = {
     hold: new Set([
         'intentCamera',
         'intentMotion',
-        'intentLoop',
         'intentConsciousness',
         'field',
         'plasma',
@@ -486,7 +549,6 @@ const HIDDEN_GROUP_IDS_BY_VARIANT = {
     wabi: new Set([
         'intentCamera',
         'intentMotion',
-        'intentLoop',
         'intentConsciousness',
         'creationLink2',
         'creationLink3',
@@ -566,9 +628,9 @@ export function initDevPanel({
 } = {}) {
     const toggleBtn = document.createElement('button');
     toggleBtn.id = 'dev-panel-toggle';
-    toggleBtn.className = 'btn btn-sm btn-outline-info';
+    toggleBtn.className = 'dev-panel-toggle-btn';
     toggleBtn.type = 'button';
-    toggleBtn.textContent = 'DEV';
+    toggleBtn.textContent = 'PANEL';
 
     const panel = document.createElement('aside');
     panel.id = 'dev-panel';
@@ -595,7 +657,70 @@ export function initDevPanel({
     document.body.appendChild(toggleBtn);
     document.body.appendChild(panel);
 
-    if (panelStartsOpen) panel.classList.add('is-open');
+    function applyFallbackLayoutIfNeeded() {
+        // Fallback when dev-panel.css is missing/stale:
+        // keep panel operable with inline positioning.
+        const toggleStyle = window.getComputedStyle(toggleBtn);
+        if (toggleStyle.position === 'static') {
+            toggleBtn.style.position = 'fixed';
+            toggleBtn.style.top = '50%';
+            toggleBtn.style.right = '0';
+            toggleBtn.style.left = 'auto';
+            toggleBtn.style.transform = 'translateY(-50%)';
+            toggleBtn.style.zIndex = '1001';
+        }
+
+        const panelStyle = window.getComputedStyle(panel);
+        if (panelStyle.position === 'static') {
+            panel.style.position = 'fixed';
+            panel.style.top = '0';
+            panel.style.right = '0';
+            panel.style.width = 'min(92vw, 420px)';
+            panel.style.height = '100vh';
+            panel.style.zIndex = '1200';
+            panel.style.background = 'rgba(7, 12, 24, 0.96)';
+            panel.style.borderLeft = '1px solid rgba(140, 178, 255, 0.3)';
+            panel.style.overflow = 'hidden';
+        }
+    }
+
+    function hasActiveOffcanvas() {
+        return Boolean(document.querySelector('.offcanvas.show, .offcanvas.showing'));
+    }
+
+    function syncToggleVisibility() {
+        // Keep PANEL tab behavior aligned with LINKS:
+        // hide while any offcanvas is active, and also while dev panel itself is open.
+        const isPanelOpen = panel.classList.contains('is-open') || panel.classList.contains('open');
+        const shouldHide = isPanelOpen || hasActiveOffcanvas();
+        toggleBtn.classList.toggle('is-hidden', shouldHide);
+    }
+
+    const offcanvasVisibilityEvents = [
+        'show.bs.offcanvas',
+        'shown.bs.offcanvas',
+        'hide.bs.offcanvas',
+        'hidden.bs.offcanvas',
+    ];
+
+    function setPanelOpen(nextOpen) {
+        const isOpen = Boolean(nextOpen);
+        // Keep both class names for compatibility with old/new CSS.
+        panel.classList.toggle('is-open', isOpen);
+        panel.classList.toggle('open', isOpen);
+
+        // Inline compatibility for both transform-based and right-based layouts.
+        panel.style.transform = isOpen ? 'translateX(0)' : 'translateX(100%)';
+        panel.style.right = isOpen ? '0' : '-300px';
+        syncToggleVisibility();
+    }
+
+    applyFallbackLayoutIfNeeded();
+    setPanelOpen(panelStartsOpen);
+    offcanvasVisibilityEvents.forEach((eventName) => {
+        document.addEventListener(eventName, syncToggleVisibility);
+    });
+    syncToggleVisibility();
 
     const accordion = panel.querySelector('#dev-panel-accordion');
     const jsonArea = panel.querySelector('#dev-json');
@@ -604,16 +729,48 @@ export function initDevPanel({
     const controlIndex = new Map();
     const colorControlIndex = new Map();
     const visibleParamGroups = resolveVisibleParamGroups(sceneVariant);
-    const visiblePanelGroups = visibleParamGroups
+    const fallbackParamGroups = PARAM_GROUPS;
+    const paramGroupsToRender = visibleParamGroups.length > 0
+        ? visibleParamGroups
+        : fallbackParamGroups;
+    const visiblePanelGroups = paramGroupsToRender
         .map((group) => ({ group, fields: resolveVisibleFields(sceneVariant, group) }))
         .filter(({ fields }) => fields.length > 0);
+    try {
+        window.__devPanelDebug = {
+            sceneVariant,
+            visibleParamGroupIds: visibleParamGroups.map((group) => group.id),
+            renderedGroupIds: visiblePanelGroups.map(({ group }) => group.id),
+            renderedGroupCount: visiblePanelGroups.length,
+        };
+    } catch {
+        // no-op: debug hook is best-effort
+    }
+    if (visibleParamGroups.length === 0) {
+        console.warn('[dev-panel] no groups resolved for scene variant; using fallback groups.', {
+            sceneVariant,
+        });
+    }
+    if (visiblePanelGroups.length === 0) {
+        console.warn('[dev-panel] no panel fields resolved; check scene variant and group schema.', {
+            sceneVariant,
+        });
+    }
 
-    function notifyStateChanged() {
+    function notifyStateChanged({ shouldSnapshot = true } = {}) {
         if (typeof onStateChanged === 'function') {
-            onStateChanged();
+            try {
+                onStateChanged();
+            } catch (error) {
+                console.warn('[dev-panel] onStateChanged callback failed:', error);
+            }
         }
-        if (typeof onStateSnapshot === 'function') {
-            onStateSnapshot(cloneConfigState());
+        if (shouldSnapshot && typeof onStateSnapshot === 'function') {
+            try {
+                onStateSnapshot(cloneConfigState());
+            } catch (error) {
+                console.warn('[dev-panel] onStateSnapshot callback failed:', error);
+            }
         }
     }
 
@@ -712,10 +869,15 @@ export function initDevPanel({
             const val = Number(input.value);
             group.target[key] = val;
             valueEl.textContent = formatNumber(val, step);
-            notifyStateChanged();
+            // Drag responsiveness priority:
+            // avoid expensive full-state snapshot on every slider tick.
+            notifyStateChanged({ shouldSnapshot: false });
         });
 
-        input.addEventListener('change', refreshJson);
+        input.addEventListener('change', () => {
+            notifyStateChanged({ shouldSnapshot: true });
+            refreshJson();
+        });
 
         registerControl(path, input, valueEl, step);
 
@@ -765,10 +927,13 @@ export function initDevPanel({
         input.addEventListener('input', () => {
             group.target[key].set(input.value);
             valueEl.textContent = formatHex(group.target[key].getHex());
-            notifyStateChanged();
+            notifyStateChanged({ shouldSnapshot: false });
         });
 
-        input.addEventListener('change', refreshJson);
+        input.addEventListener('change', () => {
+            notifyStateChanged({ shouldSnapshot: true });
+            refreshJson();
+        });
 
         registerColorControl(path, input, valueEl);
 
@@ -819,6 +984,13 @@ export function initDevPanel({
 
         accordion.appendChild(item);
     });
+
+    if (visiblePanelGroups.length === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'dev-panel-empty';
+        empty.textContent = `No controls resolved for scene variant: ${sceneVariant}`;
+        accordion.appendChild(empty);
+    }
 
     function syncUIFromState() {
         visiblePanelGroups.forEach(({ group, fields }) => {
@@ -881,11 +1053,12 @@ export function initDevPanel({
     }
 
     toggleBtn.addEventListener('click', () => {
-        panel.classList.toggle('is-open');
+        const willOpen = !panel.classList.contains('is-open') && !panel.classList.contains('open');
+        setPanelOpen(willOpen);
     });
 
     panel.querySelector('#dev-panel-close').addEventListener('click', () => {
-        panel.classList.remove('is-open');
+        setPanelOpen(false);
     });
 
     panel.querySelector('#dev-json-copy').addEventListener('click', copyJson);
@@ -901,12 +1074,15 @@ export function initDevPanel({
 
     return {
         open() {
-            panel.classList.add('is-open');
+            setPanelOpen(true);
         },
         close() {
-            panel.classList.remove('is-open');
+            setPanelOpen(false);
         },
         destroy() {
+            offcanvasVisibilityEvents.forEach((eventName) => {
+                document.removeEventListener(eventName, syncToggleVisibility);
+            });
             toggleBtn.remove();
             panel.remove();
         },

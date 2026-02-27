@@ -10,6 +10,28 @@ cd <your-local-path>/creation-space
 # then open http://localhost:3001/
 ```
 
+## URL query (Intent timing seed)
+
+You can seed the initial Intent view from URL params:
+
+- `utime` (or `uTime`): initial shader timeline seconds
+- `camdeg` (or `camDeg`): camera angle offset in degrees (`-90` etc)
+- `camrad` (or `camRad`): camera angle offset in radians
+- `camturn` (or `camTurn`): camera turn offset (`1.0 = 360deg`)
+- `camphase` (or `camPhase`): legacy alias, treated as radians
+
+Example:
+
+```text
+http://localhost:3001/?graphic=i&utime=10000&camdeg=-90
+```
+
+Small nudge example:
+
+```text
+http://localhost:3001/?graphic=i&utime=10000&camrad=-0.1
+```
+
 ## Codex session bootstrap
 
 For Codex conversations targeting this repository, run this first:

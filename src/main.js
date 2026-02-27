@@ -3,14 +3,24 @@ import { installStartupErrorHandlers, showStartupErrorOverlay } from './startup-
 import { createMainRuntimeContext } from './main-runtime-context.js';
 import { runMainOrchestrator } from './main-orchestrator.js';
 
-const runtimeContext = createMainRuntimeContext();
-
 installStartupErrorHandlers();
 
-runMainOrchestrator({
-    runtimeContext,
-    devVersion: DEV_VERSION,
-}).catch((error) => {
-    console.error('[main] init failed:', error);
+function startMainApp() {
+    const runtimeContext = createMainRuntimeContext();
+    return runMainOrchestrator({
+        runtimeContext,
+        devVersion: DEV_VERSION,
+    });
+}
+
+try {
+    // Synchronous bootstrap errors (e.g. context creation) are handled here.
+    // Async initialization errors are handled by the Promise chain below.
+    startMainApp().catch((error) => {
+        console.error('[main] init failed:', error);
+        showStartupErrorOverlay(error);
+    });
+} catch (error) {
+    console.error('[main] bootstrap failed:', error);
     showStartupErrorOverlay(error);
-});
+}
