@@ -75,22 +75,14 @@ const STRINGS = {
     },
 };
 
-function formatDevVersionLabel(lang, devVersion, queryVersion = null) {
-    const resolvedLang = normalizeLang(lang);
-    const strings = STRINGS[resolvedLang] || STRINGS.ja;
-    const prefix = strings.devVersionPrefix;
-    return queryVersion
-        ? `${prefix} ${devVersion} · ${queryVersion}`
-        : `${prefix} ${devVersion}`;
+function formatDevVersionLabel(_lang, devVersion) {
+    return typeof devVersion === 'string' ? devVersion.trim() : '';
 }
 
-function updateInlineVersionLabel(lang, { devMode = false, devVersion = '' } = {}) {
+function updateInlineVersionLabel(lang, { devVersion = '' } = {}) {
     const label = document.getElementById('dev-version-inline');
     if (!label || !devVersion) return;
-    const params = new URLSearchParams(window.location.search);
-    const queryVersion = params.get('ver');
-    const versionSuffix = devMode ? queryVersion : null;
-    label.textContent = formatDevVersionLabel(lang, devVersion, versionSuffix);
+    label.textContent = formatDevVersionLabel(lang, devVersion);
 }
 
 export function applyPageLanguage(lang, { devMode = false, devVersion = '' } = {}) {
