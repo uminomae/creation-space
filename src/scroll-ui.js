@@ -119,13 +119,10 @@ export function updateScrollUI(scrollProg, breathVal) {
 
     // Language toggle is part of the fixed top navbar and must not follow scroll fade.
 
-    // --- 下部 scroll hint: 最下部で非表示 ---
+    // --- 下部 scroll hint: ページ上部のみ表示（下方向スクロール後は非表示） ---
     if (_scrollHintBottom) {
-        if (atBottom) {
-            _scrollHintBottom.classList.remove('visible');
-        } else {
-            _scrollHintBottom.classList.add('visible');
-        }
+        const showBottomHint = atTop && !atBottom;
+        _scrollHintBottom.classList.toggle('visible', showBottomHint);
     }
 
     // --- 上部 scroll hint: スクロール中のみ表示、最上部で消える ---

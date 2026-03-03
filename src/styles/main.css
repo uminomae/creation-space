@@ -314,6 +314,13 @@
     #kesson-topbar .topbar-main-title:focus-visible {
       color: rgba(242, 248, 255, 1);
     }
+    #kesson-topbar .topbar-status-badge {
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      padding: 0.2rem 0.5rem;
+      line-height: 1.1;
+      transform: translateY(-1px);
+    }
     #kesson-topbar .topbar-subtitle {
       font-size: clamp(0.72rem, 1.05vw, 0.86rem);
       color: rgba(205, 220, 244, 0.76);
@@ -1023,10 +1030,17 @@
       padding: 0;
       margin: 0;
       color: inherit;
+      text-decoration: none;
       font: inherit;
       letter-spacing: inherit;
       text-transform: inherit;
       cursor: pointer;
+    }
+
+    .section-heading-link:visited,
+    .section-heading-link:hover,
+    .section-heading-link:active {
+      text-decoration: none;
     }
 
     .section-heading-link:hover {
@@ -1048,9 +1062,15 @@
       vertical-align: baseline;
     }
 
+    .section-heading-jump-link:visited,
+    .section-heading-jump-link:active {
+      color: rgba(var(--color-sub-text), 0.45);
+      text-decoration: none;
+    }
+
     .section-heading-jump-link:hover {
       color: rgba(200, 220, 250, 0.72);
-      text-decoration: underline;
+      text-decoration: none;
     }
 
     .section-heading-jump-link:focus-visible {
@@ -1680,7 +1700,7 @@
    ============================ */
 #reports-spacer {
   position: relative;
-  height: 28vh;
+  height: 16vh;
   z-index: 5;
   pointer-events: none;
 }
@@ -1691,86 +1711,136 @@
   padding-bottom: 1.2rem;
 }
 
-.reports-summary-note {
-  margin: 0.8rem 0 1rem;
-  color: rgba(var(--color-sub-text), 0.74);
-  font-size: 0.76rem;
-  letter-spacing: 0.03em;
-  line-height: 1.65;
-}
-
-#reports-error {
-  color: #f87171;
-  font-size: 0.8rem;
-  margin-bottom: 0.8rem;
-}
-
-#reports-quick-links .btn {
-  border-color: rgba(126, 170, 240, 0.42);
-  color: rgba(212, 228, 255, 0.88);
-  background: rgba(17, 26, 42, 0.62);
+#reports-primary-actions .btn,
+#reports-table-filters .btn,
+.reports-table .btn {
+  border-color: rgba(var(--color-accent), 0.2);
+  color: rgba(var(--color-sub-text), 0.56);
+  background: rgba(var(--color-accent), 0.1);
   font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-  font-size: 0.64rem;
-  letter-spacing: 0.05em;
+  font-size: clamp(0.56rem, 2.2vmin, 0.68rem);
+  letter-spacing: 0.06em;
+  text-transform: none;
 }
 
-#reports-quick-links .btn:hover,
-#reports-quick-links .btn:focus-visible {
-  border-color: rgba(160, 200, 255, 0.78);
-  color: rgba(240, 248, 255, 0.98);
-  background: rgba(56, 94, 156, 0.35);
+#reports-primary-actions .btn:hover,
+#reports-table-filters .btn:hover,
+.reports-table .btn:hover,
+#reports-primary-actions .btn:focus-visible,
+#reports-table-filters .btn:focus-visible,
+.reports-table .btn:focus-visible {
+  border-color: rgba(var(--color-accent), 0.35);
+  color: rgba(var(--color-highlight), 0.78);
+  background: rgba(var(--color-accent), 0.2);
+}
+
+#reports-table-filters .btn.active,
+#reports-table-filters .btn:active {
+  border-color: rgba(var(--color-accent), 0.45);
+  color: rgba(var(--color-highlight), 0.9);
+  background: rgba(var(--color-accent), 0.28);
+}
+
+.reports-overview {
+  border: 1px solid rgba(var(--color-accent), 0.12);
+  border-radius: 0.42rem;
+  background: var(--kesson-card-bg);
+  padding: 0.75rem;
+}
+
+.reports-content-tabs {
+  border-bottom-color: rgba(var(--color-accent), 0.2);
+}
+
+.reports-content-tabs .nav-link {
+  border: 1px solid transparent;
+  border-top-left-radius: 0.35rem;
+  border-top-right-radius: 0.35rem;
+  color: rgba(var(--color-sub-text), 0.62);
+  background: transparent;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+}
+
+.reports-content-tabs .nav-link:hover,
+.reports-content-tabs .nav-link:focus-visible {
+  border-color: rgba(var(--color-accent), 0.2);
+  color: rgba(var(--color-highlight), 0.74);
+  background: rgba(var(--color-accent), 0.08);
+}
+
+.reports-content-tabs .nav-link.active {
+  border-color: rgba(var(--color-accent), 0.2);
+  border-bottom-color: rgba(var(--color-accent), 0.05);
+  color: rgba(var(--color-heading), 0.86);
+  background: rgba(var(--color-accent), 0.14);
+}
+
+.reports-content-tabs .reports-nav-secondary {
+  color: rgba(var(--color-sub-text), 0.48);
+}
+
+.reports-content-tabs .reports-nav-secondary:not(.active) {
+  background: rgba(var(--color-accent), 0.03);
+}
+
+.reports-tab-content {
+  border: 1px solid rgba(var(--color-accent), 0.12);
+  border-radius: 0 0.42rem 0.42rem 0.42rem;
+  background: var(--kesson-card-bg);
+  padding: 0.75rem;
+}
+
+.reports-feature-card {
+  min-height: 100%;
+}
+
+.reports-feature-description {
+  color: rgba(var(--color-sub-text), 0.72);
+  line-height: 1.55;
 }
 
 .report-metric-card {
-  border: 1px solid rgba(124, 164, 230, 0.34);
-  background: rgba(14, 22, 36, 0.82);
+  background: var(--kesson-card-bg);
+  border: 1px solid rgba(var(--color-accent), 0.1);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
 
-.report-metric-card.is-published {
-  border-color: rgba(84, 205, 132, 0.5);
-}
-
-.report-metric-card.is-planned {
-  border-color: rgba(226, 172, 86, 0.52);
-}
-
 .report-metric-label {
-  color: rgba(180, 200, 232, 0.82);
-  font-size: 0.62rem;
+  color: rgba(var(--color-heading), 0.5);
+  font-size: 0.6rem;
   letter-spacing: 0.09em;
-  text-transform: uppercase;
   font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
 }
 
 .report-metric-value {
   margin-top: 0.22rem;
-  color: rgba(235, 244, 255, 0.96);
-  font-size: 0.92rem;
+  color: rgba(var(--color-heading), 0.92);
+  font-size: 0.88rem;
   letter-spacing: 0.03em;
   font-family: 'Georgia', 'Noto Serif JP', serif;
 }
 
 .reports-table-wrap {
-  border: 1px solid rgba(124, 164, 230, 0.28);
+  border: 1px solid rgba(var(--color-accent), 0.1);
   border-radius: 0.42rem;
-  background: rgba(12, 18, 30, 0.85);
+  background: var(--kesson-card-bg);
   overflow: hidden;
 }
 
 .reports-table {
-  --bs-table-color: rgba(212, 226, 246, 0.94);
+  --bs-table-color: rgba(var(--color-heading), 0.72);
   --bs-table-bg: transparent;
-  --bs-table-striped-bg: rgba(68, 102, 162, 0.11);
-  --bs-table-hover-bg: rgba(80, 122, 184, 0.16);
-  --bs-table-border-color: rgba(124, 164, 230, 0.25);
+  --bs-table-hover-bg: rgba(var(--color-accent), 0.1);
+  --bs-table-border-color: rgba(var(--color-accent), 0.15);
   margin-bottom: 0;
 }
 
 .reports-table thead th {
-  background: rgba(28, 38, 62, 0.72);
-  color: rgba(220, 234, 255, 0.92);
+  background: rgba(var(--color-accent), 0.1);
+  color: rgba(var(--color-sub-text), 0.72);
   border-bottom-width: 1px;
   font-size: 0.69rem;
   letter-spacing: 0.08em;
@@ -1779,48 +1849,56 @@
 }
 
 .reports-table td {
-  font-size: 0.8rem;
-  color: rgba(206, 222, 246, 0.9);
-}
-
-.reports-table a {
-  color: rgba(143, 197, 255, 0.95);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.reports-table a:hover {
-  color: rgba(186, 221, 255, 0.98);
-}
-
-.reports-status {
-  font-size: 0.68rem;
-  letter-spacing: 0.03em;
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-}
-
-.reports-status-published {
-  background: rgba(84, 205, 132, 0.24);
-  color: rgba(132, 242, 179, 0.98);
-}
-
-.reports-status-planned {
-  background: rgba(226, 172, 86, 0.24);
-  color: rgba(245, 204, 132, 0.98);
-}
-
-.report-link-pending {
-  color: rgba(176, 192, 218, 0.62);
   font-size: 0.74rem;
+  color: rgba(var(--color-heading), 0.68);
+  vertical-align: middle;
+}
+
+.reports-status-action {
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  letter-spacing: 0.06em;
+}
+
+.reports-md-modal-content {
+  background: var(--kesson-offcanvas-bg);
+  color: rgba(var(--color-heading), 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 1.25rem 3rem rgba(0, 0, 0, 0.45);
+}
+
+.reports-md-modal-content .modal-header,
+.reports-md-modal-content .modal-footer {
+  border-color: rgba(var(--color-accent), 0.12);
+  background: rgba(var(--color-accent), 0.06);
+}
+
+.reports-md-modal-content .modal-body {
+  padding: 0.5rem 0.75rem 0.75rem;
+}
+
+#reports-md-meta {
+  padding: 0.15rem 0.5rem 0;
+  color: rgba(var(--color-sub-text), 0.62) !important;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.05em;
+}
+
+.reports-md-content {
+  margin-top: 0.35rem !important;
+}
+
+.reports-md-content .md-article {
+  background: rgba(var(--color-accent), 0.04);
+  border: 1px solid rgba(var(--color-accent), 0.1);
+  border-radius: 0.34rem;
+  padding: 1rem 1.1rem 1.35rem;
 }
 
 @media (max-width: 760px) {
   #reports-spacer {
-    height: 22vh;
-  }
-
-  .reports-summary-note {
-    font-size: 0.72rem;
+    height: 11vh;
   }
 
   .reports-table th,
@@ -1829,7 +1907,21 @@
     white-space: nowrap;
   }
 
+  .reports-content-tabs .nav-link {
+    font-size: 0.64rem;
+    padding: 0.38rem 0.55rem;
+  }
+
   .report-metric-value {
     font-size: 0.84rem;
+  }
+
+  .reports-md-content .md-article {
+    padding: 0.9rem 0.75rem 1.1rem;
+  }
+
+  #kesson-topbar .topbar-status-badge {
+    font-size: 0.52rem;
+    padding: 0.16rem 0.42rem;
   }
 }

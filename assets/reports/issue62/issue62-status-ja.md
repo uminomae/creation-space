@@ -6,7 +6,7 @@ lang: ja
 audience: mixed
 version: 1.1
 date: 2026-03-03
-source_issue: https://github.com/uminomae/kesson-driven-thinking/issues/62
+source_issue: internal-issue-62
 source_material:
   - base/evidence/iss62-sources/README.md
   - base/evidence/evidence-D22-business-management.md
@@ -20,7 +20,7 @@ generated_at: 2026-03-03
 >
 > 作成日: 2026-03-03
 >
-> 対象Issue: [#62](https://github.com/uminomae/kesson-driven-thinking/issues/62)
+> 対象Issue: #62（内部管理）
 
 ## 0. 要約
 
@@ -50,10 +50,10 @@ generated_at: 2026-03-03
 
 | 日付 | 状態更新 | 参照 |
 |---|---|---|
-| 2026-03-03 | D22（経営学）Phase 2 完了（11/11） | [Issue comment](https://github.com/uminomae/kesson-driven-thinking/issues/62#issuecomment-3989285954) |
-| 2026-03-02 | D22 は 6/10 時点の報告（この後に上記で完了） | [Issue comment](https://github.com/uminomae/kesson-driven-thinking/issues/62#issuecomment-3986996302) |
-| 2026-03-02 | D21（経済学）Phase 2 完了 | [Issue comment](https://github.com/uminomae/kesson-driven-thinking/issues/62#issuecomment-3981692303) |
-| 2026-03-01 | D01-D10 の Step 7 確定（10/30） | [Issue comment](https://github.com/uminomae/kesson-driven-thinking/issues/62#issuecomment-3979819732) |
+| 2026-03-03 | D22（経営学）Phase 2 完了（11/11） | 内部進捗ログ |
+| 2026-03-02 | D22 は 6/10 時点の報告（この後に上記で完了） | 内部進捗ログ |
+| 2026-03-02 | D21（経済学）Phase 2 完了 | 内部進捗ログ |
+| 2026-03-01 | D01-D10 の Step 7 確定（10/30） | 内部進捗ログ |
 
 ### 2.2 解釈のしかた（重要）
 
@@ -119,4 +119,3 @@ generated_at: 2026-03-03
 1. 本ファイルを再PDF化し、`build/` を更新
 2. `creation-space/assets/reports/issue62/` に差し替え配置
 3. 重点5領域のうち、一般向け導入として **D22（経営学）** か **D02（物理学）** から分冊を先行作成
-

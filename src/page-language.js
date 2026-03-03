@@ -16,6 +16,7 @@ const STRINGS = {
         topbarArticles: 'ARTICLES',
         topbarReports: 'REPORTS',
         topbarReportsAria: 'REPORTS セクションへジャンプ',
+        topbarPreparingBadge: '準備中',
         topbarBlog: 'BLOG',
         topbarBlogAria: 'BLOG: 創造とは？',
         topbarCollab: 'AIとの協働で探索中',
@@ -51,6 +52,7 @@ const STRINGS = {
         topbarArticles: 'ARTICLES',
         topbarReports: 'REPORTS',
         topbarReportsAria: 'Jump to REPORTS section',
+        topbarPreparingBadge: 'In Prep',
         topbarBlog: 'BLOG',
         topbarBlogAria: 'BLOG: What Is Creation?',
         topbarCollab: 'Exploring with AI collaboration',
@@ -104,6 +106,7 @@ export function applyPageLanguage(lang, { devMode = false, devVersion = '' } = {
     const topbarDevLink = document.getElementById('topbar-dev-link');
     const topbarArticlesBtn = document.getElementById('topbar-articles-btn');
     const topbarReportsLink = document.getElementById('topbar-reports-link');
+    const topbarPreparingBadge = document.getElementById('topbar-preparing-badge');
     const topbarBlogLink = document.getElementById('topbar-blog-link');
     const topbarCollab = document.getElementById('credit-collab');
     const footerSignature = document.getElementById('footer-signature');
@@ -130,6 +133,7 @@ export function applyPageLanguage(lang, { devMode = false, devVersion = '' } = {
         topbarReportsLink.textContent = strings.topbarReports;
         topbarReportsLink.setAttribute('aria-label', strings.topbarReportsAria);
     }
+    if (topbarPreparingBadge) topbarPreparingBadge.textContent = strings.topbarPreparingBadge;
     if (topbarBlogLink) {
         topbarBlogLink.textContent = strings.topbarBlog;
         topbarBlogLink.setAttribute('aria-label', strings.topbarBlogAria);

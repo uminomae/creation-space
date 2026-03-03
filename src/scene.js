@@ -51,7 +51,7 @@ const CREATION_LINK_DEFS = [
     {
         id: 1,
         label: 'Creation Field',
-        draftUrl: 'https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/pdf/kesson-general-draft.md',
+        draftUrl: './assets/reports/model-guides/kesson-general-draft.md',
         sourceUrl: 'https://uminomae.github.io/pjdhiro/assets/pdf/kesson-general.pdf',
         shape: 'crystal',
         pointCount: 3200,

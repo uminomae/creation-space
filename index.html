@@ -87,6 +87,9 @@
         <a id="topbar-main-title" class="navbar-brand topbar-main-title" href="./">
           創造とは
         </a>
+        <span id="topbar-preparing-badge" class="badge rounded-pill text-bg-warning-subtle border border-warning-subtle text-warning-emphasis topbar-status-badge">
+          準備中
+        </span>
       </div>
       <button
         class="navbar-toggler topbar-toggler"
@@ -206,6 +209,65 @@
   </div>
 
   <div id="hero-spacer"></div>
+  <div id="reports-spacer"></div>
+  <section id="reports-section">
+    <div class="section-content-wrap">
+      <div class="container">
+        <h2 class="section-heading">
+          <a id="reports-section-heading" href="#reports-section" class="section-heading-link" aria-label="REPORTS セクションへジャンプ">
+            REPORTS
+          </a>
+        </h2>
+        <div id="reports-error" class="alert alert-danger py-2 px-3 d-none mb-3" role="alert"></div>
+        <div class="reports-overview mb-3">
+          <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-2" id="reports-primary-actions">
+            <button id="reports-open-status-btn" type="button" class="btn btn-outline-light btn-sm">作業報告を開く</button>
+          </div>
+          <div id="reports-metrics" class="row g-2" aria-live="polite"></div>
+        </div>
+        <ul class="nav nav-tabs reports-content-tabs mb-2" id="reports-content-tabs" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button id="reports-models-tab" class="nav-link active" type="button" role="tab" data-bs-toggle="tab" data-bs-target="#reports-models-pane" aria-controls="reports-models-pane" aria-selected="true">
+              モデル解説
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button id="reports-domains-tab" class="nav-link reports-nav-secondary" type="button" role="tab" data-bs-toggle="tab" data-bs-target="#reports-domains-pane" aria-controls="reports-domains-pane" aria-selected="false">
+              領域別レポート
+            </button>
+          </li>
+        </ul>
+        <div class="tab-content reports-tab-content">
+          <div id="reports-models-pane" class="tab-pane fade show active" role="tabpanel" aria-labelledby="reports-models-tab" tabindex="0">
+            <div id="reports-feature-cards" class="row row-cols-1 row-cols-md-3 g-2" aria-live="polite"></div>
+          </div>
+          <div id="reports-domains-pane" class="tab-pane fade" role="tabpanel" aria-labelledby="reports-domains-tab" tabindex="0">
+            <div id="reports-table-filters" class="d-flex flex-wrap gap-2 mb-2" role="group" aria-label="領域別レポート絞り込み">
+              <button id="reports-filter-all" type="button" class="btn btn-outline-light btn-sm active" data-filter="all" aria-pressed="true">全件</button>
+              <button id="reports-filter-published" type="button" class="btn btn-outline-light btn-sm" data-filter="published" aria-pressed="false">公開済み</button>
+              <button id="reports-filter-planned" type="button" class="btn btn-outline-light btn-sm" data-filter="planned" aria-pressed="false">準備中</button>
+            </div>
+            <div class="table-responsive reports-table-wrap mb-0">
+              <table class="table table-sm table-hover align-middle reports-table mb-0" aria-label="Issue #62 領域別レポート一覧">
+                <thead>
+                  <tr>
+                    <th id="reports-col-id" scope="col">ID</th>
+                    <th id="reports-col-domain" scope="col">領域</th>
+                    <th id="reports-col-status" scope="col">状態</th>
+                  </tr>
+                </thead>
+                <tbody id="reports-table-body">
+                  <tr>
+                    <td colspan="3" class="text-body-secondary">読み込み中...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   <div id="articles-spacer"></div>
 
   <section id="articles-section">
@@ -221,46 +283,25 @@
       </div>
     </div>
   </section>
-  <div id="reports-spacer"></div>
-  <section id="reports-section">
-    <div class="section-content-wrap">
-      <div class="container">
-        <h2 class="section-heading">
-          <a id="reports-section-heading" href="#reports-section" class="section-heading-link" aria-label="REPORTS セクションへジャンプ">
-            REPORTS
-          </a>
-        </h2>
-        <p id="reports-summary-note" class="reports-summary-note"></p>
-        <div class="d-flex flex-wrap gap-2 mb-3" id="reports-quick-links">
-          <a id="reports-link-hub" class="btn btn-outline-light btn-sm" href="./assets/reports/issue62/index.html" target="_blank" rel="noopener">Issue #62 Hub</a>
-          <a id="reports-link-status-pdf" class="btn btn-outline-light btn-sm" href="./assets/reports/issue62/creation-issue62-status-ja.pdf" target="_blank" rel="noopener">Status PDF</a>
-          <a id="reports-link-status-md" class="btn btn-outline-light btn-sm" href="./assets/reports/issue62/issue62-status-ja.md" target="_blank" rel="noopener">Status Markdown</a>
-          <a id="reports-link-domain-index" class="btn btn-outline-light btn-sm" href="./assets/reports/issue62/issue62-domain-index-ja.md" target="_blank" rel="noopener">Domain Index</a>
-          <a id="reports-link-issue" class="btn btn-outline-light btn-sm" href="https://github.com/uminomae/kesson-driven-thinking/issues/62" target="_blank" rel="noopener">GitHub Issue #62</a>
+
+  <div class="modal fade" id="reports-md-modal" tabindex="-1" aria-labelledby="reports-md-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+      <div class="modal-content reports-md-modal-content border border-secondary-subtle">
+        <div class="modal-header">
+          <h5 id="reports-md-modal-title" class="modal-title">Markdown</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div id="reports-error" class="d-none"></div>
-        <div id="reports-metrics" class="row g-2 mb-3" aria-live="polite"></div>
-        <div class="table-responsive reports-table-wrap">
-          <table class="table table-sm align-middle reports-table mb-0" aria-label="Issue #62 30領域分冊一覧">
-            <thead>
-              <tr>
-                <th id="reports-col-id" scope="col">ID</th>
-                <th id="reports-col-domain" scope="col">領域</th>
-                <th id="reports-col-status" scope="col">状態</th>
-                <th id="reports-col-md" scope="col">Markdown</th>
-                <th id="reports-col-pdf" scope="col">PDF</th>
-              </tr>
-            </thead>
-            <tbody id="reports-table-body">
-              <tr>
-                <td colspan="5" class="text-muted">読み込み中...</td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="modal-body">
+          <div id="reports-md-meta" class="small text-body-secondary"></div>
+          <article id="reports-md-content" class="reports-md-content mt-3"></article>
+        </div>
+        <div class="modal-footer d-flex justify-content-between flex-wrap gap-2">
+          <a id="reports-md-open-pdf" class="btn btn-outline-light btn-sm" href="#" target="_blank" rel="noopener">PDFを開く</a>
+          <button id="reports-md-close-btn" type="button" class="btn btn-outline-light btn-sm" data-bs-dismiss="modal">閉じる</button>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
   <footer id="tech-footer">
     <div class="tech-footer-line">GitHub Pages</div>
