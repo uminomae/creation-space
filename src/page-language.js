@@ -14,6 +14,8 @@ const STRINGS = {
         topbarHome: 'kesson-driven',
         topbarDev: 'DEV',
         topbarArticles: 'ARTICLES',
+        topbarReports: 'REPORTS',
+        topbarReportsAria: 'REPORTS セクションへジャンプ',
         topbarBlog: 'BLOG',
         topbarBlogAria: 'BLOG: 創造とは？',
         topbarCollab: 'AIとの協働で探索中',
@@ -24,6 +26,8 @@ const STRINGS = {
         creditSignature: 'Project Designer: pjdhiro',
         articlesSectionHeading: 'ARTICLES',
         articlesSectionHeadingAria: 'ARTICLES セクションへジャンプ',
+        reportsSectionHeading: 'REPORTS',
+        reportsSectionHeadingAria: 'REPORTS セクションへジャンプ',
         offcanvasArticlesTitle: 'ARTICLES',
         leftKessonLinkLabel: '欠損駆動思考',
         leftKessonLinkAria: 'kesson-spaceへ移動',
@@ -45,6 +49,8 @@ const STRINGS = {
         topbarHome: 'kesson-driven',
         topbarDev: 'DEV',
         topbarArticles: 'ARTICLES',
+        topbarReports: 'REPORTS',
+        topbarReportsAria: 'Jump to REPORTS section',
         topbarBlog: 'BLOG',
         topbarBlogAria: 'BLOG: What Is Creation?',
         topbarCollab: 'Exploring with AI collaboration',
@@ -55,6 +61,8 @@ const STRINGS = {
         creditSignature: 'Project Designer: pjdhiro',
         articlesSectionHeading: 'ARTICLES',
         articlesSectionHeadingAria: 'Jump to ARTICLES section',
+        reportsSectionHeading: 'REPORTS',
+        reportsSectionHeadingAria: 'Jump to REPORTS section',
         offcanvasArticlesTitle: 'ARTICLES',
         leftKessonLinkLabel: 'kesson-driven',
         leftKessonLinkAria: 'Go to kesson-space',
@@ -95,10 +103,12 @@ export function applyPageLanguage(lang, { devMode = false, devVersion = '' } = {
     const topbarHomeLink = document.getElementById('topbar-home-link');
     const topbarDevLink = document.getElementById('topbar-dev-link');
     const topbarArticlesBtn = document.getElementById('topbar-articles-btn');
+    const topbarReportsLink = document.getElementById('topbar-reports-link');
     const topbarBlogLink = document.getElementById('topbar-blog-link');
     const topbarCollab = document.getElementById('credit-collab');
     const footerSignature = document.getElementById('footer-signature');
     const articlesSectionHeading = document.getElementById('articles-section-heading');
+    const reportsSectionHeading = document.getElementById('reports-section-heading');
     const offcanvasArticlesTitle = document.getElementById('offcanvas-articles-title');
     const leftKessonLink = document.getElementById('left-kesson-link');
     const leftKessonLinkLabel = document.getElementById('left-kesson-link-label');
@@ -116,6 +126,10 @@ export function applyPageLanguage(lang, { devMode = false, devVersion = '' } = {
     if (topbarHomeLink) topbarHomeLink.textContent = strings.topbarHome;
     if (topbarDevLink) topbarDevLink.textContent = strings.topbarDev;
     if (topbarArticlesBtn) topbarArticlesBtn.textContent = strings.topbarArticles;
+    if (topbarReportsLink) {
+        topbarReportsLink.textContent = strings.topbarReports;
+        topbarReportsLink.setAttribute('aria-label', strings.topbarReportsAria);
+    }
     if (topbarBlogLink) {
         topbarBlogLink.textContent = strings.topbarBlog;
         topbarBlogLink.setAttribute('aria-label', strings.topbarBlogAria);
@@ -125,6 +139,10 @@ export function applyPageLanguage(lang, { devMode = false, devVersion = '' } = {
     if (articlesSectionHeading) {
         articlesSectionHeading.textContent = strings.articlesSectionHeading;
         articlesSectionHeading.setAttribute('aria-label', strings.articlesSectionHeadingAria);
+    }
+    if (reportsSectionHeading) {
+        reportsSectionHeading.textContent = strings.reportsSectionHeading;
+        reportsSectionHeading.setAttribute('aria-label', strings.reportsSectionHeadingAria);
     }
     if (offcanvasArticlesTitle) offcanvasArticlesTitle.textContent = strings.offcanvasArticlesTitle;
     if (leftKessonLinkLabel) leftKessonLinkLabel.textContent = strings.leftKessonLinkLabel;

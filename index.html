@@ -119,6 +119,15 @@
           </li>
           <li class="nav-item">
             <a
+              id="topbar-reports-link"
+              class="nav-link topbar-link"
+              href="#reports-section"
+              aria-label="REPORTS セクションへジャンプ">
+              REPORTS
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
               id="topbar-blog-link"
               class="nav-link topbar-link"
               href="https://uminomae.github.io/pjdhiro/dialogueCreation/"
@@ -209,6 +218,46 @@
         </h2>
         <div id="articles-error" class="d-none"></div>
         <div id="articles-grid" class="row g-3"></div>
+      </div>
+    </div>
+  </section>
+  <div id="reports-spacer"></div>
+  <section id="reports-section">
+    <div class="section-content-wrap">
+      <div class="container">
+        <h2 class="section-heading">
+          <a id="reports-section-heading" href="#reports-section" class="section-heading-link" aria-label="REPORTS セクションへジャンプ">
+            REPORTS
+          </a>
+        </h2>
+        <p id="reports-summary-note" class="reports-summary-note"></p>
+        <div class="d-flex flex-wrap gap-2 mb-3" id="reports-quick-links">
+          <a id="reports-link-hub" class="btn btn-outline-light btn-sm" href="./assets/reports/issue62/index.html" target="_blank" rel="noopener">Issue #62 Hub</a>
+          <a id="reports-link-status-pdf" class="btn btn-outline-light btn-sm" href="./assets/reports/issue62/creation-issue62-status-ja.pdf" target="_blank" rel="noopener">Status PDF</a>
+          <a id="reports-link-status-md" class="btn btn-outline-light btn-sm" href="./assets/reports/issue62/issue62-status-ja.md" target="_blank" rel="noopener">Status Markdown</a>
+          <a id="reports-link-domain-index" class="btn btn-outline-light btn-sm" href="./assets/reports/issue62/issue62-domain-index-ja.md" target="_blank" rel="noopener">Domain Index</a>
+          <a id="reports-link-issue" class="btn btn-outline-light btn-sm" href="https://github.com/uminomae/kesson-driven-thinking/issues/62" target="_blank" rel="noopener">GitHub Issue #62</a>
+        </div>
+        <div id="reports-error" class="d-none"></div>
+        <div id="reports-metrics" class="row g-2 mb-3" aria-live="polite"></div>
+        <div class="table-responsive reports-table-wrap">
+          <table class="table table-sm align-middle reports-table mb-0" aria-label="Issue #62 30領域分冊一覧">
+            <thead>
+              <tr>
+                <th id="reports-col-id" scope="col">ID</th>
+                <th id="reports-col-domain" scope="col">領域</th>
+                <th id="reports-col-status" scope="col">状態</th>
+                <th id="reports-col-md" scope="col">Markdown</th>
+                <th id="reports-col-pdf" scope="col">PDF</th>
+              </tr>
+            </thead>
+            <tbody id="reports-table-body">
+              <tr>
+                <td colspan="5" class="text-muted">読み込み中...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </section>

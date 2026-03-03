@@ -1,4 +1,5 @@
 import { initArticles, setArticlesLanguage } from './articles.js';
+import { initReports, setReportsLanguage } from './reports.js';
 import { initMainUiRuntime } from './main-ui-runtime.js';
 
 export function initMainContentRuntime({
@@ -23,11 +24,16 @@ export function initMainContentRuntime({
         devMode,
         devVersion,
         setArticlesLanguage,
+        setReportsLanguage,
     });
 
     applyGraphicMode(initialGraphicMode, { shouldSyncQuery: false });
 
     initArticles({ lang: initialLang }).catch((error) => {
         console.warn('[articles] init failed:', error);
+    });
+
+    initReports({ lang: initialLang }).catch((error) => {
+        console.warn('[reports] init failed:', error);
     });
 }
