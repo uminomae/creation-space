@@ -2,25 +2,27 @@ import DOMPurify from 'dompurify';
 import { normalizeLang } from './i18n.js';
 
 const CREATION_ASSETS_BASE_URL = 'https://uminomae.github.io/pjdhiro/assets/creation';
+const CREATION_ASSETS_MD_BASE_URL = 'https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/creation';
 const DEFAULT_REPORTS_DATA_URL = `${CREATION_ASSETS_BASE_URL}/issue62/domains/index.json`;
 const DEFAULT_REPORTS_ASSET_BASE = `${CREATION_ASSETS_BASE_URL}/issue62/`;
-const STATUS_REPORT_MD = `${CREATION_ASSETS_BASE_URL}/issue62/issue62-status-ja.md`;
+const DEFAULT_REPORTS_MD_ASSET_BASE = `${CREATION_ASSETS_MD_BASE_URL}/issue62/`;
+const STATUS_REPORT_MD = `${CREATION_ASSETS_MD_BASE_URL}/issue62/issue62-status-ja.md`;
 const STATUS_REPORT_PDF = `${CREATION_ASSETS_BASE_URL}/issue62/creation-issue62-status-ja.pdf`;
 
 const MODEL_GUIDE_LINKS = [
     {
         key: 'general',
-        mdUrl: `${CREATION_ASSETS_BASE_URL}/creation-general-draft.md`,
+        mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/creation-general-draft.md`,
         pdfUrl: `${CREATION_ASSETS_BASE_URL}/creation-general.pdf`,
     },
     {
         key: 'designer',
-        mdUrl: `${CREATION_ASSETS_BASE_URL}/creation-designer-draft.md`,
+        mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/creation-designer-draft.md`,
         pdfUrl: `${CREATION_ASSETS_BASE_URL}/creation-designer.pdf`,
     },
     {
         key: 'expert',
-        mdUrl: `${CREATION_ASSETS_BASE_URL}/creation-academic-draft.md`,
+        mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/creation-academic-draft.md`,
         pdfUrl: `${CREATION_ASSETS_BASE_URL}/creation-academic.pdf`,
     },
 ];
@@ -45,7 +47,7 @@ const STRINGS = {
         filterAll: '全件',
         filterPublished: '公開済み',
         filterPlanned: '準備中',
-        openStatus: '作業報告を開く',
+        openStatus: '調査内容',
         statusReportTitle: '5W1H作業報告',
         modalTitleDefault: '詳細',
         modalLoading: 'Markdown を読み込み中...',
@@ -131,6 +133,7 @@ const state = {
     loadError: false,
     dataUrl: DEFAULT_REPORTS_DATA_URL,
     assetBaseUrl: DEFAULT_REPORTS_ASSET_BASE,
+    assetMdBaseUrl: DEFAULT_REPORTS_MD_ASSET_BASE,
     mdModalInstance: null,
     mdRequestId: 0,
     quickLinksBound: false,
@@ -193,9 +196,9 @@ function formatDate(isoStr) {
     return match ? match[1] : String(isoStr);
 }
 
-function normalizeAssetBaseUrl(url) {
+function normalizeAssetBaseUrl(url, fallback = DEFAULT_REPORTS_ASSET_BASE) {
     if (typeof url !== 'string' || !url.trim()) {
-        return DEFAULT_REPORTS_ASSET_BASE;
+        return fallback;
     }
     return url.endsWith('/') ? url : `${url}/`;
 }
@@ -249,6 +252,10 @@ function normalizeReport(report, index) {
     };
 }
 
+function isMarkdownAssetPath(path) {
+    return /\.md(?:$|[?#])/i.test(path);
+}
+
 function resolveReportAssetUrl(path) {
     if (typeof path !== 'string' || !path.trim()) return '';
     const trimmed = path.trim();
@@ -258,7 +265,8 @@ function resolveReportAssetUrl(path) {
     }
 
     const relativePath = trimmed.replace(/^\.\//, '');
-    return safeUrl(`${state.assetBaseUrl}${relativePath}`, '');
+    const baseUrl = isMarkdownAssetPath(relativePath) ? state.assetMdBaseUrl : state.assetBaseUrl;
+    return safeUrl(`${baseUrl}${relativePath}`, '');
 }
 
 function sortReportsById(list) {
@@ -679,6 +687,7 @@ export async function initReports({
     lang = 'ja',
     dataUrl = DEFAULT_REPORTS_DATA_URL,
     assetBaseUrl = DEFAULT_REPORTS_ASSET_BASE,
+    assetMdBaseUrl = DEFAULT_REPORTS_MD_ASSET_BASE,
 } = {}) {
     cacheDom();
     bindQuickLinks();
@@ -686,6 +695,7 @@ export async function initReports({
     state.lang = normalizeLang(lang);
     state.dataUrl = dataUrl;
     state.assetBaseUrl = normalizeAssetBaseUrl(assetBaseUrl);
+    state.assetMdBaseUrl = normalizeAssetBaseUrl(assetMdBaseUrl, DEFAULT_REPORTS_MD_ASSET_BASE);
     state.generatedAt = '';
     state.reports = [];
     state.tableFilter = 'all';
