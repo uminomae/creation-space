@@ -172,14 +172,11 @@ const state = {
     dom: {
         error: null,
         openStatusBtn: null,
-        domainsTab: null,
-        modelsTab: null,
+        domainsHeading: null,
+        modelsHeading: null,
         featureCards: null,
         metrics: null,
-        tableBody: null,
-        colId: null,
-        colDomain: null,
-        colStatus: null,
+        domainGrid: null,
         filterGroup: null,
         filterAll: null,
         filterPublished: null,
@@ -308,14 +305,11 @@ function sortReportsById(list) {
 function cacheDom() {
     state.dom.error = document.getElementById('reports-error');
     state.dom.openStatusBtn = document.getElementById('reports-open-status-btn');
-    state.dom.domainsTab = document.getElementById('reports-domains-tab');
-    state.dom.modelsTab = document.getElementById('reports-models-tab');
+    state.dom.domainsHeading = document.getElementById('reports-domains-heading');
+    state.dom.modelsHeading = document.getElementById('reports-models-heading');
     state.dom.featureCards = document.getElementById('reports-feature-cards');
     state.dom.metrics = document.getElementById('reports-metrics');
-    state.dom.tableBody = document.getElementById('reports-table-body');
-    state.dom.colId = document.getElementById('reports-col-id');
-    state.dom.colDomain = document.getElementById('reports-col-domain');
-    state.dom.colStatus = document.getElementById('reports-col-status');
+    state.dom.domainGrid = document.getElementById('reports-domain-grid');
     state.dom.filterGroup = document.getElementById('reports-table-filters');
     state.dom.filterAll = document.getElementById('reports-filter-all');
     state.dom.filterPublished = document.getElementById('reports-filter-published');
@@ -545,7 +539,7 @@ function bindQuickLinks() {
 
             state.tableFilter = nextFilter;
             updateFilterButtons();
-            renderTable();
+            renderDomainGrid();
         });
         state.dom.filterGroup.dataset.boundClick = '1';
     }
@@ -571,11 +565,8 @@ function updateFilterButtons() {
 function applyStaticText() {
     const strings = getStrings(state.lang);
 
-    if (state.dom.colId) state.dom.colId.textContent = strings.colId;
-    if (state.dom.colDomain) state.dom.colDomain.textContent = strings.colDomain;
-    if (state.dom.colStatus) state.dom.colStatus.textContent = strings.colStatus;
-    if (state.dom.domainsTab) state.dom.domainsTab.textContent = strings.tabDomains;
-    if (state.dom.modelsTab) state.dom.modelsTab.textContent = strings.tabModels;
+    if (state.dom.domainsHeading) state.dom.domainsHeading.textContent = strings.tabDomains;
+    if (state.dom.modelsHeading) state.dom.modelsHeading.textContent = strings.tabModels;
 
     if (state.dom.filterGroup) state.dom.filterGroup.setAttribute('aria-label', strings.filterGroupAria);
     if (state.dom.filterAll) state.dom.filterAll.textContent = strings.filterAll;
@@ -686,84 +677,78 @@ function renderMetrics() {
     state.dom.metrics.appendChild(fragment);
 }
 
-function createStatusCell({ isPublished, statusText, reportTitle, sources = [] }) {
-    const td = document.createElement('td');
+function createDomainGridItem({ report, muted = false, strings }) {
+    const isPublished = report.status === 'published';
+    const useJapanese = normalizeLang(state.lang) === 'ja';
+    const domainLabel = useJapanese
+        ? (report.nameJa || report.nameEn)
+        : (report.nameEn || report.nameJa);
+    const statusText = isPublished ? strings.statusPublished : strings.statusPlanned;
+    const sources = isPublished ? resolveDomainReportSources(report) : [];
+    const clickable = isPublished && sources.length > 0 && !muted;
+    const tile = clickable ? document.createElement('button') : document.createElement('article');
+    const reportTitle = `${report.id} ${domainLabel}`;
 
-    if (isPublished && sources.length > 0) {
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.className = 'badge rounded-pill text-bg-success border-0 reports-status-action';
-        button.textContent = statusText;
-        button.addEventListener('click', () => {
+    if (clickable) {
+        tile.type = 'button';
+        tile.addEventListener('click', () => {
             openMarkdownModal({ title: reportTitle, sources });
         });
-        td.appendChild(button);
-        return td;
     }
 
-    const badge = document.createElement('span');
-    badge.className = isPublished ? 'badge rounded-pill text-bg-success' : 'badge rounded-pill text-bg-warning text-dark';
-    badge.textContent = statusText;
-    td.appendChild(badge);
-    return td;
+    tile.className = [
+        'reports-domain-item',
+        'card',
+        isPublished ? 'is-published' : 'is-planned',
+        muted ? 'is-filter-muted' : '',
+    ].join(' ').trim();
+    tile.setAttribute('data-report-status', report.status);
+    tile.setAttribute('aria-label', `${reportTitle} ${statusText}`);
+    if (!clickable) {
+        tile.setAttribute('aria-disabled', 'true');
+    }
+
+    tile.innerHTML = `
+        <div class="card-body p-1 d-flex flex-column gap-1 reports-domain-item-body">
+            <div class="d-flex align-items-center justify-content-between gap-2 reports-domain-item-head">
+                <span class="reports-domain-item-id">${report.id}</span>
+                <span class="badge rounded-pill ${isPublished ? 'text-bg-success' : 'text-bg-warning text-dark'} reports-domain-item-status">${statusText}</span>
+            </div>
+            <div class="reports-domain-item-name" title="${domainLabel}">${domainLabel}</div>
+        </div>
+    `;
+
+    return tile;
 }
 
-function renderTable() {
-    if (!state.dom.tableBody) return;
+function renderDomainGrid() {
+    if (!state.dom.domainGrid) return;
     const strings = getStrings(state.lang);
-    const visibleReports = state.tableFilter === 'all'
-        ? state.reports
-        : state.reports.filter((report) => report.status === state.tableFilter);
+    const allReports = state.reports;
 
-    state.dom.tableBody.innerHTML = '';
-    if (!visibleReports.length) {
-        const row = document.createElement('tr');
-        const cell = document.createElement('td');
-        cell.colSpan = 3;
-        cell.className = 'text-body-secondary';
-        cell.textContent = state.reports.length && state.tableFilter !== 'all'
-            ? strings.emptyFiltered
-            : strings.empty;
-        row.appendChild(cell);
-        state.dom.tableBody.appendChild(row);
+    state.dom.domainGrid.innerHTML = '';
+    if (!allReports.length) {
+        const empty = document.createElement('div');
+        empty.className = 'reports-domain-empty text-body-secondary';
+        empty.textContent = strings.empty;
+        state.dom.domainGrid.appendChild(empty);
         return;
     }
 
     const fragment = document.createDocumentFragment();
-    visibleReports.forEach((report) => {
-        const row = document.createElement('tr');
-        const isPublished = report.status === 'published';
-        const localizedDomain = state.lang === 'en' ? report.nameEn : report.nameJa;
-
-        const idCell = document.createElement('td');
-        idCell.textContent = report.id;
-
-        const domainCell = document.createElement('td');
-        domainCell.textContent = localizedDomain;
-
-        const sources = isPublished ? resolveDomainReportSources(report) : [];
-        const reportTitle = `${report.id} ${localizedDomain}`;
-        const statusCell = createStatusCell({
-            isPublished,
-            statusText: isPublished ? strings.statusPublished : strings.statusPlanned,
-            reportTitle,
-            sources,
-        });
-
-        row.appendChild(idCell);
-        row.appendChild(domainCell);
-        row.appendChild(statusCell);
-        fragment.appendChild(row);
+    allReports.forEach((report) => {
+        const muted = state.tableFilter !== 'all' && report.status !== state.tableFilter;
+        fragment.appendChild(createDomainGridItem({ report, muted, strings }));
     });
 
-    state.dom.tableBody.appendChild(fragment);
+    state.dom.domainGrid.appendChild(fragment);
 }
 
 function renderReports() {
     applyStaticText();
     renderFeatureCards();
     renderMetrics();
-    renderTable();
+    renderDomainGrid();
     setReportsError(state.loadError ? getStrings(state.lang).error : '');
 }
 

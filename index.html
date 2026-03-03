@@ -225,45 +225,22 @@
           </div>
           <div id="reports-metrics" class="row g-2" aria-live="polite"></div>
         </div>
-        <ul class="nav nav-tabs reports-content-tabs mb-2" id="reports-content-tabs" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button id="reports-models-tab" class="nav-link active" type="button" role="tab" data-bs-toggle="tab" data-bs-target="#reports-models-pane" aria-controls="reports-models-pane" aria-selected="true">
-              モデル解説
-            </button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button id="reports-domains-tab" class="nav-link reports-nav-secondary" type="button" role="tab" data-bs-toggle="tab" data-bs-target="#reports-domains-pane" aria-controls="reports-domains-pane" aria-selected="false">
-              領域別レポート
-            </button>
-          </li>
-        </ul>
-        <div class="tab-content reports-tab-content">
-          <div id="reports-models-pane" class="tab-pane fade show active" role="tabpanel" aria-labelledby="reports-models-tab" tabindex="0">
+        <div class="reports-tab-content reports-stack">
+          <section class="reports-stack-section">
+            <h3 id="reports-models-heading" class="reports-subheading">モデル解説</h3>
             <div id="reports-feature-cards" class="row row-cols-1 row-cols-md-3 g-2" aria-live="polite"></div>
-          </div>
-          <div id="reports-domains-pane" class="tab-pane fade" role="tabpanel" aria-labelledby="reports-domains-tab" tabindex="0">
+          </section>
+          <section class="reports-stack-section">
+            <h3 id="reports-domains-heading" class="reports-subheading">領域別レポート</h3>
             <div id="reports-table-filters" class="d-flex flex-wrap gap-2 mb-2" role="group" aria-label="領域別レポート絞り込み">
               <button id="reports-filter-all" type="button" class="btn btn-outline-light btn-sm active" data-filter="all" aria-pressed="true">全件</button>
               <button id="reports-filter-published" type="button" class="btn btn-outline-light btn-sm" data-filter="published" aria-pressed="false">公開済み</button>
               <button id="reports-filter-planned" type="button" class="btn btn-outline-light btn-sm" data-filter="planned" aria-pressed="false">準備中</button>
             </div>
-            <div class="table-responsive reports-table-wrap mb-0">
-              <table class="table table-sm table-hover align-middle reports-table mb-0" aria-label="Issue #62 領域別レポート一覧">
-                <thead>
-                  <tr>
-                    <th id="reports-col-id" scope="col">ID</th>
-                    <th id="reports-col-domain" scope="col">領域</th>
-                    <th id="reports-col-status" scope="col">状態</th>
-                  </tr>
-                </thead>
-                <tbody id="reports-table-body">
-                  <tr>
-                    <td colspan="3" class="text-body-secondary">読み込み中...</td>
-                  </tr>
-                </tbody>
-              </table>
+            <div id="reports-domain-grid" class="reports-domain-grid" aria-live="polite">
+              <div class="reports-domain-empty text-body-secondary">読み込み中...</div>
             </div>
-          </div>
+          </section>
         </div>
       </div>
     </div>
