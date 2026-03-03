@@ -68,9 +68,6 @@ const STRINGS = {
         metricTotal: '総領域',
         metricPublished: '公開済み',
         metricPlanned: '準備中',
-        colId: 'ID',
-        colDomain: '領域',
-        colStatus: '状態',
         statusPublished: '公開済み',
         statusPlanned: '準備中',
         tabDomains: '領域別レポート',
@@ -114,9 +111,6 @@ const STRINGS = {
         metricTotal: 'Domains',
         metricPublished: 'Published',
         metricPlanned: 'Planned',
-        colId: 'ID',
-        colDomain: 'Domain',
-        colStatus: 'Status',
         statusPublished: 'Published',
         statusPlanned: 'Planned',
         tabDomains: 'Domain Reports',
@@ -125,7 +119,7 @@ const STRINGS = {
         filterAll: 'All',
         filterPublished: 'Published',
         filterPlanned: 'Planned',
-        openStatus: 'Open Status Report',
+        openStatus: 'Investigation Notes',
         statusReportTitle: '5W1H Status Report',
         modalTitleDefault: 'Details',
         modalLoading: 'Loading markdown...',
@@ -709,7 +703,7 @@ function createDomainGridItem({ report, muted = false, strings }) {
     }
 
     tile.innerHTML = `
-        <div class="card-body p-1 d-flex flex-column gap-1 reports-domain-item-body">
+        <div class="card-body p-1 d-flex flex-column reports-domain-item-body">
             <div class="d-flex align-items-center justify-content-between gap-2 reports-domain-item-head">
                 <span class="reports-domain-item-id">${report.id}</span>
                 <span class="badge rounded-pill ${isPublished ? 'text-bg-success' : 'text-bg-warning text-dark'} reports-domain-item-status">${statusText}</span>

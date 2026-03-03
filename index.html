@@ -90,6 +90,7 @@
         <span id="topbar-preparing-badge" class="badge rounded-pill text-bg-warning-subtle border border-warning-subtle text-warning-emphasis topbar-status-badge">
           準備中
         </span>
+        <span id="credit-collab" class="topbar-collab-note">AIとの協働作業中</span>
       </div>
       <button
         class="navbar-toggler topbar-toggler"
@@ -148,9 +149,6 @@
               aria-label="言語を英語に切り替え">
               English
             </button>
-          </li>
-          <li class="nav-item topbar-collab-item">
-            <span id="credit-collab" class="topbar-collab-note">AIとの協働で探索中</span>
           </li>
         </ul>
       </div>
@@ -213,6 +211,7 @@
   <section id="reports-section">
     <div class="section-content-wrap">
       <div class="container">
+        <p id="reports-ai-notice" class="reports-ai-notice">AIが執筆しているため間違いがある場合があります。</p>
         <h2 class="section-heading">
           <a id="reports-section-heading" href="#reports-section" class="section-heading-link" aria-label="REPORTS セクションへジャンプ">
             REPORTS
@@ -221,7 +220,7 @@
         <div id="reports-error" class="alert alert-danger py-2 px-3 d-none mb-3" role="alert"></div>
         <div class="reports-overview mb-3">
           <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-2" id="reports-primary-actions">
-            <button id="reports-open-status-btn" type="button" class="btn btn-outline-light btn-sm">作業報告を開く</button>
+            <button id="reports-open-status-btn" type="button" class="btn btn-outline-light btn-sm reports-status-cta">調査内容</button>
           </div>
           <div id="reports-metrics" class="row g-2" aria-live="polite"></div>
         </div>

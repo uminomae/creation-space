@@ -1,5 +1,15 @@
 // scroll-ui.js — スクロール連動のHTML UI制御
 // overlay, credit, lang-toggle, control-guide, scroll hints, surface button の表示/非表示を一元管理
+//
+// Scroll fade targets (must be checked when layout/classes are changed):
+// - IDs: #overlay, #credit, #control-guide, #left-kesson-link
+// - Hint visibility by class toggle: #scroll-hint.visible, #scroll-hint-top.visible
+//
+// Update-time manual test checklist:
+// 1) At page top, bottom hint is visible and fade targets are visible.
+// 2) After downward scroll, fade targets lose opacity and bottom hint hides.
+// 3) Top hint appears only after leaving top; left link is non-clickable when faded out.
+// 4) Near bottom, surface button behavior remains unchanged.
 
 import { toggles, breathConfig } from './config.js';
 import { detectLang } from './i18n.js';

@@ -378,11 +378,6 @@
       border: 1px solid rgba(130, 170, 240, 0.25);
       background: rgba(70, 102, 160, 0.16);
     }
-    #kesson-topbar .topbar-collab-item {
-      margin-left: 0.45rem;
-      padding-left: 0.55rem;
-      border-left: 1px solid rgba(130, 170, 240, 0.2);
-    }
     #kesson-topbar .topbar-collab-note {
       display: inline-block;
       font-family: 'Georgia', "Noto Serif JP", serif;
@@ -391,6 +386,13 @@
       letter-spacing: 0.06em;
       color: rgba(165, 214, 255, 0.74);
       white-space: nowrap;
+      margin-left: 0.5rem;
+      padding-left: 0.56rem;
+      border-left: 1px solid rgba(130, 170, 240, 0.2);
+      min-width: 0;
+      max-width: min(42vw, 18rem);
+      overflow: hidden;
+      text-overflow: ellipsis;
       pointer-events: none;
       user-select: none;
     }
@@ -434,10 +436,6 @@
       #kesson-topbar .topbar-subtitle {
         font-size: 0.66rem;
       }
-      #kesson-topbar .topbar-collab-item {
-        margin-left: 0.3rem;
-        padding-left: 0.45rem;
-      }
     }
     @media (max-width: 767.98px) {
       #kesson-topbar .topbar-subtitle {
@@ -446,14 +444,12 @@
       #kesson-topbar .topbar-main-title {
         font-size: 0.86rem;
       }
-      #kesson-topbar .topbar-collab-item {
-        margin-left: 0;
-        padding: 0.28rem 0.76rem 0 0.76rem;
-        border-left: 0;
-      }
       #kesson-topbar .topbar-collab-note {
-        font-size: 0.62rem;
+        font-size: 0.56rem;
         letter-spacing: 0.05em;
+        margin-left: 0.36rem;
+        padding-left: 0.36rem;
+        max-width: min(40vw, 9.8rem);
       }
     }
 
@@ -1709,47 +1705,57 @@
   position: relative;
   z-index: 5;
   padding-bottom: 1.2rem;
+  --reports-font-mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  --reports-border-soft: rgba(var(--color-accent), 0.12);
+  --reports-border-base: rgba(var(--color-accent), 0.2);
+  --reports-border-strong: rgba(var(--color-accent), 0.35);
+  --reports-bg-base: rgba(var(--color-accent), 0.1);
+  --reports-bg-hover: rgba(var(--color-accent), 0.2);
+  --reports-bg-active: rgba(var(--color-accent), 0.28);
+  --reports-text-muted: rgba(var(--color-sub-text), 0.56);
+  --reports-text-bright: rgba(var(--color-highlight), 0.78);
+  --reports-card-bg: rgba(var(--color-accent), 0.06);
+  --reports-card-border: rgba(var(--color-accent), 0.14);
+  --reports-control-font-size: clamp(0.62rem, 2.2vmin, 0.74rem);
+  --reports-control-letter-spacing: 0.06em;
 }
 
 #reports-primary-actions .btn,
-#reports-table-filters .btn,
-.reports-domain-item {
-  border-color: rgba(var(--color-accent), 0.2);
-  color: rgba(var(--color-sub-text), 0.56);
-  background: rgba(var(--color-accent), 0.1);
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-  font-size: clamp(0.62rem, 2.2vmin, 0.74rem);
-  letter-spacing: 0.06em;
+#reports-table-filters .btn {
+  border-color: var(--reports-border-base);
+  color: var(--reports-text-muted);
+  background: var(--reports-bg-base);
+  font-family: var(--reports-font-mono);
+  font-size: var(--reports-control-font-size);
+  letter-spacing: var(--reports-control-letter-spacing);
   text-transform: none;
 }
 
 #reports-primary-actions .btn:hover,
 #reports-table-filters .btn:hover,
-.reports-domain-item:hover,
 #reports-primary-actions .btn:focus-visible,
-#reports-table-filters .btn:focus-visible,
-.reports-domain-item:focus-visible {
-  border-color: rgba(var(--color-accent), 0.35);
-  color: rgba(var(--color-highlight), 0.78);
-  background: rgba(var(--color-accent), 0.2);
+#reports-table-filters .btn:focus-visible {
+  border-color: var(--reports-border-strong);
+  color: var(--reports-text-bright);
+  background: var(--reports-bg-hover);
 }
 
 #reports-table-filters .btn.active,
 #reports-table-filters .btn:active {
   border-color: rgba(var(--color-accent), 0.45);
   color: rgba(var(--color-highlight), 0.9);
-  background: rgba(var(--color-accent), 0.28);
+  background: var(--reports-bg-active);
 }
 
 .reports-overview {
-  border: 1px solid rgba(var(--color-accent), 0.12);
+  border: 1px solid var(--reports-border-soft);
   border-radius: 0.42rem;
   background: var(--kesson-card-bg);
   padding: 0.75rem;
 }
 
 .reports-tab-content {
-  border: 1px solid rgba(var(--color-accent), 0.12);
+  border: 1px solid var(--reports-border-soft);
   border-radius: 0.42rem;
   background: var(--kesson-card-bg);
   padding: 0.75rem;
@@ -1766,8 +1772,37 @@
   color: rgba(var(--color-heading), 0.82);
   font-size: clamp(0.75rem, 2.2vmin, 0.9rem);
   letter-spacing: 0.05em;
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: var(--reports-font-mono);
   text-transform: uppercase;
+}
+
+.reports-ai-notice {
+  margin: 0 0 0.55rem;
+  color: rgba(var(--color-sub-text), 0.78);
+  font-size: clamp(0.75rem, 2.2vmin, 0.9rem);
+  letter-spacing: 0.03em;
+  line-height: 1.45;
+  font-family: var(--reports-font-mono);
+}
+
+#reports-primary-actions .reports-status-cta {
+  min-width: clamp(10.6rem, 24vw, 15.4rem);
+  min-height: 3.3rem;
+  padding: 0.72rem 1rem;
+  border-color: var(--reports-border-strong);
+  border-width: 1px;
+  background: rgba(var(--color-accent), 0.2);
+  color: rgba(var(--color-highlight), 0.92);
+  font-size: clamp(0.79rem, 2.35vmin, 0.94rem);
+  letter-spacing: 0.08em;
+  box-shadow: 0 0 0.8rem rgba(var(--color-accent), 0.12);
+}
+
+#reports-primary-actions .reports-status-cta:hover,
+#reports-primary-actions .reports-status-cta:focus-visible {
+  border-color: rgba(var(--color-accent), 0.48);
+  background: rgba(var(--color-accent), 0.3);
+  color: rgba(var(--color-highlight), 0.98);
 }
 
 .reports-feature-card {
@@ -1790,7 +1825,7 @@
   color: rgba(var(--color-heading), 0.5);
   font-size: 0.6rem;
   letter-spacing: 0.09em;
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: var(--reports-font-mono);
 }
 
 .report-metric-value {
@@ -1811,12 +1846,21 @@
   min-height: 3.45rem;
   width: 100%;
   padding: 0;
-  border: 1px solid rgba(var(--color-accent), 0.14);
-  background: rgba(var(--color-accent), 0.06);
+  border: 1px solid var(--reports-card-border);
+  background: var(--reports-card-bg);
   color: rgba(var(--color-heading), 0.82);
   text-align: left;
   border-radius: 0.4rem;
+  font-family: var(--reports-font-mono);
+  font-size: var(--reports-control-font-size);
+  letter-spacing: var(--reports-control-letter-spacing);
   transition: border-color 160ms ease, background-color 160ms ease, opacity 160ms ease;
+}
+
+.reports-domain-item:hover {
+  border-color: var(--reports-border-strong);
+  color: var(--reports-text-bright);
+  background: var(--reports-bg-hover);
 }
 
 .reports-domain-item:focus-visible {
@@ -1827,7 +1871,7 @@
 .reports-domain-item.is-published:not(.is-filter-muted):hover,
 .reports-domain-item.is-published:not(.is-filter-muted):focus-visible {
   border-color: rgba(var(--color-accent), 0.42);
-  background: rgba(var(--color-accent), 0.2);
+  background: var(--reports-bg-hover);
   color: rgba(var(--color-heading), 0.95);
 }
 
@@ -1838,7 +1882,7 @@
 
 .reports-domain-item-body {
   height: 100%;
-  gap: 0.3rem !important;
+  gap: 0.3rem;
 }
 
 .reports-domain-item-id {
@@ -1848,7 +1892,7 @@
 }
 
 .reports-domain-item-status {
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: var(--reports-font-mono);
   font-size: 0.56rem;
   letter-spacing: 0.04em;
 }
@@ -1856,7 +1900,7 @@
 .reports-domain-item-name {
   color: rgba(var(--color-heading), 0.82);
   font-size: 0.7rem;
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: var(--reports-font-mono);
   line-height: 1.2;
   letter-spacing: 0.015em;
   display: -webkit-box;
@@ -1895,7 +1939,7 @@
 #reports-md-meta {
   padding: 0.15rem 0.5rem 0;
   color: rgba(var(--color-sub-text), 0.62) !important;
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: var(--reports-font-mono);
   font-size: 0.66rem;
   letter-spacing: 0.05em;
 }
@@ -1927,6 +1971,16 @@
 
   .reports-subheading {
     font-size: 0.72rem;
+  }
+
+  .reports-ai-notice {
+    font-size: 0.72rem;
+  }
+
+  #reports-primary-actions .reports-status-cta {
+    width: 100%;
+    min-width: 0;
+    min-height: 2.9rem;
   }
 
   .report-metric-value {
