@@ -1,4 +1,4 @@
-export const GRAPHIC_MODE_DEFAULT = 'hoji';
+export const GRAPHIC_MODE_DEFAULT = 'i';
 export const GRAPHIC_MODE_OPTIONS = new Set(['hoji', 'sinobi', 'i']);
 
 export function normalizeGraphicMode(mode) {

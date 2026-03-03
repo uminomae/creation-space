@@ -33,7 +33,7 @@ const STRINGS = {
         leftKessonLinkLabel: '欠損駆動思考',
         leftKessonLinkAria: 'kesson-spaceへ移動',
         surfaceButtonAria: 'ページ上部に戻る',
-        devVersionPrefix: '開発版 ver',
+        devVersionPrefix: 'ver',
         langToggleLabel: 'English',
         langToggleAria: '言語を英語に切り替え',
     },
@@ -69,14 +69,21 @@ const STRINGS = {
         leftKessonLinkLabel: 'kesson-driven',
         leftKessonLinkAria: 'Go to kesson-space',
         surfaceButtonAria: 'Back to top',
-        devVersionPrefix: 'Dev ver',
+        devVersionPrefix: 'ver',
         langToggleLabel: '日本語',
         langToggleAria: 'Switch language to Japanese',
     },
 };
 
-function formatDevVersionLabel(_lang, devVersion) {
-    return typeof devVersion === 'string' ? devVersion.trim() : '';
+function formatDevVersionLabel(lang, devVersion) {
+    const resolvedLang = normalizeLang(lang);
+    const strings = STRINGS[resolvedLang] || STRINGS.ja;
+    const prefix = typeof strings.devVersionPrefix === 'string' && strings.devVersionPrefix.trim()
+        ? strings.devVersionPrefix.trim()
+        : 'ver';
+    const normalizedVersion = typeof devVersion === 'string' ? devVersion.trim() : '';
+    if (!normalizedVersion) return '';
+    return `${prefix} ${normalizedVersion}`;
 }
 
 function updateInlineVersionLabel(lang, { devVersion = '' } = {}) {
