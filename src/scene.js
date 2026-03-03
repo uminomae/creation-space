@@ -52,8 +52,8 @@ const CREATION_LINK_DEFS = [
     {
         id: 1,
         label: 'Creation Field',
-        draftUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-general-draft.md`,
-        sourceUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-general.pdf`,
+        draftUrl: `${CREATION_ASSETS_BASE_URL}/creation-general-draft.md`,
+        sourceUrl: `${CREATION_ASSETS_BASE_URL}/creation-general.pdf`,
         shape: 'crystal',
         pointCount: 3200,
     },
