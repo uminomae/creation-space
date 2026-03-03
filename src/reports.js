@@ -10,18 +10,18 @@ const STATUS_REPORT_PDF = `${CREATION_ASSETS_BASE_URL}/issue62/creation-issue62-
 const MODEL_GUIDE_LINKS = [
     {
         key: 'general',
-        mdUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-general-draft.md`,
-        pdfUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-general.pdf`,
+        mdUrl: `${CREATION_ASSETS_BASE_URL}/creation-general-draft.md`,
+        pdfUrl: `${CREATION_ASSETS_BASE_URL}/creation-general.pdf`,
     },
     {
         key: 'designer',
-        mdUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-designer-draft.md`,
-        pdfUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-designer.pdf`,
+        mdUrl: `${CREATION_ASSETS_BASE_URL}/creation-designer-draft.md`,
+        pdfUrl: `${CREATION_ASSETS_BASE_URL}/creation-designer.pdf`,
     },
     {
         key: 'expert',
-        mdUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-academic-draft.md`,
-        pdfUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-academic.pdf`,
+        mdUrl: `${CREATION_ASSETS_BASE_URL}/creation-academic-draft.md`,
+        pdfUrl: `${CREATION_ASSETS_BASE_URL}/creation-academic.pdf`,
     },
 ];
 
