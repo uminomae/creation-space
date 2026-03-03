@@ -1,7 +1,7 @@
 import DOMPurify from 'dompurify';
 import { normalizeLang } from './i18n.js';
 
-const CREATION_ASSETS_BASE_URL = 'https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/creation';
+const CREATION_ASSETS_BASE_URL = 'https://uminomae.github.io/pjdhiro/assets/creation';
 const DEFAULT_REPORTS_DATA_URL = `${CREATION_ASSETS_BASE_URL}/issue62/domains/index.json`;
 const DEFAULT_REPORTS_ASSET_BASE = `${CREATION_ASSETS_BASE_URL}/issue62/`;
 const STATUS_REPORT_MD = `${CREATION_ASSETS_BASE_URL}/issue62/issue62-status-ja.md`;
