@@ -6,24 +6,56 @@ const CREATION_ASSETS_MD_BASE_URL = 'https://raw.githubusercontent.com/uminomae/
 const DEFAULT_REPORTS_DATA_URL = `${CREATION_ASSETS_BASE_URL}/issue62/domains/index.json`;
 const DEFAULT_REPORTS_ASSET_BASE = `${CREATION_ASSETS_BASE_URL}/issue62/`;
 const DEFAULT_REPORTS_MD_ASSET_BASE = `${CREATION_ASSETS_MD_BASE_URL}/issue62/`;
-const STATUS_REPORT_MD = `${CREATION_ASSETS_MD_BASE_URL}/issue62/issue62-status-ja.md`;
-const STATUS_REPORT_PDF = `${CREATION_ASSETS_BASE_URL}/issue62/creation-issue62-status-ja.pdf`;
+const STATUS_REPORT_LINKS = {
+    ja: {
+        mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/issue62/issue62-status-ja.md`,
+        pdfUrl: `${CREATION_ASSETS_BASE_URL}/issue62/creation-issue62-status-ja.pdf`,
+    },
+    en: {
+        mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/issue62/issue62-status-en.md`,
+        pdfUrl: `${CREATION_ASSETS_BASE_URL}/issue62/creation-issue62-status-en.pdf`,
+    },
+};
 
 const MODEL_GUIDE_LINKS = [
     {
         key: 'general',
-        mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/creation-general-draft.md`,
-        pdfUrl: `${CREATION_ASSETS_BASE_URL}/creation-general.pdf`,
+        links: {
+            ja: {
+                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/creation-general-draft.md`,
+                pdfUrl: `${CREATION_ASSETS_BASE_URL}/creation-general.pdf`,
+            },
+            en: {
+                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/creation-general-en-draft.md`,
+                pdfUrl: `${CREATION_ASSETS_BASE_URL}/creation-general-en.pdf`,
+            },
+        },
     },
     {
         key: 'designer',
-        mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/creation-designer-draft.md`,
-        pdfUrl: `${CREATION_ASSETS_BASE_URL}/creation-designer.pdf`,
+        links: {
+            ja: {
+                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/creation-designer-draft.md`,
+                pdfUrl: `${CREATION_ASSETS_BASE_URL}/creation-designer.pdf`,
+            },
+            en: {
+                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/creation-designer-en-draft.md`,
+                pdfUrl: `${CREATION_ASSETS_BASE_URL}/creation-designer-en.pdf`,
+            },
+        },
     },
     {
         key: 'expert',
-        mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/creation-academic-draft.md`,
-        pdfUrl: `${CREATION_ASSETS_BASE_URL}/creation-academic.pdf`,
+        links: {
+            ja: {
+                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/creation-academic-draft.md`,
+                pdfUrl: `${CREATION_ASSETS_BASE_URL}/creation-academic.pdf`,
+            },
+            en: {
+                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/creation-academic-en-draft.md`,
+                pdfUrl: `${CREATION_ASSETS_BASE_URL}/creation-academic-en.pdf`,
+            },
+        },
     },
 ];
 
@@ -355,33 +387,101 @@ function setMarkdownModalLoading({ title, pdfUrl }) {
     }
 }
 
-async function openMarkdownModal({ mdUrl, title = '', pdfUrl = '' }) {
-    const safeMarkdownUrl = safeUrl(mdUrl, '');
-    const safePdfUrl = safeUrl(pdfUrl, '');
-    if (!safeMarkdownUrl) return;
+function dedupeSources(sources = []) {
+    const seenMdUrls = new Set();
+    const normalized = [];
+
+    sources.forEach((source) => {
+        const safeMarkdownUrl = safeUrl(source?.mdUrl, '');
+        if (!safeMarkdownUrl || seenMdUrls.has(safeMarkdownUrl)) return;
+        seenMdUrls.add(safeMarkdownUrl);
+        normalized.push({
+            mdUrl: safeMarkdownUrl,
+            pdfUrl: safeUrl(source?.pdfUrl, ''),
+        });
+    });
+
+    return normalized;
+}
+
+function normalizeModalSources({ mdUrl = '', pdfUrl = '', sources = [] } = {}) {
+    const merged = Array.isArray(sources) ? [...sources] : [];
+    if (mdUrl) merged.push({ mdUrl, pdfUrl });
+    return dedupeSources(merged);
+}
+
+function resolveLocalizedSources(linksByLang) {
+    const lang = normalizeLang(state.lang);
+    const primary = linksByLang?.[lang];
+    const fallback = linksByLang?.ja;
+    const sources = [];
+
+    if (primary) sources.push(primary);
+    if (lang !== 'ja' && fallback) sources.push(fallback);
+    return dedupeSources(sources);
+}
+
+function withEnSuffix(path) {
+    if (typeof path !== 'string' || !path.trim()) return '';
+    return path.trim().replace(/-ja(?=\.[a-z0-9]+(?:[?#].*)?$)/i, '-en');
+}
+
+function resolveDomainReportSources(report) {
+    const baseSource = {
+        mdUrl: resolveReportAssetUrl(report?.mdPath),
+        pdfUrl: resolveReportAssetUrl(report?.pdfPath),
+    };
+
+    if (normalizeLang(state.lang) !== 'en') {
+        return dedupeSources([baseSource]);
+    }
+
+    const enSource = {
+        mdUrl: resolveReportAssetUrl(withEnSuffix(report?.mdPath)),
+        pdfUrl: resolveReportAssetUrl(withEnSuffix(report?.pdfPath)),
+    };
+    return dedupeSources([enSource, baseSource]);
+}
+
+async function openMarkdownModal({ mdUrl, title = '', pdfUrl = '', sources = [] }) {
+    const modalSources = normalizeModalSources({ mdUrl, pdfUrl, sources });
+    if (!modalSources.length) return;
+    const firstSource = modalSources[0];
 
     const modal = ensureMdModalInstance();
     if (!modal) {
-        window.open(safeMarkdownUrl, '_blank', 'noopener');
+        window.open(firstSource.mdUrl, '_blank', 'noopener');
         return;
     }
 
     const requestId = ++state.mdRequestId;
-    setMarkdownModalLoading({ title, pdfUrl: safePdfUrl });
+    setMarkdownModalLoading({ title, pdfUrl: firstSource.pdfUrl });
     modal.show();
 
     try {
-        const [response, marked] = await Promise.all([
-            fetch(safeMarkdownUrl, { cache: 'no-store' }),
-            getMarked(),
-        ]);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const marked = await getMarked();
+        let raw = '';
+        let activeSource = firstSource;
+        let lastError = null;
 
-        const raw = await response.text();
+        for (const source of modalSources) {
+            try {
+                const response = await fetch(source.mdUrl, { cache: 'no-store' });
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                raw = await response.text();
+                activeSource = source;
+                break;
+            } catch (error) {
+                lastError = error;
+            }
+        }
+
+        if (!raw) throw (lastError || new Error('No markdown source could be loaded'));
         const { meta, body } = parseFrontmatter(raw);
         const html = DOMPurify.sanitize(marked.parse(body || raw));
 
         if (requestId !== state.mdRequestId) return;
+        setModalPdfButton(activeSource.pdfUrl);
         if (state.dom.mdModalContent) {
             state.dom.mdModalContent.innerHTML = `
                 <div class="md-article">
@@ -417,9 +517,8 @@ function bindQuickLinks() {
         state.dom.openStatusBtn.addEventListener('click', () => {
             const strings = getStrings(state.lang);
             openMarkdownModal({
-                mdUrl: STATUS_REPORT_MD,
                 title: strings.statusReportTitle,
-                pdfUrl: STATUS_REPORT_PDF,
+                sources: resolveLocalizedSources(STATUS_REPORT_LINKS),
             });
         });
         state.dom.openStatusBtn.dataset.boundClick = '1';
@@ -524,9 +623,8 @@ function renderFeatureCards() {
 
         const openCardModal = () => {
             openMarkdownModal({
-                mdUrl: guide.mdUrl,
                 title: featureText.title,
-                pdfUrl: guide.pdfUrl,
+                sources: resolveLocalizedSources(guide.links),
             });
         };
         card.addEventListener('click', openCardModal);
@@ -588,16 +686,16 @@ function renderMetrics() {
     state.dom.metrics.appendChild(fragment);
 }
 
-function createStatusCell({ isPublished, statusText, reportTitle, mdUrl, pdfUrl }) {
+function createStatusCell({ isPublished, statusText, reportTitle, sources = [] }) {
     const td = document.createElement('td');
 
-    if (isPublished && mdUrl) {
+    if (isPublished && sources.length > 0) {
         const button = document.createElement('button');
         button.type = 'button';
         button.className = 'badge rounded-pill text-bg-success border-0 reports-status-action';
         button.textContent = statusText;
         button.addEventListener('click', () => {
-            openMarkdownModal({ mdUrl, title: reportTitle, pdfUrl });
+            openMarkdownModal({ title: reportTitle, sources });
         });
         td.appendChild(button);
         return td;
@@ -643,15 +741,13 @@ function renderTable() {
         const domainCell = document.createElement('td');
         domainCell.textContent = localizedDomain;
 
-        const mdUrl = isPublished ? resolveReportAssetUrl(report.mdPath) : '';
-        const pdfUrl = isPublished ? resolveReportAssetUrl(report.pdfPath) : '';
+        const sources = isPublished ? resolveDomainReportSources(report) : [];
         const reportTitle = `${report.id} ${localizedDomain}`;
         const statusCell = createStatusCell({
             isPublished,
             statusText: isPublished ? strings.statusPublished : strings.statusPlanned,
             reportTitle,
-            mdUrl,
-            pdfUrl,
+            sources,
         });
 
         row.appendChild(idCell);
