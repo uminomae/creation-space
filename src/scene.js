@@ -47,12 +47,13 @@ const FLOW_FULL_HALF_Y = 15.0;
 const FLOW_FULL_HALF_Z = 9.0;
 const FLOW_LEFT_END = 0.42;
 const FLOW_CENTER_END = 0.64;
+const CREATION_ASSETS_BASE_URL = 'https://uminomae.github.io/pjdhiro/assets/creation';
 const CREATION_LINK_DEFS = [
     {
         id: 1,
         label: 'Creation Field',
-        draftUrl: './assets/reports/model-guides/kesson-general-draft.md',
-        sourceUrl: './assets/reports/model-guides/kesson-general.pdf',
+        draftUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-general-draft.md`,
+        sourceUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-general.pdf`,
         shape: 'crystal',
         pointCount: 3200,
     },
