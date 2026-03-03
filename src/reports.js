@@ -1,26 +1,27 @@
 import DOMPurify from 'dompurify';
 import { normalizeLang } from './i18n.js';
 
-const DEFAULT_REPORTS_DATA_URL = './assets/reports/issue62/domains/index.json';
-const DEFAULT_REPORTS_ASSET_BASE = './assets/reports/issue62/';
-const STATUS_REPORT_MD = './assets/reports/issue62/issue62-status-ja.md';
-const STATUS_REPORT_PDF = './assets/reports/issue62/creation-issue62-status-ja.pdf';
+const CREATION_ASSETS_BASE_URL = 'https://uminomae.github.io/pjdhiro/assets/creation';
+const DEFAULT_REPORTS_DATA_URL = `${CREATION_ASSETS_BASE_URL}/issue62/domains/index.json`;
+const DEFAULT_REPORTS_ASSET_BASE = `${CREATION_ASSETS_BASE_URL}/issue62/`;
+const STATUS_REPORT_MD = `${CREATION_ASSETS_BASE_URL}/issue62/issue62-status-ja.md`;
+const STATUS_REPORT_PDF = `${CREATION_ASSETS_BASE_URL}/issue62/creation-issue62-status-ja.pdf`;
 
 const MODEL_GUIDE_LINKS = [
     {
         key: 'general',
-        mdUrl: './assets/reports/model-guides/kesson-general-draft.md',
-        pdfUrl: './assets/reports/model-guides/kesson-general.pdf',
+        mdUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-general-draft.md`,
+        pdfUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-general.pdf`,
     },
     {
         key: 'designer',
-        mdUrl: './assets/reports/model-guides/kesson-designer-draft.md',
-        pdfUrl: './assets/reports/model-guides/kesson-designer.pdf',
+        mdUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-designer-draft.md`,
+        pdfUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-designer.pdf`,
     },
     {
         key: 'expert',
-        mdUrl: './assets/reports/model-guides/kesson-academic-draft.md',
-        pdfUrl: './assets/reports/model-guides/kesson-academic.pdf',
+        mdUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-academic-draft.md`,
+        pdfUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-academic.pdf`,
     },
 ];
 
