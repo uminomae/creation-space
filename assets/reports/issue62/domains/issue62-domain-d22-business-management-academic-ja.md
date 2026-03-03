@@ -7,8 +7,8 @@ version: 1.1
 date: 2026-03-03
 domain_id: D22
 domain: business-management
-source_issue: https://github.com/uminomae/kesson-driven-thinking/issues/62
-source_issue_comment_latest: https://github.com/uminomae/kesson-driven-thinking/issues/62#issuecomment-3989285954
+source_issue: internal-issue-62
+source_issue_comment_latest: internal-log-latest
 source_material:
   - base/evidence/evidence-D22-business-management.md
   - base/evidence/iss62-sources/DR-D22-business-management.md
@@ -89,8 +89,8 @@ generated_at: 2026-03-03
 
 ## 7. 参照
 
-- Issue #62: https://github.com/uminomae/kesson-driven-thinking/issues/62
-- 2026-03-02 進捗（6/10）: https://github.com/uminomae/kesson-driven-thinking/issues/62#issuecomment-3986996302
-- 2026-03-03 進捗（11/11）: https://github.com/uminomae/kesson-driven-thinking/issues/62#issuecomment-3989285954
+- Issue #62: 内部管理
+- 2026-03-02 進捗（6/10）: 内部進捗ログ
+- 2026-03-03 進捗（11/11）: 内部進捗ログ
 - `base/evidence/evidence-D22-business-management.md`
 - `base/evidence/iss62-sources/DR-D22-business-management.md`

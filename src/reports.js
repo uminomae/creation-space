@@ -1,14 +1,34 @@
+import DOMPurify from 'dompurify';
 import { normalizeLang } from './i18n.js';
 
 const DEFAULT_REPORTS_DATA_URL = './assets/reports/issue62/domains/index.json';
 const DEFAULT_REPORTS_ASSET_BASE = './assets/reports/issue62/';
+const STATUS_REPORT_MD = './assets/reports/issue62/issue62-status-ja.md';
+const STATUS_REPORT_PDF = './assets/reports/issue62/creation-issue62-status-ja.pdf';
+
+const MODEL_GUIDE_LINKS = [
+    {
+        key: 'general',
+        mdUrl: './assets/reports/model-guides/kesson-general-draft.md',
+        pdfUrl: 'https://uminomae.github.io/pjdhiro/assets/pdf/kesson-general.pdf',
+    },
+    {
+        key: 'designer',
+        mdUrl: './assets/reports/model-guides/kesson-designer-draft.md',
+        pdfUrl: 'https://uminomae.github.io/pjdhiro/assets/pdf/kesson-designer.pdf',
+    },
+    {
+        key: 'expert',
+        mdUrl: './assets/reports/model-guides/kesson-academic-draft.md',
+        pdfUrl: 'https://uminomae.github.io/pjdhiro/assets/pdf/kesson-academic.pdf',
+    },
+];
 
 const STRINGS = {
     ja: {
-        summaryNote: 'Issue #62 の作業報告・学術分冊・ドメイン進捗をここで追跡します。',
         error: 'レポート一覧の読み込みに失敗しました。',
         empty: '対象データがありません。',
-        loading: '読み込み中...',
+        emptyFiltered: '該当する領域がありません。',
         metricGenerated: '更新日',
         metricTotal: '総領域',
         metricPublished: '公開済み',
@@ -16,25 +36,45 @@ const STRINGS = {
         colId: 'ID',
         colDomain: '領域',
         colStatus: '状態',
-        colMd: 'Markdown',
-        colPdf: 'PDF',
         statusPublished: '公開済み',
         statusPlanned: '準備中',
-        open: '開く',
-        pending: '準備中',
-        links: {
-            hub: 'Issue #62 Hub',
-            statusPdf: '5W1H作業報告 PDF',
-            statusMd: '5W1H作業報告 Markdown',
-            domainIndex: '分冊インデックス Markdown',
-            issue: 'GitHub Issue #62',
+        tabDomains: '領域別レポート',
+        tabModels: 'モデル解説',
+        filterGroupAria: '領域別レポート絞り込み',
+        filterAll: '全件',
+        filterPublished: '公開済み',
+        filterPlanned: '準備中',
+        openStatus: '作業報告を開く',
+        statusReportTitle: '5W1H作業報告',
+        modalTitleDefault: '詳細',
+        modalLoading: 'Markdown を読み込み中...',
+        modalError: 'Markdown の読み込みに失敗しました。',
+        modalOpenPdf: 'PDFを開く',
+        modalPdfPending: 'PDF準備中',
+        modalClose: '閉じる',
+        modalModel: 'モデル',
+        modalGenerated: '生成日',
+        features: {
+            general: {
+                title: '一般向け',
+                description: '創造モデルの全体像を短く把握するための解説。',
+            },
+            designer: {
+                title: '設計者向け',
+                description: '設計判断と運用視点で読む解説。',
+            },
+            expert: {
+                title: '専門家向け',
+                description: '理論比較と検証観点を含む解説。',
+            },
         },
+        featureRead: '解説を表示',
+        featurePdf: 'PDF',
     },
     en: {
-        summaryNote: 'Track Issue #62 status, academic volumes, and domain publication progress here.',
         error: 'Failed to load report data.',
         empty: 'No report data is available.',
-        loading: 'Loading...',
+        emptyFiltered: 'No domains match the current filter.',
         metricGenerated: 'Updated',
         metricTotal: 'Domains',
         metricPublished: 'Published',
@@ -42,49 +82,114 @@ const STRINGS = {
         colId: 'ID',
         colDomain: 'Domain',
         colStatus: 'Status',
-        colMd: 'Markdown',
-        colPdf: 'PDF',
         statusPublished: 'Published',
         statusPlanned: 'Planned',
-        open: 'Open',
-        pending: 'Pending',
-        links: {
-            hub: 'Issue #62 Hub',
-            statusPdf: '5W1H Status PDF',
-            statusMd: '5W1H Status Markdown',
-            domainIndex: 'Domain Index Markdown',
-            issue: 'GitHub Issue #62',
+        tabDomains: 'Domain Reports',
+        tabModels: 'Model Guides',
+        filterGroupAria: 'Filter domain reports',
+        filterAll: 'All',
+        filterPublished: 'Published',
+        filterPlanned: 'Planned',
+        openStatus: 'Open Status Report',
+        statusReportTitle: '5W1H Status Report',
+        modalTitleDefault: 'Details',
+        modalLoading: 'Loading markdown...',
+        modalError: 'Failed to load markdown.',
+        modalOpenPdf: 'Open PDF',
+        modalPdfPending: 'PDF Pending',
+        modalClose: 'Close',
+        modalModel: 'Model',
+        modalGenerated: 'Generated',
+        features: {
+            general: {
+                title: 'General',
+                description: 'A concise overview of the creation model.',
+            },
+            designer: {
+                title: 'Designer',
+                description: 'Guide focused on design and implementation decisions.',
+            },
+            expert: {
+                title: 'Expert',
+                description: 'Theory comparison and verification-oriented guide.',
+            },
         },
+        featureRead: 'Open Guide',
+        featurePdf: 'PDF',
     },
 };
+
+let markedParser = null;
+const TABLE_FILTER_VALUES = new Set(['all', 'published', 'planned']);
 
 const state = {
     lang: 'ja',
     generatedAt: '',
     reports: [],
+    tableFilter: 'all',
     loadError: false,
     dataUrl: DEFAULT_REPORTS_DATA_URL,
     assetBaseUrl: DEFAULT_REPORTS_ASSET_BASE,
+    mdModalInstance: null,
+    mdRequestId: 0,
+    quickLinksBound: false,
     dom: {
-        summary: null,
         error: null,
+        openStatusBtn: null,
+        domainsTab: null,
+        modelsTab: null,
+        featureCards: null,
         metrics: null,
         tableBody: null,
         colId: null,
         colDomain: null,
         colStatus: null,
-        colMd: null,
-        colPdf: null,
-        linkHub: null,
-        linkStatusPdf: null,
-        linkStatusMd: null,
-        linkDomainIndex: null,
-        linkIssue: null,
+        filterGroup: null,
+        filterAll: null,
+        filterPublished: null,
+        filterPlanned: null,
+        mdModal: null,
+        mdModalTitle: null,
+        mdModalMeta: null,
+        mdModalContent: null,
+        mdOpenPdf: null,
+        mdCloseBtn: null,
     },
 };
 
 function getStrings(lang = 'ja') {
     return STRINGS[normalizeLang(lang)] || STRINGS.ja;
+}
+
+async function getMarked() {
+    if (!markedParser) {
+        const { marked } = await import('marked');
+        marked.setOptions({ breaks: true, gfm: true });
+        markedParser = marked;
+    }
+    return markedParser;
+}
+
+function parseFrontmatter(text) {
+    const match = text.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+    if (!match) return { meta: {}, body: text.trim() };
+
+    const meta = {};
+    match[1].split('\n').forEach((line) => {
+        const idx = line.indexOf(':');
+        if (idx <= 0) return;
+        const key = line.slice(0, idx).trim();
+        const val = line.slice(idx + 1).trim().replace(/^["']|["']$/g, '');
+        meta[key] = val;
+    });
+
+    return { meta, body: match[2].trim() };
+}
+
+function formatDate(isoStr) {
+    if (!isoStr) return '';
+    const match = String(isoStr).match(/^(\d{4}-\d{2}-\d{2})/);
+    return match ? match[1] : String(isoStr);
 }
 
 function normalizeAssetBaseUrl(url) {
@@ -160,20 +265,34 @@ function sortReportsById(list) {
 }
 
 function cacheDom() {
-    state.dom.summary = document.getElementById('reports-summary-note');
     state.dom.error = document.getElementById('reports-error');
+    state.dom.openStatusBtn = document.getElementById('reports-open-status-btn');
+    state.dom.domainsTab = document.getElementById('reports-domains-tab');
+    state.dom.modelsTab = document.getElementById('reports-models-tab');
+    state.dom.featureCards = document.getElementById('reports-feature-cards');
     state.dom.metrics = document.getElementById('reports-metrics');
     state.dom.tableBody = document.getElementById('reports-table-body');
     state.dom.colId = document.getElementById('reports-col-id');
     state.dom.colDomain = document.getElementById('reports-col-domain');
     state.dom.colStatus = document.getElementById('reports-col-status');
-    state.dom.colMd = document.getElementById('reports-col-md');
-    state.dom.colPdf = document.getElementById('reports-col-pdf');
-    state.dom.linkHub = document.getElementById('reports-link-hub');
-    state.dom.linkStatusPdf = document.getElementById('reports-link-status-pdf');
-    state.dom.linkStatusMd = document.getElementById('reports-link-status-md');
-    state.dom.linkDomainIndex = document.getElementById('reports-link-domain-index');
-    state.dom.linkIssue = document.getElementById('reports-link-issue');
+    state.dom.filterGroup = document.getElementById('reports-table-filters');
+    state.dom.filterAll = document.getElementById('reports-filter-all');
+    state.dom.filterPublished = document.getElementById('reports-filter-published');
+    state.dom.filterPlanned = document.getElementById('reports-filter-planned');
+    state.dom.mdModal = document.getElementById('reports-md-modal');
+    state.dom.mdModalTitle = document.getElementById('reports-md-modal-title');
+    state.dom.mdModalMeta = document.getElementById('reports-md-meta');
+    state.dom.mdModalContent = document.getElementById('reports-md-content');
+    state.dom.mdOpenPdf = document.getElementById('reports-md-open-pdf');
+    state.dom.mdCloseBtn = document.getElementById('reports-md-close-btn');
+}
+
+function ensureMdModalInstance() {
+    if (!state.dom.mdModal || !globalThis.bootstrap?.Modal) return null;
+    if (!state.mdModalInstance) {
+        state.mdModalInstance = globalThis.bootstrap.Modal.getOrCreateInstance(state.dom.mdModal);
+    }
+    return state.mdModalInstance;
 }
 
 function setReportsError(message) {
@@ -187,24 +306,233 @@ function setReportsError(message) {
     state.dom.error.classList.add('d-none');
 }
 
-function applyStaticText() {
+function setModalPdfButton(pdfUrl) {
+    if (!state.dom.mdOpenPdf) return;
+    const strings = getStrings(state.lang);
+    if (pdfUrl) {
+        state.dom.mdOpenPdf.href = pdfUrl;
+        state.dom.mdOpenPdf.textContent = strings.modalOpenPdf;
+        state.dom.mdOpenPdf.classList.remove('disabled');
+        state.dom.mdOpenPdf.setAttribute('aria-disabled', 'false');
+    } else {
+        state.dom.mdOpenPdf.href = '#';
+        state.dom.mdOpenPdf.textContent = strings.modalPdfPending;
+        state.dom.mdOpenPdf.classList.add('disabled');
+        state.dom.mdOpenPdf.setAttribute('aria-disabled', 'true');
+    }
+}
+
+function setMarkdownModalLoading({ title, pdfUrl }) {
     const strings = getStrings(state.lang);
 
-    if (state.dom.summary) {
-        state.dom.summary.textContent = strings.summaryNote;
+    if (state.dom.mdModalTitle) {
+        state.dom.mdModalTitle.textContent = title || strings.modalTitleDefault;
     }
+    if (state.dom.mdModalMeta) {
+        state.dom.mdModalMeta.textContent = '';
+    }
+    if (state.dom.mdModalContent) {
+        state.dom.mdModalContent.innerHTML = `
+            <div class="d-flex align-items-center gap-2 text-body-secondary">
+                <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                <span>${strings.modalLoading}</span>
+            </div>
+        `;
+    }
+    setModalPdfButton(pdfUrl);
+
+    if (state.dom.mdCloseBtn) {
+        state.dom.mdCloseBtn.textContent = strings.modalClose;
+    }
+}
+
+async function openMarkdownModal({ mdUrl, title = '', pdfUrl = '' }) {
+    const safeMarkdownUrl = safeUrl(mdUrl, '');
+    const safePdfUrl = safeUrl(pdfUrl, '');
+    if (!safeMarkdownUrl) return;
+
+    const modal = ensureMdModalInstance();
+    if (!modal) {
+        window.open(safeMarkdownUrl, '_blank', 'noopener');
+        return;
+    }
+
+    const requestId = ++state.mdRequestId;
+    setMarkdownModalLoading({ title, pdfUrl: safePdfUrl });
+    modal.show();
+
+    try {
+        const [response, marked] = await Promise.all([
+            fetch(safeMarkdownUrl, { cache: 'no-store' }),
+            getMarked(),
+        ]);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const raw = await response.text();
+        const { meta, body } = parseFrontmatter(raw);
+        const html = DOMPurify.sanitize(marked.parse(body || raw));
+
+        if (requestId !== state.mdRequestId) return;
+        if (state.dom.mdModalContent) {
+            state.dom.mdModalContent.innerHTML = `
+                <div class="md-article">
+                    <div class="md-body">${html}</div>
+                </div>
+            `;
+        }
+
+        const strings = getStrings(state.lang);
+        const metaParts = [];
+        if (meta.generator_model) metaParts.push(`${strings.modalModel}: ${meta.generator_model}`);
+        if (meta.generated) metaParts.push(`${strings.modalGenerated}: ${formatDate(meta.generated)}`);
+        if (state.dom.mdModalMeta) {
+            state.dom.mdModalMeta.textContent = metaParts.join(' / ');
+        }
+    } catch (error) {
+        console.warn('[reports] markdown load failed:', error);
+        if (requestId !== state.mdRequestId) return;
+        const strings = getStrings(state.lang);
+        if (state.dom.mdModalMeta) {
+            state.dom.mdModalMeta.textContent = '';
+        }
+        if (state.dom.mdModalContent) {
+            state.dom.mdModalContent.innerHTML = `<p class="text-danger-emphasis mb-0">${strings.modalError}</p>`;
+        }
+    }
+}
+
+function bindQuickLinks() {
+    if (state.quickLinksBound) return;
+
+    if (state.dom.openStatusBtn && !state.dom.openStatusBtn.dataset.boundClick) {
+        state.dom.openStatusBtn.addEventListener('click', () => {
+            const strings = getStrings(state.lang);
+            openMarkdownModal({
+                mdUrl: STATUS_REPORT_MD,
+                title: strings.statusReportTitle,
+                pdfUrl: STATUS_REPORT_PDF,
+            });
+        });
+        state.dom.openStatusBtn.dataset.boundClick = '1';
+    }
+
+    if (state.dom.mdOpenPdf && !state.dom.mdOpenPdf.dataset.boundClick) {
+        state.dom.mdOpenPdf.addEventListener('click', (event) => {
+            if (state.dom.mdOpenPdf?.classList.contains('disabled')) {
+                event.preventDefault();
+            }
+        });
+        state.dom.mdOpenPdf.dataset.boundClick = '1';
+    }
+
+    if (state.dom.filterGroup && !state.dom.filterGroup.dataset.boundClick) {
+        state.dom.filterGroup.addEventListener('click', (event) => {
+            const target = event.target;
+            if (!(target instanceof HTMLElement)) return;
+            const button = target.closest('button[data-filter]');
+            if (!(button instanceof HTMLButtonElement)) return;
+
+            const nextFilter = button.dataset.filter;
+            if (!TABLE_FILTER_VALUES.has(nextFilter) || nextFilter === state.tableFilter) return;
+
+            state.tableFilter = nextFilter;
+            updateFilterButtons();
+            renderTable();
+        });
+        state.dom.filterGroup.dataset.boundClick = '1';
+    }
+
+    state.quickLinksBound = true;
+}
+
+function updateFilterButtons() {
+    const controls = [
+        ['all', state.dom.filterAll],
+        ['published', state.dom.filterPublished],
+        ['planned', state.dom.filterPlanned],
+    ];
+
+    controls.forEach(([filterKey, node]) => {
+        if (!(node instanceof HTMLButtonElement)) return;
+        const isActive = state.tableFilter === filterKey;
+        node.classList.toggle('active', isActive);
+        node.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    });
+}
+
+function applyStaticText() {
+    const strings = getStrings(state.lang);
 
     if (state.dom.colId) state.dom.colId.textContent = strings.colId;
     if (state.dom.colDomain) state.dom.colDomain.textContent = strings.colDomain;
     if (state.dom.colStatus) state.dom.colStatus.textContent = strings.colStatus;
-    if (state.dom.colMd) state.dom.colMd.textContent = strings.colMd;
-    if (state.dom.colPdf) state.dom.colPdf.textContent = strings.colPdf;
+    if (state.dom.domainsTab) state.dom.domainsTab.textContent = strings.tabDomains;
+    if (state.dom.modelsTab) state.dom.modelsTab.textContent = strings.tabModels;
 
-    if (state.dom.linkHub) state.dom.linkHub.textContent = strings.links.hub;
-    if (state.dom.linkStatusPdf) state.dom.linkStatusPdf.textContent = strings.links.statusPdf;
-    if (state.dom.linkStatusMd) state.dom.linkStatusMd.textContent = strings.links.statusMd;
-    if (state.dom.linkDomainIndex) state.dom.linkDomainIndex.textContent = strings.links.domainIndex;
-    if (state.dom.linkIssue) state.dom.linkIssue.textContent = strings.links.issue;
+    if (state.dom.filterGroup) state.dom.filterGroup.setAttribute('aria-label', strings.filterGroupAria);
+    if (state.dom.filterAll) state.dom.filterAll.textContent = strings.filterAll;
+    if (state.dom.filterPublished) state.dom.filterPublished.textContent = strings.filterPublished;
+    if (state.dom.filterPlanned) state.dom.filterPlanned.textContent = strings.filterPlanned;
+    if (state.dom.openStatusBtn) state.dom.openStatusBtn.textContent = strings.openStatus;
+    updateFilterButtons();
+
+    if (state.dom.mdCloseBtn) state.dom.mdCloseBtn.textContent = strings.modalClose;
+}
+
+function renderFeatureCards() {
+    if (!state.dom.featureCards) return;
+
+    const strings = getStrings(state.lang);
+    state.dom.featureCards.innerHTML = '';
+
+    const fragment = document.createDocumentFragment();
+    MODEL_GUIDE_LINKS.forEach((guide) => {
+        const featureText = strings.features[guide.key];
+        if (!featureText) return;
+
+        const col = document.createElement('div');
+        col.className = 'col';
+
+        const card = document.createElement('article');
+        card.className = 'card kesson-card h-100 reports-feature-card';
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-label', `${featureText.title} ${strings.featureRead}`);
+
+        const body = document.createElement('div');
+        body.className = 'card-body p-2 p-md-3 d-flex flex-column gap-1';
+
+        const title = document.createElement('h3');
+        title.className = 'h6 mb-1 text-light';
+        title.textContent = featureText.title;
+
+        const desc = document.createElement('p');
+        desc.className = 'small mb-0 reports-feature-description';
+        desc.textContent = featureText.description;
+        body.appendChild(title);
+        body.appendChild(desc);
+        card.appendChild(body);
+
+        const openCardModal = () => {
+            openMarkdownModal({
+                mdUrl: guide.mdUrl,
+                title: featureText.title,
+                pdfUrl: guide.pdfUrl,
+            });
+        };
+        card.addEventListener('click', openCardModal);
+        card.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                openCardModal();
+            }
+        });
+
+        col.appendChild(card);
+        fragment.appendChild(col);
+    });
+
+    state.dom.featureCards.appendChild(fragment);
 }
 
 function createMetricCard(label, value, variant = 'default') {
@@ -212,19 +540,19 @@ function createMetricCard(label, value, variant = 'default') {
     col.className = 'col-6 col-lg-3';
 
     const card = document.createElement('div');
-    card.className = 'card report-metric-card h-100';
-    if (variant === 'published') card.classList.add('is-published');
-    if (variant === 'planned') card.classList.add('is-planned');
+    card.className = 'card report-metric-card h-100 border-secondary-subtle';
+    if (variant === 'published') card.classList.add('border-success-subtle');
+    if (variant === 'planned') card.classList.add('border-warning-subtle');
 
     const body = document.createElement('div');
     body.className = 'card-body py-2 px-3';
 
     const metricLabel = document.createElement('div');
-    metricLabel.className = 'report-metric-label';
+    metricLabel.className = 'report-metric-label text-uppercase small';
     metricLabel.textContent = label;
 
     const metricValue = document.createElement('div');
-    metricValue.className = 'report-metric-value';
+    metricValue.className = 'report-metric-value fw-semibold';
     metricValue.textContent = value;
 
     body.appendChild(metricLabel);
@@ -251,68 +579,75 @@ function renderMetrics() {
     state.dom.metrics.appendChild(fragment);
 }
 
-function createReportLinkCell(url, label, pendingLabel) {
+function createStatusCell({ isPublished, statusText, reportTitle, mdUrl, pdfUrl }) {
     const td = document.createElement('td');
-    if (!url) {
-        const muted = document.createElement('span');
-        muted.className = 'report-link-pending';
-        muted.textContent = pendingLabel;
-        td.appendChild(muted);
+
+    if (isPublished && mdUrl) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'badge rounded-pill text-bg-success border-0 reports-status-action';
+        button.textContent = statusText;
+        button.addEventListener('click', () => {
+            openMarkdownModal({ mdUrl, title: reportTitle, pdfUrl });
+        });
+        td.appendChild(button);
         return td;
     }
 
-    const link = document.createElement('a');
-    link.href = url;
-    link.target = '_blank';
-    link.rel = 'noopener';
-    link.textContent = label;
-    td.appendChild(link);
+    const badge = document.createElement('span');
+    badge.className = isPublished ? 'badge rounded-pill text-bg-success' : 'badge rounded-pill text-bg-warning text-dark';
+    badge.textContent = statusText;
+    td.appendChild(badge);
     return td;
 }
 
 function renderTable() {
     if (!state.dom.tableBody) return;
     const strings = getStrings(state.lang);
+    const visibleReports = state.tableFilter === 'all'
+        ? state.reports
+        : state.reports.filter((report) => report.status === state.tableFilter);
 
     state.dom.tableBody.innerHTML = '';
-    if (!state.reports.length) {
+    if (!visibleReports.length) {
         const row = document.createElement('tr');
         const cell = document.createElement('td');
-        cell.colSpan = 5;
-        cell.className = 'text-muted';
-        cell.textContent = strings.empty;
+        cell.colSpan = 3;
+        cell.className = 'text-body-secondary';
+        cell.textContent = state.reports.length && state.tableFilter !== 'all'
+            ? strings.emptyFiltered
+            : strings.empty;
         row.appendChild(cell);
         state.dom.tableBody.appendChild(row);
         return;
     }
 
     const fragment = document.createDocumentFragment();
-    state.reports.forEach((report) => {
+    visibleReports.forEach((report) => {
         const row = document.createElement('tr');
         const isPublished = report.status === 'published';
+        const localizedDomain = state.lang === 'en' ? report.nameEn : report.nameJa;
 
         const idCell = document.createElement('td');
         idCell.textContent = report.id;
 
         const domainCell = document.createElement('td');
-        domainCell.textContent = state.lang === 'en' ? report.nameEn : report.nameJa;
-
-        const statusCell = document.createElement('td');
-        const statusBadge = document.createElement('span');
-        statusBadge.className = `badge rounded-pill reports-status ${isPublished ? 'reports-status-published' : 'reports-status-planned'}`;
-        statusBadge.textContent = isPublished ? strings.statusPublished : strings.statusPlanned;
-        statusCell.appendChild(statusBadge);
+        domainCell.textContent = localizedDomain;
 
         const mdUrl = isPublished ? resolveReportAssetUrl(report.mdPath) : '';
         const pdfUrl = isPublished ? resolveReportAssetUrl(report.pdfPath) : '';
-        const mdCell = createReportLinkCell(mdUrl, strings.open, strings.pending);
-        const pdfCell = createReportLinkCell(pdfUrl, strings.open, strings.pending);
+        const reportTitle = `${report.id} ${localizedDomain}`;
+        const statusCell = createStatusCell({
+            isPublished,
+            statusText: isPublished ? strings.statusPublished : strings.statusPlanned,
+            reportTitle,
+            mdUrl,
+            pdfUrl,
+        });
 
         row.appendChild(idCell);
         row.appendChild(domainCell);
         row.appendChild(statusCell);
-        row.appendChild(mdCell);
-        row.appendChild(pdfCell);
         fragment.appendChild(row);
     });
 
@@ -321,6 +656,7 @@ function renderTable() {
 
 function renderReports() {
     applyStaticText();
+    renderFeatureCards();
     renderMetrics();
     renderTable();
     setReportsError(state.loadError ? getStrings(state.lang).error : '');
@@ -344,11 +680,14 @@ export async function initReports({
     assetBaseUrl = DEFAULT_REPORTS_ASSET_BASE,
 } = {}) {
     cacheDom();
+    bindQuickLinks();
+
     state.lang = normalizeLang(lang);
     state.dataUrl = dataUrl;
     state.assetBaseUrl = normalizeAssetBaseUrl(assetBaseUrl);
     state.generatedAt = '';
     state.reports = [];
+    state.tableFilter = 'all';
     state.loadError = false;
 
     renderReports();
