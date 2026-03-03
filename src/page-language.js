@@ -19,7 +19,7 @@ const STRINGS = {
         topbarPreparingBadge: '準備中',
         topbarBlog: 'BLOG',
         topbarBlogAria: 'BLOG: 創造とは？',
-        topbarCollab: 'AIとの協働で探索中',
+        topbarCollab: 'AIとの協働作業中',
         graphicSwitcherAria: 'グラフィック切り替え',
         graphicModeHoji: '保持',
         graphicModeSinobi: '忍',
@@ -29,6 +29,7 @@ const STRINGS = {
         articlesSectionHeadingAria: 'ARTICLES セクションへジャンプ',
         reportsSectionHeading: 'REPORTS',
         reportsSectionHeadingAria: 'REPORTS セクションへジャンプ',
+        reportsAiNotice: 'AIが執筆しているため間違いがある場合があります。',
         offcanvasArticlesTitle: 'ARTICLES',
         leftKessonLinkLabel: '欠損駆動思考',
         leftKessonLinkAria: 'kesson-spaceへ移動',
@@ -55,7 +56,7 @@ const STRINGS = {
         topbarPreparingBadge: 'In Prep',
         topbarBlog: 'BLOG',
         topbarBlogAria: 'BLOG: What Is Creation?',
-        topbarCollab: 'Exploring with AI collaboration',
+        topbarCollab: 'Working with AI collaboration',
         graphicSwitcherAria: 'Switch graphics mode',
         graphicModeHoji: 'Hold',
         graphicModeSinobi: 'Shinobi',
@@ -65,6 +66,7 @@ const STRINGS = {
         articlesSectionHeadingAria: 'Jump to ARTICLES section',
         reportsSectionHeading: 'REPORTS',
         reportsSectionHeadingAria: 'Jump to REPORTS section',
+        reportsAiNotice: 'This section is AI-authored and may contain mistakes.',
         offcanvasArticlesTitle: 'ARTICLES',
         leftKessonLinkLabel: 'kesson-driven',
         leftKessonLinkAria: 'Go to kesson-space',
@@ -111,6 +113,7 @@ export function applyPageLanguage(lang, { devMode = false, devVersion = '' } = {
     const footerSignature = document.getElementById('footer-signature');
     const articlesSectionHeading = document.getElementById('articles-section-heading');
     const reportsSectionHeading = document.getElementById('reports-section-heading');
+    const reportsAiNotice = document.getElementById('reports-ai-notice');
     const offcanvasArticlesTitle = document.getElementById('offcanvas-articles-title');
     const leftKessonLink = document.getElementById('left-kesson-link');
     const leftKessonLinkLabel = document.getElementById('left-kesson-link-label');
@@ -147,6 +150,7 @@ export function applyPageLanguage(lang, { devMode = false, devVersion = '' } = {
         reportsSectionHeading.textContent = strings.reportsSectionHeading;
         reportsSectionHeading.setAttribute('aria-label', strings.reportsSectionHeadingAria);
     }
+    if (reportsAiNotice) reportsAiNotice.textContent = strings.reportsAiNotice;
     if (offcanvasArticlesTitle) offcanvasArticlesTitle.textContent = strings.offcanvasArticlesTitle;
     if (leftKessonLinkLabel) leftKessonLinkLabel.textContent = strings.leftKessonLinkLabel;
     if (leftKessonLink) leftKessonLink.setAttribute('aria-label', strings.leftKessonLinkAria);
