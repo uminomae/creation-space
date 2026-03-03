@@ -10,17 +10,17 @@ const MODEL_GUIDE_LINKS = [
     {
         key: 'general',
         mdUrl: './assets/reports/model-guides/kesson-general-draft.md',
-        pdfUrl: 'https://uminomae.github.io/pjdhiro/assets/pdf/kesson-general.pdf',
+        pdfUrl: './assets/reports/model-guides/kesson-general.pdf',
     },
     {
         key: 'designer',
         mdUrl: './assets/reports/model-guides/kesson-designer-draft.md',
-        pdfUrl: 'https://uminomae.github.io/pjdhiro/assets/pdf/kesson-designer.pdf',
+        pdfUrl: './assets/reports/model-guides/kesson-designer.pdf',
     },
     {
         key: 'expert',
         mdUrl: './assets/reports/model-guides/kesson-academic-draft.md',
-        pdfUrl: 'https://uminomae.github.io/pjdhiro/assets/pdf/kesson-academic.pdf',
+        pdfUrl: './assets/reports/model-guides/kesson-academic.pdf',
     },
 ];
 
