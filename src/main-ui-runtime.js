@@ -16,6 +16,7 @@ export function initMainUiRuntime({
     devMode,
     devVersion,
     setArticlesLanguage,
+    setReportsLanguage,
 }) {
     initControls(camera, container, renderer);
 
@@ -30,6 +31,9 @@ export function initMainUiRuntime({
         applyPageLanguage(currentLang, { devMode, devVersion });
         refreshGuideLang();
         setArticlesLanguage(currentLang);
+        if (typeof setReportsLanguage === 'function') {
+            setReportsLanguage(currentLang);
+        }
     });
 
     initMobileNavAutoCollapse();

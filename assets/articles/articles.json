@@ -1,6 +1,28 @@
 [
   {
     "type": "page",
+    "title": "Issue #62 学術分冊ハブ",
+    "title_ja": "Issue #62 学術分冊ハブ",
+    "title_en": "Issue #62 Academic Hub",
+    "url": "./assets/reports/issue62/index.html",
+    "date": "2026-03-03T20:00:00+09:00",
+    "excerpt": "30領域の学術分冊（公開済み/準備中）と5W1H報告への導線ページ。",
+    "excerpt_ja": "30領域の学術分冊（公開済み/準備中）と5W1H報告への導線ページ。",
+    "excerpt_en": "Navigation hub for 30 domain reports (published/planned) and the 5W1H status report.",
+    "tags": [
+      "Issue62",
+      "学術分冊",
+      "レポート"
+    ],
+    "categories": [
+      "創造",
+      "調査",
+      "レポート"
+    ],
+    "teaser": "https://uminomae.github.io/pjdhiro/assets/images/pages/pd/thinking/spec.jpg"
+  },
+  {
+    "type": "page",
     "title": "欠損駆動思考 - Kesson-Driven Thinking",
     "title_ja": "欠損駆動思考 - Kesson-Driven Thinking",
     "title_en": "Kesson-Driven Thinking",
