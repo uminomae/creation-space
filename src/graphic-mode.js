@@ -18,6 +18,10 @@ export function syncGraphicModeQuery(mode) {
 
 export function setGraphicButtonState(mode) {
     const normalized = normalizeGraphicMode(mode);
+    const zoomGuideRow = document.getElementById('control-guide-zoom-row');
+    if (zoomGuideRow instanceof HTMLElement) {
+        zoomGuideRow.hidden = normalized === 'i';
+    }
     document.querySelectorAll('[data-graphic-mode]').forEach((button) => {
         if (!(button instanceof HTMLButtonElement)) return;
         const isActive = normalizeGraphicMode(button.dataset.graphicMode) === normalized;
