@@ -7,6 +7,7 @@ const LOCAL_MODEL_GUIDES_ROOT = `${LOCAL_REPORTS_ROOT}/model-guides`;
 const LOCAL_CREATION_ROOT = './assets/creation';
 const LOCAL_CREATION_COMMENTARY_ROOT = `${LOCAL_CREATION_ROOT}/commentary`;
 const LOCAL_CREATION_GUIDES_ROOT = `${LOCAL_CREATION_ROOT}/guides`;
+const LOCAL_CREATION_DOMAINS_ROOT = `${LOCAL_CREATION_ROOT}/domains`;
 // Markdown fallback source for remote mirrors that might rewrite .md to HTML
 const CREATION_MARKDOWN_RAW_BASE_URL = 'https://raw.githubusercontent.com/uminomae/pjdhiro/main';
 const DEFAULT_REPORTS_DATA_URL = `${LOCAL_ISSUE62_ROOT}/domains/index.json`;
@@ -385,6 +386,7 @@ function normalizeReport(report, index) {
 
     return {
         id,
+        slug: typeof report?.slug === 'string' ? report.slug.trim() : '',
         nameJa,
         nameEn,
         status: report?.status === 'published' ? 'published' : 'planned',
@@ -552,6 +554,19 @@ function hasExplicitEnglishDirectory(path) {
     return /\/en\/(?:md|pdf)\//i.test(path);
 }
 
+function buildCreationDomainSource(report, lang = state.lang) {
+    if (typeof report?.id !== 'string' || typeof report?.slug !== 'string') return null;
+    if (!report.id.trim() || !report.slug.trim()) return null;
+    const idLower = report.id.trim().toLowerCase();
+    const slug = report.slug.trim();
+    const normalizedLang = normalizeLang(lang);
+    const baseName = `commentary-domain-${idLower}-${slug}-academic`;
+    return {
+        mdUrl: `${LOCAL_CREATION_DOMAINS_ROOT}/${normalizedLang}/md/${baseName}.md`,
+        pdfUrl: `${LOCAL_CREATION_DOMAINS_ROOT}/${normalizedLang}/pdf/${baseName}.pdf`,
+    };
+}
+
 function buildLocalizedSourceCandidates(source, lang = state.lang) {
     const normalizedLang = normalizeLang(lang);
     const baseSource = {
@@ -577,11 +592,21 @@ function buildLocalizedSourceCandidates(source, lang = state.lang) {
 }
 
 function resolveDomainReportSources(report) {
+    if (typeof report?.mdPath !== 'string' || !report.mdPath.trim()) {
+        return [];
+    }
+    const lang = normalizeLang(state.lang);
+    const creationSource = buildCreationDomainSource(report, lang);
     const baseSource = {
         mdUrl: resolveReportAssetUrl(report?.mdPath),
         pdfUrl: resolveReportAssetUrl(report?.pdfPath),
     };
-    return buildLocalizedSourceCandidates(baseSource, state.lang);
+    const sources = [];
+    if (creationSource) {
+        sources.push(...buildLocalizedSourceCandidates(creationSource, lang));
+    }
+    sources.push(...buildLocalizedSourceCandidates(baseSource, lang));
+    return dedupeSources(sources);
 }
 
 async function openMarkdownModal({ mdUrl, title = '', pdfUrl = '', sources = [] }) {
