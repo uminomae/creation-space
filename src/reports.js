@@ -63,6 +63,9 @@ const MODEL_GUIDE_LINKS = [
     },
 ];
 
+const PROGRESS_LEVELS = ['quick_scan', 'structure_exploration', 'analysis_complete'];
+const TABLE_FILTER_VALUES = new Set(['all', ...PROGRESS_LEVELS]);
+
 const STRINGS = {
     ja: {
         error: 'レポート一覧の読み込みに失敗しました。',
@@ -70,18 +73,22 @@ const STRINGS = {
         emptyFiltered: '該当する領域がありません。',
         metricGenerated: '更新日',
         metricTotal: '総領域',
-        metricPublished: '公開済み',
-        metricPlanned: '準備中',
-        statusPublished: '公開済み',
-        statusPlanned: '準備中',
+        metricQuickScan: '簡易調査',
+        metricStructureExploration: '構造類似探索',
+        metricAnalysisComplete: '分析完了',
+        levelQuickScan: '簡易調査',
+        levelStructureExploration: '構造類似探索',
+        levelAnalysisComplete: '分析完了',
+        levelLegend: '進捗レベル: 簡易調査（3件/領域） / 構造類似探索調査（10件/領域） / 分析完了',
         tabDomains: '領域別レポート',
         tabModels: 'モデル解説',
         filterGroupAria: '領域別レポート絞り込み',
         filterAll: '全件',
-        filterPublished: '公開済み',
-        filterPlanned: '準備中',
+        filterQuickScan: '簡易調査',
+        filterStructureExploration: '構造類似探索',
+        filterAnalysisComplete: '分析完了',
         openStatus: '調査内容',
-        statusReportTitle: '5W1H作業報告',
+        statusReportTitle: '外部向け調査レポート',
         modalTitleDefault: '詳細',
         modalLoading: 'Markdown を読み込み中...',
         modalError: 'Markdown の読み込みに失敗しました。',
@@ -113,18 +120,22 @@ const STRINGS = {
         emptyFiltered: 'No domains match the current filter.',
         metricGenerated: 'Updated',
         metricTotal: 'Domains',
-        metricPublished: 'Published',
-        metricPlanned: 'Planned',
-        statusPublished: 'Published',
-        statusPlanned: 'Planned',
+        metricQuickScan: 'Quick Scan',
+        metricStructureExploration: 'Structure Exploration',
+        metricAnalysisComplete: 'Analysis Complete',
+        levelQuickScan: 'Quick Scan',
+        levelStructureExploration: 'Structure Exploration',
+        levelAnalysisComplete: 'Analysis Complete',
+        levelLegend: 'Progress levels: Quick Scan (3/domain) / Structure Exploration (10/domain) / Analysis Complete',
         tabDomains: 'Domain Reports',
         tabModels: 'Model Guides',
         filterGroupAria: 'Filter domain reports',
         filterAll: 'All',
-        filterPublished: 'Published',
-        filterPlanned: 'Planned',
+        filterQuickScan: 'Quick Scan',
+        filterStructureExploration: 'Structure Exploration',
+        filterAnalysisComplete: 'Analysis Complete',
         openStatus: 'Investigation Notes',
-        statusReportTitle: '5W1H Status Report',
+        statusReportTitle: 'External Research Brief',
         modalTitleDefault: 'Details',
         modalLoading: 'Loading markdown...',
         modalError: 'Failed to load markdown.',
@@ -153,7 +164,6 @@ const STRINGS = {
 };
 
 let markedParser = null;
-const TABLE_FILTER_VALUES = new Set(['all', 'published', 'planned']);
 
 const state = {
     lang: 'ja',
@@ -172,13 +182,15 @@ const state = {
         openStatusBtn: null,
         domainsHeading: null,
         modelsHeading: null,
+        levelLegend: null,
         featureCards: null,
         metrics: null,
         domainGrid: null,
         filterGroup: null,
         filterAll: null,
-        filterPublished: null,
-        filterPlanned: null,
+        filterQuickScan: null,
+        filterStructureExploration: null,
+        filterAnalysisComplete: null,
         mdModal: null,
         mdModalTitle: null,
         mdModalMeta: null,
@@ -245,12 +257,49 @@ function safeUrl(rawUrl, fallback = '#', baseHref = window.location.href) {
     return fallback;
 }
 
+function normalizePdfBrowserUrl(rawUrl) {
+    const resolved = safeUrl(rawUrl, '');
+    if (!resolved) return '';
+
+    try {
+        const parsed = new URL(resolved);
+        if (!/\.pdf(?:$|[?#])/i.test(parsed.pathname)) {
+            return resolved;
+        }
+
+        // raw.githubusercontent serves PDFs as application/octet-stream in many cases,
+        // which triggers download behavior. Convert to GitHub Pages path for inline view.
+        if (parsed.hostname === 'raw.githubusercontent.com') {
+            const parts = parsed.pathname.split('/').filter(Boolean);
+            if (parts.length >= 4) {
+                const [owner, repo, _branch, ...restPath] = parts;
+                return `https://${owner}.github.io/${repo}/${restPath.join('/')}`;
+            }
+        }
+
+        // Also normalize GitHub blob URLs to GitHub Pages URLs.
+        if (parsed.hostname === 'github.com') {
+            const parts = parsed.pathname.split('/').filter(Boolean);
+            if (parts.length >= 5 && parts[2] === 'blob') {
+                const [owner, repo, _blob, _branch, ...restPath] = parts;
+                return `https://${owner}.github.io/${repo}/${restPath.join('/')}`;
+            }
+        }
+
+        return resolved;
+    } catch {
+        return '';
+    }
+}
+
 /**
  * Refactor context:
  * - Primary markdown reference: https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/publications/creation/md/*
  * - Primary JSON reference: https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/publications/creation/*
  * - Primary PDF reference: https://uminomae.github.io/pjdhiro/assets/publications/creation/*
  * - Fallback markdown reference: https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/*
+ * - PDF URL must stay on github.io domain for browser inline rendering.
+ *   raw.githubusercontent.com can return application/octet-stream and force download.
  * - On GitHub Pages (Jekyll), `*.md` under project paths can fail as raw content.
  * - Therefore markdown fallback must change the URL target itself (github.io -> raw.githubusercontent),
  *   not only the suffix (`.md` -> none / `.html`).
@@ -304,6 +353,19 @@ function slugToTitle(slug) {
         .join(' ');
 }
 
+function normalizeProgressLevel(rawLevel, rawStatus) {
+    if (typeof rawLevel === 'string') {
+        const level = rawLevel.trim().toLowerCase();
+        if (PROGRESS_LEVELS.includes(level)) {
+            return level;
+        }
+    }
+
+    // Backward-compatible fallback for older manifests.
+    if (rawStatus === 'published') return 'analysis_complete';
+    return 'quick_scan';
+}
+
 function normalizeReport(report, index) {
     const id = typeof report?.id === 'string' && report.id.trim()
         ? report.id.trim()
@@ -323,6 +385,8 @@ function normalizeReport(report, index) {
         nameJa,
         nameEn,
         status: report?.status === 'published' ? 'published' : 'planned',
+        progressLevel: normalizeProgressLevel(report?.progress_level, report?.status),
+        progressNote: typeof report?.progress_note === 'string' ? report.progress_note.trim() : '',
         mdPath: typeof report?.md === 'string' ? report.md.trim() : '',
         pdfPath: typeof report?.pdf === 'string' ? report.pdf.trim() : '',
     };
@@ -354,13 +418,15 @@ function cacheDom() {
     state.dom.openStatusBtn = document.getElementById('reports-open-status-btn');
     state.dom.domainsHeading = document.getElementById('reports-domains-heading');
     state.dom.modelsHeading = document.getElementById('reports-models-heading');
+    state.dom.levelLegend = document.getElementById('reports-level-legend');
     state.dom.featureCards = document.getElementById('reports-feature-cards');
     state.dom.metrics = document.getElementById('reports-metrics');
     state.dom.domainGrid = document.getElementById('reports-domain-grid');
     state.dom.filterGroup = document.getElementById('reports-table-filters');
     state.dom.filterAll = document.getElementById('reports-filter-all');
-    state.dom.filterPublished = document.getElementById('reports-filter-published');
-    state.dom.filterPlanned = document.getElementById('reports-filter-planned');
+    state.dom.filterQuickScan = document.getElementById('reports-filter-quick-scan');
+    state.dom.filterStructureExploration = document.getElementById('reports-filter-structure-exploration');
+    state.dom.filterAnalysisComplete = document.getElementById('reports-filter-analysis-complete');
     state.dom.mdModal = document.getElementById('reports-md-modal');
     state.dom.mdModalTitle = document.getElementById('reports-md-modal-title');
     state.dom.mdModalMeta = document.getElementById('reports-md-meta');
@@ -391,8 +457,9 @@ function setReportsError(message) {
 function setModalPdfButton(pdfUrl) {
     if (!state.dom.mdOpenPdf) return;
     const strings = getStrings(state.lang);
-    if (pdfUrl) {
-        state.dom.mdOpenPdf.href = pdfUrl;
+    const browserPdfUrl = normalizePdfBrowserUrl(pdfUrl);
+    if (browserPdfUrl) {
+        state.dom.mdOpenPdf.href = browserPdfUrl;
         state.dom.mdOpenPdf.textContent = strings.modalOpenPdf;
         state.dom.mdOpenPdf.classList.remove('disabled');
         state.dom.mdOpenPdf.setAttribute('aria-disabled', 'false');
@@ -438,7 +505,7 @@ function dedupeSources(sources = []) {
         seenMdUrls.add(safeMarkdownUrl);
         normalized.push({
             mdUrl: safeMarkdownUrl,
-            pdfUrl: safeUrl(source?.pdfUrl, ''),
+            pdfUrl: normalizePdfBrowserUrl(source?.pdfUrl),
         });
     });
 
@@ -606,8 +673,9 @@ function bindQuickLinks() {
 function updateFilterButtons() {
     const controls = [
         ['all', state.dom.filterAll],
-        ['published', state.dom.filterPublished],
-        ['planned', state.dom.filterPlanned],
+        ['quick_scan', state.dom.filterQuickScan],
+        ['structure_exploration', state.dom.filterStructureExploration],
+        ['analysis_complete', state.dom.filterAnalysisComplete],
     ];
 
     controls.forEach(([filterKey, node]) => {
@@ -623,11 +691,13 @@ function applyStaticText() {
 
     if (state.dom.domainsHeading) state.dom.domainsHeading.textContent = strings.tabDomains;
     if (state.dom.modelsHeading) state.dom.modelsHeading.textContent = strings.tabModels;
+    if (state.dom.levelLegend) state.dom.levelLegend.textContent = strings.levelLegend;
 
     if (state.dom.filterGroup) state.dom.filterGroup.setAttribute('aria-label', strings.filterGroupAria);
     if (state.dom.filterAll) state.dom.filterAll.textContent = strings.filterAll;
-    if (state.dom.filterPublished) state.dom.filterPublished.textContent = strings.filterPublished;
-    if (state.dom.filterPlanned) state.dom.filterPlanned.textContent = strings.filterPlanned;
+    if (state.dom.filterQuickScan) state.dom.filterQuickScan.textContent = strings.filterQuickScan;
+    if (state.dom.filterStructureExploration) state.dom.filterStructureExploration.textContent = strings.filterStructureExploration;
+    if (state.dom.filterAnalysisComplete) state.dom.filterAnalysisComplete.textContent = strings.filterAnalysisComplete;
     if (state.dom.openStatusBtn) state.dom.openStatusBtn.textContent = strings.openStatus;
     updateFilterButtons();
 
@@ -691,12 +761,13 @@ function renderFeatureCards() {
 
 function createMetricCard(label, value, variant = 'default') {
     const col = document.createElement('div');
-    col.className = 'col-6 col-lg-3';
+    col.className = 'col-6 col-lg';
 
     const card = document.createElement('div');
     card.className = 'card report-metric-card h-100 border-secondary-subtle';
-    if (variant === 'published') card.classList.add('border-success-subtle');
-    if (variant === 'planned') card.classList.add('border-warning-subtle');
+    if (variant === 'quick_scan') card.classList.add('border-warning-subtle');
+    if (variant === 'structure_exploration') card.classList.add('border-primary-subtle');
+    if (variant === 'analysis_complete') card.classList.add('border-success-subtle');
 
     const body = document.createElement('div');
     body.className = 'card-body py-2 px-3';
@@ -720,28 +791,34 @@ function renderMetrics() {
     if (!state.dom.metrics) return;
     const strings = getStrings(state.lang);
     const total = state.reports.length;
-    const published = state.reports.filter((report) => report.status === 'published').length;
-    const planned = Math.max(0, total - published);
+    const quickScan = state.reports.filter((report) => report.progressLevel === 'quick_scan').length;
+    const structureExploration = state.reports.filter((report) => report.progressLevel === 'structure_exploration').length;
+    const analysisComplete = state.reports.filter((report) => report.progressLevel === 'analysis_complete').length;
     const generatedValue = state.generatedAt || '-';
 
     state.dom.metrics.innerHTML = '';
     const fragment = document.createDocumentFragment();
     fragment.appendChild(createMetricCard(strings.metricGenerated, generatedValue));
     fragment.appendChild(createMetricCard(strings.metricTotal, String(total)));
-    fragment.appendChild(createMetricCard(strings.metricPublished, String(published), 'published'));
-    fragment.appendChild(createMetricCard(strings.metricPlanned, String(planned), 'planned'));
+    fragment.appendChild(createMetricCard(strings.metricQuickScan, String(quickScan), 'quick_scan'));
+    fragment.appendChild(createMetricCard(strings.metricStructureExploration, String(structureExploration), 'structure_exploration'));
+    fragment.appendChild(createMetricCard(strings.metricAnalysisComplete, String(analysisComplete), 'analysis_complete'));
     state.dom.metrics.appendChild(fragment);
 }
 
 function createDomainGridItem({ report, muted = false, strings }) {
-    const isPublished = report.status === 'published';
     const useJapanese = normalizeLang(state.lang) === 'ja';
     const domainLabel = useJapanese
         ? (report.nameJa || report.nameEn)
         : (report.nameEn || report.nameJa);
-    const statusText = isPublished ? strings.statusPublished : strings.statusPlanned;
-    const sources = isPublished ? resolveDomainReportSources(report) : [];
-    const clickable = isPublished && sources.length > 0 && !muted;
+    const level = PROGRESS_LEVELS.includes(report.progressLevel) ? report.progressLevel : 'quick_scan';
+    const statusText = ({
+        quick_scan: strings.levelQuickScan,
+        structure_exploration: strings.levelStructureExploration,
+        analysis_complete: strings.levelAnalysisComplete,
+    })[level] || strings.levelQuickScan;
+    const sources = resolveDomainReportSources(report);
+    const clickable = sources.length > 0 && !muted;
     const tile = clickable ? document.createElement('button') : document.createElement('article');
     const reportTitle = `${report.id} ${domainLabel}`;
 
@@ -755,20 +832,29 @@ function createDomainGridItem({ report, muted = false, strings }) {
     tile.className = [
         'reports-domain-item',
         'card',
-        isPublished ? 'is-published' : 'is-planned',
+        `is-level-${level.replace(/_/g, '-')}`,
         muted ? 'is-filter-muted' : '',
     ].join(' ').trim();
-    tile.setAttribute('data-report-status', report.status);
+    tile.setAttribute('data-report-level', level);
     tile.setAttribute('aria-label', `${reportTitle} ${statusText}`);
+    if (report.progressNote) {
+        tile.setAttribute('title', `${reportTitle} — ${report.progressNote}`);
+    }
     if (!clickable) {
         tile.setAttribute('aria-disabled', 'true');
     }
+
+    const badgeClass = ({
+        quick_scan: 'text-bg-warning text-dark',
+        structure_exploration: 'text-bg-primary',
+        analysis_complete: 'text-bg-success',
+    })[level] || 'text-bg-warning text-dark';
 
     tile.innerHTML = `
         <div class="card-body p-1 d-flex flex-column reports-domain-item-body">
             <div class="d-flex align-items-center justify-content-between gap-2 reports-domain-item-head">
                 <span class="reports-domain-item-id">${report.id}</span>
-                <span class="badge rounded-pill ${isPublished ? 'text-bg-success' : 'text-bg-warning text-dark'} reports-domain-item-status">${statusText}</span>
+                <span class="badge rounded-pill ${badgeClass} reports-domain-item-status">${statusText}</span>
             </div>
             <div class="reports-domain-item-name" title="${domainLabel}">${domainLabel}</div>
         </div>
@@ -793,7 +879,7 @@ function renderDomainGrid() {
 
     const fragment = document.createDocumentFragment();
     allReports.forEach((report) => {
-        const muted = state.tableFilter !== 'all' && report.status !== state.tableFilter;
+        const muted = state.tableFilter !== 'all' && report.progressLevel !== state.tableFilter;
         fragment.appendChild(createDomainGridItem({ report, muted, strings }));
     });
 
