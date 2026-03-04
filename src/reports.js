@@ -4,6 +4,9 @@ import { normalizeLang } from './i18n.js';
 const LOCAL_REPORTS_ROOT = './assets/reports';
 const LOCAL_ISSUE62_ROOT = `${LOCAL_REPORTS_ROOT}/issue62`;
 const LOCAL_MODEL_GUIDES_ROOT = `${LOCAL_REPORTS_ROOT}/model-guides`;
+const LOCAL_CREATION_ROOT = './assets/creation';
+const LOCAL_CREATION_COMMENTARY_ROOT = `${LOCAL_CREATION_ROOT}/commentary`;
+const LOCAL_CREATION_GUIDES_ROOT = `${LOCAL_CREATION_ROOT}/guides`;
 // Markdown fallback source for remote mirrors that might rewrite .md to HTML
 const CREATION_MARKDOWN_RAW_BASE_URL = 'https://raw.githubusercontent.com/uminomae/pjdhiro/main';
 const DEFAULT_REPORTS_DATA_URL = `${LOCAL_ISSUE62_ROOT}/domains/index.json`;
@@ -15,8 +18,8 @@ const STATUS_REPORT_LINKS = {
         pdfUrl: `${LOCAL_ISSUE62_ROOT}/creation-issue62-status-ja.pdf`,
     },
     en: {
-        mdUrl: `${LOCAL_ISSUE62_ROOT}/issue62-status-ja.md`,
-        pdfUrl: `${LOCAL_ISSUE62_ROOT}/creation-issue62-status-ja.pdf`,
+        mdUrl: `${LOCAL_CREATION_COMMENTARY_ROOT}/en/md/commentary-status.md`,
+        pdfUrl: `${LOCAL_CREATION_COMMENTARY_ROOT}/en/pdf/commentary-status.pdf`,
     },
 };
 
@@ -29,8 +32,8 @@ const MODEL_GUIDE_LINKS = [
                 pdfUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-general.pdf`,
             },
             en: {
-                mdUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-general-draft.md`,
-                pdfUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-general.pdf`,
+                mdUrl: `${LOCAL_CREATION_GUIDES_ROOT}/en/md/creation-general.md`,
+                pdfUrl: `${LOCAL_CREATION_GUIDES_ROOT}/en/pdf/creation-general.pdf`,
             },
         },
     },
@@ -42,8 +45,8 @@ const MODEL_GUIDE_LINKS = [
                 pdfUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-designer.pdf`,
             },
             en: {
-                mdUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-designer-draft.md`,
-                pdfUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-designer.pdf`,
+                mdUrl: `${LOCAL_CREATION_GUIDES_ROOT}/en/md/creation-designer.md`,
+                pdfUrl: `${LOCAL_CREATION_GUIDES_ROOT}/en/pdf/creation-designer.pdf`,
             },
         },
     },
@@ -55,8 +58,8 @@ const MODEL_GUIDE_LINKS = [
                 pdfUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-academic.pdf`,
             },
             en: {
-                mdUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-academic-draft.md`,
-                pdfUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-academic.pdf`,
+                mdUrl: `${LOCAL_CREATION_GUIDES_ROOT}/en/md/creation-academic.md`,
+                pdfUrl: `${LOCAL_CREATION_GUIDES_ROOT}/en/pdf/creation-academic.pdf`,
             },
         },
     },
@@ -544,6 +547,11 @@ function withEnglishAssetSuffix(path) {
     return `${trimmed}-en`;
 }
 
+function hasExplicitEnglishDirectory(path) {
+    if (typeof path !== 'string') return false;
+    return /\/en\/(?:md|pdf)\//i.test(path);
+}
+
 function buildLocalizedSourceCandidates(source, lang = state.lang) {
     const normalizedLang = normalizeLang(lang);
     const baseSource = {
@@ -556,8 +564,14 @@ function buildLocalizedSourceCandidates(source, lang = state.lang) {
     }
 
     const enSource = {
-        mdUrl: safeUrl(withEnglishAssetSuffix(baseSource.mdUrl), ''),
-        pdfUrl: safeUrl(withEnglishAssetSuffix(baseSource.pdfUrl), ''),
+        mdUrl: safeUrl(
+            hasExplicitEnglishDirectory(baseSource.mdUrl) ? baseSource.mdUrl : withEnglishAssetSuffix(baseSource.mdUrl),
+            '',
+        ),
+        pdfUrl: safeUrl(
+            hasExplicitEnglishDirectory(baseSource.pdfUrl) ? baseSource.pdfUrl : withEnglishAssetSuffix(baseSource.pdfUrl),
+            '',
+        ),
     };
     return dedupeSources([enSource]);
 }
