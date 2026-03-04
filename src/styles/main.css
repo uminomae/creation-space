@@ -813,6 +813,7 @@
     /* タッチデバイス用: デスクトップ版を隠す */
     #control-guide .guide-touch { display: none; }
     #control-guide .guide-desktop { display: flex; }
+    body[data-graphic-mode="i"] #control-guide .guide-desktop-zoom { display: none; }
     @media (hover: none) and (pointer: coarse) {
       #control-guide .guide-touch { display: flex; }
       #control-guide .guide-desktop { display: none; }
