@@ -34,9 +34,6 @@ export function prepareMainBootstrap({
     const initialLang = normalizeLang(detectLang());
     const initialGraphicMode = normalizeGraphicMode(new URLSearchParams(window.location.search).get('graphic'));
     const initialSceneVariant = resolveSceneVariant(initialGraphicMode);
-    if (document.body) {
-        document.body.dataset.graphicMode = initialGraphicMode;
-    }
 
     // Startup state assembly:
     // (1) preset baseline -> (2) persisted dev state -> (3) query seed override.
