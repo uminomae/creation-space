@@ -1,8 +1,11 @@
 import DOMPurify from 'dompurify';
 import { normalizeLang } from './i18n.js';
 
+// Canonical report assets (pdf/json): pjdhiro repo -> assets/creation/*
 const CREATION_ASSETS_BASE_URL = 'https://uminomae.github.io/pjdhiro/assets/creation';
-const CREATION_ASSETS_MD_BASE_URL = 'https://uminomae.github.io/pjdhiro/assets/creation';
+// Canonical markdown source: raw.githubusercontent.com/uminomae/pjdhiro/main/assets/creation/*
+const CREATION_ASSETS_MD_BASE_URL = 'https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/creation';
+// Markdown fallback source (keep same canonical repo, rebuild from /assets/* path)
 const CREATION_MARKDOWN_RAW_BASE_URL = 'https://raw.githubusercontent.com/uminomae/pjdhiro/main';
 const DEFAULT_REPORTS_DATA_URL = `${CREATION_ASSETS_BASE_URL}/issue62/domains/index.json`;
 const DEFAULT_REPORTS_ASSET_BASE = `${CREATION_ASSETS_BASE_URL}/issue62/`;
@@ -244,7 +247,12 @@ function safeUrl(rawUrl, fallback = '#', baseHref = window.location.href) {
 
 /**
  * Refactor context:
+ * - Primary markdown reference: https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/creation/*
+ * - Primary pdf/json reference: https://uminomae.github.io/pjdhiro/assets/creation/*
+ * - Fallback markdown reference: https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/*
  * - On GitHub Pages (Jekyll), `*.md` under project paths can fail as raw content.
+ * - Therefore markdown fallback must change the URL target itself (github.io -> raw.githubusercontent),
+ *   not only the suffix (`.md` -> none / `.html`).
  * - Fallbacking to extensionless/`.html` returns layout HTML, not markdown source.
  * - Rendering that HTML as markdown breaks modal content (raw `<link>`, `<script>` blocks shown).
  * - This page can be mirrored under multiple public paths (`/creation-space/`, `/pjdhiro/`).
