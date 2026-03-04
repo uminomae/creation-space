@@ -258,6 +258,38 @@ function safeUrl(rawUrl, fallback = '#', baseHref = window.location.href) {
     return fallback;
 }
 
+function normalizePdfBrowserUrl(rawUrl) {
+    const resolved = safeUrl(rawUrl, '');
+    if (!resolved) return '';
+
+    try {
+        const parsed = new URL(resolved);
+        if (!/\.pdf(?:$|[?#])/i.test(parsed.pathname)) {
+            return resolved;
+        }
+
+        if (parsed.hostname === 'raw.githubusercontent.com') {
+            const parts = parsed.pathname.split('/').filter(Boolean);
+            if (parts.length >= 4) {
+                const [owner, repo, _branch, ...restPath] = parts;
+                return `https://${owner}.github.io/${repo}/${restPath.join('/')}`;
+            }
+        }
+
+        if (parsed.hostname === 'github.com') {
+            const parts = parsed.pathname.split('/').filter(Boolean);
+            if (parts.length >= 5 && parts[2] === 'blob') {
+                const [owner, repo, _blob, _branch, ...restPath] = parts;
+                return `https://${owner}.github.io/${repo}/${restPath.join('/')}`;
+            }
+        }
+
+        return resolved;
+    } catch {
+        return '';
+    }
+}
+
 /**
  * Refactor context:
  * - Primary markdown reference: https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/publications/creation/md/*
@@ -420,8 +452,9 @@ function setReportsError(message) {
 function setModalPdfButton(pdfUrl) {
     if (!state.dom.mdOpenPdf) return;
     const strings = getStrings(state.lang);
-    if (pdfUrl) {
-        state.dom.mdOpenPdf.href = pdfUrl;
+    const browserPdfUrl = normalizePdfBrowserUrl(pdfUrl);
+    if (browserPdfUrl) {
+        state.dom.mdOpenPdf.href = browserPdfUrl;
         state.dom.mdOpenPdf.textContent = strings.modalOpenPdf;
         state.dom.mdOpenPdf.classList.remove('disabled');
         state.dom.mdOpenPdf.setAttribute('aria-disabled', 'false');
@@ -467,7 +500,7 @@ function dedupeSources(sources = []) {
         seenMdUrls.add(safeMarkdownUrl);
         normalized.push({
             mdUrl: safeMarkdownUrl,
-            pdfUrl: safeUrl(source?.pdfUrl, ''),
+            pdfUrl: normalizePdfBrowserUrl(source?.pdfUrl),
         });
     });
 
