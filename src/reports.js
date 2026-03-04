@@ -3,6 +3,7 @@ import { normalizeLang } from './i18n.js';
 
 const CREATION_ASSETS_BASE_URL = './assets/reports';
 const CREATION_ASSETS_MD_BASE_URL = './assets/reports';
+const CREATION_MARKDOWN_RAW_BASE_URL = 'https://raw.githubusercontent.com/uminomae/creation-space/main';
 const DEFAULT_REPORTS_DATA_URL = `${CREATION_ASSETS_BASE_URL}/issue62/domains/index.json`;
 const DEFAULT_REPORTS_ASSET_BASE = `${CREATION_ASSETS_BASE_URL}/issue62/`;
 const DEFAULT_REPORTS_MD_ASSET_BASE = `${CREATION_ASSETS_MD_BASE_URL}/issue62/`;
@@ -246,6 +247,8 @@ function safeUrl(rawUrl, fallback = '#', baseHref = window.location.href) {
  * - On GitHub Pages (Jekyll), `*.md` under project paths can fail as raw content.
  * - Fallbacking to extensionless/`.html` returns layout HTML, not markdown source.
  * - Rendering that HTML as markdown breaks modal content (raw `<link>`, `<script>` blocks shown).
+ * - This page can be mirrored under multiple public paths (`/creation-space/`, `/pjdhiro/`).
+ *   Raw fallback must stay on the canonical `creation-space` repo to avoid path drift.
  *
  * Update-time checks:
  * 1) localhost: `.md` direct fetch succeeds and renders as markdown.
@@ -263,16 +266,11 @@ function buildMarkdownFetchCandidates(rawUrl) {
 
     try {
         const parsed = new URL(primary);
-        const hostParts = parsed.hostname.split('.');
-        const isGitHubPages = hostParts.length >= 3 && hostParts[1] === 'github' && hostParts[2] === 'io';
-        if (isGitHubPages) {
-            const owner = hostParts[0];
-            const pathParts = parsed.pathname.split('/').filter(Boolean);
-            if (owner && pathParts.length >= 2) {
-                const repo = pathParts[0];
-                const filePath = pathParts.slice(1).join('/');
-                candidates.push(`https://raw.githubusercontent.com/${owner}/${repo}/main/${filePath}`);
-            }
+        const pathParts = parsed.pathname.split('/').filter(Boolean);
+        const assetsIndex = pathParts.findIndex((part) => part === 'assets');
+        if (assetsIndex >= 0) {
+            const filePath = pathParts.slice(assetsIndex).join('/');
+            candidates.push(`${CREATION_MARKDOWN_RAW_BASE_URL}/${filePath}`);
         }
     } catch {
         // keep primary candidate only
