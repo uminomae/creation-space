@@ -85,6 +85,7 @@ const STRINGS = {
         modalTitleDefault: '詳細',
         modalLoading: 'Markdown を読み込み中...',
         modalError: 'Markdown の読み込みに失敗しました。',
+        modalPreparing: '英語版は準備中です。',
         modalOpenPdf: 'PDFを開く',
         modalPdfPending: 'PDF準備中',
         modalClose: '閉じる',
@@ -128,6 +129,7 @@ const STRINGS = {
         modalTitleDefault: 'Details',
         modalLoading: 'Loading markdown...',
         modalError: 'Failed to load markdown.',
+        modalPreparing: 'English version is in preparation.',
         modalOpenPdf: 'Open PDF',
         modalPdfPending: 'PDF Pending',
         modalClose: 'Close',
@@ -454,14 +456,10 @@ function normalizeModalSources({ mdUrl = '', pdfUrl = '', sources = [] } = {}) {
 function resolveLocalizedSources(linksByLang) {
     const lang = normalizeLang(state.lang);
     const primary = linksByLang?.[lang];
-    const fallback = linksByLang?.ja;
     const sources = [];
 
     if (primary) {
         sources.push(...buildLocalizedSourceCandidates(primary, lang));
-    }
-    if (lang !== 'ja' && fallback) {
-        sources.push(...buildLocalizedSourceCandidates(fallback, lang));
     }
     return dedupeSources(sources);
 }
@@ -496,7 +494,7 @@ function buildLocalizedSourceCandidates(source, lang = state.lang) {
         mdUrl: safeUrl(withEnglishAssetSuffix(baseSource.mdUrl), ''),
         pdfUrl: safeUrl(withEnglishAssetSuffix(baseSource.pdfUrl), ''),
     };
-    return dedupeSources([enSource, baseSource]);
+    return dedupeSources([enSource]);
 }
 
 function resolveDomainReportSources(report) {
@@ -519,7 +517,8 @@ async function openMarkdownModal({ mdUrl, title = '', pdfUrl = '', sources = [] 
     }
 
     const requestId = ++state.mdRequestId;
-    setMarkdownModalLoading({ title, pdfUrl: firstSource.pdfUrl });
+    const shouldDisableEnPdf = normalizeLang(state.lang) === 'en';
+    setMarkdownModalLoading({ title, pdfUrl: shouldDisableEnPdf ? '' : firstSource.pdfUrl });
     modal.show();
 
     try {
@@ -553,7 +552,7 @@ async function openMarkdownModal({ mdUrl, title = '', pdfUrl = '', sources = [] 
         const html = DOMPurify.sanitize(marked.parse(body || raw));
 
         if (requestId !== state.mdRequestId) return;
-        setModalPdfButton(activeSource.pdfUrl);
+        setModalPdfButton(shouldDisableEnPdf ? '' : activeSource.pdfUrl);
         if (state.dom.mdModalContent) {
             state.dom.mdModalContent.innerHTML = `
                 <div class="md-article">
@@ -577,8 +576,10 @@ async function openMarkdownModal({ mdUrl, title = '', pdfUrl = '', sources = [] 
             state.dom.mdModalMeta.textContent = '';
         }
         if (state.dom.mdModalContent) {
-            state.dom.mdModalContent.innerHTML = `<p class="text-danger-emphasis mb-0">${strings.modalError}</p>`;
+            const pendingMessage = normalizeLang(state.lang) === 'en' ? strings.modalPreparing : strings.modalError;
+            state.dom.mdModalContent.innerHTML = `<p class="text-warning-emphasis mb-0">${pendingMessage}</p>`;
         }
+        setModalPdfButton('');
     }
 }
 
