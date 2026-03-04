@@ -91,3 +91,11 @@ Modes:
 - `check`: compare API vs local cache and print pending EN queue.
 - `sync`: update local cache with new/updated API items while preserving `title_en` / `excerpt_en`.
 - `routine`: same as `sync` and optionally posts a summary to GitHub issue (`--notify-issue`).
+
+## Reports EN asset check
+
+To validate temporary REPORTS EN convention (`*-en.md`, `*-en.pdf`):
+
+```bash
+node scripts/check-reports-en-assets.mjs
+```
