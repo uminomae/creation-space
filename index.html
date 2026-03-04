@@ -174,7 +174,7 @@
       <span class="guide-sep">—</span>
       <span class="guide-action" data-ja="回転" data-en="rotate">rotate</span>
     </div>
-    <div class="guide-row guide-desktop guide-desktop-zoom">
+    <div class="guide-row guide-desktop">
       <span class="guide-key">Ctrl + wheel</span>
       <span class="guide-sep">—</span>
       <span class="guide-action" data-ja="ズーム" data-en="zoom">zoom</span>
@@ -231,12 +231,10 @@
           </section>
           <section class="reports-stack-section">
             <h3 id="reports-domains-heading" class="reports-subheading">領域別レポート</h3>
-            <p id="reports-level-legend" class="reports-level-legend mb-2">進捗レベル: 簡易調査（3件/領域） / 構造類似探索調査（10件/領域） / 分析完了</p>
             <div id="reports-table-filters" class="d-flex flex-wrap gap-2 mb-2" role="group" aria-label="領域別レポート絞り込み">
               <button id="reports-filter-all" type="button" class="btn btn-outline-light btn-sm active" data-filter="all" aria-pressed="true">全件</button>
-              <button id="reports-filter-quick-scan" type="button" class="btn btn-outline-light btn-sm" data-filter="quick_scan" aria-pressed="false">簡易調査</button>
-              <button id="reports-filter-structure-exploration" type="button" class="btn btn-outline-light btn-sm" data-filter="structure_exploration" aria-pressed="false">構造類似探索</button>
-              <button id="reports-filter-analysis-complete" type="button" class="btn btn-outline-light btn-sm" data-filter="analysis_complete" aria-pressed="false">分析完了</button>
+              <button id="reports-filter-published" type="button" class="btn btn-outline-light btn-sm" data-filter="published" aria-pressed="false">公開済み</button>
+              <button id="reports-filter-planned" type="button" class="btn btn-outline-light btn-sm" data-filter="planned" aria-pressed="false">準備中</button>
             </div>
             <div id="reports-domain-grid" class="reports-domain-grid" aria-live="polite">
               <div class="reports-domain-empty text-body-secondary">読み込み中...</div>

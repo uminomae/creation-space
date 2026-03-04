@@ -813,7 +813,6 @@
     /* タッチデバイス用: デスクトップ版を隠す */
     #control-guide .guide-touch { display: none; }
     #control-guide .guide-desktop { display: flex; }
-    body[data-graphic-mode="i"] #control-guide .guide-desktop-zoom { display: none; }
     @media (hover: none) and (pointer: coarse) {
       #control-guide .guide-touch { display: flex; }
       #control-guide .guide-desktop { display: none; }
@@ -1786,15 +1785,6 @@
   font-family: var(--reports-font-mono);
 }
 
-.reports-level-legend {
-  margin: 0 0 0.5rem;
-  color: rgba(var(--color-sub-text), 0.7);
-  font-size: clamp(0.6rem, 2.05vmin, 0.72rem);
-  letter-spacing: 0.04em;
-  line-height: 1.45;
-  font-family: var(--reports-font-mono);
-}
-
 #reports-primary-actions .reports-status-cta {
   min-width: clamp(10.6rem, 24vw, 15.4rem);
   min-height: 3.3rem;
@@ -1878,37 +1868,11 @@
   outline-offset: 1px;
 }
 
-.reports-domain-item.is-level-quick-scan {
-  border-color: rgba(var(--bs-warning-rgb), 0.32);
-  background: rgba(var(--bs-warning-rgb), 0.045);
-}
-
-.reports-domain-item.is-level-structure-exploration {
-  border-color: rgba(var(--bs-primary-rgb), 0.3);
-  background: rgba(var(--bs-primary-rgb), 0.045);
-}
-
-.reports-domain-item.is-level-analysis-complete {
-  border-color: rgba(var(--bs-success-rgb), 0.32);
-  background: rgba(var(--bs-success-rgb), 0.045);
-}
-
-.reports-domain-item.is-level-quick-scan:not(.is-filter-muted):hover,
-.reports-domain-item.is-level-quick-scan:not(.is-filter-muted):focus-visible {
-  border-color: rgba(var(--bs-warning-rgb), 0.54);
-  background: rgba(var(--bs-warning-rgb), 0.085);
-}
-
-.reports-domain-item.is-level-structure-exploration:not(.is-filter-muted):hover,
-.reports-domain-item.is-level-structure-exploration:not(.is-filter-muted):focus-visible {
-  border-color: rgba(var(--bs-primary-rgb), 0.52);
-  background: rgba(var(--bs-primary-rgb), 0.085);
-}
-
-.reports-domain-item.is-level-analysis-complete:not(.is-filter-muted):hover,
-.reports-domain-item.is-level-analysis-complete:not(.is-filter-muted):focus-visible {
-  border-color: rgba(var(--bs-success-rgb), 0.54);
-  background: rgba(var(--bs-success-rgb), 0.085);
+.reports-domain-item.is-published:not(.is-filter-muted):hover,
+.reports-domain-item.is-published:not(.is-filter-muted):focus-visible {
+  border-color: rgba(var(--color-accent), 0.42);
+  background: var(--reports-bg-hover);
+  color: rgba(var(--color-heading), 0.95);
 }
 
 .reports-domain-item.is-filter-muted {
