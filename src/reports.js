@@ -258,6 +258,9 @@ function safeUrl(rawUrl, fallback = '#', baseHref = window.location.href) {
     return fallback;
 }
 
+// Policy:
+// Open PDFs in-browser for reading (new tab), not as forced downloads.
+// Normalize known raw/blob URL forms to browser-viewable pages URL when possible.
 function normalizePdfBrowserUrl(rawUrl) {
     const resolved = safeUrl(rawUrl, '');
     if (!resolved) return '';
@@ -295,6 +298,8 @@ function normalizePdfBrowserUrl(rawUrl) {
  * - Primary markdown reference: https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/publications/creation/md/*
  * - Primary JSON reference: https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/publications/creation/*
  * - Primary PDF reference: https://uminomae.github.io/pjdhiro/assets/publications/creation/*
+ * - PDF behavior policy: open in browser for reading (new tab), not download-first links.
+ *   Keep/normalize PDF URLs so "Open PDF" is view-oriented.
  * - Fallback markdown reference: https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/*
  * - On GitHub Pages (Jekyll), `*.md` under project paths can fail as raw content.
  * - Therefore markdown fallback must change the URL target itself (github.io -> raw.githubusercontent),
