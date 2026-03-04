@@ -457,14 +457,46 @@ function resolveLocalizedSources(linksByLang) {
     const fallback = linksByLang?.ja;
     const sources = [];
 
-    if (primary) sources.push(primary);
-    if (lang !== 'ja' && fallback) sources.push(fallback);
+    if (primary) {
+        sources.push(...buildLocalizedSourceCandidates(primary, lang));
+    }
+    if (lang !== 'ja' && fallback) {
+        sources.push(...buildLocalizedSourceCandidates(fallback, lang));
+    }
     return dedupeSources(sources);
 }
 
-function withEnSuffix(path) {
+function withEnglishAssetSuffix(path) {
     if (typeof path !== 'string' || !path.trim()) return '';
-    return path.trim().replace(/-ja(?=\.[a-z0-9]+(?:[?#].*)?$)/i, '-en');
+    const trimmed = path.trim();
+    if (/-en(?=\.[a-z0-9]+(?:[?#].*)?$)/i.test(trimmed)) {
+        return trimmed;
+    }
+    if (/-ja(?=\.[a-z0-9]+(?:[?#].*)?$)/i.test(trimmed)) {
+        return trimmed.replace(/-ja(?=\.[a-z0-9]+(?:[?#].*)?$)/i, '-en');
+    }
+    if (/\.[a-z0-9]+(?:[?#].*)?$/i.test(trimmed)) {
+        return trimmed.replace(/(\.[a-z0-9]+(?:[?#].*)?)$/i, '-en$1');
+    }
+    return `${trimmed}-en`;
+}
+
+function buildLocalizedSourceCandidates(source, lang = state.lang) {
+    const normalizedLang = normalizeLang(lang);
+    const baseSource = {
+        mdUrl: safeUrl(source?.mdUrl, ''),
+        pdfUrl: safeUrl(source?.pdfUrl, ''),
+    };
+
+    if (normalizedLang !== 'en') {
+        return dedupeSources([baseSource]);
+    }
+
+    const enSource = {
+        mdUrl: safeUrl(withEnglishAssetSuffix(baseSource.mdUrl), ''),
+        pdfUrl: safeUrl(withEnglishAssetSuffix(baseSource.pdfUrl), ''),
+    };
+    return dedupeSources([enSource, baseSource]);
 }
 
 function resolveDomainReportSources(report) {
@@ -472,17 +504,7 @@ function resolveDomainReportSources(report) {
         mdUrl: resolveReportAssetUrl(report?.mdPath),
         pdfUrl: resolveReportAssetUrl(report?.pdfPath),
     };
-
-    if (normalizeLang(state.lang) !== 'en') {
-        return dedupeSources([baseSource]);
-    }
-
-    const enSource = {
-        mdUrl: resolveReportAssetUrl(withEnSuffix(report?.mdPath)),
-        // Reuse the published PDF until English PDF artifacts are generated.
-        pdfUrl: baseSource.pdfUrl,
-    };
-    return dedupeSources([enSource, baseSource]);
+    return buildLocalizedSourceCandidates(baseSource, state.lang);
 }
 
 async function openMarkdownModal({ mdUrl, title = '', pdfUrl = '', sources = [] }) {
