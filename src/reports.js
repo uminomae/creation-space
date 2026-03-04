@@ -1,23 +1,22 @@
 import DOMPurify from 'dompurify';
 import { normalizeLang } from './i18n.js';
 
-const CREATION_ASSETS_PAGES_BASE_URL = 'https://uminomae.github.io/pjdhiro/assets/publications/creation';
-const CREATION_ASSETS_RAW_BASE_URL = 'https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/publications/creation';
-const CREATION_ASSETS_BASE_URL = CREATION_ASSETS_PAGES_BASE_URL;
-const CREATION_ASSETS_MD_BASE_URL = `${CREATION_ASSETS_RAW_BASE_URL}/md`;
-// Markdown fallback source (keep same canonical repo, rebuild from /assets/* path)
+const LOCAL_REPORTS_ROOT = './assets/reports';
+const LOCAL_ISSUE62_ROOT = `${LOCAL_REPORTS_ROOT}/issue62`;
+const LOCAL_MODEL_GUIDES_ROOT = `${LOCAL_REPORTS_ROOT}/model-guides`;
+// Markdown fallback source for remote mirrors that might rewrite .md to HTML
 const CREATION_MARKDOWN_RAW_BASE_URL = 'https://raw.githubusercontent.com/uminomae/pjdhiro/main';
-const DEFAULT_REPORTS_DATA_URL = `${CREATION_ASSETS_RAW_BASE_URL}/manifests/issue62-domains.json`;
-const DEFAULT_REPORTS_ASSET_BASE = `${CREATION_ASSETS_BASE_URL}/`;
-const DEFAULT_REPORTS_MD_ASSET_BASE = `${CREATION_ASSETS_MD_BASE_URL}/`;
+const DEFAULT_REPORTS_DATA_URL = `${LOCAL_ISSUE62_ROOT}/domains/index.json`;
+const DEFAULT_REPORTS_ASSET_BASE = `${LOCAL_ISSUE62_ROOT}/`;
+const DEFAULT_REPORTS_MD_ASSET_BASE = `${LOCAL_ISSUE62_ROOT}/`;
 const STATUS_REPORT_LINKS = {
     ja: {
-        mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/issue62/issue62-status-ja.md`,
-        pdfUrl: `${CREATION_ASSETS_BASE_URL}/pdf/issue62/creation-issue62-status-ja.pdf`,
+        mdUrl: `${LOCAL_ISSUE62_ROOT}/issue62-status-ja.md`,
+        pdfUrl: `${LOCAL_ISSUE62_ROOT}/creation-issue62-status-ja.pdf`,
     },
     en: {
-        mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/issue62/issue62-status-ja.md`,
-        pdfUrl: `${CREATION_ASSETS_BASE_URL}/pdf/issue62/creation-issue62-status-ja.pdf`,
+        mdUrl: `${LOCAL_ISSUE62_ROOT}/issue62-status-ja.md`,
+        pdfUrl: `${LOCAL_ISSUE62_ROOT}/creation-issue62-status-ja.pdf`,
     },
 };
 
@@ -26,12 +25,12 @@ const MODEL_GUIDE_LINKS = [
         key: 'general',
         links: {
             ja: {
-                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/guides/creation-general-draft.md`,
-                pdfUrl: `${CREATION_ASSETS_BASE_URL}/pdf/guides/creation-general.pdf`,
+                mdUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-general-draft.md`,
+                pdfUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-general.pdf`,
             },
             en: {
-                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/guides/creation-general-draft.md`,
-                pdfUrl: `${CREATION_ASSETS_BASE_URL}/pdf/guides/creation-general-en.pdf`,
+                mdUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-general-draft.md`,
+                pdfUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-general.pdf`,
             },
         },
     },
@@ -39,12 +38,12 @@ const MODEL_GUIDE_LINKS = [
         key: 'designer',
         links: {
             ja: {
-                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/guides/creation-designer-draft.md`,
-                pdfUrl: `${CREATION_ASSETS_BASE_URL}/pdf/guides/creation-designer.pdf`,
+                mdUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-designer-draft.md`,
+                pdfUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-designer.pdf`,
             },
             en: {
-                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/guides/creation-designer-draft.md`,
-                pdfUrl: `${CREATION_ASSETS_BASE_URL}/pdf/guides/creation-designer-en.pdf`,
+                mdUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-designer-draft.md`,
+                pdfUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-designer.pdf`,
             },
         },
     },
@@ -52,12 +51,12 @@ const MODEL_GUIDE_LINKS = [
         key: 'expert',
         links: {
             ja: {
-                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/guides/creation-academic-draft.md`,
-                pdfUrl: `${CREATION_ASSETS_BASE_URL}/pdf/guides/creation-academic.pdf`,
+                mdUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-academic-draft.md`,
+                pdfUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-academic.pdf`,
             },
             en: {
-                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/guides/creation-academic-draft.md`,
-                pdfUrl: `${CREATION_ASSETS_BASE_URL}/pdf/guides/creation-academic.pdf`,
+                mdUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-academic-draft.md`,
+                pdfUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-academic.pdf`,
             },
         },
     },
