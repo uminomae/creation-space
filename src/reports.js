@@ -1,23 +1,23 @@
 import DOMPurify from 'dompurify';
 import { normalizeLang } from './i18n.js';
 
-// Canonical report assets (pdf/json): pjdhiro repo -> assets/creation/*
-const CREATION_ASSETS_BASE_URL = 'https://uminomae.github.io/pjdhiro/assets/creation';
-// Canonical markdown source: raw.githubusercontent.com/uminomae/pjdhiro/main/assets/creation/*
-const CREATION_ASSETS_MD_BASE_URL = 'https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/creation';
+// Canonical report assets (pdf/json): pjdhiro repo -> assets/publications/creation/*
+const CREATION_ASSETS_BASE_URL = 'https://uminomae.github.io/pjdhiro/assets/publications/creation';
+// Canonical markdown source: raw.githubusercontent.com/uminomae/pjdhiro/main/assets/publications/creation/md/*
+const CREATION_ASSETS_MD_BASE_URL = 'https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/publications/creation/md';
 // Markdown fallback source (keep same canonical repo, rebuild from /assets/* path)
 const CREATION_MARKDOWN_RAW_BASE_URL = 'https://raw.githubusercontent.com/uminomae/pjdhiro/main';
-const DEFAULT_REPORTS_DATA_URL = `${CREATION_ASSETS_BASE_URL}/issue62/domains/index.json`;
-const DEFAULT_REPORTS_ASSET_BASE = `${CREATION_ASSETS_BASE_URL}/issue62/`;
-const DEFAULT_REPORTS_MD_ASSET_BASE = `${CREATION_ASSETS_MD_BASE_URL}/issue62/`;
+const DEFAULT_REPORTS_DATA_URL = `${CREATION_ASSETS_BASE_URL}/manifests/issue62-domains.json`;
+const DEFAULT_REPORTS_ASSET_BASE = `${CREATION_ASSETS_BASE_URL}/`;
+const DEFAULT_REPORTS_MD_ASSET_BASE = `${CREATION_ASSETS_MD_BASE_URL}/`;
 const STATUS_REPORT_LINKS = {
     ja: {
         mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/issue62/issue62-status-ja.md`,
-        pdfUrl: `${CREATION_ASSETS_BASE_URL}/issue62/creation-issue62-status-ja.pdf`,
+        pdfUrl: `${CREATION_ASSETS_BASE_URL}/pdf/issue62/creation-issue62-status-ja.pdf`,
     },
     en: {
-        mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/issue62/issue62-status-en.md`,
-        pdfUrl: `${CREATION_ASSETS_BASE_URL}/issue62/creation-issue62-status-ja.pdf`,
+        mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/issue62/issue62-status-ja.md`,
+        pdfUrl: `${CREATION_ASSETS_BASE_URL}/pdf/issue62/creation-issue62-status-ja.pdf`,
     },
 };
 
@@ -26,12 +26,12 @@ const MODEL_GUIDE_LINKS = [
         key: 'general',
         links: {
             ja: {
-                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/model-guides/kesson-general-draft.md`,
-                pdfUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-general.pdf`,
+                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/guides/creation-general-draft.md`,
+                pdfUrl: `${CREATION_ASSETS_BASE_URL}/pdf/guides/creation-general.pdf`,
             },
             en: {
-                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/model-guides/kesson-general-en-draft.md`,
-                pdfUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-general.pdf`,
+                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/guides/creation-general-draft.md`,
+                pdfUrl: `${CREATION_ASSETS_BASE_URL}/pdf/guides/creation-general-en.pdf`,
             },
         },
     },
@@ -39,12 +39,12 @@ const MODEL_GUIDE_LINKS = [
         key: 'designer',
         links: {
             ja: {
-                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/model-guides/kesson-designer-draft.md`,
-                pdfUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-designer.pdf`,
+                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/guides/creation-designer-draft.md`,
+                pdfUrl: `${CREATION_ASSETS_BASE_URL}/pdf/guides/creation-designer.pdf`,
             },
             en: {
-                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/model-guides/kesson-designer-en-draft.md`,
-                pdfUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-designer.pdf`,
+                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/guides/creation-designer-draft.md`,
+                pdfUrl: `${CREATION_ASSETS_BASE_URL}/pdf/guides/creation-designer-en.pdf`,
             },
         },
     },
@@ -52,12 +52,12 @@ const MODEL_GUIDE_LINKS = [
         key: 'expert',
         links: {
             ja: {
-                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/model-guides/kesson-academic-draft.md`,
-                pdfUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-academic.pdf`,
+                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/guides/creation-academic-draft.md`,
+                pdfUrl: `${CREATION_ASSETS_BASE_URL}/pdf/guides/creation-academic.pdf`,
             },
             en: {
-                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/model-guides/kesson-academic-en-draft.md`,
-                pdfUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-academic.pdf`,
+                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/guides/creation-academic-draft.md`,
+                pdfUrl: `${CREATION_ASSETS_BASE_URL}/pdf/guides/creation-academic.pdf`,
             },
         },
     },
@@ -247,8 +247,8 @@ function safeUrl(rawUrl, fallback = '#', baseHref = window.location.href) {
 
 /**
  * Refactor context:
- * - Primary markdown reference: https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/creation/*
- * - Primary pdf/json reference: https://uminomae.github.io/pjdhiro/assets/creation/*
+ * - Primary markdown reference: https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/publications/creation/md/*
+ * - Primary pdf/json reference: https://uminomae.github.io/pjdhiro/assets/publications/creation/*
  * - Fallback markdown reference: https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/*
  * - On GitHub Pages (Jekyll), `*.md` under project paths can fail as raw content.
  * - Therefore markdown fallback must change the URL target itself (github.io -> raw.githubusercontent),
