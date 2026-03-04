@@ -1,9 +1,9 @@
 import DOMPurify from 'dompurify';
 import { normalizeLang } from './i18n.js';
 
-const CREATION_ASSETS_BASE_URL = './assets/reports';
-const CREATION_ASSETS_MD_BASE_URL = './assets/reports';
-const CREATION_MARKDOWN_RAW_BASE_URL = 'https://raw.githubusercontent.com/uminomae/creation-space/main';
+const CREATION_ASSETS_BASE_URL = 'https://uminomae.github.io/pjdhiro/assets/creation';
+const CREATION_ASSETS_MD_BASE_URL = 'https://uminomae.github.io/pjdhiro/assets/creation';
+const CREATION_MARKDOWN_RAW_BASE_URL = 'https://raw.githubusercontent.com/uminomae/pjdhiro/main';
 const DEFAULT_REPORTS_DATA_URL = `${CREATION_ASSETS_BASE_URL}/issue62/domains/index.json`;
 const DEFAULT_REPORTS_ASSET_BASE = `${CREATION_ASSETS_BASE_URL}/issue62/`;
 const DEFAULT_REPORTS_MD_ASSET_BASE = `${CREATION_ASSETS_MD_BASE_URL}/issue62/`;
@@ -248,7 +248,7 @@ function safeUrl(rawUrl, fallback = '#', baseHref = window.location.href) {
  * - Fallbacking to extensionless/`.html` returns layout HTML, not markdown source.
  * - Rendering that HTML as markdown breaks modal content (raw `<link>`, `<script>` blocks shown).
  * - This page can be mirrored under multiple public paths (`/creation-space/`, `/pjdhiro/`).
- *   Raw fallback must stay on the canonical `creation-space` repo to avoid path drift.
+ *   Raw fallback must stay on the canonical `pjdhiro` repo to avoid path drift.
  *
  * Update-time checks:
  * 1) localhost: `.md` direct fetch succeeds and renders as markdown.
