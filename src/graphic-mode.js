@@ -18,9 +18,6 @@ export function syncGraphicModeQuery(mode) {
 
 export function setGraphicButtonState(mode) {
     const normalized = normalizeGraphicMode(mode);
-    if (document.body) {
-        document.body.dataset.graphicMode = normalized;
-    }
     document.querySelectorAll('[data-graphic-mode]').forEach((button) => {
         if (!(button instanceof HTMLButtonElement)) return;
         const isActive = normalizeGraphicMode(button.dataset.graphicMode) === normalized;
