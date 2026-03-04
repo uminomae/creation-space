@@ -241,6 +241,44 @@ function safeUrl(rawUrl, fallback = '#', baseHref = window.location.href) {
     return fallback;
 }
 
+/**
+ * Refactor context:
+ * - GitHub Pages (Jekyll) may not serve `*.md` as raw files under `assets/`.
+ * - In production, `.../foo.md` can return 404 while `.../foo` or `.../foo.html` returns 200.
+ *
+ * Update-time checks:
+ * 1) Local server: `.md` should still be fetched first.
+ * 2) GitHub Pages (Jekyll): `.md` 404 should fallback to extensionless or `.html`.
+ * 3) Non-markdown URLs must not be rewritten.
+ */
+function buildMarkdownFetchCandidates(rawUrl) {
+    const primary = safeUrl(rawUrl, '');
+    if (!primary) return [];
+
+    const candidates = [primary];
+    if (!/\.md(?:$|[?#])/i.test(primary)) {
+        return candidates;
+    }
+
+    try {
+        const parsed = new URL(primary);
+        const basePath = parsed.pathname.replace(/\.md$/i, '');
+        if (basePath !== parsed.pathname) {
+            const extless = new URL(parsed.toString());
+            extless.pathname = basePath;
+            candidates.push(extless.toString());
+
+            const html = new URL(parsed.toString());
+            html.pathname = `${basePath}.html`;
+            candidates.push(html.toString());
+        }
+    } catch {
+        // keep primary candidate only
+    }
+
+    return [...new Set(candidates)];
+}
+
 function slugToTitle(slug) {
     if (typeof slug !== 'string' || !slug.trim()) return '';
     return slug
@@ -454,15 +492,19 @@ async function openMarkdownModal({ mdUrl, title = '', pdfUrl = '', sources = [] 
         let lastError = null;
 
         for (const source of modalSources) {
-            try {
-                const response = await fetch(source.mdUrl, { cache: 'no-store' });
-                if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                raw = await response.text();
-                activeSource = source;
-                break;
-            } catch (error) {
-                lastError = error;
+            const mdCandidates = buildMarkdownFetchCandidates(source.mdUrl);
+            for (const mdUrl of mdCandidates) {
+                try {
+                    const response = await fetch(mdUrl, { cache: 'no-store' });
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    raw = await response.text();
+                    activeSource = { ...source, mdUrl };
+                    break;
+                } catch (error) {
+                    lastError = error;
+                }
             }
+            if (raw) break;
         }
 
         if (!raw) throw (lastError || new Error('No markdown source could be loaded'));
