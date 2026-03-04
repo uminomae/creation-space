@@ -1,8 +1,8 @@
 import DOMPurify from 'dompurify';
 import { normalizeLang } from './i18n.js';
 
-const CREATION_ASSETS_BASE_URL = 'https://uminomae.github.io/pjdhiro/assets/creation';
-const CREATION_ASSETS_MD_BASE_URL = 'https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/creation';
+const CREATION_ASSETS_BASE_URL = './assets/reports';
+const CREATION_ASSETS_MD_BASE_URL = './assets/reports';
 const DEFAULT_REPORTS_DATA_URL = `${CREATION_ASSETS_BASE_URL}/issue62/domains/index.json`;
 const DEFAULT_REPORTS_ASSET_BASE = `${CREATION_ASSETS_BASE_URL}/issue62/`;
 const DEFAULT_REPORTS_MD_ASSET_BASE = `${CREATION_ASSETS_MD_BASE_URL}/issue62/`;
@@ -13,7 +13,7 @@ const STATUS_REPORT_LINKS = {
     },
     en: {
         mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/issue62/issue62-status-en.md`,
-        pdfUrl: `${CREATION_ASSETS_BASE_URL}/issue62/creation-issue62-status-en.pdf`,
+        pdfUrl: `${CREATION_ASSETS_BASE_URL}/issue62/creation-issue62-status-ja.pdf`,
     },
 };
 
@@ -22,12 +22,12 @@ const MODEL_GUIDE_LINKS = [
         key: 'general',
         links: {
             ja: {
-                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/creation-general-draft.md`,
-                pdfUrl: `${CREATION_ASSETS_BASE_URL}/creation-general.pdf`,
+                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/model-guides/kesson-general-draft.md`,
+                pdfUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-general.pdf`,
             },
             en: {
-                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/creation-general-en-draft.md`,
-                pdfUrl: `${CREATION_ASSETS_BASE_URL}/creation-general-en.pdf`,
+                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/model-guides/kesson-general-en-draft.md`,
+                pdfUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-general.pdf`,
             },
         },
     },
@@ -35,12 +35,12 @@ const MODEL_GUIDE_LINKS = [
         key: 'designer',
         links: {
             ja: {
-                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/creation-designer-draft.md`,
-                pdfUrl: `${CREATION_ASSETS_BASE_URL}/creation-designer.pdf`,
+                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/model-guides/kesson-designer-draft.md`,
+                pdfUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-designer.pdf`,
             },
             en: {
-                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/creation-designer-en-draft.md`,
-                pdfUrl: `${CREATION_ASSETS_BASE_URL}/creation-designer-en.pdf`,
+                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/model-guides/kesson-designer-en-draft.md`,
+                pdfUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-designer.pdf`,
             },
         },
     },
@@ -48,12 +48,12 @@ const MODEL_GUIDE_LINKS = [
         key: 'expert',
         links: {
             ja: {
-                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/creation-academic-draft.md`,
-                pdfUrl: `${CREATION_ASSETS_BASE_URL}/creation-academic.pdf`,
+                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/model-guides/kesson-academic-draft.md`,
+                pdfUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-academic.pdf`,
             },
             en: {
-                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/creation-academic-en-draft.md`,
-                pdfUrl: `${CREATION_ASSETS_BASE_URL}/creation-academic-en.pdf`,
+                mdUrl: `${CREATION_ASSETS_MD_BASE_URL}/model-guides/kesson-academic-en-draft.md`,
+                pdfUrl: `${CREATION_ASSETS_BASE_URL}/model-guides/kesson-academic.pdf`,
             },
         },
     },
@@ -426,7 +426,8 @@ function resolveDomainReportSources(report) {
 
     const enSource = {
         mdUrl: resolveReportAssetUrl(withEnSuffix(report?.mdPath)),
-        pdfUrl: resolveReportAssetUrl(withEnSuffix(report?.pdfPath)),
+        // Reuse the published PDF until English PDF artifacts are generated.
+        pdfUrl: baseSource.pdfUrl,
     };
     return dedupeSources([enSource, baseSource]);
 }
