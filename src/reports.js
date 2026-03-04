@@ -243,13 +243,14 @@ function safeUrl(rawUrl, fallback = '#', baseHref = window.location.href) {
 
 /**
  * Refactor context:
- * - GitHub Pages (Jekyll) may not serve `*.md` as raw files under `assets/`.
- * - In production, `.../foo.md` can return 404 while `.../foo` or `.../foo.html` returns 200.
+ * - On GitHub Pages (Jekyll), `*.md` under project paths can fail as raw content.
+ * - Fallbacking to extensionless/`.html` returns layout HTML, not markdown source.
+ * - Rendering that HTML as markdown breaks modal content (raw `<link>`, `<script>` blocks shown).
  *
  * Update-time checks:
- * 1) Local server: `.md` should still be fetched first.
- * 2) GitHub Pages (Jekyll): `.md` 404 should fallback to extensionless or `.html`.
- * 3) Non-markdown URLs must not be rewritten.
+ * 1) localhost: `.md` direct fetch succeeds and renders as markdown.
+ * 2) github.io: `.md` 404 still recovers via raw.githubusercontent markdown URL.
+ * 3) HTML responses are rejected for markdown modal sources.
  */
 function buildMarkdownFetchCandidates(rawUrl) {
     const primary = safeUrl(rawUrl, '');
@@ -262,21 +263,28 @@ function buildMarkdownFetchCandidates(rawUrl) {
 
     try {
         const parsed = new URL(primary);
-        const basePath = parsed.pathname.replace(/\.md$/i, '');
-        if (basePath !== parsed.pathname) {
-            const extless = new URL(parsed.toString());
-            extless.pathname = basePath;
-            candidates.push(extless.toString());
-
-            const html = new URL(parsed.toString());
-            html.pathname = `${basePath}.html`;
-            candidates.push(html.toString());
+        const hostParts = parsed.hostname.split('.');
+        const isGitHubPages = hostParts.length >= 3 && hostParts[1] === 'github' && hostParts[2] === 'io';
+        if (isGitHubPages) {
+            const owner = hostParts[0];
+            const pathParts = parsed.pathname.split('/').filter(Boolean);
+            if (owner && pathParts.length >= 2) {
+                const repo = pathParts[0];
+                const filePath = pathParts.slice(1).join('/');
+                candidates.push(`https://raw.githubusercontent.com/${owner}/${repo}/main/${filePath}`);
+            }
         }
     } catch {
         // keep primary candidate only
     }
 
     return [...new Set(candidates)];
+}
+
+function looksLikeHtmlDocument(text) {
+    if (typeof text !== 'string') return false;
+    const sample = text.slice(0, 1024).trimStart().toLowerCase();
+    return sample.startsWith('<!doctype html') || sample.startsWith('<html');
 }
 
 function slugToTitle(slug) {
@@ -497,7 +505,11 @@ async function openMarkdownModal({ mdUrl, title = '', pdfUrl = '', sources = [] 
                 try {
                     const response = await fetch(mdUrl, { cache: 'no-store' });
                     if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                    raw = await response.text();
+                    const text = await response.text();
+                    if (looksLikeHtmlDocument(text)) {
+                        throw new Error('Unexpected HTML response for markdown source');
+                    }
+                    raw = text;
                     activeSource = { ...source, mdUrl };
                     break;
                 } catch (error) {
