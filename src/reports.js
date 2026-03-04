@@ -1,12 +1,13 @@
 import DOMPurify from 'dompurify';
 import { normalizeLang } from './i18n.js';
 
-// Canonical report assets (md/pdf/json): raw.githubusercontent.com -> pjdhiro/assets/publications/creation/*
-const CREATION_ASSETS_BASE_URL = 'https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/publications/creation';
-const CREATION_ASSETS_MD_BASE_URL = `${CREATION_ASSETS_BASE_URL}/md`;
+const CREATION_ASSETS_PAGES_BASE_URL = 'https://uminomae.github.io/pjdhiro/assets/publications/creation';
+const CREATION_ASSETS_RAW_BASE_URL = 'https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/publications/creation';
+const CREATION_ASSETS_BASE_URL = CREATION_ASSETS_PAGES_BASE_URL;
+const CREATION_ASSETS_MD_BASE_URL = `${CREATION_ASSETS_RAW_BASE_URL}/md`;
 // Markdown fallback source (keep same canonical repo, rebuild from /assets/* path)
 const CREATION_MARKDOWN_RAW_BASE_URL = 'https://raw.githubusercontent.com/uminomae/pjdhiro/main';
-const DEFAULT_REPORTS_DATA_URL = `${CREATION_ASSETS_BASE_URL}/manifests/issue62-domains.json`;
+const DEFAULT_REPORTS_DATA_URL = `${CREATION_ASSETS_RAW_BASE_URL}/manifests/issue62-domains.json`;
 const DEFAULT_REPORTS_ASSET_BASE = `${CREATION_ASSETS_BASE_URL}/`;
 const DEFAULT_REPORTS_MD_ASSET_BASE = `${CREATION_ASSETS_MD_BASE_URL}/`;
 const STATUS_REPORT_LINKS = {
@@ -247,7 +248,8 @@ function safeUrl(rawUrl, fallback = '#', baseHref = window.location.href) {
 /**
  * Refactor context:
  * - Primary markdown reference: https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/publications/creation/md/*
- * - Primary pdf/json reference: https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/publications/creation/*
+ * - Primary JSON reference: https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/publications/creation/*
+ * - Primary PDF reference: https://uminomae.github.io/pjdhiro/assets/publications/creation/*
  * - Fallback markdown reference: https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/*
  * - On GitHub Pages (Jekyll), `*.md` under project paths can fail as raw content.
  * - Therefore markdown fallback must change the URL target itself (github.io -> raw.githubusercontent),
