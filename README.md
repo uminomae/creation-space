@@ -106,3 +106,20 @@ To fail on missing EN PDF assets as well:
 ```bash
 node scripts/check-reports-en-assets.mjs --require-en-pdf
 ```
+
+## [DRAFT] Reports EN PDF bootstrap (WIP)
+
+This workflow is intentionally incomplete.  
+We will polish the PDF quality and operation flow in the next session.
+
+Call:
+
+```bash
+bash scripts/reports-en-pdf-draft.sh
+```
+
+Skill draft call:
+
+```text
+Use creation-reports-workflow (DRAFT) to scan impact, generate EN PDFs, and validate links.
+```
