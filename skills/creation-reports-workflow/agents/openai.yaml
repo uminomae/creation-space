@@ -1,4 +1,0 @@
-interface:
-  display_name: "Creation Reports Workflow (Draft)"
-  short_description: "Draft checks and PDF flow for Creation reports"
-  default_prompt: "[DRAFT] Run the creation reports workflow: detect PDF presence, update HTML/JS behavior (open vs pending), validate links, and leave notes for next-session refinement."
