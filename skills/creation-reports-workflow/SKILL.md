@@ -1,6 +1,6 @@
 ---
 name: creation-reports-workflow
-description: Draft workflow for maintaining Creation REPORTS assets and links across survey/guides/domains. Use when path renames occur, REPORTS modal links need fixes, EN PDFs must be bootstrapped, visibility toggles must be checked, and issue/commit work reports are required.
+description: Draft workflow for maintaining Creation REPORTS assets and links across survey/guides/domains. Use when path renames occur, REPORTS modal links need fixes, PDF presence must drive Open/Pending UI behavior, visibility toggles must be checked, and issue/commit work reports are required.
 ---
 
 # [DRAFT / 未完成] Creation Reports Workflow
