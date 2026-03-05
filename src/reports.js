@@ -1,25 +1,22 @@
 import DOMPurify from 'dompurify';
 import { normalizeLang } from './i18n.js';
 
-const LOCAL_REPORTS_ROOT = './assets/reports';
-const LOCAL_ISSUE62_ROOT = `${LOCAL_REPORTS_ROOT}/issue62`;
-const LOCAL_CREATION_ROOT = './assets/creation';
-const LOCAL_CREATION_SURVEY_ROOT = `${LOCAL_CREATION_ROOT}/survey`;
-const LOCAL_CREATION_GUIDES_ROOT = `${LOCAL_CREATION_ROOT}/guides`;
-const LOCAL_CREATION_DOMAINS_ROOT = `${LOCAL_CREATION_ROOT}/domains`;
-// Markdown fallback source for remote mirrors that might rewrite .md to HTML
-const CREATION_MARKDOWN_RAW_BASE_URL = 'https://raw.githubusercontent.com/uminomae/pjdhiro/main';
-const DEFAULT_REPORTS_DATA_URL = `${LOCAL_ISSUE62_ROOT}/domains/index.json`;
-const DEFAULT_REPORTS_ASSET_BASE = `${LOCAL_ISSUE62_ROOT}/`;
-const DEFAULT_REPORTS_MD_ASSET_BASE = `${LOCAL_ISSUE62_ROOT}/`;
+const PJDHIRO_PAGES_BASE = 'https://uminomae.github.io/pjdhiro';
+const PJDHIRO_RAW_BASE = 'https://raw.githubusercontent.com/uminomae/pjdhiro/main';
+const CREATION_PATH = '/assets/creation';
+const PJDHIRO_CREATION_PAGES = `${PJDHIRO_PAGES_BASE}${CREATION_PATH}`;
+const PJDHIRO_CREATION_RAW = `${PJDHIRO_RAW_BASE}${CREATION_PATH}`;
+const DEFAULT_REPORTS_DATA_URL = `${PJDHIRO_CREATION_RAW}/manifests/domains.json`;
+const DEFAULT_REPORTS_ASSET_BASE = `${PJDHIRO_CREATION_PAGES}/`;
+const DEFAULT_REPORTS_MD_ASSET_BASE = `${PJDHIRO_CREATION_RAW}/`;
 const STATUS_REPORT_LINKS = {
     ja: {
-        mdUrl: `${LOCAL_ISSUE62_ROOT}/issue62-status-ja.md`,
-        pdfUrl: `${LOCAL_ISSUE62_ROOT}/creation-issue62-status-ja.pdf`,
+        mdUrl: `${PJDHIRO_CREATION_RAW}/survey/ja/md/survey-status.md`,
+        pdfUrl: `${PJDHIRO_CREATION_PAGES}/survey/ja/pdf/survey-status.pdf`,
     },
     en: {
-        mdUrl: `${LOCAL_CREATION_SURVEY_ROOT}/en/md/survey-status.md`,
-        pdfUrl: `${LOCAL_CREATION_SURVEY_ROOT}/en/pdf/survey-status.pdf`,
+        mdUrl: `${PJDHIRO_CREATION_RAW}/survey/en/md/survey-status.md`,
+        pdfUrl: `${PJDHIRO_CREATION_PAGES}/survey/en/pdf/survey-status.pdf`,
     },
 };
 
@@ -28,12 +25,12 @@ const MODEL_GUIDE_LINKS = [
         key: 'general',
         links: {
             ja: {
-                mdUrl: `${LOCAL_CREATION_GUIDES_ROOT}/ja/md/creation-general.md`,
-                pdfUrl: `${LOCAL_CREATION_GUIDES_ROOT}/ja/pdf/creation-general.pdf`,
+                mdUrl: `${PJDHIRO_CREATION_RAW}/guides/ja/md/creation-general.md`,
+                pdfUrl: `${PJDHIRO_CREATION_PAGES}/guides/ja/pdf/creation-general.pdf`,
             },
             en: {
-                mdUrl: `${LOCAL_CREATION_GUIDES_ROOT}/en/md/creation-general.md`,
-                pdfUrl: `${LOCAL_CREATION_GUIDES_ROOT}/en/pdf/creation-general.pdf`,
+                mdUrl: `${PJDHIRO_CREATION_RAW}/guides/en/md/creation-general.md`,
+                pdfUrl: `${PJDHIRO_CREATION_PAGES}/guides/en/pdf/creation-general.pdf`,
             },
         },
     },
@@ -41,12 +38,12 @@ const MODEL_GUIDE_LINKS = [
         key: 'designer',
         links: {
             ja: {
-                mdUrl: `${LOCAL_CREATION_GUIDES_ROOT}/ja/md/creation-designer.md`,
-                pdfUrl: `${LOCAL_CREATION_GUIDES_ROOT}/ja/pdf/creation-designer.pdf`,
+                mdUrl: `${PJDHIRO_CREATION_RAW}/guides/ja/md/creation-designer.md`,
+                pdfUrl: `${PJDHIRO_CREATION_PAGES}/guides/ja/pdf/creation-designer.pdf`,
             },
             en: {
-                mdUrl: `${LOCAL_CREATION_GUIDES_ROOT}/en/md/creation-designer.md`,
-                pdfUrl: `${LOCAL_CREATION_GUIDES_ROOT}/en/pdf/creation-designer.pdf`,
+                mdUrl: `${PJDHIRO_CREATION_RAW}/guides/en/md/creation-designer.md`,
+                pdfUrl: `${PJDHIRO_CREATION_PAGES}/guides/en/pdf/creation-designer.pdf`,
             },
         },
     },
@@ -54,12 +51,12 @@ const MODEL_GUIDE_LINKS = [
         key: 'expert',
         links: {
             ja: {
-                mdUrl: `${LOCAL_CREATION_GUIDES_ROOT}/ja/md/creation-academic.md`,
-                pdfUrl: `${LOCAL_CREATION_GUIDES_ROOT}/ja/pdf/creation-academic.pdf`,
+                mdUrl: `${PJDHIRO_CREATION_RAW}/guides/ja/md/creation-academic.md`,
+                pdfUrl: `${PJDHIRO_CREATION_PAGES}/guides/ja/pdf/creation-academic.pdf`,
             },
             en: {
-                mdUrl: `${LOCAL_CREATION_GUIDES_ROOT}/en/md/creation-academic.md`,
-                pdfUrl: `${LOCAL_CREATION_GUIDES_ROOT}/en/pdf/creation-academic.pdf`,
+                mdUrl: `${PJDHIRO_CREATION_RAW}/guides/en/md/creation-academic.md`,
+                pdfUrl: `${PJDHIRO_CREATION_PAGES}/guides/en/pdf/creation-academic.pdf`,
             },
         },
     },
@@ -369,7 +366,7 @@ function buildMarkdownFetchCandidates(rawUrl) {
         const assetsIndex = pathParts.findIndex((part) => part === 'assets');
         if (assetsIndex >= 0) {
             const filePath = pathParts.slice(assetsIndex).join('/');
-            candidates.push(`${CREATION_MARKDOWN_RAW_BASE_URL}/${filePath}`);
+            candidates.push(`${PJDHIRO_RAW_BASE}/${filePath}`);
         }
     } catch {
         // keep primary candidate only
@@ -420,6 +417,10 @@ function normalizeReport(report, index) {
         ? report.name_en.trim()
         : fallbackEn;
 
+    // v2.0: md/pdf can be objects { ja: "path", en: "path" }
+    const mdRaw = report?.md;
+    const pdfRaw = report?.pdf;
+
     return {
         id,
         slug: typeof report?.slug === 'string' ? report.slug.trim() : '',
@@ -428,8 +429,10 @@ function normalizeReport(report, index) {
         status: report?.status === 'published' ? 'published' : 'planned',
         progressLevel: normalizeProgressLevel(report?.progress_level, report?.status),
         progressNote: typeof report?.progress_note === 'string' ? report.progress_note.trim() : '',
-        mdPath: typeof report?.md === 'string' ? report.md.trim() : '',
-        pdfPath: typeof report?.pdf === 'string' ? report.pdf.trim() : '',
+        mdPath: typeof mdRaw === 'string' ? mdRaw.trim() : '',
+        pdfPath: typeof pdfRaw === 'string' ? pdfRaw.trim() : '',
+        mdByLang: typeof mdRaw === 'object' && mdRaw !== null ? mdRaw : null,
+        pdfByLang: typeof pdfRaw === 'object' && pdfRaw !== null ? pdfRaw : null,
     };
 }
 
@@ -598,8 +601,8 @@ function buildCreationDomainSource(report, lang = state.lang) {
     const normalizedLang = normalizeLang(lang);
     const baseName = `domain-${idLower}-${slug}-academic`;
     return {
-        mdUrl: `${LOCAL_CREATION_DOMAINS_ROOT}/${normalizedLang}/md/${baseName}.md`,
-        pdfUrl: `${LOCAL_CREATION_DOMAINS_ROOT}/${normalizedLang}/pdf/${baseName}.pdf`,
+        mdUrl: `${PJDHIRO_CREATION_RAW}/domains/${normalizedLang}/md/${baseName}.md`,
+        pdfUrl: `${PJDHIRO_CREATION_PAGES}/domains/${normalizedLang}/pdf/${baseName}.pdf`,
     };
 }
 
@@ -627,14 +630,33 @@ function buildLocalizedSourceCandidates(source, lang = state.lang) {
     return dedupeSources([enSource]);
 }
 
+function resolveV2LangPath(pathByLang, lang, urlBase) {
+    if (!pathByLang || typeof pathByLang !== 'object') return '';
+    const relPath = pathByLang[lang];
+    if (typeof relPath !== 'string' || !relPath.trim()) return '';
+    return `${urlBase}/${relPath.trim()}`;
+}
+
 function resolveDomainReportSources(report) {
     const lang = normalizeLang(state.lang);
-    const creationSource = buildCreationDomainSource(report, lang);
-    const hasBaseMarkdown = typeof report?.mdPath === 'string' && report.mdPath.trim();
     const sources = [];
+
+    // v2.0: md/pdf are language-keyed objects with CREATION_PATH-relative paths
+    if (report.mdByLang) {
+        const mdUrl = resolveV2LangPath(report.mdByLang, lang, PJDHIRO_CREATION_RAW);
+        const pdfUrl = resolveV2LangPath(report.pdfByLang, lang, PJDHIRO_CREATION_PAGES);
+        if (mdUrl) {
+            sources.push({ mdUrl, pdfUrl: pdfUrl || '' });
+        }
+    }
+
+    const creationSource = buildCreationDomainSource(report, lang);
     if (creationSource) {
         sources.push(...buildLocalizedSourceCandidates(creationSource, lang));
     }
+
+    // v1.0 fallback: md/pdf as plain string paths
+    const hasBaseMarkdown = typeof report?.mdPath === 'string' && report.mdPath.trim();
     if (hasBaseMarkdown) {
         const baseSource = {
             mdUrl: resolveReportAssetUrl(report.mdPath),
@@ -642,6 +664,7 @@ function resolveDomainReportSources(report) {
         };
         sources.push(...buildLocalizedSourceCandidates(baseSource, lang));
     }
+
     return dedupeSources(sources);
 }
 
