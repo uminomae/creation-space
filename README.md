@@ -99,3 +99,10 @@ To validate temporary REPORTS EN convention (`*-en.md`, `*-en.pdf`):
 ```bash
 node scripts/check-reports-en-assets.mjs
 ```
+
+Default checks verify EN markdown assets used by the current reports UI (`assets/creation/...`).
+To fail on missing EN PDF assets as well:
+
+```bash
+node scripts/check-reports-en-assets.mjs --require-en-pdf
+```

@@ -592,20 +592,20 @@ function buildLocalizedSourceCandidates(source, lang = state.lang) {
 }
 
 function resolveDomainReportSources(report) {
-    if (typeof report?.mdPath !== 'string' || !report.mdPath.trim()) {
-        return [];
-    }
     const lang = normalizeLang(state.lang);
     const creationSource = buildCreationDomainSource(report, lang);
-    const baseSource = {
-        mdUrl: resolveReportAssetUrl(report?.mdPath),
-        pdfUrl: resolveReportAssetUrl(report?.pdfPath),
-    };
+    const hasBaseMarkdown = typeof report?.mdPath === 'string' && report.mdPath.trim();
     const sources = [];
     if (creationSource) {
         sources.push(...buildLocalizedSourceCandidates(creationSource, lang));
     }
-    sources.push(...buildLocalizedSourceCandidates(baseSource, lang));
+    if (hasBaseMarkdown) {
+        const baseSource = {
+            mdUrl: resolveReportAssetUrl(report.mdPath),
+            pdfUrl: resolveReportAssetUrl(report?.pdfPath),
+        };
+        sources.push(...buildLocalizedSourceCandidates(baseSource, lang));
+    }
     return dedupeSources(sources);
 }
 
@@ -910,15 +910,30 @@ function createDomainGridItem({ report, muted = false, strings }) {
         analysis_complete: 'text-bg-success',
     })[level] || 'text-bg-warning text-dark';
 
-    tile.innerHTML = `
-        <div class="card-body p-1 d-flex flex-column reports-domain-item-body">
-            <div class="d-flex align-items-center justify-content-between gap-2 reports-domain-item-head">
-                <span class="reports-domain-item-id">${report.id}</span>
-                <span class="badge rounded-pill ${badgeClass} reports-domain-item-status">${statusText}</span>
-            </div>
-            <div class="reports-domain-item-name" title="${domainLabel}">${domainLabel}</div>
-        </div>
-    `;
+    const body = document.createElement('div');
+    body.className = 'card-body p-1 d-flex flex-column reports-domain-item-body';
+
+    const head = document.createElement('div');
+    head.className = 'd-flex align-items-center justify-content-between gap-2 reports-domain-item-head';
+
+    const idNode = document.createElement('span');
+    idNode.className = 'reports-domain-item-id';
+    idNode.textContent = report.id;
+
+    const statusNode = document.createElement('span');
+    statusNode.className = `badge rounded-pill ${badgeClass} reports-domain-item-status`;
+    statusNode.textContent = statusText;
+
+    const nameNode = document.createElement('div');
+    nameNode.className = 'reports-domain-item-name';
+    nameNode.title = domainLabel;
+    nameNode.textContent = domainLabel;
+
+    head.appendChild(idNode);
+    head.appendChild(statusNode);
+    body.appendChild(head);
+    body.appendChild(nameNode);
+    tile.appendChild(body);
 
     return tile;
 }
