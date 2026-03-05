@@ -32,11 +32,19 @@ sleep 1
 for mapping in "${MAPPINGS[@]}"; do
   md_path="${mapping%%::*}"
   pdf_path="${mapping##*::}"
+  if [[ ! -f "$md_path" ]]; then
+    echo "[reports-en-pdf-draft] ERROR missing markdown source: ${md_path}" >&2
+    exit 1
+  fi
   mkdir -p "$(dirname "$pdf_path")"
 
   source_url="http://127.0.0.1:${PORT}/scripts/md-print.html?src=${md_path}"
   echo "[reports-en-pdf-draft] ${md_path} -> ${pdf_path}"
-  npx --yes playwright pdf --paper-format A4 --wait-for-selector "body.ready" --wait-for-timeout 200 "$source_url" "$pdf_path" >/dev/null
+  if ! npx --yes playwright pdf --paper-format A4 --timeout 15000 --wait-for-selector "body.ready[data-load-status='ok']" --wait-for-timeout 1000 "$source_url" "$pdf_path" >/dev/null; then
+    echo "[reports-en-pdf-draft] ERROR failed to render markdown source: ${md_path}" >&2
+    echo "[reports-en-pdf-draft] source url: ${source_url}" >&2
+    exit 1
+  fi
 done
 
 echo "[reports-en-pdf-draft] completed"

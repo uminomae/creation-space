@@ -46,10 +46,29 @@
       const src = params.get('src') || '';
       const content = document.getElementById('print-content');
       const title = document.getElementById('print-title');
+      const body = document.body;
+
+      function markReady(status, message) {
+        if (message) {
+          content.textContent = message;
+        }
+        body.dataset.loadStatus = status;
+        body.classList.add('ready');
+      }
+
+      function looksLikeHtml(text) {
+        const sample = String(text || '').slice(0, 2048).trimStart().toLowerCase();
+        if (!sample) return false;
+        return (
+          sample.startsWith('<!doctype html') ||
+          sample.startsWith('<html') ||
+          sample.includes('<head') ||
+          sample.includes('<body')
+        );
+      }
 
       if (!src || src.includes('..') || src.startsWith('/')) {
-        content.textContent = 'Invalid src parameter.';
-        document.body.classList.add('ready');
+        markReady('error', 'Invalid src parameter.');
         return;
       }
 
@@ -57,12 +76,14 @@
         const response = await fetch(src, { cache: 'no-store' });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const text = await response.text();
+        if (looksLikeHtml(text)) {
+          throw new Error('Fetched HTML instead of markdown (possible 404/error page).');
+        }
         title.textContent = `[DRAFT] ${src}`;
         content.textContent = text;
+        markReady('ok');
       } catch (error) {
-        content.textContent = `Failed to load markdown: ${error && error.message ? error.message : String(error)}`;
-      } finally {
-        document.body.classList.add('ready');
+        markReady('error', `Failed to load markdown: ${error && error.message ? error.message : String(error)}`);
       }
     })();
   </script>
