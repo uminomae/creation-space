@@ -2,6 +2,7 @@
 id: issue62-domain-index-ja-v1
 title: "Issue #62 学術分冊PDFインデックス"
 lang: ja
+audience: mixed
 version: 1.0
 date: 2026-03-03
 generator_model: GPT-5 Codex (OpenAI)

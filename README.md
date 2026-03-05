@@ -92,19 +92,18 @@ Modes:
 - `sync`: update local cache with new/updated API items while preserving `title_en` / `excerpt_en`.
 - `routine`: same as `sync` and optionally posts a summary to GitHub issue (`--notify-issue`).
 
-## Reports EN asset check
+## Reports output validation
 
-To validate temporary REPORTS EN convention (`*-en.md`, `*-en.pdf`):
+To validate REPORTS outputs (PDF content sanity, markdown front matter, and `src/reports.js` path consistency):
 
 ```bash
-node scripts/check-reports-en-assets.mjs
+node scripts/validate-outputs.mjs
 ```
 
-Default checks verify EN markdown assets used by the current reports UI (`assets/creation/...`).
-To fail on missing EN PDF assets as well:
+To run in pending mode while allowing missing PDFs:
 
 ```bash
-node scripts/check-reports-en-assets.mjs --require-en-pdf
+node scripts/validate-outputs.mjs --allow-missing-pdf
 ```
 
 ## [DRAFT] Reports PDF Presence Workflow (WIP)

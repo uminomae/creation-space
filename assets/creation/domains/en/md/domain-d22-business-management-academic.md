@@ -3,6 +3,7 @@ id: issue62-domain-d22-business-management-academic-en-v2
 title: "Issue #62 Academic Volume D22 Business Management"
 subtitle: "For first-time readers: workflow, comparison theories, and structural-fit analysis"
 lang: en
+audience: academic
 version: 1.1
 date: 2026-03-03
 domain_id: D22

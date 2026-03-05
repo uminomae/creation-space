@@ -17,16 +17,16 @@ description: Draft workflow for maintaining Creation REPORTS assets and links ac
 
 1. Scan impact first
 ```bash
-rg -n "creation/commentary|creation/survey|commentary-status|commentary-domain" src scripts assets README.md index.html
+rg -n "creation/survey|survey-status|domain-|survey-domain" src scripts assets README.md index.html
 ```
 
 2. Apply path and link updates
 - Keep directory path (`survey`, `guides`, `domains`) consistent with runtime constants in `src/reports.js`.
-- Keep EN asset checks in sync with runtime path policy via `scripts/check-reports-en-assets.mjs`.
+- Keep output checks in sync with runtime path policy via `scripts/validate-outputs.mjs`.
 
 3. Decide from existing PDFs (no generation in this workflow)
 ```bash
-node scripts/check-reports-en-assets.mjs
+node scripts/validate-outputs.mjs --allow-missing-pdf
 ```
 - If EN PDFs are missing, keep `PDF Pending` behavior.
 - If EN PDFs exist, ensure `Open PDF` is enabled.
@@ -38,9 +38,9 @@ node scripts/check-reports-en-assets.mjs
 
 5. Validate
 ```bash
-node scripts/check-reports-en-assets.mjs
+node scripts/validate-outputs.mjs
 ```
-- Run `--require-en-pdf` only when EN PDFs are expected to exist.
+- Run `--allow-missing-pdf` only when pending mode is intentional.
 
 6. Smoke check in browser
 - Open REPORTS section and verify markdown modal + PDF button state.
