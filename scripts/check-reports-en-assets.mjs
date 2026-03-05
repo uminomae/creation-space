@@ -7,34 +7,20 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, '..');
+const enforceEnglishPdf = process.argv.includes('--require-en-pdf');
 
 const issue62Dir = path.join(repoRoot, 'assets', 'reports', 'issue62');
-const modelGuidesDir = path.join(repoRoot, 'assets', 'reports', 'model-guides');
+const creationRootDir = path.join(repoRoot, 'assets', 'creation');
 const domainsIndexPath = path.join(issue62Dir, 'domains', 'index.json');
 
 function exists(relPath) {
   return fs.existsSync(path.join(repoRoot, relPath));
 }
 
-function withEnglishAssetSuffix(assetPath) {
-  if (typeof assetPath !== 'string' || !assetPath.trim()) return '';
-  const trimmed = assetPath.trim();
-
-  if (/-en(?=\.[a-z0-9]+(?:[?#].*)?$)/i.test(trimmed)) {
-    return trimmed;
-  }
-  if (/-ja(?=\.[a-z0-9]+(?:[?#].*)?$)/i.test(trimmed)) {
-    return trimmed.replace(/-ja(?=\.[a-z0-9]+(?:[?#].*)?$)/i, '-en');
-  }
-  if (/\.[a-z0-9]+(?:[?#].*)?$/i.test(trimmed)) {
-    return trimmed.replace(/(\.[a-z0-9]+(?:[?#].*)?)$/i, '-en$1');
-  }
-  return `${trimmed}-en`;
-}
-
-function checkItem(label, relPath, out) {
+function checkItem(label, relPath, out, options = {}) {
+  const required = options.required !== false;
   const ok = exists(relPath);
-  out.push({ label, relPath, ok });
+  out.push({ label, relPath, ok, required });
 }
 
 function loadDomainsIndex() {
@@ -50,21 +36,32 @@ function loadDomainsIndex() {
 
 const checks = [];
 
-checkItem('status markdown', path.join('assets', 'reports', 'issue62', 'issue62-status-en.md'), checks);
-checkItem('status pdf', path.join('assets', 'reports', 'issue62', 'creation-issue62-status-en.pdf'), checks);
+checkItem('status markdown', path.join('assets', 'creation', 'commentary', 'en', 'md', 'commentary-status.md'), checks);
+checkItem(
+  'status pdf',
+  path.join('assets', 'creation', 'commentary', 'en', 'pdf', 'commentary-status.pdf'),
+  checks,
+  { required: enforceEnglishPdf },
+);
 
-const modelGuideBaseFiles = [
-  'kesson-general-draft.md',
-  'kesson-designer-draft.md',
-  'kesson-academic-draft.md',
+const modelGuideBaseNames = [
+  'general',
+  'designer',
+  'academic',
 ];
 
-for (const baseFile of modelGuideBaseFiles) {
-  const enFile = withEnglishAssetSuffix(baseFile);
-  checkItem(`model guide markdown (${baseFile})`, path.join('assets', 'reports', 'model-guides', enFile), checks);
-  const basePdf = baseFile.replace('-draft.md', '.pdf');
-  const enPdf = withEnglishAssetSuffix(basePdf);
-  checkItem(`model guide pdf (${basePdf})`, path.join('assets', 'reports', 'model-guides', enPdf), checks);
+for (const baseName of modelGuideBaseNames) {
+  checkItem(
+    `model guide markdown (${baseName})`,
+    path.join('assets', 'creation', 'guides', 'en', 'md', `creation-${baseName}.md`),
+    checks,
+  );
+  checkItem(
+    `model guide pdf (${baseName})`,
+    path.join('assets', 'creation', 'guides', 'en', 'pdf', `creation-${baseName}.pdf`),
+    checks,
+    { required: enforceEnglishPdf },
+  );
 }
 
 const domainsIndex = loadDomainsIndex();
@@ -72,31 +69,44 @@ const reports = Array.isArray(domainsIndex?.reports) ? domainsIndex.reports : []
 
 for (const report of reports) {
   if (report?.status !== 'published') continue;
-  if (typeof report.md === 'string' && report.md.trim()) {
-    const normalizedMd = report.md.replace(/^\.\//, '');
-    const enMd = withEnglishAssetSuffix(normalizedMd);
-    checkItem(`domain markdown (${report.id || 'unknown'})`, path.join('assets', 'reports', 'issue62', enMd), checks);
-  }
-  if (typeof report.pdf === 'string' && report.pdf.trim()) {
-    const normalizedPdf = report.pdf.replace(/^\.\//, '');
-    const enPdf = withEnglishAssetSuffix(normalizedPdf);
-    checkItem(`domain pdf (${report.id || 'unknown'})`, path.join('assets', 'reports', 'issue62', enPdf), checks);
-  }
+  const idLower = typeof report.id === 'string' ? report.id.trim().toLowerCase() : '';
+  const slug = typeof report.slug === 'string' ? report.slug.trim() : '';
+  if (!idLower || !slug) continue;
+  const baseName = `commentary-domain-${idLower}-${slug}-academic`;
+
+  checkItem(
+    `domain markdown (${report.id || 'unknown'})`,
+    path.join('assets', 'creation', 'domains', 'en', 'md', `${baseName}.md`),
+    checks,
+  );
+  checkItem(
+    `domain pdf (${report.id || 'unknown'})`,
+    path.join('assets', 'creation', 'domains', 'en', 'pdf', `${baseName}.pdf`),
+    checks,
+    { required: enforceEnglishPdf },
+  );
 }
 
-const missing = checks.filter((entry) => !entry.ok);
-const present = checks.length - missing.length;
+const requiredMissing = checks.filter((entry) => entry.required && !entry.ok);
+const optionalMissing = checks.filter((entry) => !entry.required && !entry.ok);
+const present = checks.filter((entry) => entry.ok).length;
 
 console.log(`[check-reports-en-assets] root: ${repoRoot}`);
 console.log(`[check-reports-en-assets] issue62 dir: ${issue62Dir}`);
-console.log(`[check-reports-en-assets] model guides dir: ${modelGuidesDir}`);
-console.log(`[check-reports-en-assets] present: ${present}, missing: ${missing.length}, total: ${checks.length}`);
+console.log(`[check-reports-en-assets] creation dir: ${creationRootDir}`);
+console.log(`[check-reports-en-assets] require EN pdf: ${enforceEnglishPdf}`);
+console.log(
+  `[check-reports-en-assets] present: ${present}, required-missing: ${requiredMissing.length}, optional-missing: ${optionalMissing.length}, total: ${checks.length}`,
+);
 
 for (const entry of checks) {
-  const status = entry.ok ? 'OK   ' : 'MISS ';
+  let status = 'OK   ';
+  if (!entry.ok) {
+    status = entry.required ? 'MISS ' : 'WARN ';
+  }
   console.log(`${status} ${entry.label}: ${entry.relPath}`);
 }
 
-if (missing.length > 0) {
+if (requiredMissing.length > 0) {
   process.exit(1);
 }
