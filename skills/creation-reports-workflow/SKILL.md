@@ -22,13 +22,11 @@ rg -n "creation/survey|survey-status|domain-|survey-domain" src scripts assets R
 
 2. Apply path and link updates
 - Keep directory path (`survey`, `guides`, `domains`) consistent with runtime constants in `src/reports.js`.
-- Keep output checks in sync with runtime path policy via `scripts/validate-outputs.mjs`.
+- All asset URLs now point to pjdhiro GitHub Pages (PDF) / raw.githubusercontent.com (MD/JSON).
 
 3. Decide from existing PDFs (no generation in this workflow)
-```bash
-node scripts/validate-outputs.mjs --allow-missing-pdf
-```
-- If EN PDFs are missing, keep `PDF Pending` behavior.
+- PDF availability is checked at runtime via `resolveFirstAvailablePdfUrl` in `src/reports.js`.
+- If EN PDFs are missing on pjdhiro, keep `PDF Pending` behavior.
 - If EN PDFs exist, ensure `Open PDF` is enabled.
 
 4. Apply HTML/JS fixes
@@ -37,10 +35,7 @@ node scripts/validate-outputs.mjs --allow-missing-pdf
 - `src/reports.js`: keep existence-based PDF resolution (`resolveFirstAvailablePdfUrl`) and `setModalPdfButton`.
 
 5. Validate
-```bash
-node scripts/validate-outputs.mjs
-```
-- Run `--allow-missing-pdf` only when pending mode is intentional.
+- Validate by opening the page in a browser and checking Network tab for pjdhiro requests.
 
 6. Smoke check in browser
 - Open REPORTS section and verify markdown modal + PDF button state.
