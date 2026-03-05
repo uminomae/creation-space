@@ -5,7 +5,7 @@ const LOCAL_REPORTS_ROOT = './assets/reports';
 const LOCAL_ISSUE62_ROOT = `${LOCAL_REPORTS_ROOT}/issue62`;
 const LOCAL_MODEL_GUIDES_ROOT = `${LOCAL_REPORTS_ROOT}/model-guides`;
 const LOCAL_CREATION_ROOT = './assets/creation';
-const LOCAL_CREATION_COMMENTARY_ROOT = `${LOCAL_CREATION_ROOT}/commentary`;
+const LOCAL_CREATION_SURVEY_ROOT = `${LOCAL_CREATION_ROOT}/survey`;
 const LOCAL_CREATION_GUIDES_ROOT = `${LOCAL_CREATION_ROOT}/guides`;
 const LOCAL_CREATION_DOMAINS_ROOT = `${LOCAL_CREATION_ROOT}/domains`;
 // Markdown fallback source for remote mirrors that might rewrite .md to HTML
@@ -19,8 +19,8 @@ const STATUS_REPORT_LINKS = {
         pdfUrl: `${LOCAL_ISSUE62_ROOT}/creation-issue62-status-ja.pdf`,
     },
     en: {
-        mdUrl: `${LOCAL_CREATION_COMMENTARY_ROOT}/en/md/commentary-status.md`,
-        pdfUrl: `${LOCAL_CREATION_COMMENTARY_ROOT}/en/pdf/commentary-status.pdf`,
+        mdUrl: `${LOCAL_CREATION_SURVEY_ROOT}/en/md/commentary-status.md`,
+        pdfUrl: `${LOCAL_CREATION_SURVEY_ROOT}/en/pdf/commentary-status.pdf`,
     },
 };
 
