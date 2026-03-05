@@ -36,10 +36,10 @@ function loadDomainsIndex() {
 
 const checks = [];
 
-checkItem('status markdown', path.join('assets', 'creation', 'commentary', 'en', 'md', 'commentary-status.md'), checks);
+checkItem('status markdown', path.join('assets', 'creation', 'survey', 'en', 'md', 'commentary-status.md'), checks);
 checkItem(
   'status pdf',
-  path.join('assets', 'creation', 'commentary', 'en', 'pdf', 'commentary-status.pdf'),
+  path.join('assets', 'creation', 'survey', 'en', 'pdf', 'commentary-status.pdf'),
   checks,
   { required: enforceEnglishPdf },
 );
