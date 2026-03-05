@@ -10,8 +10,8 @@ description: Draft workflow for maintaining Creation REPORTS assets and links ac
 
 ## Quick Start (Draft Call Side)
 1. Run: `bash skills/creation-reports-workflow/scripts/run-draft-workflow.sh /absolute/path/to/repo`
-2. Confirm checks and decide whether to keep/remove generated EN PDFs.
-3. Post work report to issues and commit changes.
+2. Decide UI mode from actual PDF presence.
+3. Apply HTML/JS fixes, then post work report and commit.
 
 ## Workflow
 
@@ -24,24 +24,29 @@ rg -n "creation/commentary|creation/survey|commentary-status|commentary-domain" 
 - Keep directory path (`survey`, `guides`, `domains`) consistent with runtime constants in `src/reports.js`.
 - Keep EN asset checks in sync with runtime path policy via `scripts/check-reports-en-assets.mjs`.
 
-3. Generate EN PDFs (draft bootstrap)
-```bash
-bash scripts/reports-en-pdf-draft.sh
-```
-- This is provisional output from markdown page printing.
-- Treat generated PDFs as placeholders until the next refinement session.
-
-4. Validate
+3. Decide from existing PDFs (no generation in this workflow)
 ```bash
 node scripts/check-reports-en-assets.mjs
-node scripts/check-reports-en-assets.mjs --require-en-pdf
 ```
+- If EN PDFs are missing, keep `PDF Pending` behavior.
+- If EN PDFs exist, ensure `Open PDF` is enabled.
 
-5. Smoke check in browser
+4. Apply HTML/JS fixes
+- `index.html`: keep modal PDF anchor `#reports-md-open-pdf` in footer.
+- `src/reports.js`: keep status/report path constants aligned to current directory policy.
+- `src/reports.js`: keep existence-based PDF resolution (`resolveFirstAvailablePdfUrl`) and `setModalPdfButton`.
+
+5. Validate
+```bash
+node scripts/check-reports-en-assets.mjs
+```
+- Run `--require-en-pdf` only when EN PDFs are expected to exist.
+
+6. Smoke check in browser
 - Open REPORTS section and verify markdown modal + PDF button state.
 - Ensure existing JA behavior remains unchanged.
 
-6. Report and commit
+7. Report and commit
 - Append issue work report (what changed, what remains).
 - Commit with clear scope (`fix/reports` or `refactor/creation`).
 
