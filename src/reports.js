@@ -297,6 +297,43 @@ function normalizePdfBrowserUrl(rawUrl) {
     }
 }
 
+async function isPdfReachable(pdfUrl) {
+    const normalizedPdfUrl = normalizePdfBrowserUrl(pdfUrl);
+    if (!normalizedPdfUrl) return false;
+
+    try {
+        const headResponse = await fetch(normalizedPdfUrl, { method: 'HEAD', cache: 'no-store' });
+        if (headResponse.ok) return true;
+        if (headResponse.status !== 405 && headResponse.status !== 501) {
+            return false;
+        }
+    } catch {
+        // Fall through to range request fallback.
+    }
+
+    try {
+        const rangeResponse = await fetch(normalizedPdfUrl, {
+            method: 'GET',
+            headers: { Range: 'bytes=0-0' },
+            cache: 'no-store',
+        });
+        return rangeResponse.ok || rangeResponse.status === 206;
+    } catch {
+        return false;
+    }
+}
+
+async function resolveFirstAvailablePdfUrl(sources = []) {
+    for (const source of sources) {
+        const candidate = normalizePdfBrowserUrl(source?.pdfUrl);
+        if (!candidate) continue;
+        if (await isPdfReachable(candidate)) {
+            return candidate;
+        }
+    }
+    return '';
+}
+
 /**
  * Refactor context:
  * - Primary markdown reference: https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/publications/creation/md/*
@@ -621,14 +658,13 @@ async function openMarkdownModal({ mdUrl, title = '', pdfUrl = '', sources = [] 
     }
 
     const requestId = ++state.mdRequestId;
-    const shouldDisableEnPdf = normalizeLang(state.lang) === 'en';
-    setMarkdownModalLoading({ title, pdfUrl: shouldDisableEnPdf ? '' : firstSource.pdfUrl });
+    const availablePdfUrlPromise = resolveFirstAvailablePdfUrl(modalSources);
+    setMarkdownModalLoading({ title, pdfUrl: '' });
     modal.show();
 
     try {
         const marked = await getMarked();
         let raw = '';
-        let activeSource = firstSource;
         let lastError = null;
 
         for (const source of modalSources) {
@@ -642,7 +678,6 @@ async function openMarkdownModal({ mdUrl, title = '', pdfUrl = '', sources = [] 
                         throw new Error('Unexpected HTML response for markdown source');
                     }
                     raw = text;
-                    activeSource = { ...source, mdUrl };
                     break;
                 } catch (error) {
                     lastError = error;
@@ -654,9 +689,10 @@ async function openMarkdownModal({ mdUrl, title = '', pdfUrl = '', sources = [] 
         if (!raw) throw (lastError || new Error('No markdown source could be loaded'));
         const { meta, body } = parseFrontmatter(raw);
         const html = DOMPurify.sanitize(marked.parse(body || raw));
+        const availablePdfUrl = await availablePdfUrlPromise;
 
         if (requestId !== state.mdRequestId) return;
-        setModalPdfButton(shouldDisableEnPdf ? '' : activeSource.pdfUrl);
+        setModalPdfButton(availablePdfUrl);
         if (state.dom.mdModalContent) {
             state.dom.mdModalContent.innerHTML = `
                 <div class="md-article">
@@ -674,6 +710,7 @@ async function openMarkdownModal({ mdUrl, title = '', pdfUrl = '', sources = [] 
         }
     } catch (error) {
         console.warn('[reports] markdown load failed:', error);
+        const availablePdfUrl = await availablePdfUrlPromise.catch(() => '');
         if (requestId !== state.mdRequestId) return;
         const strings = getStrings(state.lang);
         if (state.dom.mdModalMeta) {
@@ -683,7 +720,7 @@ async function openMarkdownModal({ mdUrl, title = '', pdfUrl = '', sources = [] 
             const pendingMessage = normalizeLang(state.lang) === 'en' ? strings.modalPreparing : strings.modalError;
             state.dom.mdModalContent.innerHTML = `<p class="text-warning-emphasis mb-0">${pendingMessage}</p>`;
         }
-        setModalPdfButton('');
+        setModalPdfButton(availablePdfUrl);
     }
 }
 
