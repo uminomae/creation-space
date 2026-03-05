@@ -9,15 +9,15 @@ REPO_ROOT="${1:-$(pwd)}"
 cd "$REPO_ROOT"
 
 echo "[creation-reports-workflow:draft] step 1/4 detect EN asset state"
-check_output="$(node scripts/check-reports-en-assets.mjs)"
+check_output="$(node scripts/validate-outputs.mjs --allow-missing-pdf)"
 echo "$check_output"
 
-optional_missing="$(printf '%s\n' "$check_output" | sed -nE 's/.*optional-missing: ([0-9]+).*/\1/p' | head -n 1)"
-if [[ -z "$optional_missing" ]]; then
-  optional_missing="0"
+missing_pdf="$(printf '%s\n' "$check_output" | sed -nE 's/.*missing-pdf=([0-9]+).*/\1/p' | head -n 1)"
+if [[ -z "$missing_pdf" ]]; then
+  missing_pdf="0"
 fi
 
-if [[ "$optional_missing" -eq 0 ]]; then
+if [[ "$missing_pdf" -eq 0 ]]; then
   pdf_mode="open"
 else
   pdf_mode="pending"
@@ -31,9 +31,9 @@ echo "[creation-reports-workflow:draft] html/js touchpoints: OK"
 
 echo "[creation-reports-workflow:draft] step 3/4 validate by policy"
 if [[ "$pdf_mode" == "open" ]]; then
-  node scripts/check-reports-en-assets.mjs --require-en-pdf
+  node scripts/validate-outputs.mjs
 else
-  echo "[creation-reports-workflow:draft] skip --require-en-pdf (pending mode)"
+  node scripts/validate-outputs.mjs --allow-missing-pdf
 fi
 
 echo "[creation-reports-workflow:draft] step 4/4 next action"

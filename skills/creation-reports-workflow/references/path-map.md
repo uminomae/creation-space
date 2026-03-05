@@ -3,19 +3,19 @@
 This reference is provisional and must be refined in the next session.
 
 ## Canonical paths (current)
-- Status markdown (EN): `assets/creation/survey/en/md/commentary-status.md`
-- Status PDF (EN target): `assets/creation/survey/en/pdf/commentary-status.pdf`
+- Status markdown (EN): `assets/creation/survey/en/md/survey-status.md`
+- Status PDF (EN target): `assets/creation/survey/en/pdf/survey-status.pdf`
 - Guides markdown (EN): `assets/creation/guides/en/md/creation-*.md`
 - Guides PDF (EN target): `assets/creation/guides/en/pdf/creation-*.pdf`
-- Domain markdown (EN): `assets/creation/domains/en/md/commentary-domain-*.md`
-- Domain PDF (EN target): `assets/creation/domains/en/pdf/commentary-domain-*.pdf`
+- Domain markdown (EN): `assets/creation/domains/en/md/domain-*.md`
+- Domain PDF (EN target): `assets/creation/domains/en/pdf/domain-*.pdf`
 
 ## Runtime touchpoints
 - `src/reports.js`
-- `scripts/check-reports-en-assets.mjs`
+- `scripts/validate-outputs.mjs`
 
 ## Validation commands
 ```bash
-node scripts/check-reports-en-assets.mjs
-node scripts/check-reports-en-assets.mjs --require-en-pdf
+node scripts/validate-outputs.mjs
+node scripts/validate-outputs.mjs --allow-missing-pdf
 ```

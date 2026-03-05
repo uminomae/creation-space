@@ -3,7 +3,6 @@ import { normalizeLang } from './i18n.js';
 
 const LOCAL_REPORTS_ROOT = './assets/reports';
 const LOCAL_ISSUE62_ROOT = `${LOCAL_REPORTS_ROOT}/issue62`;
-const LOCAL_MODEL_GUIDES_ROOT = `${LOCAL_REPORTS_ROOT}/model-guides`;
 const LOCAL_CREATION_ROOT = './assets/creation';
 const LOCAL_CREATION_SURVEY_ROOT = `${LOCAL_CREATION_ROOT}/survey`;
 const LOCAL_CREATION_GUIDES_ROOT = `${LOCAL_CREATION_ROOT}/guides`;
@@ -19,8 +18,8 @@ const STATUS_REPORT_LINKS = {
         pdfUrl: `${LOCAL_ISSUE62_ROOT}/creation-issue62-status-ja.pdf`,
     },
     en: {
-        mdUrl: `${LOCAL_CREATION_SURVEY_ROOT}/en/md/commentary-status.md`,
-        pdfUrl: `${LOCAL_CREATION_SURVEY_ROOT}/en/pdf/commentary-status.pdf`,
+        mdUrl: `${LOCAL_CREATION_SURVEY_ROOT}/en/md/survey-status.md`,
+        pdfUrl: `${LOCAL_CREATION_SURVEY_ROOT}/en/pdf/survey-status.pdf`,
     },
 };
 
@@ -29,8 +28,8 @@ const MODEL_GUIDE_LINKS = [
         key: 'general',
         links: {
             ja: {
-                mdUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-general-draft.md`,
-                pdfUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-general.pdf`,
+                mdUrl: `${LOCAL_CREATION_GUIDES_ROOT}/ja/md/creation-general.md`,
+                pdfUrl: `${LOCAL_CREATION_GUIDES_ROOT}/ja/pdf/creation-general.pdf`,
             },
             en: {
                 mdUrl: `${LOCAL_CREATION_GUIDES_ROOT}/en/md/creation-general.md`,
@@ -42,8 +41,8 @@ const MODEL_GUIDE_LINKS = [
         key: 'designer',
         links: {
             ja: {
-                mdUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-designer-draft.md`,
-                pdfUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-designer.pdf`,
+                mdUrl: `${LOCAL_CREATION_GUIDES_ROOT}/ja/md/creation-designer.md`,
+                pdfUrl: `${LOCAL_CREATION_GUIDES_ROOT}/ja/pdf/creation-designer.pdf`,
             },
             en: {
                 mdUrl: `${LOCAL_CREATION_GUIDES_ROOT}/en/md/creation-designer.md`,
@@ -55,8 +54,8 @@ const MODEL_GUIDE_LINKS = [
         key: 'expert',
         links: {
             ja: {
-                mdUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-academic-draft.md`,
-                pdfUrl: `${LOCAL_MODEL_GUIDES_ROOT}/kesson-academic.pdf`,
+                mdUrl: `${LOCAL_CREATION_GUIDES_ROOT}/ja/md/creation-academic.md`,
+                pdfUrl: `${LOCAL_CREATION_GUIDES_ROOT}/ja/pdf/creation-academic.pdf`,
             },
             en: {
                 mdUrl: `${LOCAL_CREATION_GUIDES_ROOT}/en/md/creation-academic.md`,
@@ -597,7 +596,7 @@ function buildCreationDomainSource(report, lang = state.lang) {
     const idLower = report.id.trim().toLowerCase();
     const slug = report.slug.trim();
     const normalizedLang = normalizeLang(lang);
-    const baseName = `commentary-domain-${idLower}-${slug}-academic`;
+    const baseName = `domain-${idLower}-${slug}-academic`;
     return {
         mdUrl: `${LOCAL_CREATION_DOMAINS_ROOT}/${normalizedLang}/md/${baseName}.md`,
         pdfUrl: `${LOCAL_CREATION_DOMAINS_ROOT}/${normalizedLang}/pdf/${baseName}.pdf`,

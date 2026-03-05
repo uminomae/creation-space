@@ -10,11 +10,11 @@ PORT="${PORT:-4173}"
 LOG_FILE="${TMPDIR:-/tmp}/creation-reports-en-pdf-${PORT}.log"
 
 declare -a MAPPINGS=(
-  "assets/creation/survey/en/md/commentary-status.md::assets/creation/survey/en/pdf/commentary-status.pdf"
+  "assets/creation/survey/en/md/survey-status.md::assets/creation/survey/en/pdf/survey-status.pdf"
   "assets/creation/guides/en/md/creation-general.md::assets/creation/guides/en/pdf/creation-general.pdf"
   "assets/creation/guides/en/md/creation-designer.md::assets/creation/guides/en/pdf/creation-designer.pdf"
   "assets/creation/guides/en/md/creation-academic.md::assets/creation/guides/en/pdf/creation-academic.pdf"
-  "assets/creation/domains/en/md/commentary-domain-d22-business-management-academic.md::assets/creation/domains/en/pdf/commentary-domain-d22-business-management-academic.pdf"
+  "assets/creation/domains/en/md/domain-d22-business-management-academic.md::assets/creation/domains/en/pdf/domain-d22-business-management-academic.pdf"
 )
 
 cleanup() {

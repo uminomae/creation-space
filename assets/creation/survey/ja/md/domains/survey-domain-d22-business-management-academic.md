@@ -3,6 +3,7 @@ id: issue62-domain-d22-business-management-academic-ja-v2
 title: "Issue #62 学術分冊 D22 経営学"
 subtitle: "初見読者向け: 作業内容・比較理論・構造類似の分析"
 lang: ja
+audience: academic
 version: 1.1
 date: 2026-03-03
 domain_id: D22
