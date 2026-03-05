@@ -92,33 +92,13 @@ Modes:
 - `sync`: update local cache with new/updated API items while preserving `title_en` / `excerpt_en`.
 - `routine`: same as `sync` and optionally posts a summary to GitHub issue (`--notify-issue`).
 
-## Reports output validation
+## Reports asset hosting
 
-To validate REPORTS outputs (PDF content sanity, markdown front matter, and `src/reports.js` path consistency):
+All REPORTS assets (survey, guides, domains) are hosted on the pjdhiro repository.
+`src/reports.js` fetches data and markdown from `raw.githubusercontent.com` and links PDFs via GitHub Pages.
 
-```bash
-node scripts/validate-outputs.mjs
-```
+- **Data**: `https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/creation/manifests/domains.json`
+- **MD**: `https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/creation/{survey,guides,domains}/{lang}/md/*.md`
+- **PDF**: `https://uminomae.github.io/pjdhiro/assets/creation/{survey,guides,domains}/{lang}/pdf/*.pdf`
 
-To run in pending mode while allowing missing PDFs:
-
-```bash
-node scripts/validate-outputs.mjs --allow-missing-pdf
-```
-
-## [DRAFT] Reports PDF Presence Workflow (WIP)
-
-This workflow is intentionally incomplete.  
-We will polish rules and automation depth in the next session.
-
-Call:
-
-```bash
-bash skills/creation-reports-workflow/scripts/run-draft-workflow.sh /absolute/path/to/repo
-```
-
-Skill draft call:
-
-```text
-Use creation-reports-workflow (DRAFT) to detect PDF presence and update HTML/JS behavior.
-```
+PDF availability is checked at runtime via HEAD requests (`resolveFirstAvailablePdfUrl` in `src/reports.js`).
