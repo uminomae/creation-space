@@ -102,3 +102,22 @@ All REPORTS assets (survey, guides, domains) are hosted on the pjdhiro repositor
 - **PDF**: `https://uminomae.github.io/pjdhiro/assets/creation/{survey,guides,domains}/{lang}/pdf/*.pdf`
 
 PDF availability is checked at runtime via HEAD requests (`resolveFirstAvailablePdfUrl` in `src/reports.js`).
+
+## Domain EN markdown audit / sync
+
+If `domains/en/pdf/*.pdf` exists in `pjdhiro` but `domains/en/md/*.md` is missing, use:
+
+```bash
+node scripts/domains-en-md-sync.mjs --mode check
+node scripts/domains-en-md-sync.mjs --mode sync
+```
+
+Defaults:
+- build source: `../kesson-driven-thinking/build/creation/domains/en/md`
+- publish target: `../pjdhiro/assets/creation/domains/en/md`
+- manifest source: `../pjdhiro/assets/creation/manifests/domains.json`
+
+What it does:
+- reads expected EN domain markdown paths from the `pjdhiro` manifest
+- checks build copy vs publish copy for `domains/en/md/*.md`
+- in `sync` mode, copies missing/changed files from `kesson-driven-thinking/build/creation/` into `pjdhiro/assets/creation/`
