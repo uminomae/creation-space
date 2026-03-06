@@ -99,14 +99,17 @@ const STRINGS = {
         features: {
             general: {
                 title: '一般向け',
+                modalTitle: '創造とは——5段階の地図',
                 description: '創造モデルの全体像を短く把握するための解説。',
             },
             designer: {
                 title: '設計者向け',
+                modalTitle: '創造の構造——設計者のための地図',
                 description: '設計判断と運用視点で読む解説。',
             },
             expert: {
                 title: '専門家向け',
+                modalTitle: '創造とは——学術版',
                 description: '理論比較と検証観点を含む解説。',
             },
         },
@@ -147,14 +150,17 @@ const STRINGS = {
         features: {
             general: {
                 title: 'General',
+                modalTitle: 'Creation — A Map of Five Stages',
                 description: 'A concise overview of the creation model.',
             },
             designer: {
                 title: 'Designer',
+                modalTitle: 'Creation as Structure — A Guide for Project Designers',
                 description: 'Guide focused on design and implementation decisions.',
             },
             expert: {
                 title: 'Expert',
+                modalTitle: 'Creation — An Exploratory Description of the Five-Stage Process',
                 description: 'Theory comparison and verification-oriented guide.',
             },
         },
@@ -859,7 +865,7 @@ function renderFeatureCards() {
 
         const openCardModal = () => {
             openMarkdownModal({
-                title: featureText.title,
+                title: featureText.modalTitle || featureText.title,
                 sources: resolveLocalizedSources(guide.links),
             });
         };
