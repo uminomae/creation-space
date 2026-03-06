@@ -596,10 +596,10 @@ function hasExplicitEnglishDirectory(path) {
 function buildCreationDomainSource(report, lang = state.lang) {
     if (typeof report?.id !== 'string' || typeof report?.slug !== 'string') return null;
     if (!report.id.trim() || !report.slug.trim()) return null;
-    const idLower = report.id.trim().toLowerCase();
+    const idOrig = report.id.trim();
     const slug = report.slug.trim();
     const normalizedLang = normalizeLang(lang);
-    const baseName = `domain-${idLower}-${slug}-academic`;
+    const baseName = `domain-${idOrig}-${slug}`;
     return {
         mdUrl: `${PJDHIRO_CREATION_RAW}/domains/${normalizedLang}/md/${baseName}.md`,
         pdfUrl: `${PJDHIRO_CREATION_PAGES}/domains/${normalizedLang}/pdf/${baseName}.pdf`,
@@ -913,7 +913,7 @@ function renderMetrics() {
     const quickScan = state.reports.filter((report) => report.progressLevel === 'quick_scan').length;
     const structureExploration = state.reports.filter((report) => report.progressLevel === 'structure_exploration').length;
     const analysisComplete = state.reports.filter((report) => report.progressLevel === 'analysis_complete').length;
-    const generatedValue = state.generatedAt || '-';
+    const generatedValue = state.generatedAt ? formatDate(state.generatedAt) : '-';
 
     state.dom.metrics.innerHTML = '';
     const fragment = document.createDocumentFragment();
