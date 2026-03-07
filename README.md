@@ -103,6 +103,23 @@ All REPORTS assets (survey, guides, domains) are hosted on the pjdhiro repositor
 
 PDF availability is checked at runtime via HEAD requests (`resolveFirstAvailablePdfUrl` in `src/reports.js`).
 
+## Reports taxonomy scenarios
+
+For exploratory category checks, you can override the report taxonomy from the URL without editing `src/reports.js`.
+
+Examples:
+
+```text
+http://localhost:3004/?reportsScenario=split-d22
+http://localhost:3004/?lang=en&reportsScenario=split-d22
+```
+
+Notes:
+- Scenario files live under `assets/reports/scenarios/*.json`.
+- The current visual-check fixture is `assets/reports/scenarios/split-d22.json`.
+- `reportsTaxonomyTest=split-d22` remains as a backward-compatible alias.
+- When a scenario is active, the reports section shows the active scenario label under the domain reports heading.
+
 ## Domain EN markdown audit / sync
 
 If `domains/en/pdf/*.pdf` exists in `pjdhiro` but `domains/en/md/*.md` is missing, use:
