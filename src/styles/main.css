@@ -28,6 +28,17 @@
       --kesson-card-bg: rgba(20, 25, 40, 0.9);
       --kesson-offcanvas-width: 85%;
       --kesson-offcanvas-bg: rgba(10, 14, 26, 0.98);
+      --kesson-font-size-ui-xs: clamp(0.4rem, 1.8vmin, 0.65rem);
+      --kesson-font-size-ui-sm: clamp(0.5rem, 2.2vmin, 0.7rem);
+      --ks-section-heading: 0.75rem;
+      --ks-card-title: 0.8rem;
+      --ks-card-text: 0.7rem;
+      --ks-card-summary: 0.68rem;
+      --ks-overlay-tagline: clamp(0.5rem, 2.4vmin, 0.85rem);
+      --ks-overlay-tagline-en: clamp(0.4rem, 2.0vmin, 0.75rem);
+      --ks-control-guide: clamp(0.35rem, 1.6vmin, 0.55rem);
+      --ks-footer-line: clamp(0.35rem, 1.5vmin, 0.55rem);
+      --reports-font-step: 0rem;
       --kesson-topbar-height: 3.25rem;
       --kesson-topbar-alpha-strong: 0.10;
       --kesson-topbar-alpha-soft: 0.10;
@@ -396,6 +407,27 @@
       pointer-events: none;
       user-select: none;
     }
+    .topbar-font-size-ctrl {
+      opacity: 0.75;
+    }
+    .topbar-font-btn {
+      font-family: var(--reports-font-mono, 'SF Mono', 'Fira Code', 'Consolas', monospace);
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      padding: 0.2rem 0.5rem;
+      background: transparent;
+      border: 1px solid rgba(130, 170, 240, 0.2);
+      color: rgba(205, 220, 244, 0.7);
+      line-height: 1.4;
+    }
+    .topbar-font-btn:hover:not(:disabled) {
+      background: rgba(120, 165, 240, 0.15);
+      color: rgba(236, 244, 255, 0.9);
+    }
+    .topbar-font-btn:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
     #kesson-topbar .topbar-toggler {
       border-color: rgba(145, 178, 242, 0.55);
       padding: 0.18rem 0.44rem;
@@ -590,7 +622,7 @@
     }
 
     .tagline {
-      font-size: clamp(0.5rem, 2.4vmin, 0.85rem);
+      font-size: var(--ks-overlay-tagline, clamp(0.5rem, 2.4vmin, 0.85rem));
       color: rgba(var(--color-heading), 0.75);
       font-family: "Noto Serif JP", "Yu Mincho", "MS PMincho", serif;
       letter-spacing: 0.05em;
@@ -599,7 +631,7 @@
     }
 
     .tagline-en {
-      font-size: clamp(0.4rem, 2.0vmin, 0.75rem);
+      font-size: var(--ks-overlay-tagline-en, clamp(0.4rem, 2.0vmin, 0.75rem));
       color: rgba(var(--color-heading), 0.55);
       font-family: 'Georgia', serif;
       letter-spacing: 0.03em;
@@ -793,7 +825,7 @@
       margin-bottom: 3px;
     }
     #control-guide .guide-key {
-      font-size: clamp(0.35rem, 1.6vmin, 0.55rem);
+      font-size: var(--ks-control-guide, clamp(0.35rem, 1.6vmin, 0.55rem));
       color: rgba(var(--color-sub-text), 0.35);
       font-family: 'SF Mono', 'Consolas', 'Monaco', monospace;
       letter-spacing: 0.03em;
@@ -804,7 +836,7 @@
       color: rgba(var(--color-sub-text), 0.2);
     }
     #control-guide .guide-action {
-      font-size: clamp(0.35rem, 1.6vmin, 0.55rem);
+      font-size: var(--ks-control-guide, clamp(0.35rem, 1.6vmin, 0.55rem));
       color: rgba(var(--color-sub-text), 0.3);
       font-family: 'Georgia', serif;
       letter-spacing: 0.06em;
@@ -899,15 +931,15 @@
     }
     .kesson-card .card-title {
       color: #fff;
-      font-size: 0.8rem;
+      font-size: var(--ks-card-title, 0.8rem);
     }
     .kesson-card .card-body small {
       color: rgba(var(--color-heading), 0.5);
-      font-size: 0.7rem;
+      font-size: var(--ks-card-text, 0.7rem);
     }
     .kesson-card .card-text {
       color: rgba(var(--color-heading), 0.5);
-      font-size: 0.7rem;
+      font-size: var(--ks-card-text, 0.7rem);
     }
 
     /* 無限スクロールローディング */
@@ -1010,7 +1042,7 @@
 
     /* Section heading — monospace, all-caps */
     .section-heading {
-      font-size: 0.75rem;
+      font-size: var(--ks-section-heading, 0.75rem);
       font-weight: 400;
       color: rgba(var(--color-sub-text), 0.5);
       letter-spacing: 0.15em;
@@ -1676,7 +1708,7 @@
       pointer-events: none;
     }
     .tech-footer-line {
-      font-size: clamp(0.35rem, 1.5vmin, 0.55rem);
+      font-size: var(--ks-footer-line, clamp(0.35rem, 1.5vmin, 0.55rem));
       color: rgba(150, 175, 210, 0.25);
       font-family: 'SF Mono', 'Consolas', 'Monaco', monospace;
       letter-spacing: 0.06em;
@@ -1705,7 +1737,6 @@
   position: relative;
   z-index: 5;
   padding-bottom: 1.2rem;
-  --reports-font-step: 0rem;
   --reports-font-mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
   --reports-border-soft: rgba(var(--color-accent), 0.12);
   --reports-border-base: rgba(var(--color-accent), 0.2);
@@ -1723,26 +1754,6 @@
     calc(0.84rem + var(--reports-font-step))
   );
   --reports-control-letter-spacing: 0.06em;
-}
-
-#reports-section[data-reports-font-step="-1"] {
-  --reports-font-step: -0.1rem;
-}
-
-#reports-section[data-reports-font-step="1"] {
-  --reports-font-step: 0.1rem;
-}
-
-#reports-section[data-reports-font-step="2"] {
-  --reports-font-step: 0.2rem;
-}
-
-#reports-section[data-reports-font-step="3"] {
-  --reports-font-step: 0.3rem;
-}
-
-#reports-section[data-reports-font-step="4"] {
-  --reports-font-step: 0.4rem;
 }
 
 #reports-primary-actions .btn,
@@ -1843,25 +1854,6 @@
 .reports-level-legend-label {
   font-weight: 700;
   color: rgba(var(--color-heading), 0.88);
-}
-
-.reports-font-controls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 0.35rem;
-}
-
-.reports-font-controls-label {
-  color: rgba(var(--color-sub-text), 0.78);
-  font-family: var(--reports-font-mono);
-  font-size: calc(0.72rem + var(--reports-font-step));
-  letter-spacing: 0.05em;
-}
-
-.reports-font-controls .btn {
-  min-width: 2.9rem;
 }
 
 #reports-primary-actions .btn:disabled,
