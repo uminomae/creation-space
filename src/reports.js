@@ -324,6 +324,13 @@ function normalizeProgressTaxonomy(rawTaxonomy, reports = []) {
     });
 }
 
+function getManifestProgressTaxonomy(payload) {
+    if (!payload || typeof payload !== 'object') return [];
+    if (Array.isArray(payload.progress_taxonomy)) return payload.progress_taxonomy;
+    if (Array.isArray(payload.progress_levels)) return payload.progress_levels;
+    return [];
+}
+
 function resolveReportsScenarioUrl(name) {
     const scenarioName = sanitizeReportsScenarioName(name);
     if (!scenarioName) return '';
@@ -396,7 +403,10 @@ function applyReportScenarioPayload(payload, scenarioPayload) {
     return {
         ...payload,
         generated_at: hasText(scenarioPayload?.generated_at) ? scenarioPayload.generated_at.trim() : payload?.generated_at,
-        progress_taxonomy: mergeProgressTaxonomyEntries(payload?.progress_taxonomy, scenarioPayload?.progress_taxonomy),
+        progress_taxonomy: mergeProgressTaxonomyEntries(
+            getManifestProgressTaxonomy(payload),
+            getManifestProgressTaxonomy(scenarioPayload),
+        ),
         reports: nextReports,
     };
 }
@@ -1384,7 +1394,7 @@ async function loadReportsData() {
     const rawReports = Array.isArray(payload?.reports) ? payload.reports : [];
     state.generatedAt = typeof payload?.generated_at === 'string' ? payload.generated_at : '';
     const normalizedReports = sortReportsById(rawReports.map(normalizeReport));
-    const normalizedTaxonomy = normalizeProgressTaxonomy(payload?.progress_taxonomy, normalizedReports);
+    const normalizedTaxonomy = normalizeProgressTaxonomy(getManifestProgressTaxonomy(payload), normalizedReports);
     state.reports = normalizedReports;
     state.progressTaxonomy = normalizedTaxonomy;
     state.progressLevelCounts = countReportsByProgressLevel(state.reports);
