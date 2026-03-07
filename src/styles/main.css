@@ -30,6 +30,7 @@
       --kesson-offcanvas-bg: rgba(10, 14, 26, 0.98);
       --kesson-font-size-ui-xs: clamp(0.4rem, 1.8vmin, 0.65rem);
       --kesson-font-size-ui-sm: clamp(0.5rem, 2.2vmin, 0.7rem);
+      --kesson-font-size-ui-arrow: clamp(0.7rem, 3.5vmin, 1.2rem);
       --ks-section-heading: 1.05rem;
       --ks-card-title: 1.10rem;
       --ks-card-text: 1.00rem;
@@ -713,16 +714,23 @@
       visibility: visible;
       animation: scrollHintPulse 3s ease-in-out infinite;
     }
-    #scroll-hint span {
+    #scroll-hint span,
+    #scroll-hint-top span,
+    #left-kesson-link span {
       display: block;
-      font-size: clamp(0.4rem, 1.8vmin, 0.65rem);
+      font-size: var(--kesson-font-size-ui-xs, clamp(0.4rem, 1.8vmin, 0.65rem));
       color: rgba(var(--color-sub-text), 0.3);
       font-family: 'Georgia', serif;
       letter-spacing: 0.1em;
+    }
+    #scroll-hint span,
+    #left-kesson-link span {
       margin-bottom: 4px;
     }
-    #scroll-hint .arrow {
-      font-size: clamp(0.7rem, 3.5vmin, 1.2rem);
+    #scroll-hint .arrow,
+    #scroll-hint-top .arrow,
+    #left-kesson-link .arrow {
+      font-size: var(--kesson-font-size-ui-arrow, clamp(0.7rem, 3.5vmin, 1.2rem));
       color: rgba(var(--color-sub-text), 0.25);
     }
     @keyframes scrollHintPulse {
@@ -741,17 +749,7 @@
       text-decoration: none;
       transition: opacity 0.6s ease, visibility 0.6s ease;
     }
-    #left-kesson-link span {
-      display: block;
-      font-size: clamp(0.4rem, 1.8vmin, 0.65rem);
-      color: rgba(var(--color-sub-text), 0.3);
-      font-family: 'Georgia', serif;
-      letter-spacing: 0.1em;
-      margin-bottom: 4px;
-    }
     #left-kesson-link .arrow {
-      font-size: clamp(0.7rem, 3.5vmin, 1.2rem);
-      color: rgba(var(--color-sub-text), 0.25);
       display: inline-block;
       transform: rotate(90deg);
       margin-top: 0;
@@ -785,16 +783,7 @@
       pointer-events: auto;
       animation: scrollHintTopPulse 3s ease-in-out infinite;
     }
-    #scroll-hint-top .arrow {
-      font-size: clamp(0.7rem, 3.5vmin, 1.2rem);
-      color: rgba(var(--color-sub-text), 0.25);
-    }
     #scroll-hint-top span {
-      display: block;
-      font-size: clamp(0.4rem, 1.8vmin, 0.65rem);
-      color: rgba(var(--color-sub-text), 0.3);
-      font-family: 'Georgia', serif;
-      letter-spacing: 0.1em;
       margin-top: 4px;
     }
     #scroll-hint-top:hover span,
