@@ -1,13 +1,12 @@
-// font-size-ctrl.js
-// CHANGED(2026-03-07): #114 — フォントサイズステップ制御 (-1〜+4, 1step = +0.1rem)
+// font-size-ctrl.js -- creation-space
+// CHANGED(2026-03-07): shared topbar font-size control for creation-space
 
 const STEP_REM = 0.1;
-// CHANGED(2026-03-07): #29 / kesson-space #116 Bug #9 — デフォルト +3, レンジ拡張
-const DEFAULT_STEP = 3;
+const DEFAULT_STEP = 0;
 const MIN_STEP = -1;
 const MAX_STEP = 7;
 const STORAGE_KEY = 'kesson-font-step';
-const MIGRATION_KEY = 'kesson-font-step-v2';
+const MIGRATION_KEY = 'kesson-font-step-v3';
 
 const FONT_VARS = {
     '--kesson-font-size-ui-xs': 0.65,
@@ -75,7 +74,7 @@ export function initFontSizeCtrl() {
     try {
         if (!window.localStorage.getItem(MIGRATION_KEY)) {
             const old = window.localStorage.getItem(STORAGE_KEY);
-            if (old === '0' || old === null) {
+            if (old === '3' || old === null) {
                 window.localStorage.setItem(STORAGE_KEY, String(DEFAULT_STEP));
             }
             window.localStorage.setItem(MIGRATION_KEY, '1');
