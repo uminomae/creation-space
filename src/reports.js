@@ -62,7 +62,35 @@ const MODEL_GUIDE_LINKS = [
     },
 ];
 
-const PROGRESS_LEVELS = ['quick_scan', 'structure_exploration', 'analysis_complete'];
+const DEFAULT_PROGRESS_TAXONOMY = [
+    {
+        id: 'quick_scan',
+        labelJa: '簡易調査',
+        labelEn: 'Quick Scan',
+        descriptionJa: '3件/領域',
+        descriptionEn: '3/domain',
+        tone: 'warning',
+        order: 10,
+    },
+    {
+        id: 'structure_exploration',
+        labelJa: '構造類似探索',
+        labelEn: 'Structure Exploration',
+        descriptionJa: '10件/領域',
+        descriptionEn: '10/domain',
+        tone: 'primary',
+        order: 20,
+    },
+    {
+        id: 'analysis_complete',
+        labelJa: '分析完了',
+        labelEn: 'Analysis Complete',
+        descriptionJa: '完了',
+        descriptionEn: 'Completed',
+        tone: 'success',
+        order: 30,
+    },
+];
 
 const STRINGS = {
     ja: {
@@ -71,20 +99,13 @@ const STRINGS = {
         emptyFiltered: '該当する領域がありません。',
         metricGenerated: '更新日',
         metricTotal: '総領域',
-        metricQuickScan: '簡易調査',
-        metricStructureExploration: '構造類似探索',
-        metricAnalysisComplete: '分析完了',
-        levelQuickScan: '簡易調査',
-        levelStructureExploration: '構造類似探索',
-        levelAnalysisComplete: '分析完了',
+        levelLegendPrefix: '進捗レベル',
         levelLegend: '進捗レベル: 簡易調査（3件/領域） / 構造類似探索調査（10件/領域） / 分析完了',
+        levelLegendSingle: '{count}領域すべてが現在「{label}」に分類されています。',
         tabDomains: '領域別レポート',
         tabModels: 'モデル解説',
         filterGroupAria: '領域別レポート絞り込み',
         filterAll: '全件',
-        filterQuickScan: '簡易調査',
-        filterStructureExploration: '構造類似探索',
-        filterAnalysisComplete: '分析完了',
         openStatus: '調査内容',
         statusReportTitle: '調査概要',
         modalTitleDefault: '詳細',
@@ -122,20 +143,13 @@ const STRINGS = {
         emptyFiltered: 'No domains match the current filter.',
         metricGenerated: 'Updated',
         metricTotal: 'Domains',
-        metricQuickScan: 'Quick Scan',
-        metricStructureExploration: 'Structure Exploration',
-        metricAnalysisComplete: 'Analysis Complete',
-        levelQuickScan: 'Quick Scan',
-        levelStructureExploration: 'Structure Exploration',
-        levelAnalysisComplete: 'Analysis Complete',
+        levelLegendPrefix: 'Progress levels',
         levelLegend: 'Progress levels: Quick Scan (3/domain) / Structure Exploration (10/domain) / Analysis Complete',
+        levelLegendSingle: 'All {count} domains are currently classified as "{label}".',
         tabDomains: 'Domain Reports',
         tabModels: 'Model Guides',
         filterGroupAria: 'Filter domain reports',
         filterAll: 'All',
-        filterQuickScan: 'Quick Scan',
-        filterStructureExploration: 'Structure Exploration',
-        filterAnalysisComplete: 'Analysis Complete',
         openStatus: 'Investigation Notes',
         statusReportTitle: 'Survey Overview',
         modalTitleDefault: 'Details',
@@ -170,12 +184,13 @@ const STRINGS = {
 };
 
 let markedParser = null;
-const TABLE_FILTER_VALUES = new Set(['all', ...PROGRESS_LEVELS]);
 
 const state = {
     lang: 'ja',
     generatedAt: '',
     reports: [],
+    progressTaxonomy: DEFAULT_PROGRESS_TAXONOMY.map((entry) => ({ ...entry })),
+    progressLevelCounts: {},
     tableFilter: 'all',
     loadError: false,
     dataUrl: DEFAULT_REPORTS_DATA_URL,
@@ -194,10 +209,6 @@ const state = {
         metrics: null,
         domainGrid: null,
         filterGroup: null,
-        filterAll: null,
-        filterQuickScan: null,
-        filterStructureExploration: null,
-        filterAnalysisComplete: null,
         mdModal: null,
         mdModalTitle: null,
         mdModalMeta: null,
@@ -209,6 +220,190 @@ const state = {
 
 function getStrings(lang = 'ja') {
     return STRINGS[normalizeLang(lang)] || STRINGS.ja;
+}
+
+function getReportsDebugTaxonomyMode() {
+    try {
+        const value = new URLSearchParams(window.location.search).get('reportsTaxonomyTest');
+        return hasText(value) ? value.trim().toLowerCase() : '';
+    } catch {
+        return '';
+    }
+}
+
+function hasText(value) {
+    return typeof value === 'string' && value.trim().length > 0;
+}
+
+function normalizeProgressLevelId(value) {
+    return hasText(value) ? value.trim().toLowerCase() : '';
+}
+
+function formatProgressLevelFallbackLabel(level) {
+    const normalizedLevel = normalizeProgressLevelId(level);
+    if (!normalizedLevel) return '';
+    return slugToTitle(normalizedLevel.replace(/_/g, '-')) || normalizedLevel;
+}
+
+function getDefaultProgressTaxonomyEntry(level) {
+    const normalizedLevel = normalizeProgressLevelId(level);
+    const matched = DEFAULT_PROGRESS_TAXONOMY.find((entry) => entry.id === normalizedLevel);
+    if (matched) {
+        return { ...matched };
+    }
+
+    const fallbackLabel = formatProgressLevelFallbackLabel(normalizedLevel);
+    return {
+        id: normalizedLevel,
+        labelJa: fallbackLabel || normalizedLevel,
+        labelEn: fallbackLabel || normalizedLevel,
+        descriptionJa: '',
+        descriptionEn: '',
+        tone: 'secondary',
+        order: Number.MAX_SAFE_INTEGER,
+    };
+}
+
+function normalizeProgressTaxonomy(rawTaxonomy, reports = []) {
+    const sourceEntries = Array.isArray(rawTaxonomy) && rawTaxonomy.length
+        ? rawTaxonomy
+        : DEFAULT_PROGRESS_TAXONOMY;
+    const normalized = [];
+    const seen = new Set();
+
+    sourceEntries.forEach((entry, index) => {
+        const id = normalizeProgressLevelId(entry?.id);
+        if (!id || seen.has(id)) return;
+
+        const fallback = getDefaultProgressTaxonomyEntry(id);
+        const order = Number(entry?.order);
+        normalized.push({
+            id,
+            labelJa: hasText(entry?.label_ja) ? entry.label_ja.trim() : fallback.labelJa,
+            labelEn: hasText(entry?.label_en) ? entry.label_en.trim() : fallback.labelEn,
+            descriptionJa: hasText(entry?.description_ja) ? entry.description_ja.trim() : fallback.descriptionJa,
+            descriptionEn: hasText(entry?.description_en) ? entry.description_en.trim() : fallback.descriptionEn,
+            tone: hasText(entry?.tone) ? entry.tone.trim().toLowerCase() : fallback.tone,
+            order: Number.isFinite(order) ? order : (fallback.order + index),
+        });
+        seen.add(id);
+    });
+
+    reports.forEach((report, index) => {
+        const id = normalizeProgressLevelId(report?.progressLevel);
+        if (!id || seen.has(id)) return;
+
+        const fallback = getDefaultProgressTaxonomyEntry(id);
+        normalized.push({
+            ...fallback,
+            order: fallback.order === Number.MAX_SAFE_INTEGER ? 1000 + index : fallback.order,
+        });
+        seen.add(id);
+    });
+
+    return normalized.sort((a, b) => {
+        if (a.order !== b.order) return a.order - b.order;
+        return a.id.localeCompare(b.id, 'en');
+    });
+}
+
+function applyDebugProgressTaxonomy({ reports, progressTaxonomy }) {
+    const debugMode = getReportsDebugTaxonomyMode();
+    if (debugMode !== 'split-d22') {
+        return { reports, progressTaxonomy };
+    }
+
+    const injectedLevelId = 'three_of_five_scan_10_theories_per_domain';
+    const nextReports = reports.map((report) => ({
+        ...report,
+        progressLevel: report.id === 'D22' ? report.progressLevel : injectedLevelId,
+    }));
+    const nextTaxonomy = normalizeProgressTaxonomy([
+        ...progressTaxonomy,
+        {
+            id: injectedLevelId,
+            label_ja: '3/5調査:10論/領域',
+            label_en: '3/5 Scan: 10 theories/domain',
+            description_ja: '経営学以外のテスト分類',
+            description_en: 'Test category for all domains except business management',
+            tone: 'secondary',
+            order: 15,
+        },
+    ], nextReports);
+
+    return {
+        reports: nextReports,
+        progressTaxonomy: nextTaxonomy,
+    };
+}
+
+function getProgressTaxonomyEntry(level) {
+    const normalizedLevel = normalizeProgressLevelId(level);
+    return state.progressTaxonomy.find((entry) => entry.id === normalizedLevel)
+        || getDefaultProgressTaxonomyEntry(normalizedLevel);
+}
+
+function getProgressLevelLabel(level, strings = getStrings(state.lang)) {
+    const taxonomyEntry = getProgressTaxonomyEntry(level);
+    return normalizeLang(state.lang) === 'ja'
+        ? (taxonomyEntry.labelJa || taxonomyEntry.labelEn || taxonomyEntry.id)
+        : (taxonomyEntry.labelEn || taxonomyEntry.labelJa || taxonomyEntry.id);
+}
+
+function getProgressLevelDescription(level) {
+    const taxonomyEntry = getProgressTaxonomyEntry(level);
+    return normalizeLang(state.lang) === 'ja'
+        ? (taxonomyEntry.descriptionJa || taxonomyEntry.descriptionEn || '')
+        : (taxonomyEntry.descriptionEn || taxonomyEntry.descriptionJa || '');
+}
+
+function getProgressLevelTone(level) {
+    const taxonomyEntry = getProgressTaxonomyEntry(level);
+    return taxonomyEntry.tone || 'secondary';
+}
+
+function countReportsByProgressLevel(reports = []) {
+    return reports.reduce((counts, report) => {
+        const level = normalizeProgressLevelId(report?.progressLevel);
+        if (!level) return counts;
+        counts[level] = (counts[level] || 0) + 1;
+        return counts;
+    }, {});
+}
+
+function getPresentProgressTaxonomy() {
+    return state.progressTaxonomy.filter((entry) => (state.progressLevelCounts[entry.id] || 0) > 0);
+}
+
+function getAvailableFilterKeys() {
+    return new Set(['all', ...getPresentProgressTaxonomy().map((entry) => entry.id)]);
+}
+
+function getLevelLegendText(strings = getStrings(state.lang)) {
+    const presentTaxonomy = getPresentProgressTaxonomy();
+    if (!presentTaxonomy.length) {
+        return strings.levelLegend;
+    }
+
+    if (presentTaxonomy.length === 1) {
+        const level = presentTaxonomy[0].id;
+        const count = state.progressLevelCounts[level] || 0;
+        const label = getProgressLevelLabel(level, strings);
+        return strings.levelLegendSingle
+            .replace('{count}', String(count))
+            .replace('{label}', label);
+    }
+
+    const lang = normalizeLang(state.lang);
+    const legendItems = presentTaxonomy.map((entry) => {
+        const label = getProgressLevelLabel(entry.id, strings);
+        const description = getProgressLevelDescription(entry.id);
+        if (!description) return label;
+        return lang === 'ja'
+            ? `${label}（${description}）`
+            : `${label} (${description})`;
+    });
+    return `${strings.levelLegendPrefix}: ${legendItems.join(' / ')}`;
 }
 
 async function getMarked() {
@@ -398,12 +593,8 @@ function slugToTitle(slug) {
 }
 
 function normalizeProgressLevel(rawLevel, rawStatus) {
-    if (typeof rawLevel === 'string') {
-        const level = rawLevel.trim().toLowerCase();
-        if (PROGRESS_LEVELS.includes(level)) {
-            return level;
-        }
-    }
+    const level = normalizeProgressLevelId(rawLevel);
+    if (level) return level;
 
     if (rawStatus === 'published') return 'analysis_complete';
     return 'quick_scan';
@@ -473,10 +664,6 @@ function cacheDom() {
     state.dom.metrics = document.getElementById('reports-metrics');
     state.dom.domainGrid = document.getElementById('reports-domain-grid');
     state.dom.filterGroup = document.getElementById('reports-table-filters');
-    state.dom.filterAll = document.getElementById('reports-filter-all');
-    state.dom.filterQuickScan = document.getElementById('reports-filter-quick-scan');
-    state.dom.filterStructureExploration = document.getElementById('reports-filter-structure-exploration');
-    state.dom.filterAnalysisComplete = document.getElementById('reports-filter-analysis-complete');
     state.dom.mdModal = document.getElementById('reports-md-modal');
     state.dom.mdModalTitle = document.getElementById('reports-md-modal-title');
     state.dom.mdModalMeta = document.getElementById('reports-md-meta');
@@ -783,7 +970,7 @@ function bindQuickLinks() {
             if (!(button instanceof HTMLButtonElement)) return;
 
             const nextFilter = button.dataset.filter;
-            if (!TABLE_FILTER_VALUES.has(nextFilter) || nextFilter === state.tableFilter) return;
+            if (!getAvailableFilterKeys().has(nextFilter) || nextFilter === state.tableFilter) return;
 
             state.tableFilter = nextFilter;
             updateFilterButtons();
@@ -795,20 +982,50 @@ function bindQuickLinks() {
     state.quickLinksBound = true;
 }
 
-function updateFilterButtons() {
-    const controls = [
-        ['all', state.dom.filterAll],
-        ['quick_scan', state.dom.filterQuickScan],
-        ['structure_exploration', state.dom.filterStructureExploration],
-        ['analysis_complete', state.dom.filterAnalysisComplete],
-    ];
+function createFilterButton({ filterKey, label, isActive }) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = `btn btn-outline-light btn-sm${isActive ? ' active' : ''}`;
+    button.dataset.filter = filterKey;
+    button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    button.textContent = label;
+    return button;
+}
 
-    controls.forEach(([filterKey, node]) => {
-        if (!(node instanceof HTMLButtonElement)) return;
-        const isActive = state.tableFilter === filterKey;
-        node.classList.toggle('active', isActive);
-        node.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+function updateFilterButtons() {
+    if (!state.dom.filterGroup) return;
+
+    const strings = getStrings(state.lang);
+    const presentTaxonomy = getPresentProgressTaxonomy();
+    if (presentTaxonomy.length <= 1) {
+        state.tableFilter = 'all';
+        state.dom.filterGroup.innerHTML = '';
+        state.dom.filterGroup.classList.add('d-none');
+        return;
+    }
+
+    state.dom.filterGroup.classList.remove('d-none');
+    if (!getAvailableFilterKeys().has(state.tableFilter)) {
+        state.tableFilter = 'all';
+    }
+
+    const fragment = document.createDocumentFragment();
+    fragment.appendChild(createFilterButton({
+        filterKey: 'all',
+        label: strings.filterAll,
+        isActive: state.tableFilter === 'all',
+    }));
+
+    presentTaxonomy.forEach((entry) => {
+        fragment.appendChild(createFilterButton({
+            filterKey: entry.id,
+            label: getProgressLevelLabel(entry.id, strings),
+            isActive: state.tableFilter === entry.id,
+        }));
     });
+
+    state.dom.filterGroup.innerHTML = '';
+    state.dom.filterGroup.appendChild(fragment);
 }
 
 function applyStaticText() {
@@ -816,13 +1033,9 @@ function applyStaticText() {
 
     if (state.dom.domainsHeading) state.dom.domainsHeading.textContent = strings.tabDomains;
     if (state.dom.modelsHeading) state.dom.modelsHeading.textContent = strings.tabModels;
-    if (state.dom.levelLegend) state.dom.levelLegend.textContent = strings.levelLegend;
+    if (state.dom.levelLegend) state.dom.levelLegend.textContent = getLevelLegendText(strings);
 
     if (state.dom.filterGroup) state.dom.filterGroup.setAttribute('aria-label', strings.filterGroupAria);
-    if (state.dom.filterAll) state.dom.filterAll.textContent = strings.filterAll;
-    if (state.dom.filterQuickScan) state.dom.filterQuickScan.textContent = strings.filterQuickScan;
-    if (state.dom.filterStructureExploration) state.dom.filterStructureExploration.textContent = strings.filterStructureExploration;
-    if (state.dom.filterAnalysisComplete) state.dom.filterAnalysisComplete.textContent = strings.filterAnalysisComplete;
     if (state.dom.openStatusBtn) state.dom.openStatusBtn.textContent = strings.openStatus;
     updateFilterButtons();
 
@@ -884,15 +1097,15 @@ function renderFeatureCards() {
     state.dom.featureCards.appendChild(fragment);
 }
 
-function createMetricCard(label, value, variant = 'default') {
+function createMetricCard(label, value, tone = 'default') {
     const col = document.createElement('div');
     col.className = 'col-6 col-lg';
 
     const card = document.createElement('div');
     card.className = 'card report-metric-card h-100 border-secondary-subtle';
-    if (variant === 'quick_scan') card.classList.add('border-warning-subtle');
-    if (variant === 'structure_exploration') card.classList.add('border-primary-subtle');
-    if (variant === 'analysis_complete') card.classList.add('border-success-subtle');
+    if (tone === 'warning') card.classList.add('border-warning-subtle');
+    if (tone === 'primary') card.classList.add('border-primary-subtle');
+    if (tone === 'success') card.classList.add('border-success-subtle');
 
     const body = document.createElement('div');
     body.className = 'card-body py-2 px-3';
@@ -916,18 +1129,21 @@ function renderMetrics() {
     if (!state.dom.metrics) return;
     const strings = getStrings(state.lang);
     const total = state.reports.length;
-    const quickScan = state.reports.filter((report) => report.progressLevel === 'quick_scan').length;
-    const structureExploration = state.reports.filter((report) => report.progressLevel === 'structure_exploration').length;
-    const analysisComplete = state.reports.filter((report) => report.progressLevel === 'analysis_complete').length;
     const generatedValue = state.generatedAt ? formatDate(state.generatedAt) : '-';
 
     state.dom.metrics.innerHTML = '';
     const fragment = document.createDocumentFragment();
     fragment.appendChild(createMetricCard(strings.metricGenerated, generatedValue));
     fragment.appendChild(createMetricCard(strings.metricTotal, String(total)));
-    fragment.appendChild(createMetricCard(strings.metricQuickScan, String(quickScan), 'quick_scan'));
-    fragment.appendChild(createMetricCard(strings.metricStructureExploration, String(structureExploration), 'structure_exploration'));
-    fragment.appendChild(createMetricCard(strings.metricAnalysisComplete, String(analysisComplete), 'analysis_complete'));
+
+    getPresentProgressTaxonomy().forEach((entry) => {
+        fragment.appendChild(createMetricCard(
+            getProgressLevelLabel(entry.id, strings),
+            String(state.progressLevelCounts[entry.id] || 0),
+            getProgressLevelTone(entry.id),
+        ));
+    });
+
     state.dom.metrics.appendChild(fragment);
 }
 
@@ -936,12 +1152,9 @@ function createDomainGridItem({ report, muted = false, strings }) {
     const domainLabel = useJapanese
         ? (report.nameJa || report.nameEn)
         : (report.nameEn || report.nameJa);
-    const level = PROGRESS_LEVELS.includes(report.progressLevel) ? report.progressLevel : 'quick_scan';
-    const statusText = ({
-        quick_scan: strings.levelQuickScan,
-        structure_exploration: strings.levelStructureExploration,
-        analysis_complete: strings.levelAnalysisComplete,
-    })[level] || strings.levelQuickScan;
+    const level = normalizeProgressLevelId(report.progressLevel) || 'quick_scan';
+    const statusText = getProgressLevelLabel(level, strings);
+    const tone = getProgressLevelTone(level);
     const sources = resolveDomainReportSources(report);
     const clickable = sources.length > 0 && !muted;
     const tile = clickable ? document.createElement('button') : document.createElement('article');
@@ -970,10 +1183,11 @@ function createDomainGridItem({ report, muted = false, strings }) {
     }
 
     const badgeClass = ({
-        quick_scan: 'text-bg-warning text-dark',
-        structure_exploration: 'text-bg-primary',
-        analysis_complete: 'text-bg-success',
-    })[level] || 'text-bg-warning text-dark';
+        warning: 'text-bg-warning text-dark',
+        primary: 'text-bg-primary',
+        success: 'text-bg-success',
+        secondary: 'text-bg-secondary',
+    })[tone] || 'text-bg-secondary';
 
     const body = document.createElement('div');
     body.className = 'card-body p-1 d-flex flex-column reports-domain-item-body';
@@ -1043,7 +1257,15 @@ async function loadReportsData() {
     const payload = await response.json();
     const rawReports = Array.isArray(payload?.reports) ? payload.reports : [];
     state.generatedAt = typeof payload?.generated_at === 'string' ? payload.generated_at : '';
-    state.reports = sortReportsById(rawReports.map(normalizeReport));
+    const normalizedReports = sortReportsById(rawReports.map(normalizeReport));
+    const normalizedTaxonomy = normalizeProgressTaxonomy(payload?.progress_taxonomy, normalizedReports);
+    const adjustedData = applyDebugProgressTaxonomy({
+        reports: normalizedReports,
+        progressTaxonomy: normalizedTaxonomy,
+    });
+    state.reports = adjustedData.reports;
+    state.progressTaxonomy = adjustedData.progressTaxonomy;
+    state.progressLevelCounts = countReportsByProgressLevel(state.reports);
 }
 
 export async function initReports({
@@ -1061,6 +1283,8 @@ export async function initReports({
     state.assetMdBaseUrl = normalizeAssetBaseUrl(assetMdBaseUrl, DEFAULT_REPORTS_MD_ASSET_BASE);
     state.generatedAt = '';
     state.reports = [];
+    state.progressTaxonomy = normalizeProgressTaxonomy([]);
+    state.progressLevelCounts = countReportsByProgressLevel([]);
     state.tableFilter = 'all';
     state.loadError = false;
 
@@ -1071,6 +1295,8 @@ export async function initReports({
         state.loadError = false;
     } catch (error) {
         state.reports = [];
+        state.progressTaxonomy = normalizeProgressTaxonomy([]);
+        state.progressLevelCounts = countReportsByProgressLevel([]);
         state.loadError = true;
         console.warn('[reports] load failed:', error);
     }
