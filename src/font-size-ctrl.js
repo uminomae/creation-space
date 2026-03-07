@@ -82,7 +82,6 @@ export function initFontSizeCtrl() {
     } catch {
         // Ignore storage failures and keep in-memory defaults.
     }
-
     applyStep(getCurrentStep());
 
     document.getElementById('font-size-down')?.addEventListener('click', () => {
