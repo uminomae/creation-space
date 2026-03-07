@@ -126,6 +126,19 @@ Notes:
 - `reportsTaxonomyTest=split-d22` remains as a backward-compatible alias.
 - When a scenario is active, the reports section shows the active scenario label under the domain reports heading.
 
+## Reports progress taxonomy
+
+The label taxonomy for domain survey progress is defined and documented in:
+
+**[`docs/survey-progress-taxonomy.md`](docs/survey-progress-taxonomy.md)**
+
+This document records:
+- The current label set (`not_surveyed` / `claude_screened` / `claude_gpt_reviewed` / `human_reviewed`)
+- Design rationale and decision history (incl. Issue #23)
+- Open questions and pending label additions
+
+To change labels: **update the doc first**, then `src/reports.js` → `DEFAULT_PROGRESS_TAXONOMY`.
+
 ## Domain EN markdown audit / sync
 
 If `domains/en/pdf/*.pdf` exists in `pjdhiro` but `domains/en/md/*.md` is missing, use:
