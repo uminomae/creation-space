@@ -10,6 +10,10 @@ const DEFAULT_REPORTS_DATA_URL = `${PJDHIRO_CREATION_RAW}/manifests/domains.json
 const DEFAULT_REPORTS_ASSET_BASE = `${PJDHIRO_CREATION_PAGES}/`;
 const DEFAULT_REPORTS_MD_ASSET_BASE = `${PJDHIRO_CREATION_RAW}/`;
 const REPORTS_SCENARIO_BASE = 'assets/reports/scenarios';
+const REPORTS_FONT_STEP_STORAGE_KEY = 'creation-space:reports-font-step';
+const REPORTS_FONT_STEP_DEFAULT = 0;
+const REPORTS_FONT_STEP_MIN = -1;
+const REPORTS_FONT_STEP_MAX = 4;
 const STATUS_REPORT_LINKS = {
     ja: {
         mdUrl: `${PJDHIRO_CREATION_RAW}/survey/ja/md/survey-status.md`,
@@ -117,6 +121,14 @@ const STRINGS = {
         tabDomains: '領域別レポート',
         tabModels: 'モデル解説',
         filterGroupAria: '領域別レポート絞り込み',
+        fontControlsAria: '領域別レポートの文字サイズ',
+        fontSizeLabel: '文字サイズ',
+        fontSizeDecrease: 'A-',
+        fontSizeReset: 'A',
+        fontSizeIncrease: 'A+',
+        fontSizeDecreaseAria: '領域別レポートの文字を小さくする',
+        fontSizeResetAria: '領域別レポートの文字サイズを標準に戻す',
+        fontSizeIncreaseAria: '領域別レポートの文字を大きくする',
         filterAll: '全件',
         openStatus: '調査内容',
         statusReportTitle: '調査概要',
@@ -163,6 +175,14 @@ const STRINGS = {
         tabDomains: 'Domain Reports',
         tabModels: 'Model Guides',
         filterGroupAria: 'Filter domain reports',
+        fontControlsAria: 'Text size for domain reports',
+        fontSizeLabel: 'Text size',
+        fontSizeDecrease: 'A-',
+        fontSizeReset: 'A',
+        fontSizeIncrease: 'A+',
+        fontSizeDecreaseAria: 'Decrease text size for domain reports',
+        fontSizeResetAria: 'Reset text size for domain reports',
+        fontSizeIncreaseAria: 'Increase text size for domain reports',
         filterAll: 'All',
         openStatus: 'Investigation Notes',
         statusReportTitle: 'Survey Overview',
@@ -207,6 +227,7 @@ const state = {
     progressLevelCounts: {},
     activeScenario: null,
     tableFilter: 'all',
+    reportsFontStep: REPORTS_FONT_STEP_DEFAULT,
     loadError: false,
     dataUrl: DEFAULT_REPORTS_DATA_URL,
     assetBaseUrl: DEFAULT_REPORTS_ASSET_BASE,
@@ -215,8 +236,14 @@ const state = {
     mdRequestId: 0,
     quickLinksBound: false,
     dom: {
+        section: null,
         error: null,
         openStatusBtn: null,
+        fontControls: null,
+        fontControlsLabel: null,
+        fontDecreaseBtn: null,
+        fontResetBtn: null,
+        fontIncreaseBtn: null,
         domainsHeading: null,
         modelsHeading: null,
         scenarioNote: null,
@@ -259,6 +286,73 @@ function formatReportsScenarioFallbackLabel(name) {
 
 function hasText(value) {
     return typeof value === 'string' && value.trim().length > 0;
+}
+
+function normalizeReportsFontStep(value) {
+    const parsed = Number.parseInt(String(value), 10);
+    if (!Number.isFinite(parsed)) return REPORTS_FONT_STEP_DEFAULT;
+    return Math.min(REPORTS_FONT_STEP_MAX, Math.max(REPORTS_FONT_STEP_MIN, parsed));
+}
+
+function loadStoredReportsFontStep() {
+    try {
+        return normalizeReportsFontStep(window.localStorage?.getItem(REPORTS_FONT_STEP_STORAGE_KEY));
+    } catch {
+        return REPORTS_FONT_STEP_DEFAULT;
+    }
+}
+
+function persistReportsFontStep(step) {
+    try {
+        window.localStorage?.setItem(REPORTS_FONT_STEP_STORAGE_KEY, String(normalizeReportsFontStep(step)));
+    } catch {
+        // Ignore storage failures and keep the in-memory value.
+    }
+}
+
+function getReportsFontStepStateLabel() {
+    const normalized = normalizeReportsFontStep(state.reportsFontStep);
+    return normalized >= 0 ? `+${normalized}` : String(normalized);
+}
+
+function updateReportsFontControls() {
+    const strings = getStrings(state.lang);
+
+    if (state.dom.fontControls) {
+        state.dom.fontControls.setAttribute('aria-label', strings.fontControlsAria);
+    }
+    if (state.dom.fontControlsLabel) {
+        state.dom.fontControlsLabel.textContent = `${strings.fontSizeLabel}: ${getReportsFontStepStateLabel()}`;
+    }
+    if (state.dom.fontDecreaseBtn) {
+        state.dom.fontDecreaseBtn.textContent = strings.fontSizeDecrease;
+        state.dom.fontDecreaseBtn.setAttribute('aria-label', strings.fontSizeDecreaseAria);
+        state.dom.fontDecreaseBtn.disabled = state.reportsFontStep <= REPORTS_FONT_STEP_MIN;
+    }
+    if (state.dom.fontResetBtn) {
+        state.dom.fontResetBtn.textContent = strings.fontSizeReset;
+        state.dom.fontResetBtn.setAttribute('aria-label', strings.fontSizeResetAria);
+        state.dom.fontResetBtn.disabled = state.reportsFontStep === REPORTS_FONT_STEP_DEFAULT;
+    }
+    if (state.dom.fontIncreaseBtn) {
+        state.dom.fontIncreaseBtn.textContent = strings.fontSizeIncrease;
+        state.dom.fontIncreaseBtn.setAttribute('aria-label', strings.fontSizeIncreaseAria);
+        state.dom.fontIncreaseBtn.disabled = state.reportsFontStep >= REPORTS_FONT_STEP_MAX;
+    }
+}
+
+function applyReportsFontStep() {
+    if (state.dom.section) {
+        state.dom.section.setAttribute('data-reports-font-step', String(state.reportsFontStep));
+    }
+    updateReportsFontControls();
+}
+
+function setReportsFontStep(nextStep) {
+    const normalized = normalizeReportsFontStep(nextStep);
+    state.reportsFontStep = normalized;
+    persistReportsFontStep(normalized);
+    applyReportsFontStep();
 }
 
 function normalizeProgressLevelId(value) {
@@ -491,31 +585,54 @@ function getAvailableFilterKeys() {
     return new Set(['all', ...getPresentProgressTaxonomy().map((entry) => entry.id)]);
 }
 
-function getLevelLegendText(strings = getStrings(state.lang)) {
+function renderLevelLegend(strings = getStrings(state.lang)) {
+    if (!state.dom.levelLegend) return;
+
+    const legendNode = state.dom.levelLegend;
     const presentTaxonomy = getPresentProgressTaxonomy();
     if (!presentTaxonomy.length) {
-        return state.loadError ? strings.levelLegendUnavailable : strings.levelLegend;
+        legendNode.textContent = state.loadError ? strings.levelLegendUnavailable : strings.levelLegend;
+        return;
     }
 
     if (presentTaxonomy.length === 1) {
         const level = presentTaxonomy[0].id;
         const count = state.progressLevelCounts[level] || 0;
         const label = getProgressLevelLabel(level, strings);
-        return strings.levelLegendSingle
+        legendNode.textContent = strings.levelLegendSingle
             .replace('{count}', String(count))
             .replace('{label}', label);
+        return;
     }
 
     const lang = normalizeLang(state.lang);
-    const legendItems = presentTaxonomy.map((entry) => {
-        const label = getProgressLevelLabel(entry.id, strings);
+    legendNode.innerHTML = '';
+
+    const fragment = document.createDocumentFragment();
+    const prefixNode = document.createElement('span');
+    prefixNode.className = 'reports-level-legend-prefix';
+    prefixNode.textContent = `${strings.levelLegendPrefix}:`;
+    fragment.appendChild(prefixNode);
+
+    presentTaxonomy.forEach((entry) => {
+        const lineNode = document.createElement('span');
+        lineNode.className = 'reports-level-legend-line';
+        lineNode.appendChild(document.createTextNode(lang === 'ja' ? '・' : '- '));
+
+        const labelNode = document.createElement('span');
+        labelNode.className = 'reports-level-legend-label';
+        labelNode.textContent = getProgressLevelLabel(entry.id, strings);
+        lineNode.appendChild(labelNode);
+
         const description = getProgressLevelDescription(entry.id);
-        if (!description) return label;
-        return lang === 'ja'
-            ? `${label}（${description}）`
-            : `${label} (${description})`;
+        if (description) {
+            lineNode.appendChild(document.createTextNode(lang === 'ja' ? `：${description}` : `: ${description}`));
+        }
+
+        fragment.appendChild(lineNode);
     });
-    return `${strings.levelLegendPrefix}: ${legendItems.join(' / ')}`;
+
+    legendNode.appendChild(fragment);
 }
 
 async function getMarked() {
@@ -770,8 +887,14 @@ function sortReportsById(list) {
 }
 
 function cacheDom() {
+    state.dom.section = document.getElementById('reports-section');
     state.dom.error = document.getElementById('reports-error');
     state.dom.openStatusBtn = document.getElementById('reports-open-status-btn');
+    state.dom.fontControls = document.getElementById('reports-font-controls');
+    state.dom.fontControlsLabel = document.getElementById('reports-font-controls-label');
+    state.dom.fontDecreaseBtn = document.getElementById('reports-font-decrease-btn');
+    state.dom.fontResetBtn = document.getElementById('reports-font-reset-btn');
+    state.dom.fontIncreaseBtn = document.getElementById('reports-font-increase-btn');
     state.dom.domainsHeading = document.getElementById('reports-domains-heading');
     state.dom.modelsHeading = document.getElementById('reports-models-heading');
     state.dom.scenarioNote = document.getElementById('reports-scenario-note');
@@ -1095,6 +1218,29 @@ function bindQuickLinks() {
         state.dom.filterGroup.dataset.boundClick = '1';
     }
 
+    if (state.dom.fontControls && !state.dom.fontControls.dataset.boundClick) {
+        state.dom.fontControls.addEventListener('click', (event) => {
+            const target = event.target;
+            if (!(target instanceof HTMLElement)) return;
+            const button = target.closest('button[data-font-step-action]');
+            if (!(button instanceof HTMLButtonElement)) return;
+
+            const action = button.dataset.fontStepAction;
+            if (action === 'decrease') {
+                setReportsFontStep(state.reportsFontStep - 1);
+                return;
+            }
+            if (action === 'increase') {
+                setReportsFontStep(state.reportsFontStep + 1);
+                return;
+            }
+            if (action === 'reset') {
+                setReportsFontStep(REPORTS_FONT_STEP_DEFAULT);
+            }
+        });
+        state.dom.fontControls.dataset.boundClick = '1';
+    }
+
     state.quickLinksBound = true;
 }
 
@@ -1164,10 +1310,11 @@ function applyStaticText() {
             state.dom.scenarioNote.classList.add('d-none');
         }
     }
-    if (state.dom.levelLegend) state.dom.levelLegend.textContent = getLevelLegendText(strings);
+    renderLevelLegend(strings);
 
     if (state.dom.filterGroup) state.dom.filterGroup.setAttribute('aria-label', strings.filterGroupAria);
     if (state.dom.openStatusBtn) state.dom.openStatusBtn.textContent = strings.openStatus;
+    updateReportsFontControls();
     updateFilterButtons();
 
     if (state.dom.mdCloseBtn) state.dom.mdCloseBtn.textContent = strings.modalClose;
@@ -1307,8 +1454,11 @@ function createDomainGridItem({ report, muted = false, strings }) {
     ].join(' ').trim();
     tile.setAttribute('data-report-level', level);
     tile.setAttribute('aria-label', `${reportTitle} ${statusText}`);
-    if (report.progressNote) {
-        tile.setAttribute('title', `${reportTitle} — ${report.progressNote}`);
+    const hoverHint = [statusDescription, report.progressNote]
+        .filter((part) => hasText(part))
+        .join('\n');
+    if (hoverHint) {
+        tile.setAttribute('title', hoverHint);
     }
     if (!clickable) {
         tile.setAttribute('aria-disabled', 'true');
@@ -1334,11 +1484,16 @@ function createDomainGridItem({ report, muted = false, strings }) {
     const statusNode = document.createElement('span');
     statusNode.className = `badge rounded-pill ${badgeClass} reports-domain-item-status`;
     statusNode.textContent = statusText;
-    statusNode.setAttribute('title', statusDescription);
+    if (hoverHint) {
+        statusNode.setAttribute('title', hoverHint);
+    }
 
     const descNode = document.createElement('div');
     descNode.className = 'reports-domain-item-desc small text-body-secondary';
     descNode.textContent = statusDescription;
+    if (hoverHint) {
+        descNode.setAttribute('title', hoverHint);
+    }
 
     const nameNode = document.createElement('div');
     nameNode.className = 'reports-domain-item-name';
@@ -1426,6 +1581,8 @@ export async function initReports({
     assetMdBaseUrl = DEFAULT_REPORTS_MD_ASSET_BASE,
 } = {}) {
     cacheDom();
+    state.reportsFontStep = loadStoredReportsFontStep();
+    applyReportsFontStep();
     bindQuickLinks();
 
     state.lang = normalizeLang(lang);
@@ -1458,5 +1615,6 @@ export async function initReports({
 
 export function setReportsLanguage(lang) {
     state.lang = normalizeLang(lang);
+    updateReportsFontControls();
     renderReports();
 }

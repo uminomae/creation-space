@@ -221,6 +221,12 @@
         <div class="reports-overview mb-3">
           <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-2" id="reports-primary-actions">
             <button id="reports-open-status-btn" type="button" class="btn btn-outline-light btn-sm reports-status-cta">調査内容</button>
+            <div id="reports-font-controls" class="reports-font-controls" role="group" aria-label="領域別レポートの文字サイズ">
+              <span id="reports-font-controls-label" class="reports-font-controls-label">文字サイズ: +0</span>
+              <button id="reports-font-decrease-btn" type="button" class="btn btn-outline-light btn-sm" data-font-step-action="decrease" aria-label="領域別レポートの文字を小さくする">A-</button>
+              <button id="reports-font-reset-btn" type="button" class="btn btn-outline-light btn-sm" data-font-step-action="reset" aria-label="領域別レポートの文字サイズを標準に戻す">A</button>
+              <button id="reports-font-increase-btn" type="button" class="btn btn-outline-light btn-sm" data-font-step-action="increase" aria-label="領域別レポートの文字を大きくする">A+</button>
+            </div>
           </div>
           <div id="reports-metrics" class="row g-2" aria-live="polite"></div>
         </div>
