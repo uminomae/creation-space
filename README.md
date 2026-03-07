@@ -10,6 +10,12 @@ cd <your-local-path>/creation-space
 # then open http://localhost:3001/
 ```
 
+Optional port:
+
+```bash
+./server.sh 4173
+```
+
 ## URL query (Intent timing seed)
 
 You can seed the initial Intent view from URL params:
