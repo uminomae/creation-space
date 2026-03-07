@@ -1,10 +1,12 @@
 // font-size-ctrl.js -- creation-space
-// CHANGED(2026-03-07): topbar A-/↺/A+ 統合 (kesson-space #114 互換)
+// CHANGED(2026-03-07): shared topbar font-size control for creation-space
 
 const STEP_REM = 0.1;
+const DEFAULT_STEP = 0;
 const MIN_STEP = -1;
-const MAX_STEP = 4;
+const MAX_STEP = 7;
 const STORAGE_KEY = 'kesson-font-step';
+const MIGRATION_KEY = 'kesson-font-step-v3';
 
 const FONT_VARS = {
     '--kesson-font-size-ui-xs': 0.65,
@@ -20,19 +22,20 @@ const CLASS_VARS = {
     '--ks-overlay-tagline-en': 0.48,
     '--ks-control-guide': 0.45,
     '--ks-footer-line': 0.45,
+    '--ks-surface-btn': 0.55,
 };
 
 function normalizeStep(step) {
     const parsed = Number.parseInt(String(step), 10);
-    if (!Number.isFinite(parsed)) return 0;
+    if (!Number.isFinite(parsed)) return DEFAULT_STEP;
     return Math.min(MAX_STEP, Math.max(MIN_STEP, parsed));
 }
 
 function getCurrentStep() {
     try {
-        return normalizeStep(window.localStorage.getItem(STORAGE_KEY) ?? '0');
+        return normalizeStep(window.localStorage.getItem(STORAGE_KEY) ?? String(DEFAULT_STEP));
     } catch {
-        return 0;
+        return DEFAULT_STEP;
     }
 }
 
@@ -64,10 +67,21 @@ function applyStep(step) {
     const reset = document.getElementById('font-size-reset');
     if (down) down.disabled = normalized <= MIN_STEP;
     if (up) up.disabled = normalized >= MAX_STEP;
-    if (reset) reset.disabled = normalized === 0;
+    if (reset) reset.disabled = normalized === DEFAULT_STEP;
 }
 
 export function initFontSizeCtrl() {
+    try {
+        if (!window.localStorage.getItem(MIGRATION_KEY)) {
+            const old = window.localStorage.getItem(STORAGE_KEY);
+            if (old === '3' || old === null) {
+                window.localStorage.setItem(STORAGE_KEY, String(DEFAULT_STEP));
+            }
+            window.localStorage.setItem(MIGRATION_KEY, '1');
+        }
+    } catch {
+        // Ignore storage failures and keep in-memory defaults.
+    }
     applyStep(getCurrentStep());
 
     document.getElementById('font-size-down')?.addEventListener('click', () => {
@@ -79,6 +93,6 @@ export function initFontSizeCtrl() {
         if (current < MAX_STEP) setStep(current + 1);
     });
     document.getElementById('font-size-reset')?.addEventListener('click', () => {
-        setStep(0);
+        setStep(DEFAULT_STEP);
     });
 }
