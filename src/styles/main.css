@@ -1877,35 +1877,46 @@
   outline-offset: 1px;
 }
 
-.reports-domain-item.is-level-quick-scan {
+.reports-domain-item.is-level-not-surveyed {
+  border-color: rgba(var(--bs-secondary-rgb), 0.32);
+  background: rgba(var(--bs-secondary-rgb), 0.06);
+}
+
+.reports-domain-item.is-level-claude-screened {
   border-color: rgba(var(--bs-warning-rgb), 0.32);
   background: rgba(var(--bs-warning-rgb), 0.045);
 }
 
-.reports-domain-item.is-level-structure-exploration {
+.reports-domain-item.is-level-claude-gpt-reviewed {
   border-color: rgba(var(--bs-primary-rgb), 0.3);
   background: rgba(var(--bs-primary-rgb), 0.045);
 }
 
-.reports-domain-item.is-level-analysis-complete {
+.reports-domain-item.is-level-human-reviewed {
   border-color: rgba(var(--bs-success-rgb), 0.32);
   background: rgba(var(--bs-success-rgb), 0.045);
 }
 
-.reports-domain-item.is-level-quick-scan:not(.is-filter-muted):hover,
-.reports-domain-item.is-level-quick-scan:not(.is-filter-muted):focus-visible {
+.reports-domain-item.is-level-not-surveyed:not(.is-filter-muted):hover,
+.reports-domain-item.is-level-not-surveyed:not(.is-filter-muted):focus-visible {
+  border-color: rgba(var(--bs-secondary-rgb), 0.5);
+  background: rgba(var(--bs-secondary-rgb), 0.09);
+}
+
+.reports-domain-item.is-level-claude-screened:not(.is-filter-muted):hover,
+.reports-domain-item.is-level-claude-screened:not(.is-filter-muted):focus-visible {
   border-color: rgba(var(--bs-warning-rgb), 0.54);
   background: rgba(var(--bs-warning-rgb), 0.085);
 }
 
-.reports-domain-item.is-level-structure-exploration:not(.is-filter-muted):hover,
-.reports-domain-item.is-level-structure-exploration:not(.is-filter-muted):focus-visible {
+.reports-domain-item.is-level-claude-gpt-reviewed:not(.is-filter-muted):hover,
+.reports-domain-item.is-level-claude-gpt-reviewed:not(.is-filter-muted):focus-visible {
   border-color: rgba(var(--bs-primary-rgb), 0.52);
   background: rgba(var(--bs-primary-rgb), 0.085);
 }
 
-.reports-domain-item.is-level-analysis-complete:not(.is-filter-muted):hover,
-.reports-domain-item.is-level-analysis-complete:not(.is-filter-muted):focus-visible {
+.reports-domain-item.is-level-human-reviewed:not(.is-filter-muted):hover,
+.reports-domain-item.is-level-human-reviewed:not(.is-filter-muted):focus-visible {
   border-color: rgba(var(--bs-success-rgb), 0.54);
   background: rgba(var(--bs-success-rgb), 0.085);
 }
@@ -1930,6 +1941,15 @@
   font-family: var(--reports-font-mono);
   font-size: 0.56rem;
   letter-spacing: 0.04em;
+}
+
+.reports-domain-item-desc {
+  font-size: 0.7rem;
+  line-height: 1.3;
+  opacity: 0.75;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .reports-domain-item-name {

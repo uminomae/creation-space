@@ -65,31 +65,40 @@ const MODEL_GUIDE_LINKS = [
 
 const DEFAULT_PROGRESS_TAXONOMY = [
     {
-        id: 'quick_scan',
-        labelJa: '簡易調査',
-        labelEn: 'Quick Scan',
-        descriptionJa: '3件/領域',
-        descriptionEn: '3/domain',
-        tone: 'warning',
+        id: 'not_surveyed',
+        labelJa: '調査前',
+        labelEn: 'Not yet surveyed',
+        descriptionJa: 'Claude・GPTによる調査未実施',
+        descriptionEn: 'No AI-assisted survey conducted yet',
+        tone: 'secondary',
         order: 10,
     },
     {
-        id: 'structure_exploration',
-        labelJa: '構造類似探索',
-        labelEn: 'Structure Exploration',
-        descriptionJa: '10件/領域',
-        descriptionEn: '10/domain',
-        tone: 'primary',
+        id: 'claude_screened',
+        labelJa: 'Claude初期抽出済',
+        labelEn: 'Claude-screened',
+        descriptionJa: 'Claude（1ターン）による候補ピックアップ実施',
+        descriptionEn: 'Candidate screening via single-turn Claude dialogue',
+        tone: 'warning',
         order: 20,
     },
     {
-        id: 'analysis_complete',
-        labelJa: '分析完了',
-        labelEn: 'Analysis Complete',
-        descriptionJa: '完了',
-        descriptionEn: 'Completed',
-        tone: 'success',
+        id: 'claude_gpt_reviewed',
+        labelJa: 'Claude＋GPT照合済',
+        labelEn: 'Claude + GPT reviewed',
+        descriptionJa: 'Claude初期抽出＋ChatGPT独立レビュー突き合わせ実施',
+        descriptionEn: 'Claude screening + ChatGPT independent review cross-checked',
+        tone: 'primary',
         order: 30,
+    },
+    {
+        id: 'human_reviewed',
+        labelJa: '人間レビュー済',
+        labelEn: 'Human-reviewed',
+        descriptionJa: 'Claude＋GPT照合に加え、人間による最終レビュー実施',
+        descriptionEn: 'Claude + GPT review plus human final review completed',
+        tone: 'success',
+        order: 40,
     },
 ];
 
@@ -697,10 +706,13 @@ function slugToTitle(slug) {
 
 function normalizeProgressLevel(rawLevel, rawStatus) {
     const level = normalizeProgressLevelId(rawLevel);
+    if (level === 'quick_scan') return 'claude_screened';
+    if (level === 'structure_exploration') return 'claude_screened';
+    if (level === 'analysis_complete') return 'claude_gpt_reviewed';
     if (level) return level;
 
-    if (rawStatus === 'published') return 'analysis_complete';
-    return 'quick_scan';
+    if (rawStatus === 'published') return 'claude_gpt_reviewed';
+    return 'not_surveyed';
 }
 
 function normalizeReport(report, index) {
@@ -1271,8 +1283,9 @@ function createDomainGridItem({ report, muted = false, strings }) {
     const domainLabel = useJapanese
         ? (report.nameJa || report.nameEn)
         : (report.nameEn || report.nameJa);
-    const level = normalizeProgressLevelId(report.progressLevel) || 'quick_scan';
+    const level = normalizeProgressLevelId(report.progressLevel) || 'not_surveyed';
     const statusText = getProgressLevelLabel(level, strings);
+    const statusDescription = getProgressLevelDescription(level);
     const tone = getProgressLevelTone(level);
     const sources = resolveDomainReportSources(report);
     const clickable = sources.length > 0 && !muted;
@@ -1321,6 +1334,11 @@ function createDomainGridItem({ report, muted = false, strings }) {
     const statusNode = document.createElement('span');
     statusNode.className = `badge rounded-pill ${badgeClass} reports-domain-item-status`;
     statusNode.textContent = statusText;
+    statusNode.setAttribute('title', statusDescription);
+
+    const descNode = document.createElement('div');
+    descNode.className = 'reports-domain-item-desc small text-body-secondary';
+    descNode.textContent = statusDescription;
 
     const nameNode = document.createElement('div');
     nameNode.className = 'reports-domain-item-name';
@@ -1330,6 +1348,7 @@ function createDomainGridItem({ report, muted = false, strings }) {
     head.appendChild(idNode);
     head.appendChild(statusNode);
     body.appendChild(head);
+    body.appendChild(descNode);
     body.appendChild(nameNode);
     tile.appendChild(body);
 
