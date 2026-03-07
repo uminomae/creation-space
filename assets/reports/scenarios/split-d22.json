@@ -1,0 +1,28 @@
+{
+  "version": "1.0",
+  "generated_at": "2026-03-07T00:00:00+09:00",
+  "label_ja": "分類確認: D22分離",
+  "label_en": "Taxonomy check: split D22",
+  "description_ja": "D22のみ既存分類、他29領域を新分類に振り分ける目視確認用シナリオ。",
+  "description_en": "Visual-check scenario that keeps D22 in the existing category and moves the other 29 domains into a new category.",
+  "description": "Split D22 from the rest of the domain reports for taxonomy testing.",
+  "progress_taxonomy": [
+    {
+      "id": "three_of_five_scan_10_theories_per_domain",
+      "label_ja": "3/5調査:10論/領域",
+      "label_en": "3/5 Scan: 10 theories/domain",
+      "description_ja": "経営学以外のテスト分類",
+      "description_en": "Test category for all domains except business management",
+      "tone": "secondary",
+      "order": 15
+    }
+  ],
+  "report_overrides": {
+    "default": {
+      "progress_level": "three_of_five_scan_10_theories_per_domain"
+    },
+    "D22": {
+      "progress_level": "structure_exploration"
+    }
+  }
+}

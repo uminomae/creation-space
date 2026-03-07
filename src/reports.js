@@ -9,6 +9,7 @@ const PJDHIRO_CREATION_RAW = `${PJDHIRO_RAW_BASE}${CREATION_PATH}`;
 const DEFAULT_REPORTS_DATA_URL = `${PJDHIRO_CREATION_RAW}/manifests/domains.json`;
 const DEFAULT_REPORTS_ASSET_BASE = `${PJDHIRO_CREATION_PAGES}/`;
 const DEFAULT_REPORTS_MD_ASSET_BASE = `${PJDHIRO_CREATION_RAW}/`;
+const REPORTS_SCENARIO_BASE = 'assets/reports/scenarios';
 const STATUS_REPORT_LINKS = {
     ja: {
         mdUrl: `${PJDHIRO_CREATION_RAW}/survey/ja/md/survey-status.md`,
@@ -100,8 +101,10 @@ const STRINGS = {
         metricGenerated: '更新日',
         metricTotal: '総領域',
         levelLegendPrefix: '進捗レベル',
-        levelLegend: '進捗レベル: 簡易調査（3件/領域） / 構造類似探索調査（10件/領域） / 分析完了',
+        levelLegend: '進捗分類を読み込み中...',
+        levelLegendUnavailable: '進捗分類を表示できません。',
         levelLegendSingle: '{count}領域すべてが現在「{label}」に分類されています。',
+        scenarioPrefix: '表示シナリオ',
         tabDomains: '領域別レポート',
         tabModels: 'モデル解説',
         filterGroupAria: '領域別レポート絞り込み',
@@ -144,8 +147,10 @@ const STRINGS = {
         metricGenerated: 'Updated',
         metricTotal: 'Domains',
         levelLegendPrefix: 'Progress levels',
-        levelLegend: 'Progress levels: Quick Scan (3/domain) / Structure Exploration (10/domain) / Analysis Complete',
+        levelLegend: 'Loading progress categories...',
+        levelLegendUnavailable: 'Progress categories are unavailable.',
         levelLegendSingle: 'All {count} domains are currently classified as "{label}".',
+        scenarioPrefix: 'Preview scenario',
         tabDomains: 'Domain Reports',
         tabModels: 'Model Guides',
         filterGroupAria: 'Filter domain reports',
@@ -191,6 +196,7 @@ const state = {
     reports: [],
     progressTaxonomy: DEFAULT_PROGRESS_TAXONOMY.map((entry) => ({ ...entry })),
     progressLevelCounts: {},
+    activeScenario: null,
     tableFilter: 'all',
     loadError: false,
     dataUrl: DEFAULT_REPORTS_DATA_URL,
@@ -204,6 +210,7 @@ const state = {
         openStatusBtn: null,
         domainsHeading: null,
         modelsHeading: null,
+        scenarioNote: null,
         levelLegend: null,
         featureCards: null,
         metrics: null,
@@ -222,13 +229,23 @@ function getStrings(lang = 'ja') {
     return STRINGS[normalizeLang(lang)] || STRINGS.ja;
 }
 
-function getReportsDebugTaxonomyMode() {
+function sanitizeReportsScenarioName(value) {
+    if (!hasText(value)) return '';
+    return value.trim().toLowerCase().replace(/[^a-z0-9_-]+/g, '');
+}
+
+function getReportsScenarioName() {
     try {
-        const value = new URLSearchParams(window.location.search).get('reportsTaxonomyTest');
-        return hasText(value) ? value.trim().toLowerCase() : '';
+        const params = new URLSearchParams(window.location.search);
+        return sanitizeReportsScenarioName(params.get('reportsScenario') || params.get('reportsTaxonomyTest'));
     } catch {
         return '';
     }
+}
+
+function formatReportsScenarioFallbackLabel(name) {
+    const sanitized = sanitizeReportsScenarioName(name);
+    return sanitized || '';
 }
 
 function hasText(value) {
@@ -307,34 +324,110 @@ function normalizeProgressTaxonomy(rawTaxonomy, reports = []) {
     });
 }
 
-function applyDebugProgressTaxonomy({ reports, progressTaxonomy }) {
-    const debugMode = getReportsDebugTaxonomyMode();
-    if (debugMode !== 'split-d22') {
-        return { reports, progressTaxonomy };
+function resolveReportsScenarioUrl(name) {
+    const scenarioName = sanitizeReportsScenarioName(name);
+    if (!scenarioName) return '';
+    return `${REPORTS_SCENARIO_BASE}/${scenarioName}.json`;
+}
+
+function mergeProgressTaxonomyEntries(baseEntries = [], overrideEntries = []) {
+    const merged = [];
+    const indexById = new Map();
+
+    const appendEntry = (entry) => {
+        const id = normalizeProgressLevelId(entry?.id);
+        if (!id) return;
+
+        const nextEntry = { ...entry, id };
+        if (indexById.has(id)) {
+            merged[indexById.get(id)] = {
+                ...merged[indexById.get(id)],
+                ...nextEntry,
+                id,
+            };
+            return;
+        }
+
+        indexById.set(id, merged.length);
+        merged.push(nextEntry);
+    };
+
+    (Array.isArray(baseEntries) ? baseEntries : []).forEach(appendEntry);
+    (Array.isArray(overrideEntries) ? overrideEntries : []).forEach(appendEntry);
+    return merged;
+}
+
+function mergeReportOverride(report, override) {
+    if (!report || !override || typeof override !== 'object') return report;
+
+    const nextReport = { ...report };
+    Object.entries(override).forEach(([key, value]) => {
+        if (value === null || value === undefined) return;
+        if ((key === 'md' || key === 'pdf') && typeof value === 'object') {
+            nextReport[key] = value;
+            return;
+        }
+        if (typeof value === 'string') {
+            const trimmed = value.trim();
+            if (!trimmed) return;
+            nextReport[key] = trimmed;
+            return;
+        }
+        nextReport[key] = value;
+    });
+    return nextReport;
+}
+
+function applyReportScenarioPayload(payload, scenarioPayload) {
+    if (!payload || !scenarioPayload || typeof scenarioPayload !== 'object') {
+        return payload;
     }
 
-    const injectedLevelId = 'three_of_five_scan_10_theories_per_domain';
-    const nextReports = reports.map((report) => ({
-        ...report,
-        progressLevel: report.id === 'D22' ? report.progressLevel : injectedLevelId,
-    }));
-    const nextTaxonomy = normalizeProgressTaxonomy([
-        ...progressTaxonomy,
-        {
-            id: injectedLevelId,
-            label_ja: '3/5調査:10論/領域',
-            label_en: '3/5 Scan: 10 theories/domain',
-            description_ja: '経営学以外のテスト分類',
-            description_en: 'Test category for all domains except business management',
-            tone: 'secondary',
-            order: 15,
-        },
-    ], nextReports);
+    const baseReports = Array.isArray(payload?.reports) ? payload.reports : [];
+    const reportOverrides = scenarioPayload?.report_overrides && typeof scenarioPayload.report_overrides === 'object'
+        ? scenarioPayload.report_overrides
+        : {};
+    const defaultOverride = reportOverrides.default;
+    const nextReports = baseReports.map((report) => {
+        const withDefault = mergeReportOverride(report, defaultOverride);
+        return mergeReportOverride(withDefault, reportOverrides[report?.id]);
+    });
 
     return {
+        ...payload,
+        generated_at: hasText(scenarioPayload?.generated_at) ? scenarioPayload.generated_at.trim() : payload?.generated_at,
+        progress_taxonomy: mergeProgressTaxonomyEntries(payload?.progress_taxonomy, scenarioPayload?.progress_taxonomy),
         reports: nextReports,
-        progressTaxonomy: nextTaxonomy,
     };
+}
+
+function normalizeReportsScenarioMeta(name, scenarioPayload) {
+    if (!hasText(name)) return null;
+    const scenarioName = sanitizeReportsScenarioName(name);
+    if (!scenarioName) return null;
+    return {
+        name: scenarioName,
+        labelJa: hasText(scenarioPayload?.label_ja) ? scenarioPayload.label_ja.trim() : '',
+        labelEn: hasText(scenarioPayload?.label_en) ? scenarioPayload.label_en.trim() : '',
+        descriptionJa: hasText(scenarioPayload?.description_ja) ? scenarioPayload.description_ja.trim() : '',
+        descriptionEn: hasText(scenarioPayload?.description_en) ? scenarioPayload.description_en.trim() : '',
+    };
+}
+
+function getReportsScenarioLabel(scenario = state.activeScenario) {
+    if (!scenario) return '';
+    if (normalizeLang(state.lang) === 'ja') {
+        return scenario.labelJa || scenario.labelEn || formatReportsScenarioFallbackLabel(scenario.name);
+    }
+    return scenario.labelEn || scenario.labelJa || formatReportsScenarioFallbackLabel(scenario.name);
+}
+
+function getReportsScenarioDescription(scenario = state.activeScenario) {
+    if (!scenario) return '';
+    if (normalizeLang(state.lang) === 'ja') {
+        return scenario.descriptionJa || scenario.descriptionEn || '';
+    }
+    return scenario.descriptionEn || scenario.descriptionJa || '';
 }
 
 function getProgressTaxonomyEntry(level) {
@@ -382,7 +475,7 @@ function getAvailableFilterKeys() {
 function getLevelLegendText(strings = getStrings(state.lang)) {
     const presentTaxonomy = getPresentProgressTaxonomy();
     if (!presentTaxonomy.length) {
-        return strings.levelLegend;
+        return state.loadError ? strings.levelLegendUnavailable : strings.levelLegend;
     }
 
     if (presentTaxonomy.length === 1) {
@@ -659,6 +752,7 @@ function cacheDom() {
     state.dom.openStatusBtn = document.getElementById('reports-open-status-btn');
     state.dom.domainsHeading = document.getElementById('reports-domains-heading');
     state.dom.modelsHeading = document.getElementById('reports-models-heading');
+    state.dom.scenarioNote = document.getElementById('reports-scenario-note');
     state.dom.levelLegend = document.getElementById('reports-level-legend');
     state.dom.featureCards = document.getElementById('reports-feature-cards');
     state.dom.metrics = document.getElementById('reports-metrics');
@@ -1000,6 +1094,7 @@ function updateFilterButtons() {
     if (presentTaxonomy.length <= 1) {
         state.tableFilter = 'all';
         state.dom.filterGroup.innerHTML = '';
+        state.dom.filterGroup.classList.remove('d-flex');
         state.dom.filterGroup.classList.add('d-none');
         return;
     }
@@ -1034,6 +1129,19 @@ function applyStaticText() {
 
     if (state.dom.domainsHeading) state.dom.domainsHeading.textContent = strings.tabDomains;
     if (state.dom.modelsHeading) state.dom.modelsHeading.textContent = strings.tabModels;
+    if (state.dom.scenarioNote) {
+        const scenarioLabel = getReportsScenarioLabel();
+        const scenarioDescription = getReportsScenarioDescription();
+        if (scenarioLabel) {
+            state.dom.scenarioNote.textContent = `${strings.scenarioPrefix}: ${scenarioLabel}`;
+            state.dom.scenarioNote.title = scenarioDescription;
+            state.dom.scenarioNote.classList.remove('d-none');
+        } else {
+            state.dom.scenarioNote.textContent = '';
+            state.dom.scenarioNote.title = '';
+            state.dom.scenarioNote.classList.add('d-none');
+        }
+    }
     if (state.dom.levelLegend) state.dom.levelLegend.textContent = getLevelLegendText(strings);
 
     if (state.dom.filterGroup) state.dom.filterGroup.setAttribute('aria-label', strings.filterGroupAria);
@@ -1255,17 +1363,30 @@ async function loadReportsData() {
         throw new Error(`HTTP ${response.status}`);
     }
 
-    const payload = await response.json();
+    let payload = await response.json();
+    const scenarioName = getReportsScenarioName();
+    const scenarioUrl = resolveReportsScenarioUrl(scenarioName);
+    state.activeScenario = null;
+    if (scenarioUrl) {
+        try {
+            const scenarioResponse = await fetch(scenarioUrl, { cache: 'no-store' });
+            if (!scenarioResponse.ok) {
+                throw new Error(`HTTP ${scenarioResponse.status}`);
+            }
+            const scenarioPayload = await scenarioResponse.json();
+            state.activeScenario = normalizeReportsScenarioMeta(scenarioName, scenarioPayload);
+            payload = applyReportScenarioPayload(payload, scenarioPayload);
+        } catch (error) {
+            console.warn(`[reports] scenario load failed (${scenarioName}):`, error);
+        }
+    }
+
     const rawReports = Array.isArray(payload?.reports) ? payload.reports : [];
     state.generatedAt = typeof payload?.generated_at === 'string' ? payload.generated_at : '';
     const normalizedReports = sortReportsById(rawReports.map(normalizeReport));
     const normalizedTaxonomy = normalizeProgressTaxonomy(payload?.progress_taxonomy, normalizedReports);
-    const adjustedData = applyDebugProgressTaxonomy({
-        reports: normalizedReports,
-        progressTaxonomy: normalizedTaxonomy,
-    });
-    state.reports = adjustedData.reports;
-    state.progressTaxonomy = adjustedData.progressTaxonomy;
+    state.reports = normalizedReports;
+    state.progressTaxonomy = normalizedTaxonomy;
     state.progressLevelCounts = countReportsByProgressLevel(state.reports);
 }
 
@@ -1286,6 +1407,7 @@ export async function initReports({
     state.reports = [];
     state.progressTaxonomy = normalizeProgressTaxonomy([]);
     state.progressLevelCounts = countReportsByProgressLevel([]);
+    state.activeScenario = null;
     state.tableFilter = 'all';
     state.loadError = false;
 
