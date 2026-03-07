@@ -1005,6 +1005,7 @@ function updateFilterButtons() {
     }
 
     state.dom.filterGroup.classList.remove('d-none');
+    state.dom.filterGroup.classList.add('d-flex');
     if (!getAvailableFilterKeys().has(state.tableFilter)) {
         state.tableFilter = 'all';
     }
