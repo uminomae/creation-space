@@ -2,11 +2,11 @@
 // CHANGED(2026-03-07): shared topbar font-size control for creation-space
 
 const STEP_REM = 0.1;
-const DEFAULT_STEP = 0;
+const DEFAULT_STEP = 3;
 const MIN_STEP = -1;
 const MAX_STEP = 7;
 const STORAGE_KEY = 'kesson-font-step';
-const MIGRATION_KEY = 'kesson-font-step-v3';
+const MIGRATION_KEY = 'kesson-font-step-v4';
 
 const FONT_VARS = {
     '--kesson-font-size-ui-xs': 0.65,
@@ -74,7 +74,8 @@ export function initFontSizeCtrl() {
     try {
         if (!window.localStorage.getItem(MIGRATION_KEY)) {
             const old = window.localStorage.getItem(STORAGE_KEY);
-            if (old === '3' || old === null) {
+            // Restore the historical +3 default while preserving explicit user choices.
+            if (old === '0' || old === null) {
                 window.localStorage.setItem(STORAGE_KEY, String(DEFAULT_STEP));
             }
             window.localStorage.setItem(MIGRATION_KEY, '1');
