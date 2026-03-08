@@ -487,6 +487,18 @@ function getProgressLevelDescription(level) {
         : (taxonomyEntry.descriptionEn || taxonomyEntry.descriptionJa || '');
 }
 
+function formatProgressDescription(level, progressModel = []) {
+    const base = getProgressLevelDescription(level);
+    if (!progressModel.length || progressModel[0] === 'unknown') return base;
+
+    const modelStr = progressModel.join(' + ');
+    if (!base) return `（${modelStr}）`;
+
+    return normalizeLang(state.lang) === 'ja'
+        ? `${base}（${modelStr}）`
+        : `${base} (${modelStr})`;
+}
+
 function getProgressLevelTone(level) {
     const taxonomyEntry = getProgressTaxonomyEntry(level);
     return taxonomyEntry.tone || 'secondary';
@@ -781,6 +793,7 @@ function normalizeReport(report, index) {
         nameEn,
         status: report?.status === 'published' ? 'published' : 'planned',
         progressLevel: normalizeProgressLevel(report?.progress_level, report?.status),
+        progressModel: Array.isArray(report?.progress_model) ? report.progress_model : [],
         progressNote: typeof report?.progress_note === 'string' ? report.progress_note.trim() : '',
         mdPath: typeof mdRaw === 'string' ? mdRaw.trim() : '',
         pdfPath: typeof pdfRaw === 'string' ? pdfRaw.trim() : '',
@@ -1326,7 +1339,7 @@ function createDomainGridItem({ report, muted = false, strings }) {
         : (report.nameEn || report.nameJa);
     const level = normalizeProgressLevelId(report.progressLevel) || 'not_surveyed';
     const statusText = getProgressLevelLabel(level, strings);
-    const statusDescription = getProgressLevelDescription(level);
+    const statusDescription = formatProgressDescription(level, report.progressModel || []);
     const tone = getProgressLevelTone(level);
     const sources = resolveDomainReportSources(report);
     const clickable = sources.length > 0 && !muted;
