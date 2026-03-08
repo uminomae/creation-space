@@ -146,6 +146,7 @@ const STRINGS = {
         modalPdfPending: 'PDF準備中',
         modalClose: '閉じる',
         modalModel: 'モデル',
+        generatorModel: '生成モデル',
         modalGenerated: '生成日',
         features: {
             general: {
@@ -192,6 +193,7 @@ const STRINGS = {
         modalPdfPending: 'PDF Pending',
         modalClose: 'Close',
         modalModel: 'Model',
+        generatorModel: 'Generator model',
         modalGenerated: 'Generated',
         features: {
             general: {
@@ -794,6 +796,7 @@ function normalizeReport(report, index) {
         status: report?.status === 'published' ? 'published' : 'planned',
         progressLevel: normalizeProgressLevel(report?.progress_level, report?.status),
         progressModel: Array.isArray(report?.progress_model) ? report.progress_model : [],
+        generatorModel: typeof report?.generator_model === 'string' ? report.generator_model.trim() : '',
         progressNote: typeof report?.progress_note === 'string' ? report.progress_note.trim() : '',
         mdPath: typeof mdRaw === 'string' ? mdRaw.trim() : '',
         pdfPath: typeof pdfRaw === 'string' ? pdfRaw.trim() : '',
@@ -1402,6 +1405,17 @@ function createDomainGridItem({ report, muted = false, strings }) {
         descNode.setAttribute('title', hoverHint);
     }
 
+    const generatorModel = typeof report.generatorModel === 'string'
+        ? report.generatorModel.trim()
+        : '';
+    const showGeneratorModel = generatorModel && generatorModel !== 'not_applicable';
+    let generatorNode = null;
+    if (showGeneratorModel) {
+        generatorNode = document.createElement('small');
+        generatorNode.className = 'reports-domain-item-generator-model text-body-secondary';
+        generatorNode.textContent = `${strings.generatorModel}: ${generatorModel}`;
+    }
+
     const nameNode = document.createElement('div');
     nameNode.className = 'reports-domain-item-name';
     nameNode.title = domainLabel;
@@ -1411,6 +1425,9 @@ function createDomainGridItem({ report, muted = false, strings }) {
     head.appendChild(statusNode);
     body.appendChild(head);
     body.appendChild(descNode);
+    if (generatorNode) {
+        body.appendChild(generatorNode);
+    }
     body.appendChild(nameNode);
     tile.appendChild(body);
 
