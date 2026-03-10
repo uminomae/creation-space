@@ -1,15 +1,15 @@
 # D22 × 5段階モデル 横断分析 cross-insight
 
 - 実行日: 2026-03-10
-- Issue: kesson#204
+- 記録番号: #204
 - 手法: cross-insight（横断分析）
 - 入力:
   - `evidence/evidence-D22-business-management.md`
   - `evidence/deepdive/codex-parallel-deepdive/D22-business-management/run1/output.md`
   - `evidence/deepdive/codex-parallel-deepdive/D22-business-management/insight2/output.md`
-  - `/Users/uminomae/dev/kesson-driven-thinking/chatgpt/output/0304/REVIEW-D22-business-management.md`
-  - `/Users/uminomae/dev/kesson-driven-thinking/chatgpt/output/0304/RECONCILE-D22-business-management.md`
-  - `/Users/uminomae/dev/kesson-driven-thinking/base/text/m2-creation-process/creation-source.md`
+  - 外部レビュー素材
+  - 外部 reconcile 素材
+  - 外部作成メモ
 
 ## §A: 横断パターン
 

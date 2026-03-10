@@ -1,15 +1,14 @@
 # D23 × 5段階モデル 構造類似探索 insight1
 
 - 実行日: 2026-03-10
-- Issue: kesson#203
+- 記録番号: #203
 - 手法: creative insight（5段階モデル焦点）
 - 入力:
   - `evidence/deepdive/codex-parallel-deepdive/README.md`
-  - `/Users/uminomae/dev/kesson-driven-thinking/base/schema/core-definitions.md`
   - `evidence/evidence-D23-developmental-psychology.md`
   - `evidence/202602-deep-research-30domains-gpt/DR-D23-developmental-psychology.md`
-  - `/Users/uminomae/dev/kesson-driven-thinking/chatgpt/output/0304/REVIEW-D23-developmental-psychology.md`
-  - `/Users/uminomae/dev/kesson-driven-thinking/chatgpt/output/0304/RECONCILE-D23-developmental-psychology.md`
+  - 外部レビュー素材
+  - 外部 reconcile 素材
 
 ## §A: 既存15件の「5段階対応の見えていなかった面」
 

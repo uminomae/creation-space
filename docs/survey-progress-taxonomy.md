@@ -62,7 +62,7 @@ DRファイル（30領域の調査記録）から自動生成する「ラベル�
 
 ### D22 経営学 深掘り調査（2026-03-07 発見）
 
-Issue #120（kesson-driven-thinking）で開始した「APIエージェント多段探索（claude-opus-4-6 / 18ラウンド）」は、現行タクソノミーのどれにも該当しない。
+旧管理番号 #120 で開始した「APIエージェント多段探索（claude-opus-4-6 / 18ラウンド）」は、現行タクソノミーのどれにも該当しない。
 
 | 比較 | 理由 |
 |---|---|
@@ -108,7 +108,7 @@ assets/reports/scenarios/split-d22.json  ← 目視確認用シナリオ
 | リソース | URL / パス |
 |---|---|
 | Issue #23（吟味起点） | https://github.com/uminomae/creation-space/issues/23 |
-| Issue #120（D22深掘り） | https://github.com/uminomae/kesson-driven-thinking/issues/120 |
+| 旧管理番号 #120（D22深掘り） | 外部 issue record |
 | 実装 | `src/reports.js` → `DEFAULT_PROGRESS_TAXONOMY` |
 | シナリオファイル | `assets/reports/scenarios/split-d22.json` |
 | 吟味アーティファクト | `deliberation-label-rule.jsx`（DT Appセッション 2026-03-07） |
