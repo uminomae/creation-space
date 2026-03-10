@@ -1,4 +1,4 @@
-import { DEV_VERSION } from './version.js';
+import { DEV_VERSION, DEV_VERSION_DATE } from './version.js';
 import { installStartupErrorHandlers, showStartupErrorOverlay } from './startup-error-overlay.js';
 import { createMainRuntimeContext } from './main-runtime-context.js';
 import { runMainOrchestrator } from './main-orchestrator.js';
@@ -12,6 +12,7 @@ function startMainApp() {
     return runMainOrchestrator({
         runtimeContext,
         devVersion: DEV_VERSION,
+        devDate: DEV_VERSION_DATE,
     });
 }
 
