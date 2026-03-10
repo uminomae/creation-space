@@ -34,7 +34,7 @@ const STRINGS = {
         leftKessonLinkLabel: '欠損駆動思考',
         leftKessonLinkAria: 'kesson-spaceへ移動',
         surfaceButtonAria: 'ページ上部に戻る',
-        devVersionPrefix: 'ver',
+        devVersionPrefix: 'dev',
         langToggleLabel: 'English',
         langToggleAria: '言語を英語に切り替え',
     },
@@ -71,30 +71,33 @@ const STRINGS = {
         leftKessonLinkLabel: 'kesson-driven',
         leftKessonLinkAria: 'Go to kesson-space',
         surfaceButtonAria: 'Back to top',
-        devVersionPrefix: 'ver',
+        devVersionPrefix: 'dev',
         langToggleLabel: '日本語',
         langToggleAria: 'Switch language to Japanese',
     },
 };
 
-function formatDevVersionLabel(lang, devVersion) {
+function formatDevVersionLabel(lang, { devVersion = '', devDate = '' } = {}) {
     const resolvedLang = normalizeLang(lang);
     const strings = STRINGS[resolvedLang] || STRINGS.ja;
     const prefix = typeof strings.devVersionPrefix === 'string' && strings.devVersionPrefix.trim()
         ? strings.devVersionPrefix.trim()
-        : 'ver';
+        : 'dev';
     const normalizedVersion = typeof devVersion === 'string' ? devVersion.trim() : '';
+    const normalizedDate = typeof devDate === 'string' ? devDate.trim() : '';
     if (!normalizedVersion) return '';
-    return `${prefix} ${normalizedVersion}`;
+    return normalizedDate
+        ? `${prefix} ${normalizedVersion} · ${normalizedDate}`
+        : `${prefix} ${normalizedVersion}`;
 }
 
-function updateInlineVersionLabel(lang, { devVersion = '' } = {}) {
+function updateInlineVersionLabel(lang, { devVersion = '', devDate = '' } = {}) {
     const label = document.getElementById('dev-version-inline');
     if (!label || !devVersion) return;
-    label.textContent = formatDevVersionLabel(lang, devVersion);
+    label.textContent = formatDevVersionLabel(lang, { devVersion, devDate });
 }
 
-export function applyPageLanguage(lang, { devMode = false, devVersion = '' } = {}) {
+export function applyPageLanguage(lang, { devMode = false, devVersion = '', devDate = '' } = {}) {
     const normalized = normalizeLang(lang);
     const strings = STRINGS[normalized] || STRINGS.ja;
 
@@ -177,7 +180,7 @@ export function applyPageLanguage(lang, { devMode = false, devVersion = '' } = {
 
     document.documentElement.lang = normalized;
     document.title = strings.documentTitle;
-    updateInlineVersionLabel(normalized, { devMode, devVersion });
+    updateInlineVersionLabel(normalized, { devMode, devVersion, devDate });
 }
 
 export function initLanguageToggle(initialLang, onLanguageChanged) {

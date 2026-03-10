@@ -2,6 +2,14 @@
 
 Creation Space: a standalone Three.js exploration page for "What is Creation".
 
+## Evidence data（30領域構造類似調査）
+
+creation-space は Three.js による視覚表現アプリケーションに加え、創造モデルの根拠データを格納している。
+
+`evidence/` ディレクトリには、30 の学術領域から創造プロセスの構造類似パターンを探索した調査データが含まれる。2026-03-10 に kesson-driven-thinking（private repo）から移動し、創造モデルの独立モジュールとして分離した。
+
+詳細は [evidence/README.md](evidence/README.md) を参照。
+
 ## Local run
 
 ```bash
