@@ -1,4 +1,4 @@
-# gpt-deep-research/ — 2026-02 30領域 Deep Research 一次ソース
+# 202602-deep-research-30domains-gpt/ — 2026-02 30領域 Deep Research 一次ソース
 
 **用途**: 30領域構造類似調査で収集した GPT Deep Research 一次ソース
 **作成**: 2026-02-24
@@ -7,7 +7,7 @@
 ## 文脈
 
 旧ディレクトリ名 `iss62-sources/` は他リポジトリ側の内部名だった。
-その後、日付入りの暫定名称を経て、現在は用途がより直接分かる `gpt-deep-research/` を採用している。
+その後、日付入りの暫定名称を経て、現在は用途がより直接分かる `202602-deep-research-30domains-gpt/` を採用している。
 
 このディレクトリの中身は、30領域それぞれに対して行った ChatGPT Deep Research の一次ソースであり、`evidence-D*.md` に蒸留される前の詳細出力を保持する。
 
