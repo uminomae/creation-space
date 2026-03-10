@@ -222,7 +222,7 @@ R3-R4で実施。#8（しっくり感）はpjdhiroレビュー時に実施。
 | 判断待ち | `evidence/review/judgments.md` | pjdhiro判断が必要な項目一覧 |
 | 探索メモ | `evidence/review/memo-level2.md` | 作業メモ・気づき・保持論点 |
 | 成果物 | `evidence/evidence-*.md` 各ファイル | Level 2 フィールド追記 |
-| 一次ソース | `evidence/iss62-sources/DR-D{NN}-*.md` | GPTディープリサーチ原文（レビュー済み） |
+| 一次ソース | `evidence/202602-deep-research-30domains-gpt/DR-D{NN}-*.md` | GPTディープリサーチ原文（レビュー済み） |
 | 指示書 | `chatgpt/inbox/REQ-GPT-*.md` | GPTへのブリーフィング |
 
 ---
@@ -237,7 +237,7 @@ R3-R4で実施。#8（しっくり感）はpjdhiroレビュー時に実施。
 | DONE-4 | 30エントリ全てが TC-016 PASS（Level 2 フィールド含む） |
 | DONE-5 | judgments.md の判断保留欄に未解決項目が残っていてもよい（Withhold） |
 | DONE-6 | memo-level2.md に横断的気づき（Step 5 の種）が記録されている |
-| DONE-7 | **全30領域**について `iss62-sources/DR-D{NN}-*.md` が存在する（全領域 GPTディープリサーチ必須） |
+| DONE-7 | **全30領域**について `202602-deep-research-30domains-gpt/DR-D{NN}-*.md` が存在する（全領域 GPTディープリサーチ必須） |
 
 ---
 
@@ -247,5 +247,5 @@ R3-R4で実施。#8（しっくり感）はpjdhiroレビュー時に実施。
 |------|------|
 | 2026-02-22 | 初版作成 |
 | 2026-02-22 | R-01: 1バッチ=1領域に変更。R-02: 5R→20Rフル探索に変更。pjdhiro指示 |
-| 2026-02-24 | §7 ファイル構成に iss62-sources/ と chatgpt/inbox/ 追加。DONE-7（ソース追跡）追加 |
+| 2026-02-24 | §7 ファイル構成に 202602-deep-research-30domains-gpt/ と chatgpt/inbox/ 追加。DONE-7（ソース追跡）追加 |
 | 2026-02-24 | DONE-7を「全30領域必須」に強化。全領域GPTディープリサーチはプロジェクトルール |

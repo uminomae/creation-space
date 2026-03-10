@@ -44,7 +44,7 @@ evidence-D{NN}-pre-revise-{YYYYMMDD}.md
 
 ## 先に読むファイル
 
-- [docs/operations.md](/Users/uminomae/dev/kesson-driven-thinking/docs/operations.md)
+- `docs/operations.md` 正本（外部運用repo）
 - [evidence/README.md](/Users/uminomae/dev/creation-space/evidence/README.md)
 
 ## この README の役割
