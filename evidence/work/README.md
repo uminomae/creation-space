@@ -22,7 +22,7 @@ pjdhiro、Claude、Codex が使う。
 ### When
 
 主に 2026-02 初旬〜中旬の Phase 1 で作成された。
-2026-03-10 に `kesson-driven-thinking/base/evidence/work/` から移動した。
+2026-03-10 に旧 private repo の `base/evidence/work/` から移動した。
 
 ### Where
 
@@ -39,7 +39,7 @@ scan-* ファイルは Phase 1 時点のアルファベット分類をそのま�
 - トリアージ結果: [phase3-triage.md](phase3-triage.md)
 - Step 6 設計: [../review/plan-step6-fieldwork.md](../review/plan-step6-fieldwork.md)
 - 親ディレクトリ: [../README.md](../README.md)
-- 関連 Issue: `kesson-driven-thinking` #62
+- 関連記録番号: #62
 
 ## ファイル一覧
 

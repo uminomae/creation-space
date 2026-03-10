@@ -44,7 +44,7 @@ DR-D{NN}-{slug}.md
 ```
 
 モデル名が不明な場合は `unknown` と記載する。
-メタ情報ルールの正本は [evidence-metadata.md](/Users/uminomae/dev/kesson-driven-thinking/base/schema/evidence-metadata.md) を参照。
+メタ情報ルールの正本は外部 schema repo の `evidence-metadata.md` を参照。
 
 ## 進捗管理（30領域全件）
 

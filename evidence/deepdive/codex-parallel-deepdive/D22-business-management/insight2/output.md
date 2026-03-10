@@ -1,7 +1,7 @@
 # D22 × 5段階モデル 構造類似探索 insight2
 
 - 実行日: 2026-03-10
-- Issue: kesson#206
+- 記録番号: #206
 - 手法: creative insight（5段階モデル焦点）
 - 入力:
   - `evidence/deepdive/codex-parallel-deepdive/D22-business-management/JURISDICTION-CHECK.md`

@@ -2,11 +2,11 @@
 
 - What: D23 発達心理学の既存15件を、創造の5段階モデルとの構造類似という観点だけで再読した成果物。主成果は `output.md`。
 - Why: 既存 evidence の5段階対応について、精度、限界、破綻箇所、見えていなかった構造類似を洗い直すため。
-- Who: Claude Code CLI（kesson#203）
+- Who: Claude Code CLI
 - When: 2026-03-10
-- Where: `evidence/evidence-D23-developmental-psychology.md`、`evidence/202602-deep-research-30domains-gpt/DR-D23-developmental-psychology.md`、`/Users/uminomae/dev/kesson-driven-thinking/chatgpt/output/0304/REVIEW-D23-developmental-psychology.md`、`/Users/uminomae/dev/kesson-driven-thinking/chatgpt/output/0304/RECONCILE-D23-developmental-psychology.md` から派生
+- Where: `evidence/evidence-D23-developmental-psychology.md`、`evidence/202602-deep-research-30domains-gpt/DR-D23-developmental-psychology.md`、外部レビュー素材から派生
 - How: 単一エージェントが15件を再読し、各項目ごとに「正確な対応 / 怪しい対応 / 破綻箇所 / 未回収の構造」を整理した後、GPT成果品とのギャップから統合問いと仮説を抽出した。
-- Ref: kesson#203, kesson#186, `evidence/deepdive/codex-parallel-deepdive/README.md`
+- Ref: `evidence/deepdive/codex-parallel-deepdive/README.md`
 
 ## 出力
 

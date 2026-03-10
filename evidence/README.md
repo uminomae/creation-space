@@ -6,10 +6,10 @@
 
 ## 移動経緯
 
-このディレクトリは 2026-03-10 に `kesson-driven-thinking/base/evidence/` から移動した。
+このディレクトリは 2026-03-10 に旧 private repo から移動した。
 理由は、creation-space を「創造モデルの独立モジュール」として切り出し、Three.js アプリケーションと根拠データを同じリポジトリで扱えるようにするためである。
 
-元リポジトリでは `kesson-driven-thinking` #61（全分野構造類似探索）と #62（30領域本格調査）の中核データとして管理されていた。
+旧管理では、全分野構造類似探索と30領域本格調査の中核データとして扱われていた。
 
 ## 5W1H
 
@@ -32,12 +32,12 @@ pjdhiro、Claude、Codex、および creation-space の REPORTS / evidence 閲�
 ### Where
 
 現在地は `creation-space/evidence/`。
-移動元は private repo `kesson-driven-thinking/base/evidence/`。
+移動元は旧 private repo の `base/evidence/`。
 
 ### How
 
 幅優先スキャン → 本格調査 → GPTレビュー → deepdive → 横断分析という順で増築されてきた。
-正本の schema は引き続き `kesson-driven-thinking/base/schema/` 側に置く。
+正本の schema は引き続き外部 schema repo 側に置く。
 
 ## ⚠️ evidence-D*.md を編集・Revise する前に
 
@@ -74,15 +74,15 @@ cp evidence/evidence-D{NN}-{slug}.md \
 - [deepdive/README.md](/Users/uminomae/dev/creation-space/evidence/deepdive/README.md)
 - [202602-deep-research-30domains-gpt/README.md](/Users/uminomae/dev/creation-space/evidence/202602-deep-research-30domains-gpt/README.md)
 - [archive/README.md](/Users/uminomae/dev/creation-space/evidence/archive/README.md)
-- [evidence-metadata.md](/Users/uminomae/dev/kesson-driven-thinking/base/schema/evidence-metadata.md)
-- `kesson-driven-thinking` #61
-- `kesson-driven-thinking` #62
-- `kesson-driven-thinking` #166
-- `kesson-driven-thinking` #180
+- `evidence-metadata.md` 正本（外部 schema repo）
+- 旧管理番号 #61
+- 旧管理番号 #62
+- 移行関連番号 #166
+- 移動関連番号 #180
 
 ## 文脈
 
-- 関連 Issue: #61, #62, #120, #166, #180
+- 関連記録番号: #61, #62, #120, #166, #180
 
 `PROJECT.md` はサブプロジェクト憲章であり、この README はディレクトリ案内を担う。役割を分けて参照すること。
-`evidence-metadata.md` の正本は creation-space ではなく `kesson-driven-thinking/base/schema/evidence-metadata.md` にある。
+`evidence-metadata.md` の正本は creation-space ではなく、外部 schema repo 側にある。

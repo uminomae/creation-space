@@ -34,7 +34,7 @@ CLAUDE.md、将来の AGENTS.md 等の LLM エントリーポイントは本フ�
 
 最小限。移行（#185/#186）が進む中で追記する。
 
-- Issue 管理: 当面 `uminomae/kesson-driven-thinking` 側で管理
+- Issue 管理: 当面は外部の既存運用先で管理
 - ブランチ戦略: `CLAUDE.md` §3 を参照
 - セッション終了時: `CLAUDE.md` §4 を参照
 

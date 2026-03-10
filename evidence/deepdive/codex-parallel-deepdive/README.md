@@ -17,10 +17,10 @@
 - 発見・洞察（5段階モデルの理解を押し広げうる知見）
 
 **持ち込まないもの**:
-- 欠損駆動思考（D1-D4）の理論的検証・深化 → kesson-* の管轄
-- F軸/O軸の理論的含意 → kesson-* の管轄
+- 5段階モデル外の理論固有語の検証・深化
+- 二軸的な情動評価の理論化
 
-この分離は #186（創造モデル独立宣言）に基づく。
+この分離は創造モデル独立方針に基づく。
 D22 insight1 の却下（2026-03-09）はこの原則の違反が原因。
 
 ## ドメイン一覧
@@ -29,9 +29,9 @@ D22 insight1 の却下（2026-03-09）はこの原則の違反が原因。
 
 | 項目 | 状態 | 参照 |
 |---|---|---|
-| `run1/` | ✅ 完了（2026-03-07）。2026-03-10 管轄チェック済み: 5段階焦点で維持（kesson#206） | [run1/README.md](/Users/uminomae/dev/creation-space/evidence/deepdive/codex-parallel-deepdive/D22-business-management/run1/README.md) |
-| `insight1/` | ❌ 却下（2026-03-09）。2026-03-10 管轄チェック確定: やり直し必要（D1-D4 / F軸O軸へ逸脱, kesson#206） | [insight1/README.md](/Users/uminomae/dev/creation-space/evidence/deepdive/codex-parallel-deepdive/D22-business-management/insight1/README.md) |
-| `insight2/` | ✅ 完了（2026-03-10）。redo: 5段階焦点で再実施（kesson#206） | [insight2/README.md](/Users/uminomae/dev/creation-space/evidence/deepdive/codex-parallel-deepdive/D22-business-management/insight2/README.md) |
+| `run1/` | ✅ 完了（2026-03-07）。2026-03-10 管轄チェック済み: 5段階焦点で維持 | [run1/README.md](/Users/uminomae/dev/creation-space/evidence/deepdive/codex-parallel-deepdive/D22-business-management/run1/README.md) |
+| `insight1/` | ❌ 却下（2026-03-09）。2026-03-10 管轄チェック確定: やり直し必要（理論固有語へ逸脱） | [insight1/README.md](/Users/uminomae/dev/creation-space/evidence/deepdive/codex-parallel-deepdive/D22-business-management/insight1/README.md) |
+| `insight2/` | ✅ 完了（2026-03-10）。redo: 5段階焦点で再実施 | [insight2/README.md](/Users/uminomae/dev/creation-space/evidence/deepdive/codex-parallel-deepdive/D22-business-management/insight2/README.md) |
 
 ### D23-developmental-psychology/
 
@@ -53,4 +53,4 @@ D22 insight1 の却下（2026-03-09）はこの原則の違反が原因。
 - D22 insight1: [insight1/README.md](/Users/uminomae/dev/creation-space/evidence/deepdive/codex-parallel-deepdive/D22-business-management/insight1/README.md)
 - D22 insight2: [insight2/README.md](/Users/uminomae/dev/creation-space/evidence/deepdive/codex-parallel-deepdive/D22-business-management/insight2/README.md)
 - D22 管轄チェック: [JURISDICTION-CHECK.md](/Users/uminomae/dev/creation-space/evidence/deepdive/codex-parallel-deepdive/D22-business-management/JURISDICTION-CHECK.md)
-- 管轄分離の根拠: kesson#186（創造モデル独立宣言）
+- 管轄分離の根拠: 創造モデル独立方針

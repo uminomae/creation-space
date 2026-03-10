@@ -64,4 +64,4 @@ Three.js による創造プロセスの視覚表現。
 | リポジトリ | 役割 |
 |------------|------|
 | [pjdhiro](https://github.com/uminomae/pjdhiro) | GitHub Pages。レポート PDF/MD のホスティング、ブログ |
-| kesson-driven-thinking (private) | 5段階モデルの定義正本（Phase 3 で本リポジトリへ移転予定） |
+| private schema repo | 5段階モデルの定義正本（Phase 3 で本リポジトリへ移転予定） |
