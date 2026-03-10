@@ -1,18 +1,19 @@
-# iss62-sources/ — #62 Step 6 一次ソース
+# 202602-deep-research-30domains-gpt/ — 2026-02 30領域 Deep Research 一次ソース
 
-**Issue**: #62（30領域 Level 2 uniform 本格調査）
+**用途**: 30領域構造類似調査で収集した GPT Deep Research 一次ソース
 **作成**: 2026-02-24
+**改名**: 2026-03-10
 
 ## 文脈
 
-`iss62` は `kesson-driven-thinking` リポジトリの GitHub Issue #62 に由来する内部開発番号である。
-creation-space への移動後も、参照パスの安定性を優先してディレクトリ名は変更していない。
+旧ディレクトリ名 `iss62-sources/` は `kesson-driven-thinking` リポジトリの GitHub Issue #62 に由来する内部名だった。
+creation-space では、実施時期・対象件数・ソース種別が分かる `202602-deep-research-30domains-gpt/` に改名した。
 
 このディレクトリの中身は、30領域それぞれに対して行った ChatGPT Deep Research の一次ソースであり、`evidence-D*.md` に蒸留される前の詳細出力を保持する。
 
 ## 目的
 
-#62 Step 6 で実施した各領域のディープリサーチ（主にChatGPT）の出力原文を一次ソースとして格納する。
+2026-02 に実施した各領域のディープリサーチ（主に ChatGPT）の出力原文を一次ソースとして格納する。
 
 evidence-*.md のEVエントリは蒸留された要約であり、本ディレクトリの原文が詳細の参照先となる。
 
@@ -30,12 +31,12 @@ DR-D{NN}-{slug}.md
 
 ## ヘッダー書式
 
-全DRファイルは以下のヘッダーを持つ。モデル名の記載は必須（evidence-metadata.md §9）。
+全DRファイルは、調査ロット、使用モデル、レビュー担当、指示書、GPT出力への参照を含む。モデル名の記載は必須（evidence-metadata.md §9）。
 
 ```markdown
 # DR-D{NN}-{slug}.md - D{NN} {領域名} ディープリサーチ一次ソース
 
-**Issue**: #62 Step 6
+**調査ロット**: 2026-02 30domains Deep Research
 **ソース**: ChatGPT Deep Research / {モデル名} ({日付})
 **レビュー**: Claude / {モデル名} ({日付})
 **指示書**: `chatgpt/inbox/{ファイル名}`
@@ -89,4 +90,4 @@ DR-D{NN}-{slug}.md
 - **output未保存（5件）**: D01, D04, D25, D27, D29 はチャット経由で受領し `chatgpt/output/` への生出力保存を省略。DRファイルに実質内容は保存済み。今後は計画書§4のワークフロー（output保存→レビュー→DR化）を遵守する。（2026-02-24記録）
 - 全領域でGPTディープリサーチを実施する（プロジェクトルール）
 - 新規ディープリサーチの出力は、Claudeレビュー完了後にここに昇格する
-- 別Issueの深掘りは `iss{NN}-sources/` として別ディレクトリにする
+- 別バッチの深掘りは `YYYYMM-...` を先頭にした別ディレクトリとして分離する

@@ -4,7 +4,7 @@
 - 手法: codex-parallel-deepdive
 - モデル: gpt-5.4 xhigh
 - エージェント数: 4
-- 入力: `evidence/evidence-D22-business-management.md`, `chatgpt/output/0304/REVIEW-D22-business-management.md`, `chatgpt/output/0304/RECONCILE-D22-business-management.md`, `build/creation/domains/ja/md/domain-D22-business-management.md`, `evidence/iss62-sources/DR-D22-business-management.md`
+- 入力: `evidence/evidence-D22-business-management.md`, `chatgpt/output/0304/REVIEW-D22-business-management.md`, `chatgpt/output/0304/RECONCILE-D22-business-management.md`, `build/creation/domains/ja/md/domain-D22-business-management.md`, `evidence/202602-deep-research-30domains-gpt/DR-D22-business-management.md`
 - 結果サマリー: 新規採用0件・CA変更0件・棄却0件
 - 補足: 既存11件は全件維持。ただし全件 `Revise` 前提。次ラン候補5系統を抽出。
 

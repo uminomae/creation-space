@@ -73,7 +73,7 @@ Batch完了実績（本格調査レベル）:
 - Batch 5: D17 言語学 ✅（別セッションで完了）
 - Batch 6: D26 音楽学 ✅
 
-DRサーベイ（スクリーニングレベル）: 残り24領域完了。`iss62-sources/` に全30領域のDRファイル格納。
+DRサーベイ（スクリーニングレベル）: 残り24領域完了。`202602-deep-research-30domains-gpt/` に全30領域のDRファイル格納。
 
 横断分析:
 - Claude: K-01〜K-19（memo-level2.md）
@@ -149,7 +149,7 @@ Codex 7タイプ分類: T1閾値突破型, T2境界現象型, T3エネルギー�
 evidence/
 ├── PROJECT.md              ← サブプロジェクト憲章
 ├── evidence-*.md           ← 各領域エビデンス（35ファイル）
-├── iss62-sources/          ← DRサーベイ一次ソース（30ファイル）
+├── 202602-deep-research-30domains-gpt/          ← DRサーベイ一次ソース（30ファイル）
 │   └── README.md
 └── review/
     ├── status-report-20260226.md  ← 本文書
