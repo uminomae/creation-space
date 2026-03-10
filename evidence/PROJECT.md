@@ -43,7 +43,7 @@
 ### 3.1 現在地
 
 - 30領域の構造類似調査データが `evidence/` に集約されている
-- 30領域の Deep Research 一次ソースは `gpt-deep-research/` に整理されている
+- 30領域の Deep Research 一次ソースは `202602-deep-research-30domains-gpt/` に整理されている
 - 調査方法論・横断分析・進捗記録は `review/` に蓄積されている
 - 初期スキャンと中間素材は `work/` に保持されている
 - deepdive による補助探索が一部の領域で進行している
@@ -159,14 +159,14 @@
 | パス | 役割 |
 |---|---|
 | `evidence-D*.md` | 30領域の調査結果本体 |
-| `gpt-deep-research/` | 30領域の Deep Research 一次ソース |
+| `202602-deep-research-30domains-gpt/` | 30領域の Deep Research 一次ソース |
 | `review/` | 調査設計、横断分析、進捗、判断メモ |
 | `work/` | 初期スキャンと中間素材 |
 | `deepdive/` | 深掘り探索の補助出力 |
 | `archive/` | Revise 前スナップショット |
 
 注記:
-- `gpt-deep-research/` は 2026-02 に収集した 30領域の GPT Deep Research 一次ソースを保持する
+- `202602-deep-research-30domains-gpt/` は 2026-02 に収集した 30領域の GPT Deep Research 一次ソースを保持する
 - `five-stages.md` と `academic-domains.md` の正本はまだ別リポジトリ側にある
 
 ## 5. 呼び出し側への契約
