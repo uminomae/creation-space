@@ -148,7 +148,7 @@ D01数学で実証済みの具体手順。**30領域全てでこのフローを�
 #### Phase 1: 調査設計（Claudeセッション前半）
 
 1. **既存エントリ確認**
-   - `base/evidence/evidence-D{NN}-*.md` があれば読み込み
+   - `evidence/evidence-D{NN}-*.md` があれば読み込み
    - なければ新規作成（ヘッダテンプレートは D01 を参照）
 2. **DRサーベイ結果読み込み**
    - `iss62-sources/DR-D{NN}-*.md` があれば参照
@@ -187,7 +187,7 @@ D01数学で実証済みの具体手順。**30領域全てでこのフローを�
    - クロスリファレンス表（5段階対応 + 他ドメイン接続）
 
 4. **ファイル更新 + コミット**
-   - `base/evidence/evidence-D{NN}-*.md` を更新
+   - `evidence/evidence-D{NN}-*.md` を更新
    - status: "Step 7 Phase 2完了"
    - `git add -A && git commit && git push origin develop`
 
@@ -378,7 +378,7 @@ D01〜D30を番号順に調査する。pjdhiroが別の順序を希望する場�
 
 ## 9. この計画書の管理
 
-- **パス**: `base/evidence/review/plan-step7-fieldwork.md`
+- **パス**: `evidence/review/plan-step7-fieldwork.md`
 - **正本**: 本ファイルが唯一の計画正本。セッション中の提案・議論は正本改訂として反映する
 - **改訂**: 日付＋内容を変更履歴に記録
 - **参照**: `status-report-20260226.md` §8 からリンク

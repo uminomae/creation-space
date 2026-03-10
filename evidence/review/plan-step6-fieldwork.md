@@ -2,7 +2,7 @@
 
 **Issue**: #62（改訂）→ 親: #61 → #59
 **作成日**: 2026-02-23（v1: 2026-02-22 plan-level2-uniform.md を全面改訂）
-**憲章**: `base/evidence/PROJECT.md`
+**憲章**: `evidence/PROJECT.md`
 
 ---
 

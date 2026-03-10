@@ -9,7 +9,7 @@
 - 境界・過適合ガード
 - 5段階カバレッジの再配置
 
-入力は `base/evidence/evidence-D22-business-management.md`、GPTレビュー、RECONCILE、公開ドメインレポート、DR-D22 一次ソースの5点。
+入力は `evidence/evidence-D22-business-management.md`、GPTレビュー、RECONCILE、公開ドメインレポート、DR-D22 一次ソースの5点。
 
 ## 統合結論
 

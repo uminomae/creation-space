@@ -76,7 +76,7 @@
 
 ## 洞察の発展
 
-- 既存11件を「維持 / CA降格推奨 / 強度差」で整理した結果は、`base/evidence/INSIGHTS.md` に「11件全件維持・強度3層分類」という要約で登録された。
+- 既存11件を「維持 / CA降格推奨 / 強度差」で整理した結果は、`evidence/INSIGHTS.md` に「11件全件維持・強度3層分類」という要約で登録された。
 - `002 d.school` と `011 U理論` の CA降格推奨、`003 Tuckman` の Adjourning→束補強、`010 Taleb` の「設計原理 / 特性」への再定位は、後続の `evidence-D22-business-management.md` 改訂（#123）で一部反映された。
 - 「場への入口の薄さ」「D3 を個人機能から組織設計へ移す必要」といった未解消論点は、同時期の `codex-parallel-deepdive` Run1 / insight1 でも別角度から掘り下げられ、Run2候補や理論仮説の整理に接続した。
 

@@ -1,4 +1,4 @@
-# base/evidence/ — 構造類似 evidence ディレクトリ
+# evidence/ — 構造類似 evidence ディレクトリ
 
 **目的**: 30領域の構造類似調査で得られた evidence、本格調査の一次ソース、深掘り探索、レビュー素材を格納する。
 
@@ -6,7 +6,7 @@
 
 ## ⚠️ evidence-D*.md を編集・Revise する前に
 
-`base/evidence/evidence-D{NN}-*.md` を Revise（既存エントリの書き換え・削除・大幅追記）する場合、
+`evidence/evidence-D{NN}-*.md` を Revise（既存エントリの書き換え・削除・大幅追記）する場合、
 **必ず事前に archive コピーを作成すること**。
 
 - **ルール詳細**: `docs/operations.md §3.2.1`
@@ -14,8 +14,8 @@
 - **CLI 指示書には必ず以下を含めること**:
 
 ```bash
-cp base/evidence/evidence-D{NN}-{slug}.md \
-   base/evidence/archive/evidence-D{NN}-pre-revise-{YYYYMMDD}.md
+cp evidence/evidence-D{NN}-{slug}.md \
+   evidence/archive/evidence-D{NN}-pre-revise-{YYYYMMDD}.md
 ```
 
 - archive コピーと Revise 本体は **同一コミットに含める**
@@ -35,10 +35,10 @@ cp base/evidence/evidence-D{NN}-{slug}.md \
 
 ## 先に読むファイル
 
-- [PROJECT.md](/Users/uminomae/dev/kesson-driven-thinking/base/evidence/PROJECT.md)
-- [deepdive/README.md](/Users/uminomae/dev/kesson-driven-thinking/base/evidence/deepdive/README.md)
-- [iss62-sources/README.md](/Users/uminomae/dev/kesson-driven-thinking/base/evidence/iss62-sources/README.md)
-- [archive/README.md](/Users/uminomae/dev/kesson-driven-thinking/base/evidence/archive/README.md)
+- [PROJECT.md](/Users/uminomae/dev/creation-space/evidence/PROJECT.md)
+- [deepdive/README.md](/Users/uminomae/dev/creation-space/evidence/deepdive/README.md)
+- [iss62-sources/README.md](/Users/uminomae/dev/creation-space/evidence/iss62-sources/README.md)
+- [archive/README.md](/Users/uminomae/dev/creation-space/evidence/archive/README.md)
 - [evidence-metadata.md](/Users/uminomae/dev/kesson-driven-thinking/base/schema/evidence-metadata.md)
 
 ## 文脈

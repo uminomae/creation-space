@@ -5,10 +5,10 @@
 
 ## DR出典
 - `chatgpt/output/0228/DR-D13-philosophy.md`（GPT Deep Research, 11理論提示）
-- `base/evidence/iss62-sources/DR-D13-philosophy.md`（先行DR, 3理論: Whitehead/Dewey/Levinas）
+- `evidence/iss62-sources/DR-D13-philosophy.md`（先行DR, 3理論: Whitehead/Dewey/Levinas）
 
 ## 既存エントリ状況
-- `base/evidence/evidence-philosophy.md` に14件（EV-PH-001〜015, 010欠番）
+- `evidence/evidence-philosophy.md` に14件（EV-PH-001〜015, 010欠番）
 - Step 7 用の `evidence-D13-philosophy.md` は未作成
 - 既存は東洋思想（国産み神話、般若心経、陰陽、中庸、西田、和辻、芸道、朱子学/陽明学）+ 西洋哲学（ヘーゲル、ハイデガー、シモンドン、パウリ-ユング）+ メタエントリ（東洋共通構造、意のゲート統合）
 - **Step 7 では既存を含め全理論を再評価する**（フラット原則）

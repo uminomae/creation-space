@@ -14,8 +14,8 @@
 - **結果**: Level 2 完了 ✅
 - **所要**: 20Rフル探索（R1-R10実行、R11-R20は品質十分のため省略）
 - **変更ファイル**:
-  - `base/evidence/evidence-chemistry.md` — EV-CH-001 を Level 2 に昇格
-  - `base/evidence/review/memo-level2.md` — D03完了チェック、横断的気づきK-01~K-03、保持論点H-04~H-05追記
+  - `evidence/evidence-chemistry.md` — EV-CH-001 を Level 2 に昇格
+  - `evidence/review/memo-level2.md` — D03完了チェック、横断的気づきK-01~K-03、保持論点H-04~H-05追記
 - **横断的気づき**:
   - K-01: 遅延負帰還≈Withhold のフラクタル性（6領域確認）
   - K-02: 「閾値」概念の導入示唆（Hopf分岐→D2）
@@ -32,8 +32,8 @@
 - **対象**: EV-EB-001 自然選択による進化と中立説
 - **結果**: Level 2 完了 ✅
 - **変更ファイル**:
-  - `base/evidence/evidence-evolutionary-biology.md` — EV-EB-001 を Level 2 に昇格
-  - `base/evidence/review/memo-level2.md` — D04完了チェック、横断的気づきK-04~K-06追記
+  - `evidence/evidence-evolutionary-biology.md` — EV-EB-001 を Level 2 に昇格
+  - `evidence/review/memo-level2.md` — D04完了チェック、横断的気づきK-04~K-06追記
 - **横断的気づき**:
   - K-04: 誤差の3運命（棄却・採用・保持）→ D1は①→③の転換、D3は③の状態
   - K-05: neofunctionalization = 「保持された誤差からの創造」の分子実証
