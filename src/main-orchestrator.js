@@ -10,6 +10,7 @@ import { initMainScenePipelineRuntime } from './main-scene-pipeline-runtime.js';
 export async function runMainOrchestrator({
     runtimeContext,
     devVersion,
+    devDate,
 }) {
     const {
         devMode: runtimeDevMode = false,
@@ -27,6 +28,7 @@ export async function runMainOrchestrator({
         sceneStateStore,
         devMode,
         devVersion,
+        devDate,
         intentQuerySeed,
     });
 
@@ -40,6 +42,7 @@ export async function runMainOrchestrator({
         initialSceneVariant,
         devMode,
         devVersion,
+        devDate,
         sceneStateStore,
     });
     const {
