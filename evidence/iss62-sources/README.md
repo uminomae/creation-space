@@ -3,6 +3,13 @@
 **Issue**: #62（30領域 Level 2 uniform 本格調査）
 **作成**: 2026-02-24
 
+## 文脈
+
+`iss62` は `kesson-driven-thinking` リポジトリの GitHub Issue #62 に由来する内部開発番号である。
+creation-space への移動後も、参照パスの安定性を優先してディレクトリ名は変更していない。
+
+このディレクトリの中身は、30領域それぞれに対して行った ChatGPT Deep Research の一次ソースであり、`evidence-D*.md` に蒸留される前の詳細出力を保持する。
+
 ## 目的
 
 #62 Step 6 で実施した各領域のディープリサーチ（主にChatGPT）の出力原文を一次ソースとして格納する。
@@ -36,6 +43,7 @@ DR-D{NN}-{slug}.md
 ```
 
 モデル名が不明な場合は `unknown` と記載する。
+メタ情報ルールの正本は [evidence-metadata.md](/Users/uminomae/dev/kesson-driven-thinking/base/schema/evidence-metadata.md) を参照。
 
 ## 進捗管理（30領域全件）
 
