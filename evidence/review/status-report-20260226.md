@@ -146,7 +146,7 @@ Codex 7タイプ分類: T1閾値突破型, T2境界現象型, T3エネルギー�
 ## 7. ファイル構成（主要のみ）
 
 ```
-base/evidence/
+evidence/
 ├── PROJECT.md              ← サブプロジェクト憲章
 ├── evidence-*.md           ← 各領域エビデンス（35ファイル）
 ├── iss62-sources/          ← DRサーベイ一次ソース（30ファイル）

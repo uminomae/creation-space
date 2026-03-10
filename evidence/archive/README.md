@@ -1,4 +1,4 @@
-# base/evidence/archive
+# evidence/archive
 
 **目的**: evidence ファイルの Revise 前スナップショットを保存する。
 
@@ -8,7 +8,7 @@
 
 ## ⚠️ archive に保存する前に
 
-このディレクトリは `base/evidence/evidence-D{NN}-*.md` の **Revise 前スナップショット専用**です。
+このディレクトリは `evidence/evidence-D{NN}-*.md` の **Revise 前スナップショット専用**です。
 Revise 後の最新版や deepdive 出力をここへ置かないこと。
 
 - 先に `docs/operations.md §3.2.1` を読む
@@ -25,12 +25,12 @@ evidence-D{NN}-pre-revise-{YYYYMMDD}.md
 
 ## 参照方法
 
-- **ファイル直接比較**: archive ファイルと現行 `base/evidence/evidence-D{NN}-*.md` を diff する
+- **ファイル直接比較**: archive ファイルと現行 `evidence/evidence-D{NN}-*.md` を diff する
 - **git 履歴**: archive を追加したコミットと Revise 本体の差分を `git show` / `git diff` で確認する
 
 ## 運用ルール
 
-- `base/evidence/evidence-D{NN}-*.md` を Revise する前に、当時点のファイルをここへコピーする
+- `evidence/evidence-D{NN}-*.md` を Revise する前に、当時点のファイルをここへコピーする
 - archive コピーと Revise 本体は **同一コミット** に含める
 - `git tag` は使わず、archive ファイル名と git 履歴で追跡する
 
@@ -45,7 +45,7 @@ evidence-D{NN}-pre-revise-{YYYYMMDD}.md
 ## 先に読むファイル
 
 - [docs/operations.md](/Users/uminomae/dev/kesson-driven-thinking/docs/operations.md)
-- [base/evidence/README.md](/Users/uminomae/dev/kesson-driven-thinking/base/evidence/README.md)
+- [evidence/README.md](/Users/uminomae/dev/creation-space/evidence/README.md)
 
 ## この README の役割
 

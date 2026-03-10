@@ -130,7 +130,7 @@ child_files:             # 分割時のみ
 ## ファイル構成
 
 ```
-base/evidence/
+evidence/
 ├── PROJECT.md                  ← このファイル（サブプロジェクト憲章）
 ├── evidence-*.md               ← 各領域のエビデンス（DB層素材、蒸留済み）
 ├── iss62-sources/              ← #62 Step 6 ディープリサーチ一次ソース（DR-D{NN}-*.md）

@@ -93,8 +93,8 @@
 ## 参照
 
 - H-3a/H-3bの定義: Issue #62 コメント「H-3 保持仮説の明確化（2026-02-25）」
-- Claude横断分析: `base/evidence/review/memo-level2.md` K-17〜K-20
-- Codex横断分析v2: `base/evidence/review/codex-cross-domain-analysis-v2.md`
-- 計画書: `base/evidence/review/plan-step6-fieldwork.md` v2
+- Claude横断分析: `evidence/review/memo-level2.md` K-17〜K-20
+- Codex横断分析v2: `evidence/review/codex-cross-domain-analysis-v2.md`
+- 計画書: `evidence/review/plan-step6-fieldwork.md` v2
 - SKILL.md: `skills/m2-exploration/SKILL.md` v1.1
-- サブプロジェクト憲章: `base/evidence/PROJECT.md`
+- サブプロジェクト憲章: `evidence/PROJECT.md`

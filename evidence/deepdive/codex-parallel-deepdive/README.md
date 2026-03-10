@@ -4,7 +4,7 @@
 
 - モデル: gpt-5.4 xhigh
 - タクソノミーid: `codex_parallel_deepdive`
-- 親ディレクトリ: [deepdive/README.md](/Users/uminomae/dev/kesson-driven-thinking/base/evidence/deepdive/README.md)
+- 親ディレクトリ: [deepdive/README.md](/Users/uminomae/dev/creation-space/evidence/deepdive/README.md)
 
 ## ドメイン一覧
 
@@ -12,8 +12,8 @@
 
 | 項目 | 状態 | 参照 |
 |---|---|---|
-| `run1/` | ✅ 完了（2026-03-07） | [run1/README.md](/Users/uminomae/dev/kesson-driven-thinking/base/evidence/deepdive/codex-parallel-deepdive/D22-business-management/run1/README.md) |
-| `insight1/` | ✅ 完了（2026-03-07、2026-03-09 却下判定記録あり） | [insight1/README.md](/Users/uminomae/dev/kesson-driven-thinking/base/evidence/deepdive/codex-parallel-deepdive/D22-business-management/insight1/README.md) |
+| `run1/` | ✅ 完了（2026-03-07） | [run1/README.md](/Users/uminomae/dev/creation-space/evidence/deepdive/codex-parallel-deepdive/D22-business-management/run1/README.md) |
+| `insight1/` | ✅ 完了（2026-03-07、2026-03-09 却下判定記録あり） | [insight1/README.md](/Users/uminomae/dev/creation-space/evidence/deepdive/codex-parallel-deepdive/D22-business-management/insight1/README.md) |
 
 ## 手法メモ
 
@@ -23,6 +23,6 @@
 
 ## 関連
 
-- 親サマリー: [deepdive/README.md](/Users/uminomae/dev/kesson-driven-thinking/base/evidence/deepdive/README.md)
-- D22 Run1: [run1/README.md](/Users/uminomae/dev/kesson-driven-thinking/base/evidence/deepdive/codex-parallel-deepdive/D22-business-management/run1/README.md)
-- D22 insight1: [insight1/README.md](/Users/uminomae/dev/kesson-driven-thinking/base/evidence/deepdive/codex-parallel-deepdive/D22-business-management/insight1/README.md)
+- 親サマリー: [deepdive/README.md](/Users/uminomae/dev/creation-space/evidence/deepdive/README.md)
+- D22 Run1: [run1/README.md](/Users/uminomae/dev/creation-space/evidence/deepdive/codex-parallel-deepdive/D22-business-management/run1/README.md)
+- D22 insight1: [insight1/README.md](/Users/uminomae/dev/creation-space/evidence/deepdive/codex-parallel-deepdive/D22-business-management/insight1/README.md)

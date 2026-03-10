@@ -8,8 +8,26 @@ import os
 import anthropic
 from pathlib import Path
 
-REPO = Path(__file__).parent.parent.parent.parent  # kesson-driven-thinking root
+REPO = Path(__file__).resolve().parent.parent.parent.parent  # creation-space root
 OUTPUT_DIR = Path(__file__).parent
+
+
+def resolve_kdt_repo() -> Path:
+    env = os.environ.get("KDT_REPO")
+    if env:
+        return Path(env).expanduser().resolve()
+
+    candidates = [
+        REPO.parent / "kesson-driven-thinking",
+        Path("/Users/uminomae/dev/kesson-driven-thinking"),
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate.resolve()
+
+    raise FileNotFoundError(
+        "kesson-driven-thinking repo not found. Set KDT_REPO or place the repo next to creation-space."
+    )
 
 SYSTEM_PROMPT = """\
 あなたは「欠損駆動思考（Kesson-Driven Thinking）」の構造類似探索プロジェクトの
@@ -72,12 +90,16 @@ ROUND_PROMPTS = {
 
 
 def load_inputs():
+    kdt_repo = resolve_kdt_repo()
     files = {
-        "evidence": REPO / "base/evidence/evidence-D22-business-management.md",
-        "gpt_review": REPO / "chatgpt/output/0304/REVIEW-D22-business-management.md",
-        "gpt_reconcile": REPO / "chatgpt/output/0304/RECONCILE-D22-business-management.md",
-        "domain_report": REPO / "build/creation/domains/ja/md/domain-D22-business-management.md",
+        "evidence": REPO / "evidence/evidence-D22-business-management.md",
+        "gpt_review": kdt_repo / "chatgpt/output/0304/REVIEW-D22-business-management.md",
+        "gpt_reconcile": kdt_repo / "chatgpt/output/0304/RECONCILE-D22-business-management.md",
+        "domain_report": kdt_repo / "build/creation/domains/ja/md/domain-D22-business-management.md",
     }
+    missing = [str(v) for v in files.values() if not v.exists()]
+    if missing:
+        raise FileNotFoundError("Missing input files:\n" + "\n".join(missing))
     return {k: v.read_text(encoding="utf-8") for k, v in files.items()}
 
 
@@ -141,9 +163,9 @@ def run():
     )
 
     print("\n=== 完了 ===")
-    print("base/evidence/deepdive/d22-run1-output.md")
-    print("base/evidence/deepdive/d22-run1-summary.md")
-    print("base/evidence/deepdive/d22-run1-full-log.md")
+    print("evidence/deepdive/d22-run1-output.md")
+    print("evidence/deepdive/d22-run1-summary.md")
+    print("evidence/deepdive/d22-run1-full-log.md")
 
 
 if __name__ == "__main__":

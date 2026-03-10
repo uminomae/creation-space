@@ -89,8 +89,8 @@ deepdive/
 
 | ディレクトリ | タクソノミーid | モデル | 操作プロトコル |
 |---|---|---|---|
-| [claude-code-agent/README.md](/Users/uminomae/dev/kesson-driven-thinking/base/evidence/deepdive/claude-code-agent/README.md) | `api_deepdive` | claude-opus-4-6 | 逐次多ラウンド。コンテキスト継続。 |
-| [codex-parallel-deepdive/README.md](/Users/uminomae/dev/kesson-driven-thinking/base/evidence/deepdive/codex-parallel-deepdive/README.md) | `codex_parallel_deepdive` | gpt-5.4 xhigh | 並列マルチエージェント。コンテキスト独立。手法別サブエージェント同時実行。 |
+| [claude-code-agent/README.md](/Users/uminomae/dev/creation-space/evidence/deepdive/claude-code-agent/README.md) | `api_deepdive` | claude-opus-4-6 | 逐次多ラウンド。コンテキスト継続。 |
+| [codex-parallel-deepdive/README.md](/Users/uminomae/dev/creation-space/evidence/deepdive/codex-parallel-deepdive/README.md) | `codex_parallel_deepdive` | gpt-5.4 xhigh | 並列マルチエージェント。コンテキスト独立。手法別サブエージェント同時実行。 |
 
 ---
 

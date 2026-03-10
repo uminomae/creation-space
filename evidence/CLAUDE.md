@@ -1,4 +1,4 @@
-# CLAUDE.md — base/evidence/
+# CLAUDE.md — evidence/
 
 このディレクトリは調査の生データ。
 

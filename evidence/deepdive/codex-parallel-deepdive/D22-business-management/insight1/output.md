@@ -4,10 +4,10 @@
 - バージョン: この実行環境では build 表示なし
 - 実行日: 2026-03-07
 - 入力:
-  - `base/evidence/evidence-D22-business-management.md`
-  - `base/evidence/deepdive/codex-parallel-deepdive/D22-business-management/run1/output.md`
-  - `base/evidence/deepdive/codex-parallel-deepdive/D22-business-management/run1/agent-gap-scan.md`
-  - `base/evidence/deepdive/codex-parallel-deepdive/D22-business-management/run1/agent-boundary-guard.md`
+  - `evidence/evidence-D22-business-management.md`
+  - `evidence/deepdive/codex-parallel-deepdive/D22-business-management/run1/output.md`
+  - `evidence/deepdive/codex-parallel-deepdive/D22-business-management/run1/agent-gap-scan.md`
+  - `evidence/deepdive/codex-parallel-deepdive/D22-business-management/run1/agent-boundary-guard.md`
   - `chatgpt/output/0304/REVIEW-D22-business-management.md`
   - `chatgpt/output/0304/RECONCILE-D22-business-management.md`
   - `base/schema/core-definitions.md`

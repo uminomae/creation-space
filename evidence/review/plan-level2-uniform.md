@@ -2,7 +2,7 @@
 
 **Issue**: #62（親: #61）
 **作成日**: 2026-02-22
-**憲章**: `base/evidence/PROJECT.md`
+**憲章**: `evidence/PROJECT.md`
 
 ---
 
@@ -218,11 +218,11 @@ R3-R4で実施。#8（しっくり感）はpjdhiroレビュー時に実施。
 
 | ファイル | パス | 用途 |
 |---------|------|------|
-| 本計画書 | `base/evidence/review/plan-level2-uniform.md` | 範囲・深さ・テスト・ルール |
-| 判断待ち | `base/evidence/review/judgments.md` | pjdhiro判断が必要な項目一覧 |
-| 探索メモ | `base/evidence/review/memo-level2.md` | 作業メモ・気づき・保持論点 |
-| 成果物 | `base/evidence/evidence-*.md` 各ファイル | Level 2 フィールド追記 |
-| 一次ソース | `base/evidence/iss62-sources/DR-D{NN}-*.md` | GPTディープリサーチ原文（レビュー済み） |
+| 本計画書 | `evidence/review/plan-level2-uniform.md` | 範囲・深さ・テスト・ルール |
+| 判断待ち | `evidence/review/judgments.md` | pjdhiro判断が必要な項目一覧 |
+| 探索メモ | `evidence/review/memo-level2.md` | 作業メモ・気づき・保持論点 |
+| 成果物 | `evidence/evidence-*.md` 各ファイル | Level 2 フィールド追記 |
+| 一次ソース | `evidence/iss62-sources/DR-D{NN}-*.md` | GPTディープリサーチ原文（レビュー済み） |
 | 指示書 | `chatgpt/inbox/REQ-GPT-*.md` | GPTへのブリーフィング |
 
 ---

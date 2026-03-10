@@ -3,9 +3,9 @@
 Task 0 確認: DRファイル 30件確認。evidence-*.md 未参照（Task 1-4実施時）。
 
 - 実施日: 2026-02-25
-- 対象: `base/evidence/iss62-sources/DR-D01..D30`
-- Task 1-4で使用した補助資料: `base/evidence/review/step5-survey-report.md` §6, `base/schema/five-stages.md`, `skills/m2-exploration/SKILL.md`
-- Task 5で追加参照: Issue #62 コメント（「DR横断分析 結果」「フルエージェントレビュー結果」等）、`base/evidence/review/memo-level2.md` K-17〜K-19
+- 対象: `evidence/iss62-sources/DR-D01..D30`
+- Task 1-4で使用した補助資料: `evidence/review/step5-survey-report.md` §6, `base/schema/five-stages.md`, `skills/m2-exploration/SKILL.md`
+- Task 5で追加参照: Issue #62 コメント（「DR横断分析 結果」「フルエージェントレビュー結果」等）、`evidence/review/memo-level2.md` K-17〜K-19
 
 ## Task 1: 全30領域DRの横断読解
 
@@ -179,7 +179,7 @@ Task 0 確認: DRファイル 30件確認。evidence-*.md 未参照（Task 1-4�
 参照:
 - Issue #62 コメント「DR横断分析 結果（2026-02-25）」
 - Issue #62 コメント「フルエージェントレビュー結果（2026-02-25）」
-- `base/evidence/review/memo-level2.md` K-17〜K-19
+- `evidence/review/memo-level2.md` K-17〜K-19
 
 ### 5-1. 🔴🟡⚪比較
 
