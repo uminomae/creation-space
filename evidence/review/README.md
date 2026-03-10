@@ -22,7 +22,7 @@ pjdhiro、Claude、Codex が主に使う。
 ### When
 
 2026-02-21 から 2026-03-09 にかけて作成・更新された。
-元は `kesson-driven-thinking/base/evidence/review/` にあり、2026-03-10 に #180 で creation-space へ移動した。
+元は旧 private repo の `base/evidence/review/` にあり、2026-03-10 に #180 で creation-space へ移動した。
 
 ### Where
 
@@ -40,7 +40,7 @@ Phase ごとに計画書を作り、実行し、横断メモを蓄積し、必�
 - P1 横断洞察: [p1-cross-domain-insights.md](p1-cross-domain-insights.md)
 - フィールドワーク設計: [plan-step7-fieldwork.md](plan-step7-fieldwork.md)
 - 親憲章: [../PROJECT.md](../PROJECT.md)
-- 関連 Issue: `kesson-driven-thinking` #61, #62, #180
+- 関連記録番号: #61, #62, #180
 
 ## ファイル一覧
 

@@ -16,9 +16,9 @@ deepdive は、Level 2 の evidence を壊さずに、AIエージェントを使
 **evidence 本体はここでは変更しない。** output.md を pjdhiro が確認してから evidence に反映する。
 
 設計の経緯・実験設計の詳細は以下を参照：
-- **[kesson-driven-thinking #120](https://github.com/uminomae/kesson-driven-thinking/issues/120)** — D22 経営学: APIエージェント多段探索実験（幅×深さ、最大5ラン）
-- **[kesson-driven-thinking #121](https://github.com/uminomae/kesson-driven-thinking/issues/121)** — evidence メタ情報ルール一元化（evidence-metadata.md 正本）
-- **`base/schema/evidence-metadata.md`** — タクソノミー・フラグ体系・deepdive標準仕様の唯一の正本
+- 旧 deepdive 設計記録（D22 経営学の多段探索実験）
+- evidence メタ情報ルール一元化の記録
+- 外部 schema repo の `evidence-metadata.md` 正本
 
 ---
 

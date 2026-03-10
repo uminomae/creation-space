@@ -10,6 +10,7 @@ const DEFAULT_REPORTS_DATA_URL = `${PJDHIRO_CREATION_RAW}/manifests/domains.json
 const DEFAULT_REPORTS_ASSET_BASE = `${PJDHIRO_CREATION_PAGES}/`;
 const DEFAULT_REPORTS_MD_ASSET_BASE = `${PJDHIRO_CREATION_RAW}/`;
 const REPORTS_SCENARIO_BASE = 'assets/reports/scenarios';
+const CREATION_GUIDE_GENERATOR_MODEL = 'claude-opus-4-6';
 const STATUS_REPORT_LINKS = {
     ja: {
         mdUrl: `${PJDHIRO_CREATION_RAW}/survey/ja/md/survey-status.md`,
@@ -28,10 +29,12 @@ const MODEL_GUIDE_LINKS = [
             ja: {
                 mdUrl: `${PJDHIRO_CREATION_RAW}/guides/ja/md/creation-general.md`,
                 pdfUrl: `${PJDHIRO_CREATION_PAGES}/guides/ja/pdf/creation-general.pdf`,
+                generatorModel: CREATION_GUIDE_GENERATOR_MODEL,
             },
             en: {
                 mdUrl: `${PJDHIRO_CREATION_RAW}/guides/en/md/creation-general.md`,
                 pdfUrl: `${PJDHIRO_CREATION_PAGES}/guides/en/pdf/creation-general.pdf`,
+                generatorModel: CREATION_GUIDE_GENERATOR_MODEL,
             },
         },
     },
@@ -41,10 +44,12 @@ const MODEL_GUIDE_LINKS = [
             ja: {
                 mdUrl: `${PJDHIRO_CREATION_RAW}/guides/ja/md/creation-designer.md`,
                 pdfUrl: `${PJDHIRO_CREATION_PAGES}/guides/ja/pdf/creation-designer.pdf`,
+                generatorModel: CREATION_GUIDE_GENERATOR_MODEL,
             },
             en: {
                 mdUrl: `${PJDHIRO_CREATION_RAW}/guides/en/md/creation-designer.md`,
                 pdfUrl: `${PJDHIRO_CREATION_PAGES}/guides/en/pdf/creation-designer.pdf`,
+                generatorModel: CREATION_GUIDE_GENERATOR_MODEL,
             },
         },
     },
@@ -54,10 +59,12 @@ const MODEL_GUIDE_LINKS = [
             ja: {
                 mdUrl: `${PJDHIRO_CREATION_RAW}/guides/ja/md/creation-academic.md`,
                 pdfUrl: `${PJDHIRO_CREATION_PAGES}/guides/ja/pdf/creation-academic.pdf`,
+                generatorModel: CREATION_GUIDE_GENERATOR_MODEL,
             },
             en: {
                 mdUrl: `${PJDHIRO_CREATION_RAW}/guides/en/md/creation-academic.md`,
                 pdfUrl: `${PJDHIRO_CREATION_PAGES}/guides/en/pdf/creation-academic.pdf`,
+                generatorModel: CREATION_GUIDE_GENERATOR_MODEL,
             },
         },
     },
@@ -137,7 +144,7 @@ const STRINGS = {
         filterGroupAria: '領域別レポート絞り込み',
         filterAll: '全件',
         openStatus: '調査内容',
-        statusReportTitle: '調査概要',
+        statusReportTitle: '調査内容',
         modalTitleDefault: '詳細',
         modalLoading: 'Markdown を読み込み中...',
         modalError: 'Markdown の読み込みに失敗しました。',
@@ -184,7 +191,7 @@ const STRINGS = {
         filterGroupAria: 'Filter domain reports',
         filterAll: 'All',
         openStatus: 'Investigation Notes',
-        statusReportTitle: 'Survey Overview',
+        statusReportTitle: 'Investigation Notes',
         modalTitleDefault: 'Details',
         modalLoading: 'Loading markdown...',
         modalError: 'Failed to load markdown.',
@@ -934,6 +941,8 @@ function dedupeSources(sources = []) {
         normalized.push({
             mdUrl: safeMarkdownUrl,
             pdfUrl: normalizePdfBrowserUrl(source?.pdfUrl),
+            generatorModel: hasText(source?.generatorModel) ? source.generatorModel.trim() : '',
+            generated: hasText(source?.generated) ? source.generated.trim() : '',
         });
     });
 
@@ -995,6 +1004,8 @@ function buildLocalizedSourceCandidates(source, lang = state.lang) {
     const baseSource = {
         mdUrl: safeUrl(source?.mdUrl, ''),
         pdfUrl: safeUrl(source?.pdfUrl, ''),
+        generatorModel: hasText(source?.generatorModel) ? source.generatorModel.trim() : '',
+        generated: hasText(source?.generated) ? source.generated.trim() : '',
     };
 
     if (normalizedLang !== 'en') {
@@ -1010,6 +1021,8 @@ function buildLocalizedSourceCandidates(source, lang = state.lang) {
             hasExplicitEnglishDirectory(baseSource.pdfUrl) ? baseSource.pdfUrl : withEnglishAssetSuffix(baseSource.pdfUrl),
             '',
         ),
+        generatorModel: baseSource.generatorModel,
+        generated: baseSource.generated,
     };
     return dedupeSources([enSource]);
 }
@@ -1072,6 +1085,7 @@ async function openMarkdownModal({ mdUrl, title = '', pdfUrl = '', sources = [] 
         const marked = await getMarked();
         let raw = '';
         let lastError = null;
+        let resolvedSource = firstSource;
 
         for (const source of modalSources) {
             const mdCandidates = buildMarkdownFetchCandidates(source.mdUrl);
@@ -1084,6 +1098,7 @@ async function openMarkdownModal({ mdUrl, title = '', pdfUrl = '', sources = [] 
                         throw new Error('Unexpected HTML response for markdown source');
                     }
                     raw = text;
+                    resolvedSource = source;
                     break;
                 } catch (error) {
                     lastError = error;
@@ -1109,8 +1124,10 @@ async function openMarkdownModal({ mdUrl, title = '', pdfUrl = '', sources = [] 
 
         const strings = getStrings(state.lang);
         const metaParts = [];
-        if (meta.generator_model) metaParts.push(`${strings.modalModel}: ${meta.generator_model}`);
-        if (meta.generated) metaParts.push(`${strings.modalGenerated}: ${formatDate(meta.generated)}`);
+        const generatorModel = hasText(meta.generator_model) ? meta.generator_model.trim() : resolvedSource.generatorModel;
+        const generated = hasText(meta.generated) ? meta.generated.trim() : resolvedSource.generated;
+        if (generatorModel) metaParts.push(`${strings.modalModel}: ${generatorModel}`);
+        if (generated) metaParts.push(`${strings.modalGenerated}: ${formatDate(generated)}`);
         if (state.dom.mdModalMeta) {
             state.dom.mdModalMeta.textContent = metaParts.join(' / ');
         }
