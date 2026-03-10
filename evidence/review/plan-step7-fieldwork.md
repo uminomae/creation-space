@@ -112,7 +112,7 @@ Step 6の横断分析で得た以下の知見が「最新の視点」を構成�
 ```
 Phase 1: 調査設計
   - 既存エントリの確認（現在の Accept/CA/Reject 件数）
-  - DRサーベイ結果の読み込み（202602-deep-research-30domains-gpt/DR-D{NN}-*.md）
+  - DRサーベイ結果の読み込み（gpt-deep-research/DR-D{NN}-*.md）
   - 10理論候補リスト作成
   - 「最新の視点」のうちこの領域で重要なレンズの特定
 
@@ -126,7 +126,7 @@ Phase 3: GPTレビュー
   - inbox/REQ-GPT-*_d{nn}-review.md を作成
   - pjdhiroが手動でGPTに渡す（evidenceファイル + REQファイル）
   - GPT出力を chatgpt/output/{MMDD}/ に保存（GPT生成ファイル名のまま）
-  - 確定後、必要に応じて 202602-deep-research-30domains-gpt/ にアーカイブ
+  - 確定後、必要に応じて gpt-deep-research/ にアーカイブ
 
 Phase 4: 突き合わせ・確定
   - ClaudeがGPTレビューを読み、不一致点を抽出
@@ -151,7 +151,7 @@ D01数学で実証済みの具体手順。**30領域全てでこのフローを�
    - `evidence/evidence-D{NN}-*.md` があれば読み込み
    - なければ新規作成（ヘッダテンプレートは D01 を参照）
 2. **DRサーベイ結果読み込み**
-   - `202602-deep-research-30domains-gpt/DR-D{NN}-*.md` があれば参照
+   - `gpt-deep-research/DR-D{NN}-*.md` があれば参照
 3. **10理論候補リスト作成**
    - 既存Accept/CA + DR結果 + Claude知識 から10件程度を選定
    - 各候補に「なぜこの理論か」の1行理由を付与
@@ -271,7 +271,7 @@ D01数学で実証済みの具体手順。**30領域全てでこのフローを�
 
 10理論の候補を得るソース:
 - 既存のAccept/CAエントリ（Step 1〜6の蓄積）
-- DRサーベイの一次ソース（202602-deep-research-30domains-gpt/）
+- DRサーベイの一次ソース（gpt-deep-research/）
 - ChatGPTディープリサーチ（追加発注）
 - 横断分析で示唆された関連理論（K番号参照）
 - 各理論の参考文献（芋づる式）
@@ -295,7 +295,7 @@ D01数学で実証済みの具体手順。**30領域全てでこのフローを�
 
 ### 5.2 ChatGPTディープリサーチの発注
 
-Phase 1で候補リストを作成し、既存エントリに含まれない理論を重点的に探索するブリーフィングを作成。pjdhiroが手動でChatGPTに渡す。出力は `202602-deep-research-30domains-gpt/DR-D{NN}-*.md` に追記または新規ファイルとして保存。
+Phase 1で候補リストを作成し、既存エントリに含まれない理論を重点的に探索するブリーフィングを作成。pjdhiroが手動でChatGPTに渡す。出力は `gpt-deep-research/DR-D{NN}-*.md` に追記または新規ファイルとして保存。
 
 ---
 

@@ -5,7 +5,7 @@
 
 ## DR出典
 - `chatgpt/output/0228/DR-D13-philosophy.md`（GPT Deep Research, 11理論提示）
-- `evidence/202602-deep-research-30domains-gpt/DR-D13-philosophy.md`（先行DR, 3理論: Whitehead/Dewey/Levinas）
+- `evidence/gpt-deep-research/DR-D13-philosophy.md`（先行DR, 3理論: Whitehead/Dewey/Levinas）
 
 ## 既存エントリ状況
 - `evidence/evidence-philosophy.md` に14件（EV-PH-001〜015, 010欠番）
@@ -81,7 +81,7 @@
   - 再帰ループ（渦）と安定化（束）の交替をモデル化: クーン/ポパー/パース/クワイン
   - 束への過剰収束を批判的に制御: アドルノ
 
-### 先行DR（202602-deep-research-30domains-gpt版, 3件）の特徴
+### 先行DR（gpt-deep-research版, 3件）の特徴
 - Deweyは「全30領域を通じて最も直接的な構造対応の可能性」と評価されており、Phase 2での最優先精査対象
 - Levinasは先行DRでCA判定だが、「縁の一点に焦点を絞った再構成」で昇格可能とされている。候補10件には含めなかったが、Phase 2で余力があれば11件目として検討の余地あり
 

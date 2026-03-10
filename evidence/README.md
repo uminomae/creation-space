@@ -61,7 +61,7 @@ cp evidence/evidence-D{NN}-{slug}.md \
 |------|------|
 | `evidence-D*.md` | 30領域の個別 evidence 本体 |
 | `PROJECT.md` | 全分野構造類似探索サブプロジェクトの憲章 |
-| `202602-deep-research-30domains-gpt/` | #62 本格調査で収集した一次ソース |
+| `gpt-deep-research/` | 本格調査で収集した一次ソース |
 | `deepdive/` | Level 2 evidence を壊さずに深掘り探索を行う分離領域 |
 | `review/` | 横断分析、計画書、レビュー成果 |
 | `archive/` | Revise 前スナップショットや退避資料 |
@@ -72,7 +72,7 @@ cp evidence/evidence-D{NN}-{slug}.md \
 
 - [PROJECT.md](/Users/uminomae/dev/creation-space/evidence/PROJECT.md)
 - [deepdive/README.md](/Users/uminomae/dev/creation-space/evidence/deepdive/README.md)
-- [202602-deep-research-30domains-gpt/README.md](/Users/uminomae/dev/creation-space/evidence/202602-deep-research-30domains-gpt/README.md)
+- [gpt-deep-research/README.md](/Users/uminomae/dev/creation-space/evidence/gpt-deep-research/README.md)
 - [archive/README.md](/Users/uminomae/dev/creation-space/evidence/archive/README.md)
 - [evidence-metadata.md](/Users/uminomae/dev/kesson-driven-thinking/base/schema/evidence-metadata.md)
 - `kesson-driven-thinking` #61
