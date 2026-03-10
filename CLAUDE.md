@@ -1,5 +1,9 @@
 # creation-space — Claude Code CLI
 
+## 0. エントリーポイント
+
+プロジェクト全体像・管理書類・ファイル構成は `docs/README.md` を参照。
+
 ## 1. 役割定義
 
 creation-space プロジェクトの Claude Code CLI エージェントとして動作する。
