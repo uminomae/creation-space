@@ -17,6 +17,7 @@
 | D22 経営学 | codex-parallel | insight2 | [deepdive/codex-parallel-deepdive/D22-business-management/insight2/output.md](deepdive/codex-parallel-deepdive/D22-business-management/insight2/output.md) | D22 の厚みは縁→渦と束の制度化に集中し、場の入口と束→場回帰が5段階モデル側の保持論点として残る |
 | D22 経営学 | codex-parallel | cross-insight | [deepdive/codex-parallel-deepdive/D22-business-management/cross-insight/output.md](deepdive/codex-parallel-deepdive/D22-business-management/cross-insight/output.md) | 縁は関係網・未決定性・渦駆動を備えた界面で、束は継承可能な残存構造として読むと D22 横断の精度が上がる |
 | D23 発達心理学 | codex-parallel | insight1 | [deepdive/codex-parallel-deepdive/D23-developmental-psychology/insight1/output.md](deepdive/codex-parallel-deepdive/D23-developmental-psychology/insight1/output.md) | 縁は三項的・媒介的な界面として最も強く、束は個人内安定より移送・慣行化で測るべきだと整理 |
+| D23 発達心理学 | codex-parallel | cross-insight | [deepdive/codex-parallel-deepdive/D23-developmental-psychology/cross-insight/output.md](deepdive/codex-parallel-deepdive/D23-developmental-psychology/cross-insight/output.md) | D23 を横断すると、縁は媒介された関係界面、束は別場面へ残る構造として読むと 5段階比較の精度が上がる |
 
 ## 運用ルール
 
