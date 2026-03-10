@@ -1,167 +1,67 @@
 # creation-space
 
-Creation Space: a standalone Three.js exploration page for "What is Creation".
+**本ファイルはこのリポジトリの目次である。**
+各ディレクトリの詳細は、配下の README.md に記載されている。ここではプロジェクトの概要と、重要書類・ディレクトリへの案内を示す。
 
-## Evidence data（30領域構造類似調査）
+---
 
-creation-space は Three.js による視覚表現アプリケーションに加え、創造モデルの根拠データを格納している。
+「創造とは何か」を探索するプロジェクト。30の学術領域から創造プロセスの構造類似パターンを収集・分析し、創造の5段階モデル（場→波→縁→渦→束）の妥当性を検証する。
 
-`evidence/` ディレクトリには、30 の学術領域から創造プロセスの構造類似パターンを探索した調査データが含まれる。2026-03-10 に kesson-driven-thinking（private repo）から移動し、創造モデルの独立モジュールとして分離した。
+本リポジトリは特定の思想体系に依存しない独立モジュールであり、調査データと Web UI を同梱する。
 
-詳細は [evidence/README.md](evidence/README.md) を参照。
+---
 
-## Local run
+## 重要書類
 
-```bash
-cd <your-local-path>/creation-space
-./server.sh
-# then open http://localhost:3001/
-```
+| 書類 | 場所 | 概要 |
+|------|------|------|
+| **プロジェクト憲章** | [evidence/PROJECT.md](evidence/PROJECT.md) | 目的・5段階モデル定義・調査方法・30領域の進捗・呼び出し側への契約 |
+| **管理ハブ** | [docs/README.md](docs/README.md) | ファイル構成・運用ルール・エントリーポイントの集約先 |
+| **CLIエントリーポイント** | [CLAUDE.md](CLAUDE.md) | Claude Code CLI 向けの運用情報・ブランチ戦略・セッション終了手順 |
+| **洞察目次** | [evidence/INSIGHTS.md](evidence/INSIGHTS.md) | deepdive・横断洞察の一覧。新しい分析結果の参照起点 |
+| **進捗タクソノミー** | [docs/survey-progress-taxonomy.md](docs/survey-progress-taxonomy.md) | 調査進捗ラベルの定義と設計経緯 |
 
-Optional port:
+---
 
-```bash
-./server.sh 4173
-```
+## ディレクトリ構成
 
-## URL query (Intent timing seed)
+| パス | 役割 |
+|------|------|
+| `evidence/` | 30領域の調査データ本体。evidence-D01〜D30、deepdive、レビュー、一次ソース |
+| `evidence/deepdive/` | 個別領域の深掘り探索（insight、cross-insight、run） |
+| `evidence/review/` | 横断分析、計画書、調査方法論の記録 |
+| `evidence/202602-deep-research-30domains-gpt/` | GPT Deep Research による一次ソース（30領域） |
+| `docs/` | 管理書類 |
+| `src/` | Web UI（Three.js による視覚表現） |
+| `scripts/` | ビルド・同期スクリプト |
+| `assets/` | 静的アセット |
 
-You can seed the initial Intent view from URL params:
+---
 
-- `utime` (or `uTime`): initial shader timeline seconds
-- `camdeg` (or `camDeg`): camera angle offset in degrees (`-90` etc)
-- `camrad` (or `camRad`): camera angle offset in radians
-- `camturn` (or `camTurn`): camera turn offset (`1.0 = 360deg`)
-- `camphase` (or `camPhase`): legacy alias, treated as radians
+## Web UI
 
-Example:
+Three.js による創造プロセスの視覚表現。
 
-```text
-http://localhost:3001/?graphic=i&utime=10000&camdeg=-90
-```
-
-Small nudge example:
-
-```text
-http://localhost:3001/?graphic=i&utime=10000&camrad=-0.1
-```
-
-## Codex session bootstrap
-
-For Codex conversations targeting this repository, run this first:
+### ローカル起動
 
 ```bash
-node scripts/articles-en-semi-auto.mjs --mode check
+./server.sh          # http://localhost:3001/
+./server.sh 4173     # ポート指定
 ```
 
-Purpose:
-- detect new items from `https://uminomae.github.io/pjdhiro/api/creation-articles.json`
-- show pending EN cache fields (`title_en`, `excerpt_en`) before implementation work
+### Embed API
 
-## Embed API (for external pages)
+`src/graphics-entry.js` の `createEmbeddedGraphic()` で外部ページに埋め込み可能。graphicMode: `hoji` / `sinobi` / `i`。
 
-`src/graphics-entry.js` exports `createEmbeddedGraphic()` for mounting the graphics into a target element.
+### Reports
 
-```html
-<div id="embed-canvas" style="width: 100%; height: 420px;"></div>
-<script type="importmap">
-{
-  "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
-    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
-  }
-}
-</script>
-<script type="module">
-  import { createEmbeddedGraphic } from "https://YOUR_HOST/src/graphics-entry.js";
+調査レポートの PDF / MD は [pjdhiro](https://github.com/uminomae/pjdhiro) リポジトリでホスティング。`src/reports.js` が取得・表示する。
 
-  const app = await createEmbeddedGraphic({
-    container: "#embed-canvas",
-    graphicMode: "hoji", // hoji | sinobi | i
-    autoStart: true,
-    autoResize: true,
-  });
+---
 
-  // app.stop();
-  // app.start();
-  // app.destroy();
-</script>
-```
+## 関連リポジトリ
 
-Notes:
-- Cross-site import requires CORS (`Access-Control-Allow-Origin`) on the script host.
-- This project uses ES Modules and bare specifier `three`, so host page must provide an import map (or bundler equivalent).
-
-## Articles EN semi-auto
-
-`assets/articles/articles.json` (EN cache) can be synced against the live API with:
-
-```bash
-node scripts/articles-en-semi-auto.mjs --mode check
-node scripts/articles-en-semi-auto.mjs --mode sync
-```
-
-Modes:
-- `check`: compare API vs local cache and print pending EN queue.
-- `sync`: update local cache with new/updated API items while preserving `title_en` / `excerpt_en`.
-- `routine`: same as `sync` and optionally posts a summary to GitHub issue (`--notify-issue`).
-
-## Reports asset hosting
-
-All REPORTS assets (survey, guides, domains) are hosted on the pjdhiro repository.
-`src/reports.js` fetches data and markdown from `raw.githubusercontent.com` and links PDFs via GitHub Pages.
-
-- **Data**: `https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/creation/manifests/domains.json`
-- **MD**: `https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/creation/{survey,guides,domains}/{lang}/md/*.md`
-- **PDF**: `https://uminomae.github.io/pjdhiro/assets/creation/{survey,guides,domains}/{lang}/pdf/*.pdf`
-
-PDF availability is checked at runtime via HEAD requests (`resolveFirstAvailablePdfUrl` in `src/reports.js`).
-
-## Reports taxonomy scenarios
-
-For exploratory category checks, you can override the report taxonomy from the URL without editing `src/reports.js`.
-
-Examples:
-
-```text
-http://localhost:3004/?reportsScenario=split-d22
-http://localhost:3004/?lang=en&reportsScenario=split-d22
-```
-
-Notes:
-- Scenario files live under `assets/reports/scenarios/*.json`.
-- The current visual-check fixture is `assets/reports/scenarios/split-d22.json`.
-- `reportsTaxonomyTest=split-d22` remains as a backward-compatible alias.
-- When a scenario is active, the reports section shows the active scenario label under the domain reports heading.
-
-## Reports progress taxonomy
-
-The label taxonomy for domain survey progress is defined and documented in:
-
-**[`docs/survey-progress-taxonomy.md`](docs/survey-progress-taxonomy.md)**
-
-This document records:
-- The current label set (`not_surveyed` / `claude_screened` / `claude_gpt_reviewed` / `human_reviewed`)
-- Design rationale and decision history (incl. Issue #23)
-- Open questions and pending label additions
-
-To change labels: **update the doc first**, then `src/reports.js` → `DEFAULT_PROGRESS_TAXONOMY`.
-
-## Domain EN markdown audit / sync
-
-If `domains/en/pdf/*.pdf` exists in `pjdhiro` but `domains/en/md/*.md` is missing, use:
-
-```bash
-node scripts/domains-en-md-sync.mjs --mode check
-node scripts/domains-en-md-sync.mjs --mode sync
-```
-
-Defaults:
-- build source: `../kesson-driven-thinking/build/creation/domains/en/md`
-- publish target: `../pjdhiro/assets/creation/domains/en/md`
-- manifest source: `../pjdhiro/assets/creation/manifests/domains.json`
-
-What it does:
-- reads expected EN domain markdown paths from the `pjdhiro` manifest
-- checks build copy vs publish copy for `domains/en/md/*.md`
-- in `sync` mode, copies missing/changed files from `kesson-driven-thinking/build/creation/` into `pjdhiro/assets/creation/`
+| リポジトリ | 役割 |
+|------------|------|
+| [pjdhiro](https://github.com/uminomae/pjdhiro) | GitHub Pages。レポート PDF/MD のホスティング、ブログ |
+| kesson-driven-thinking (private) | 5段階モデルの定義正本（Phase 3 で本リポジトリへ移転予定） |
