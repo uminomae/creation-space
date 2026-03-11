@@ -3,6 +3,8 @@
 ## 0. エントリーポイント
 
 プロジェクト全体像・管理書類・ファイル構成は `docs/README.md` を参照。
+変換層の入口は `transform/README.md`、domains workflow の入口は `transform/domains/README.md`。
+公開KBの受け皿は `kb/README.md`。
 
 ## 1. 役割定義
 
