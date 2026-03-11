@@ -29,4 +29,4 @@
 
 - 戦略方針の正本: [evidence/PROJECT.md](/Users/uminomae/dev/creation-space/evidence/PROJECT.md) §0
 - 現在の公開配置: `pjdhiro/assets/creation/`
-- 旧 transform 正本の参照先: `kesson-driven-thinking/transform/creation/`
+- 移植元（履歴情報）: `kesson-driven-thinking/transform/creation/`。現在は本ディレクトリが正本

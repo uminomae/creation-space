@@ -11,7 +11,6 @@ const STRINGS = {
         ],
         topbarMainTitle: '創造とは',
         topbarSubtitle: 'Creation Space',
-        topbarHome: 'kesson-driven',
         topbarDev: 'DEV',
         topbarArticles: 'ARTICLES',
         topbarReports: 'REPORTS',
@@ -31,8 +30,6 @@ const STRINGS = {
         reportsSectionHeadingAria: 'REPORTS セクションへジャンプ',
         reportsAiNotice: 'AIが執筆しているため間違いがある場合があります。',
         offcanvasArticlesTitle: 'ARTICLES',
-        leftKessonLinkLabel: '欠損駆動思考',
-        leftKessonLinkAria: 'kesson-spaceへ移動',
         surfaceButtonAria: 'ページ上部に戻る',
         devVersionPrefix: 'dev',
         langToggleLabel: 'English',
@@ -48,7 +45,6 @@ const STRINGS = {
         ],
         topbarMainTitle: 'What Is Creation',
         topbarSubtitle: 'Creation Space',
-        topbarHome: 'kesson-driven',
         topbarDev: 'DEV',
         topbarArticles: 'ARTICLES',
         topbarReports: 'REPORTS',
@@ -68,8 +64,6 @@ const STRINGS = {
         reportsSectionHeadingAria: 'Jump to REPORTS section',
         reportsAiNotice: 'This section is AI-authored and may contain mistakes.',
         offcanvasArticlesTitle: 'ARTICLES',
-        leftKessonLinkLabel: 'kesson-driven',
-        leftKessonLinkAria: 'Go to kesson-space',
         surfaceButtonAria: 'Back to top',
         devVersionPrefix: 'dev',
         langToggleLabel: '日本語',
@@ -106,7 +100,6 @@ export function applyPageLanguage(lang, { devMode = false, devVersion = '', devD
     const taglineContainer = document.getElementById('taglines');
     const topbarMainTitle = document.getElementById('topbar-main-title');
     const topbarSubtitle = document.getElementById('topbar-subtitle');
-    const topbarHomeLink = document.getElementById('topbar-home-link');
     const topbarDevLink = document.getElementById('topbar-dev-link');
     const topbarArticlesBtn = document.getElementById('topbar-articles-btn');
     const topbarReportsLink = document.getElementById('topbar-reports-link');
@@ -118,8 +111,6 @@ export function applyPageLanguage(lang, { devMode = false, devVersion = '', devD
     const reportsSectionHeading = document.getElementById('reports-section-heading');
     const reportsAiNotice = document.getElementById('reports-ai-notice');
     const offcanvasArticlesTitle = document.getElementById('offcanvas-articles-title');
-    const leftKessonLink = document.getElementById('left-kesson-link');
-    const leftKessonLinkLabel = document.getElementById('left-kesson-link-label');
     const langToggle = document.getElementById('lang-toggle');
     const graphicSwitcher = document.getElementById('graphic-switcher');
     const graphicHojiButton = document.querySelector('[data-graphic-mode="hoji"]');
@@ -131,7 +122,6 @@ export function applyPageLanguage(lang, { devMode = false, devVersion = '', devD
     if (titleSub) titleSub.textContent = strings.subtitle;
     if (topbarMainTitle) topbarMainTitle.textContent = strings.topbarMainTitle;
     if (topbarSubtitle) topbarSubtitle.textContent = strings.topbarSubtitle;
-    if (topbarHomeLink) topbarHomeLink.textContent = strings.topbarHome;
     if (topbarDevLink) topbarDevLink.textContent = strings.topbarDev;
     if (topbarArticlesBtn) topbarArticlesBtn.textContent = strings.topbarArticles;
     if (topbarReportsLink) {
@@ -155,8 +145,6 @@ export function applyPageLanguage(lang, { devMode = false, devVersion = '', devD
     }
     if (reportsAiNotice) reportsAiNotice.textContent = strings.reportsAiNotice;
     if (offcanvasArticlesTitle) offcanvasArticlesTitle.textContent = strings.offcanvasArticlesTitle;
-    if (leftKessonLinkLabel) leftKessonLinkLabel.textContent = strings.leftKessonLinkLabel;
-    if (leftKessonLink) leftKessonLink.setAttribute('aria-label', strings.leftKessonLinkAria);
     if (graphicSwitcher) graphicSwitcher.setAttribute('aria-label', strings.graphicSwitcherAria);
     if (graphicHojiButton) graphicHojiButton.textContent = strings.graphicModeHoji;
     if (graphicSinobiButton) graphicSinobiButton.textContent = strings.graphicModeSinobi;

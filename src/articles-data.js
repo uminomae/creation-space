@@ -3,7 +3,6 @@ import { normalizeLang } from './i18n.js';
 export const DEFAULT_ARTICLES_DATA_URLS = [
     'https://uminomae.github.io/pjdhiro/api/creation-articles.json',
     '/pjdhiro/api/creation-articles.json',
-    '../kesson-space/assets/page-links.json',
     './assets/page-links.json',
 ];
 

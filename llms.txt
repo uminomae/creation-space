@@ -61,4 +61,3 @@ LLM にこのページを閲覧させ、対話の中で著者の信頼性をあ�
 
 - [Transform Workflow](transform/README.md): domains / survey / guides / kb の変換ワークフロー
 - [Web UI Source](src/): Three.js ベースの視覚表現コード
-- [CLI Entry Point](CLAUDE.md): Claude Code CLI 向けの運用入口

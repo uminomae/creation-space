@@ -78,7 +78,7 @@ AI社会でF軸（情報・効率・自動化）が完璧に満たされたと�
 | 戦略方針 | DT27 pjdhiro判断（#208コメント, #169コメント） |
 | ポジショニング | S04, S29, S44, DT27 pjdhiro修正 |
 
-**Sxx 参照先**: `kesson-driven-thinking/base/voice/pjdhiro-statements-db.md`
+**Sxx 参照先**: `TODO: pjdhiro statements DB を creation-space 内に移行予定`
 **DT27 参照先**: GitHub Issue #208 コメント「DT27: pjdhiro設計判断 第2弾」、Issue #169 コメント「DT27: pjdhiro設計判断」
 
 ## 1. このプロジェクトは何か
@@ -107,10 +107,10 @@ AI社会でF軸（情報・効率・自動化）が完璧に満たされたと�
 このモデルは**記述的**であり、「創造はこう起きている」という観察の構造化を目指す。
 何をすべきかを命じる規範モデルではない。
 
-定義の正本は、現時点では以下にある。
+定義の正本は、現時点では以下を creation-space 内へ移行予定である。
 
-- ` /Users/uminomae/dev/kesson-driven-thinking/base/schema/five-stages.md `
-- ` /Users/uminomae/dev/kesson-driven-thinking/base/schema/academic-domains.md `
+- `TODO: five-stages 定義を creation-space 内に移行予定`
+- `TODO: academic-domains 定義を creation-space 内に移行予定`
 
 これらは Phase 3 で本リポジトリへ移転予定である。
 
@@ -227,8 +227,7 @@ AI社会でF軸（情報・効率・自動化）が完璧に満たされたと�
 ### 3.4 状態管理の運用
 
 - PROJECT.md §3.1 を各セッション終了時に更新する
-- kesson-driven-thinking の state.md からは参照のみ（書き込みは creation-space 側で完結）
-- Issue 管理は当面 kesson-driven-thinking 側で行い、独立性が十分確立された段階で移行を検討する
+- 本リポジトリは独立プロジェクトとして運用する。管理は creation-space 内で完結させる方向で移行中
 
 ## 4. ファイル構成
 
