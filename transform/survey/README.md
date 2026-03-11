@@ -6,12 +6,12 @@
 - **Why**: 個別レポートだけでなく、全体像と導線を creation-space 側で完結させるためです。
 - **Who**: survey 系の reader-rules / quality-test を移植する CLI が使います。
 - **When**: Phase 2 以降で survey workflow を creation-space に移すときです。
-- **Where**: 実装先はこのディレクトリ、現行正本は kesson 側にあります。
-- **How**: 現行正本を参照しつつ、strict separation を保ったまま段階的に移植します。
+- **Where**: 実装先はこのディレクトリです。移行中で、kesson 側に暫定的に依存している箇所があります。
+- **How**: 現行ルールを参照しつつ、creation-space 内への段階的な移行を進めます。
 
 ## 現在の状態
 
-Phase 2 以降で移植予定です。現行の参照先は以下です。
+Phase 2 以降で移植予定です。移行中で、kesson 側に暫定的に依存している箇所があります。
 
-- `kesson-driven-thinking/transform/creation/reader-rules/reader-rules-creation-survey.md`
-- `kesson-driven-thinking/transform/creation/README.md`
+- TODO: creation-space 内に移行予定 — `kesson-driven-thinking/transform/creation/reader-rules/reader-rules-creation-survey.md`
+- TODO: creation-space 内に移行予定 — `kesson-driven-thinking/transform/creation/README.md`
