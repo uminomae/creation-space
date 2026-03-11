@@ -17,6 +17,7 @@
 |------|------|------|
 | **プロジェクト憲章** | [evidence/PROJECT.md](evidence/PROJECT.md) | 目的・5段階モデル定義・調査方法・30領域の進捗・呼び出し側への契約 |
 | **管理ハブ** | [docs/README.md](docs/README.md) | ファイル構成・運用ルール・エントリーポイントの集約先 |
+| **LLM向けエントリーポイント** | [llms.txt](llms.txt) | LLM に読ませる際の安全ガイダンスとファイル案内 |
 | **CLIエントリーポイント** | [CLAUDE.md](CLAUDE.md) | Claude Code CLI 向けの運用情報・ブランチ戦略・セッション終了手順 |
 | **変換層トップ** | [transform/README.md](transform/README.md) | domains / survey / guides / kb の workflow 入口 |
 | **公開KB受け皿** | [kb/README.md](kb/README.md) | 当面の公開KB正本。Phase C 以降で中身を配置 |
