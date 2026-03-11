@@ -2,13 +2,13 @@
 // overlay, credit, lang-toggle, control-guide, scroll hints, surface button の表示/非表示を一元管理
 //
 // Scroll fade targets (must be checked when layout/classes are changed):
-// - IDs: #overlay, #credit, #control-guide, #left-kesson-link
+// - IDs: #overlay, #credit, #control-guide
 // - Hint visibility by class toggle: #scroll-hint.visible, #scroll-hint-top.visible
 //
 // Update-time manual test checklist:
 // 1) At page top, bottom hint is visible and fade targets are visible.
 // 2) After downward scroll, fade targets lose opacity and bottom hint hides.
-// 3) Top hint appears only after leaving top; left link is non-clickable when faded out.
+// 3) Top hint appears only after leaving top and fade behavior remains stable.
 // 4) Near bottom, surface button behavior remains unchanged.
 
 import { toggles, breathConfig } from './config.js';
@@ -24,7 +24,6 @@ let _scrollHintBottom;
 let _scrollHintTop;
 let _surfaceBtn;
 let _articlesSection;
-let _leftKessonLink;
 
 // --- T-014: クリーンアップ ---
 let _cleanup = null;
@@ -42,7 +41,6 @@ export function initScrollUI() {
     _scrollHintTop = document.getElementById('scroll-hint-top');
     _surfaceBtn = document.getElementById('surface-btn');
     _articlesSection = document.getElementById('articles-section');
-    _leftKessonLink = document.getElementById('left-kesson-link');
 
     // 浮上ボタン: クリックでページ最上部へ
     if (_surfaceBtn) {
@@ -127,12 +125,6 @@ export function updateScrollUI(scrollProg, breathVal) {
     // --- 操作ガイド: スクロール初期でフェードアウト ---
     if (_controlGuide) {
         _controlGuide.style.opacity = topFade;
-    }
-
-    // --- 左ナビ（欠損駆動思考）: スクロール初期でフェードアウト ---
-    if (_leftKessonLink) {
-        _leftKessonLink.style.opacity = topFade;
-        _leftKessonLink.style.pointerEvents = topFade > 0.04 ? 'auto' : 'none';
     }
 
     // Language toggle is part of the fixed top navbar and must not follow scroll fade.

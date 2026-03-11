@@ -34,7 +34,7 @@
 ### bilingual 展開したい
 
 1. 先に JA 版を確定する
-2. `kesson-driven-thinking/transform/translation-rules.md` を参照して EN を生成する
+2. `TODO: creation-space 内に正本化予定` の翻訳ルールを参照して EN を生成する
 3. bilingual の公開先と manifest 更新は Phase C 以降で扱う
 
 ## 入口
