@@ -25,6 +25,12 @@
 | `schema/` | 5段階モデルのスキーマ定義。レポート生成時の参照正本 |
 | `domains/` | 領域別調査レポート（日英。D23 等） |
 
+## 収録状況
+
+- `schema/five-stages.md` — 5段階の定義テーブル + 各段階の詳細 + 対応概念
+- `domains/D23-developmental-psychology/ja/report.md` — 発達心理学レポート（日本語）
+- `domains/D23-developmental-psychology/en/report.md` — Developmental psychology report (English)
+
 ## 移行状態
 
 kesson-driven-thinking から段階的に移植中。kb/ に知識を集約していく過程にある。
