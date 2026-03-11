@@ -17,7 +17,10 @@
 |------|------|------|
 | **プロジェクト憲章** | [evidence/PROJECT.md](evidence/PROJECT.md) | 目的・5段階モデル定義・調査方法・30領域の進捗・呼び出し側への契約 |
 | **管理ハブ** | [docs/README.md](docs/README.md) | ファイル構成・運用ルール・エントリーポイントの集約先 |
+| **LLM向けエントリーポイント** | [llms.txt](llms.txt) | LLM に読ませる際の安全ガイダンスとファイル案内 |
 | **CLIエントリーポイント** | [CLAUDE.md](CLAUDE.md) | Claude Code CLI 向けの運用情報・ブランチ戦略・セッション終了手順 |
+| **変換層トップ** | [transform/README.md](transform/README.md) | domains / survey / guides / kb の workflow 入口 |
+| **公開KB受け皿** | [kb/README.md](kb/README.md) | 当面の公開KB正本。Phase C 以降で中身を配置 |
 | **洞察目次** | [evidence/INSIGHTS.md](evidence/INSIGHTS.md) | deepdive・横断洞察の一覧。新しい分析結果の参照起点 |
 | **進捗タクソノミー** | [docs/survey-progress-taxonomy.md](docs/survey-progress-taxonomy.md) | 調査進捗ラベルの定義と設計経緯 |
 
@@ -32,6 +35,8 @@
 | `evidence/review/` | 横断分析、計画書、調査方法論の記録 |
 | `evidence/202602-deep-research-30domains-gpt/` | GPT Deep Research による一次ソース（30領域） |
 | `docs/` | 管理書類 |
+| `transform/` | creation-space 側の変換層。domains を先行移植し、survey / guides / kb を段階的に追加する |
+| `kb/` | 公開用整形層の受け皿。当面の公開KB正本 |
 | `src/` | Web UI（Three.js による視覚表現） |
 | `scripts/` | ビルド・同期スクリプト |
 | `assets/` | 静的アセット |
