@@ -23,24 +23,6 @@
   },
   {
     "type": "page",
-    "title": "欠損駆動思考 - Kesson-Driven Thinking",
-    "title_ja": "欠損駆動思考 - Kesson-Driven Thinking",
-    "title_en": "Kesson-Driven Thinking",
-    "url": "https://uminomae.github.io/pjdhiro/thinking-kesson/",
-    "date": "2026-01-26T00:00:00+09:00",
-    "excerpt": "デザイン思考：私の場合：欠けを探す旅\"",
-    "excerpt_ja": "デザイン思考：私の場合：欠けを探す旅\"",
-    "excerpt_en": "Design thinking, in my own way: a journey to seek what is missing.",
-    "tags": [],
-    "categories": [
-      "創造",
-      "Love駆動開発",
-      "デザイン思考"
-    ],
-    "teaser": "https://uminomae.github.io/pjdhiro/assets/images/pages/pd/thinking/spec.jpg"
-  },
-  {
-    "type": "page",
     "title": "対話：創造とは",
     "title_ja": "対話：創造とは",
     "title_en": "Dialogue: What Is Creation?",

@@ -44,7 +44,7 @@ CLAUDE.md、将来の AGENTS.md 等の LLM エントリーポイントは本フ�
 ## 4. 変換ワークフロー
 
 - domains の入口: `transform/domains/README.md`
-- survey / guides は placeholder。現行正本は kesson 側を参照
+- survey / guides は placeholder。移行中。Phase 2 以降で creation-space 内に正本化予定
 - 戦略方針の正本: `evidence/PROJECT.md` §0
 
 ---

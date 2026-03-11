@@ -6,13 +6,13 @@
 - **Why**: domains と切り分けた strict separation の guide 群を creation-space 側で正本化するためです。
 - **Who**: guide 系ルールを移植・再設計する CLI が使います。
 - **When**: Phase 2 以降で guide workflow を移すときです。
-- **Where**: 実装先はこのディレクトリ、現行正本は kesson 側の `transform/creation/reader-rules/` にあります。
-- **How**: academic / designer / general の現行ルールを参照し、kesson 接続を除去したうえで移植します。
+- **Where**: 実装先はこのディレクトリです。移行中で、kesson 側に暫定的に依存している箇所があります。
+- **How**: academic / designer / general の現行ルールを参照しつつ、creation-space 内への移行を進めます。
 
 ## 現在の状態
 
-Phase 2 以降で移植予定です。現行の参照先は以下です。
+Phase 2 以降で移植予定です。移行中で、kesson 側に暫定的に依存している箇所があります。
 
-- `kesson-driven-thinking/transform/creation/reader-rules/reader-rules-creation-general.md`
-- `kesson-driven-thinking/transform/creation/reader-rules/reader-rules-creation-academic.md`
-- `kesson-driven-thinking/transform/creation/reader-rules/reader-rules-creation-designer.md`
+- TODO: creation-space 内に移行予定 — `kesson-driven-thinking/transform/creation/reader-rules/reader-rules-creation-general.md`
+- TODO: creation-space 内に移行予定 — `kesson-driven-thinking/transform/creation/reader-rules/reader-rules-creation-academic.md`
+- TODO: creation-space 内に移行予定 — `kesson-driven-thinking/transform/creation/reader-rules/reader-rules-creation-designer.md`

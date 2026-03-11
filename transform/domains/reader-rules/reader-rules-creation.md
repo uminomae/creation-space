@@ -2,7 +2,7 @@
 
 > **移植元**: kesson-driven-thinking の creation reader-rules からコピー（#208 Phase A）
 > **正本**: 本ファイルが domains ワークフローの正本。kesson 側は参照 stub になる予定。
-> **外部参照**: `base/` と `skills/` は現時点で kesson-driven-thinking 側の外部正本を参照する。
+> **外部参照**: `TODO: base/ と skills/ の正本を creation-space 内に持つ予定。現時点では kesson-driven-thinking 側が正本`
 
 
 **位置づけ**: LLMが base/ から creation コンテンツを生成するときの共通ルール。全audience版（general / designer / academic / report）はこのルールを継承し、audience固有の設計を上書きする。
@@ -258,10 +258,6 @@ assets/creation/
 ```
 
 API層の `.md` は他システムからデータを取得するエンドポイントとして機能する。実装予定あり。
-
-### 公開しない出力（creation-pjdhiro）
-
-creation-pjdhiro.md / .pdf は著者開示用であり、公開リポジトリ（pjdhiro）には出力しない。kesson-driven-thinking リポジトリ（非公開）の中に生成する。具体的な出力先パスは後日ルールを決める。
 
 ### 命名規則
 
