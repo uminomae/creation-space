@@ -12,6 +12,8 @@ The survey covered 15 theories across structural-developmental theory, self-deve
 
 The comparison did not rely on matching stage counts. Instead, it focused on four questions. First, does a theory describe development as structural transformation rather than mere accumulation of content? Second, does it identify a phase in which difference or tension is reorganized through relations? Third, does that reorganization lead to the emergence of a new coherence? Fourth, is the process open to observation or measurement?
 
+At the same time, the structural correspondences proposed in this report are interpretive hypotheses based on the survey data, not definitive mappings established through exhaustive close reading of the primary texts. Much of the correspondence work includes AI-assisted interpretation, and there remain places where the author's own close verification is not yet complete. In addition, the alignment of the labels Field, Wave, Relation, Vortex, and Bundle is gradient rather than exact, so the comparison does not assume a strict one-to-one mapping for every concept.
+
 ## 3. Overview of the Model
 
 In this report, the five-stage model is defined as follows. Field is a still-undifferentiated condition in which possibilities exist without clear separation. Wave is the phase in which differences, tensions, and directional pulls come to the foreground. Relation is the interface where multiple elements meet and where rules, constraints, and connections begin to form. Vortex is the rise of a coherent organization or prototype. Bundle is the retention of that organization as a structure that can be carried forward and reused.
@@ -28,11 +30,15 @@ Another important result is that developmental psychology offers many observable
 
 ## 5. Findings: Major Insights
 
+The discussions below are interpretive readings grounded in the method described in Section 2. They show how AI read the structural features of each prior theory and then attempted a comparison with the five-stage model.
+
 ### 5.1 Kegan's Structural Developmental Theory
 
-As a matter of description, Kegan presents development as a change in what is embedded in the self and what becomes available for reflection as object. His orders of consciousness form a developmental sequence, most adults are placed around orders 3 and 4, and order 5 remains relatively rare. The process is not only conceptual; it is linked to an interview-based method of assessment.
+Kegan presents development as a change in what is embedded in the self and what becomes available for reflection as object. His orders of consciousness form a developmental sequence, most adults are placed around orders 3 and 4, and order 5 remains relatively rare. The process is not only conceptual; it is linked to an interview-based method of assessment.
 
-In structural terms, this is one of the clearest correspondences with the five-stage model. Early embeddedness resembles Field. The emergence of differentiated needs and tensions resembles Wave. Order 3, where the self is formed in a web of interpersonal relations, is especially close to Relation. Order 4, where a self-authored principle coheres, resembles Vortex. Order 5, where multiple self-systems interpenetrate, resembles Bundle. Most importantly, Kegan adds a language for transition: what had been subject becomes object.
+In this report's reading, the core of the theory lies not in differences in developmental content but in changes in the relational structure of what remains embedded in the self and what becomes available for reflection. The strongest similarity is not simple label matching but the isomorphism of the mechanism by which what had been subject becomes object, together with the ordered process from embeddedness to differentiation and reintegration. Especially important is the way the self is first formed in a web of reciprocity with others and only later coheres into a principle of its own.
+
+On that basis, early embeddedness resembles Field. The emergence of differentiated needs and tensions resembles Wave. Order 3, where the self is formed in a web of interpersonal relations, is especially close to Relation. Order 4, where a self-authored principle coheres, resembles Vortex. Order 5, where multiple self-systems interpenetrate, resembles Bundle. The shift from order 3 to 4 shows especially strong functional equivalence because a self previously embedded in relations becomes a coherent principle of its own.
 
 The implication is that developmental psychology does more than provide stage labels. It helps specify how transformation happens. Instead of asking only where a person is, it becomes possible to ask what is still embedded and what is becoming reflectable.
 
@@ -40,7 +46,9 @@ The implication is that developmental psychology does more than provide stage la
 
 Vygotsky describes development as the difference between what a learner can do alone and what becomes possible with the assistance of a more capable other. Scaffolding is the educational practice of adjusting that support and eventually removing it. Development proceeds through the internalization of social interaction.
 
-This gives one of the sharpest descriptions of Relation. Ability does not first appear fully formed inside the individual and then get expressed outward. It first appears at the interface of joint activity. Encountering a task one cannot yet do is Wave. The coordinated tension between support and resistance is Relation. The shift from outer dialogue to self-regulation is Vortex. The stabilization of that regulation as reusable capacity is Bundle.
+In this report's reading, the core of the ZPD is that capacity does not first mature inside the individual and then get expressed. It is first generated at the interface of joint activity and only later internalized. The strongest similarity lies less in label matching than in the isomorphic mechanism by which capability emerges between support and resistance, and in the ordered process from joint performance to self-regulation. Scaffolding appears here not as an external aid but as an operation that makes the central developmental mechanism visible.
+
+On that basis, the range of what can already be done alone functions as Field. Encountering a task that cannot yet be reached alone is Wave. The coordinated tension of joint performance is Relation. The shift from outer dialogue to self-regulation is Vortex. The stabilization of that regulation as reusable capacity is Bundle. Here, relation is not a mere medium. It is the site where new capability is generated.
 
 The implication is that Relation should not be treated as a merely social supplement to an inner process. It is the place where new capability is generated.
 
@@ -48,7 +56,9 @@ The implication is that Relation should not be treated as a merely social supple
 
 Bowlby argues that attachment to a caregiver functions as a secure base that makes exploration possible. Repeated experiences of exploration and return are integrated into internal working models, and these patterns shape later relationships. The Strange Situation procedure is a classic observational setting for this process.
 
-This theory gives a concrete meaning to Field. Field is not an empty starting point. It is a reliable relational ground that supports movement into the unknown. Leaving that secure base is Wave. The emotionally charged moment of approaching novelty or returning for safety is Relation. The integration of those experiences into an internal working model is Vortex. Their stabilization into enduring attachment patterns is Bundle. Bundle then supports the next round of exploration, which makes the cycle visible.
+In this report's reading, the secure base is not a mere starting point but a relational ground that sustains repeated movement between exploration and return. The core is the emotionally regulated judgment between approaching the unknown and retreating, and the accumulation of those experiences into an internal working model. The strongest similarity lies less in label matching than in the ordered process of exploration, anxiety, and integration, and in the functional equivalence of a relational base that makes the next exploration possible.
+
+On that basis, Field is not an empty starting point. It is a reliable relational ground that supports movement into the unknown. Leaving that secure base is Wave. The emotionally charged moment of approaching novelty or returning for safety is Relation. The integration of those experiences into an internal working model is Vortex. Their stabilization into enduring attachment patterns is Bundle. Bundle then supports the next round of exploration, which makes the cycle visible.
 
 The implication is that the beginning of change is not best described as neutral openness. It is better described as relational safety that makes exploration possible.
 
@@ -56,7 +66,9 @@ The implication is that the beginning of change is not best described as neutral
 
 Tomasello argues that around 9 to 12 months, infants acquire new forms of joint attention and intention understanding, and that these become the basis of language, norms, and cultural learning. Joint attention is not a simple dyadic exchange. It is a triadic relation among child, other, and object.
 
-This theory describes Relation as the emergence of a shared world through an object. An interaction in which no shared object is fixed yet is Field. The appearance of a difference in attention or intention is Wave. The formation of joint attention, where attention becomes jointly organized around the same object and coordinated action becomes possible, is Relation. Shared goals and symbol use rise as Vortex. Language, norms, and role expectations endure as Bundle.
+In this report's reading, the core of the theory is not emotional contact with another person but the emergence of a shared world through an object. The strongest similarity lies less in label matching than in the functional equivalence of a triadic structure that jointly organizes meaning and roles, and in the ordered process from shared attention to shared goals and then to cultural practice. Joint attention is therefore read not as simultaneous looking alone but as the moment in which doing something together takes form.
+
+On that basis, an interaction in which no shared object is fixed yet is Field. The appearance of a difference in attention or intention is Wave. The formation of joint attention, where attention becomes jointly organized around the same object and coordinated action becomes possible, is Relation. Shared goals and symbol use rise as Vortex. Language, norms, and role expectations endure as Bundle.
 
 The implication is that Bundle does not remain only inside an individual. It can persist outside the individual as a practice, a norm, or an institution. That makes the five-stage model useful not only for individual development but also for shared world-making.
 
@@ -64,7 +76,9 @@ The implication is that Bundle does not remain only inside an individual. It can
 
 Cook-Greuter extends the Loevinger tradition by describing development beyond the autonomous stage with greater precision. Sentence-completion measures are used for assessment, and most adults are placed in conventional or conscientious stages, while later stages remain relatively rare.
 
-The main value of this theory lies in its description of Bundle. At the autonomous stage, a coherent self takes shape. At the construct-aware stage, that very structure becomes an object of awareness. At the unitive stage, the structure is no longer held as final and appears to dissolve back into a larger background. In that sense, Bundle is not mere fixation. It is retained structure becoming reflexive, and beyond that reflexivity lies a higher-order return to Field.
+In this report's reading, the core of the theory is not the accumulation of developmental content but the process by which self-structure itself becomes an object of awareness and is eventually loosened. The strongest similarity lies less in label matching than in the isomorphic mechanism by which an organized self can take itself as object, and in the ordered process from integration to reflexivity and then to return into a larger background. The post-autonomous stages are especially important because they show retained structure reopening the conditions for another round of formation.
+
+On that basis, the tensions of difference and norm that come to the foreground from the conformist to the conscientious range are closest to Wave and Relation. At the autonomous stage, the self coheres and approaches Vortex. At the construct-aware stage, that very structure becomes an object of awareness. At the unitive stage, the established structure appears to dissolve back into a larger background. In that sense, Bundle is not mere fixation. It is retained structure becoming reflexive, and beyond that reflexivity lies a higher-order return to Field.
 
 The implication is that the five-stage model should not be read as a ladder with a final endpoint. Developmental psychology gives a vocabulary for understanding Bundle as reflexive retention that can reopen the cycle.
 
