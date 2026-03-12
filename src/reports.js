@@ -140,7 +140,6 @@ const STRINGS = {
         levelLegendSingle: '{count}領域すべてが現在「{label}」に分類されています。',
         scenarioPrefix: '表示シナリオ',
         tabDomains: '領域別レポート',
-        tabModels: '「創造の構造とプロセス」の解説',
         filterGroupAria: '領域別レポート絞り込み',
         filterAll: '全件',
         openStatus: '調査内容',
@@ -187,7 +186,6 @@ const STRINGS = {
         levelLegendSingle: 'All {count} domains are currently classified as "{label}".',
         scenarioPrefix: 'Preview scenario',
         tabDomains: 'Domain Reports',
-        tabModels: 'Guides to the Structure and Process of Creation',
         filterGroupAria: 'Filter domain reports',
         filterAll: 'All',
         openStatus: 'Investigation Notes',
@@ -245,7 +243,6 @@ const state = {
         error: null,
         openStatusBtn: null,
         domainsHeading: null,
-        modelsHeading: null,
         scenarioNote: null,
         levelLegend: null,
         featureCards: null,
@@ -855,7 +852,6 @@ function cacheDom() {
     state.dom.error = document.getElementById('reports-error');
     state.dom.openStatusBtn = document.getElementById('reports-open-status-btn');
     state.dom.domainsHeading = document.getElementById('reports-domains-heading');
-    state.dom.modelsHeading = document.getElementById('reports-models-heading');
     state.dom.scenarioNote = document.getElementById('reports-scenario-note');
     state.dom.levelLegend = document.getElementById('reports-level-legend');
     state.dom.featureCards = document.getElementById('reports-feature-cards');
@@ -1252,7 +1248,6 @@ function applyStaticText() {
     const strings = getStrings(state.lang);
 
     if (state.dom.domainsHeading) state.dom.domainsHeading.textContent = strings.tabDomains;
-    if (state.dom.modelsHeading) state.dom.modelsHeading.textContent = strings.tabModels;
     if (state.dom.scenarioNote) {
         const scenarioLabel = getReportsScenarioLabel();
         const scenarioDescription = getReportsScenarioDescription();

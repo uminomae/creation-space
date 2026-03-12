@@ -1819,7 +1819,7 @@
     }
 
 /* ============================
-   Issue #62 reports section
+   Issue #62 model and reports sections
    ============================ */
 #reports-spacer {
   position: relative;
@@ -1828,10 +1828,10 @@
   pointer-events: none;
 }
 
+#model-section,
 #reports-section {
   position: relative;
   z-index: 5;
-  padding-bottom: 1.2rem;
   --reports-font-mono: var(--kesson-font-mono-ui);
   --reports-font-serif: var(--kesson-font-serif-ui);
   --reports-panel-radius: 0.5rem;
@@ -1867,6 +1867,15 @@
   --reports-palette-10-rgb: 208, 218, 108;
 }
 
+#model-section {
+  padding-bottom: 0.9rem;
+}
+
+#reports-section {
+  padding-bottom: 1.2rem;
+}
+
+#model-section .container,
 #reports-section .container {
   display: flex;
   flex-direction: column;
@@ -1885,11 +1894,11 @@
   order: 3;
 }
 
-.reports-overview {
+#reports-section .reports-overview {
   order: 4;
 }
 
-.reports-tab-content {
+#reports-section .reports-tab-content {
   order: 5;
 }
 
