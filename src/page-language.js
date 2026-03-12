@@ -24,6 +24,8 @@ const STRINGS = {
         graphicModeSinobi: '忍',
         graphicModeIntent: '意',
         creditSignature: 'Project Designer: pjdhiro',
+        modelSectionHeading: '創造の5段階モデル',
+        modelSectionHeadingAria: '創造の5段階モデル セクションへジャンプ',
         articlesSectionHeading: 'ARTICLES',
         articlesSectionHeadingAria: 'ARTICLES セクションへジャンプ',
         reportsSectionHeading: 'REPORTS',
@@ -58,6 +60,8 @@ const STRINGS = {
         graphicModeSinobi: 'Shinobi',
         graphicModeIntent: 'Intent',
         creditSignature: 'Project Designer: pjdhiro',
+        modelSectionHeading: 'The Five Stages of Creation',
+        modelSectionHeadingAria: 'Jump to The Five Stages of Creation section',
         articlesSectionHeading: 'ARTICLES',
         articlesSectionHeadingAria: 'Jump to ARTICLES section',
         reportsSectionHeading: 'REPORTS',
@@ -107,6 +111,7 @@ export function applyPageLanguage(lang, { devMode = false, devVersion = '', devD
     const topbarBlogLink = document.getElementById('topbar-blog-link');
     const topbarCollab = document.getElementById('credit-collab');
     const footerSignature = document.getElementById('footer-signature');
+    const modelSectionHeading = document.getElementById('model-section-heading');
     const articlesSectionHeading = document.getElementById('articles-section-heading');
     const reportsSectionHeading = document.getElementById('reports-section-heading');
     const reportsAiNotice = document.getElementById('reports-ai-notice');
@@ -135,6 +140,10 @@ export function applyPageLanguage(lang, { devMode = false, devVersion = '', devD
     }
     if (topbarCollab) topbarCollab.textContent = strings.topbarCollab;
     if (footerSignature) footerSignature.textContent = strings.creditSignature;
+    if (modelSectionHeading) {
+        modelSectionHeading.textContent = strings.modelSectionHeading;
+        modelSectionHeading.setAttribute('aria-label', strings.modelSectionHeadingAria);
+    }
     if (articlesSectionHeading) {
         articlesSectionHeading.textContent = strings.articlesSectionHeading;
         articlesSectionHeading.setAttribute('aria-label', strings.articlesSectionHeadingAria);
