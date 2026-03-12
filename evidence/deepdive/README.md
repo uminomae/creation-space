@@ -81,6 +81,13 @@ deepdive/
       insight1/
         README.md
         output.md
+    D23-developmental-psychology/
+      insight1/
+        README.md
+        output.md
+      cross-insight/
+        README.md
+        output.md
 ```
 
 ---
@@ -101,6 +108,8 @@ deepdive/
 | claude-code-agent | D22 経営学 | Run1 | ✅ 完了（2026-03-08） | ✅ 済（#129） | 🟡 一部反映（#123） |
 | codex-parallel-deepdive | D22 経営学 | Run1 | ✅ 完了（2026-03-07） | ✅ 済（#129） | 🟡 一部反映（#123） |
 | codex-parallel-deepdive | D22 経営学 | insight1 | ✅ 完了（2026-03-08） | ✅ 済（#129） | ⬜ 未 |
+| codex-parallel-deepdive | D23 発達心理学 | insight1 | ✅ 完了（2026-03-10） | ⬜ 未 | ⬜ 未 |
+| codex-parallel-deepdive | D23 発達心理学 | cross-insight | ✅ 完了（2026-03-10） | ⬜ 未 | ⬜ 未 |
 
 ---
 

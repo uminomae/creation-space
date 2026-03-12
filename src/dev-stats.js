@@ -30,7 +30,7 @@ export async function initDevStats() {
     _stats.showPanel(0);
 
     _stats.dom.style.position = 'fixed';
-    _stats.dom.style.top = '0px';
+    _stats.dom.style.bottom = '0px';
     _stats.dom.style.left = '0px';
     _stats.dom.style.zIndex = '10000';
     _stats.dom.dataset.panel = '0';
