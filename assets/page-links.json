@@ -1,6 +1,13 @@
 {
   "basePath": "./",
   "presets": {
+    "domain_d23_developmental_psychology": {
+      "label": "D23 発達心理学",
+      "path": "./",
+      "query": {
+        "domain": "D23"
+      }
+    },
     "intent_utime7500_cam40": {
       "label": "Intent: uTime 7500 / Cam 40deg",
       "path": "./",
