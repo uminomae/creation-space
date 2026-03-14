@@ -1,0 +1,119 @@
+#articles-grid {
+  margin-top: var(--kesson-section-grid-margin-top);
+}
+
+.btn-read-more {
+  background: rgba(var(--color-accent), 0.1);
+  border: 1px solid rgba(var(--color-accent), 0.2);
+  color: rgba(var(--color-sub-text), 0.5);
+  font-family: 'Georgia', serif;
+  font-size: clamp(0.5rem, 2.2vmin, 0.7rem);
+  letter-spacing: 0.1em;
+  padding: 10px 24px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.btn-read-more:hover {
+  background: rgba(var(--color-accent), 0.2);
+  color: rgba(var(--color-highlight), 0.7);
+}
+
+.btn-read-more:focus {
+  outline: 2px solid rgba(var(--color-accent), 0.8);
+  outline-offset: 4px;
+}
+
+.articles-filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.articles-filter-btn {
+  background: rgba(var(--color-accent), 0.1);
+  border: 1px solid rgba(var(--color-accent), 0.2);
+  color: rgba(var(--color-sub-text), 0.5);
+  font-family: 'Georgia', serif;
+  font-size: clamp(0.5rem, 2.1vmin, 0.66rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 7px 14px;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.articles-filter-btn:hover {
+  background: rgba(var(--color-accent), 0.2);
+  color: rgba(var(--color-highlight), 0.7);
+}
+
+.articles-filter-btn:focus {
+  outline: 2px solid var(--kesson-focus-ring-soft);
+  outline-offset: 3px;
+}
+
+.articles-filter-btn.is-active {
+  background: rgba(var(--color-accent), 0.25);
+  border-color: rgba(120, 170, 255, 0.6);
+  color: rgba(var(--color-highlight), 0.85);
+}
+
+#offcanvas-loading {
+  text-align: center;
+  padding: 20px;
+  color: rgba(var(--color-sub-text), 0.5);
+}
+
+#articles-section {
+  position: relative;
+  z-index: 5;
+}
+
+#creation-cards-section {
+  position: relative;
+  z-index: 5;
+  padding-bottom: 3.5rem;
+}
+
+#creation-cards-container {
+  margin-top: var(--kesson-section-grid-margin-top);
+}
+
+.creation-card-placeholder {
+  min-height: 156px;
+  border: 1px dashed rgba(138, 176, 236, 0.44);
+  border-radius: 0.35rem;
+  background: rgba(17, 24, 40, 0.6);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.creation-card-placeholder h3 {
+  margin: 0;
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(224, 236, 255, 0.86);
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+.creation-card-placeholder p {
+  margin: 0.75rem 0 0;
+  color: rgba(var(--color-sub-text), 0.75);
+  font-size: 0.72rem;
+  line-height: 1.65;
+  letter-spacing: 0.04em;
+  font-family: "Noto Serif JP", "Yu Mincho", serif;
+}
+
+#articles-error {
+  color: #f87171;
+  font-size: 0.8rem;
+}
