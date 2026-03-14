@@ -23,6 +23,13 @@
   -webkit-backdrop-filter: blur(7px);
 }
 
+.dev-fps-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 10000;
+}
+
 #intent-timeline-hud {
   position: fixed;
   top: calc(var(--kesson-topbar-height) + 4.1rem);

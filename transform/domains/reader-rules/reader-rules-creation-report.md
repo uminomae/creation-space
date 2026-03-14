@@ -1,4 +1,4 @@
-# 変換ルール: 調査報告レポート v2.1
+# 変換ルール: 調査報告レポート v2.2
 
 > **移植元**: kesson-driven-thinking の creation reader-rules からコピー（#208 Phase A）
 > **正本**: 本ファイルが domains ワークフローの正本。kesson 側は参照 stub になる予定。
@@ -100,10 +100,18 @@ evidence の `flags` に `[ai:*]` を持つエントリの内容を本文に反�
 
 | フィールド | 必須 | 有効値 |
 |---|---|---|
+| `title` | ✅ | 表示言語と一致する公開タイトル。`lang: ja` なら日本語のみ（例: `発達心理学`）、`lang: en` なら英語のみ（例: `Developmental Psychology`） |
 | `generator_model` | ✅ | `docs/evidence-metadata-creation.md §2.5` の書式に従う |
 | `lang` | ✅ | `ja` / `en` |
 | `version` | ✅ | セマンティックバージョン |
 | `date` | ✅ | `YYYY-MM-DD` |
+
+### タイトル命名規則
+
+- `title` は PDF / Markdown の表示タイトルにそのまま使う
+- 日本語版は日本語タイトル、英語版は英語タイトルに固定する。混在表記は禁止
+- domain report の `title` は説明文ではなく、領域名そのものを使う
+- H1 が別にある場合も、`title` と表示言語は一致させる
 
 ---
 
@@ -579,6 +587,7 @@ creation-general版（reader-rules-creation-general.md）は「休憩所の語�
 
 | 日付 | バージョン | 内容 |
 |------|-----------|------|
+| 2026-03-14 | 2.2 | cs#54: front matter の `title` を必須化。PDF/Markdown のタイトルは表示言語と一致させ、domain report は領域名を使う規則を追加 |
 | 2026-03-12 | 2.1 | #228: 各論を「事実として / 読み取りとして / 解釈として」の3層に変更。§0/§4 に NL-016 の方法論的開示を追記。§7 に読み取り層チェックを追加 |
 | 2026-03-09 | 2.0 | NL-013追加。§0 に AI由来ソースの帰属ルールを追加。quality-test 連携前提を明文化（#150） |
 | 2026-03-08 | 1.9 | `generator_model` を front matter 必須フィールド化。`base/schema/evidence-metadata.md §2.5` 参照を追加（#140） |

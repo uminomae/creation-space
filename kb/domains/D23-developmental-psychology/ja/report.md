@@ -1,3 +1,11 @@
+---
+title: "発達心理学"
+lang: ja
+version: 2.1
+date: 2026-03-14
+generator_model: codex:gpt-5
+---
+
 # 発達心理学における5段階モデルの構造対応に関する調査報告
 
 ## 1. 調査の目的と問い

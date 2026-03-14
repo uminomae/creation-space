@@ -1,3 +1,11 @@
+---
+title: "Developmental Psychology"
+lang: en
+version: 2.1
+date: 2026-03-14
+generator_model: codex:gpt-5
+---
+
 # Research Report on the Structural Correspondence Between the Five-Stage Model and Developmental Psychology
 
 ## 1. Purpose and Question
