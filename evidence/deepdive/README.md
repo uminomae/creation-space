@@ -2,7 +2,7 @@
 
 **バージョン**: 1.5
 **更新日**: 2026-03-08
-**関連ルール**: `base/schema/evidence-metadata.md §8`
+**関連ルール**: `docs/evidence-metadata-creation.md §2` / `/Users/uminomae/dev/kesson-driven-thinking/base/schema/evidence-metadata.md §8`
 
 ---
 
@@ -18,7 +18,8 @@ deepdive は、Level 2 の evidence を壊さずに、AIエージェントを使
 設計の経緯・実験設計の詳細は以下を参照：
 - 旧 deepdive 設計記録（D22 経営学の多段探索実験）
 - evidence メタ情報ルール一元化の記録
-- 外部 schema repo の `evidence-metadata.md` 正本
+- `docs/evidence-metadata-creation.md`（公開ラベル taxonomy / `generator_model`）
+- 外部 schema repo の `evidence-metadata.md`（deepdive 標準仕様・フラグ体系）
 
 ---
 
@@ -51,7 +52,7 @@ deepdive 固有で必ず含める項目：
 - 新規採用: N件 / CA変更: N件 / 棄却: N件 / 維持: N件
 - 出力ファイル: （列挙）
 - evidence 反映時のフラグ値: `[ai:deepdive-{手法}:{モデル名}]`（手法とモデル名はLLM自己申告値）
-- progress_level: （evidence-metadata.md §4 のタクソノミーid）
+- progress_level: （`docs/evidence-metadata-creation.md` §2 のタクソノミーid）
 - 洞察の発展: （後続作業・思考への接続）
 - 活用状況: （INSIGHTS.md 登録 / evidence 反映 / 後続 Run 接続）
 - 次のアクション: （列挙）
@@ -116,6 +117,6 @@ deepdive/
 ## ルール
 
 - 新手法を追加する場合は本ファイルの構造・手法表・実施状況を更新する
-- ラベルid の正本定義は `base/schema/evidence-metadata.md §2`
+- ラベルid の正本定義は `docs/evidence-metadata-creation.md §2`
 - フラグ書式は `[ai:{操作種別}:{モデル名}]`（例: `[ai:deepdive-codex:gpt-5.4 xhigh]`）
 - evidence 本体への反映は output.md を pjdhiro が確認してから行う

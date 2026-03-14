@@ -3,7 +3,10 @@
 **バージョン**: 1.0  
 **作成日**: 2026-03-07  
 **実装場所**: `src/reports.js` → `DEFAULT_PROGRESS_TAXONOMY`  
-**品質管理上の位置づけ**: creation-space REPORTS UI の状態分類を定義する正本。新しいラベルの追加・変更はこの文書を先に更新する。
+**品質管理上の位置づけ**: 初期設計記録。現行の正本は `docs/evidence-metadata-creation.md` §2。
+
+> **現行正本**: 公開ラベル taxonomy / `generator_model` の正本は `docs/evidence-metadata-creation.md` に移行した。  
+> 本ファイルは Issue #23 段階の設計経緯を残す履歴文書であり、現行仕様の直接参照先ではない。
 
 ---
 
@@ -87,7 +90,7 @@ DRファイル（30領域の調査記録）から自動生成する「ラベル�
 
 ```
 src/reports.js
-  └── DEFAULT_PROGRESS_TAXONOMY  ← このファイルが仕様正本
+  └── DEFAULT_PROGRESS_TAXONOMY  ← 実装上の既定値
       (not_surveyed / claude_screened / claude_gpt_reviewed / human_reviewed)
 
 assets/reports/scenarios/split-d22.json  ← 目視確認用シナリオ
@@ -95,11 +98,12 @@ assets/reports/scenarios/split-d22.json  ← 目視確認用シナリオ
 ```
 
 ラベルを変更する場合の手順：
-1. **本ファイルを先に更新**（理由・経緯を記録）
-2. `src/reports.js` の `DEFAULT_PROGRESS_TAXONOMY` を修正
-3. `assets/creation/manifests/domains.json` の各ドメインの `progress` フィールドを更新
-4. 目視確認（`?reportsScenario=` を利用）
-5. コミット・push
+1. `docs/evidence-metadata-creation.md` を先に更新する
+2. 必要に応じて本ファイルへ設計経緯を追記する
+3. `src/reports.js` の `DEFAULT_PROGRESS_TAXONOMY` を確認する
+4. `assets/creation/manifests/domains.json` の各ドメインの `progress` フィールドを更新する
+5. 目視確認（`?reportsScenario=` を利用）
+6. コミット・push
 
 ---
 

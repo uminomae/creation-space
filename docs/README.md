@@ -1,6 +1,6 @@
 # docs/README.md — プロジェクト管理ハブ
 
-**バージョン**: 2.0
+**バージョン**: 2.1
 **更新日**: 2026-03-14
 
 ## 位置づけ
@@ -20,6 +20,7 @@
 | `README.md` | リポジトリ全体の目次 |
 | `CLAUDE.md` | Claude Code CLI 向けの最小運用ルール |
 | `evidence/PROJECT.md` | プロジェクト憲章。目的・5段階モデル・調査状況の正本 |
+| `docs/evidence-metadata-creation.md` | creation 固有 metadata 正本。公開ラベル taxonomy と `generator_model` |
 | `transform/README.md` | 変換 workflow 全体の入口 |
 | `transform/domains/README.md` | 領域別レポート再生成の入口 |
 | `kb/README.md` | 公開用 KB の役割と移行状態 |
@@ -37,7 +38,8 @@
 | `assets/articles/articles.json` | ARTICLES のローカル fallback データ |
 | `assets/reports/scenarios/split-d22.json` | reports taxonomy / UI の検証シナリオ |
 | `evidence/PROJECT.md` | 調査方針・5段階モデル・進捗管理の正本 |
-| `docs/survey-progress-taxonomy.md` | 進捗ラベルの設計記録 |
+| `docs/evidence-metadata-creation.md` | 公開ラベル taxonomy / `generator_model` の正本 |
+| `docs/survey-progress-taxonomy.md` | 進捗ラベルの設計記録（履歴） |
 | `transform/domains/reader-rules/reader-rules-creation-report.md` | 領域レポート生成ルール |
 | `kb/schema/five-stages.md` | 5段階モデル schema の現在参照先 |
 | `kb/schema/academic-domains.md` | D01-D30 学問領域マスターの現在参照先 |
@@ -51,7 +53,8 @@
 | `.claude/rules/project-structure.md` | `src/` 構成、CSS 配置、データフロー概要 |
 | `docs/investigation-cs23-categorize.md` | REPORTS の進捗カテゴリ設計調査 |
 | `docs/investigation-cs43-modal-deeplink.md` | モーダル deep link 設計調査 |
-| `docs/survey-progress-taxonomy.md` | 調査進捗ラベルの正本メモ |
+| `docs/evidence-metadata-creation.md` | creation 固有 metadata 正本 |
+| `docs/survey-progress-taxonomy.md` | 調査進捗ラベルの設計記録 |
 | `evidence/CLAUDE.md` | `evidence/` 配下での補助ルール |
 
 ## 5. 開発フロー
@@ -102,3 +105,4 @@ git push origin develop
 | 2026-03-10 | 1.0 | 初版。管理ハブとして新設 |
 | 2026-03-11 | 1.1 | `transform/` と `kb/` の入口を追加 |
 | 2026-03-14 | 2.0 | `CLAUDE.md` と `.claude/rules/` に合わせて管理ハブを再編 |
+| 2026-03-14 | 2.1 | `docs/evidence-metadata-creation.md` を追加し、公開 metadata の正本参照先を更新 (#248) |
