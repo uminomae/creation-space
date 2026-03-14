@@ -110,7 +110,7 @@ front matter および manifest で使用する `generator_model` フィール�
 ```text
 本ファイル（taxonomy / generator_model 定義）
     ↓
-transform/creation/publish/domains/index.json
+transform/domains/publish/domains/index.json
     ↓ generate-domains-json.mjs
 pjdhiro/assets/creation/manifests/domains.json
     ↓
