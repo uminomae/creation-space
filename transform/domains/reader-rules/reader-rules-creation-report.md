@@ -100,7 +100,7 @@ evidence の `flags` に `[ai:*]` を持つエントリの内容を本文に反�
 
 | フィールド | 必須 | 有効値 |
 |---|---|---|
-| `generator_model` | ✅ | `base/schema/evidence-metadata.md §2.5` の書式に従う |
+| `generator_model` | ✅ | `docs/evidence-metadata-creation.md §2.5` の書式に従う |
 | `lang` | ✅ | `ja` / `en` |
 | `version` | ✅ | セマンティックバージョン |
 | `date` | ✅ | `YYYY-MM-DD` |
@@ -582,6 +582,7 @@ creation-general版（reader-rules-creation-general.md）は「休憩所の語�
 | 2026-03-12 | 2.1 | #228: 各論を「事実として / 読み取りとして / 解釈として」の3層に変更。§0/§4 に NL-016 の方法論的開示を追記。§7 に読み取り層チェックを追加 |
 | 2026-03-09 | 2.0 | NL-013追加。§0 に AI由来ソースの帰属ルールを追加。quality-test 連携前提を明文化（#150） |
 | 2026-03-08 | 1.9 | `generator_model` を front matter 必須フィールド化。`base/schema/evidence-metadata.md §2.5` 参照を追加（#140） |
+| 2026-03-14 | 2.0 | `generator_model` の参照先を `docs/evidence-metadata-creation.md §2.5` に更新。creation-space 側へ正本を移転 (#248) |
 | 2026-03-04 | 1.0 | 初版。品質レビュー（NL-001〜004）から導出。変換層の中核ルールとして新設 |
 | 2026-03-05 | 1.1 | #84-2: 共通基盤への紐づけ。§0ソース原則を追加（参照ソース一覧・調査方法の記述義務）。継承元を明記 |
 | 2026-03-05 | 1.2 | #84-2 点検: 継承/上書き対応表追加。§4構成パターンに返却の設計（立ち位置明示・安全弁・温度開示）を埋め込み。§7品質ゲートにE（返却チェック）追加。例文のS55整合修正 |
