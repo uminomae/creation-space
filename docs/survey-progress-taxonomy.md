@@ -17,6 +17,7 @@
 | `not_surveyed` | 調査前 | Not yet surveyed | Claude・GPTによる調査未実施 | secondary | 10 |
 | `claude_screened` | Claude初期抽出済 | Claude-screened | Claude（1ターン）による候補ピックアップ実施 | warning | 20 |
 | `claude_gpt_reviewed` | Claude＋GPT照合済 | Claude + GPT reviewed | Claude初期抽出＋ChatGPT独立レビュー突き合わせ実施 | primary | 30 |
+| `codex_parallel_deepdive` | Codex並列深掘り済 | Codex parallel deepdive | Codex CLIマルチエージェント（並列）による深掘り探索を実施した | primary | 36 |
 | `human_reviewed` | 人間レビュー済 | Human-reviewed | Claude＋GPT照合に加え、人間による最終レビュー実施 | success | 40 |
 
 ### 設計原則
@@ -25,6 +26,17 @@
 - **操作の有無で分類**：何をやったかを明示し、何をやっていないかは暗示しない
 - **AIによる単独処理は必ず明記**：`claude_screened` が「1ターン」と明示しているのはこのため
 - **GPT照合は独立レビューである**：ChatGPTがClaudeと独立した視点でレビューし、突き合わせを実施したことを指す
+- **並列 deepdive は別操作として明記する**：`codex_parallel_deepdive` は Codex CLI による並列深掘り探索の実施有無を表す
+
+### description_en
+
+| id | description_en |
+|---|---|
+| `not_surveyed` | No AI-assisted survey conducted yet |
+| `claude_screened` | Candidate theories extracted via single-session Claude dialogue |
+| `claude_gpt_reviewed` | Claude screening followed by independent ChatGPT review cross-check |
+| `codex_parallel_deepdive` | Parallel multi-agent deep exploration via Codex CLI |
+| `human_reviewed` | Claude + GPT review plus author final confirmation |
 
 ---
 
@@ -123,4 +135,5 @@ assets/reports/scenarios/split-d22.json  ← 目視確認用シナリオ
 
 | 日付 | バージョン | 内容 |
 |------|-----------|------|
+| 2026-03-14 | 1.1 | `codex_parallel_deepdive` を履歴文書へ追記し、現行正本との差分を縮小 |
 | 2026-03-07 | 1.0 | Issue #23・deliberation-label-rule.jsx・D22深掘り発見を統合して初版作成 |

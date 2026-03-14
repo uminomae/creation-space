@@ -33,7 +33,7 @@ creation-space の REPORTS 画面に表示されるラベルの正本。
 | `claude_screened` | Candidate theories extracted via single-session Claude dialogue |
 | `claude_gpt_reviewed` | Claude screening followed by independent ChatGPT review cross-check |
 | `api_deepdive` | Multi-round sequential deep exploration via Claude Code Agent |
-| `codex_parallel_deepdive` | Parallel multi-agent deep exploration via Codex CLI (gpt-5.4 xhigh) |
+| `codex_parallel_deepdive` | Parallel multi-agent deep exploration via Codex CLI |
 | `human_reviewed` | Claude + GPT review plus author final confirmation |
 
 ### 新設時の必須ルール
