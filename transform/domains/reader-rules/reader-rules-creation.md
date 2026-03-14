@@ -1,10 +1,5 @@
 # 変換ルール: creation 共通基盤 v1.4
 
-> **移植元**: kesson-driven-thinking の creation reader-rules からコピー（#208 Phase A）
-> **正本**: 本ファイルが domains ワークフローの正本。kesson 側は参照 stub になる予定。
-> **外部参照**: `TODO: base/ と skills/ の正本を creation-space 内に持つ予定。現時点では kesson-driven-thinking 側が正本`
-
-
 **位置づけ**: LLMが base/ から creation コンテンツを生成するときの共通ルール。全audience版（general / designer / academic / report）はこのルールを継承し、audience固有の設計を上書きする。
 **更新日**: 2026-03-05
 **根拠**: #84（ルール整備）。旧版（配管仕様）は `_reader-rules-creation-v0-pipeline.md` に退避。
@@ -14,7 +9,7 @@
 ## §1 ソース原則
 
 - ソースは `base/` 配下の必要なもの全て。固定ファイルリストではない
-- `evidence/` も明確にソースである
+- `/Users/uminomae/dev/creation-space/evidence/` も明確にソースである
 - base/ は今後も増える。生成時点で必要なものを判断して参照する
 - 何を参照したかは、生成物のメタ情報（front matter、脚注、末尾等）に明記する
 - 共通基盤はコンテンツを持たない。5段階の定義等は base/ を参照する
@@ -37,9 +32,7 @@ creation が生成する文書は、この仮説を各audienceに向けて報告
 
 ### 定義の参照
 
-5段階（場→波→縁→渦→束）の定義の原型は `base/` にある。共通基盤がコンテンツとして定義を持つと二重管理になるため、ここでは扱いのルールのみ定める。
-
-定義の正本は `kb/schema/five-stages.md` にある。レポート生成時は正本を読み、そこから要約する。
+5段階（場→波→縁→渦→束）の定義の原型は `base/` にある。共通基盤がコンテンツとして定義を持つと base/ との二重管理になるため、ここでは扱いのルールのみ定める。
 
 ### 導入の仕方
 
@@ -260,6 +253,10 @@ assets/creation/
 ```
 
 API層の `.md` は他システムからデータを取得するエンドポイントとして機能する。実装予定あり。
+
+### 公開しない出力（creation-pjdhiro）
+
+creation-pjdhiro.md / .pdf は著者開示用であり、公開リポジトリ（pjdhiro）には出力しない。kesson-driven-thinking リポジトリ（非公開）の中に生成する。具体的な出力先パスは後日ルールを決める。
 
 ### 命名規則
 

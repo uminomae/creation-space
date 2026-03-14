@@ -1,0 +1,104 @@
+{
+  "version": "3.1",
+  "generated_at": "2026-03-08",
+  "issue": 62,
+  "note": "progress_taxonomy の正本定義は /Users/uminomae/dev/creation-space/docs/evidence-metadata-creation.md §2 を参照",
+  "progress_taxonomy": [
+    {
+      "id": "not_surveyed",
+      "label_ja": "調査前",
+      "label_en": "Not yet surveyed",
+      "description_ja": "Claude・GPTによる調査未実施",
+      "description_en": "No AI-assisted survey conducted yet",
+      "order": 10,
+      "tone": "secondary"
+    },
+    {
+      "id": "claude_screened",
+      "label_ja": "Claude初期抽出済",
+      "label_en": "Claude-screened",
+      "description_ja": "Claudeとの対話（1セッション）で候補理論を抽出した",
+      "description_en": "Candidate theories extracted via single-session Claude dialogue",
+      "order": 20,
+      "tone": "warning"
+    },
+    {
+      "id": "claude_gpt_reviewed",
+      "label_ja": "Claude＋GPT照合済",
+      "label_en": "Claude + GPT reviewed",
+      "description_ja": "Claude抽出後、ChatGPTによる独立レビューと突き合わせを実施した",
+      "description_en": "Claude screening followed by independent ChatGPT review cross-check",
+      "order": 30,
+      "tone": "primary"
+    },
+    {
+      "id": "api_deepdive",
+      "label_ja": "Claude Agentによる深掘り済",
+      "label_en": "Claude Agent deepdive",
+      "description_ja": "Claude Code Agentによる逐次多ラウンド深掘り探索を実施した",
+      "description_en": "Multi-round sequential deep exploration via Claude Code Agent",
+      "order": 35,
+      "tone": "primary"
+    },
+    {
+      "id": "codex_parallel_deepdive",
+      "label_ja": "Codex並列深掘り済",
+      "label_en": "Codex parallel deepdive",
+      "description_ja": "Codex CLIマルチエージェント（並列）による深掘り探索を実施した",
+      "description_en": "Parallel multi-agent deep exploration via Codex CLI (codex 5.4x high)",
+      "order": 36,
+      "tone": "primary"
+    },
+    {
+      "id": "human_reviewed",
+      "label_ja": "人間レビュー済",
+      "label_en": "Human-reviewed",
+      "description_ja": "Claude＋GPT照合に加え、著者による最終確認を実施した",
+      "description_en": "Claude + GPT review plus author final confirmation",
+      "order": 40,
+      "tone": "success"
+    }
+  ],
+  "reports": [
+    { "id": "D01", "name_ja": "数学", "slug": "mathematics", "status": "planned", "progress_level": "claude_gpt_reviewed", "progress_model": ["unknown"], "progress_note": "Step 7確定" },
+    { "id": "D02", "name_ja": "物理学", "slug": "physics", "status": "planned", "progress_level": "claude_gpt_reviewed", "progress_model": ["unknown"], "progress_note": "Step 7確定" },
+    { "id": "D03", "name_ja": "化学", "slug": "chemistry", "status": "planned", "progress_level": "claude_gpt_reviewed", "progress_model": ["unknown"], "progress_note": "Step 7確定" },
+    { "id": "D04", "name_ja": "進化生物学", "slug": "evolutionary-biology", "status": "planned", "progress_level": "claude_gpt_reviewed", "progress_model": ["unknown"], "progress_note": "Step 7 Phase 4完了" },
+    { "id": "D05", "name_ja": "地球科学", "slug": "earth-science", "status": "planned", "progress_level": "claude_gpt_reviewed", "progress_model": ["unknown"], "progress_note": "Step 7 Phase 4完了" },
+    { "id": "D06", "name_ja": "天文学", "slug": "astronomy", "status": "planned", "progress_level": "claude_gpt_reviewed", "progress_model": ["unknown"], "progress_note": "Step 7確定" },
+    { "id": "D07", "name_ja": "工学情報", "slug": "engineering", "status": "planned", "progress_level": "claude_gpt_reviewed", "progress_model": ["unknown"], "progress_note": "Step 7確定" },
+    { "id": "D08", "name_ja": "神経科学", "slug": "neuroscience", "status": "planned", "progress_level": "claude_gpt_reviewed", "progress_model": ["unknown"], "progress_note": "Step 7確定" },
+    { "id": "D09", "name_ja": "生命科学", "slug": "life-sciences", "status": "planned", "progress_level": "claude_gpt_reviewed", "progress_model": ["unknown"], "progress_note": "Step 7確定" },
+    { "id": "D10", "name_ja": "臨床免疫", "slug": "clinical-medicine", "status": "planned", "progress_level": "claude_gpt_reviewed", "progress_model": ["unknown"], "progress_note": "Step 7確定" },
+    { "id": "D11", "name_ja": "薬学", "slug": "pharmacy", "status": "planned", "progress_level": "claude_gpt_reviewed", "progress_model": ["unknown"], "progress_note": "Step 7確定" },
+    { "id": "D12", "name_ja": "農学生態", "slug": "agriculture-ecology", "status": "planned", "progress_level": "claude_gpt_reviewed", "progress_model": ["unknown"], "progress_note": "Phase 2完了 / Phase 3待ち" },
+    { "id": "D13", "name_ja": "哲学", "slug": "philosophy", "status": "planned", "progress_level": "claude_screened", "progress_model": ["unknown"], "progress_note": "Claude初期抽出完了" },
+    { "id": "D14", "name_ja": "心理学", "slug": "psychology", "status": "planned", "progress_level": "claude_gpt_reviewed", "progress_model": ["unknown"], "progress_note": "Phase 2完了 / Phase 3待ち" },
+    { "id": "D15", "name_ja": "美学", "slug": "aesthetics", "status": "planned", "progress_level": "claude_gpt_reviewed", "progress_model": ["unknown"], "progress_note": "Phase 2進行中" },
+    { "id": "D16", "name_ja": "歴史学", "slug": "history", "status": "planned", "progress_level": "claude_gpt_reviewed", "progress_model": ["unknown"], "progress_note": "Phase 2完了" },
+    { "id": "D17", "name_ja": "言語学", "slug": "linguistics", "status": "planned", "progress_level": "claude_gpt_reviewed", "progress_model": ["unknown"], "progress_note": "Phase 2完了" },
+    { "id": "D18", "name_ja": "社会学", "slug": "sociology", "status": "planned", "progress_level": "claude_gpt_reviewed", "progress_model": ["unknown"], "progress_note": "Phase 2完了" },
+    { "id": "D19", "name_ja": "文芸学", "slug": "literary-studies", "status": "planned", "progress_level": "claude_gpt_reviewed", "progress_model": ["unknown"], "progress_note": "Phase 2完了" },
+    { "id": "D20", "name_ja": "法学・政治学", "slug": "law-politics", "status": "planned", "progress_level": "claude_gpt_reviewed", "progress_model": ["unknown"], "progress_note": "Phase 2完了" },
+    { "id": "D21", "name_ja": "経済学", "slug": "economics", "status": "planned", "progress_level": "claude_gpt_reviewed", "progress_model": ["unknown"], "progress_note": "Phase 2完了" },
+    {
+      "id": "D22",
+      "name_ja": "経営学",
+      "slug": "business-management",
+      "status": "published",
+      "progress_level": "codex_parallel_deepdive",
+      "progress_model": ["codex-5.4x-high"],
+      "progress_note": "Codex並列深掘り11件反映 / 領域別レポート再生成・公開",
+      "md": "./domains/ja/md/domain-D22-business-management.md",
+      "pdf": "./domains/ja/pdf/domain-D22-business-management.pdf"
+    },
+    { "id": "D23", "name_ja": "発達心理", "slug": "developmental-psychology", "status": "published", "progress_level": "codex_parallel_deepdive", "progress_model": ["codex-5.4-high"], "progress_note": "Codex並列深掘り済 / 領域別レポート再生成・公開 (#209)", "md": "./domains/ja/md/domain-D23-developmental-psychology.md", "pdf": "./domains/ja/pdf/domain-D23-developmental-psychology.pdf" },
+    { "id": "D24", "name_ja": "宗教学", "slug": "religious-studies", "status": "planned", "progress_level": "claude_screened", "progress_model": ["unknown"], "progress_note": "Claude初期抽出完了" },
+    { "id": "D25", "name_ja": "人類学", "slug": "anthropology", "status": "planned", "progress_level": "claude_screened", "progress_model": ["unknown"], "progress_note": "Claude初期抽出完了" },
+    { "id": "D26", "name_ja": "音楽学", "slug": "musicology", "status": "planned", "progress_level": "claude_screened", "progress_model": ["unknown"], "progress_note": "Claude初期抽出完了" },
+    { "id": "D27", "name_ja": "建築", "slug": "architecture-design", "status": "planned", "progress_level": "claude_screened", "progress_model": ["unknown"], "progress_note": "Claude初期抽出完了" },
+    { "id": "D28", "name_ja": "舞台芸術", "slug": "performing-arts", "status": "planned", "progress_level": "claude_screened", "progress_model": ["unknown"], "progress_note": "Claude初期抽出完了" },
+    { "id": "D29", "name_ja": "複雑系", "slug": "complexity-science", "status": "planned", "progress_level": "claude_screened", "progress_model": ["unknown"], "progress_note": "Claude初期抽出完了" },
+    { "id": "D30", "name_ja": "伝統知", "slug": "traditional-knowledge", "status": "planned", "progress_level": "claude_screened", "progress_model": ["unknown"], "progress_note": "Claude初期抽出完了" }
+  ]
+}

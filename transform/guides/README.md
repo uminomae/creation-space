@@ -1,18 +1,28 @@
-# transform/guides/ — guides workflow placeholder
+# transform/guides/ — guide 生成ワークフロー
 
 ## 5W1H
 
 - **What**: 5段階モデルの guide 類を生成する workflow の置き場です。
 - **Why**: domains と切り分けた strict separation の guide 群を creation-space 側で正本化するためです。
-- **Who**: guide 系ルールを移植・再設計する CLI が使います。
-- **When**: Phase 2 以降で guide workflow を移すときです。
-- **Where**: 実装先はこのディレクトリです。移行中で、kesson 側に暫定的に依存している箇所があります。
-- **How**: academic / designer / general の現行ルールを参照しつつ、creation-space 内への移行を進めます。
+- **Who**: guide 系の Markdown / PDF を再生成する CLI と review 担当者が使います。
+- **When**: general / designer / academic guide を生成・更新するときです。
+- **Where**: ルールは `reader-rules/`、ドラフトは `drafts/`、導入文は `introductions/` にあります。
+- **How**: audience 別の reader-rules を読み、ドラフトを更新してから PDF ビルドへ進みます。
 
 ## 現在の状態
 
-Phase 2 以降で移植予定です。移行中で、kesson 側に暫定的に依存している箇所があります。
+`transform/creation/` から audience 別 guide 資産を移管済みです（#250）。
 
-- TODO: creation-space 内に移行予定 — `kesson-driven-thinking/transform/creation/reader-rules/reader-rules-creation-general.md`
-- TODO: creation-space 内に移行予定 — `kesson-driven-thinking/transform/creation/reader-rules/reader-rules-creation-academic.md`
-- TODO: creation-space 内に移行予定 — `kesson-driven-thinking/transform/creation/reader-rules/reader-rules-creation-designer.md`
+- general: `reader-rules/reader-rules-creation-general.md`
+- designer: `reader-rules/reader-rules-creation-designer.md`
+- academic: `reader-rules/reader-rules-creation-academic.md`
+- draft: `drafts/creation-*-draft.md`
+- intro: `introductions/intro-*.md`
+
+## 入口
+
+- ルール: [reader-rules/reader-rules-creation-general.md](/Users/uminomae/dev/creation-space/transform/guides/reader-rules/reader-rules-creation-general.md)
+- ルール: [reader-rules/reader-rules-creation-designer.md](/Users/uminomae/dev/creation-space/transform/guides/reader-rules/reader-rules-creation-designer.md)
+- ルール: [reader-rules/reader-rules-creation-academic.md](/Users/uminomae/dev/creation-space/transform/guides/reader-rules/reader-rules-creation-academic.md)
+- ドラフト: [drafts/creation-general-draft.md](/Users/uminomae/dev/creation-space/transform/guides/drafts/creation-general-draft.md)
+- 導入文: [introductions/intro-general.md](/Users/uminomae/dev/creation-space/transform/guides/introductions/intro-general.md)
