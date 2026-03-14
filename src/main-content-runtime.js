@@ -1,5 +1,5 @@
 import { initArticles, setArticlesLanguage } from './articles.js';
-import { initReports, setReportsLanguage } from './reports.js';
+import { initReports, setReportsLanguage } from './reports/index.js';
 import { initMainUiRuntime } from './main-ui-runtime.js';
 
 export function initMainContentRuntime({

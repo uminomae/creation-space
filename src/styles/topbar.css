@@ -1,0 +1,248 @@
+#kesson-topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: var(--kesson-topbar-height);
+  z-index: 60;
+  background: linear-gradient(
+    to bottom,
+    var(--ks-topbar-bg-start) 0%,
+    var(--ks-topbar-bg-end) 100%
+  );
+  border-bottom: 1px solid var(--ks-topbar-border-color);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, var(--kesson-topbar-shadow-alpha));
+  backdrop-filter: blur(var(--kesson-topbar-blur)) saturate(var(--kesson-topbar-saturate));
+  -webkit-backdrop-filter: blur(var(--kesson-topbar-blur)) saturate(var(--kesson-topbar-saturate));
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+#kesson-topbar .container-fluid {
+  min-height: var(--kesson-topbar-height);
+}
+
+#kesson-topbar .topbar-brand-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 0.52rem;
+  min-width: 0;
+  max-width: calc(100% - 3rem);
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 0.24rem 0;
+}
+
+#kesson-topbar .topbar-main-title {
+  color: var(--ks-topbar-title-color);
+  font-family: var(--kesson-font-serif-display);
+  font-size: var(--ks-topbar-main-title-size);
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: none;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  flex: 0 0 auto;
+}
+
+#kesson-topbar .topbar-main-title:hover,
+#kesson-topbar .topbar-main-title:focus-visible {
+  color: var(--ks-topbar-title-hover-color);
+}
+
+#kesson-topbar .topbar-status-badge {
+  font-family: var(--kesson-font-mono-ui);
+  font-size: var(--ks-topbar-credit-size);
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.5rem;
+  line-height: 1.1;
+  transform: translateY(-1px);
+}
+
+#kesson-topbar .topbar-subtitle {
+  font-size: var(--ks-topbar-subtitle-size);
+  color: var(--ks-topbar-subtitle-color);
+  letter-spacing: var(--kesson-letter-ui-wide);
+  line-height: 1;
+  text-transform: none;
+  flex: 0 0 auto;
+  pointer-events: none;
+}
+
+#kesson-topbar .topbar-subtitle::before,
+#kesson-topbar .topbar-meta::before {
+  content: '·';
+  color: var(--ks-topbar-divider-color);
+  margin-right: 0.45rem;
+}
+
+#kesson-topbar .topbar-meta {
+  display: block;
+  flex: 0 0 auto;
+  padding: 0;
+  font-size: var(--ks-topbar-meta-size);
+  line-height: 1;
+  letter-spacing: 0.05em;
+  color: var(--ks-topbar-meta-color);
+  font-family: var(--kesson-font-serif-ui);
+  pointer-events: none;
+}
+
+#kesson-topbar .topbar-meta--author {
+  font-size: var(--ks-topbar-meta-author-size);
+  color: var(--ks-topbar-meta-author-color);
+}
+
+#kesson-topbar .topbar-link {
+  color: var(--ks-topbar-link-color);
+  font-family: var(--kesson-font-mono-ui);
+  font-size: var(--ks-topbar-link-size);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.72rem;
+  border-radius: 999px;
+  transition: color 0.25s ease, background-color 0.25s ease;
+}
+
+#kesson-topbar .topbar-link:hover,
+#kesson-topbar .topbar-link:focus-visible {
+  color: var(--ks-topbar-link-hover-color);
+  background: var(--ks-topbar-link-hover-bg);
+}
+
+#kesson-topbar .topbar-link-btn {
+  border: 0;
+  background: transparent;
+  line-height: inherit;
+  width: 100%;
+  text-align: left;
+}
+
+#kesson-topbar .topbar-lang-btn {
+  color: var(--ks-topbar-lang-color);
+  border: 1px solid var(--ks-topbar-lang-border);
+  background: var(--ks-topbar-lang-bg);
+}
+
+#kesson-topbar .topbar-collab-item {
+  margin-left: 0.45rem;
+  padding-left: 0.55rem;
+  border-left: 1px solid var(--ks-topbar-note-divider-color);
+}
+
+#kesson-topbar .topbar-collab-note {
+  display: inline-block;
+  font-family: var(--kesson-font-serif-ui);
+  font-size: var(--ks-topbar-note-size);
+  line-height: 1;
+  letter-spacing: var(--kesson-letter-ui-normal);
+  color: var(--ks-topbar-note-color);
+  white-space: nowrap;
+  margin-left: 0.5rem;
+  padding-left: 0.56rem;
+  border-left: 1px solid var(--ks-topbar-note-divider-color);
+  min-width: 0;
+  max-width: min(42vw, 18rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+  user-select: none;
+}
+
+.topbar-font-size-ctrl {
+  opacity: 0.75;
+}
+
+.topbar-font-btn {
+  font-family: var(--kesson-font-mono-ui);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.5rem;
+  background: transparent;
+  border: 1px solid var(--ks-topbar-nav-border);
+  color: var(--ks-topbar-link-color);
+  line-height: 1.4;
+}
+
+.topbar-font-btn:hover:not(:disabled) {
+  background: var(--ks-topbar-link-hover-bg);
+  color: var(--ks-topbar-link-hover-color);
+}
+
+.topbar-font-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+#kesson-topbar .topbar-toggler {
+  border-color: var(--ks-topbar-toggler-border);
+  padding: 0.18rem 0.44rem;
+}
+
+#kesson-topbar .topbar-toggler:focus {
+  box-shadow: 0 0 0 0.14rem var(--ks-topbar-toggler-focus);
+}
+
+#kessonTopbarNav {
+  margin-top: 0.35rem;
+  padding: 0.35rem 0.2rem 0.5rem;
+  border-radius: 0.6rem;
+  background: var(--ks-topbar-nav-bg);
+  border: 1px solid var(--ks-topbar-nav-border);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+@media (min-width: 768px) {
+  #kessonTopbarNav {
+    margin-top: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  #kesson-topbar .topbar-link-btn {
+    width: auto;
+    text-align: center;
+  }
+
+  #kesson-topbar .topbar-lang-item {
+    margin-left: 0.35rem;
+  }
+}
+
+@media (max-width: 991.98px) {
+  #kesson-topbar .topbar-meta--author {
+    display: none;
+  }
+
+  #kesson-topbar .topbar-subtitle {
+    font-size: var(--ks-topbar-subtitle-size-md);
+  }
+}
+
+@media (max-width: 767.98px) {
+  #kesson-topbar .topbar-subtitle {
+    display: none;
+  }
+
+  #kesson-topbar .topbar-main-title {
+    font-size: var(--ks-topbar-main-title-size-sm);
+  }
+
+  #kesson-topbar .topbar-collab-note {
+    font-size: var(--ks-topbar-credit-size);
+    letter-spacing: 0.05em;
+    margin-left: 0.36rem;
+    padding-left: 0.36rem;
+    max-width: min(40vw, 9.8rem);
+  }
+
+  #kesson-topbar .topbar-status-badge {
+    font-size: 0.52rem;
+    padding: 0.16rem 0.42rem;
+  }
+}
