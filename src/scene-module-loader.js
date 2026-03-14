@@ -7,9 +7,9 @@ export async function loadSceneModule(sceneVariant) {
         return import('./scene-intent.js');
     }
     if (sceneVariant === 'wabi') {
-        return import('./scene.js');
+        return import('./scene/scene.js');
     }
-    return import('./scene-hold.js');
+    return import('./scene/scene-hold.js');
 }
 
 export function loadPostFxDeps() {
