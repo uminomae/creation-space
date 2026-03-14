@@ -1,50 +1,68 @@
 # creation-space — Claude Code CLI
 
-## 0. エントリーポイント
+`creation-space` で作業する Claude Code CLI 向けの最小運用ルール。管理書類の入口は `docs/README.md`、補助ルールは `.claude/rules/` を参照する。
 
-プロジェクト全体像・管理書類・ファイル構成は `docs/README.md` を参照。
-変換層の入口は `transform/README.md`、domains workflow の入口は `transform/domains/README.md`。
-公開KBの受け皿は `kb/README.md`。
+## プロジェクト概要
 
-## 1. 役割定義
+- `creation-space` は「創造とは何か」を探索する独立モジュール。
+- 30領域の調査資産を `evidence/` に蓄積し、`transform/` で公開用に整形し、`kb/` と Web UI に接続する。
+- フロントエンドは `index.html` + `src/` の静的構成で、Three.js を中心に動く。
+- `src/reports.js` は `pjdhiro` 側でホスティングされる manifest / Markdown / PDF を取得して表示する。
 
-creation-space プロジェクトの Claude Code CLI エージェントとして動作する。
-DT（Claude.ai Desktop）から指示書を受けて実装する。
+## Git 規約
 
-## 2. ブランチ・ワークツリー規定
+- 通常作業ブランチは `develop`
+- `main` は GitHub Pages 公開用ブランチ
+- `main` への直接 push は行わない
+- コミットメッセージ形式は `{type}: {summary}`
+- コミット本文は任意だが、必要なら変更理由を短く追記する
+- すべてのコミットに `Co-Authored-By: Claude <noreply@anthropic.com>` を含める
+- push 前に `git status --short --branch` と `git diff --stat` を確認する
+- `develop` を push する前に `git pull --rebase origin develop` を実行する
 
-| 作業場所 | パス | ブランチ | 用途 |
-|---|---|---|---|
-| **root** | `/Users/uminomae/dev/creation-space` | develop または main | 通常作業場所 |
-| 作業用 | 都度作成 | `fix/*` / `feature/*` | 分離作業ブランチ |
+詳細: `.claude/rules/commit-rules.md`
 
-- ローカルサーバー: `bash server.sh 3002` → http://localhost:3002/
-  （kesson-space が 3001 を使用するため 3002 を使用）
-- 旧常設 develop worktree は #181 で削除済み
+## セッション開始手順
 
-## 3. セッション終了チェックリスト
+1. `git branch --show-current`
+2. `git status --short --branch`
+3. `docs/README.md` と、対象タスクに必要な関連ファイルを読む
+4. UI 確認が必要なら `bash server.sh 3002` でローカル確認を開始する
 
-セッション終了前に必ず実行:
+## セッション終了時
 
-- [ ] 作業中の Issue にコメントで進捗を記録
-- [ ] コミット・`git push origin <作業ブランチ>`
-- [ ] 必要なら `develop` で preview を起動する:
-  ```bash
-  cd /Users/uminomae/dev/creation-space
-  git checkout develop
-  bash ./server.sh 3002 &
-  # → http://localhost:3002/
-  ```
-- [ ] ユーザーに完了報告（サーバーURL を含める）
+1. `git diff --stat` で変更範囲を確認する
+2. 関連 Issue に変更サマリを投稿する
+3. コミットメッセージ形式と `Co-Authored-By` を確認してコミットする
+4. `develop` 作業なら `git pull --rebase origin develop` の後に `git push origin develop`
+5. 管理体系を更新した場合は `CLAUDE.md`、`docs/README.md`、`.claude/rules/` の整合を取る
 
-**注意: main への直接 push は行わない。PR経由でマージする。**
+## ディレクトリ構造
 
-## 4. 技術スタック・参照
+| パス | 役割 |
+|---|---|
+| `src/` | Web UI 本体。Three.js 描画、Reports UI、スタイル、各種 runtime |
+| `assets/` | ローカル静的データ。articles 一覧、reports シナリオなど |
+| `docs/` | 管理書類のハブと調査メモ |
+| `evidence/` | 30領域の調査データ本体、deepdive、review |
+| `transform/` | evidence から公開用 Markdown / PDF / KB を再生成する workflow |
+| `kb/` | 公開用ナレッジベースの受け皿 |
+| `scripts/` | 補助スクリプト |
 
-- Three.js 0.160.0（ES Modules）
-- ローカルサーバー: `bash server.sh [port]`（CLI運用では 3002）
-- デプロイ: GitHub Pages
+詳細: `.claude/rules/project-structure.md`
 
-### 参照リンク
+## 技術スタック
 
-- [GitHub Issues](https://github.com/uminomae/creation-space/issues)
+- 静的サイト: `index.html` + ES Modules
+- 描画: Three.js `0.160.0`
+- UI コンポーネント: Bootstrap `5.3.3`
+- Markdown 表示: `marked` + `DOMPurify`
+- ローカルサーバー: `bash server.sh [port]` (`serve.py` を呼ぶ)
+- デプロイ先: GitHub Pages
+
+## 関連リポジトリ
+
+| リポジトリ | 関係 |
+|---|---|
+| `pjdhiro` | GitHub Pages 側の公開先。`assets/creation/` の manifest・Markdown・PDF をホスティングする |
+| `kesson-driven-thinking` | 管理体系と workflow の参照元。`transform/`・`kb/` の一部はここから移植された履歴を持つ |
