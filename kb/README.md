@@ -27,6 +27,8 @@
 |---|---|
 | `schema/` | 創造モデルのスキーマ定義。レポート生成時の参照正本 |
 | `domains/` | 領域別調査レポート（日英。D23 等） |
+| `glossary.md` | 用語集。5段階モデルと関連概念の定義 |
+| `five-stages-guide.md` | 5段階モデル解説。各段階の読み方・遷移条件・よくある誤読 |
 
 ## 収録状況
 
@@ -34,6 +36,8 @@
 - `schema/academic-domains.md` — D01-D30 の全学問領域マスターリスト
 - `domains/D23-developmental-psychology/ja/report.md` — 発達心理学レポート（日本語）
 - `domains/D23-developmental-psychology/en/report.md` — Developmental psychology report (English)
+- `glossary.md` — 用語集（5段階モデル用語 + 関連概念 + 調査用語）
+- `five-stages-guide.md` — 5段階モデル解説（全体像・遷移条件・よくある誤読）
 
 ## 移行状態
 
