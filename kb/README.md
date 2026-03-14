@@ -36,9 +36,5 @@
 
 ## 移行状態
 
-kesson-driven-thinking から段階的に移植中。kb/ に知識を集約していく過程にある。
-
-## 公開
-
-- 将来的には `pjdhiro/assets/creation/` への移行を検討（#218）
-- 現時点では kb/ が当面の正本
+正本は `pjdhiro/assets/creation/kb/` に移行済み（#218）。
+このディレクトリは参照互換のために残存。
