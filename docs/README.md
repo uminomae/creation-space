@@ -40,6 +40,7 @@
 | `docs/survey-progress-taxonomy.md` | 進捗ラベルの設計記録 |
 | `transform/domains/reader-rules/reader-rules-creation-report.md` | 領域レポート生成ルール |
 | `kb/schema/five-stages.md` | 5段階モデル schema の現在参照先 |
+| `kb/schema/academic-domains.md` | D01-D30 学問領域マスターの現在参照先 |
 
 ## 4. 管理書類一覧
 

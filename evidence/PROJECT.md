@@ -242,7 +242,7 @@ AI社会でF軸（情報・効率・自動化）が完璧に満たされたと�
 
 注記:
 - `202602-deep-research-30domains-gpt/` は 2026-02 に収集した 30領域の GPT Deep Research 一次ソースを保持する
-- `five-stages.md` と `academic-domains.md` の正本はまだ別リポジトリ側にある
+- `five-stages.md` と `academic-domains.md` の正本は `kb/schema/` に移行済み（#249）
 
 ## 5. 呼び出し側への契約
 

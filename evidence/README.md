@@ -39,7 +39,7 @@ pjdhiro、Claude、Codex、および creation-space の REPORTS / evidence 閲�
 ### How
 
 幅優先スキャン → 本格調査 → GPTレビュー → deepdive → 横断分析という順で増築されてきた。
-正本の schema は引き続き外部 schema repo 側に置く。
+`five-stages.md` と `academic-domains.md` の正本は `kb/schema/` に移行済み。`evidence-metadata.md` など一部 schema は引き続き外部 schema repo 側に置く。
 
 ## ⚠️ evidence-D*.md を編集・Revise する前に
 
