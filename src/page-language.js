@@ -1,83 +1,9 @@
 import { normalizeLang, syncLangQuery } from './i18n.js';
-
-const STRINGS = {
-    ja: {
-        documentTitle: '創造とは - Creation Space',
-        title: '創造とは',
-        subtitle: 'Creation Space',
-        taglines: [
-            '関係し合う欠片が、まだ名前を持たない輪郭を生む。',
-            '観測と選択のあいだで、創造は静かに立ち上がる。',
-        ],
-        topbarMainTitle: '創造とは',
-        topbarSubtitle: 'Creation Space',
-        topbarDev: 'DEV',
-        topbarArticles: 'ARTICLES',
-        topbarReports: 'REPORTS',
-        topbarReportsAria: 'REPORTS セクションへジャンプ',
-        topbarPreparingBadge: '準備中',
-        topbarBlog: 'BLOG',
-        topbarBlogAria: 'BLOG: 創造とは？',
-        topbarCollab: 'AIとの協働作業中',
-        graphicSwitcherAria: 'グラフィック切り替え',
-        graphicModeHoji: '保持',
-        graphicModeSinobi: '忍',
-        graphicModeIntent: '意',
-        creditSignature: 'Project Designer: pjdhiro',
-        modelSectionHeading: '創造の5段階モデル',
-        modelSectionHeadingAria: '創造の5段階モデル セクションへジャンプ',
-        articlesSectionHeading: 'ARTICLES',
-        articlesSectionHeadingAria: 'ARTICLES セクションへジャンプ',
-        reportsSectionHeading: 'REPORTS',
-        reportsSectionHeadingAria: 'REPORTS セクションへジャンプ',
-        reportsAiNotice: 'AIが執筆しているため間違いがある場合があります。',
-        offcanvasArticlesTitle: 'ARTICLES',
-        surfaceButtonAria: 'ページ上部に戻る',
-        devVersionPrefix: 'dev',
-        langToggleLabel: 'English',
-        langToggleAria: '言語を英語に切り替え',
-    },
-    en: {
-        documentTitle: 'What Is Creation - Creation Space',
-        title: 'What Is Creation',
-        subtitle: 'Creation Space',
-        taglines: [
-            'Fragments in relation generate forms before they are named.',
-            'Creation rises quietly between observation and choice.',
-        ],
-        topbarMainTitle: 'What Is Creation',
-        topbarSubtitle: 'Creation Space',
-        topbarDev: 'DEV',
-        topbarArticles: 'ARTICLES',
-        topbarReports: 'REPORTS',
-        topbarReportsAria: 'Jump to REPORTS section',
-        topbarPreparingBadge: 'In Prep',
-        topbarBlog: 'BLOG',
-        topbarBlogAria: 'BLOG: What Is Creation?',
-        topbarCollab: 'Working with AI collaboration',
-        graphicSwitcherAria: 'Switch graphics mode',
-        graphicModeHoji: 'Hold',
-        graphicModeSinobi: 'Shinobi',
-        graphicModeIntent: 'Intent',
-        creditSignature: 'Project Designer: pjdhiro',
-        modelSectionHeading: 'The Five Stages of Creation',
-        modelSectionHeadingAria: 'Jump to The Five Stages of Creation section',
-        articlesSectionHeading: 'ARTICLES',
-        articlesSectionHeadingAria: 'Jump to ARTICLES section',
-        reportsSectionHeading: 'REPORTS',
-        reportsSectionHeadingAria: 'Jump to REPORTS section',
-        reportsAiNotice: 'This section is AI-authored and may contain mistakes.',
-        offcanvasArticlesTitle: 'ARTICLES',
-        surfaceButtonAria: 'Back to top',
-        devVersionPrefix: 'dev',
-        langToggleLabel: '日本語',
-        langToggleAria: 'Switch language to Japanese',
-    },
-};
+import { dict } from './i18n/dict.js';
 
 function formatDevVersionLabel(lang, { devVersion = '', devDate = '' } = {}) {
     const resolvedLang = normalizeLang(lang);
-    const strings = STRINGS[resolvedLang] || STRINGS.ja;
+    const strings = dict[resolvedLang]?.page || dict.ja.page;
     const prefix = typeof strings.devVersionPrefix === 'string' && strings.devVersionPrefix.trim()
         ? strings.devVersionPrefix.trim()
         : 'dev';
@@ -97,13 +23,12 @@ function updateInlineVersionLabel(lang, { devVersion = '', devDate = '' } = {}) 
 
 export function applyPageLanguage(lang, { devMode = false, devVersion = '', devDate = '' } = {}) {
     const normalized = normalizeLang(lang);
-    const strings = STRINGS[normalized] || STRINGS.ja;
+    const strings = dict[normalized]?.page || dict.ja.page;
 
     const titleH1 = document.getElementById('title-h1');
     const titleSub = document.getElementById('title-sub');
     const taglineContainer = document.getElementById('taglines');
     const topbarMainTitle = document.getElementById('topbar-main-title');
-    const topbarSubtitle = document.getElementById('topbar-subtitle');
     const topbarDevLink = document.getElementById('topbar-dev-link');
     const topbarArticlesBtn = document.getElementById('topbar-articles-btn');
     const topbarReportsLink = document.getElementById('topbar-reports-link');
@@ -126,7 +51,6 @@ export function applyPageLanguage(lang, { devMode = false, devVersion = '', devD
     if (titleH1) titleH1.textContent = strings.title;
     if (titleSub) titleSub.textContent = strings.subtitle;
     if (topbarMainTitle) topbarMainTitle.textContent = strings.topbarMainTitle;
-    if (topbarSubtitle) topbarSubtitle.textContent = strings.topbarSubtitle;
     if (topbarDevLink) topbarDevLink.textContent = strings.topbarDev;
     if (topbarArticlesBtn) topbarArticlesBtn.textContent = strings.topbarArticles;
     if (topbarReportsLink) {

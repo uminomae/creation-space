@@ -1,4 +1,5 @@
 import { normalizeLang } from '../i18n.js';
+import { dict } from '../i18n/dict.js';
 import {
     MODEL_GUIDE_LINKS,
     STATUS_REPORT_LINKS,
@@ -10,103 +11,8 @@ import {
 } from './data.js';
 import { DOMAIN_HISTORY_MODE_PUSH } from './history.js';
 
-const STRINGS = {
-    ja: {
-        error: 'レポート一覧の読み込みに失敗しました。',
-        empty: '対象データがありません。',
-        emptyFiltered: '該当する領域がありません。',
-        metricGenerated: '更新日',
-        metricTotal: '総領域',
-        levelLegendPrefix: '進捗レベル',
-        levelLegend: '進捗分類を読み込み中...',
-        levelLegendUnavailable: '進捗分類を表示できません。',
-        levelLegendSingle: '{count}領域すべてが現在「{label}」に分類されています。',
-        scenarioPrefix: '表示シナリオ',
-        tabDomains: '領域別レポート',
-        filterGroupAria: '領域別レポート絞り込み',
-        filterAll: '全件',
-        openStatus: '調査内容',
-        statusReportTitle: '調査内容',
-        modalTitleDefault: '詳細',
-        modalLoading: 'Markdown を読み込み中...',
-        modalError: 'Markdown の読み込みに失敗しました。',
-        modalPreparing: '英語版は準備中です。',
-        modalOpenPdf: 'PDFを開く',
-        modalPdfPending: 'PDF準備中',
-        modalClose: '閉じる',
-        modalModel: 'モデル',
-        generatorModel: '生成モデル',
-        modalGenerated: '生成日',
-        features: {
-            general: {
-                title: '一般向け',
-                modalTitle: '創造とは——5段階の地図',
-                description: '創造モデルの全体像を短く把握するための解説。',
-            },
-            designer: {
-                title: '設計者向け',
-                modalTitle: '創造の構造——設計者のための地図',
-                description: '設計判断と運用視点で読む解説。',
-            },
-            expert: {
-                title: '専門家向け',
-                modalTitle: '創造とは——学術版',
-                description: '理論比較と検証観点を含む解説。',
-            },
-        },
-        featureRead: '解説を表示',
-        featurePdf: 'PDF',
-    },
-    en: {
-        error: 'Failed to load report data.',
-        empty: 'No report data is available.',
-        emptyFiltered: 'No domains match the current filter.',
-        metricGenerated: 'Updated',
-        metricTotal: 'Domains',
-        levelLegendPrefix: 'Progress levels',
-        levelLegend: 'Loading progress categories...',
-        levelLegendUnavailable: 'Progress categories are unavailable.',
-        levelLegendSingle: 'All {count} domains are currently classified as "{label}".',
-        scenarioPrefix: 'Preview scenario',
-        tabDomains: 'Domain Reports',
-        filterGroupAria: 'Filter domain reports',
-        filterAll: 'All',
-        openStatus: 'Investigation Notes',
-        statusReportTitle: 'Investigation Notes',
-        modalTitleDefault: 'Details',
-        modalLoading: 'Loading markdown...',
-        modalError: 'Failed to load markdown.',
-        modalPreparing: 'English version is in preparation.',
-        modalOpenPdf: 'Open PDF',
-        modalPdfPending: 'PDF Pending',
-        modalClose: 'Close',
-        modalModel: 'Model',
-        generatorModel: 'Generator model',
-        modalGenerated: 'Generated',
-        features: {
-            general: {
-                title: 'General',
-                modalTitle: 'Creation — A Map of Five Stages',
-                description: 'A concise overview of the creation model.',
-            },
-            designer: {
-                title: 'Designer',
-                modalTitle: 'Creation as Structure — A Guide for Project Designers',
-                description: 'Guide focused on design and implementation decisions.',
-            },
-            expert: {
-                title: 'Expert',
-                modalTitle: 'Creation — An Exploratory Description of the Five-Stage Process',
-                description: 'Theory comparison and verification-oriented guide.',
-            },
-        },
-        featureRead: 'Open Guide',
-        featurePdf: 'PDF',
-    },
-};
-
 export function getReportsStrings(lang = 'ja') {
-    return STRINGS[normalizeLang(lang)] || STRINGS.ja;
+    return dict[normalizeLang(lang)]?.reports || dict.ja.reports;
 }
 
 export function getDomainReportTitle(report, lang = 'ja') {
