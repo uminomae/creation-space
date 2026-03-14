@@ -59,24 +59,8 @@
   margin-top: 0.15rem;
 }
 
-#reports-section .section-heading {
-  order: 1;
-}
-
-#reports-ai-notice {
-  order: 2;
-}
-
-#reports-error {
-  order: 3;
-}
-
-#reports-section .reports-overview {
-  order: 4;
-}
-
-#reports-section .reports-tab-content {
-  order: 5;
+#model-section .reports-ai-notice {
+  margin: 0 0 0.72rem;
 }
 
 #reports-primary-actions .btn,
@@ -211,7 +195,7 @@
 }
 
 .reports-ai-notice {
-  margin: 0.18rem 0 0.85rem;
+  margin: 0 0 0.85rem;
   color: rgba(var(--color-sub-text), 0.78);
   font-size: clamp(
     calc(0.64rem + var(--reports-font-step)),

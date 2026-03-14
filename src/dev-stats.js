@@ -29,10 +29,7 @@ export async function initDevStats() {
     _stats = new window.Stats();
     _stats.showPanel(0);
 
-    _stats.dom.style.position = 'fixed';
-    _stats.dom.style.bottom = '0px';
-    _stats.dom.style.left = '0px';
-    _stats.dom.style.zIndex = '10000';
+    _stats.dom.classList.add('dev-fps-panel');
     _stats.dom.dataset.panel = '0';
     document.body.appendChild(_stats.dom);
 

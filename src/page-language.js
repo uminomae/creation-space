@@ -26,7 +26,6 @@ export function applyPageLanguage(lang, { devMode = false, devVersion = '', devD
     const strings = dict[normalized]?.page || dict.ja.page;
 
     const titleH1 = document.getElementById('title-h1');
-    const titleSub = document.getElementById('title-sub');
     const taglineContainer = document.getElementById('taglines');
     const topbarMainTitle = document.getElementById('topbar-main-title');
     const topbarDevLink = document.getElementById('topbar-dev-link');
@@ -49,7 +48,6 @@ export function applyPageLanguage(lang, { devMode = false, devVersion = '', devD
     const surfaceButton = document.getElementById('surface-btn');
 
     if (titleH1) titleH1.textContent = strings.title;
-    if (titleSub) titleSub.textContent = strings.subtitle;
     if (topbarMainTitle) topbarMainTitle.textContent = strings.topbarMainTitle;
     if (topbarDevLink) topbarDevLink.textContent = strings.topbarDev;
     if (topbarArticlesBtn) topbarArticlesBtn.textContent = strings.topbarArticles;

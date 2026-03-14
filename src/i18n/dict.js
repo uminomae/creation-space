@@ -1,9 +1,8 @@
 export const dict = {
     ja: {
         page: {
-            documentTitle: '創造とは - Creation Space',
+            documentTitle: '創造とは',
             title: '創造とは',
-            subtitle: 'Creation Space',
             taglines: [
                 '関係し合う欠片が、まだ名前を持たない輪郭を生む。',
                 '観測と選択のあいだで、創造は静かに立ち上がる。',
@@ -106,9 +105,8 @@ export const dict = {
     },
     en: {
         page: {
-            documentTitle: 'What Is Creation - Creation Space',
+            documentTitle: 'What Is Creation',
             title: 'What Is Creation',
-            subtitle: 'Creation Space',
             taglines: [
                 'Fragments in relation generate forms before they are named.',
                 'Creation rises quietly between observation and choice.',
