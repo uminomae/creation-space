@@ -156,7 +156,7 @@
 
 .topbar-font-btn {
   font-family: var(--kesson-font-mono-ui);
-  font-size: var(--kesson-topbar-credit-size, 0.70rem);
+  font-size: var(--kesson-topbar-credit-size, 0.80rem);
   letter-spacing: 0.08em;
   padding: 0.2rem 0.5rem;
   background: transparent;
@@ -242,7 +242,7 @@
   }
 
   #kesson-topbar .topbar-status-badge {
-    font-size: 0.70rem;
+    font-size: 0.80rem;
     padding: 0.16rem 0.42rem;
   }
 }
