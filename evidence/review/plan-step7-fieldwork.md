@@ -120,7 +120,7 @@ Phase 2: Claudeフルエージェント再評価
   - SKILL.md R1-R7 で各理論を評価
   - E-1〜E-8 + 4面記述 + CHK-A〜D
   - evidence-D{NN}-*.md を更新、L-1〜L-5 レポート執筆
-  - base/ に格納
+  - evidence/ に格納（旧: base/ に格納）
 
 Phase 3: GPTレビュー
   - inbox/REQ-GPT-*_d{nn}-review.md を作成

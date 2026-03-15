@@ -25,7 +25,7 @@
 
 | 範囲定義 | 内容 |
 |---------|------|
-| 対象 | `base/schema/academic-domains.md` に登録された D01-D30 全領域 |
+| 対象 | `knowledge/schema/academic-domains.md` に登録された D01-D30 全領域 |
 | 粒度 | 各領域から代表1エントリを選定し Level 2 に引き上げる |
 | 除外 | triage=Reject/NA のエントリは深掘り対象外 |
 | 代表エントリ選定 | `judgments.md` に候補と判断状況を記録 |
