@@ -1,6 +1,11 @@
 {
   "basePath": "./",
   "presets": {
+    "design_system": {
+      "label": "Design System",
+      "path": "./dev-components.html",
+      "query": {}
+    },
     "domain_d23_developmental_psychology": {
       "label": "D23 発達心理学",
       "path": "./",
