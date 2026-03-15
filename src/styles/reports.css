@@ -473,6 +473,9 @@
 }
 
 .reports-md-modal-content .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border-color: rgba(var(--color-accent), 0.12);
   background: rgba(var(--color-accent), 0.06);
 }
