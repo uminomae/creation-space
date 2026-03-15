@@ -13,6 +13,8 @@ export const DEFAULT_REPORTS_DATA_URL = `${PJDHIRO_CREATION_RAW}/manifests/domai
 export const DEFAULT_REPORTS_ASSET_BASE = `${PJDHIRO_CREATION_PAGES}/`;
 export const DEFAULT_REPORTS_MD_ASSET_BASE = `${PJDHIRO_RAW_BASE}${CREATION_PATH}/`;
 
+export const GUIDES_MANIFEST_URL = `${PJDHIRO_CREATION_RAW}/manifests/guides.json`;
+
 export const STATUS_REPORT_LINKS = {
     ja: {
         mdUrl: `${PJDHIRO_CREATION_RAW}/survey/ja/md/survey-status.md`,
@@ -677,6 +679,17 @@ export function countReportsByProgressLevel(reports = []) {
         counts[level] = (counts[level] || 0) + 1;
         return counts;
     }, {});
+}
+
+export async function loadGuidesGeneratedAt(url = GUIDES_MANIFEST_URL) {
+    try {
+        const response = await fetch(url, { cache: 'no-store' });
+        if (!response.ok) return '';
+        const payload = await response.json();
+        return typeof payload?.generated_at === 'string' ? payload.generated_at : '';
+    } catch {
+        return '';
+    }
 }
 
 export async function loadReportsData({
