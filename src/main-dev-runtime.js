@@ -11,6 +11,11 @@ export function initMainDevRuntime({
 }) {
     if (!devMode) return;
 
+    const devComponentsLink = document.getElementById('dev-components-link');
+    if (devComponentsLink) {
+        devComponentsLink.classList.add('is-visible');
+    }
+
     initDevAuxTools({
         setStatsHandlers,
     });
