@@ -163,6 +163,7 @@
   --kesson-topbar-shadow-alpha: 0.26;
   --kesson-topbar-blur: 14px;
   --kesson-topbar-saturate: 145%;
+  --kesson-h1-size: clamp(1.0rem, 5.5vmin, 2.0rem);
 }
 
 body {
@@ -347,7 +348,7 @@ h1 {
   color: rgba(var(--color-heading), 0.95);
   font-family: "Noto Serif JP", "Yu Mincho", "MS PMincho", serif;
   font-weight: 400;
-  font-size: clamp(1.0rem, 5.5vmin, 2.0rem);
+  font-size: var(--kesson-h1-size);
   letter-spacing: clamp(0.15em, 1.2vmin, 0.5em);
   line-height: 1.6;
   margin-bottom: 0.6rem;

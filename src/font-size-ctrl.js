@@ -24,6 +24,13 @@ const CLASS_VARS = {
     '--kesson-footer-line': 0.70,
     '--kesson-surface-btn': 0.70,
     '--kesson-dev-hud-font-size': 0.70,
+    '--kesson-topbar-link-size': 0.80,
+    '--kesson-topbar-credit-size': 0.70,
+    '--kesson-topbar-note-size': 0.80,
+    '--kesson-topbar-meta-size': 0.70,
+    '--kesson-topbar-meta-author-size': 0.70,
+    '--kesson-topbar-subtitle-size-md': 0.70,
+    '--kesson-h1-size': 1.00,
 };
 
 function normalizeStep(step) {
