@@ -11,7 +11,7 @@
   border: 1px solid var(--kesson-dev-hud-border);
   background: var(--kesson-dev-hud-bg);
   color: var(--kesson-dev-hud-text);
-  font-size: 0.58rem;
+  font-size: 0.7rem;
   letter-spacing: 0.04em;
   line-height: 1;
   font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
