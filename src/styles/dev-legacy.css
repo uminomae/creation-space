@@ -1,3 +1,32 @@
+.dev-components-link {
+  display: none;
+  position: fixed;
+  top: calc(var(--kesson-topbar-height) + 2.95rem);
+  right: 0.95rem;
+  z-index: 58;
+  padding: 0.2rem 0.48rem;
+  border-radius: 999px;
+  border: 1px solid var(--kesson-dev-hud-border);
+  background: var(--kesson-dev-hud-bg);
+  color: var(--kesson-dev-hud-text);
+  font-size: var(--kesson-dev-hud-font-size, 0.70rem);
+  letter-spacing: 0.04em;
+  line-height: 1;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  white-space: nowrap;
+  text-decoration: none;
+  pointer-events: auto;
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  transition: opacity 0.2s;
+}
+.dev-components-link:hover {
+  opacity: 0.75;
+}
+.dev-components-link.is-visible {
+  display: inline-flex;
+  align-items: center;
+}
 #dev-version-inline {
   display: inline-flex;
   align-items: center;
@@ -5,13 +34,13 @@
   top: calc(var(--kesson-topbar-height) + 2.95rem);
   left: 0.95rem;
   z-index: 58;
-  max-width: min(92vw, 22rem);
+  max-width: min(92vw, 28rem);
   padding: 0.2rem 0.48rem;
   border-radius: 999px;
   border: 1px solid var(--kesson-dev-hud-border);
   background: var(--kesson-dev-hud-bg);
   color: var(--kesson-dev-hud-text);
-  font-size: 0.7rem;
+  font-size: var(--kesson-dev-hud-font-size, 0.70rem);
   letter-spacing: 0.04em;
   line-height: 1;
   font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
@@ -37,14 +66,14 @@
   z-index: 58;
   width: fit-content;
   min-width: 0;
-  max-width: min(90vw, 20rem);
+  max-width: min(90vw, 26rem);
   padding: 0.5rem;
   border-radius: 0.5rem;
   border: 1px solid var(--kesson-dev-hud-border);
   background: var(--kesson-dev-hud-bg);
   color: var(--kesson-dev-hud-text);
   font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-  font-size: 0.70rem;
+  font-size: var(--kesson-dev-hud-font-size, 0.70rem);
   line-height: 1.45;
   display: none;
   backdrop-filter: blur(8px);
@@ -59,14 +88,14 @@
   position: fixed;
   z-index: 58;
   display: none;
-  max-width: min(90vw, 20rem);
+  max-width: min(90vw, 26rem);
   padding: 0.5rem;
   border-radius: 0.5rem;
   border: 1px solid var(--kesson-dev-hud-border);
   background: var(--kesson-dev-hud-bg);
   color: var(--kesson-dev-hud-text);
   font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-  font-size: 0.70rem;
+  font-size: var(--kesson-dev-hud-font-size, 0.70rem);
   line-height: 1.45;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -103,7 +132,7 @@
   color: var(--kesson-dev-hud-input-text);
   padding: 0.22rem 0.38rem;
   font-family: inherit;
-  font-size: 0.70rem;
+  font-size: var(--kesson-dev-hud-font-size, 0.70rem);
   line-height: 1.2;
 }
 
@@ -124,7 +153,7 @@
   color: var(--kesson-dev-hud-btn-text);
   padding: 0.22rem 0.32rem;
   font-family: inherit;
-  font-size: 0.70rem;
+  font-size: var(--kesson-dev-hud-font-size, 0.70rem);
   line-height: 1.2;
   cursor: pointer;
 }
@@ -227,7 +256,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.70rem;
+  font-size: var(--kesson-dev-hud-font-size, 0.70rem);
   font-family: monospace;
   color: rgba(var(--color-sub-text), 0.6);
   margin-bottom: 0.15rem;
