@@ -1,8 +1,11 @@
+> **正本移転**: このディレクトリの正本は `pjdhiro/assets/creation/kb/` に移行しました。
+> このコピーは参照互換のために残しています。
+
 # kb/ — ナレッジベース
 
 ## 5W1H
 
-- **What**: 創造の5段階モデルに関するナレッジベースです。スキーマ定義、領域別レポート、公開用正本を格納します。
+- **What**: 創造モデルに関するナレッジベースです。スキーマ定義、領域別レポート、公開用正本を格納します。
 - **Why**: 調査結果と理論定義を一箇所に集約し、外部からの参照先として機能させるためです。
 - **Who**: 読者（LLM・人間）、レポート生成 CLI、公開ワークフローが参照します。
 - **When**: レポート生成時、公開物の配置時、定義の参照時に使います。
@@ -22,20 +25,21 @@
 
 | パス | 内容 |
 |---|---|
-| `schema/` | 5段階モデルのスキーマ定義。レポート生成時の参照正本 |
+| `schema/` | 創造モデルのスキーマ定義。レポート生成時の参照正本 |
 | `domains/` | 領域別調査レポート（日英。D23 等） |
+| `glossary.md` | 用語集。5段階モデルと関連概念の定義 |
+| `five-stages-guide.md` | 5段階モデル解説。各段階の読み方・遷移条件・よくある誤読 |
 
 ## 収録状況
 
 - `schema/five-stages.md` — 5段階の定義テーブル + 各段階の詳細 + 対応概念
+- `schema/academic-domains.md` — D01-D30 の全学問領域マスターリスト
 - `domains/D23-developmental-psychology/ja/report.md` — 発達心理学レポート（日本語）
 - `domains/D23-developmental-psychology/en/report.md` — Developmental psychology report (English)
+- `glossary.md` — 用語集（5段階モデル用語 + 関連概念 + 調査用語）
+- `five-stages-guide.md` — 5段階モデル解説（全体像・遷移条件・よくある誤読）
 
 ## 移行状態
 
-kesson-driven-thinking から段階的に移植中。kb/ に知識を集約していく過程にある。
-
-## 公開
-
-- 将来的には `pjdhiro/assets/creation/` への移行を検討（#218）
-- 現時点では kb/ が当面の正本
+正本は `pjdhiro/assets/creation/kb/` に移行済み（#218）。
+このディレクトリは参照互換のために残存。

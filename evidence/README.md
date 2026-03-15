@@ -4,7 +4,7 @@
 
 このディレクトリは、創造の5段階モデルに関する構造類似探索の主データ置き場である。個別領域の evidence 本体に加え、深掘り探索、レビュー、一次ソース、退避アーカイブを分けて保持する。
 
-**公開向け注記**: `evidence/evidence-D*.md` は創造5段階モデルとの構造類似に特化したクリーン版を保持する。欠損駆動思考や関連する内部理論語は #212 で除去済み。
+**公開向け注記**: `evidence/evidence-D*.md` は創造5段階モデルとの構造類似に特化したクリーン版を保持する。旧プロジェクト固有の内部理論語は #212 で除去済み。
 
 ## 移動経緯
 
@@ -39,7 +39,7 @@ pjdhiro、Claude、Codex、および creation-space の REPORTS / evidence 閲�
 ### How
 
 幅優先スキャン → 本格調査 → GPTレビュー → deepdive → 横断分析という順で増築されてきた。
-正本の schema は引き続き外部 schema repo 側に置く。
+`five-stages.md` と `academic-domains.md` の正本は `kb/schema/` に移行済み。公開ラベルタクソノミーと `generator_model` は `docs/evidence-metadata-creation.md`、フラグ体系と AI モデル来歴は外部 schema repo 側の `evidence-metadata.md` を参照する。
 
 ## ⚠️ evidence-D*.md を編集・Revise する前に
 
@@ -76,7 +76,8 @@ cp evidence/evidence-D{NN}-{slug}.md \
 - [deepdive/README.md](/Users/uminomae/dev/creation-space/evidence/deepdive/README.md)
 - [202602-deep-research-30domains-gpt/README.md](/Users/uminomae/dev/creation-space/evidence/202602-deep-research-30domains-gpt/README.md)
 - [archive/README.md](/Users/uminomae/dev/creation-space/evidence/archive/README.md)
-- `evidence-metadata.md` 正本（外部 schema repo）
+- [docs/evidence-metadata-creation.md](/Users/uminomae/dev/creation-space/docs/evidence-metadata-creation.md)
+- `/Users/uminomae/dev/kesson-driven-thinking/base/schema/evidence-metadata.md`
 - 旧管理番号 #61
 - 旧管理番号 #62
 - 移行関連番号 #166
@@ -87,4 +88,4 @@ cp evidence/evidence-D{NN}-{slug}.md \
 - 関連記録番号: #61, #62, #120, #166, #180
 
 `PROJECT.md` はサブプロジェクト憲章であり、この README はディレクトリ案内を担う。役割を分けて参照すること。
-`evidence-metadata.md` の正本は creation-space ではなく、外部 schema repo 側にある。
+creation 固有の公開 metadata 正本は creation-space 側の `docs/evidence-metadata-creation.md` にある。フラグ体系と AI モデル来歴は外部 schema repo 側の `evidence-metadata.md` を参照する。

@@ -63,13 +63,18 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>創造とは - Creation Space</title>
+  <title>創造とは</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="./src/styles/main.css">
+  <link rel="stylesheet" href="./src/styles/shell.css">
+  <link rel="stylesheet" href="./src/styles/topbar.css">
+  <link rel="stylesheet" href="./src/styles/articles.css">
+  <link rel="stylesheet" href="./src/styles/reports.css">
+  <link rel="stylesheet" href="./src/styles/viewer.css">
+  <link rel="stylesheet" href="./src/styles/dev-legacy.css">
   <link rel="stylesheet" href="./src/styles/creation.css">
   <link rel="stylesheet" href="./src/styles/dev-panel.css">
 
@@ -180,7 +185,6 @@
   <div id="overlay" role="presentation">
     <div id="taglines"></div>
     <h1 id="title-h1">創造とは</h1>
-    <p class="subtitle" id="title-sub">Creation Space</p>
   </div>
 
   <div id="control-guide">
@@ -220,6 +224,7 @@
   <section id="model-section" aria-labelledby="model-section-heading">
     <div class="section-content-wrap">
       <div class="container">
+        <p id="reports-ai-notice" class="reports-ai-notice">AIが執筆しているため間違いがある場合があります。</p>
         <h2 class="section-heading">
           <a id="model-section-heading" href="#model-section" class="section-heading-link" aria-label="創造の5段階モデル セクションへジャンプ">
             創造の5段階モデル
@@ -235,7 +240,6 @@
   <section id="reports-section">
     <div class="section-content-wrap">
       <div class="container">
-        <p id="reports-ai-notice" class="reports-ai-notice">AIが執筆しているため間違いがある場合があります。</p>
         <h2 class="section-heading">
           <a id="reports-section-heading" href="#reports-section" class="section-heading-link" aria-label="REPORTS セクションへジャンプ">
             REPORTS

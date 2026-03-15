@@ -16,13 +16,14 @@
 | 書類 | 場所 | 概要 |
 |------|------|------|
 | **プロジェクト憲章** | [evidence/PROJECT.md](evidence/PROJECT.md) | 目的・5段階モデル定義・調査方法・30領域の進捗・呼び出し側への契約 |
+| **公開 metadata 正本** | [docs/evidence-metadata-creation.md](docs/evidence-metadata-creation.md) | 公開ラベル taxonomy と `generator_model` の正本 |
 | **管理ハブ** | [docs/README.md](docs/README.md) | ファイル構成・運用ルール・エントリーポイントの集約先 |
 | **LLM向けエントリーポイント** | [llms.txt](llms.txt) | LLM に読ませる際の安全ガイダンスとファイル案内 |
 | **CLIエントリーポイント** | [CLAUDE.md](CLAUDE.md) | Claude Code CLI 向けの運用情報・ブランチ戦略・セッション終了手順 |
 | **変換層トップ** | [transform/README.md](transform/README.md) | domains / survey / guides / kb の workflow 入口 |
-| **公開KB受け皿** | [kb/README.md](kb/README.md) | 当面の公開KB正本。Phase C 以降で中身を配置 |
+| **公開KB（参照互換）** | [kb/README.md](kb/README.md) | 正本は `pjdhiro/assets/creation/kb/` に移行済み（#218） |
 | **洞察目次** | [evidence/INSIGHTS.md](evidence/INSIGHTS.md) | deepdive・横断洞察の一覧。新しい分析結果の参照起点 |
-| **進捗タクソノミー** | [docs/survey-progress-taxonomy.md](docs/survey-progress-taxonomy.md) | 調査進捗ラベルの定義と設計経緯 |
+| **進捗タクソノミー履歴** | [docs/survey-progress-taxonomy.md](docs/survey-progress-taxonomy.md) | 初期ラベル設計の記録 |
 
 ---
 
@@ -36,7 +37,7 @@
 | `evidence/202602-deep-research-30domains-gpt/` | GPT Deep Research による一次ソース（30領域） |
 | `docs/` | 管理書類 |
 | `transform/` | creation-space 側の変換層。domains を先行移植し、survey / guides / kb を段階的に追加する |
-| `kb/` | 公開用整形層の受け皿。当面の公開KB正本 |
+| `kb/` | 公開用整形層（参照互換）。正本は `pjdhiro/assets/creation/kb/` |
 | `src/` | Web UI（Three.js による視覚表現） |
 | `scripts/` | ビルド・同期スクリプト |
 | `assets/` | 静的アセット |

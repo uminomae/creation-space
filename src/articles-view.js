@@ -1,43 +1,13 @@
 import { normalizeLang } from './i18n.js';
 import { formatArticleDate, getLocalizedText, sanitizeHttpUrl } from './articles-data.js';
+import { dict } from './i18n/dict.js';
 
 const INITIAL_DISPLAY = 3;
 const ARTICLE_COL_CLASS_WIDE = 'col-12 col-md-6 col-xl-4';
 const ARTICLE_COL_CLASS_OFFCANVAS = 'col-12 col-md-6 col-lg-4';
 
-const UI_STRINGS = {
-    ja: {
-        articleLabel: '記事',
-        openArticle: 'を読む',
-        readMore: '▸ 続きを見る',
-        viewAll: '▸ すべて表示',
-        countUnit: '件',
-        typeLabel: {
-            all: 'すべて',
-            page: 'ページ',
-            post: '投稿',
-        },
-        empty: '公開中の記事はまだありません。',
-        error: '記事一覧の読み込みに失敗しました。',
-    },
-    en: {
-        articleLabel: 'article',
-        openArticle: 'Read',
-        readMore: '▸ Read More',
-        viewAll: '▸ View All',
-        countUnit: 'articles',
-        typeLabel: {
-            all: 'All',
-            page: 'Page',
-            post: 'Post',
-        },
-        empty: 'No articles are available yet.',
-        error: 'Failed to load article data.',
-    },
-};
-
 export function getArticlesStrings(lang = 'ja') {
-    return UI_STRINGS[normalizeLang(lang)];
+    return dict[normalizeLang(lang)]?.articles || dict.ja.articles;
 }
 
 export function normalizeArticlesFilterType(type) {

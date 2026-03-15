@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Generate pjdhiro domains.json from kesson-driven-thinking index.json.
+ * Generate pjdhiro domains.json from creation-space index.json.
  * cs#27: domains.json 自動生成
  */
 
@@ -11,7 +11,7 @@ import { fileURLToPath } from 'node:url';
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(SCRIPT_DIR, '..');
-const DEFAULT_INDEX_JSON = resolve(ROOT, '..', 'kesson-driven-thinking', 'transform', 'creation', 'publish', 'domains', 'index.json');
+const DEFAULT_INDEX_JSON = resolve(ROOT, 'transform', 'domains', 'publish', 'domains', 'index.json');
 const DEFAULT_PUBLISH_REPO = resolve(ROOT, '..', 'pjdhiro');
 
 function printHelp() {
@@ -21,7 +21,7 @@ function printHelp() {
   console.log('  node scripts/generate-domains-json.mjs [options]');
   console.log('');
   console.log('Options:');
-  console.log('  --index-json <path>    Source index.json (default: ../kesson-driven-thinking/transform/creation/publish/domains/index.json)');
+  console.log('  --index-json <path>    Source index.json (default: transform/domains/publish/domains/index.json)');
   console.log('  --publish-repo <path>  Publish repo root (default: ../pjdhiro)');
   console.log('  --output <path>        Output path (default: <publish-repo>/assets/creation/manifests/domains.json)');
   console.log('  --dry-run              Print to stdout instead of writing');

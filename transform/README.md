@@ -14,8 +14,8 @@
 | workflow | 役割 | 状態 |
 |---|---|---|
 | `domains/` | evidence から領域別調査レポート（md + PDF）を再生成する | **Phase A 実装済み** |
-| `survey/` | 30領域全体の概要・索引を整える | **Phase 2 以降で移植予定** |
-| `guides/` | 5段階モデルの guide 類を strict separation で再構成する | **Phase 2 以降で移植予定** |
+| `survey/` | 30領域全体の概要・索引を整える | **reader-rules 移管済み** |
+| `guides/` | 5段階モデルの guide 類を strict separation で再構成する | **reader-rules / drafts / introductions 移管済み** |
 | `transform/kb/` | 公開用整形ルールとメモの置き場 | **Phase C 以降** |
 
 ## あなたが今ここに来たということは
@@ -29,4 +29,4 @@
 
 - 戦略方針の正本: [evidence/PROJECT.md](/Users/uminomae/dev/creation-space/evidence/PROJECT.md) §0
 - 現在の公開配置: `pjdhiro/assets/creation/`
-- 移植元（履歴情報）: `kesson-driven-thinking/transform/creation/`。現在は本ディレクトリが正本
+- 移植元（履歴情報）: kesson-driven-thinking 側の旧 creation workflow。現在は本ディレクトリが正本
