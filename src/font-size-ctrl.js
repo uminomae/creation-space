@@ -24,6 +24,7 @@ const CLASS_VARS = {
     '--kesson-footer-line': 0.80,
     '--kesson-surface-btn': 0.80,
     '--kesson-dev-hud-font-size': 0.80,
+    '--kesson-footer-signature-size': 0.80,
     '--kesson-topbar-link-size': 0.80,
     '--kesson-topbar-credit-size': 0.80,
     '--kesson-topbar-note-size': 0.80,
