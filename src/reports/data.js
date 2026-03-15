@@ -526,7 +526,6 @@ function normalizeReport(report, index) {
         nameEn,
         status: report?.status === 'published' ? 'published' : 'planned',
         progressLevel: normalizeProgressLevel(report?.progress_level, report?.status),
-        progressModel: Array.isArray(report?.progress_model) ? report.progress_model : [],
         generatorModel: typeof report?.generator_model === 'string' ? report.generator_model.trim() : '',
         progressNote: typeof report?.progress_note === 'string' ? report.progress_note.trim() : '',
         mdPath: typeof mdRaw === 'string' ? mdRaw.trim() : '',
