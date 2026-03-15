@@ -285,7 +285,7 @@ creation固有の追加設定: なし（既存フローに乗せる）
 |--------|-----------|------|
 | ソースmd（正本） | kesson-driven-thinking | `base/text/m2-creation-process/creation-source.md` |
 | audience別reader-rules | creation-space | `transform/guides/reader-rules/reader-rules-creation-{general,designer,academic}.md` |
-| audience別導入文 | kesson-driven-thinking | `transform/guides/introductions/intro-{general,designer,academic}.md` |
+| audience別導入文 | creation-space | reader-rules v4.0 で `transform/guides/reader-rules/reader-rules-creation-{general,designer,academic}.md` に統合 |
 | audience別ドラフト | kesson-driven-thinking | `transform/guides/drafts/creation-{general,designer,academic}-draft.md` |
 | ビルドスクリプト | kesson-driven-thinking | `transform/scripts/build-pdf-creation.sh` |
 | Jekyll出力 | pjdhiro | `_posts/2026/2026-2/YYYYMMDD-creation.md` |
