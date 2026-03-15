@@ -290,7 +290,7 @@ creation-pjdhiro.md / .pdf は著者開示用であり、公開リポジトリ�
 Jekyll/HTML/PDF各出力への変換処理（front matter付与、data属性マッピング、pandocメタデータ等）は共通基盤ルールの範囲外。以下を参照:
 
 - `_reader-rules-creation-v0-pipeline.md`（旧版。配管仕様を含む）
-- `transform/_schema/PIPELINE-CONTEXT.md`（パイプライン入出力テーブル）
+- `transform/_schema/PIPELINE-CONTEXT.md`（パイプライン入出力テーブル）——**未作成**
 - `transform/scripts/`（ビルドスクリプト）
 
 ---
