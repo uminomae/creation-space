@@ -23,7 +23,7 @@ docs/ に置かないもの:
 ## 1. プロジェクト概要
 
 `creation-space` は、30の学術領域から創造プロセスの構造類似を集め、「創造の5段階モデル」を検証する独立モジュール。
-調査資産は `evidence/`、公開向けの再生成 workflow は `transform/`、公開用ナレッジベースの受け皿は `kb/`、Web UI は `src/` に置く。
+調査資産は `evidence/`、公開向けの再生成 workflow は `transform/`、公開用ナレッジベースの受け皿は `knowledge/`、Web UI は `src/` に置く。
 
 ## 2. 主要エントリーポイント
 
@@ -35,7 +35,7 @@ docs/ に置かないもの:
 | `docs/evidence-metadata-creation.md` | creation 固有 metadata 正本。公開ラベル taxonomy と `generator_model` |
 | `transform/README.md` | 変換 workflow 全体の入口 |
 | `transform/domains/README.md` | 領域別レポート再生成の入口 |
-| `kb/README.md` | 公開用 KB の役割と移行状態 |
+| `knowledge/README.md` | 公開用 KB の役割と移行状態 |
 
 ## 3. ファイルカタログ
 
@@ -53,8 +53,8 @@ docs/ に置かないもの:
 | `evidence/investigations/` | 調査レポートの原本（cs23 カテゴリ設計、cs43 モーダル deep link 等） |
 | `docs/evidence-metadata-creation.md` | 公開ラベル taxonomy / `generator_model` の正本 |
 | `transform/domains/reader-rules/reader-rules-creation-report.md` | 領域レポート生成ルール |
-| `kb/schema/five-stages.md` | 5段階モデル schema の現在参照先 |
-| `kb/schema/academic-domains.md` | D01-D30 学問領域マスターの現在参照先 |
+| `knowledge/schema/five-stages.md` | 5段階モデル schema の現在参照先 |
+| `knowledge/schema/academic-domains.md` | D01-D30 学問領域マスターの現在参照先 |
 
 ## 4. 管理書類一覧
 
@@ -85,7 +85,7 @@ bash server.sh 3002
 
 - Web UI は bundler を使わない静的 ES Modules 構成。通常の UI 変更では別途 build は不要
 - 領域レポートや KB を再生成するときは `transform/domains/README.md` から workflow を辿る
-- `kb/` は公開用整形の受け皿、`pjdhiro/assets/creation/` は現在の外部ホスティング先
+- `knowledge/` は公開用整形の受け皿、`pjdhiro/assets/creation/` は現在の外部ホスティング先
 
 ### デプロイ
 
@@ -174,7 +174,7 @@ LLMの振る舞いは不確実であり、効率化の最適化がルールの�
 | 日付 | バージョン | 内容 |
 |---|---|---|
 | 2026-03-10 | 1.0 | 初版。管理ハブとして新設 |
-| 2026-03-11 | 1.1 | `transform/` と `kb/` の入口を追加 |
+| 2026-03-11 | 1.1 | `transform/` と `knowledge/` の入口を追加 |
 | 2026-03-14 | 2.0 | `CLAUDE.md` と `.claude/rules/` に合わせて管理ハブを再編 |
 | 2026-03-14 | 2.1 | `docs/evidence-metadata-creation.md` を追加し、公開 metadata の正本参照先を更新 (#248) |
 | 2026-03-15 | 2.2 | docs/ スコープルール追加。investigation を `evidence/investigations/` へ移動、`survey-progress-taxonomy.md` 削除 |

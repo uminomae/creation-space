@@ -127,7 +127,7 @@ creation の文書は独自性が高いが、以下の基本は守るべき:
 
 5. **文字数範囲**: general=2,000-3,500字、designer=3,500-5,500字、academic=8,000-15,000字。比率としては1:1.6:3.5。designer と academic の差が大きい。
 
-### 3.3 既存資産整合（evidence、kb/schema との矛盾チェック）
+### 3.3 既存資産整合（evidence、knowledge/schema との矛盾チェック）
 
 成果物を reader-rules と照合した結果:
 

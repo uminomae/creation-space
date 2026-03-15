@@ -44,7 +44,7 @@ AI社会でF軸（情報・効率・自動化）が完璧に満たされたと�
 - 5段階モデルに各分野の語彙を接続する - 抽象モデルを分野固有の実例（建築なら縁側・土間・公園＝交流と間の意図的設計）に結びつけ、実用的に精緻化する（DT27 pjdhiro判断）
 - 空から再生成する - 旧公開物を引き継がない（DT27 pjdhiro判断）
 - bilingual同時展開（DT27 pjdhiro判断）
-- raw（evidence）+ 整形（kb/）の二層公開（DT27 pjdhiro判断）
+- raw（evidence）+ 整形（knowledge/）の二層公開（DT27 pjdhiro判断）
 
 **やらないこと**:
 
@@ -242,7 +242,7 @@ AI社会でF軸（情報・効率・自動化）が完璧に満たされたと�
 
 注記:
 - `202602-deep-research-30domains-gpt/` は 2026-02 に収集した 30領域の GPT Deep Research 一次ソースを保持する
-- `five-stages.md` と `academic-domains.md` の正本は `kb/schema/` に移行済み（#249）
+- `five-stages.md` と `academic-domains.md` の正本は `knowledge/schema/` に移行済み（#249）
 
 ## 5. 呼び出し側への契約
 

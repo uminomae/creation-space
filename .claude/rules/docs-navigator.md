@@ -11,7 +11,7 @@ CLI は docs/ を自動読み込みしない。以下の対応表に従い、タ
 | 調査方針の確認 | `evidence/PROJECT.md` | プロジェクト憲章・5段階モデル・進捗 |
 | 領域レポート再生成 | `transform/domains/README.md`, `transform/domains/reader-rules/reader-rules-creation-report.md` | 再生成 workflow と生成ルール |
 | レポート品質レビュー | `transform/domains/quality-test/quality-test-domain-report.md` | レビュー評価基準 |
-| KB 更新 | `kb/README.md`, `kb/schema/five-stages.md` | KB 構造と schema 定義 |
+| KB 更新 | `knowledge/README.md`, `knowledge/schema/five-stages.md` | KB 構造と schema 定義 |
 | evidence metadata 操作 | `docs/evidence-metadata-creation.md` | 公開ラベル taxonomy と generator_model |
 | ファイル構造の変更・新規作成 | `.claude/rules/project-structure.md` | ディレクトリ構成・データフロー |
 | commit・push | `.claude/rules/commit-rules.md` | コミットメッセージと push 前チェック |

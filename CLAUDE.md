@@ -5,7 +5,7 @@
 ## プロジェクト概要
 
 - `creation-space` は「創造とは何か」を探索する独立モジュール。
-- 30領域の調査資産を `evidence/` に蓄積し、`transform/` で公開用に整形し、`kb/` と Web UI に接続する。
+- 30領域の調査資産を `evidence/` に蓄積し、`transform/` で公開用に整形し、`knowledge/` と Web UI に接続する。
 - フロントエンドは `index.html` + `src/` の静的構成で、Three.js を中心に動く。
 - `src/reports.js` は `pjdhiro` 側でホスティングされる manifest / Markdown / PDF を取得して表示する。
 
@@ -53,7 +53,7 @@ CSS（`src/styles/` 配下）を変更する前に:
 | `docs/` | 管理書類のハブ（ルール・仕様・正本のみ。調査原本は evidence/ に置く） |
 | `evidence/` | 30領域の調査データ本体、deepdive、review |
 | `transform/` | evidence から公開用 Markdown / PDF / KB を再生成する workflow |
-| `kb/` | 公開用ナレッジベースの受け皿 |
+| `knowledge/` | 公開用ナレッジベースの受け皿 |
 | `scripts/` | 補助スクリプト |
 
 詳細: `.claude/rules/project-structure.md`
@@ -72,4 +72,4 @@ CSS（`src/styles/` 配下）を変更する前に:
 | リポジトリ | 関係 |
 |---|---|
 | `pjdhiro` | GitHub Pages 側の公開先。`assets/creation/` の manifest・Markdown・PDF をホスティングする |
-| `kesson-driven-thinking` | 管理体系と workflow の参照元。`transform/`・`kb/` の一部はここから移植された履歴を持つ |
+| `kesson-driven-thinking` | 管理体系と workflow の参照元。`transform/`・`knowledge/` の一部はここから移植された履歴を持つ |
