@@ -37,6 +37,13 @@
 4. `develop` 作業なら `git pull --rebase origin develop` の後に `git push origin develop`
 5. 管理体系を更新した場合は `CLAUDE.md`、`docs/README.md`、`.claude/rules/` の整合を取る
 
+## CSS変更時のルール
+
+CSS（`src/styles/` 配下）を変更する前に:
+1. `docs/design-system.md` を読む
+2. `dev-components.html` のソースを読み、変更対象の影響範囲を確認する
+3. CSS変更後、`dev-components.html` の該当コンポーネントも更新する
+
 ## ディレクトリ構造
 
 | パス | 役割 |
