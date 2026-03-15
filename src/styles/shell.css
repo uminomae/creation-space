@@ -156,6 +156,7 @@
   --kesson-footer-line: 0.70rem;
   --kesson-surface-btn: 0.70rem;
   --kesson-dev-hud-font-size: 0.70rem;
+  --kesson-footer-signature-size: 0.80rem;
   --kesson-topbar-height: 3.25rem;
   --kesson-topbar-alpha-strong: 0.10;
   --kesson-topbar-alpha-soft: 0.10;
@@ -317,7 +318,7 @@ body {
 }
 
 #credit .credit-signature {
-  font-size: 0.70rem;
+  font-size: var(--kesson-footer-signature-size, 0.80rem);
   color: rgba(150, 175, 210, 0.35);
   font-family: 'Georgia', serif;
   letter-spacing: 0.08em;
@@ -705,7 +706,7 @@ html[lang="en"] #taglines {
 
 .footer-signature {
   margin-top: 0.55rem;
-  font-size: clamp(0.70rem, 2.1vmin, 0.84rem);
+  font-size: var(--kesson-footer-signature-size, 0.80rem);
   color: rgba(195, 214, 241, 0.68);
   font-family: var(--kesson-font-serif-ui);
   letter-spacing: 0.06em;
