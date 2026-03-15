@@ -23,6 +23,7 @@ const CLASS_VARS = {
     '--kesson-control-guide': 0.70,
     '--kesson-footer-line': 0.70,
     '--kesson-surface-btn': 0.70,
+    '--kesson-dev-hud-font-size': 0.70,
 };
 
 function normalizeStep(step) {
