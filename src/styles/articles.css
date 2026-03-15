@@ -3,62 +3,30 @@
 }
 
 .btn-read-more {
-  background: rgba(var(--color-accent), 0.1);
-  border: 1px solid rgba(var(--color-accent), 0.2);
-  color: rgba(var(--color-sub-text), 0.5);
-  font-family: 'Georgia', serif;
-  font-size: var(--kesson-font-size-ui-sm, 0.80rem);
-  letter-spacing: 0.1em;
-  padding: 10px 24px;
-  cursor: pointer;
-  border-radius: 2px;
-  transition: background 0.3s ease, color 0.3s ease;
-}
-
-.btn-read-more:hover {
-  background: rgba(var(--color-accent), 0.2);
-  color: rgba(var(--color-highlight), 0.7);
-}
-
-.btn-read-more:focus {
-  outline: 2px solid rgba(var(--color-accent), 0.8);
-  outline-offset: 4px;
-}
-
-.articles-filter-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.articles-filter-btn {
-  background: rgba(var(--color-accent), 0.1);
-  border: 1px solid rgba(var(--color-accent), 0.2);
-  color: rgba(var(--color-sub-text), 0.5);
-  font-family: 'Georgia', serif;
-  font-size: var(--kesson-font-size-ui-sm, 0.80rem);
-  letter-spacing: 0.08em;
+  --bs-btn-color: var(--kesson-action-text);
+  --bs-btn-bg: var(--kesson-action-bg);
+  --bs-btn-border-color: var(--kesson-action-border);
+  --bs-btn-hover-color: var(--kesson-action-text-hover);
+  --bs-btn-hover-bg: var(--kesson-action-bg-hover);
+  --bs-btn-hover-border-color: rgba(var(--color-accent), 0.32);
+  --bs-btn-active-color: var(--kesson-action-text-hover);
+  --bs-btn-active-bg: var(--kesson-action-bg-hover);
+  --bs-btn-active-border-color: rgba(var(--color-accent), 0.36);
+  --bs-btn-focus-shadow-rgb: var(--color-accent);
+  font-family: var(--kesson-font-serif-ui);
+  letter-spacing: var(--kesson-letter-ui-wide);
   text-transform: uppercase;
-  padding: 7px 14px;
-  cursor: pointer;
-  border-radius: 2px;
-  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-.articles-filter-btn:hover {
-  background: rgba(var(--color-accent), 0.2);
-  color: rgba(var(--color-highlight), 0.7);
-}
-
-.articles-filter-btn:focus {
-  outline: 2px solid var(--kesson-focus-ring-soft);
-  outline-offset: 3px;
-}
-
-.articles-filter-btn.is-active {
-  background: rgba(var(--color-accent), 0.25);
-  border-color: rgba(120, 170, 255, 0.6);
+.articles-filter-btn.is-active,
+.articles-filter-btn.active,
+.articles-filter-btn.is-active:hover,
+.articles-filter-btn.active:hover,
+.articles-filter-btn.is-active:focus-visible,
+.articles-filter-btn.active:focus-visible {
   color: rgba(var(--color-highlight), 0.85);
+  border-color: rgba(var(--color-accent), 0.6);
+  background: rgba(var(--color-accent), 0.25);
 }
 
 #offcanvas-loading {
