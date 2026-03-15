@@ -269,7 +269,7 @@
 }
 
 #dev-export-result {
-  font-size: 0.70rem;
+  font-size: var(--kesson-dev-hud-font-size, 0.70rem);
   max-height: 180px;
   overflow-y: auto;
   display: none;
@@ -365,10 +365,10 @@
 
 @media (max-width: 767.98px) {
   #dev-version-inline {
-    font-size: 0.70rem;
+    font-size: var(--kesson-dev-hud-font-size, 0.70rem);
     top: calc(var(--kesson-topbar-height) + 2.68rem);
     left: 0.6rem;
-    max-width: min(95vw, 17rem);
+    max-width: min(95vw, 22rem);
   }
 
   #intent-timeline-hud {
@@ -376,10 +376,10 @@
     left: 0.6rem;
     width: fit-content;
     min-width: 0;
-    max-width: min(95vw, 18rem);
+    max-width: min(95vw, 23rem);
   }
 
   #intent-timeline-form-panel {
-    max-width: min(95vw, 18rem);
+    max-width: min(95vw, 23rem);
   }
 }
