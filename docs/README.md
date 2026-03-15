@@ -170,6 +170,20 @@ LLMの振る舞いは不確実であり、効率化の最適化がルールの�
 | 領域レポート再生成 | `transform/domains/README.md` |
 | 管理体系の更新 | `CLAUDE.md`, `.claude/rules/commit-rules.md`, `.claude/rules/project-structure.md` |
 
+## 8. 教訓管理
+
+教訓の記録・追跡・infusion（ルール反映）を管理する。
+
+| パス | 用途 |
+|---|---|
+| `docs/lessons/INDEX.md` | 教訓インデックス（CL-NNN 採番） |
+| `docs/lessons/TEMPLATE.md` | 新規教訓の記録テンプレート |
+
+ワークフロー:
+1. 作業中に教訓候補を検知したら `TEMPLATE.md` をコピーして記録する
+2. `INDEX.md` に1行追加する
+3. 対策をルール・ワークフローに反映（infusion）したら状態を `infused` に更新する
+
 ## 更新履歴
 
 | 日付 | バージョン | 内容 |

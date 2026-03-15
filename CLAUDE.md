@@ -67,6 +67,14 @@ CSS（`src/styles/` 配下）を変更する前に:
 - ローカルサーバー: `bash server.sh [port]` (`serve.py` を呼ぶ)
 - デプロイ先: GitHub Pages
 
+## 教訓記録
+
+- 作業中に教訓候補（繰り返しそうな失敗、構造的な問題）を検知したら `docs/lessons/` に記録する
+- テンプレート: `docs/lessons/TEMPLATE.md`、インデックス: `docs/lessons/INDEX.md`
+- 採番: CL-NNN（creation-space 固有）
+- 記録後、対策をルールやワークフローに反映（infusion）したら状態を `infused` に更新する
+
+
 ## 関連リポジトリ
 
 | リポジトリ | 関係 |
