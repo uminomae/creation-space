@@ -12,7 +12,7 @@ generated_at: 2026-03-04
 # Issue #62 研究結果→上位プロジェクト接続メタ文書
 
 > この文書は、領域別リサーチで得た知見を上位プロジェクトへ反映するための「接続台帳」です。  
-> 目的は、分冊PDFを作って終わる運用を避け、base/schema/reader-rules/publish更新までを追跡することです。
+> 目的は、分冊PDFを作って終わる運用を避け、knowledge/schema/ と reader-rules/publish更新までを追跡することです。
 
 ## 0. この文書で担保すること
 
@@ -27,8 +27,8 @@ generated_at: 2026-03-04
 
 | 接続先カテゴリ | 主な対象 | 代表ファイル |
 |---|---|---|
-| コア定義 | D1/D2/D3/D4 の定義・成立条件・循環 | `base/schema/core-definitions.md` |
-| モデル構造 | 4層（M1）/5段階（M2）の関係 | `base/schema/four-layers.md`, `base/schema/five-stages.md` |
+| コア定義 | D1/D2/D3/D4 の定義・成立条件・循環 | `/Users/uminomae/dev/kesson-driven-thinking/base/schema/core-definitions.md` |
+| モデル構造 | 4層（M1）/5段階（M2）の関係 | `/Users/uminomae/dev/kesson-driven-thinking/base/schema/four-layers.md`, `knowledge/schema/five-stages.md` |
 | 論拠DB | 領域別の証拠・比較・判定 | `/Users/uminomae/dev/creation-space/evidence/evidence-DXX-*.md` |
 | 変換規則 | 読者別の変換方針 | `transform/domains/reader-rules/*.md`, `transform/guides/reader-rules/*.md`, `transform/survey/reader-rules/*.md` |
 | 公開ソース | モーダル/PDFに出る本文 | `transform/domains/publish/*.md` |
@@ -69,7 +69,7 @@ generated_at: 2026-03-04
 2. `transform/domains/publish/domains/domain-DXX-*.md` を作成  
 3. 本文の `6.5 研究結果→上位接続` を記入  
 4. 本メタ文書（本ファイル）に1行追加  
-5. 必要に応じて `base/schema/*` / `reader-rules/*` を更新  
+5. 必要に応じて `knowledge/schema/*` / `reader-rules/*` を更新  
 6. `issue62-status-ja.md` の進捗と接続状況を更新  
 
 ---

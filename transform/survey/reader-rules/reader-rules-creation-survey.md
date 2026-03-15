@@ -20,7 +20,7 @@
 | `/Users/uminomae/dev/creation-space/evidence/review/plan-step7-fieldwork.md` | 30領域の一覧と調査設計 |
 | `/Users/uminomae/dev/creation-space/evidence/PROJECT.md` | サブプロジェクト全体像 |
 | `/Users/uminomae/dev/creation-space/evidence/evidence-D*.md` | 各領域の調査結果（概要把握用） |
-| `base/text/m2-creation-process/creation-source.md` | 5段階の定義 |
+| `/Users/uminomae/dev/kesson-driven-thinking/base/text/m2-creation-process/creation-source.md`（未移植） | 5段階の定義 |
 
 ### 参照してはならないもの
 

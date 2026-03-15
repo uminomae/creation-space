@@ -35,7 +35,7 @@ M2の5段階（場→波→縁→渦→束）が「存在そのものの創造�
 
 14領域→23領域→30領域に拡張（#60）。旧帝大学部名称＋日本学術会議30分科会＋制度外の知で網羅性を担保。D24-D30（宗教学・人類学・音楽学・建築・舞台芸術・複雑系・伝統知）を追加。
 
-成果: `base/schema/academic-domains.md` にD01-D30マスターリスト確定。
+成果: `knowledge/schema/academic-domains.md`（現在の正本。移植元: kesson-driven-thinking/base/schema/academic-domains.md） にD01-D30マスターリスト確定。
 
 ### Step 3: 統一様式整理（2026-02-21〜22）
 
