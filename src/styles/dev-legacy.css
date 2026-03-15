@@ -44,7 +44,7 @@
   background: var(--kesson-dev-hud-bg);
   color: var(--kesson-dev-hud-text);
   font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-  font-size: 0.62rem;
+  font-size: 0.70rem;
   line-height: 1.45;
   display: none;
   backdrop-filter: blur(8px);
@@ -66,7 +66,7 @@
   background: var(--kesson-dev-hud-bg);
   color: var(--kesson-dev-hud-text);
   font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-  font-size: 0.62rem;
+  font-size: 0.70rem;
   line-height: 1.45;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -103,7 +103,7 @@
   color: var(--kesson-dev-hud-input-text);
   padding: 0.22rem 0.38rem;
   font-family: inherit;
-  font-size: 0.66rem;
+  font-size: 0.70rem;
   line-height: 1.2;
 }
 
@@ -124,7 +124,7 @@
   color: var(--kesson-dev-hud-btn-text);
   padding: 0.22rem 0.32rem;
   font-family: inherit;
-  font-size: 0.62rem;
+  font-size: 0.70rem;
   line-height: 1.2;
   cursor: pointer;
 }
@@ -145,7 +145,7 @@
   border-right: none;
   border-radius: 4px 0 0 4px;
   color: var(--kesson-dev-toggle-text);
-  font-size: 0.65rem;
+  font-size: 0.70rem;
   font-family: monospace;
   padding: 8px 5px;
   cursor: pointer;
@@ -195,7 +195,7 @@
 }
 
 #dev-panel .form-check-label {
-  font-size: 0.68rem;
+  font-size: 0.70rem;
   font-family: monospace;
   color: rgba(var(--color-sub-text), 0.7);
   order: -1;
@@ -227,7 +227,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.65rem;
+  font-size: 0.70rem;
   font-family: monospace;
   color: rgba(var(--color-sub-text), 0.6);
   margin-bottom: 0.15rem;
@@ -240,7 +240,7 @@
 }
 
 #dev-export-result {
-  font-size: 0.58rem;
+  font-size: 0.70rem;
   max-height: 180px;
   overflow-y: auto;
   display: none;
@@ -253,7 +253,7 @@
 }
 
 .dev-export-btn {
-  font-size: 0.68rem;
+  font-size: 0.70rem;
 }
 
 #dev-links-toggle {
@@ -268,7 +268,7 @@
   border-right: none;
   border-radius: 4px 0 0 4px;
   color: var(--kesson-dev-toggle-text);
-  font-size: 0.62rem;
+  font-size: 0.70rem;
   font-family: monospace;
   padding: 8px 5px;
   cursor: pointer;
@@ -309,14 +309,14 @@
 }
 
 .dev-links-key {
-  font-size: 0.66rem;
+  font-size: 0.70rem;
   color: rgba(170, 190, 220, 0.7);
   font-family: monospace;
   letter-spacing: 0.05em;
 }
 
 .dev-links-url {
-  font-size: 0.68rem;
+  font-size: 0.70rem;
   color: rgba(153, 202, 255, 0.95);
   user-select: all;
   white-space: normal;
@@ -336,7 +336,7 @@
 
 @media (max-width: 767.98px) {
   #dev-version-inline {
-    font-size: 0.52rem;
+    font-size: 0.70rem;
     top: calc(var(--kesson-topbar-height) + 2.68rem);
     left: 0.6rem;
     max-width: min(95vw, 17rem);

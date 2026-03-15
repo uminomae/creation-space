@@ -9,8 +9,8 @@
   --kesson-font-serif-display: "Noto Serif JP", "Yu Mincho", "MS PMincho", serif;
   --kesson-font-serif-ui: 'Georgia', "Noto Serif JP", serif;
   --kesson-font-mono-ui: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-  --kesson-font-size-ui-xs: clamp(0.4rem, 1.8vmin, 0.65rem);
-  --kesson-font-size-ui-sm: clamp(0.5rem, 2.2vmin, 0.7rem);
+  --kesson-font-size-ui-xs: 0.70rem;
+  --kesson-font-size-ui-sm: 0.70rem;
   --kesson-font-size-ui-arrow: clamp(0.7rem, 3.5vmin, 1.2rem);
   --kesson-letter-ui-tight: 0.03em;
   --kesson-letter-ui-normal: 0.06em;
@@ -117,13 +117,13 @@
   --kesson-topbar-main-title-size-sm: 0.86rem;
   --kesson-topbar-title-size: clamp(0.75rem, 1.0vw, 0.88rem);
   --kesson-topbar-subtitle-size: var(--kesson-topbar-title-size);
-  --kesson-topbar-subtitle-size-md: 0.66rem;
+  --kesson-topbar-subtitle-size-md: 0.70rem;
   --kesson-topbar-link-size: 0.80rem;
   --kesson-topbar-note-size: 0.80rem;
   --kesson-topbar-note-size-sm: var(--kesson-topbar-note-size);
-  --kesson-topbar-credit-size: 0.64rem;
-  --kesson-topbar-meta-size: clamp(0.68rem, 0.88vw, 0.76rem);
-  --kesson-topbar-meta-author-size: 0.68rem;
+  --kesson-topbar-credit-size: 0.70rem;
+  --kesson-topbar-meta-size: 0.70rem;
+  --kesson-topbar-meta-author-size: 0.70rem;
   --kesson-topbar-bg-start: rgba(10, 14, 24, var(--kesson-topbar-alpha-strong));
   --kesson-topbar-bg-end: rgba(10, 14, 24, var(--kesson-topbar-alpha-soft));
   --kesson-topbar-border-color: rgba(130, 170, 240, var(--kesson-topbar-border-alpha));
@@ -149,12 +149,12 @@
   --kesson-section-heading: 0.75rem;
   --kesson-card-title: 0.8rem;
   --kesson-card-text: 0.7rem;
-  --kesson-card-summary: 0.68rem;
-  --kesson-overlay-tagline: clamp(0.5rem, 2.4vmin, 0.85rem);
-  --kesson-overlay-tagline-en: clamp(0.4rem, 2.0vmin, 0.75rem);
-  --kesson-control-guide: clamp(0.35rem, 1.6vmin, 0.55rem);
-  --kesson-footer-line: clamp(0.35rem, 1.5vmin, 0.55rem);
-  --kesson-surface-btn: 0.55rem;
+  --kesson-card-summary: 0.70rem;
+  --kesson-overlay-tagline: 0.70rem;
+  --kesson-overlay-tagline-en: 0.70rem;
+  --kesson-control-guide: 0.70rem;
+  --kesson-footer-line: 0.70rem;
+  --kesson-surface-btn: 0.70rem;
   --kesson-topbar-height: 3.25rem;
   --kesson-topbar-alpha-strong: 0.10;
   --kesson-topbar-alpha-soft: 0.10;
@@ -210,7 +210,7 @@ body {
   border-color: rgba(130, 170, 240, 0.5);
   color: rgba(220, 235, 255, 0.82);
   font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-  font-size: 0.64rem;
+  font-size: 0.70rem;
   letter-spacing: 0.08em;
   text-transform: none;
   padding: 0.23rem 0.62rem;
@@ -246,7 +246,7 @@ body {
   padding: 0;
   color: rgba(var(--color-heading), 0.9);
   font-family: "Noto Serif JP", "Yu Mincho", "MS PMincho", serif;
-  font-size: clamp(0.45rem, 2.8vmin, 1.1rem);
+  font-size: clamp(0.70rem, 2.8vmin, 1.1rem);
   letter-spacing: clamp(0.05em, 0.4vmin, 0.15em);
   text-shadow: 0 0 12px rgba(var(--color-accent), 0.5), 0 0 4px rgba(0, 0, 0, 0.8);
   transform: translate(-50%, -100%);
@@ -306,7 +306,7 @@ body {
 }
 
 #credit .credit-line {
-  font-size: clamp(0.45rem, 2.0vmin, 0.7rem);
+  font-size: 0.70rem;
   color: rgba(var(--color-sub-text), 0.45);
   font-family: 'Georgia', 'Noto Serif JP', serif;
   letter-spacing: 0.05em;
@@ -315,7 +315,7 @@ body {
 }
 
 #credit .credit-signature {
-  font-size: clamp(0.4rem, 1.8vmin, 0.65rem);
+  font-size: 0.70rem;
   color: rgba(150, 175, 210, 0.35);
   font-family: 'Georgia', serif;
   letter-spacing: 0.08em;
@@ -363,7 +363,7 @@ h1 {
 }
 
 .tagline {
-  font-size: var(--kesson-overlay-tagline, clamp(0.5rem, 2.4vmin, 0.85rem));
+  font-size: var(--kesson-overlay-tagline, 0.70rem);
   color: rgba(var(--color-heading), 0.75);
   font-family: var(--kesson-font-serif-display);
   letter-spacing: 0.05em;
@@ -372,7 +372,7 @@ h1 {
 }
 
 .tagline-en {
-  font-size: var(--kesson-overlay-tagline-en, clamp(0.4rem, 2.0vmin, 0.75rem));
+  font-size: var(--kesson-overlay-tagline-en, 0.70rem);
   color: rgba(var(--color-heading), 0.55);
   font-family: var(--kesson-font-serif-ui);
   letter-spacing: 0.03em;
@@ -429,7 +429,7 @@ html[lang="en"] #taglines {
 #scroll-hint-top span,
 #left-kesson-link span {
   display: block;
-  font-size: var(--kesson-font-size-ui-xs, clamp(0.4rem, 1.8vmin, 0.65rem));
+  font-size: var(--kesson-font-size-ui-xs, 0.70rem);
   color: var(--kesson-ui-label-color);
   font-family: var(--kesson-font-serif-ui);
   letter-spacing: var(--kesson-letter-ui-wide);
@@ -523,7 +523,7 @@ html[lang="en"] #taglines {
 }
 
 #control-guide .guide-key {
-  font-size: var(--kesson-control-guide, clamp(0.35rem, 1.6vmin, 0.55rem));
+  font-size: var(--kesson-control-guide, 0.70rem);
   color: rgba(var(--color-sub-text), 0.35);
   font-family: var(--kesson-font-mono-ui);
   letter-spacing: var(--kesson-letter-ui-tight);
@@ -531,12 +531,12 @@ html[lang="en"] #taglines {
 }
 
 #control-guide .guide-sep {
-  font-size: clamp(0.3rem, 1.4vmin, 0.5rem);
+  font-size: 0.70rem;
   color: rgba(var(--color-sub-text), 0.2);
 }
 
 #control-guide .guide-action {
-  font-size: var(--kesson-control-guide, clamp(0.35rem, 1.6vmin, 0.55rem));
+  font-size: var(--kesson-control-guide, 0.70rem);
   color: rgba(var(--color-sub-text), 0.3);
   font-family: var(--kesson-font-serif-ui);
   letter-spacing: var(--kesson-letter-ui-normal);
@@ -594,7 +594,7 @@ html[lang="en"] #taglines {
   border: 1px solid rgba(var(--color-accent), 0.2);
   color: rgba(var(--color-sub-text), 0.5);
   font-family: 'Georgia', serif;
-  font-size: var(--kesson-surface-btn, 0.55rem);
+  font-size: var(--kesson-surface-btn, 0.70rem);
   letter-spacing: 0.1em;
   padding: 10px 18px;
   cursor: pointer;
@@ -694,7 +694,7 @@ html[lang="en"] #taglines {
 }
 
 .tech-footer-line {
-  font-size: var(--kesson-footer-line, clamp(0.47rem, 1.8vmin, 0.67rem));
+  font-size: var(--kesson-footer-line, 0.70rem);
   color: rgba(150, 175, 210, 0.25);
   font-family: var(--kesson-font-mono-ui);
   letter-spacing: 0.06em;
@@ -703,7 +703,7 @@ html[lang="en"] #taglines {
 
 .footer-signature {
   margin-top: 0.55rem;
-  font-size: clamp(0.67rem, 2.1vmin, 0.84rem);
+  font-size: clamp(0.70rem, 2.1vmin, 0.84rem);
   color: rgba(195, 214, 241, 0.68);
   font-family: var(--kesson-font-serif-ui);
   letter-spacing: 0.06em;
@@ -748,7 +748,7 @@ html[lang="en"] #taglines {
   }
 
   #graphic-switcher .btn {
-    font-size: 0.6rem;
+    font-size: 0.70rem;
     min-width: 3.3rem;
     padding: 0.2rem 0.44rem;
   }
