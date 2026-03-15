@@ -26,11 +26,7 @@
   --reports-text-bright: rgba(var(--color-highlight), 0.78);
   --reports-card-bg: rgba(var(--color-accent), 0.06);
   --reports-card-border: rgba(var(--color-accent), 0.14);
-  --reports-control-font-size: clamp(
-    calc(0.80rem + var(--reports-font-step, 0rem)),
-    calc(2.2vmin + var(--reports-font-step, 0rem)),
-    calc(0.78rem + var(--reports-font-step, 0rem))
-  );
+  --reports-control-font-size: calc(0.80rem + var(--reports-font-step, 0rem));
   --reports-control-letter-spacing: var(--kesson-letter-ui-normal);
   --reports-palette-1-rgb: 157, 172, 194;
   --reports-palette-2-rgb: 241, 190, 82;
@@ -197,11 +193,7 @@
 .reports-ai-notice {
   margin: 0 0 0.85rem;
   color: rgba(var(--color-sub-text), 0.78);
-  font-size: clamp(
-    calc(0.80rem + var(--reports-font-step, 0rem)),
-    calc(2.0vmin + var(--reports-font-step, 0rem)),
-    calc(0.8rem + var(--reports-font-step, 0rem))
-  );
+  font-size: calc(0.80rem + var(--reports-font-step, 0rem));
   letter-spacing: var(--kesson-letter-ui-tight);
   line-height: 1.45;
   font-family: var(--reports-font-serif);
@@ -210,11 +202,7 @@
 .reports-level-legend {
   margin: 0 0 0.65rem;
   color: rgba(var(--color-sub-text), 0.7);
-  font-size: clamp(
-    calc(0.80rem + var(--reports-font-step, 0rem)),
-    calc(2.1vmin + var(--reports-font-step, 0rem)),
-    calc(0.76rem + var(--reports-font-step, 0rem))
-  );
+  font-size: calc(0.80rem + var(--reports-font-step, 0rem));
   letter-spacing: var(--kesson-letter-ui-tight);
   line-height: 1.45;
   font-family: var(--reports-font-serif);
