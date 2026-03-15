@@ -18,6 +18,58 @@
 | `guides/` | 5段階モデルの guide 類を strict separation で再構成する | **reader-rules / drafts / introductions 移管済み** |
 | `transform/knowledge/` | 公開用整形ルールとメモの置き場 | **Phase C 以降** |
 
+## PDF ビルド
+
+### スクリプト
+
+`scripts/build-pdf-guide.sh` — guides / domains の PDF 生成スクリプト（v2.0）。
+
+### 使い方
+
+```bash
+# guides（デフォルト: general JA）
+bash transform/scripts/build-pdf-guide.sh
+
+# guides 全3種 JA
+bash transform/scripts/build-pdf-guide.sh --kind guides --audience all
+
+# guides general JA+EN
+bash transform/scripts/build-pdf-guide.sh --kind guides --lang all
+
+# domains JA 全30件
+bash transform/scripts/build-pdf-guide.sh --kind domains --lang ja
+
+# 全種 JA + manifest 更新
+bash transform/scripts/build-pdf-guide.sh --kind all --lang ja --push
+
+# 依存チェックのみ
+bash transform/scripts/build-pdf-guide.sh --setup
+```
+
+### 機能
+
+- 表紙（タイトル・サブタイトル・日付）自動生成
+- 目次（TOC）自動生成
+- JA/EN 対応（`--lang {ja|en|all}`）
+- audience 別タイトル・サブタイトル
+- front matter 自動除去
+- pandoc + lualatex による堅牢な JA PDF 生成
+- domains 30 領域一括ビルド
+- manifest（guides.json / domains.json）自動更新（`--push` 時）
+- 依存チェック・色付きログ・ファイルサイズ表示
+
+### 依存
+
+- `pandoc` — Markdown → PDF 変換
+- `lualatex` — PDF エンジン（JA フォント対応）
+- `python3` — front matter 除去・manifest 生成
+
+```bash
+brew install pandoc
+brew install --cask mactex-no-gui
+sudo tlmgr install collection-luatex luatexja haranoaji
+```
+
 ## あなたが今ここに来たということは
 
 - 新しい領域レポートを作りたいなら [domains/README.md](/Users/uminomae/dev/creation-space/transform/domains/README.md) を読みます。
