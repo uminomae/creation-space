@@ -125,6 +125,7 @@ function normalizeArticle(key, item, basePath) {
     const url = buildUrl(basePath, item);
     const parsedDate = Date.parse(item?.date || '');
     return {
+        devOnly: Boolean(item?.devOnly),
         id: String(key),
         url: url.toString(),
         type: normalizeType(item, url),
