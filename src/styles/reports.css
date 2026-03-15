@@ -9,7 +9,6 @@
 #reports-section {
   position: relative;
   z-index: 5;
-  --reports-font-step: 0rem;
   --reports-font-mono: var(--kesson-font-mono-ui);
   --reports-font-serif: var(--kesson-font-serif-ui);
   --reports-panel-radius: 0.5rem;
@@ -28,9 +27,9 @@
   --reports-card-bg: rgba(var(--color-accent), 0.06);
   --reports-card-border: rgba(var(--color-accent), 0.14);
   --reports-control-font-size: clamp(
-    calc(0.70rem + var(--reports-font-step)),
-    calc(2.2vmin + var(--reports-font-step)),
-    calc(0.78rem + var(--reports-font-step))
+    calc(0.70rem + var(--reports-font-step, 0rem)),
+    calc(2.2vmin + var(--reports-font-step, 0rem)),
+    calc(0.78rem + var(--reports-font-step, 0rem))
   );
   --reports-control-letter-spacing: var(--kesson-letter-ui-normal);
   --reports-palette-1-rgb: 157, 172, 194;
@@ -185,9 +184,9 @@
   margin: 0 0 0.65rem;
   color: rgba(var(--color-heading), 0.82);
   font-size: clamp(
-    calc(0.75rem + var(--reports-font-step)),
-    calc(2.2vmin + var(--reports-font-step)),
-    calc(0.9rem + var(--reports-font-step))
+    calc(0.75rem + var(--reports-font-step, 0rem)),
+    calc(2.2vmin + var(--reports-font-step, 0rem)),
+    calc(0.9rem + var(--reports-font-step, 0rem))
   );
   letter-spacing: 0.04em;
   font-family: var(--kesson-font-serif-display);
@@ -199,9 +198,9 @@
   margin: 0 0 0.85rem;
   color: rgba(var(--color-sub-text), 0.78);
   font-size: clamp(
-    calc(0.70rem + var(--reports-font-step)),
-    calc(2.0vmin + var(--reports-font-step)),
-    calc(0.8rem + var(--reports-font-step))
+    calc(0.70rem + var(--reports-font-step, 0rem)),
+    calc(2.0vmin + var(--reports-font-step, 0rem)),
+    calc(0.8rem + var(--reports-font-step, 0rem))
   );
   letter-spacing: var(--kesson-letter-ui-tight);
   line-height: 1.45;
@@ -212,9 +211,9 @@
   margin: 0 0 0.65rem;
   color: rgba(var(--color-sub-text), 0.7);
   font-size: clamp(
-    calc(0.70rem + var(--reports-font-step)),
-    calc(2.1vmin + var(--reports-font-step)),
-    calc(0.76rem + var(--reports-font-step))
+    calc(0.70rem + var(--reports-font-step, 0rem)),
+    calc(2.1vmin + var(--reports-font-step, 0rem)),
+    calc(0.76rem + var(--reports-font-step, 0rem))
   );
   letter-spacing: var(--kesson-letter-ui-tight);
   line-height: 1.45;
@@ -272,9 +271,9 @@
   color: rgba(var(--color-highlight), 0.92);
   font-family: var(--reports-font-serif);
   font-size: clamp(
-    calc(0.79rem + var(--reports-font-step)),
-    calc(2.35vmin + var(--reports-font-step)),
-    calc(0.94rem + var(--reports-font-step))
+    calc(0.79rem + var(--reports-font-step, 0rem)),
+    calc(2.35vmin + var(--reports-font-step, 0rem)),
+    calc(0.94rem + var(--reports-font-step, 0rem))
   );
   letter-spacing: var(--kesson-letter-ui-tight);
   box-shadow: 0 0 0.8rem rgba(var(--color-accent), 0.12);
@@ -308,7 +307,7 @@
 
 .report-metric-label {
   color: rgba(var(--color-heading), 0.5);
-  font-size: calc(0.70rem + var(--reports-font-step));
+  font-size: calc(0.70rem + var(--reports-font-step, 0rem));
   letter-spacing: var(--kesson-letter-ui-tight);
   font-family: var(--reports-font-serif);
 }
@@ -316,7 +315,7 @@
 .report-metric-value {
   margin-top: 0.22rem;
   color: rgba(var(--color-heading), 0.92);
-  font-size: calc(0.88rem + var(--reports-font-step));
+  font-size: calc(0.88rem + var(--reports-font-step, 0rem));
   letter-spacing: 0.03em;
   font-family: var(--reports-font-serif);
 }
@@ -404,7 +403,7 @@
 .reports-domain-item-id {
   color: rgba(var(--color-sub-text), 0.85);
   letter-spacing: 0.08em;
-  font-size: calc(0.70rem + var(--reports-font-step));
+  font-size: calc(0.70rem + var(--reports-font-step, 0rem));
 }
 
 .reports-domain-item-status {
@@ -416,13 +415,13 @@
   line-height: 1.2;
   padding-inline: 0.55em;
   font-family: var(--reports-font-mono);
-  font-size: calc(0.70rem + var(--reports-font-step));
+  font-size: calc(0.70rem + var(--reports-font-step, 0rem));
   letter-spacing: 0.04em;
 }
 
 .reports-domain-item-desc {
   color: rgba(var(--color-highlight), 0.6);
-  font-size: calc(0.7rem + var(--reports-font-step));
+  font-size: calc(0.7rem + var(--reports-font-step, 0rem));
   font-family: var(--reports-font-serif);
   line-height: 1.3;
   white-space: normal;
@@ -436,7 +435,7 @@
 
 .reports-domain-item-generator-model {
   color: rgba(var(--color-highlight), 0.48);
-  font-size: calc(0.70rem + var(--reports-font-step));
+  font-size: calc(0.70rem + var(--reports-font-step, 0rem));
   font-family: var(--reports-font-mono);
   line-height: 1.3;
   letter-spacing: 0.02em;
@@ -445,7 +444,7 @@
 
 .reports-domain-item-name {
   color: rgba(var(--color-heading), 0.82);
-  font-size: calc(0.7rem + var(--reports-font-step));
+  font-size: calc(0.7rem + var(--reports-font-step, 0rem));
   font-family: var(--kesson-font-serif-display);
   line-height: 1.2;
   letter-spacing: 0.03em;
@@ -501,7 +500,7 @@
   padding: 0.15rem 0.5rem 0;
   color: rgba(var(--color-sub-text), 0.62) !important;
   font-family: var(--reports-font-mono);
-  font-size: calc(0.70rem + var(--reports-font-step));
+  font-size: calc(0.70rem + var(--reports-font-step, 0rem));
   letter-spacing: 0.05em;
 }
 
@@ -532,7 +531,7 @@
 
   .reports-subheading,
   .reports-ai-notice {
-    font-size: calc(0.70rem + var(--reports-font-step));
+    font-size: calc(0.70rem + var(--reports-font-step, 0rem));
   }
 
   #reports-primary-actions .reports-status-cta {
@@ -542,7 +541,7 @@
   }
 
   .report-metric-value {
-    font-size: calc(0.84rem + var(--reports-font-step));
+    font-size: calc(0.84rem + var(--reports-font-step, 0rem));
   }
 
   .reports-md-content .md-article {
