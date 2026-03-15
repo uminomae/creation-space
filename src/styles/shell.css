@@ -212,7 +212,7 @@ body {
   border-color: rgba(130, 170, 240, 0.5);
   color: rgba(220, 235, 255, 0.82);
   font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-  font-size: 0.70rem;
+  font-size: var(--kesson-font-size-ui-sm, 0.70rem);
   letter-spacing: 0.08em;
   text-transform: none;
   padding: 0.23rem 0.62rem;
@@ -750,7 +750,7 @@ html[lang="en"] #taglines {
   }
 
   #graphic-switcher .btn {
-    font-size: 0.70rem;
+    font-size: var(--kesson-font-size-ui-sm, 0.70rem);
     min-width: 3.3rem;
     padding: 0.2rem 0.44rem;
   }
