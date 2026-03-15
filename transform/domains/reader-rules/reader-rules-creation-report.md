@@ -5,7 +5,7 @@
 **目的**: 30領域の横断的調査で何がわかったかを報告する
 **性格**: コンサルタントが依頼者に提出する調査報告書
 **出力形態**: PDF / Markdown / ブログ記事
-**継承元**: `reader-rules-creation.md`（共通基盤 v1.2）を継承し、以下を上書きする
+**継承元**: `reader-rules-creation.md`（共通基盤 v1.4）を継承し、以下を上書きする
 
 ---
 
@@ -568,7 +568,7 @@ creation-general版（reader-rules-creation-general.md）は「休憩所の語�
 | 2026-03-13 | 2.1 | #228: 各論に「読み取りとして」層を追加。§4 に NL-016 の各論具体化を反映し、各理論節を「事実として→読み取りとして→解釈として」に更新。§7-A に対応チェック追加。§9 に NL-016 追記 |
 | 2026-03-09 | 2.0 | NL-013追加。§0 に AI由来ソースの帰属ルールを追加。quality-test 連携前提を明文化（#150） |
 | 2026-03-08 | 1.9 | `generator_model` を front matter 必須フィールド化。`/Users/uminomae/dev/kesson-driven-thinking/base/schema/evidence-metadata.md §2.5` 参照を追加（#140） |
-| 2026-03-14 | 2.0 | `generator_model` の参照先を `creation-space/docs/evidence-metadata-creation.md §2.5` へ更新 (#248) |
+| 2026-03-14 | 2.0.1 | `generator_model` の参照先を `creation-space/docs/evidence-metadata-creation.md §2.5` へ更新 (#248) |
 | 2026-03-04 | 1.0 | 初版。品質レビュー（NL-001〜004）から導出。変換層の中核ルールとして新設 |
 | 2026-03-05 | 1.1 | #84-2: 共通基盤への紐づけ。§0ソース原則を追加（参照ソース一覧・調査方法の記述義務）。継承元を明記 |
 | 2026-03-05 | 1.2 | #84-2 点検: 継承/上書き対応表追加。§4構成パターンに返却の設計（立ち位置明示・安全弁・温度開示）を埋め込み。§7品質ゲートにE（返却チェック）追加。例文のS55整合修正 |

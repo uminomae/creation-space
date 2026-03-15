@@ -45,7 +45,7 @@ evidence の概要を表形式で示す。
 
 | # | 理論/概念 | 提唱者 | 対応段階 | 判定 |
 |---|----------|--------|---------|------|
-| 1 | ... | ... | ... | Accept/Discuss/Reject |
+| 1 | ... | ... | ... | 強い対応/部分的対応/対応なし |
 
 温度帯の分布（確定/有力/仮説/未解決の比率）。
 
@@ -87,7 +87,7 @@ evidence が不足している知見には「未調査」と明記し、構造�
 |------|-----|
 | 生成日 | {YYYY-MM-DD} |
 | generator_model | {model名} |
-| evidence_count | {N}件（Accept: {n}, Discuss: {n}, Reject: {n}） |
+| evidence_count | {N}件（強い対応: {n}, 部分的: {n}, 対応なし: {n}） |
 | source_evidence | evidence-{id}-{name}.md |
 | source_dr | DR-{id}-{name}.md |
 | reader_rules | reader-rules-creation v1.4 |
