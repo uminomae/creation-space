@@ -40,8 +40,8 @@ generated_at: 2026-03-04
 
 | ドメイン | 主要知見 | 上位概念への影響 | 更新対象ファイル | 反映ステータス | 備考 |
 |---|---|---|---|---|---|
-| D22 経営学 | Storming/弱信号保持の重要性、縁の記述強度差、制度化Withhold | D1, D3, M2(縁), ISS(適用境界) | `/Users/uminomae/dev/creation-space/evidence/evidence-D22-business-management.md`, `transform/domains/publish/domains/issue62-domain-d22-business-management-academic-ja.md` | 反映済（publish）/ 一部保留（base反映） | 反証候補は継続管理 |
-| D02 物理学 | 縁の物理的具体化（相互作用/界面/競合/RG流）、marginal=保持、渦なし経路の保留論点 | D1, D3, M2(縁), ISS(5段階必須性) | `/Users/uminomae/dev/creation-space/evidence/evidence-D02-physics.md`, `transform/domains/publish/domains/issue62-domain-d02-physics-academic-ja.md` | 反映済（publish）/ 一部保留（schema反映） | D02をテンプレート運用テストとして実施 |
+| D22 経営学 | Storming/弱信号保持の重要性、縁の記述強度差、制度化Withhold | D1, D3, M2(縁), ISS(適用境界) | `/Users/uminomae/dev/creation-space/evidence/evidence-D22-business-management.md`, `transform/domains/publish/domains/domain-D22-business-management-academic-ja.md` | 反映済（publish）/ 一部保留（base反映） | 反証候補は継続管理 |
+| D02 物理学 | 縁の物理的具体化（相互作用/界面/競合/RG流）、marginal=保持、渦なし経路の保留論点 | D1, D3, M2(縁), ISS(5段階必須性) | `/Users/uminomae/dev/creation-space/evidence/evidence-D02-physics.md`, `transform/domains/publish/domains/domain-D02-physics-academic-ja.md` | 反映済（publish）/ 一部保留（schema反映） | D02をルール移行テストとして実施 |
 | D13 哲学 | <次回記入> | <次回記入> | <次回記入> | 未着手 | D02との比較でテンプレ改訂点を抽出予定 |
 
 > 運用ルール: 「publishだけ更新してbase未更新」の状態を3営業日以上放置しない。
@@ -66,7 +66,7 @@ generated_at: 2026-03-04
 ## 4. 1領域あたりの運用フロー（実務）
 
 1. `/Users/uminomae/dev/creation-space/evidence/evidence-DXX-*.md` の更新  
-2. `transform/domains/publish/domains/issue62-domain-dXX-*.md` を作成  
+2. `transform/domains/publish/domains/domain-DXX-*.md` を作成  
 3. 本文の `6.5 研究結果→上位接続` を記入  
 4. 本メタ文書（本ファイル）に1行追加  
 5. 必要に応じて `base/schema/*` / `reader-rules/*` を更新  
