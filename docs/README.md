@@ -67,6 +67,7 @@ docs/ に置かないもの:
 | `evidence/investigations/investigation-cs23-categorize.md` | REPORTS の進捗カテゴリ設計調査 |
 | `evidence/investigations/investigation-cs43-modal-deeplink.md` | モーダル deep link 設計調査 |
 | `docs/evidence-metadata-creation.md` | creation 固有 metadata 正本 |
+| `docs/quality-management.md` | 品質チェック・テキスト基準・レビュー基準 |
 | `evidence/CLAUDE.md` | `evidence/` 配下での補助ルール |
 
 ## 5. 開発フロー
