@@ -472,10 +472,22 @@
   box-shadow: 0 1.25rem 3rem rgba(0, 0, 0, 0.45);
 }
 
-.reports-md-modal-content .modal-header,
-.reports-md-modal-content .modal-footer {
+.reports-md-modal-content .modal-header {
   border-color: rgba(var(--color-accent), 0.12);
   background: rgba(var(--color-accent), 0.06);
+}
+
+.reports-md-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-shrink: 0;
+}
+
+.reports-md-header-actions .btn {
+  font-size: calc(0.68rem + var(--reports-font-step, 0rem));
+  padding: 0.25rem 0.7rem;
+  white-space: nowrap;
 }
 
 .reports-md-modal-content .modal-body {

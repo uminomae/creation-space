@@ -118,7 +118,6 @@ export function createReportsRenderer({
         state.dom.mdModalMeta = document.getElementById('reports-md-meta');
         state.dom.mdModalContent = document.getElementById('reports-md-content');
         state.dom.mdOpenPdf = document.getElementById('reports-md-open-pdf');
-        state.dom.mdCloseBtn = document.getElementById('reports-md-close-btn');
     }
 
     function setReportsError(message) {
@@ -264,7 +263,6 @@ export function createReportsRenderer({
 
         if (state.dom.filterGroup) state.dom.filterGroup.setAttribute('aria-label', strings.filterGroupAria);
         if (state.dom.openStatusBtn) state.dom.openStatusBtn.textContent = strings.openStatus;
-        if (state.dom.mdCloseBtn) state.dom.mdCloseBtn.textContent = strings.modalClose;
 
         updateFilterButtons();
     }
