@@ -7,7 +7,7 @@
   border: 1px solid rgba(var(--color-accent), 0.2);
   color: rgba(var(--color-sub-text), 0.5);
   font-family: 'Georgia', serif;
-  font-size: 0.70rem;
+  font-size: var(--kesson-font-size-ui-sm, 0.70rem);
   letter-spacing: 0.1em;
   padding: 10px 24px;
   cursor: pointer;
@@ -36,7 +36,7 @@
   border: 1px solid rgba(var(--color-accent), 0.2);
   color: rgba(var(--color-sub-text), 0.5);
   font-family: 'Georgia', serif;
-  font-size: 0.70rem;
+  font-size: var(--kesson-font-size-ui-sm, 0.70rem);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 7px 14px;
