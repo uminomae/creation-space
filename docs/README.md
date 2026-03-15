@@ -68,6 +68,7 @@ docs/ に置かないもの:
 | `evidence/investigations/investigation-cs43-modal-deeplink.md` | モーダル deep link 設計調査 |
 | `docs/evidence-metadata-creation.md` | creation 固有 metadata 正本 |
 | `docs/quality-management.md` | 品質チェック・テキスト基準・レビュー基準 |
+| `docs/guardian-matrix.md` | ルール × 守護者マトリクス（CS-001〜 採番） |
 | `evidence/CLAUDE.md` | `evidence/` 配下での補助ルール |
 
 ## 5. 開発フロー
@@ -194,3 +195,4 @@ LLMの振る舞いは不確実であり、効率化の最適化がルールの�
 | 2026-03-14 | 2.1 | `docs/evidence-metadata-creation.md` を追加し、公開 metadata の正本参照先を更新 (#248) |
 | 2026-03-15 | 2.2 | docs/ スコープルール追加。investigation を `evidence/investigations/` へ移動、`survey-progress-taxonomy.md` 削除 |
 | 2026-03-15 | 3.0 | 設計原則 L1-L7 セクション追加、docs-navigator.md を管理書類一覧に追加 (cs#72) |
+| 2026-03-16 | 3.1 | guardian-matrix.md を管理書類一覧に追加 (cs#67) |
