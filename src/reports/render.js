@@ -441,17 +441,6 @@ export function createReportsRenderer({
             statusNode.setAttribute('title', hoverHint);
         }
 
-        const generatorModel = typeof report.generatorModel === 'string'
-            ? report.generatorModel.trim()
-            : '';
-        const showGeneratorModel = generatorModel && generatorModel !== 'not_applicable';
-        let generatorNode = null;
-        if (showGeneratorModel) {
-            generatorNode = document.createElement('small');
-            generatorNode.className = 'reports-domain-item-generator-model';
-            generatorNode.textContent = `${strings.generatorModel}: ${generatorModel}`;
-        }
-
         const nameNode = document.createElement('div');
         nameNode.className = 'reports-domain-item-name';
         nameNode.title = domainLabel;
@@ -460,9 +449,6 @@ export function createReportsRenderer({
         head.appendChild(idNode);
         head.appendChild(statusNode);
         body.appendChild(head);
-        if (generatorNode) {
-            body.appendChild(generatorNode);
-        }
         body.appendChild(nameNode);
         tile.appendChild(body);
 
