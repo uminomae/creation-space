@@ -39,7 +39,7 @@ pjdhiro、Claude、Codex、および creation-space の REPORTS / evidence 閲�
 ### How
 
 幅優先スキャン → 本格調査 → GPTレビュー → deepdive → 横断分析という順で増築されてきた。
-`five-stages.md` と `academic-domains.md` の正本は `kb/schema/` に移行済み。公開ラベルタクソノミーと `generator_model` は `docs/evidence-metadata-creation.md`、フラグ体系と AI モデル来歴は外部 schema repo 側の `evidence-metadata.md` を参照する。
+`five-stages.md` と `academic-domains.md` の正本は `knowledge/schema/` に移行済み。公開ラベルタクソノミーと `generator_model` は `docs/evidence-metadata-creation.md`、フラグ体系と AI モデル来歴は外部 schema repo 側の `evidence-metadata.md` を参照する。
 
 ## ⚠️ evidence-D*.md を編集・Revise する前に
 

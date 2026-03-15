@@ -6,7 +6,7 @@
 - **Why**: 5段階モデルと各分野語彙の接続を、読者が追える形で再生成するためです。
 - **Who**: domains レポートを更新する Claude Code CLI と review 担当者が使います。
 - **When**: 新規生成、evidence 更新後の再生成、bilingual 展開時に使います。
-- **Where**: 入力は `evidence/`、ルールは `reader-rules/`、品質基準は `quality-test/`、公開用整形先はリポジトリ直下の `kb/` です。
+- **Where**: 入力は `evidence/`、ルールは `reader-rules/`、品質基準は `quality-test/`、公開用整形先はリポジトリ直下の `knowledge/` です。
 - **How**: report ルールを読んで md を生成し、quality-test を通してから PDF と bilingual へ進みます。
 
 ## 現在の状態

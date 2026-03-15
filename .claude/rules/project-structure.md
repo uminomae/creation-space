@@ -9,7 +9,7 @@
 | `docs/` | 管理書類と調査メモ |
 | `evidence/` | 調査データ本体 |
 | `transform/` | 再生成 workflow |
-| `kb/` | 公開用ナレッジベース |
+| `knowledge/` | 公開用ナレッジベース |
 | `scripts/` | 補助スクリプト |
 
 ## `src/` の見方
@@ -39,4 +39,4 @@
 2. `src/main.js` が runtime を初期化し、UI と scene を起動する
 3. `src/reports.js` が `pjdhiro/assets/creation/` 上の manifest / Markdown / PDF を取得して Reports UI を描画する
 4. ローカル fallback / 検証用データは `assets/articles/articles.json` と `assets/reports/scenarios/` に置く
-5. 調査データは `evidence/` に蓄積し、公開向けの再生成は `transform/`、受け皿は `kb/` が担う
+5. 調査データは `evidence/` に蓄積し、公開向けの再生成は `transform/`、受け皿は `knowledge/` が担う
