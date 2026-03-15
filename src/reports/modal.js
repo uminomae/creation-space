@@ -158,12 +158,19 @@ export function createReportsModalController({
                         event.stopPropagation();
                         // 画像クリック → 画像モーダル表示
                         const overlay = document.createElement('div');
-                        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;z-index:2000;cursor:pointer;';
+                        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;z-index:2000;';
+                        const closeBtn = document.createElement('button');
+                        closeBtn.textContent = '✕';
+                        closeBtn.style.cssText = 'position:absolute;top:16px;right:24px;background:none;border:none;color:#fff;font-size:32px;cursor:pointer;z-index:2001;line-height:1;padding:8px;';
+                        closeBtn.addEventListener('click', () => overlay.remove());
                         const fullImg = document.createElement('img');
                         fullImg.src = img.src;
-                        fullImg.style.cssText = 'max-width:90%;max-height:90%;border-radius:4px;';
+                        fullImg.style.cssText = 'max-width:90%;max-height:90%;border-radius:4px;cursor:default;';
+                        overlay.appendChild(closeBtn);
                         overlay.appendChild(fullImg);
-                        overlay.addEventListener('click', () => overlay.remove());
+                        overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+                        const onEsc = (e) => { if (e.key === 'Escape') { overlay.remove(); e.stopPropagation(); document.removeEventListener('keydown', onEsc, true); } };
+                        document.addEventListener('keydown', onEsc, true);
                         document.body.appendChild(overlay);
                         return;
                     }
