@@ -140,6 +140,30 @@ export function createReportsModalController({
                         <div class="md-body">${html}</div>
                     </div>
                 `;
+
+                // モーダル内リンク・画像クリック処理
+                state.dom.mdModalContent.addEventListener('click', (event) => {
+                    const img = event.target.closest('img');
+                    if (img) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        // 画像クリック → 画像モーダル表示
+                        const overlay = document.createElement('div');
+                        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;z-index:2000;cursor:pointer;';
+                        const fullImg = document.createElement('img');
+                        fullImg.src = img.src;
+                        fullImg.style.cssText = 'max-width:90%;max-height:90%;border-radius:4px;';
+                        overlay.appendChild(fullImg);
+                        overlay.addEventListener('click', () => overlay.remove());
+                        document.body.appendChild(overlay);
+                        return;
+                    }
+                    const link = event.target.closest('a');
+                    if (link) {
+                        event.preventDefault();
+                        window.open(link.href, '_blank');
+                    }
+                });
             }
 
             const strings = getStrings(state.lang);
