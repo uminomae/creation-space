@@ -88,6 +88,10 @@ front matter および manifest で使用する `generator_model` フィール�
 | `human_reviewed` | 上記のいずれか（pjdhiro確認済み） |
 | `not_surveyed` | `not_applicable` |
 
+### フィールド名の統一
+
+すべての場所で `generator_model` を使う。旧名 `progress_model` は廃止。`index.json` v4.0 以降は `generator_model` に統一済み。
+
 ### このフィールドを使う場所
 
 1. `transform/domains/*.md` front matter の `generator_model`

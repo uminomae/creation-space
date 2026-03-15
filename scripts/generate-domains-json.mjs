@@ -234,7 +234,7 @@ async function generate(options) {
 
     report.label_description_ja = taxEntry?.description_ja ?? '';
     report.label_description_en = taxEntry?.description_en ?? '';
-    report.generator_model = buildGeneratorModel(entry.progress_model);
+    report.generator_model = typeof entry.generator_model === "string" ? entry.generator_model : buildGeneratorModel(entry.progress_model);
 
     reports.push(report);
   }
