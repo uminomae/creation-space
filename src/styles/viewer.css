@@ -7,7 +7,7 @@
 }
 
 .offcanvas-body::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: var(--kesson-scrollbar-thumb);
   border-radius: 3px;
 }
 
@@ -44,7 +44,7 @@
   display: none;
   align-items: center;
   justify-content: center;
-  background: rgba(5, 10, 20, 0.0);
+  background: var(--kesson-viewer-overlay-closed);
   transition: background 0.5s ease;
   cursor: pointer;
 }
@@ -54,7 +54,7 @@
 }
 
 #kesson-viewer.open {
-  background: rgba(5, 10, 20, 0.5);
+  background: var(--kesson-viewer-overlay-open);
 }
 
 .viewer-glass {
@@ -64,15 +64,12 @@
   height: 85vh;
   cursor: default;
   overflow: hidden;
-  background: rgba(12, 18, 30, 0.88);
+  background: var(--kesson-viewer-glass-bg);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(var(--color-accent), 0.06);
+  border: 1px solid var(--kesson-viewer-glass-border);
   border-radius: 3px;
-  box-shadow:
-    0 0 60px rgba(0, 0, 0, 0.4),
-    0 0 120px rgba(30, 60, 120, 0.1),
-    inset 0 0 60px rgba(20, 40, 80, 0.05);
+  box-shadow: var(--kesson-viewer-glass-shadow);
   opacity: 0;
   transform: scale(0.92) translateY(20px);
   transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
@@ -142,7 +139,7 @@
 }
 
 .x-embed-handle {
-  color: rgba(200, 215, 245, 0.7);
+  color: var(--kesson-viewer-x-handle);
   font-size: 0.72rem;
   margin-bottom: 0.25rem;
   letter-spacing: 0.04em;
@@ -176,7 +173,7 @@
 
 .md-provenance {
   font-size: 0.68rem;
-  color: rgba(140, 160, 200, 0.4);
+  color: var(--kesson-md-provenance);
   margin-bottom: 1.5rem;
   letter-spacing: 0.03em;
 }
@@ -187,7 +184,7 @@
 
 .md-body h1 {
   font-size: 1.2rem;
-  color: rgba(240, 245, 255, 0.92);
+  color: var(--kesson-md-h1);
   margin: 2rem 0 0.8rem;
   line-height: 1.4;
   letter-spacing: normal;
@@ -198,27 +195,27 @@
 
 .md-body h1:first-child {
   font-size: 1.3rem;
-  color: rgba(240, 245, 255, 0.95);
+  color: var(--kesson-md-h1-strong);
   margin-top: 0;
   margin-bottom: 1.2rem;
 }
 
 .md-body h2 {
   font-size: 1.05rem;
-  color: rgba(230, 240, 255, 0.88);
+  color: var(--kesson-md-h2);
   margin: 1.8rem 0 0.7rem;
   line-height: 1.4;
 }
 
 .md-body h3 {
   font-size: 0.95rem;
-  color: rgba(220, 230, 250, 0.85);
+  color: var(--kesson-md-h3);
   margin: 1.4rem 0 0.5rem;
 }
 
 .md-body h4 {
   font-size: 0.9rem;
-  color: rgba(210, 225, 245, 0.8);
+  color: var(--kesson-md-h4);
   margin: 1.2rem 0 0.4rem;
 }
 
@@ -232,7 +229,7 @@
   border-left: 2px solid rgba(var(--color-accent), 0.15);
   padding-left: 1em;
   margin: 1em 0;
-  color: rgba(200, 215, 240, 0.7);
+  color: var(--kesson-md-quote);
   font-style: italic;
 }
 
@@ -243,20 +240,20 @@
 }
 
 .md-body a:hover {
-  color: rgba(160, 195, 255, 1);
+  color: var(--kesson-md-link-hover);
 }
 
 .md-body strong {
-  color: rgba(240, 245, 255, 0.95);
+  color: var(--kesson-md-strong);
   font-weight: 600;
 }
 
 .md-body em {
-  color: rgba(200, 215, 240, 0.8);
+  color: var(--kesson-md-em);
 }
 
 .md-body pre {
-  background: rgba(8, 12, 24, 0.6);
+  background: var(--kesson-md-pre-bg);
   border: 1px solid rgba(var(--color-accent), 0.08);
   border-radius: 3px;
   padding: 1em 1.2em;
@@ -280,8 +277,8 @@
 .md-body code {
   font-family: 'SF Mono', 'Consolas', 'Monaco', 'Menlo', monospace;
   font-size: 0.85em;
-  color: rgba(180, 210, 255, 0.85);
-  background: rgba(60, 90, 150, 0.12);
+  color: var(--kesson-md-inline-code);
+  background: var(--kesson-md-inline-code-bg);
   padding: 0.15em 0.4em;
   border-radius: 2px;
 }
@@ -323,13 +320,13 @@
 }
 
 .md-body th {
-  background: rgba(40, 60, 100, 0.2);
-  color: rgba(220, 230, 250, 0.9);
+  background: var(--kesson-md-table-head-bg);
+  color: var(--kesson-md-table-head-text);
   font-weight: 500;
 }
 
 .md-body td {
-  color: rgba(200, 215, 240, 0.75);
+  color: var(--kesson-md-table-cell-text);
 }
 
 .md-body img {
@@ -350,7 +347,7 @@
   display: inline-block;
   padding: 0.6em 1.5em;
   font-size: 0.78rem;
-  color: rgba(160, 185, 240, 0.7);
+  color: var(--kesson-md-pdf-link);
   border: 1px solid rgba(var(--color-accent), 0.12);
   border-radius: 2px;
   text-decoration: none;
@@ -359,9 +356,9 @@
 }
 
 .md-pdf-link:hover {
-  color: rgba(200, 220, 255, 0.9);
+  color: var(--kesson-md-pdf-link-hover);
   border-color: rgba(var(--color-accent), 0.25);
-  background: rgba(60, 90, 150, 0.1);
+  background: var(--kesson-md-pdf-link-hover-bg);
 }
 
 .md-loading {

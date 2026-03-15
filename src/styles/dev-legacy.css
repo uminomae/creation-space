@@ -8,9 +8,9 @@
   max-width: min(92vw, 22rem);
   padding: 0.2rem 0.48rem;
   border-radius: 999px;
-  border: 1px solid rgba(120, 164, 235, 0.45);
-  background: rgba(8, 14, 26, 0.78);
-  color: rgba(205, 224, 255, 0.9);
+  border: 1px solid var(--kesson-dev-hud-border);
+  background: var(--kesson-dev-hud-bg);
+  color: var(--kesson-dev-hud-text);
   font-size: 0.58rem;
   letter-spacing: 0.04em;
   line-height: 1;
@@ -40,9 +40,9 @@
   max-width: min(90vw, 20rem);
   padding: 0.5rem;
   border-radius: 0.5rem;
-  border: 1px solid rgba(120, 164, 235, 0.42);
-  background: rgba(8, 14, 26, 0.84);
-  color: rgba(205, 224, 255, 0.92);
+  border: 1px solid var(--kesson-dev-hud-border);
+  background: var(--kesson-dev-hud-bg);
+  color: var(--kesson-dev-hud-text);
   font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
   font-size: 0.62rem;
   line-height: 1.45;
@@ -62,9 +62,9 @@
   max-width: min(90vw, 20rem);
   padding: 0.5rem;
   border-radius: 0.5rem;
-  border: 1px solid rgba(120, 164, 235, 0.42);
-  background: rgba(8, 14, 26, 0.84);
-  color: rgba(205, 224, 255, 0.92);
+  border: 1px solid var(--kesson-dev-hud-border);
+  background: var(--kesson-dev-hud-bg);
+  color: var(--kesson-dev-hud-text);
   font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
   font-size: 0.62rem;
   line-height: 1.45;
@@ -79,7 +79,7 @@
 .intent-timeline-hud-readout {
   margin: 0;
   white-space: pre;
-  color: rgba(198, 217, 245, 0.9);
+  color: var(--kesson-dev-hud-text);
 }
 
 .intent-timeline-hud-controls {
@@ -89,7 +89,7 @@
 }
 
 .intent-timeline-hud-controls label {
-  color: rgba(185, 206, 238, 0.82);
+  color: var(--kesson-dev-panel-help-color);
   letter-spacing: 0.05em;
 }
 
@@ -97,10 +97,10 @@
 #intent-timeline-start-utime-input,
 #intent-timeline-shift-sec-input {
   width: 100%;
-  border: 1px solid rgba(130, 170, 240, 0.35);
+  border: 1px solid var(--kesson-dev-hud-input-border);
   border-radius: 0.32rem;
-  background: rgba(10, 18, 32, 0.88);
-  color: rgba(220, 235, 255, 0.95);
+  background: var(--kesson-dev-hud-input-bg);
+  color: var(--kesson-dev-hud-input-text);
   padding: 0.22rem 0.38rem;
   font-family: inherit;
   font-size: 0.66rem;
@@ -118,10 +118,10 @@
 }
 
 .intent-timeline-hud-actions button {
-  border: 1px solid rgba(130, 170, 240, 0.45);
+  border: 1px solid var(--kesson-dev-hud-btn-border);
   border-radius: 0.32rem;
-  background: rgba(100, 152, 246, 0.2);
-  color: rgba(238, 246, 255, 0.96);
+  background: var(--kesson-dev-hud-btn-bg);
+  color: var(--kesson-dev-hud-btn-text);
   padding: 0.22rem 0.32rem;
   font-family: inherit;
   font-size: 0.62rem;
@@ -130,7 +130,7 @@
 }
 
 .intent-timeline-hud-actions button:hover {
-  background: rgba(116, 165, 244, 0.32);
+  background: var(--kesson-dev-hud-btn-bg-hover);
 }
 
 #dev-toggle {
@@ -139,12 +139,12 @@
   right: 0;
   transform: translateY(-50%);
   z-index: 1001;
-  background: rgba(20, 30, 50, 0.7);
+  background: var(--kesson-dev-toggle-bg);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(var(--color-accent), 0.15);
+  border: 1px solid var(--kesson-dev-toggle-border);
   border-right: none;
   border-radius: 4px 0 0 4px;
-  color: rgba(180, 200, 255, 0.6);
+  color: var(--kesson-dev-toggle-text);
   font-size: 0.65rem;
   font-family: monospace;
   padding: 8px 5px;
@@ -155,8 +155,8 @@
 }
 
 #dev-toggle:hover {
-  color: rgba(200, 220, 255, 0.9);
-  background: rgba(30, 45, 70, 0.8);
+  color: var(--kesson-dev-toggle-text-hover);
+  background: var(--kesson-dev-toggle-bg-hover);
 }
 
 #dev-toggle.open {
@@ -262,12 +262,12 @@
   right: 0;
   transform: translateY(-50%);
   z-index: 1001;
-  background: rgba(20, 30, 50, 0.7);
+  background: var(--kesson-dev-toggle-bg);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(var(--color-accent), 0.15);
+  border: 1px solid var(--kesson-dev-toggle-border);
   border-right: none;
   border-radius: 4px 0 0 4px;
-  color: rgba(180, 200, 255, 0.75);
+  color: var(--kesson-dev-toggle-text);
   font-size: 0.62rem;
   font-family: monospace;
   padding: 8px 5px;
@@ -278,8 +278,8 @@
 }
 
 #dev-links-toggle:hover {
-  color: rgba(210, 225, 255, 0.95);
-  background: rgba(30, 45, 70, 0.84);
+  color: var(--kesson-dev-toggle-text-hover);
+  background: var(--kesson-dev-toggle-bg-hover);
 }
 
 .offcanvas-links {

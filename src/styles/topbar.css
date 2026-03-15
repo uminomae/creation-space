@@ -7,10 +7,10 @@
   z-index: 60;
   background: linear-gradient(
     to bottom,
-    var(--ks-topbar-bg-start) 0%,
-    var(--ks-topbar-bg-end) 100%
+    var(--kesson-topbar-bg-start) 0%,
+    var(--kesson-topbar-bg-end) 100%
   );
-  border-bottom: 1px solid var(--ks-topbar-border-color);
+  border-bottom: 1px solid var(--kesson-topbar-border-color);
   box-shadow: 0 10px 24px rgba(0, 0, 0, var(--kesson-topbar-shadow-alpha));
   backdrop-filter: blur(var(--kesson-topbar-blur)) saturate(var(--kesson-topbar-saturate));
   -webkit-backdrop-filter: blur(var(--kesson-topbar-blur)) saturate(var(--kesson-topbar-saturate));
@@ -34,9 +34,9 @@
 }
 
 #kesson-topbar .topbar-main-title {
-  color: var(--ks-topbar-title-color);
+  color: var(--kesson-topbar-title-color);
   font-family: var(--kesson-font-serif-display);
-  font-size: var(--ks-topbar-main-title-size);
+  font-size: var(--kesson-topbar-main-title-size);
   letter-spacing: 0.04em;
   line-height: 1;
   text-transform: none;
@@ -48,12 +48,12 @@
 
 #kesson-topbar .topbar-main-title:hover,
 #kesson-topbar .topbar-main-title:focus-visible {
-  color: var(--ks-topbar-title-hover-color);
+  color: var(--kesson-topbar-title-hover-color);
 }
 
 #kesson-topbar .topbar-status-badge {
   font-family: var(--kesson-font-mono-ui);
-  font-size: var(--ks-topbar-credit-size);
+  font-size: var(--kesson-topbar-credit-size);
   letter-spacing: 0.08em;
   padding: 0.2rem 0.5rem;
   line-height: 1.1;
@@ -61,8 +61,8 @@
 }
 
 #kesson-topbar .topbar-subtitle {
-  font-size: var(--ks-topbar-subtitle-size);
-  color: var(--ks-topbar-subtitle-color);
+  font-size: var(--kesson-topbar-subtitle-size);
+  color: var(--kesson-topbar-subtitle-color);
   letter-spacing: var(--kesson-letter-ui-wide);
   line-height: 1;
   text-transform: none;
@@ -73,7 +73,7 @@
 #kesson-topbar .topbar-subtitle::before,
 #kesson-topbar .topbar-meta::before {
   content: '·';
-  color: var(--ks-topbar-divider-color);
+  color: var(--kesson-topbar-divider-color);
   margin-right: 0.45rem;
 }
 
@@ -81,23 +81,23 @@
   display: block;
   flex: 0 0 auto;
   padding: 0;
-  font-size: var(--ks-topbar-meta-size);
+  font-size: var(--kesson-topbar-meta-size);
   line-height: 1;
   letter-spacing: 0.05em;
-  color: var(--ks-topbar-meta-color);
+  color: var(--kesson-topbar-meta-color);
   font-family: var(--kesson-font-serif-ui);
   pointer-events: none;
 }
 
 #kesson-topbar .topbar-meta--author {
-  font-size: var(--ks-topbar-meta-author-size);
-  color: var(--ks-topbar-meta-author-color);
+  font-size: var(--kesson-topbar-meta-author-size);
+  color: var(--kesson-topbar-meta-author-color);
 }
 
 #kesson-topbar .topbar-link {
-  color: var(--ks-topbar-link-color);
+  color: var(--kesson-topbar-link-color);
   font-family: var(--kesson-font-mono-ui);
-  font-size: var(--ks-topbar-link-size);
+  font-size: var(--kesson-topbar-link-size);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   padding: 0.4rem 0.72rem;
@@ -107,8 +107,8 @@
 
 #kesson-topbar .topbar-link:hover,
 #kesson-topbar .topbar-link:focus-visible {
-  color: var(--ks-topbar-link-hover-color);
-  background: var(--ks-topbar-link-hover-bg);
+  color: var(--kesson-topbar-link-hover-color);
+  background: var(--kesson-topbar-link-hover-bg);
 }
 
 #kesson-topbar .topbar-link-btn {
@@ -120,28 +120,28 @@
 }
 
 #kesson-topbar .topbar-lang-btn {
-  color: var(--ks-topbar-lang-color);
-  border: 1px solid var(--ks-topbar-lang-border);
-  background: var(--ks-topbar-lang-bg);
+  color: var(--kesson-topbar-lang-color);
+  border: 1px solid var(--kesson-topbar-lang-border);
+  background: var(--kesson-topbar-lang-bg);
 }
 
 #kesson-topbar .topbar-collab-item {
   margin-left: 0.45rem;
   padding-left: 0.55rem;
-  border-left: 1px solid var(--ks-topbar-note-divider-color);
+  border-left: 1px solid var(--kesson-topbar-note-divider-color);
 }
 
 #kesson-topbar .topbar-collab-note {
   display: inline-block;
   font-family: var(--kesson-font-serif-ui);
-  font-size: var(--ks-topbar-note-size);
+  font-size: var(--kesson-topbar-note-size);
   line-height: 1;
   letter-spacing: var(--kesson-letter-ui-normal);
-  color: var(--ks-topbar-note-color);
+  color: var(--kesson-topbar-note-color);
   white-space: nowrap;
   margin-left: 0.5rem;
   padding-left: 0.56rem;
-  border-left: 1px solid var(--ks-topbar-note-divider-color);
+  border-left: 1px solid var(--kesson-topbar-note-divider-color);
   min-width: 0;
   max-width: min(42vw, 18rem);
   overflow: hidden;
@@ -160,14 +160,14 @@
   letter-spacing: 0.08em;
   padding: 0.2rem 0.5rem;
   background: transparent;
-  border: 1px solid var(--ks-topbar-nav-border);
-  color: var(--ks-topbar-link-color);
+  border: 1px solid var(--kesson-topbar-nav-border);
+  color: var(--kesson-topbar-link-color);
   line-height: 1.4;
 }
 
 .topbar-font-btn:hover:not(:disabled) {
-  background: var(--ks-topbar-link-hover-bg);
-  color: var(--ks-topbar-link-hover-color);
+  background: var(--kesson-topbar-link-hover-bg);
+  color: var(--kesson-topbar-link-hover-color);
 }
 
 .topbar-font-btn:disabled {
@@ -176,20 +176,20 @@
 }
 
 #kesson-topbar .topbar-toggler {
-  border-color: var(--ks-topbar-toggler-border);
+  border-color: var(--kesson-topbar-toggler-border);
   padding: 0.18rem 0.44rem;
 }
 
 #kesson-topbar .topbar-toggler:focus {
-  box-shadow: 0 0 0 0.14rem var(--ks-topbar-toggler-focus);
+  box-shadow: 0 0 0 0.14rem var(--kesson-topbar-toggler-focus);
 }
 
 #kessonTopbarNav {
   margin-top: 0.35rem;
   padding: 0.35rem 0.2rem 0.5rem;
   border-radius: 0.6rem;
-  background: var(--ks-topbar-nav-bg);
-  border: 1px solid var(--ks-topbar-nav-border);
+  background: var(--kesson-topbar-nav-bg);
+  border: 1px solid var(--kesson-topbar-nav-border);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -220,7 +220,7 @@
   }
 
   #kesson-topbar .topbar-subtitle {
-    font-size: var(--ks-topbar-subtitle-size-md);
+    font-size: var(--kesson-topbar-subtitle-size-md);
   }
 }
 
@@ -230,11 +230,11 @@
   }
 
   #kesson-topbar .topbar-main-title {
-    font-size: var(--ks-topbar-main-title-size-sm);
+    font-size: var(--kesson-topbar-main-title-size-sm);
   }
 
   #kesson-topbar .topbar-collab-note {
-    font-size: var(--ks-topbar-credit-size);
+    font-size: var(--kesson-topbar-credit-size);
     letter-spacing: 0.05em;
     margin-left: 0.36rem;
     padding-left: 0.36rem;

@@ -9,6 +9,7 @@
 #reports-section {
   position: relative;
   z-index: 5;
+  --reports-font-step: 0rem;
   --reports-font-mono: var(--kesson-font-mono-ui);
   --reports-font-serif: var(--kesson-font-serif-ui);
   --reports-panel-radius: 0.5rem;
@@ -292,7 +293,7 @@
 
 .reports-feature-description {
   color: rgba(var(--color-sub-text), 0.72);
-  font-size: var(--ks-card-text, 0.7rem);
+  font-size: var(--kesson-card-text, 0.7rem);
   line-height: 1.55;
 }
 
