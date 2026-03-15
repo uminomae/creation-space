@@ -66,18 +66,9 @@ export function createReportsRenderer({
             : (taxonomyEntry.descriptionEn || taxonomyEntry.descriptionJa || '');
     }
 
-    function formatProgressDescription(level, progressModel = []) {
-        const base = getProgressLevelDescription(level);
-        if (!progressModel.length || progressModel[0] === 'unknown') return base;
-
-        const modelStr = progressModel.join(' + ');
-        if (!base) return `（${modelStr}）`;
-
-        return normalizeLang(state.lang) === 'ja'
-            ? `${base}（${modelStr}）`
-            : `${base} (${modelStr})`;
+    function formatProgressDescription(level) {
+        return getProgressLevelDescription(level);
     }
-
     function getPresentProgressTaxonomy() {
         return state.progressTaxonomy.filter((entry) => (state.progressLevelCounts[entry.id] || 0) > 0);
     }
@@ -388,7 +379,7 @@ export function createReportsRenderer({
         const level = normalizeProgressLevelId(report.progressLevel) || 'not_surveyed';
         const paletteClass = getProgressPaletteClass(level, paletteMap);
         const statusText = getProgressLevelLabel(level);
-        const statusDescription = formatProgressDescription(level, report.progressModel || []);
+        const statusDescription = formatProgressDescription(level);
         const sources = getReportSources(report);
         const clickable = sources.length > 0 && !muted;
         const tile = clickable ? document.createElement('button') : document.createElement('article');
