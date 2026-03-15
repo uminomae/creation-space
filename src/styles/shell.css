@@ -12,6 +12,7 @@
   --kesson-font-size-ui-xs: 0.80rem;
   --kesson-font-size-ui-sm: 0.80rem;
   --kesson-font-size-ui-arrow: clamp(0.7rem, 3.5vmin, 1.2rem);
+  --reports-font-step: 0rem;
   --kesson-letter-ui-tight: 0.03em;
   --kesson-letter-ui-normal: 0.06em;
   --kesson-letter-ui-wide: 0.1em;
