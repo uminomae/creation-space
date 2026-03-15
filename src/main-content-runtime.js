@@ -31,7 +31,7 @@ export function initMainContentRuntime({
 
     applyGraphicMode(initialGraphicMode, { shouldSyncQuery: false });
 
-    initArticles({ lang: initialLang }).catch((error) => {
+    initArticles({ lang: initialLang, devMode }).catch((error) => {
         console.warn('[articles] init failed:', error);
     });
 

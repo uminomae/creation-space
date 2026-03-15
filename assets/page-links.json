@@ -4,7 +4,8 @@
     "design_system": {
       "label": "Design System",
       "path": "./dev-components.html",
-      "query": {}
+      "query": {},
+      "devOnly": true
     },
     "domain_d23_developmental_psychology": {
       "label": "D23 発達心理学",
