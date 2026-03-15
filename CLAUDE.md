@@ -44,6 +44,14 @@ CSS（`src/styles/` 配下）を変更する前に:
 2. `dev-components.html` のソースを読み、変更対象の影響範囲を確認する
 3. CSS変更後、`dev-components.html` の該当コンポーネントも更新する
 
+### Bootstrap 優先原則
+
+- レイアウト（flex, grid, spacing）は Bootstrap ユーティリティクラスを最優先で使う
+- ボタンは Bootstrap `.btn` をベースとし、テーマ上書きはCSS変数で行う
+- レスポンシブ表示切替は Bootstrap の `d-{breakpoint}-*` クラスを使う
+- カスタム CSS は Bootstrap で実現不可能なもの（独自アニメーション、glassmorphism、Three.js連携、デザイントークン）に限定する
+- 新しいCSSプロパティを手書きする前に、同等の Bootstrap クラスが存在しないか確認する
+
 ## ディレクトリ構造
 
 | パス | 役割 |
