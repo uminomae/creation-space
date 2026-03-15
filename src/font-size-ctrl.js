@@ -14,7 +14,7 @@ const FONT_VARS = {
 };
 
 const CLASS_VARS = {
-    '--kesson-section-heading': 0.75,
+    '--kesson-section-heading': 0.80,
     '--kesson-card-title': 0.80,
     '--kesson-card-text': 0.80,
     '--kesson-card-summary': 0.80,
@@ -31,6 +31,7 @@ const CLASS_VARS = {
     '--kesson-topbar-meta-size': 0.80,
     '--kesson-topbar-meta-author-size': 0.80,
     '--kesson-topbar-subtitle-size-md': 0.80,
+    '--kesson-topbar-title-size': 0.80,
     '--kesson-topbar-main-title-size': 0.96,
     '--kesson-topbar-main-title-size-sm': 0.86,
     '--kesson-h1-size': 1.00,
