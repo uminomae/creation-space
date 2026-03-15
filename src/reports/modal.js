@@ -128,7 +128,16 @@ export function createReportsModalController({
             if (!raw) throw (lastError || new Error('No markdown source could be loaded'));
 
             const { meta, body } = parseFrontmatter(raw);
-            const html = DOMPurify.sanitize(marked.parse(body || raw));
+            // MD取得元URLから画像の相対パスを解決する
+            const mdBaseUrl = resolvedSource.mdUrl ? resolvedSource.mdUrl.replace(/\/[^/]*$/, '/') : '';
+            let parsedHtml = marked.parse(body || raw);
+            if (mdBaseUrl) {
+                parsedHtml = parsedHtml.replace(/<img\s+([^>]*?)src="(?!https?:\/\/)([^"]+)"/g, (match, pre, relPath) => {
+                    const absUrl = new URL(relPath, mdBaseUrl).href;
+                    return `<img ${pre}src="${absUrl}"`;
+                });
+            }
+            const html = DOMPurify.sanitize(parsedHtml);
             const availablePdfUrl = await availablePdfUrlPromise;
 
             if (requestId !== state.mdRequestId) return;
