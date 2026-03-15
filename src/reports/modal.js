@@ -150,36 +150,40 @@ export function createReportsModalController({
                     </div>
                 `;
 
-                // モーダル内リンク・画像クリック処理
-                state.dom.mdModalContent.addEventListener('click', (event) => {
-                    const img = event.target.closest('img');
-                    if (img) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                        // 画像クリック → 画像モーダル表示
-                        const overlay = document.createElement('div');
-                        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;z-index:2000;';
-                        const closeBtn = document.createElement('button');
-                        closeBtn.textContent = '✕';
-                        closeBtn.style.cssText = 'position:absolute;top:16px;right:24px;background:none;border:none;color:#fff;font-size:32px;cursor:pointer;z-index:2001;line-height:1;padding:8px;';
-                        closeBtn.addEventListener('click', () => overlay.remove());
-                        const fullImg = document.createElement('img');
-                        fullImg.src = img.src;
-                        fullImg.style.cssText = 'max-width:90%;max-height:90%;border-radius:4px;cursor:default;';
-                        overlay.appendChild(closeBtn);
-                        overlay.appendChild(fullImg);
-                        overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
-                        const onEsc = (e) => { if (e.key === 'Escape') { overlay.remove(); e.stopPropagation(); document.removeEventListener('keydown', onEsc, true); } };
-                        document.addEventListener('keydown', onEsc, true);
-                        document.body.appendChild(overlay);
-                        return;
-                    }
-                    const link = event.target.closest('a');
-                    if (link) {
-                        event.preventDefault();
-                        window.open(link.href, '_blank');
-                    }
-                });
+                // モーダル内リンク・画像クリック処理（重複登録防止）
+                if (!state.dom.mdModalContent._contentClickBound) {
+                    state.dom.mdModalContent._contentClickBound = true;
+                    state.dom.mdModalContent.addEventListener('click', (event) => {
+                        const img = event.target.closest('.md-body img');
+                        if (img) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                            const overlay = document.createElement('div');
+                            overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;z-index:2000;';
+                            const closeBtn = document.createElement('button');
+                            closeBtn.textContent = '✕';
+                            closeBtn.style.cssText = 'position:absolute;top:16px;right:24px;background:none;border:none;color:#fff;font-size:32px;cursor:pointer;z-index:2001;line-height:1;padding:8px;';
+                            const removeOverlay = () => { overlay.remove(); document.removeEventListener('keydown', onEsc, true); };
+                            closeBtn.addEventListener('click', (e) => { e.stopPropagation(); removeOverlay(); });
+                            const fullImg = document.createElement('img');
+                            fullImg.src = img.src;
+                            fullImg.style.cssText = 'max-width:90%;max-height:90%;border-radius:4px;cursor:default;';
+                            fullImg.addEventListener('click', (e) => e.stopPropagation());
+                            overlay.appendChild(closeBtn);
+                            overlay.appendChild(fullImg);
+                            overlay.addEventListener('click', (e) => { if (e.target === overlay) removeOverlay(); });
+                            const onEsc = (e) => { if (e.key === 'Escape') { removeOverlay(); e.stopPropagation(); } };
+                            document.addEventListener('keydown', onEsc, true);
+                            document.body.appendChild(overlay);
+                            return;
+                        }
+                        const link = event.target.closest('.md-body a');
+                        if (link) {
+                            event.preventDefault();
+                            window.open(link.href, '_blank');
+                        }
+                    });
+                }
             }
 
             const strings = getStrings(state.lang);
