@@ -30,6 +30,7 @@ export async function initDevStats() {
     _stats.showPanel(0);
 
     _stats.dom.classList.add('dev-fps-panel');
+    _stats.dom.style.cssText = '';
     _stats.dom.dataset.panel = '0';
     document.body.appendChild(_stats.dom);
 
