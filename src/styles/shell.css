@@ -624,7 +624,7 @@ html[lang="en"] #taglines {
 }
 
 .section-heading {
-  font-size: var(--kesson-section-heading, 0.75rem);
+  font-size: var(--kesson-section-heading, 0.80rem);
   font-weight: 400;
   color: rgba(var(--color-sub-text), 0.5);
   letter-spacing: 0.15em;

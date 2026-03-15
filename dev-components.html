@@ -1317,7 +1317,61 @@
         </div>
       </article>
     </section>
+
+    <section class="ds-section" data-category="font-size-ctrl" aria-labelledby="font-size-ctrl-title">
+      <header>
+        <h2 id="font-size-ctrl-title">Font Size Control (A+/A-)</h2>
+        <p><code>src/font-size-ctrl.js</code> が管理するフォントサイズ調整機能のデモです。A+ / A- ボタンで全 CSS 変数が連動します。step は localStorage に保存され、ページ間で共有されます。</p>
+      </header>
+
+      <\!-- Component: font-size-ctrl -->
+      <\!-- Variables: --kesson-font-size-ui-xs, --kesson-font-size-ui-sm, --kesson-section-heading, --kesson-card-title, --kesson-card-text, --kesson-overlay-tagline, --kesson-footer-line, --kesson-dev-hud-font-size, --kesson-topbar-link-size, --kesson-topbar-main-title-size, --kesson-h1-size, --reports-font-step -->
+      <\!-- Intent: A+/A- ボタンの動作確認と、step 変化時のフォントサイズ連動を視覚的にデモする -->
+      <article class="ds-component" data-component="font-size-ctrl" data-source="src/font-size-ctrl.js" data-variables="--kesson-font-size-ui-xs,--kesson-font-size-ui-sm,--kesson-section-heading,--kesson-card-title,--kesson-card-text,--kesson-overlay-tagline,--kesson-footer-line,--kesson-dev-hud-font-size,--kesson-topbar-link-size,--kesson-topbar-main-title-size,--kesson-h1-size,--reports-font-step">
+        <h3>Controls</h3>
+        <p>ボタンを押すとページ全体のフォントサイズが変わります。step 範囲: -1 ~ 7 (default: 0)</p>
+        <div class="ds-demo-shell">
+          <div style="display: flex; align-items: center; gap: 0.6rem;">
+            <button type="button" id="font-size-down" style="padding: 0.3rem 0.7rem; border: 1px solid var(--kesson-topbar-nav-border); border-radius: 4px; background: transparent; color: var(--kesson-topbar-link-color); font-family: var(--kesson-font-mono-ui); font-size: var(--kesson-topbar-credit-size, 0.80rem); cursor: pointer;">A-</button>
+            <button type="button" id="font-size-reset" style="padding: 0.3rem 0.7rem; border: 1px solid var(--kesson-topbar-nav-border); border-radius: 4px; background: transparent; color: var(--kesson-topbar-link-color); font-family: var(--kesson-font-mono-ui); font-size: var(--kesson-topbar-credit-size, 0.80rem); cursor: pointer;">Reset</button>
+            <button type="button" id="font-size-up" style="padding: 0.3rem 0.7rem; border: 1px solid var(--kesson-topbar-nav-border); border-radius: 4px; background: transparent; color: var(--kesson-topbar-link-color); font-family: var(--kesson-font-mono-ui); font-size: var(--kesson-topbar-credit-size, 0.80rem); cursor: pointer;">A+</button>
+            <span id="ds-font-step-readout" style="font-family: var(--kesson-font-mono-ui); font-size: var(--kesson-dev-hud-font-size, 0.80rem); color: var(--kesson-dev-hud-text);">step: 0</span>
+          </div>
+        </div>
+
+        <h3>Sample Text at Various Variables</h3>
+        <div class="ds-demo-shell">
+          <div style="display: grid; gap: 0.7rem;">
+            <p style="margin:0; font-size: var(--kesson-section-heading, 0.80rem); font-family: var(--kesson-font-mono-ui); letter-spacing: 0.15em; text-transform: uppercase; color: rgba(var(--color-sub-text), 0.5);">section-heading: SAMPLE HEADING</p>
+            <p style="margin:0; font-size: var(--kesson-card-title, 0.80rem); color: #fff;">card-title: Sample Card Title</p>
+            <p style="margin:0; font-size: var(--kesson-card-text, 0.80rem); color: rgba(var(--color-heading), 0.5);">card-text: Sample card description text</p>
+            <p style="margin:0; font-size: var(--kesson-overlay-tagline, 0.80rem); font-family: var(--kesson-font-serif-display); color: rgba(var(--color-heading), 0.75);">overlay-tagline: Sample tagline</p>
+            <p style="margin:0; font-size: var(--kesson-footer-line, 0.80rem); font-family: var(--kesson-font-mono-ui); color: rgba(150, 175, 210, 0.25);">footer-line: &lt;footer sample text /&gt;</p>
+            <p style="margin:0; font-size: var(--kesson-topbar-main-title-size); font-family: var(--kesson-font-serif-display); color: var(--kesson-topbar-title-color);">topbar-main-title: creation-space</p>
+            <p style="margin:0; font-size: var(--kesson-h1-size); font-family: var(--kesson-font-serif-display); color: rgba(var(--color-heading), 0.95);">h1-size: Hero Heading</p>
+          </div>
+        </div>
+      </article>
+    </section>
   </main>
+
+  <script type="module">
+    import { initFontSizeCtrl } from './src/font-size-ctrl.js';
+    initFontSizeCtrl();
+
+    // Update readout on step change
+    const readout = document.getElementById('ds-font-step-readout');
+    if (readout) {
+      const STORAGE_KEY = 'kesson-font-step';
+      const update = () => {
+        try { readout.textContent = 'step: ' + (localStorage.getItem(STORAGE_KEY) ?? '0'); } catch (e) {}
+      };
+      update();
+      document.getElementById('font-size-down')?.addEventListener('click', () => setTimeout(update, 50));
+      document.getElementById('font-size-up')?.addEventListener('click', () => setTimeout(update, 50));
+      document.getElementById('font-size-reset')?.addEventListener('click', () => setTimeout(update, 50));
+    }
+  </script>
 
   <script>
     (() => {
