@@ -1,12 +1,24 @@
 # docs/README.md — プロジェクト管理ハブ
 
-**バージョン**: 2.1
-**更新日**: 2026-03-14
+**バージョン**: 2.2
+**更新日**: 2026-03-15
 
 ## 位置づけ
 
 このファイルは `creation-space` の管理書類ハブ。
 `CLAUDE.md` などのエージェント向け入口から最初に参照し、必要な管理文書へ移動する。
+
+## docs/ のスコープ
+
+docs/ に置くもの:
+- プロジェクト管理体系のドキュメント（ルール、仕様、正本）
+- 調査から抽出されたナレッジ（設計判断の結論、taxonomy の正本）
+- CLI/AI 向けのリファレンス
+
+docs/ に置かないもの:
+- 調査レポートの原本（→ `evidence/` または `evidence/investigations/`）
+- 一時的な作業メモ（→ `.cache/`）
+- コード固有の説明（→ 該当ディレクトリの README.md）
 
 ## 1. プロジェクト概要
 
@@ -38,8 +50,8 @@
 | `assets/articles/articles.json` | ARTICLES のローカル fallback データ |
 | `assets/reports/scenarios/split-d22.json` | reports taxonomy / UI の検証シナリオ |
 | `evidence/PROJECT.md` | 調査方針・5段階モデル・進捗管理の正本 |
+| `evidence/investigations/` | 調査レポートの原本（cs23 カテゴリ設計、cs43 モーダル deep link 等） |
 | `docs/evidence-metadata-creation.md` | 公開ラベル taxonomy / `generator_model` の正本 |
-| `docs/survey-progress-taxonomy.md` | 進捗ラベルの設計記録（履歴） |
 | `transform/domains/reader-rules/reader-rules-creation-report.md` | 領域レポート生成ルール |
 | `kb/schema/five-stages.md` | 5段階モデル schema の現在参照先 |
 | `kb/schema/academic-domains.md` | D01-D30 学問領域マスターの現在参照先 |
@@ -51,10 +63,9 @@
 | `CLAUDE.md` | セッション開始・終了、Git 規約、関連 repo の要約 |
 | `.claude/rules/commit-rules.md` | コミットメッセージと push 前チェック |
 | `.claude/rules/project-structure.md` | `src/` 構成、CSS 配置、データフロー概要 |
-| `docs/investigation-cs23-categorize.md` | REPORTS の進捗カテゴリ設計調査 |
-| `docs/investigation-cs43-modal-deeplink.md` | モーダル deep link 設計調査 |
+| `evidence/investigations/investigation-cs23-categorize.md` | REPORTS の進捗カテゴリ設計調査 |
+| `evidence/investigations/investigation-cs43-modal-deeplink.md` | モーダル deep link 設計調査 |
 | `docs/evidence-metadata-creation.md` | creation 固有 metadata 正本 |
-| `docs/survey-progress-taxonomy.md` | 調査進捗ラベルの設計記録 |
 | `evidence/CLAUDE.md` | `evidence/` 配下での補助ルール |
 
 ## 5. 開発フロー
@@ -93,7 +104,7 @@ git push origin develop
 
 | タスク | 先に読むもの |
 |---|---|
-| UI / Reports 変更 | `src/reports.js`, `docs/investigation-cs23-categorize.md`, `docs/investigation-cs43-modal-deeplink.md` |
+| UI / Reports 変更 | `src/reports.js`, `evidence/investigations/investigation-cs23-categorize.md`, `evidence/investigations/investigation-cs43-modal-deeplink.md` |
 | 調査方針の確認 | `evidence/PROJECT.md` |
 | 領域レポート再生成 | `transform/domains/README.md` |
 | 管理体系の更新 | `CLAUDE.md`, `.claude/rules/commit-rules.md`, `.claude/rules/project-structure.md` |
@@ -106,3 +117,4 @@ git push origin develop
 | 2026-03-11 | 1.1 | `transform/` と `kb/` の入口を追加 |
 | 2026-03-14 | 2.0 | `CLAUDE.md` と `.claude/rules/` に合わせて管理ハブを再編 |
 | 2026-03-14 | 2.1 | `docs/evidence-metadata-creation.md` を追加し、公開 metadata の正本参照先を更新 (#248) |
+| 2026-03-15 | 2.2 | docs/ スコープルール追加。investigation を `evidence/investigations/` へ移動、`survey-progress-taxonomy.md` 削除 |

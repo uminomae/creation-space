@@ -50,7 +50,7 @@ CSS（`src/styles/` 配下）を変更する前に:
 |---|---|
 | `src/` | Web UI 本体。Three.js 描画、Reports UI、スタイル、各種 runtime |
 | `assets/` | ローカル静的データ。articles 一覧、reports シナリオなど |
-| `docs/` | 管理書類のハブと調査メモ |
+| `docs/` | 管理書類のハブ（ルール・仕様・正本のみ。調査原本は evidence/ に置く） |
 | `evidence/` | 30領域の調査データ本体、deepdive、review |
 | `transform/` | evidence から公開用 Markdown / PDF / KB を再生成する workflow |
 | `kb/` | 公開用ナレッジベースの受け皿 |
