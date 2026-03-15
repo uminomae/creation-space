@@ -127,8 +127,32 @@ creation-space/src/reports.js
 2. `reports.js` の taxonomy 表示と badge 対応を同時に確認する
 3. `domains.json` 側の `progress_level` / `label_description_*` / `generator_model` と不一致のまま公開しない
 
+## §2.7 旧 progress_level のマイグレーション
+
+以下の旧 level 名は `src/reports/data.js` の `normalizeProgressLevel()` で自動変換される。
+
+| 旧 level | 変換先 | 導入時期 |
+|----------|--------|---------|
+| `quick_scan` | `claude_screened` | v3.0以前 |
+| `structure_exploration` | `claude_screened` | v3.0以前 |
+| `analysis_complete` | `claude_gpt_reviewed` | v3.0以前 |
+
+新規データでは旧 level 名を使用しないこと。
+
+## §2.8 progress_note の運用ルール
+
+`progress_note` は `progress_level` の補足説明フィールド。
+
+| ルール | 内容 |
+|--------|------|
+| 役割 | progress_level の label_ja と異なる追加情報がある場合のみ使用 |
+| 冗長禁止 | label_ja と同じ文面を繰り返さない（例: 「Claude＋GPT照合済」が label と同一なら省略可） |
+| 内部用語禁止 | Phase、Step、Issue番号は含めない |
+| 空値許可 | 追加情報がなければ空文字列で可 |
+
 ## 更新履歴
 
 | 日付 | バージョン | 内容 |
 |---|---|---|
+| 2026-03-16 | 1.1 | §2.7 旧 level マイグレーションテーブル、§2.8 progress_note 運用ルールを追加 (cs#77 子タスク4-5) |
 | 2026-03-14 | 1.0 | `kesson-driven-thinking/base/schema/evidence-metadata.md` §2 / §2.5 を creation-space 側へ移植し、公開ラベルタクソノミーと `generator_model` の正本を分離 (#248) |
