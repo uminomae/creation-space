@@ -483,11 +483,16 @@ function normalizeReport(report, index) {
         ? report.id.trim()
         : `D${String(index + 1).padStart(2, '0')}`;
 
+    // v1.0 format uses "name" (slug) instead of "name_ja"; derive display name from slug
+    const rawSlug = typeof report?.slug === 'string' && report.slug.trim()
+        ? report.slug.trim()
+        : (typeof report?.name === 'string' ? report.name.trim() : '');
+
     const nameJa = typeof report?.name_ja === 'string' && report.name_ja.trim()
         ? report.name_ja.trim()
-        : id;
+        : (slugToTitle(rawSlug) || id);
 
-    const fallbackEn = slugToTitle(report?.slug) || nameJa;
+    const fallbackEn = slugToTitle(rawSlug) || nameJa;
     const nameEn = typeof report?.name_en === 'string' && report.name_en.trim()
         ? report.name_en.trim()
         : fallbackEn;
@@ -497,7 +502,7 @@ function normalizeReport(report, index) {
 
     return {
         id,
-        slug: typeof report?.slug === 'string' ? report.slug.trim() : '',
+        slug: rawSlug,
         nameJa,
         nameEn,
         status: report?.status === 'published' ? 'published' : 'planned',
@@ -725,7 +730,7 @@ export async function loadReportsData({
 
     const normalizedAssetBaseUrl = normalizeAssetBaseUrl(assetBaseUrl);
     const normalizedAssetMdBaseUrl = normalizeAssetBaseUrl(assetMdBaseUrl, DEFAULT_REPORTS_MD_ASSET_BASE);
-    const rawReports = Array.isArray(payload?.reports) ? payload.reports : [];
+    const rawReports = Array.isArray(payload?.reports) ? payload.reports : (Array.isArray(payload?.domains) ? payload.domains : []);
     const reports = sortReportsById(rawReports.map(normalizeReport));
     const progressTaxonomy = normalizeProgressTaxonomy(getManifestProgressTaxonomy(payload), reports);
 

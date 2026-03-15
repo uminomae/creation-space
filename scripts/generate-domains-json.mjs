@@ -243,6 +243,7 @@ async function generate(options) {
     version: '3.0',
     generated_at: new Date().toISOString(),
     namespace: 'domains',
+    progress_taxonomy: index.progress_taxonomy,
     reports,
   };
 
