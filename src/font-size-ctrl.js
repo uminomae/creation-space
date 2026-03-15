@@ -9,27 +9,29 @@ const STORAGE_KEY = 'kesson-font-step';
 const MIGRATION_KEY = 'kesson-font-step-v5';
 
 const FONT_VARS = {
-    '--kesson-font-size-ui-xs': 0.70,
-    '--kesson-font-size-ui-sm': 0.70,
+    '--kesson-font-size-ui-xs': 0.80,
+    '--kesson-font-size-ui-sm': 0.80,
 };
 
 const CLASS_VARS = {
     '--kesson-section-heading': 0.75,
     '--kesson-card-title': 0.80,
-    '--kesson-card-text': 0.70,
-    '--kesson-card-summary': 0.70,
-    '--kesson-overlay-tagline': 0.70,
-    '--kesson-overlay-tagline-en': 0.70,
-    '--kesson-control-guide': 0.70,
-    '--kesson-footer-line': 0.70,
-    '--kesson-surface-btn': 0.70,
-    '--kesson-dev-hud-font-size': 0.70,
+    '--kesson-card-text': 0.80,
+    '--kesson-card-summary': 0.80,
+    '--kesson-overlay-tagline': 0.80,
+    '--kesson-overlay-tagline-en': 0.80,
+    '--kesson-control-guide': 0.80,
+    '--kesson-footer-line': 0.80,
+    '--kesson-surface-btn': 0.80,
+    '--kesson-dev-hud-font-size': 0.80,
     '--kesson-topbar-link-size': 0.80,
-    '--kesson-topbar-credit-size': 0.70,
+    '--kesson-topbar-credit-size': 0.80,
     '--kesson-topbar-note-size': 0.80,
-    '--kesson-topbar-meta-size': 0.70,
-    '--kesson-topbar-meta-author-size': 0.70,
-    '--kesson-topbar-subtitle-size-md': 0.70,
+    '--kesson-topbar-meta-size': 0.80,
+    '--kesson-topbar-meta-author-size': 0.80,
+    '--kesson-topbar-subtitle-size-md': 0.80,
+    '--kesson-topbar-main-title-size': 0.96,
+    '--kesson-topbar-main-title-size-sm': 0.86,
     '--kesson-h1-size': 1.00,
 };
 
