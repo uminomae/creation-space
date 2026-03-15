@@ -13,6 +13,15 @@
     ],
     "PreToolUse": [
       {
+        "matcher": "Read|Glob|Grep|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/read-path-guard.sh"
+          }
+        ]
+      },
+      {
         "matcher": "Read|Glob|Grep|LS|Bash",
         "hooks": [
           {
@@ -38,9 +47,45 @@
             "command": ".claude/hooks/state-lock-guard.sh"
           }
         ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/instruction-prereq-guard.sh"
+          }
+        ]
       }
     ],
     "PostToolUse": [
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/read-path-guard.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/issue-sync-guard.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/instruction-lint.sh"
+          }
+        ]
+      },
       {
         "matcher": "Edit|MultiEdit|Write",
         "hooks": [
@@ -58,6 +103,10 @@
           {
             "type": "command",
             "command": ".claude/hooks/state-lock-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/issue-sync-guard.sh"
           }
         ]
       }
