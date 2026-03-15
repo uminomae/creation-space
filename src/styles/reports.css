@@ -27,7 +27,7 @@
   --reports-card-bg: rgba(var(--color-accent), 0.06);
   --reports-card-border: rgba(var(--color-accent), 0.14);
   --reports-control-font-size: clamp(
-    calc(0.70rem + var(--reports-font-step, 0rem)),
+    calc(0.80rem + var(--reports-font-step, 0rem)),
     calc(2.2vmin + var(--reports-font-step, 0rem)),
     calc(0.78rem + var(--reports-font-step, 0rem))
   );
@@ -198,7 +198,7 @@
   margin: 0 0 0.85rem;
   color: rgba(var(--color-sub-text), 0.78);
   font-size: clamp(
-    calc(0.70rem + var(--reports-font-step, 0rem)),
+    calc(0.80rem + var(--reports-font-step, 0rem)),
     calc(2.0vmin + var(--reports-font-step, 0rem)),
     calc(0.8rem + var(--reports-font-step, 0rem))
   );
@@ -211,7 +211,7 @@
   margin: 0 0 0.65rem;
   color: rgba(var(--color-sub-text), 0.7);
   font-size: clamp(
-    calc(0.70rem + var(--reports-font-step, 0rem)),
+    calc(0.80rem + var(--reports-font-step, 0rem)),
     calc(2.1vmin + var(--reports-font-step, 0rem)),
     calc(0.76rem + var(--reports-font-step, 0rem))
   );
@@ -292,7 +292,7 @@
 
 .reports-feature-description {
   color: rgba(var(--color-sub-text), 0.72);
-  font-size: var(--kesson-card-text, 0.7rem);
+  font-size: var(--kesson-card-text, 0.8rem);
   line-height: 1.55;
 }
 
@@ -307,7 +307,7 @@
 
 .report-metric-label {
   color: rgba(var(--color-heading), 0.5);
-  font-size: calc(0.70rem + var(--reports-font-step, 0rem));
+  font-size: calc(0.80rem + var(--reports-font-step, 0rem));
   letter-spacing: var(--kesson-letter-ui-tight);
   font-family: var(--reports-font-serif);
 }
@@ -403,7 +403,7 @@
 .reports-domain-item-id {
   color: rgba(var(--color-sub-text), 0.85);
   letter-spacing: 0.08em;
-  font-size: calc(0.70rem + var(--reports-font-step, 0rem));
+  font-size: calc(0.80rem + var(--reports-font-step, 0rem));
 }
 
 .reports-domain-item-status {
@@ -415,13 +415,13 @@
   line-height: 1.2;
   padding-inline: 0.55em;
   font-family: var(--reports-font-mono);
-  font-size: calc(0.70rem + var(--reports-font-step, 0rem));
+  font-size: calc(0.80rem + var(--reports-font-step, 0rem));
   letter-spacing: 0.04em;
 }
 
 .reports-domain-item-desc {
   color: rgba(var(--color-highlight), 0.6);
-  font-size: calc(0.7rem + var(--reports-font-step, 0rem));
+  font-size: calc(0.8rem + var(--reports-font-step, 0rem));
   font-family: var(--reports-font-serif);
   line-height: 1.3;
   white-space: normal;
@@ -435,7 +435,7 @@
 
 .reports-domain-item-generator-model {
   color: rgba(var(--color-highlight), 0.48);
-  font-size: calc(0.70rem + var(--reports-font-step, 0rem));
+  font-size: calc(0.80rem + var(--reports-font-step, 0rem));
   font-family: var(--reports-font-mono);
   line-height: 1.3;
   letter-spacing: 0.02em;
@@ -444,7 +444,7 @@
 
 .reports-domain-item-name {
   color: rgba(var(--color-heading), 0.82);
-  font-size: calc(0.7rem + var(--reports-font-step, 0rem));
+  font-size: calc(0.8rem + var(--reports-font-step, 0rem));
   font-family: var(--kesson-font-serif-display);
   line-height: 1.2;
   letter-spacing: 0.03em;
@@ -487,7 +487,7 @@
 }
 
 .reports-md-header-actions .btn {
-  font-size: calc(0.70rem + var(--reports-font-step, 0rem));
+  font-size: calc(0.80rem + var(--reports-font-step, 0rem));
   padding: 0.25rem 0.7rem;
   white-space: nowrap;
 }
@@ -500,7 +500,7 @@
   padding: 0.15rem 0.5rem 0;
   color: rgba(var(--color-sub-text), 0.62) !important;
   font-family: var(--reports-font-mono);
-  font-size: calc(0.70rem + var(--reports-font-step, 0rem));
+  font-size: calc(0.80rem + var(--reports-font-step, 0rem));
   letter-spacing: 0.05em;
 }
 
@@ -531,7 +531,7 @@
 
   .reports-subheading,
   .reports-ai-notice {
-    font-size: calc(0.70rem + var(--reports-font-step, 0rem));
+    font-size: calc(0.80rem + var(--reports-font-step, 0rem));
   }
 
   #reports-primary-actions .reports-status-cta {
