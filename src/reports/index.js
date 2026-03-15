@@ -4,7 +4,9 @@ import {
     DEFAULT_REPORTS_ASSET_BASE,
     DEFAULT_REPORTS_DATA_URL,
     DEFAULT_REPORTS_MD_ASSET_BASE,
+    GUIDES_MANIFEST_URL,
     countReportsByProgressLevel,
+    loadGuidesGeneratedAt,
     loadReportsData,
     normalizeAssetBaseUrl,
     normalizeDomainId,
@@ -22,6 +24,7 @@ import { createReportsRenderer, getDomainReportTitle, getReportsStrings } from '
 const state = {
     lang: 'ja',
     generatedAt: '',
+    guidesGeneratedAt: '',
     reports: [],
     progressTaxonomy: DEFAULT_PROGRESS_TAXONOMY.map((entry) => ({ ...entry })),
     progressLevelCounts: {},
@@ -56,7 +59,6 @@ const state = {
         mdModalMeta: null,
         mdModalContent: null,
         mdOpenPdf: null,
-        mdCloseBtn: null,
     },
 };
 
@@ -177,6 +179,8 @@ export async function initReports({
 
     renderer.renderReports();
 
+    const guidesDatePromise = loadGuidesGeneratedAt(GUIDES_MANIFEST_URL);
+
     try {
         const loaded = await loadReportsData({
             dataUrl: state.dataUrl,
@@ -191,6 +195,7 @@ export async function initReports({
         state.activeScenario = loaded.activeScenario;
         state.loadError = false;
         state.reportsReady = true;
+        state.guidesGeneratedAt = await guidesDatePromise;
     } catch (error) {
         state.reports = [];
         state.progressTaxonomy = normalizeProgressTaxonomy([]);
@@ -222,4 +227,5 @@ export {
     DEFAULT_REPORTS_ASSET_BASE,
     DEFAULT_REPORTS_DATA_URL,
     DEFAULT_REPORTS_MD_ASSET_BASE,
+    GUIDES_MANIFEST_URL,
 };

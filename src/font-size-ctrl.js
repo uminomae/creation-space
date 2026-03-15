@@ -14,15 +14,15 @@ const FONT_VARS = {
 };
 
 const CLASS_VARS = {
-    '--ks-section-heading': 0.75,
-    '--ks-card-title': 0.80,
-    '--ks-card-text': 0.70,
-    '--ks-card-summary': 0.68,
-    '--ks-overlay-tagline': 0.55,
-    '--ks-overlay-tagline-en': 0.48,
-    '--ks-control-guide': 0.45,
-    '--ks-footer-line': 0.45,
-    '--ks-surface-btn': 0.55,
+    '--kesson-section-heading': 0.75,
+    '--kesson-card-title': 0.80,
+    '--kesson-card-text': 0.70,
+    '--kesson-card-summary': 0.68,
+    '--kesson-overlay-tagline': 0.55,
+    '--kesson-overlay-tagline-en': 0.48,
+    '--kesson-control-guide': 0.45,
+    '--kesson-footer-line': 0.45,
+    '--kesson-surface-btn': 0.55,
 };
 
 function normalizeStep(step) {

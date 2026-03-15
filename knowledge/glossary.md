@@ -1,7 +1,7 @@
 # 用語集（Glossary）
 
-**正本**: creation-space/kb/glossary.md
-**参照**: kb/schema/five-stages.md, kb/schema/academic-domains.md
+**正本**: creation-space/knowledge/glossary.md
+**参照**: knowledge/schema/five-stages.md, knowledge/schema/academic-domains.md
 **用途**: creation-space で使用される主要用語の定義。LLM・人間が共通の語彙で作業するための参照文書。
 
 ---
@@ -57,8 +57,8 @@
 
 創造や変化の過程を「場→波→縁→渦→束」の5段階で記述するモデル。特定の理論から演繹されたものではなく、複数領域の現象に共通して見出される構造パターンの記述。循環モデルであり、束は次のサイクルの場を支える。段階数の一致を各学術領域に求めるものではなく、移行のメカニズムと界面の性質を重視する。
 
-- 正本: kb/schema/five-stages.md
-- 解説: kb/five-stages-guide.md
+- 正本: knowledge/schema/five-stages.md
+- 解説: knowledge/five-stages-guide.md
 
 ---
 
@@ -90,7 +90,7 @@
 
 ### 構造類似探索
 
-30 の学術領域（D01-D30）を横断し、各領域の主要理論と5段階モデルとの構造対応を体系的に調査する作業。evidence/ に調査データを蓄積し、kb/domains/ にレポートとして整理する。
+30 の学術領域（D01-D30）を横断し、各領域の主要理論と5段階モデルとの構造対応を体系的に調査する作業。evidence/ に調査データを蓄積し、knowledge/domains/ にレポートとして整理する。
 
 ### 指月的記述（Finger-Pointing Description）
 
@@ -114,7 +114,7 @@
 
 ### D 番号（Domain ID）
 
-学術領域の一意な識別子。D01（数学）から D30（伝統知・技芸）まで。全リストは kb/schema/academic-domains.md を参照。
+学術領域の一意な識別子。D01（数学）から D30（伝統知・技芸）まで。全リストは knowledge/schema/academic-domains.md を参照。
 
 ### evidence
 
@@ -122,7 +122,7 @@
 
 ### レポート（Report）
 
-evidence に基づいて作成された、領域別の構造対応調査報告書。kb/domains/ に日英で格納される。reader-rules に従って生成される。
+evidence に基づいて作成された、領域別の構造対応調査報告書。knowledge/domains/ に日英で格納される。reader-rules に従って生成される。
 
 ### reader-rules
 

@@ -287,15 +287,14 @@
       <div class="modal-content reports-md-modal-content border border-secondary-subtle">
         <div class="modal-header">
           <h5 id="reports-md-modal-title" class="modal-title">Markdown</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="reports-md-header-actions">
+            <a id="reports-md-open-pdf" class="btn btn-outline-light btn-sm" href="#" target="_blank" rel="noopener">PDFを開く</a>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
         </div>
         <div class="modal-body">
           <div id="reports-md-meta" class="small text-body-secondary"></div>
           <article id="reports-md-content" class="reports-md-content mt-3"></article>
-        </div>
-        <div class="modal-footer d-flex justify-content-between flex-wrap gap-2">
-          <a id="reports-md-open-pdf" class="btn btn-outline-light btn-sm" href="#" target="_blank" rel="noopener">PDFを開く</a>
-          <button id="reports-md-close-btn" type="button" class="btn btn-outline-light btn-sm" data-bs-dismiss="modal">閉じる</button>
         </div>
       </div>
     </div>

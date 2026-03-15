@@ -62,6 +62,7 @@ function cacheDom() {
 export async function initArticles({
     lang = 'ja',
     dataUrls = DEFAULT_ARTICLES_DATA_URLS,
+    devMode = false,
     i18nUrls = DEFAULT_ARTICLES_I18N_CACHE_URLS,
 } = {}) {
     cacheDom();
@@ -73,7 +74,8 @@ export async function initArticles({
 
     try {
         setArticlesError(state.dom.error, '');
-        state.articles = await loadAndMergeArticles(dataUrls, i18nUrls);
+        const allArticles = await loadAndMergeArticles(dataUrls, i18nUrls);
+        state.articles = devMode ? allArticles : allArticles.filter((a) => !a.devOnly);
         state.loadError = false;
     } catch (error) {
         state.articles = [];

@@ -1,8 +1,8 @@
 # 5段階モデル解説（Five Stages Guide）
 
-**正本参照**: kb/schema/five-stages.md
+**正本参照**: knowledge/schema/five-stages.md
 **用途**: LLM および人間が5段階モデルの全体像を把握するための解説文書。スキーマ定義の補足として、各段階の読み方・遷移条件・よくある誤解を記述する。
-**用語**: kb/glossary.md
+**用語**: knowledge/glossary.md
 
 ---
 
@@ -182,5 +182,5 @@ activator/inhibitor + 遅延負帰還がパターン形成の必要条件であ�
 
 - **レポート生成時**: 各段階の定義と対応概念を参照し、reader-rules に従って読者向けに変換する。
 - **構造対応の評価時**: 各段階の定義と遷移条件を基準にする。段階数の一致ではなく、移行メカニズムの同型性を見る。
-- **用語の確認時**: kb/glossary.md と併用する。
-- **LLM が creation-space の全体像を把握するとき**: この文書と kb/glossary.md を読めば、5段階モデルの定義・性格・評価方法・横断的知見の概要に到達できる。
+- **用語の確認時**: knowledge/glossary.md と併用する。
+- **LLM が creation-space の全体像を把握するとき**: この文書と knowledge/glossary.md を読めば、5段階モデルの定義・性格・評価方法・横断的知見の概要に到達できる。

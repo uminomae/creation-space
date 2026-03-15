@@ -73,9 +73,6 @@ export function createReportsModalController({
                 </div>
             `;
         }
-        if (state.dom.mdCloseBtn) {
-            state.dom.mdCloseBtn.textContent = strings.modalClose;
-        }
         setModalPdfButton(pdfUrl);
     }
 
@@ -190,8 +187,13 @@ export function createReportsModalController({
             const metaParts = [];
             const generatorModel = hasText(meta.generator_model) ? meta.generator_model.trim() : resolvedSource.generatorModel;
             const generated = hasText(meta.generated) ? meta.generated.trim() : resolvedSource.generated;
+            const guideDate = state.guidesGeneratedAt || '';
             if (generatorModel) metaParts.push(`${strings.modalModel}: ${generatorModel}`);
-            if (generated) metaParts.push(`${strings.modalGenerated}: ${formatDate(generated)}`);
+            if (generated) {
+                metaParts.push(`${strings.modalGenerated}: ${formatDate(generated)}`);
+            } else if (guideDate) {
+                metaParts.push(`${strings.modalGenerated}: ${formatDate(guideDate)}`);
+            }
             if (state.dom.mdModalMeta) {
                 state.dom.mdModalMeta.textContent = metaParts.join(' / ');
             }

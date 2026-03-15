@@ -5,7 +5,7 @@
 ## プロジェクト概要
 
 - `creation-space` は「創造とは何か」を探索する独立モジュール。
-- 30領域の調査資産を `evidence/` に蓄積し、`transform/` で公開用に整形し、`kb/` と Web UI に接続する。
+- 30領域の調査資産を `evidence/` に蓄積し、`transform/` で公開用に整形し、`knowledge/` と Web UI に接続する。
 - フロントエンドは `index.html` + `src/` の静的構成で、Three.js を中心に動く。
 - `src/reports.js` は `pjdhiro` 側でホスティングされる manifest / Markdown / PDF を取得して表示する。
 
@@ -37,16 +37,23 @@
 4. `develop` 作業なら `git pull --rebase origin develop` の後に `git push origin develop`
 5. 管理体系を更新した場合は `CLAUDE.md`、`docs/README.md`、`.claude/rules/` の整合を取る
 
+## CSS変更時のルール
+
+CSS（`src/styles/` 配下）を変更する前に:
+1. `docs/design-system.md` を読む
+2. `dev-components.html` のソースを読み、変更対象の影響範囲を確認する
+3. CSS変更後、`dev-components.html` の該当コンポーネントも更新する
+
 ## ディレクトリ構造
 
 | パス | 役割 |
 |---|---|
 | `src/` | Web UI 本体。Three.js 描画、Reports UI、スタイル、各種 runtime |
 | `assets/` | ローカル静的データ。articles 一覧、reports シナリオなど |
-| `docs/` | 管理書類のハブと調査メモ |
+| `docs/` | 管理書類のハブ（ルール・仕様・正本のみ。調査原本は evidence/ に置く） |
 | `evidence/` | 30領域の調査データ本体、deepdive、review |
 | `transform/` | evidence から公開用 Markdown / PDF / KB を再生成する workflow |
-| `kb/` | 公開用ナレッジベースの受け皿 |
+| `knowledge/` | 公開用ナレッジベースの受け皿 |
 | `scripts/` | 補助スクリプト |
 
 詳細: `.claude/rules/project-structure.md`
@@ -65,4 +72,4 @@
 | リポジトリ | 関係 |
 |---|---|
 | `pjdhiro` | GitHub Pages 側の公開先。`assets/creation/` の manifest・Markdown・PDF をホスティングする |
-| `kesson-driven-thinking` | 管理体系と workflow の参照元。`transform/`・`kb/` の一部はここから移植された履歴を持つ |
+| `kesson-driven-thinking` | 管理体系と workflow の参照元。`transform/`・`knowledge/` の一部はここから移植された履歴を持つ |

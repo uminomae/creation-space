@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design System — creation-space</title>
+  <link rel="stylesheet" href="src/styles/shell.css">
+  <link rel="stylesheet" href="src/styles/topbar.css">
+  <link rel="stylesheet" href="src/styles/dev-panel.css">
+  <link rel="stylesheet" href="src/styles/viewer.css">
+  <link rel="stylesheet" href="src/styles/reports.css">
+  <link rel="stylesheet" href="src/styles/articles.css">
+  <link rel="stylesheet" href="src/styles/creation.css">
+  <link rel="stylesheet" href="src/styles/dev-legacy.css">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: rgba(var(--color-sub-text), 0.82);
+      line-height: 1.7;
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    a {
+      color: var(--kesson-md-link);
+    }
+
+    code,
+    pre,
+    .ds-mono {
+      font-family: var(--kesson-font-mono-ui);
+    }
+
+    .ds-hero {
+      padding: 3rem 0 2rem;
+    }
+
+    .ds-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.7rem;
+      border: 1px solid rgba(var(--color-accent), 0.2);
+      border-radius: 999px;
+      background: rgba(var(--color-accent), 0.08);
+      color: rgba(var(--color-highlight), 0.78);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .ds-hero h1 {
+      margin: 1rem 0 0.75rem;
+    }
+
+    .ds-hero p {
+      max-width: 68rem;
+      margin: 0.4rem 0;
+    }
+
+    .ds-summary-grid,
+    .ds-swatch-grid,
+    .ds-component-grid,
+    .ds-inline-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .ds-summary-grid {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      margin-top: 1.5rem;
+    }
+
+    .ds-component-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .ds-swatch-grid {
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    }
+
+    .ds-inline-grid {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .ds-summary-card,
+    .ds-section,
+    .ds-component,
+    .ds-demo-shell,
+    .ds-report-palette {
+      border: 1px solid rgba(var(--color-accent), 0.12);
+      background:
+        radial-gradient(circle at top right, rgba(var(--color-accent), 0.08), transparent 38%),
+        rgba(9, 13, 24, 0.78);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.26);
+    }
+
+    .ds-summary-card {
+      border-radius: 1rem;
+      padding: 1rem 1.05rem;
+    }
+
+    .ds-summary-card strong {
+      display: block;
+      color: rgba(var(--color-heading), 0.95);
+      font-size: 1.2rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .ds-summary-card span {
+      display: block;
+      color: rgba(var(--color-highlight), 0.82);
+      margin-bottom: 0.3rem;
+    }
+
+    .ds-section {
+      border-radius: 1.2rem;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .ds-section > header {
+      margin-bottom: 1.25rem;
+    }
+
+    .ds-section h2 {
+      margin: 0 0 0.35rem;
+      color: rgba(var(--color-heading), 0.96);
+      font-size: clamp(1rem, 2vw, 1.35rem);
+      letter-spacing: 0.04em;
+      text-transform: none;
+      text-shadow: none;
+    }
+
+    .ds-section p {
+      margin: 0;
+    }
+
+    .ds-meta {
+      margin-top: 0.65rem;
+      color: rgba(var(--color-sub-text), 0.65);
+      font-size: 0.72rem;
+      letter-spacing: 0.03em;
+    }
+
+    .ds-component {
+      border-radius: 1rem;
+      padding: 1rem;
+    }
+
+    .ds-component h3 {
+      margin: 0 0 0.4rem;
+      color: rgba(var(--color-heading), 0.95);
+      font-size: 0.98rem;
+      letter-spacing: 0.04em;
+    }
+
+    .ds-component p {
+      margin: 0 0 0.85rem;
+      font-size: 0.88rem;
+      color: rgba(var(--color-sub-text), 0.72);
+    }
+
+    .ds-demo-shell {
+      border-radius: 0.9rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .ds-swatch {
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .ds-swatch-chip {
+      height: 5.5rem;
+      border-radius: 0.85rem;
+      border: 1px solid rgba(var(--color-heading), 0.08);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+    }
+
+    .ds-swatch strong,
+    .ds-swatch code {
+      display: block;
+    }
+
+    .ds-swatch strong {
+      color: rgba(var(--color-heading), 0.94);
+    }
+
+    .ds-swatch code {
+      font-size: 0.76rem;
+      color: rgba(var(--color-sub-text), 0.76);
+    }
+
+    .ds-type-sample {
+      padding: 0.85rem 1rem;
+      border-radius: 0.85rem;
+      background: rgba(var(--color-accent), 0.05);
+      border: 1px solid rgba(var(--color-accent), 0.08);
+    }
+
+    .ds-type-sample strong {
+      display: block;
+      margin-bottom: 0.25rem;
+      color: rgba(var(--color-heading), 0.92);
+    }
+
+    .ds-type-sample small {
+      display: block;
+      margin-top: 0.35rem;
+      color: rgba(var(--color-sub-text), 0.68);
+    }
+
+    .ds-token-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.55rem;
+      margin: 0.15rem 0.25rem 0 0;
+      border-radius: 999px;
+      border: 1px solid rgba(var(--color-accent), 0.14);
+      background: rgba(var(--color-accent), 0.08);
+      color: rgba(var(--color-highlight), 0.84);
+      font-size: 0.72rem;
+      letter-spacing: 0.03em;
+    }
+
+    .ds-variable-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.76rem;
+      background: rgba(0, 0, 0, 0.12);
+      border-radius: 0.8rem;
+      overflow: hidden;
+    }
+
+    .ds-variable-table th,
+    .ds-variable-table td {
+      padding: 0.55rem 0.65rem;
+      border-bottom: 1px solid rgba(var(--color-accent), 0.08);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .ds-variable-table th {
+      width: 38%;
+      color: rgba(var(--color-highlight), 0.88);
+      font-weight: 500;
+    }
+
+    .ds-variable-table td {
+      color: rgba(var(--color-sub-text), 0.8);
+      word-break: break-word;
+    }
+
+    .ds-table-wrap {
+      overflow-x: auto;
+      border-radius: 0.8rem;
+    }
+
+    .btn,
+    .badge,
+    .nav-link,
+    .navbar-brand,
+    .topbar-link-btn,
+    .form-control,
+    .form-select {
+      font: inherit;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      text-decoration: none;
+      border-radius: var(--kesson-radius-sm);
+      border: 1px solid transparent;
+      padding: 0.48rem 0.9rem;
+      cursor: pointer;
+      background: transparent;
+      color: inherit;
+    }
+
+    .btn-group {
+      display: inline-flex;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 0.24rem 0.5rem;
+    }
+
+    .card {
+      border-radius: var(--kesson-radius-lg);
+      overflow: hidden;
+    }
+
+    .card-body {
+      padding: 1rem;
+    }
+
+    .card-title {
+      margin: 0 0 0.45rem;
+    }
+
+    .card-text {
+      margin: 0;
+    }
+
+    .form-label {
+      display: block;
+    }
+
+    .form-control,
+    .form-select {
+      width: 100%;
+      padding: 0.65rem 0.75rem;
+      color: rgba(var(--color-highlight), 0.9);
+      background: rgba(9, 14, 24, 0.82);
+      border: 1px solid rgba(var(--color-accent), 0.18);
+      border-radius: 0.45rem;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+      outline: 2px solid var(--kesson-focus-ring-soft);
+      outline-offset: 2px;
+    }
+
+    .form-check {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      margin-top: 0.9rem;
+      color: rgba(var(--color-highlight), 0.86);
+    }
+
+    .form-check-input {
+      width: 1rem;
+      height: 1rem;
+      accent-color: rgb(var(--color-accent));
+    }
+
+    .form-range {
+      width: 100%;
+      margin-top: 0.6rem;
+      accent-color: rgb(var(--color-accent));
+    }
+
+    .navbar {
+      display: block;
+    }
+
+    .container-fluid {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .navbar-brand,
+    .nav-link {
+      text-decoration: none;
+    }
+
+    .navbar-nav {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin: 0;
+      padding: 0;
+      flex-wrap: wrap;
+    }
+
+    .ds-topbar-demo {
+      position: relative !important;
+      top: auto !important;
+      left: auto !important;
+      width: auto !important;
+      border-radius: 0.9rem;
+      overflow: hidden;
+    }
+
+    .ds-topbar-demo .topbar-status-badge {
+      background: rgba(242, 198, 90, 0.18);
+      color: rgba(255, 232, 170, 0.92);
+      border: 1px solid rgba(242, 198, 90, 0.32);
+    }
+
+    .ds-runtime-surface {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .ds-runtime-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 1rem;
+      border-radius: 0.85rem;
+      background: rgba(5, 10, 18, 0.42);
+      border: 1px solid rgba(var(--color-accent), 0.08);
+    }
+
+    .ds-runtime-row #scroll-hint,
+    .ds-runtime-row #scroll-hint-top,
+    .ds-runtime-row #graphic-switcher,
+    .ds-runtime-row #control-guide,
+    .ds-runtime-row #dev-panel-toggle,
+    .ds-runtime-row #dev-version-inline,
+    .ds-runtime-row #left-kesson-link {
+      position: static !important;
+      top: auto !important;
+      right: auto !important;
+      bottom: auto !important;
+      left: auto !important;
+      transform: none !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      display: inline-flex !important;
+      flex-direction: column;
+      gap: 0.2rem;
+      margin: 0;
+      animation: none !important;
+    }
+
+    .ds-runtime-row #graphic-switcher {
+      flex-direction: row;
+    }
+
+    .ds-runtime-row #control-guide {
+      display: block !important;
+      text-align: right;
+    }
+
+    .ds-runtime-row .guide-row {
+      justify-content: flex-end;
+    }
+
+    .ds-runtime-nav .nav-label {
+      position: static;
+      transform: none;
+      display: inline-block;
+      margin-right: 0.85rem;
+    }
+
+    .ds-action-button {
+      background: var(--kesson-action-bg);
+      border: 1px solid var(--kesson-action-border);
+      color: var(--kesson-action-text);
+      font-family: var(--kesson-font-serif-ui);
+      letter-spacing: var(--kesson-letter-ui-wide);
+      transition:
+        background var(--kesson-transition-standard),
+        color var(--kesson-transition-standard);
+    }
+
+    .ds-action-button:hover,
+    .ds-action-button:focus-visible {
+      background: var(--kesson-action-bg-hover);
+      color: var(--kesson-action-text-hover);
+      outline: 2px solid var(--kesson-focus-ring-soft);
+      outline-offset: 2px;
+    }
+
+    .ds-card-stack {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .ds-dev-toggle-chip {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.48rem 0.8rem;
+      border-radius: 0.45rem;
+      background: var(--kesson-dev-toggle-bg);
+      border: 1px solid var(--kesson-dev-toggle-border);
+      color: rgba(180, 200, 255, 0.75);
+      font-size: 0.62rem;
+      font-family: var(--kesson-font-mono-ui);
+      letter-spacing: 0.1em;
+    }
+
+    .ds-offcanvas-demo {
+      position: static !important;
+      transform: none !important;
+      visibility: visible !important;
+      width: min(100%, 22rem);
+      border-left: 1px solid rgba(var(--color-accent), 0.16);
+      border-radius: 0.9rem;
+      padding: 1rem;
+    }
+
+    .ds-offcanvas-demo h4,
+    .ds-offcanvas-demo p {
+      margin-top: 0;
+    }
+
+    .ds-offcanvas-demo a {
+      color: var(--kesson-offcanvas-link);
+    }
+
+    .ds-viewer-host #kesson-viewer {
+      position: relative !important;
+      inset: auto !important;
+      display: flex !important;
+      min-height: 30rem;
+      border-radius: 0.9rem;
+      overflow: hidden;
+      cursor: default;
+      background: var(--kesson-viewer-overlay-open);
+    }
+
+    .ds-viewer-host .viewer-glass {
+      width: min(100%, 42rem);
+      height: auto;
+      min-height: 26rem;
+      margin: 1.2rem auto;
+      opacity: 1;
+      transform: none;
+      background: var(--kesson-viewer-glass-bg);
+      border-color: var(--kesson-viewer-glass-border);
+    }
+
+    .ds-viewer-host .viewer-close {
+      pointer-events: none;
+    }
+
+    .ds-viewer-host .viewer-content {
+      padding-top: 0;
+    }
+
+    .ds-dev-panel-demo {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .ds-dev-panel-demo #dev-panel-toggle {
+      display: inline-flex !important;
+      writing-mode: horizontal-tb;
+      border-right: 1px solid rgba(var(--color-accent), 0.15);
+      border-radius: 0.45rem;
+      padding-inline: 0.8rem;
+    }
+
+    .ds-dev-panel-demo #dev-panel {
+      position: static !important;
+      transform: none !important;
+      width: auto;
+      height: auto;
+      min-height: 0;
+      border-left: 1px solid rgba(140, 178, 255, 0.3);
+      border-radius: 0.9rem;
+    }
+
+    .ds-dev-panel-demo #dev-panel .dev-panel-body {
+      height: auto;
+    }
+
+    .ds-error {
+      color: var(--kesson-error-color);
+      font-size: var(--kesson-error-size);
+    }
+
+    .ds-report-palette {
+      display: flex;
+      gap: 0.4rem;
+      padding: 0.7rem;
+      border-radius: 0.8rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .ds-report-palette span {
+      width: 1.4rem;
+      height: 1.4rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+    }
+
+    #reports-demo-scope {
+      --reports-font-mono: var(--kesson-font-mono-ui);
+      --reports-font-serif: var(--kesson-font-serif-ui);
+      --reports-panel-radius: 0.5rem;
+      --reports-panel-padding: 0.9rem;
+      --reports-stack-gap: 0.9rem;
+      --reports-panel-shadow: var(--kesson-card-shadow-soft);
+      --reports-panel-shadow-hover: var(--kesson-card-shadow-rich);
+      --reports-border-soft: rgba(var(--color-accent), 0.12);
+      --reports-border-base: rgba(var(--color-accent), 0.2);
+      --reports-border-strong: rgba(var(--color-accent), 0.35);
+      --reports-bg-base: rgba(var(--color-accent), 0.1);
+      --reports-bg-hover: rgba(var(--color-accent), 0.2);
+      --reports-bg-active: rgba(var(--color-accent), 0.28);
+      --reports-text-muted: rgba(var(--color-sub-text), 0.56);
+      --reports-text-bright: rgba(var(--color-highlight), 0.78);
+      --reports-card-bg: rgba(var(--color-accent), 0.06);
+      --reports-card-border: rgba(var(--color-accent), 0.14);
+      --reports-control-font-size: clamp(
+        calc(0.62rem + var(--reports-font-step)),
+        calc(2.2vmin + var(--reports-font-step)),
+        calc(0.74rem + var(--reports-font-step))
+      );
+      --reports-control-letter-spacing: var(--kesson-letter-ui-normal);
+      --reports-palette-1-rgb: 157, 172, 194;
+      --reports-palette-2-rgb: 241, 190, 82;
+      --reports-palette-3-rgb: 92, 145, 255;
+      --reports-palette-4-rgb: 78, 203, 185;
+      --reports-palette-5-rgb: 255, 126, 92;
+      --reports-palette-6-rgb: 114, 209, 117;
+      --reports-palette-7-rgb: 216, 133, 98;
+      --reports-palette-8-rgb: 255, 111, 181;
+      --reports-palette-9-rgb: 96, 207, 255;
+      --reports-palette-10-rgb: 208, 218, 108;
+      --reports-palette-rgb: var(--reports-palette-3-rgb);
+    }
+
+    .reports-domain-item {
+      padding: 0.75rem;
+    }
+
+    .reports-domain-item-body {
+      display: grid;
+      height: 100%;
+      gap: 0.32rem;
+    }
+
+    .reports-domain-item-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .reports-domain-item-status {
+      border-radius: 999px;
+      border: 1px solid rgba(var(--reports-palette-rgb), 0.42);
+      background: rgba(var(--reports-palette-rgb), 0.12);
+    }
+
+    .reports-domain-item-desc,
+    .reports-domain-item-name,
+    .reports-domain-item-generator-model {
+      margin: 0;
+    }
+
+    .reports-progress-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+    }
+
+    @media (max-width: 720px) {
+      body {
+        padding: 0 1rem 3rem !important;
+      }
+
+      .ds-hero {
+        padding-top: 2rem;
+      }
+
+      .ds-section {
+        padding: 1rem;
+      }
+
+      .container-fluid {
+        align-items: flex-start;
+      }
+
+      .ds-topbar-demo .container-fluid,
+      .ds-topbar-demo .navbar-nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body style="background: var(--color-bg-body); color: rgba(var(--color-sub-text), 0.8); padding: 0 1.5rem 4rem;">
+  <main>
+    <section class="ds-hero" aria-labelledby="page-title">
+      <span class="ds-kicker">Design System Reference</span>
+      <h1 id="page-title">creation-space Design System</h1>
+      <p>人間: ブラウザで見て「このカードのこの色や余白を変えたい」を指差すためのページです。AI: HTML ソース内のコメント、<code>data-component</code>、<code>data-variables</code>、下の変数テーブルを読んで、CSS 変数とコンポーネントの対応を把握するためのページです。</p>
+      <p>正本は 3 層です。トークン値は <code>src/styles/shell.css</code>、コンポーネントの見本と意図はこのページ、変更ルールは <code>docs/design-system.md</code> を見ます。</p>
+
+      <div class="ds-summary-grid" aria-label="Token summary">
+        <article class="ds-summary-card">
+          <strong>22</strong>
+          <span>カラーパレット</span>
+          <code>--color-*</code> / <code>--kesson-md-*</code> / <code>--kesson-error-*</code>
+        </article>
+        <article class="ds-summary-card">
+          <strong>51</strong>
+          <span>タイポグラフィ</span>
+          <code>--kesson-font-*</code> / <code>--kesson-letter-*</code> / <code>--kesson-topbar-*</code>
+        </article>
+        <article class="ds-summary-card">
+          <strong>14</strong>
+          <span>スペーシング・レイアウト</span>
+          <code>--kesson-radius-*</code> / <code>--kesson-transition-*</code> / <code>--kesson-topbar-*</code>
+        </article>
+        <article class="ds-summary-card">
+          <strong>22</strong>
+          <span>コンポーネント表層</span>
+          <code>--kesson-card-*</code> / <code>--kesson-offcanvas-*</code> / <code>--kesson-viewer-*</code>
+        </article>
+        <article class="ds-summary-card">
+          <strong>6 + 1</strong>
+          <span>UI部品 + Reports橋渡し</span>
+          <code>--kesson-ui-*</code> / <code>--kesson-focus-*</code> / <code>--reports-font-step</code>
+        </article>
+      </div>
+    </section>
+
+    <section class="ds-section" data-category="token-map" aria-labelledby="token-map-title">
+      <header>
+        <h2 id="token-map-title">Token Map</h2>
+        <p>現在の <code>shell.css :root</code> は 116 個の root token と、Reports の文字調整用ブリッジ <code>--reports-font-step</code> を持ちます。加えて <code>reports.css</code> には 40 個の component-local 変数、<code>viewer.css</code> と <code>dev-legacy.css</code> には <code>--bs-offcanvas-width</code> の橋渡し変数があります。</p>
+        <p class="ds-meta">Source files: <code>src/styles/shell.css</code>, <code>src/styles/topbar.css</code>, <code>src/styles/dev-panel.css</code>, <code>src/styles/viewer.css</code>, <code>src/styles/reports.css</code>, <code>src/styles/articles.css</code>, <code>src/styles/creation.css</code>, <code>src/styles/dev-legacy.css</code></p>
+      </header>
+      <div class="ds-inline-grid">
+        <div class="ds-component">
+          <h3>分類ルール</h3>
+          <p>AI は prefix を起点に読むと速いです。色は <code>--color-*</code>、文字は <code>--kesson-font-*</code> と <code>--kesson-topbar-*</code>、表層は <code>--kesson-card-*</code> や <code>--reports-*</code> が担当します。</p>
+          <div>
+            <span class="ds-token-pill">--color-*</span>
+            <span class="ds-token-pill">--kesson-font-*</span>
+            <span class="ds-token-pill">--kesson-card-*</span>
+            <span class="ds-token-pill">--kesson-offcanvas-*</span>
+            <span class="ds-token-pill">--kesson-viewer-*</span>
+            <span class="ds-token-pill">--kesson-ui-*</span>
+            <span class="ds-token-pill">--reports-*</span>
+          </div>
+        </div>
+        <div class="ds-component">
+          <h3>読み順</h3>
+          <p>変更前は <code>docs/design-system.md</code> を読んだ上で、このページの対象コンポーネントまで飛び、下の変数テーブルから root token と local var を辿ります。</p>
+          <div class="ds-table-wrap">
+            <table class="ds-variable-table" data-variable-table="--color-accent,--kesson-card-bg,--kesson-offcanvas-bg,--kesson-viewer-glass-bg,--reports-font-step">
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ds-section" data-category="color" aria-labelledby="color-title">
+      <header>
+        <h2 id="color-title">Color Palette</h2>
+        <p>ベース 6 色と Markdown / error 系の派生色をまとめて確認します。色相の変更はここを見てから、カード、リンク、MD 表示、エラー表示まで影響範囲を辿ります。</p>
+      </header>
+
+      <!-- Component: palette-core -->
+      <!-- Variables: --color-accent, --color-sub-text, --color-highlight, --color-link, --color-heading, --color-bg-body -->
+      <!-- Intent: 全体配色の起点。暗背景の上でアクセント、補助文、リンク、見出しの役割を切り分ける -->
+      <article class="ds-component" data-component="palette-core" data-source="src/styles/shell.css" data-variables="--color-accent,--color-sub-text,--color-highlight,--color-link,--color-heading,--color-bg-body">
+        <h3>Core Palette</h3>
+        <p>サイト全体の基本色です。特に <code>--color-accent</code> と <code>--color-sub-text</code> はカード、ボタン、topbar、reports の土台になります。</p>
+        <div class="ds-demo-shell">
+          <div class="ds-swatch-grid">
+            <div class="ds-swatch">
+              <div class="ds-swatch-chip" style="background: rgb(var(--color-accent));"></div>
+              <strong>Accent</strong>
+              <code>--color-accent</code>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-chip" style="background: rgb(var(--color-sub-text));"></div>
+              <strong>Sub Text</strong>
+              <code>--color-sub-text</code>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-chip" style="background: rgb(var(--color-highlight));"></div>
+              <strong>Highlight</strong>
+              <code>--color-highlight</code>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-chip" style="background: rgb(var(--color-link));"></div>
+              <strong>Link</strong>
+              <code>--color-link</code>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-chip" style="background: rgb(var(--color-heading));"></div>
+              <strong>Heading</strong>
+              <code>--color-heading</code>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-chip" style="background: var(--color-bg-body); border-color: rgba(255,255,255,0.16);"></div>
+              <strong>Body Background</strong>
+              <code>--color-bg-body</code>
+            </div>
+          </div>
+        </div>
+        <div class="ds-table-wrap">
+          <table class="ds-variable-table" data-variable-table="--color-accent,--color-sub-text,--color-highlight,--color-link,--color-heading,--color-bg-body">
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+
+      <!-- Component: palette-markdown -->
+      <!-- Variables: --kesson-md-provenance, --kesson-md-h1, --kesson-md-h1-strong, --kesson-md-h2, --kesson-md-h3, --kesson-md-h4, --kesson-md-link, --kesson-md-link-hover, --kesson-md-quote, --kesson-md-inline-code, --kesson-md-inline-code-bg, --kesson-md-table-head-bg, --kesson-md-table-head-text, --kesson-md-table-cell-text, --kesson-error-color -->
+      <!-- Intent: Markdown 表示とエラー表示の色をコンポーネント横断で確認する -->
+      <article class="ds-component" data-component="palette-markdown" data-source="src/styles/shell.css src/styles/viewer.css src/styles/articles.css" data-variables="--kesson-md-provenance,--kesson-md-h1,--kesson-md-h1-strong,--kesson-md-h2,--kesson-md-h3,--kesson-md-h4,--kesson-md-link,--kesson-md-link-hover,--kesson-md-quote,--kesson-md-inline-code,--kesson-md-inline-code-bg,--kesson-md-table-head-bg,--kesson-md-table-head-text,--kesson-md-table-cell-text,--kesson-error-color">
+        <h3>Markdown + Error Colors</h3>
+        <p>Markdown 本文と異常表示の色です。現状の CSS では viewer 側に同値の直書きも残っているため、ここは将来的な集約候補です。</p>
+        <div class="ds-demo-shell">
+          <div class="ds-swatch-grid">
+            <div class="ds-swatch">
+              <div class="ds-swatch-chip" style="background: var(--kesson-md-h1);"></div>
+              <strong>MD H1</strong>
+              <code>--kesson-md-h1</code>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-chip" style="background: var(--kesson-md-h2);"></div>
+              <strong>MD H2</strong>
+              <code>--kesson-md-h2</code>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-chip" style="background: var(--kesson-md-link);"></div>
+              <strong>MD Link</strong>
+              <code>--kesson-md-link</code>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-chip" style="background: var(--kesson-md-quote);"></div>
+              <strong>MD Quote</strong>
+              <code>--kesson-md-quote</code>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-chip" style="background: var(--kesson-md-inline-code-bg);"></div>
+              <strong>Inline Code BG</strong>
+              <code>--kesson-md-inline-code-bg</code>
+            </div>
+            <div class="ds-swatch">
+              <div class="ds-swatch-chip" style="background: var(--kesson-error-color);"></div>
+              <strong>Error</strong>
+              <code>--kesson-error-color</code>
+            </div>
+          </div>
+        </div>
+        <div class="ds-table-wrap">
+          <table class="ds-variable-table" data-variable-table="--kesson-md-provenance,--kesson-md-h1,--kesson-md-h1-strong,--kesson-md-h2,--kesson-md-h3,--kesson-md-h4,--kesson-md-link,--kesson-md-link-hover,--kesson-md-quote,--kesson-md-inline-code,--kesson-md-inline-code-bg,--kesson-md-table-head-bg,--kesson-md-table-head-text,--kesson-md-table-cell-text,--kesson-md-strong,--kesson-md-em,--kesson-md-pre-bg,--kesson-md-pdf-link,--kesson-md-pdf-link-hover,--kesson-md-pdf-link-hover-bg,--kesson-error-color,--kesson-error-size">
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section class="ds-section" data-category="typography" aria-labelledby="typography-title">
+      <header>
+        <h2 id="typography-title">Typography Scale</h2>
+        <p>display serif、UI serif、mono と、UI 用サイズ・letter spacing をまとめて見ます。topbar 系の文字トークンもここに含まれます。</p>
+      </header>
+
+      <!-- Component: typography-scale -->
+      <!-- Variables: --kesson-font-serif-display, --kesson-font-serif-ui, --kesson-font-mono-ui, --kesson-font-size-ui-xs, --kesson-font-size-ui-sm, --kesson-font-size-ui-arrow, --kesson-letter-ui-tight, --kesson-letter-ui-normal, --kesson-letter-ui-wide, --kesson-letter-ui-heading, --kesson-section-heading, --kesson-card-title, --kesson-card-text, --kesson-overlay-tagline, --kesson-control-guide -->
+      <!-- Intent: 各文字レイヤーの担当を視覚的に切り分け、サイズ変更時の参照面にする -->
+      <article class="ds-component" data-component="typography-scale" data-source="src/styles/shell.css src/styles/topbar.css src/styles/reports.css" data-variables="--kesson-font-serif-display,--kesson-font-serif-ui,--kesson-font-mono-ui,--kesson-font-size-ui-xs,--kesson-font-size-ui-sm,--kesson-font-size-ui-arrow,--kesson-letter-ui-tight,--kesson-letter-ui-normal,--kesson-letter-ui-wide,--kesson-letter-ui-heading,--kesson-section-heading,--kesson-card-title,--kesson-card-text,--kesson-overlay-tagline,--kesson-control-guide">
+        <h3>Font Families and Steps</h3>
+        <p>display は見出し、UI serif は注釈・ボタン、mono は制御とメタ情報に使われています。</p>
+        <div class="ds-demo-shell">
+          <div class="ds-inline-grid">
+            <div class="ds-type-sample" style="font-family: var(--kesson-font-serif-display);">
+              <strong>Display Serif</strong>
+              創造とは / Design intent / Section heading
+              <small><code>--kesson-font-serif-display</code></small>
+            </div>
+            <div class="ds-type-sample" style="font-family: var(--kesson-font-serif-ui);">
+              <strong>UI Serif</strong>
+              Actions, notes, reports explanation
+              <small><code>--kesson-font-serif-ui</code></small>
+            </div>
+            <div class="ds-type-sample" style="font-family: var(--kesson-font-mono-ui);">
+              <strong>Mono UI</strong>
+              DEV / LABEL / A+ / D23 / 0x001
+              <small><code>--kesson-font-mono-ui</code></small>
+            </div>
+            <div class="ds-type-sample">
+              <strong style="font-size: var(--kesson-font-size-ui-xs); letter-spacing: var(--kesson-letter-ui-wide);">scroll / ui-xs</strong>
+              <div style="font-size: var(--kesson-font-size-ui-sm); letter-spacing: var(--kesson-letter-ui-normal);">support text / ui-sm</div>
+              <div style="font-size: var(--kesson-font-size-ui-arrow);">▾ ▴ ↺</div>
+              <small><code>--kesson-font-size-ui-xs</code>, <code>--kesson-font-size-ui-sm</code>, <code>--kesson-font-size-ui-arrow</code></small>
+            </div>
+          </div>
+        </div>
+        <div class="ds-table-wrap">
+          <table class="ds-variable-table" data-variable-table="--kesson-font-serif-display,--kesson-font-serif-ui,--kesson-font-mono-ui,--kesson-font-size-ui-xs,--kesson-font-size-ui-sm,--kesson-font-size-ui-arrow,--kesson-letter-ui-tight,--kesson-letter-ui-normal,--kesson-letter-ui-wide,--kesson-letter-ui-heading,--kesson-section-heading,--kesson-card-title,--kesson-card-text,--kesson-card-summary,--kesson-overlay-tagline,--kesson-overlay-tagline-en,--kesson-control-guide,--kesson-footer-line,--kesson-surface-btn">
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section class="ds-section" data-category="runtime" aria-labelledby="runtime-title">
+      <header>
+        <h2 id="runtime-title">Runtime Chrome</h2>
+        <p>topbar、スクロールヒント、ナビゲーションラベル、開発トグルなど、ページ全体を包む UI 部品です。固定配置のものはここでは静的レイアウトに落として見せています。</p>
+      </header>
+
+      <!-- Component: kesson-topbar -->
+      <!-- Variables: --kesson-topbar-main-title-size, --kesson-topbar-link-size, --kesson-topbar-bg-start, --kesson-topbar-bg-end, --kesson-topbar-border-color, --kesson-topbar-title-color, --kesson-topbar-link-color, --kesson-topbar-link-hover-color, --kesson-topbar-link-hover-bg, --kesson-topbar-note-color, --kesson-topbar-lang-color, --kesson-topbar-lang-border, --kesson-topbar-lang-bg, --kesson-topbar-nav-bg, --kesson-topbar-nav-border, --kesson-topbar-height, --kesson-topbar-blur, --kesson-topbar-saturate -->
+      <!-- Intent: サイトの第一印象と操作導線を担う。微調整時は色、blur、文字サイズをセットで見る -->
+      <article class="ds-component" data-component="kesson-topbar" data-source="src/styles/shell.css src/styles/topbar.css index.html" data-variables="--kesson-topbar-main-title-size,--kesson-topbar-link-size,--kesson-topbar-bg-start,--kesson-topbar-bg-end,--kesson-topbar-border-color,--kesson-topbar-title-color,--kesson-topbar-link-color,--kesson-topbar-link-hover-color,--kesson-topbar-link-hover-bg,--kesson-topbar-note-color,--kesson-topbar-lang-color,--kesson-topbar-lang-border,--kesson-topbar-lang-bg,--kesson-topbar-nav-bg,--kesson-topbar-nav-border,--kesson-topbar-height,--kesson-topbar-blur,--kesson-topbar-saturate">
+        <h3>Topbar</h3>
+        <p>index.html の topbar を縮小して再現しています。ナビゲーションの見え方とコラボ注記の強さをここで確認します。</p>
+        <div class="ds-demo-shell">
+          <header id="kesson-topbar" class="navbar ds-topbar-demo" aria-label="Topbar sample">
+            <div class="container-fluid">
+              <div class="topbar-brand-wrap">
+                <a class="navbar-brand topbar-main-title" href="./">創造とは</a>
+                <span class="badge topbar-status-badge">準備中</span>
+                <span class="topbar-collab-note">AIとの協働作業中</span>
+              </div>
+              <div id="kessonTopbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item"><a class="nav-link topbar-link" href="#color-title">COLORS</a></li>
+                  <li class="nav-item"><a class="nav-link topbar-link" href="#typography-title">TYPE</a></li>
+                  <li class="nav-item"><button type="button" class="nav-link topbar-link topbar-link-btn">ARTICLES</button></li>
+                  <li class="nav-item"><a class="nav-link topbar-link topbar-lang-btn" href="#reports-title">English</a></li>
+                </ul>
+              </div>
+            </div>
+          </header>
+        </div>
+        <div class="ds-table-wrap">
+          <table class="ds-variable-table" data-variable-table="--kesson-topbar-main-title-size,--kesson-topbar-main-title-size-sm,--kesson-topbar-link-size,--kesson-topbar-note-size,--kesson-topbar-credit-size,--kesson-topbar-bg-start,--kesson-topbar-bg-end,--kesson-topbar-border-color,--kesson-topbar-title-color,--kesson-topbar-title-hover-color,--kesson-topbar-link-color,--kesson-topbar-link-hover-color,--kesson-topbar-link-hover-bg,--kesson-topbar-note-color,--kesson-topbar-lang-color,--kesson-topbar-lang-border,--kesson-topbar-lang-bg,--kesson-topbar-nav-bg,--kesson-topbar-nav-border,--kesson-topbar-height,--kesson-topbar-alpha-strong,--kesson-topbar-alpha-soft,--kesson-topbar-border-alpha,--kesson-topbar-shadow-alpha,--kesson-topbar-blur,--kesson-topbar-saturate">
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+
+      <!-- Component: runtime-ui-hints -->
+      <!-- Variables: --kesson-ui-label-color, --kesson-ui-arrow-color, --kesson-ui-label-hover-color, --kesson-focus-ring-soft, --kesson-font-size-ui-xs, --kesson-font-size-ui-arrow, --kesson-control-guide, --kesson-dev-toggle-bg, --kesson-dev-toggle-bg-hover, --kesson-dev-toggle-border -->
+      <!-- Intent: ヒントや開発トグルなどの補助 UI が前景を邪魔しない強さを確認する -->
+      <article class="ds-component" data-component="runtime-ui-hints" data-source="src/styles/shell.css src/styles/dev-panel.css src/styles/dev-legacy.css" data-variables="--kesson-ui-label-color,--kesson-ui-arrow-color,--kesson-ui-label-hover-color,--kesson-focus-ring-soft,--kesson-font-size-ui-xs,--kesson-font-size-ui-arrow,--kesson-control-guide,--kesson-dev-toggle-bg,--kesson-dev-toggle-bg-hover,--kesson-dev-toggle-border">
+        <h3>Hints, Labels, Toggle</h3>
+        <p>scroll hint、left link、control guide、開発トグルの色と存在感をまとめて見ます。</p>
+        <div class="ds-demo-shell ds-runtime-surface">
+          <div class="ds-runtime-row">
+            <div id="scroll-hint" class="visible" aria-hidden="true">
+              <span>scroll</span>
+              <div class="arrow">▾</div>
+            </div>
+            <div id="scroll-hint-top" class="visible" aria-hidden="true">
+              <div class="arrow">▴</div>
+              <span>scroll</span>
+            </div>
+            <a id="left-kesson-link" href="./">
+              <span>kesson</span>
+              <div class="arrow">▾</div>
+            </a>
+          </div>
+          <div class="ds-runtime-row ds-runtime-nav">
+            <button type="button" class="nav-label">創造性</button>
+            <button type="button" class="nav-label nav-label--gem">保持</button>
+            <button type="button" class="nav-label nav-label--x">意</button>
+            <div id="control-guide" aria-hidden="true">
+              <div class="guide-row guide-desktop">
+                <span class="guide-key">drag</span>
+                <span class="guide-sep">—</span>
+                <span class="guide-action">rotate</span>
+              </div>
+              <div class="guide-row guide-desktop">
+                <span class="guide-key">Ctrl + wheel</span>
+                <span class="guide-sep">—</span>
+                <span class="guide-action">zoom</span>
+              </div>
+            </div>
+            <div id="graphic-switcher" class="btn-group" aria-label="Graphic switcher">
+              <button type="button" class="btn">保持</button>
+              <button type="button" class="btn">忍</button>
+              <button type="button" class="btn active">意</button>
+            </div>
+          </div>
+          <div class="ds-runtime-row">
+            <div id="dev-version-inline">build: develop / sample-token-view</div>
+            <span class="ds-dev-toggle-chip">DEV PANEL</span>
+          </div>
+        </div>
+        <div class="ds-table-wrap">
+          <table class="ds-variable-table" data-variable-table="--kesson-ui-label-color,--kesson-ui-arrow-color,--kesson-ui-label-hover-color,--kesson-focus-ring,--kesson-focus-ring-soft,--kesson-font-size-ui-xs,--kesson-font-size-ui-arrow,--kesson-control-guide,--kesson-dev-toggle-bg,--kesson-dev-toggle-bg-hover,--kesson-dev-toggle-border,--kesson-dev-toggle-text,--kesson-dev-toggle-text-hover">
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section class="ds-section" data-category="actions" aria-labelledby="actions-title">
+      <header>
+        <h2 id="actions-title">Buttons and Actions</h2>
+        <p>ボタンと操作チップです。共通 action token と articles / reports の派生 UI を並べて、硬さやコントラストを揃えます。</p>
+      </header>
+
+      <!-- Component: action-buttons -->
+      <!-- Variables: --kesson-action-bg, --kesson-action-border, --kesson-action-text, --kesson-action-bg-hover, --kesson-action-text-hover, --kesson-focus-ring-soft -->
+      <!-- Intent: 低コントラスト寄りの行動導線。目立たせ過ぎず、hover 時だけ情報量を増やす -->
+      <article class="ds-component" data-component="action-buttons" data-source="src/styles/shell.css src/styles/articles.css src/styles/reports.css" data-variables="--kesson-action-bg,--kesson-action-border,--kesson-action-text,--kesson-action-bg-hover,--kesson-action-text-hover,--kesson-focus-ring-soft">
+        <h3>Action Surface</h3>
+        <p><code>--kesson-action-*</code> は canonical token として定義されています。articles と shell の一部はまだ同値の直書きが残るので、変更時は見比べが必要です。</p>
+        <div class="ds-demo-shell">
+          <div class="btn-group" role="group" aria-label="Action button examples">
+            <button type="button" class="btn ds-action-button">Primary intent</button>
+            <button type="button" class="btn btn-read-more">Read More</button>
+            <button type="button" class="articles-filter-btn is-active">All</button>
+            <button type="button" class="articles-filter-btn">Page</button>
+          </div>
+        </div>
+        <div class="ds-table-wrap">
+          <table class="ds-variable-table" data-variable-table="--kesson-action-bg,--kesson-action-border,--kesson-action-text,--kesson-action-bg-hover,--kesson-action-text-hover,--kesson-focus-ring-soft" data-scope=":root">
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section class="ds-section" data-category="cards" aria-labelledby="cards-title">
+      <header>
+        <h2 id="cards-title">Cards and Surfaces</h2>
+        <p>カード群、placeholder、metric panel をまとめています。カードの浮遊感は <code>--kesson-card-bg</code> と shadow token の組み合わせで決まります。</p>
+      </header>
+
+      <!-- Component: kesson-card -->
+      <!-- Variables: --kesson-card-bg, --kesson-card-border, --kesson-card-border-strong, --kesson-card-shadow-soft, --kesson-card-shadow-rich, --kesson-card-title, --kesson-card-text -->
+      <!-- Intent: コンテンツを視覚的にグループ化。ダークテーマ上で軽い浮遊感を出す -->
+      <article class="ds-component" data-component="kesson-card" data-source="src/styles/shell.css src/articles-view.js src/reports/render.js" data-variables="--kesson-card-bg,--kesson-card-border,--kesson-card-border-strong,--kesson-card-shadow-soft,--kesson-card-shadow-rich,--kesson-card-title,--kesson-card-text">
+        <h3>Card Family</h3>
+        <p>articles / reports 共通の土台です。border を上げると輪郭が立ち、shadow を上げると浮遊感が増します。</p>
+        <div class="ds-demo-shell">
+          <div class="ds-card-stack">
+            <div class="card kesson-card">
+              <img class="card-img-top" alt="" src="assets/img/creation-model.png">
+              <div class="card-body">
+                <h4 class="card-title">Sample Card</h4>
+                <p class="card-text">創造モデルの概要カード。記事、reports feature、creation card がこの系列に乗ります。</p>
+              </div>
+            </div>
+            <div class="report-metric-card">
+              <div class="card-body">
+                <div class="report-metric-label">Coverage</div>
+                <div class="report-metric-value">24 / 30 domains</div>
+              </div>
+            </div>
+            <div class="creation-card-placeholder">
+              <h3>Future Card</h3>
+              <p>articles.css 側の placeholder。実データがない領域でもトーンを崩さず仮置きできるようにしています。</p>
+            </div>
+          </div>
+        </div>
+        <div class="ds-table-wrap">
+          <table class="ds-variable-table" data-variable-table="--kesson-card-bg,--kesson-card-border,--kesson-card-border-strong,--kesson-card-shadow-soft,--kesson-card-shadow-rich,--kesson-card-title,--kesson-card-text,--kesson-card-summary">
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section class="ds-section" data-category="offcanvas-viewer" aria-labelledby="offcanvas-viewer-title">
+      <header>
+        <h2 id="offcanvas-viewer-title">Offcanvas and Viewer</h2>
+        <p>横パネルとモーダル viewer のガラス面です。背景が暗いので、blur と border は少しの差でも印象が大きく変わります。</p>
+      </header>
+
+      <!-- Component: offcanvas-kesson -->
+      <!-- Variables: --kesson-offcanvas-width, --kesson-offcanvas-bg, --kesson-offcanvas-text, --kesson-offcanvas-heading, --kesson-offcanvas-link, --bs-offcanvas-width -->
+      <!-- Intent: 外周情報や記事一覧を本体から分離して載せる。背景は暗く、文字とリンクだけを少し温かくする -->
+      <article class="ds-component" data-component="offcanvas-kesson" data-source="src/styles/shell.css src/styles/viewer.css src/styles/dev-legacy.css index.html" data-variables="--kesson-offcanvas-width,--kesson-offcanvas-bg,--kesson-offcanvas-text,--kesson-offcanvas-heading,--kesson-offcanvas-link,--bs-offcanvas-width">
+        <h3>Offcanvas Panel</h3>
+        <p><code>offcanvas-kesson</code> は width と background を token で制御しています。本文文字色とリンク色は今後 token 利用を増やせる余地があります。</p>
+        <div class="ds-demo-shell">
+          <aside class="offcanvas offcanvas-kesson ds-offcanvas-demo" style="--bs-offcanvas-width: var(--kesson-offcanvas-width);">
+            <h4 class="offcanvas-title-spaced" style="color: var(--kesson-offcanvas-heading);">ARTICLES</h4>
+            <p style="color: var(--kesson-offcanvas-text);">補助導線用パネル。メイン画面の没入感を壊さずに一覧や補足を出します。</p>
+            <p><a href="#markdown-title">Markdown sample</a></p>
+          </aside>
+        </div>
+        <div class="ds-table-wrap">
+          <table class="ds-variable-table" data-variable-table="--kesson-offcanvas-width,--kesson-offcanvas-bg,--kesson-offcanvas-text,--kesson-offcanvas-heading,--kesson-offcanvas-link,--bs-offcanvas-width" data-scope=".offcanvas-kesson">
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+
+      <!-- Component: viewer-glass -->
+      <!-- Variables: --kesson-viewer-overlay-closed, --kesson-viewer-overlay-open, --kesson-viewer-glass-bg, --kesson-viewer-glass-border, --kesson-scrollbar-thumb -->
+      <!-- Intent: 外界を少し残したまま内容にフォーカスする。ガラス感は背景、border、shadow の組み合わせで成立する -->
+      <article class="ds-component" data-component="viewer-glass" data-source="src/styles/shell.css src/styles/viewer.css src/viewer.js" data-variables="--kesson-viewer-overlay-closed,--kesson-viewer-overlay-open,--kesson-viewer-glass-bg,--kesson-viewer-glass-border,--kesson-scrollbar-thumb">
+        <h3>Viewer Glass</h3>
+        <p>Markdown や外部埋め込みの viewer 面です。スクロールバーも含めて確認できます。</p>
+        <div class="ds-demo-shell ds-viewer-host">
+          <div id="kesson-viewer" class="visible open">
+            <div class="viewer-glass">
+              <button type="button" class="viewer-close" aria-label="Close">×</button>
+              <div class="viewer-content">
+                <article class="md-article">
+                  <div class="md-provenance">source: docs/design-system.md / component viewer</div>
+                  <div class="md-body">
+                    <h1>Viewer Surface</h1>
+                    <p>ここでは overlay と glass border の見え方を確認します。中の本文要素は次のセクションで詳しく見ます。</p>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ds-table-wrap">
+          <table class="ds-variable-table" data-variable-table="--kesson-viewer-overlay-closed,--kesson-viewer-overlay-open,--kesson-viewer-glass-bg,--kesson-viewer-glass-border,--kesson-viewer-glass-shadow,--kesson-viewer-x-handle,--kesson-scrollbar-thumb">
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section class="ds-section" data-category="markdown" aria-labelledby="markdown-title">
+      <header>
+        <h2 id="markdown-title">MD Viewer Elements</h2>
+        <p>見出し、リンク、引用、コード、テーブルをまとめて表示します。AI はこのブロックを見ると、Markdown 系 token の実際の着地点を把握できます。</p>
+      </header>
+
+      <!-- Component: md-viewer-elements -->
+      <!-- Variables: --kesson-md-provenance, --kesson-md-h1, --kesson-md-h1-strong, --kesson-md-h2, --kesson-md-h3, --kesson-md-h4, --kesson-md-link, --kesson-md-link-hover, --kesson-md-quote, --kesson-md-inline-code, --kesson-md-inline-code-bg, --kesson-md-table-head-bg, --kesson-md-table-head-text, --kesson-md-table-cell-text -->
+      <!-- Intent: Markdown 本文の読みやすさと hierarchy を確認する -->
+      <article class="ds-component" data-component="md-viewer-elements" data-source="src/styles/shell.css src/styles/viewer.css src/reports/modal.js" data-variables="--kesson-md-provenance,--kesson-md-h1,--kesson-md-h1-strong,--kesson-md-h2,--kesson-md-h3,--kesson-md-h4,--kesson-md-link,--kesson-md-link-hover,--kesson-md-quote,--kesson-md-inline-code,--kesson-md-inline-code-bg,--kesson-md-table-head-bg,--kesson-md-table-head-text,--kesson-md-table-cell-text">
+        <h3>Markdown Body</h3>
+        <p>viewer.css 側は一部が値直書きなので、ここで見た値と shell token を照合しながら調整する前提です。</p>
+        <div class="ds-demo-shell">
+          <article class="md-article">
+            <div class="md-provenance">docs / provenance / 2026-03-15</div>
+            <div class="md-body">
+              <h1>Design System Overview</h1>
+              <p>この本文は <a href="#cards-title">カード</a> や <a href="#reports-title">reports</a> と同じ root palette を共有します。inline code は <code>var(--kesson-md-inline-code)</code> を想定しています。</p>
+              <h2>Hierarchy</h2>
+              <h3>Subsection</h3>
+              <h4>Minor heading</h4>
+              <blockquote>ダークテーマ上では引用を少し抑え、リンクだけをはっきり光らせる。</blockquote>
+              <pre><code>const target = document.querySelector('[data-component=\"kesson-card\"]');</code></pre>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Role</th>
+                    <th>Variable</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Link</td>
+                    <td><code>--kesson-md-link</code></td>
+                  </tr>
+                  <tr>
+                    <td>Quote</td>
+                    <td><code>--kesson-md-quote</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+        </div>
+        <div class="ds-table-wrap">
+          <table class="ds-variable-table" data-variable-table="--kesson-md-provenance,--kesson-md-h1,--kesson-md-h1-strong,--kesson-md-h2,--kesson-md-h3,--kesson-md-h4,--kesson-md-link,--kesson-md-link-hover,--kesson-md-quote,--kesson-md-inline-code,--kesson-md-inline-code-bg,--kesson-md-table-head-bg,--kesson-md-table-head-text,--kesson-md-table-cell-text,--kesson-md-strong,--kesson-md-em,--kesson-md-pre-bg,--kesson-md-pdf-link,--kesson-md-pdf-link-hover,--kesson-md-pdf-link-hover-bg">
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section class="ds-section" data-category="forms" aria-labelledby="forms-title">
+      <header>
+        <h2 id="forms-title">Forms and Dev Panel</h2>
+        <p>フォーム要素は主に dev panel と reports 周辺で使われます。focus ring と入力面の暗さをここで確認します。</p>
+      </header>
+
+      <!-- Component: form-controls -->
+      <!-- Variables: --kesson-focus-ring, --kesson-focus-ring-soft, --kesson-dev-toggle-bg, --kesson-dev-toggle-bg-hover, --kesson-dev-toggle-border -->
+      <!-- Intent: 設定変更や開発用調整を行う面。視認性は要るが主役にはしない -->
+      <article class="ds-component" data-component="form-controls" data-source="src/styles/dev-panel.css src/styles/dev-legacy.css src/dev-panel.js" data-variables="--kesson-focus-ring,--kesson-focus-ring-soft,--kesson-dev-toggle-bg,--kesson-dev-toggle-bg-hover,--kesson-dev-toggle-border">
+        <h3>Dev Panel Form Controls</h3>
+        <p>dev-panel.css の input / label / range を縮小展示しています。トグルは runtime chrome と同じ token を共有します。</p>
+        <div class="ds-demo-shell ds-dev-panel-demo">
+          <button id="dev-panel-toggle" type="button">DEV PANEL</button>
+          <aside id="dev-panel" class="is-open" aria-label="Dev panel sample">
+            <div class="dev-panel-header">
+              <h4 class="dev-panel-title">CONFIG</h4>
+              <span id="dev-version-badge">v0.1</span>
+            </div>
+            <div class="dev-panel-body">
+              <div class="dev-row">
+                <label class="form-label" for="sample-json">Config JSON</label>
+                <textarea id="sample-json" class="form-control" rows="4">{ "graphic": "i", "domain": "D23" }</textarea>
+              </div>
+              <div class="dev-row">
+                <label class="form-label" for="sample-select">Projection</label>
+                <select id="sample-select" class="form-select">
+                  <option>intent</option>
+                  <option>hoji</option>
+                  <option>sinobi</option>
+                </select>
+              </div>
+              <div class="dev-row">
+                <label class="form-label" for="sample-range">Opacity</label>
+                <input id="sample-range" class="form-range" type="range" min="0" max="100" value="58">
+              </div>
+              <label class="form-check">
+                <input class="form-check-input" type="checkbox" checked>
+                <span>show labels</span>
+              </label>
+            </div>
+          </aside>
+        </div>
+        <div class="ds-table-wrap">
+          <table class="ds-variable-table" data-variable-table="--kesson-focus-ring,--kesson-focus-ring-soft,--kesson-dev-toggle-bg,--kesson-dev-toggle-bg-hover,--kesson-dev-toggle-border,--kesson-dev-toggle-text,--kesson-dev-toggle-text-hover,--kesson-dev-panel-bg,--kesson-dev-panel-border,--kesson-dev-panel-header-border,--kesson-dev-panel-title-color,--kesson-dev-panel-accordion-bg,--kesson-dev-panel-accordion-text,--kesson-dev-panel-accordion-active-bg,--kesson-dev-panel-body-bg,--kesson-dev-panel-label-color,--kesson-dev-panel-value-color,--kesson-dev-hud-border,--kesson-dev-hud-bg,--kesson-dev-hud-text">
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+
+      <!-- Component: error-state -->
+      <!-- Variables: --kesson-error-color, --kesson-error-size -->
+      <!-- Intent: 読み込み失敗や空状態の異常を静かに伝える。派手すぎず見逃さない赤にする -->
+      <article class="ds-component" data-component="error-state" data-source="src/styles/shell.css src/styles/articles.css" data-variables="--kesson-error-color,--kesson-error-size">
+        <h3>Error State</h3>
+        <p>articles の読み込み失敗表示に相当します。</p>
+        <div class="ds-demo-shell">
+          <p id="articles-error" class="ds-error">記事データを読み込めませんでした。ネットワークと JSON を確認してください。</p>
+        </div>
+        <div class="ds-table-wrap">
+          <table class="ds-variable-table" data-variable-table="--kesson-error-color,--kesson-error-size">
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section class="ds-section" data-category="reports" aria-labelledby="reports-title">
+      <header>
+        <h2 id="reports-title">Reports UI</h2>
+        <p>reports.css の local var で組まれている領域です。root token を束ねた派生層なので、reports だけを変えるのか root から変えるのかをここで判断します。</p>
+      </header>
+
+      <!-- Component: reports-ui -->
+      <!-- Variables: --reports-font-step, --reports-panel-radius, --reports-panel-padding, --reports-panel-shadow, --reports-border-soft, --reports-border-base, --reports-border-strong, --reports-bg-base, --reports-bg-hover, --reports-bg-active, --reports-text-muted, --reports-text-bright, --reports-control-font-size, --reports-control-letter-spacing, --reports-palette-1-rgb, --reports-palette-2-rgb, --reports-palette-3-rgb, --reports-card-bg, --reports-card-border -->
+      <!-- Intent: Reports 専用の見出し、chip、domain card、CTA のトーンをまとめて確認する -->
+      <article class="ds-component" data-component="reports-ui" data-source="src/styles/shell.css src/styles/reports.css index.html" data-variables="--reports-font-step,--reports-panel-radius,--reports-panel-padding,--reports-panel-shadow,--reports-border-soft,--reports-border-base,--reports-border-strong,--reports-bg-base,--reports-bg-hover,--reports-bg-active,--reports-text-muted,--reports-text-bright,--reports-control-font-size,--reports-control-letter-spacing,--reports-palette-1-rgb,--reports-palette-2-rgb,--reports-palette-3-rgb,--reports-card-bg,--reports-card-border">
+        <h3>Reports Overview, Chip, Domain Item</h3>
+        <p>palette は Dxx カードのバリエーション、panel 系は overview と metric card の土台、font step は文字拡大縮小のブリッジです。</p>
+        <div id="reports-demo-scope" class="ds-demo-shell">
+          <div class="ds-report-palette" aria-hidden="true">
+            <span style="background: rgb(var(--reports-palette-1-rgb));"></span>
+            <span style="background: rgb(var(--reports-palette-2-rgb));"></span>
+            <span style="background: rgb(var(--reports-palette-3-rgb));"></span>
+            <span style="background: rgb(var(--reports-palette-4-rgb));"></span>
+            <span style="background: rgb(var(--reports-palette-5-rgb));"></span>
+            <span style="background: rgb(var(--reports-palette-6-rgb));"></span>
+          </div>
+          <div class="reports-overview">
+            <p class="reports-ai-notice">AI collaborative reports. Local vars here are derived from root palette and spacing tokens.</p>
+            <div class="btn-group" id="reports-primary-actions">
+              <button type="button" class="btn reports-status-cta">Open consolidated report</button>
+            </div>
+            <p style="margin: 0.9rem 0 0.55rem;">
+              <span class="reports-progress-chip">L3 synthesis</span>
+            </p>
+            <div class="ds-card-stack">
+              <div class="report-metric-card reports-progress-card">
+                <div class="card-body">
+                  <div class="report-metric-label">Progress</div>
+                  <div class="report-metric-value">80%</div>
+                </div>
+              </div>
+              <button type="button" class="reports-domain-item is-palette-3">
+                <div class="reports-domain-item-body">
+                  <div class="reports-domain-item-head">
+                    <span class="reports-domain-item-id">D23</span>
+                    <span class="reports-domain-item-status">deepdive</span>
+                  </div>
+                  <p class="reports-domain-item-name">発達心理学</p>
+                  <p class="reports-domain-item-desc">guides / review / issue の表示面を確認するためのサンプルです。</p>
+                  <p class="reports-domain-item-generator-model">gpt-5 / static sample</p>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="ds-table-wrap">
+          <table class="ds-variable-table" data-variable-table="--reports-font-step,--reports-panel-radius,--reports-panel-padding,--reports-stack-gap,--reports-panel-shadow,--reports-panel-shadow-hover,--reports-border-soft,--reports-border-base,--reports-border-strong,--reports-bg-base,--reports-bg-hover,--reports-bg-active,--reports-text-muted,--reports-text-bright,--reports-card-bg,--reports-card-border,--reports-control-font-size,--reports-control-letter-spacing,--reports-palette-1-rgb,--reports-palette-2-rgb,--reports-palette-3-rgb,--reports-palette-4-rgb,--reports-palette-5-rgb,--reports-palette-6-rgb,--reports-palette-rgb" data-scope="#reports-demo-scope">
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const fillTable = (table) => {
+        const body = table.tBodies[0] || table.appendChild(document.createElement('tbody'));
+        const variableList = (table.dataset.variableTable || '')
+          .split(',')
+          .map((name) => name.trim())
+          .filter(Boolean);
+
+        const scopeSelector = table.dataset.scope;
+        const scope = scopeSelector ? document.querySelector(scopeSelector) : document.documentElement;
+        const computed = getComputedStyle(scope || document.documentElement);
+
+        body.innerHTML = '';
+        variableList.forEach((name) => {
+          const row = document.createElement('tr');
+          const key = document.createElement('th');
+          const value = document.createElement('td');
+          key.textContent = name;
+          value.textContent = computed.getPropertyValue(name).trim() || '(not set in this scope)';
+          row.appendChild(key);
+          row.appendChild(value);
+          body.appendChild(row);
+        });
+      };
+
+      document.querySelectorAll('[data-variable-table]').forEach(fillTable);
+    })();
+  </script>
+</body>
+</html>

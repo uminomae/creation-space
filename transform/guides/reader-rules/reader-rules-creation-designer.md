@@ -41,7 +41,7 @@
 
 ## ソース
 
-- `kb/schema/five-stages.md` — 5段階の正本定義
-- `kb/glossary.md` — 用語集
+- `knowledge/schema/five-stages.md` — 5段階の正本定義
+- `knowledge/glossary.md` — 用語集
 - `evidence/` — 30領域の調査データ
 - `assets/img/creation-model.png` — 5段階モデルの図
