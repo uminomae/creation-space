@@ -694,7 +694,7 @@ html[lang="en"] #taglines {
 }
 
 .tech-footer-line {
-  font-size: var(--kesson-footer-line, clamp(0.35rem, 1.5vmin, 0.55rem));
+  font-size: var(--kesson-footer-line, clamp(0.47rem, 1.8vmin, 0.67rem));
   color: rgba(150, 175, 210, 0.25);
   font-family: var(--kesson-font-mono-ui);
   letter-spacing: 0.06em;
@@ -703,7 +703,7 @@ html[lang="en"] #taglines {
 
 .footer-signature {
   margin-top: 0.55rem;
-  font-size: clamp(0.55rem, 1.8vmin, 0.72rem);
+  font-size: clamp(0.67rem, 2.1vmin, 0.84rem);
   color: rgba(195, 214, 241, 0.68);
   font-family: var(--kesson-font-serif-ui);
   letter-spacing: 0.06em;
