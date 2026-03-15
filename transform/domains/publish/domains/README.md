@@ -10,8 +10,6 @@
 
 旧命名 `issue62-*` は廃止。正本は `reader-rules-creation.md` §9。言語はディレクトリで分離するため、ファイル名には含めない。
 
-> **注意**: 既存の `issue62-*` ファイルは順次リネーム予定（別タスク）。新規生成では必ず `domain-*` 命名を使うこと。
-
 ---
 
 ## 3層の関係
@@ -44,9 +42,9 @@ pjdhiro repo assets/creation/domains/ja/{md,pdf}/ に最終配置
 
 | ファイル | ドメイン | 状態 | 備考 |
 |---|---|---|---|
-| `issue62-domain-d02-physics-academic-ja.md` | D02 物理学 | 生成済み | NL-010 以前。リネーム・再生成が必要 |
-| `issue62-domain-d22-business-management-academic-ja.md` | D22 経営学 | 生成済み | 同上 |
-| （未生成） | **D23 発達心理学** | **#209 CLI 指示書配置済み** | reader-rules v2.0 適用のテストケース |
+| `domain-D02-physics-academic-ja.md` | D02 物理学 | 生成済み | 新命名へ移行済み。再生成要否は別途判断 |
+| `domain-D22-business-management-academic-ja.md` | D22 経営学 | 生成済み | 新命名へ移行済み |
+| `domain-D23-developmental-psychology-academic-ja.md` | D23 発達心理学 | 生成済み | 新命名へ移行済み |
 
 ---
 
@@ -64,7 +62,7 @@ pjdhiro repo assets/creation/domains/ja/{md,pdf}/ に最終配置
 
 ### ⛔ 注意事項
 
-- **テンプレート（`issue62-domain-template-academic-ja.md`）は NL-010 以前の設計で使用禁止。** D1-D4 接続、Accept/Reject、E-1〜E-8 等の禁止語を含む。構成は reader-rules v2.0 §4 に従うこと。
+- **NL-010 以前の旧テンプレートは削除済み。** 新規生成・更新は `transform/domains/reader-rules/reader-rules-creation-report.md` の現行ルールに従うこと。
 - **pjdhiro/assets/ 配下に配置する md に front matter を含めないこと（NL-012）。** Jekyll がページとして処理しビルドエラーになる。
 - **命名規則**: `domain-{id}-{name}-{audience}.md`（旧 `issue62-domain-*` は廃止）
 
@@ -92,5 +90,3 @@ pjdhiro repo assets/creation/domains/ja/{md,pdf}/ に最終配置
 |---|---|
 | `index.json` | ドメイン進捗・公開メタ情報の索引。`generator_model` フィールドを使用（§2.5 準拠） |
 | `domain-{id}-{name}-{audience}.md` | ドメイン別の公開用 Markdown（正式命名） |
-| `issue62-domain-*-academic-ja.md` | 旧命名のドメイン別 Markdown（リネーム予定） |
-| `issue62-domain-template-academic-ja.md` | ⚠️ NL-010 以前のテンプレート。新規生成では使用禁止 |

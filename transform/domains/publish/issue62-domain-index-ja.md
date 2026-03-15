@@ -22,7 +22,7 @@ generated_at: 2026-03-04
 
 | 文書 | 用途 |
 |---|---|
-| `transform/domains/publish/domains/issue62-domain-template-academic-ja.md` | 各領域分冊の省略なしテンプレート |
+| `transform/domains/reader-rules/reader-rules-creation-report.md` | 各領域分冊の変換ルール正本 |
 | `transform/domains/publish/issue62-research-bridge-ja.md` | 研究結果を上位プロジェクトへ接続するメタ台帳 |
 | `transform/domains/publish/issue62-status-ja.md` | 横断ハブ（進捗・運用方針） |
 
@@ -30,26 +30,26 @@ generated_at: 2026-03-04
 
 | 分野 | 想定ファイル名 | 主参照 |
 |---|---|---|
-| 西洋哲学 | `creation-issue62-domain-d13-philosophy-academic-ja.pdf` | `DR-D13-philosophy.md` |
-| 東洋思想 | `creation-issue62-domain-d13-east-thought-academic-ja.pdf` | `DR-D13-philosophy.md`（東洋思想抽出） |
-| 心理学（ビオン） | `creation-issue62-domain-d14-psychology-bion-academic-ja.pdf` | `DR-D14-psychology.md` + 臨床系参照 |
-| 経営学（タックマン・チーム発達） | `creation-issue62-domain-d22-business-management-academic-ja.pdf` | `DR-D22-business-management.md` |
-| 物理学（QFT） | `creation-issue62-domain-d02-physics-academic-ja.pdf` | `DR-D02-physics.md` |
+| 西洋哲学 | `creation-domain-D13-philosophy-academic-ja.pdf` | `DR-D13-philosophy.md` |
+| 東洋思想 | `creation-domain-D13-east-thought-academic-ja.pdf` | `DR-D13-philosophy.md`（東洋思想抽出） |
+| 心理学（ビオン） | `creation-domain-D14-psychology-bion-academic-ja.pdf` | `DR-D14-psychology.md` + 臨床系参照 |
+| 経営学（タックマン・チーム発達） | `creation-domain-D22-business-management-academic-ja.pdf` | `DR-D22-business-management.md` |
+| 物理学（QFT） | `creation-domain-D02-physics-academic-ja.pdf` | `DR-D02-physics.md` |
 
 ## 作成済み（JA）
 
-- `issue62-domain-d22-business-management-academic-ja.md`
-- `issue62-domain-d02-physics-academic-ja.md`
-- `creation-issue62-domain-d22-business-management-academic-ja.pdf`
+- `domain-D22-business-management-academic-ja.md`
+- `domain-D02-physics-academic-ja.md`
+- `creation-domain-D22-business-management-academic-ja.pdf`
 
 ## 全領域（D01-D30）テンプレ
 
 命名規則:
 
-`creation-issue62-domain-d{nn}-{slug}-academic-ja.pdf`
+`creation-domain-D{nn}-{slug}-academic-ja.pdf`
 
 例:
 
-- `creation-issue62-domain-d01-mathematics-academic-ja.pdf`
-- `creation-issue62-domain-d02-physics-academic-ja.pdf`
-- `creation-issue62-domain-d22-business-management-academic-ja.pdf`
+- `creation-domain-D01-mathematics-academic-ja.pdf`
+- `creation-domain-D02-physics-academic-ja.pdf`
+- `creation-domain-D22-business-management-academic-ja.pdf`

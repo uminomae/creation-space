@@ -1,5 +1,5 @@
 ---
-id: issue62-domain-d02-physics-academic-ja-v1
+id: domain-D02-physics-academic-ja-v1
 title: "Issue #62 学術分冊 D02 物理学"
 subtitle: "初見読者向け: 作業内容・比較理論・構造類似の分析"
 lang: ja
@@ -126,7 +126,7 @@ generated_at: 2026-03-04
 | marginal operator を保持として読む視点 | D3（Withhold） | `base/schema/core-definitions.md` | 未反映 | D3計算論節に「一次判定で未決定の保持」を追記候補 |
 | 核生成での物理的界面（臨界核） | D1/D3 + K-16境界厚み | `/Users/uminomae/dev/creation-space/evidence/evidence-D02-physics.md`（既反映）/ 横断メモ | 一部反映済 | D03/D05 との横断表を別紙化 |
 | 渦なし経路（デコヒーレンス） | ISS（5段階必須性） | `transform/domains/publish/issue62-research-bridge-ja.md` | 未反映 | ISS項目として明示的に登録 |
-| D02テンプレート運用実績 | 変換層運用 | `transform/domains/publish/domains/issue62-domain-template-academic-ja.md` | 反映済（運用テスト） | D13で2本目検証しテンプレ改善点を記録 |
+| D02運用実績のルール反映 | 変換層運用 | `transform/domains/reader-rules/reader-rules-creation-report.md` | 反映済（ルール移行） | D13で2本目検証し改訂点を記録 |
 
 ## 7. 読み物としての要点（知と洞察）
 

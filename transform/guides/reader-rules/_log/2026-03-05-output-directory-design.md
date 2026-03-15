@@ -45,12 +45,12 @@ assets/publications/
 │   │   │   ├── issue62-status-ja.md
 │   │   │   ├── issue62-domain-index-ja.md
 │   │   │   └── domains/
-│   │   │       └── issue62-domain-{id}-{name}-{audience}-{lang}.md
+│   │   │       └── domain-{id}-{name}-{audience}-{lang}.md
 │   │   └── pdf/
 │   │       ├── issue62-status-ja.pdf
 │   │       ├── issue62-domain-index-ja.pdf
 │   │       └── domains/
-│   │           └── issue62-domain-{id}-{name}-{audience}-{lang}.pdf
+│   │           └── domain-{id}-{name}-{audience}-{lang}.pdf
 │   └── manifests/
 │       ├── guides.json
 │       ├── issue62.json
@@ -78,7 +78,7 @@ assets/publications/
 |-----------|------|
 | `creation-general-ja.md` | 一般向け creation 説明文（日本語・API層） |
 | `creation-general-en.pdf` | 一般向け creation 説明文（英語・配信層） |
-| `issue62-domain-d22-business-management-academic-ja.md` | D22経営学ドメイン報告（学術・日本語・API層） |
+| `domain-D22-business-management-academic-ja.md` | D22経営学ドメイン報告（学術・日本語・API層） |
 
 ---
 
