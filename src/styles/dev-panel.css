@@ -12,7 +12,7 @@
   border-right: none;
   border-radius: 4px 0 0 4px;
   color: var(--kesson-dev-toggle-text);
-  font-size: 0.62rem;
+  font-size: 0.70rem;
   font-family: monospace;
   padding: 8px 5px;
   cursor: pointer;
@@ -106,14 +106,14 @@
 
 #dev-panel .dev-group-help {
   margin: 0 0 0.75rem;
-  font-size: 0.66rem;
+  font-size: 0.70rem;
   line-height: 1.45;
   color: var(--kesson-dev-panel-help-color);
 }
 
 #dev-panel .dev-row-help {
   margin-top: 0.2rem;
-  font-size: 0.62rem;
+  font-size: 0.70rem;
   line-height: 1.35;
   color: var(--kesson-dev-panel-help-sub-color);
 }
@@ -168,7 +168,7 @@
   border: 1px solid var(--kesson-dev-hud-border);
   background: var(--kesson-dev-hud-bg);
   color: var(--kesson-dev-hud-text);
-  font-size: 0.58rem;
+  font-size: 0.70rem;
   letter-spacing: 0.04em;
   line-height: 1;
   backdrop-filter: blur(7px);
