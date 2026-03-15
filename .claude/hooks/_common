@@ -1,0 +1,189 @@
+#\!/usr/bin/env bash
+
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+HOOK_CACHE_DIR="${REPO_ROOT}/.cache/hooks"
+HOOK_SESSION_ID=""
+HOOK_PAYLOAD_FILE=""
+
+hook_init() {
+  mkdir -p "${HOOK_CACHE_DIR}"
+  HOOK_PAYLOAD_FILE="$(mktemp)"
+  cat >"${HOOK_PAYLOAD_FILE}"
+  HOOK_SESSION_ID="$(hook_payload_get 'session_id' || true)"
+  if [ -z "${HOOK_SESSION_ID}" ]; then
+    HOOK_SESSION_ID="session-unknown"
+  fi
+  trap 'rm -f "${HOOK_PAYLOAD_FILE}"' EXIT
+}
+
+hook_payload_get() {
+  local path="$1"
+  python3 - "$HOOK_PAYLOAD_FILE" "$path" <<'PY'
+import json
+import sys
+
+payload_path, path = sys.argv[1], sys.argv[2]
+with open(payload_path, encoding="utf-8") as fh:
+    data = json.load(fh)
+
+cur = data
+for part in path.split("."):
+    if isinstance(cur, dict) and part in cur:
+        cur = cur[part]
+    else:
+        sys.exit(1)
+
+if cur is None:
+    sys.exit(1)
+if isinstance(cur, (dict, list)):
+    print(json.dumps(cur, ensure_ascii=False))
+else:
+    print(cur)
+PY
+}
+
+hook_event_name() {
+  hook_payload_get "hook_event_name" 2>/dev/null || true
+}
+
+hook_tool_name() {
+  hook_payload_get "tool_name" 2>/dev/null || true
+}
+
+hook_prompt() {
+  hook_payload_get "prompt" 2>/dev/null || hook_payload_get "user_prompt" 2>/dev/null || true
+}
+
+hook_transcript_path() {
+  hook_payload_get "transcript_path" 2>/dev/null || true
+}
+
+hook_cwd() {
+  hook_payload_get "cwd" 2>/dev/null || pwd
+}
+
+hook_tool_input_field() {
+  local field="$1"
+  hook_payload_get "tool_input.${field}" 2>/dev/null || hook_payload_get "input.${field}" 2>/dev/null || true
+}
+
+hook_collect_paths() {
+  python3 - "$HOOK_PAYLOAD_FILE" <<'PY'
+import json
+import sys
+
+with open(sys.argv[1], encoding="utf-8") as fh:
+    data = json.load(fh)
+
+tool_input = data.get("tool_input") or data.get("input") or {}
+paths = set()
+keys = {
+    "file_path",
+    "path",
+    "paths",
+    "old_file_path",
+    "new_file_path",
+    "target_file",
+    "target_path",
+    "source_file",
+}
+
+def add(value):
+    if isinstance(value, str) and value:
+        paths.add(value)
+
+def walk(obj):
+    if isinstance(obj, dict):
+        for key, value in obj.items():
+            if key in keys:
+                if isinstance(value, list):
+                    for item in value:
+                        add(item)
+                else:
+                    add(value)
+            walk(value)
+    elif isinstance(obj, list):
+        for item in obj:
+            walk(item)
+
+walk(tool_input)
+for path in sorted(paths):
+    print(path)
+PY
+}
+
+hook_normalize_path() {
+  local raw_path="$1"
+  python3 - "$REPO_ROOT" "$(hook_cwd)" "$raw_path" <<'PY'
+import os
+import sys
+
+repo_root, cwd, raw_path = sys.argv[1], sys.argv[2], sys.argv[3]
+if not raw_path:
+    sys.exit(1)
+
+if os.path.isabs(raw_path):
+    normalized = os.path.normpath(raw_path)
+else:
+    normalized = os.path.normpath(os.path.join(cwd, raw_path))
+
+print(normalized)
+PY
+}
+
+hook_repo_rel() {
+  local path="$1"
+  python3 - "$REPO_ROOT" "$path" <<'PY'
+import os
+import sys
+
+repo_root, path = sys.argv[1], sys.argv[2]
+repo_root = os.path.normpath(repo_root)
+path = os.path.normpath(path)
+prefix = repo_root + os.sep
+if path == repo_root:
+    print(".")
+elif path.startswith(prefix):
+    print(path[len(prefix):])
+else:
+    sys.exit(1)
+PY
+}
+
+hook_changed_files() {
+  git -C "$REPO_ROOT" status --short --untracked-files=all | awk '{print $NF}'
+}
+
+hook_file_age_seconds() {
+  local path="$1"
+  python3 - "$path" <<'PY'
+import os
+import sys
+import time
+
+path = sys.argv[1]
+if not os.path.exists(path):
+    sys.exit(1)
+
+print(int(time.time() - os.path.getmtime(path)))
+PY
+}
+
+hook_transcript_contains() {
+  local pattern="$1"
+  local transcript
+  transcript="$(hook_transcript_path)"
+  if [ -z "$transcript" ] || [ \! -f "$transcript" ]; then
+    return 1
+  fi
+  rg -q --fixed-strings "$pattern" "$transcript"
+}
+
+hook_warn() {
+  printf 'hook warn: %s\n' "$*" >&2
+}
+
+hook_block() {
+  printf 'hook block: %s\n' "$*" >&2
+  exit 2
+}
