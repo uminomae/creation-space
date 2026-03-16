@@ -87,6 +87,10 @@ evidence（`evidence/` 配下）を新規作成・更新する作業では、以
 2. 生成後、`--check` オプションで差分を確認する
 3. progress_level に意図しない変更がないことを確認してからコミットする
 
+## 領域別レポートの生成・更新
+
+領域別レポート（domains）の生成→PDF公開の手順は `transform/domains/WORKFLOW.md` を参照すること。
+
 ## ディレクトリ構造
 
 | パス | 役割 |
