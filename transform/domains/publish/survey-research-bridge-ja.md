@@ -1,6 +1,6 @@
 ---
-id: issue62-research-bridge-ja-v1
-title: "Issue #62 研究結果→上位プロジェクト接続メタ文書"
+id: survey-research-bridge-ja-v1
+title: "構造類似調査 研究結果→上位プロジェクト接続メタ文書"
 subtitle: "transform層の成果を base / schema / publish に接続する運用台帳"
 lang: ja
 version: 1.0
@@ -9,7 +9,7 @@ generator_model: GPT-5 Codex (OpenAI)
 generated_at: 2026-03-04
 ---
 
-# Issue #62 研究結果→上位プロジェクト接続メタ文書
+# 構造類似調査 研究結果→上位プロジェクト接続メタ文書
 
 > この文書は、領域別リサーチで得た知見を上位プロジェクトへ反映するための「接続台帳」です。  
 > 目的は、分冊PDFを作って終わる運用を避け、knowledge/schema/ と reader-rules/publish更新までを追跡することです。
@@ -70,13 +70,13 @@ generated_at: 2026-03-04
 3. 本文の `6.5 研究結果→上位接続` を記入  
 4. 本メタ文書（本ファイル）に1行追加  
 5. 必要に応じて `knowledge/schema/*` / `reader-rules/*` を更新  
-6. `issue62-status-ja.md` の進捗と接続状況を更新  
+6. `survey-status-ja.md` の進捗と接続状況を更新  
 
 ---
 
-## 5. Issue #62 横断報告との関係
+## 5. 構造類似調査 横断報告との関係
 
-- `issue62-status-ja.md` は「現在地の共有」を担うハブ
+- `survey-status-ja.md` は「現在地の共有」を担うハブ
 - 本ファイルは「接続状況の追跡」を担うメタ台帳
 - 領域別分冊は「理論比較の実体」を担う
 
@@ -99,5 +99,5 @@ generated_at: 2026-03-04
 
 ## 7. 補足
 
-- #62の主目的は「分冊の量産」ではなく「上位プロジェクトの精度向上」である。
+- 本調査の主目的は「分冊の量産」ではなく「上位プロジェクトの精度向上」である。
 - したがって、分冊の完成数と同じ重みで「反映率（接続率）」を追う。
