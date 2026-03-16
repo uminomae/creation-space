@@ -150,9 +150,25 @@ creation-space/src/reports.js
 | 内部用語禁止 | Phase、Step、Issue番号は含めない |
 | 空値許可 | 追加情報がなければ空文字列で可 |
 
+## §3 運用ルール（CLI参照先）
+
+以下の運用ルールは CLAUDE.md および `.claude/rules/evidence-progress.md` に配置されている。
+evidence-metadata-creation.md はタクソノミー**定義**の正本であり、**運用手順**の正本は下記を参照すること。
+
+| ルール | 配置先 |
+|--------|-------|
+| progress_level 変更禁止ルール | CLAUDE.md §progress_level + `.claude/rules/evidence-progress.md` |
+| evidence 更新時チェックリスト | CLAUDE.md §evidence 更新時チェックリスト |
+| deepdive 後の更新フロー | `.claude/rules/evidence-progress.md` |
+| 内部Level→公開タクソノミーのマッピング | CLAUDE.md §progress_level の決定基準 |
+| 情報フローと SoT | `.claude/rules/evidence-progress.md` |
+
+移植元: `kesson-driven-thinking/base/schema/evidence-metadata.md` v1.9 の §4, §5, §6, §8
+
 ## 更新履歴
 
 | 日付 | バージョン | 内容 |
 |---|---|---|
+| 2026-03-16 | 1.2 | §3 運用ルール参照先を追加。kesson-driven-thinking §4/§5/§6/§8 の移植完了を記録 (cs#101) |
 | 2026-03-16 | 1.1 | §2.7 旧 level マイグレーションテーブル、§2.8 progress_note 運用ルールを追加 (cs#77 子タスク4-5) |
 | 2026-03-14 | 1.0 | `kesson-driven-thinking/base/schema/evidence-metadata.md` §2 / §2.5 を creation-space 側へ移植し、公開ラベルタクソノミーと `generator_model` の正本を分離 (#248) |

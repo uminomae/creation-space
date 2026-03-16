@@ -196,6 +196,12 @@ async function generate(options) {
     if (!taxEntry) {
       warnings.push(`${entry.id}: unknown progress_level "${entry.progress_level}"`);
     }
+    if (!entry.progress_level || !entry.progress_level.trim()) {
+      warnings.push(`${entry.id}: progress_level is empty or missing`);
+    }
+    if (fileCheck.status === 'published' && entry.progress_level === 'not_surveyed') {
+      warnings.push(`${entry.id}: status=published but progress_level=not_surveyed (likely data inconsistency)`);
+    }
 
     const report = {
       id: entry.id,
