@@ -52,6 +52,45 @@ CSS（`src/styles/` 配下）を変更する前に:
 - カスタム CSS は Bootstrap で実現不可能なもの（独自アニメーション、glassmorphism、Three.js連携、デザイントークン）に限定する
 - 新しいCSSプロパティを手書きする前に、同等の Bootstrap クラスが存在しないか確認する
 
+## progress_level / progress_note の保護ルール
+
+**禁止事項**: `transform/domains/publish/domains/index.json` の `progress_level` および `progress_note` フィールドは、pjdhiro の明示的な指示がない限り変更してはならない。他のフィールド（status, slug, name_ja 等）の更新時にも、progress_level / progress_note は元の値を保持すること。
+
+**正本**: `docs/evidence-metadata-creation.md`
+**SoT（各ドメインの進捗値）**: `transform/domains/publish/domains/index.json`
+
+### progress_level の決定基準（§4 マッピング）
+
+| 操作内容 | progress_level |
+|---------|----------------|
+| 未実施 | `not_surveyed` |
+| Claude 1セッションで候補抽出 | `claude_screened` |
+| Claude + ChatGPT 独立レビュー突き合わせ | `claude_gpt_reviewed` |
+| 上記 + Claude Code Agent 逐次多ラウンド深掘り | `api_deepdive` |
+| 上記 + Codex CLI マルチエージェント並列深掘り | `codex_parallel_deepdive` |
+| 上記いずれか + pjdhiro 最終確認 | `human_reviewed` |
+
+### evidence 更新時チェックリスト
+
+evidence（`evidence/` 配下）を新規作成・更新する作業では、以下を確認すること:
+
+1. 実施した操作は何か → 上記マッピングで progress_level を確認
+2. `transform/domains/publish/domains/index.json` の該当ドメインの progress_level が操作内容と一致しているか確認
+3. **progress_level の変更が必要な場合は pjdhiro に確認してから変更する**
+4. deepdive を実施した場合は `evidence/deepdive/{手法}/` に出力が保存されているか確認
+
+### domains.json 再生成時の注意
+
+`scripts/generate-domains-json.mjs` を実行する際:
+
+1. 実行前に `index.json` の progress_level 値が正しいことを確認する
+2. 生成後、`--check` オプションで差分を確認する
+3. progress_level に意図しない変更がないことを確認してからコミットする
+
+## 領域別レポートの生成・更新
+
+領域別レポート（domains）の生成→PDF公開の手順は `transform/domains/WORKFLOW.md` を参照すること。
+
 ## ディレクトリ構造
 
 | パス | 役割 |

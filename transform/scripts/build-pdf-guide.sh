@@ -127,8 +127,20 @@ get_domain_title() {
     python3 - "$file" "$fallback" << 'PYEOF'
 import sys, re
 text = open(sys.argv[1]).read()
+# 1st: front matter title field
 m = re.search(r'^title:\s*["\x27](.*?)["\x27]', text, re.MULTILINE)
-print(m.group(1) if m else sys.argv[2])
+if m:
+    print(m.group(1))
+else:
+    # 2nd: first H1 heading (strip trailing decorations like "——...")
+    h = re.search(r'^#\s+(.+)', text, re.MULTILINE)
+    if h:
+        raw = h.group(1).strip()
+        # Remove subtitle after em-dash
+        clean = re.split(r'[—―]+', raw)[0].strip()
+        print(clean)
+    else:
+        print(sys.argv[2])
 PYEOF
 }
 
