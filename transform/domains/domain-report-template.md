@@ -70,6 +70,7 @@ evidence が不足している知見には「未調査」と明記し、構造�
 - この領域に固有の構造パターン
 - 5段階との対応で特に強い/弱い段階
 - 他領域との接続可能性
+- 他Dからの参照ルールは [cross-domain-reference.md](cross-domain-reference.md) を参照
 
 ## 7. 未解決の問い
 
