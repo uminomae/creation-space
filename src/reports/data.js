@@ -493,7 +493,11 @@ function normalizeProgressLevel(rawLevel, rawStatus) {
     if (level === 'analysis_complete') return 'claude_gpt_reviewed';
     if (level) return level;
 
-    if (rawStatus === 'published') return 'claude_gpt_reviewed';
+    // progress_level が空でも published ステータスを根拠に暗黙変換しない。
+    // 値が空の場合は 'not_surveyed' にフォールバックし、console で警告する。
+    if (rawStatus === 'published') {
+        console.warn(`[reports] domain has status=published but empty progress_level — defaulting to not_surveyed. Fix index.json.`);
+    }
     return 'not_surveyed';
 }
 
