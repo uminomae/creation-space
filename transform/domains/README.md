@@ -42,3 +42,8 @@
 - 生成ルール: [reader-rules/reader-rules-creation-report.md](/Users/uminomae/dev/creation-space/transform/domains/reader-rules/reader-rules-creation-report.md)
 - 共通基盤: [reader-rules/reader-rules-creation.md](/Users/uminomae/dev/creation-space/transform/domains/reader-rules/reader-rules-creation.md)
 - 品質基準: [quality-test/quality-test-domain-report.md](/Users/uminomae/dev/creation-space/transform/domains/quality-test/quality-test-domain-report.md)
+
+## 調査品質管理（cs#78）
+
+- 3軸品質基準: [quality-criteria.md](quality-criteria.md) — 調査範囲/深さ/洞察の定量評価基準（D23ベンチマーク）
+- 調査テンプレート: [survey-prompt-template.md](survey-prompt-template.md) — D23水準を再現する3Phaseプロンプト構造

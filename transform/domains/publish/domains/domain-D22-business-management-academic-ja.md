@@ -1,5 +1,5 @@
 ---
-id: issue62-domain-d22-business-management-academic-ja-v2
+id: domain-D22-business-management-academic-ja-v2
 title: "Issue #62 学術分冊 D22 経営学"
 subtitle: "初見読者向け: 作業内容・比較理論・構造類似の分析"
 lang: ja
@@ -90,7 +90,7 @@ generated_at: 2026-03-04
 ## 6.5 領域別レポート変換の判断根拠（D22 全11論）
 
 本節は、`/Users/uminomae/dev/creation-space/evidence/evidence-D22-business-management.md` の 11理論を、なぜこの分冊の形に変換したかを明示する。  
-単なる「要約」ではなく、`base/schema/core-definitions.md`（D1/D3/D4）と `base/schema/five-stages.md`（場→波→縁→渦→束）を共通座標として、採用理由・棄却条件・牽強付会リスクを残すことを目的とする。
+単なる「要約」ではなく、`/Users/uminomae/dev/kesson-driven-thinking/base/schema/core-definitions.md`（D1/D3/D4）と `knowledge/schema/five-stages.md`（場→波→縁→渦→束）を共通座標として、採用理由・棄却条件・牽強付会リスクを残すことを目的とする。
 
 ### 6.5.1 何を変換したか
 
@@ -106,10 +106,10 @@ generated_at: 2026-03-04
 
 | 判断軸 | 本分冊で重視した理由 | base上の根拠 |
 |---|---|---|
-| E-1 構造対応 | 5段階への対応が曖昧な理論は、魅力があっても主列に置かない | `base/schema/five-stages.md` |
-| E-3 縁の記述強度 | 「縁」は本モデルの焦点段階のため、関係網・未決定性・渦接続を優先評価 | `base/schema/five-stages.md` Stage 3 |
-| D1 接続 | 誤差を問いとして拾う駆動原理を持つ理論を優先 | `base/schema/core-definitions.md` D1 |
-| D3 接続 | 保持（Withhold）を仕組みや意思決定として扱える理論を優先 | `base/schema/core-definitions.md` D3 |
+| E-1 構造対応 | 5段階への対応が曖昧な理論は、魅力があっても主列に置かない | `knowledge/schema/five-stages.md` |
+| E-3 縁の記述強度 | 「縁」は本モデルの焦点段階のため、関係網・未決定性・渦接続を優先評価 | `knowledge/schema/five-stages.md` Stage 3 |
+| D1 接続 | 誤差を問いとして拾う駆動原理を持つ理論を優先 | `/Users/uminomae/dev/kesson-driven-thinking/base/schema/core-definitions.md` D1 |
+| D3 接続 | 保持（Withhold）を仕組みや意思決定として扱える理論を優先 | `/Users/uminomae/dev/kesson-driven-thinking/base/schema/core-definitions.md` D3 |
 | E-7 牽強付会リスク | 「似て見えるだけ」の一致を排除するため、限界と反証条件を必ず併記 | `/Users/uminomae/dev/creation-space/evidence/evidence-D22-business-management.md` E-7 |
 | E-5 スケール | 個人/チーム/組織/産業を横断して再現するかを確認 | 同上 E-5 + CHK-B |
 
@@ -163,5 +163,5 @@ generated_at: 2026-03-04
 - 2026-03-03 進捗（11/11）: 内部進捗ログ
 - `/Users/uminomae/dev/creation-space/evidence/evidence-D22-business-management.md`
 - `/Users/uminomae/dev/creation-space/evidence/202602-deep-research-30domains-gpt/DR-D22-business-management.md`
-- `base/schema/core-definitions.md`
-- `base/schema/five-stages.md`
+- `/Users/uminomae/dev/kesson-driven-thinking/base/schema/core-definitions.md`
+- `knowledge/schema/five-stages.md`

@@ -1,5 +1,5 @@
 ---
-id: issue62-domain-d23-developmental-psychology-academic-ja-v1
+id: domain-D23-developmental-psychology-academic-ja-v1
 title: "D23 発達心理学 — 5段階モデルとの構造類似調査"
 lang: ja
 version: 1.0

@@ -2,27 +2,51 @@
 // CHANGED(2026-03-07): shared topbar font-size control for creation-space
 
 const STEP_REM = 0.1;
-const DEFAULT_STEP = 3;
+const DEFAULT_STEP = 0;
 const MIN_STEP = -1;
 const MAX_STEP = 7;
 const STORAGE_KEY = 'kesson-font-step';
-const MIGRATION_KEY = 'kesson-font-step-v4';
+const MIGRATION_KEY = 'kesson-font-step-v5';
 
+// Global UI font sizes (shell.css :root)
 const FONT_VARS = {
-    '--kesson-font-size-ui-xs': 0.65,
-    '--kesson-font-size-ui-sm': 0.70,
+    '--kesson-font-size-ui-xs': 0.80,
+    '--kesson-font-size-ui-sm': 0.80,
 };
 
 const CLASS_VARS = {
-    '--kesson-section-heading': 0.75,
+    // -- Card & section --
+    '--kesson-section-heading': 0.80,
     '--kesson-card-title': 0.80,
-    '--kesson-card-text': 0.70,
-    '--kesson-card-summary': 0.68,
-    '--kesson-overlay-tagline': 0.55,
-    '--kesson-overlay-tagline-en': 0.48,
-    '--kesson-control-guide': 0.45,
-    '--kesson-footer-line': 0.45,
-    '--kesson-surface-btn': 0.55,
+    '--kesson-card-text': 0.80,
+    '--kesson-card-summary': 0.80,
+
+    // -- Overlay & guide --
+    '--kesson-overlay-tagline': 0.80,
+    '--kesson-overlay-tagline-en': 0.80,
+    '--kesson-control-guide': 0.80,
+    '--kesson-surface-btn': 0.80,
+
+    // -- Footer --
+    '--kesson-footer-line': 0.80,
+    '--kesson-footer-signature-size': 0.80,
+
+    // -- Dev HUD --
+    '--kesson-dev-hud-font-size': 0.80,
+
+    // -- Topbar --
+    '--kesson-topbar-link-size': 0.80,
+    '--kesson-topbar-credit-size': 0.80,
+    '--kesson-topbar-note-size': 0.80,
+    '--kesson-topbar-meta-size': 0.80,
+    '--kesson-topbar-meta-author-size': 0.80,
+    '--kesson-topbar-subtitle-size-md': 0.80,
+    '--kesson-topbar-title-size': 0.80,
+    '--kesson-topbar-main-title-size': 0.96,
+    '--kesson-topbar-main-title-size-sm': 0.86,
+
+    // -- Hero h1 --
+    '--kesson-h1-size': 1.00,
 };
 
 function normalizeStep(step) {
@@ -73,11 +97,8 @@ function applyStep(step) {
 export function initFontSizeCtrl() {
     try {
         if (!window.localStorage.getItem(MIGRATION_KEY)) {
-            const old = window.localStorage.getItem(STORAGE_KEY);
-            // Restore the historical +3 default while preserving explicit user choices.
-            if (old === '0' || old === null) {
-                window.localStorage.setItem(STORAGE_KEY, String(DEFAULT_STEP));
-            }
+            // v5: DEFAULT_STEP changed from 3 to 0. Reset all users to new default.
+            window.localStorage.setItem(STORAGE_KEY, String(DEFAULT_STEP));
             window.localStorage.setItem(MIGRATION_KEY, '1');
         }
     } catch {

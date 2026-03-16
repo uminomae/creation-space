@@ -52,3 +52,4 @@
 - 特定 UI だけを調整したいなら component-local 変数を優先する
 - 同じ色や影の値を複数 CSS に直書きしている箇所を見つけたら、新規直書きは増やさず token へ寄せる
 - 迷ったら `dev-components.html` で隣接コンポーネントを見比べ、変化が波及してよい範囲だけを変える
+- **Bootstrap 優先**: レイアウト・スペーシング・ボタン・レスポンシブ制御は Bootstrap ユーティリティクラスを最優先で使う。カスタム CSS は Bootstrap で実現不可能なものに限定する（詳細: `CLAUDE.md` §Bootstrap 優先原則）

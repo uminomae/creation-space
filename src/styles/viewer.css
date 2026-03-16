@@ -31,7 +31,7 @@
 }
 
 .badge-article-type {
-  font-size: 0.65rem;
+  font-size: 0.80rem;
 }
 
 #kesson-viewer {
@@ -172,7 +172,7 @@
 }
 
 .md-provenance {
-  font-size: 0.68rem;
+  font-size: 0.80rem;
   color: var(--kesson-md-provenance);
   margin-bottom: 1.5rem;
   letter-spacing: 0.03em;

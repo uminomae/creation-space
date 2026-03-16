@@ -1,24 +1,23 @@
 ---
-id: issue62-status-ja-v3
-title: "Issue #62 外部向け調査レポート"
+id: survey-status-ja-v3
+title: "構造類似調査 外部向けレポート"
 subtitle: "創造5段階モデルの横断検証 — エグゼクティブブリーフ（2026-03-04）"
 lang: ja
 audience: external
 version: 2.0
 date: 2026-03-04
-source_issue: internal-issue-62
 source_material:
   - /Users/uminomae/dev/creation-space/evidence/202602-deep-research-30domains-gpt/README.md
   - /Users/uminomae/dev/creation-space/evidence/evidence-D01-mathematics.md
   - /Users/uminomae/dev/creation-space/evidence/evidence-D02-physics.md
   - /Users/uminomae/dev/creation-space/evidence/evidence-D22-business-management.md
   - transform/domains/publish/domains/index.json
-  - transform/domains/publish/issue62-research-bridge-ja.md
+  - transform/domains/publish/survey-research-bridge-ja.md
 generator_model: GPT-5 Codex (OpenAI)
 generated_at: 2026-03-04
 ---
 
-# Issue #62 外部向け調査レポート
+# 構造類似調査 外部向けレポート
 
 > LLMモデル: GPT-5 Codex (OpenAI)
 >
@@ -55,7 +54,7 @@ generated_at: 2026-03-04
 - 入口: 各領域3件の簡易調査（一次スクリーニング）
 - 深掘り: 各領域10件規模の構造類似探索
 - 収束: 分析完了（判定根拠・反証候補・上位接続を明文化）
-- 反映先: `/Users/uminomae/dev/creation-space/evidence/`, `transform/domains/publish/`, `issue62-research-bridge-ja.md`
+- 反映先: `/Users/uminomae/dev/creation-space/evidence/`, `transform/domains/publish/`, `survey-research-bridge-ja.md`
 
 ---
 
@@ -90,7 +89,7 @@ generated_at: 2026-03-04
 ### 4.3 発見C: 調査の価値は「分冊数」より「上位反映率」で決まる
 
 - 分冊作成のみでは、上位プロジェクトに知見が還流しないリスクがあります。
-- 現在は `issue62-research-bridge-ja.md` を用いて、知見→上位定義への接続を追跡しています。
+- 現在は `survey-research-bridge-ja.md` を用いて、知見→上位定義への接続を追跡しています。
 
 ---
 
@@ -115,14 +114,14 @@ generated_at: 2026-03-04
 
 1. 構造類似探索レベル（10件/領域）の10領域を、分析完了へ順次移行する。  
 2. 簡易調査レベルの9領域について、優先3領域を選定し深掘り開始する。  
-3. 各領域の更新時に、`issue62-research-bridge-ja.md` の接続行を同時更新する。  
+3. 各領域の更新時に、`survey-research-bridge-ja.md` の接続行を同時更新する。  
 4. 月次で「進捗レベル分布」と「上位反映率」を定点観測する。
 
 ---
 
 ## 8. 参照資料
 
-- `transform/domains/publish/issue62-domain-index-ja.md`
-- `transform/domains/publish/issue62-research-bridge-ja.md`
+- `transform/domains/publish/survey-domain-index-ja.md`
+- `transform/domains/publish/survey-research-bridge-ja.md`
 - `transform/domains/publish/domains/index.json`
 

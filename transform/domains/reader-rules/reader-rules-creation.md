@@ -1,6 +1,6 @@
 # 変換ルール: creation 共通基盤 v1.4
 
-**位置づけ**: LLMが base/ から creation コンテンツを生成するときの共通ルール。全audience版（general / designer / academic / report）はこのルールを継承し、audience固有の設計を上書きする。
+**位置づけ**: LLMが knowledge/ および kesson-driven-thinking/base/ から creation コンテンツを生成するときの共通ルール。全audience版（general / designer / academic / report）はこのルールを継承し、audience固有の設計を上書きする。
 **更新日**: 2026-03-05
 **根拠**: #84（ルール整備）。旧版（配管仕様）は `_reader-rules-creation-v0-pipeline.md` に退避。
 
@@ -8,11 +8,11 @@
 
 ## §1 ソース原則
 
-- ソースは `base/` 配下の必要なもの全て。固定ファイルリストではない
+- ソースは `knowledge/` 配下および `/Users/uminomae/dev/kesson-driven-thinking/base/` 配下の必要なもの全て。固定ファイルリストではない
 - `/Users/uminomae/dev/creation-space/evidence/` も明確にソースである
-- base/ は今後も増える。生成時点で必要なものを判断して参照する
+- knowledge/ は今後も増える。生成時点で必要なものを判断して参照する
 - 何を参照したかは、生成物のメタ情報（front matter、脚注、末尾等）に明記する
-- 共通基盤はコンテンツを持たない。5段階の定義等は base/ を参照する
+- 共通基盤はコンテンツを持たない。5段階の定義等は knowledge/ を参照する
 
 ---
 
@@ -32,7 +32,7 @@ creation が生成する文書は、この仮説を各audienceに向けて報告
 
 ### 定義の参照
 
-5段階（場→波→縁→渦→束）の定義の原型は `base/` にある。共通基盤がコンテンツとして定義を持つと base/ との二重管理になるため、ここでは扱いのルールのみ定める。
+5段階（場→波→縁→渦→束）の定義の原型は kesson-driven-thinking の `base/` にある。共通基盤がコンテンツとして定義を持つと正本との二重管理になるため、ここでは扱いのルールのみ定める。
 
 ### 導入の仕方
 
@@ -97,6 +97,28 @@ creation が生成する文書は、この仮説を各audienceに向けて報告
 - 「〜かもしれません」の3回以上連続使用（全体が不確かに見える）
 - 確定事実を「〜かもしれない」で弱める
 - 仮説を「〜である」で断定する
+
+---
+
+## §5.5 トーンの共通原則
+
+全 audience 版に共通するトーンの基盤。各 audience 版はこれを継承し、読者層に応じて上書きする。
+
+| 原則 | 内容 |
+|------|------|
+| 誠実さ | わからないことは「わからない」と書く。確信度を偽らない |
+| 具体性 | 抽象的な主張には必ず具体例を添える |
+| 読者の時間尊重 | 冗長な前置き・免罪符を入れない。一段落一主張 |
+| 温度の透明性 | 確定/有力/仮説の区別を読者が判断できるようにする |
+| 専門用語の扱い | 初出時に必ず説明する。audience 版で説明の深さを調整 |
+
+### audience 版による上書き
+
+| 版 | 上書き内容 |
+|----|-----------|
+| general | ですます調、比喩優先、専門用語を最小化 |
+| academic | 論文調、用語の正確性優先、引用形式を厳密に |
+| report | 報告書調、事実→読み取り→解釈の3層構造を強制 |
 
 ---
 
@@ -266,7 +288,7 @@ creation-pjdhiro.md / .pdf は著者開示用であり、公開リポジトリ�
 
 言語はディレクトリで分離するため、ファイル名には含めない。
 
-> **廃止**: 旧命名 `issue62-domain-*` は廃止。新規生成では必ず `domain-*` 命名を使うこと。既存ファイルのリネームは別タスクで実施する。
+> **廃止**: 旧命名 `issue62-domain-*` は廃止。新規生成・参照ともに `domain-*` 命名を使うこと。
 
 | 要素 | 値 |
 |------|----|
@@ -290,7 +312,7 @@ creation-pjdhiro.md / .pdf は著者開示用であり、公開リポジトリ�
 Jekyll/HTML/PDF各出力への変換処理（front matter付与、data属性マッピング、pandocメタデータ等）は共通基盤ルールの範囲外。以下を参照:
 
 - `_reader-rules-creation-v0-pipeline.md`（旧版。配管仕様を含む）
-- `transform/_schema/PIPELINE-CONTEXT.md`（パイプライン入出力テーブル）
+- `transform/_schema/PIPELINE-CONTEXT.md`（パイプライン入出力テーブル）——**未作成**
 - `transform/scripts/`（ビルドスクリプト）
 
 ---
@@ -299,8 +321,8 @@ Jekyll/HTML/PDF各出力への変換処理（front matter付与、data属性マ�
 
 | ファイル | 役割 |
 |--------|------|
-| `base/`（全体） | ソース。固定リストではない |
-| `base/voice/pjdhiro-statements-db.md` | pjdhiro発言集。理論的判断の最上位参照先 |
+| `knowledge/`（creation-space 側）/ kesson-driven-thinking `base/`（未移植分） | ソース。固定リストではない |
+| `/Users/uminomae/dev/kesson-driven-thinking/base/voice/pjdhiro-statements-db.md`（未移植） | pjdhiro発言集。理論的判断の最上位参照先 |
 | `transform/README.md` | 変換層の全体地図・ルール索引 |
 | `transform/DISPATCH.md` | 出力物→ルール対応表 |
 | 各audience版 reader-rules | 本ルールを継承し、固有の設計を上書きする |

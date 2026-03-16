@@ -41,6 +41,7 @@ function updateFilterButtonLabels(filterButtons, lang, activeType) {
         const type = normalizeArticlesFilterType(button.dataset.type);
         button.textContent = strings.typeLabel[type];
         const isActive = type === activeType;
+        button.classList.toggle('active', isActive);
         button.classList.toggle('is-active', isActive);
         button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
     });
@@ -151,7 +152,8 @@ function createReadMoreButton(lang, totalCount, visibleCount) {
     btnContainer.dataset.role = 'articles-readmore-wrap';
 
     const btn = document.createElement('button');
-    btn.className = 'btn-read-more';
+    btn.type = 'button';
+    btn.className = 'btn btn-outline-primary btn-sm btn-read-more';
     btn.setAttribute('data-bs-toggle', 'offcanvas');
     btn.setAttribute('data-bs-target', '#articlesOffcanvas');
     btn.setAttribute('aria-controls', 'articlesOffcanvas');

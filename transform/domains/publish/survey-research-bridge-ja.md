@@ -1,6 +1,6 @@
 ---
-id: issue62-research-bridge-ja-v1
-title: "Issue #62 研究結果→上位プロジェクト接続メタ文書"
+id: survey-research-bridge-ja-v1
+title: "構造類似調査 研究結果→上位プロジェクト接続メタ文書"
 subtitle: "transform層の成果を base / schema / publish に接続する運用台帳"
 lang: ja
 version: 1.0
@@ -9,10 +9,10 @@ generator_model: GPT-5 Codex (OpenAI)
 generated_at: 2026-03-04
 ---
 
-# Issue #62 研究結果→上位プロジェクト接続メタ文書
+# 構造類似調査 研究結果→上位プロジェクト接続メタ文書
 
 > この文書は、領域別リサーチで得た知見を上位プロジェクトへ反映するための「接続台帳」です。  
-> 目的は、分冊PDFを作って終わる運用を避け、base/schema/reader-rules/publish更新までを追跡することです。
+> 目的は、分冊PDFを作って終わる運用を避け、knowledge/schema/ と reader-rules/publish更新までを追跡することです。
 
 ## 0. この文書で担保すること
 
@@ -27,8 +27,8 @@ generated_at: 2026-03-04
 
 | 接続先カテゴリ | 主な対象 | 代表ファイル |
 |---|---|---|
-| コア定義 | D1/D2/D3/D4 の定義・成立条件・循環 | `base/schema/core-definitions.md` |
-| モデル構造 | 4層（M1）/5段階（M2）の関係 | `base/schema/four-layers.md`, `base/schema/five-stages.md` |
+| コア定義 | D1/D2/D3/D4 の定義・成立条件・循環 | `/Users/uminomae/dev/kesson-driven-thinking/base/schema/core-definitions.md` |
+| モデル構造 | 4層（M1）/5段階（M2）の関係 | `/Users/uminomae/dev/kesson-driven-thinking/base/schema/four-layers.md`, `knowledge/schema/five-stages.md` |
 | 論拠DB | 領域別の証拠・比較・判定 | `/Users/uminomae/dev/creation-space/evidence/evidence-DXX-*.md` |
 | 変換規則 | 読者別の変換方針 | `transform/domains/reader-rules/*.md`, `transform/guides/reader-rules/*.md`, `transform/survey/reader-rules/*.md` |
 | 公開ソース | モーダル/PDFに出る本文 | `transform/domains/publish/*.md` |
@@ -40,8 +40,8 @@ generated_at: 2026-03-04
 
 | ドメイン | 主要知見 | 上位概念への影響 | 更新対象ファイル | 反映ステータス | 備考 |
 |---|---|---|---|---|---|
-| D22 経営学 | Storming/弱信号保持の重要性、縁の記述強度差、制度化Withhold | D1, D3, M2(縁), ISS(適用境界) | `/Users/uminomae/dev/creation-space/evidence/evidence-D22-business-management.md`, `transform/domains/publish/domains/issue62-domain-d22-business-management-academic-ja.md` | 反映済（publish）/ 一部保留（base反映） | 反証候補は継続管理 |
-| D02 物理学 | 縁の物理的具体化（相互作用/界面/競合/RG流）、marginal=保持、渦なし経路の保留論点 | D1, D3, M2(縁), ISS(5段階必須性) | `/Users/uminomae/dev/creation-space/evidence/evidence-D02-physics.md`, `transform/domains/publish/domains/issue62-domain-d02-physics-academic-ja.md` | 反映済（publish）/ 一部保留（schema反映） | D02をテンプレート運用テストとして実施 |
+| D22 経営学 | Storming/弱信号保持の重要性、縁の記述強度差、制度化Withhold | D1, D3, M2(縁), ISS(適用境界) | `/Users/uminomae/dev/creation-space/evidence/evidence-D22-business-management.md`, `transform/domains/publish/domains/domain-D22-business-management-academic-ja.md` | 反映済（publish）/ 一部保留（base反映） | 反証候補は継続管理 |
+| D02 物理学 | 縁の物理的具体化（相互作用/界面/競合/RG流）、marginal=保持、渦なし経路の保留論点 | D1, D3, M2(縁), ISS(5段階必須性) | `/Users/uminomae/dev/creation-space/evidence/evidence-D02-physics.md`, `transform/domains/publish/domains/domain-D02-physics-academic-ja.md` | 反映済（publish）/ 一部保留（schema反映） | D02をルール移行テストとして実施 |
 | D13 哲学 | <次回記入> | <次回記入> | <次回記入> | 未着手 | D02との比較でテンプレ改訂点を抽出予定 |
 
 > 運用ルール: 「publishだけ更新してbase未更新」の状態を3営業日以上放置しない。
@@ -66,17 +66,17 @@ generated_at: 2026-03-04
 ## 4. 1領域あたりの運用フロー（実務）
 
 1. `/Users/uminomae/dev/creation-space/evidence/evidence-DXX-*.md` の更新  
-2. `transform/domains/publish/domains/issue62-domain-dXX-*.md` を作成  
+2. `transform/domains/publish/domains/domain-DXX-*.md` を作成  
 3. 本文の `6.5 研究結果→上位接続` を記入  
 4. 本メタ文書（本ファイル）に1行追加  
-5. 必要に応じて `base/schema/*` / `reader-rules/*` を更新  
-6. `issue62-status-ja.md` の進捗と接続状況を更新  
+5. 必要に応じて `knowledge/schema/*` / `reader-rules/*` を更新  
+6. `survey-status-ja.md` の進捗と接続状況を更新  
 
 ---
 
-## 5. Issue #62 横断報告との関係
+## 5. 構造類似調査 横断報告との関係
 
-- `issue62-status-ja.md` は「現在地の共有」を担うハブ
+- `survey-status-ja.md` は「現在地の共有」を担うハブ
 - 本ファイルは「接続状況の追跡」を担うメタ台帳
 - 領域別分冊は「理論比較の実体」を担う
 
@@ -99,5 +99,5 @@ generated_at: 2026-03-04
 
 ## 7. 補足
 
-- #62の主目的は「分冊の量産」ではなく「上位プロジェクトの精度向上」である。
+- 本調査の主目的は「分冊の量産」ではなく「上位プロジェクトの精度向上」である。
 - したがって、分冊の完成数と同じ重みで「反映率（接続率）」を追う。

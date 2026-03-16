@@ -5,7 +5,7 @@
 **目的**: 30領域の横断的調査で何がわかったかを報告する
 **性格**: コンサルタントが依頼者に提出する調査報告書
 **出力形態**: PDF / Markdown / ブログ記事
-**継承元**: `reader-rules-creation.md`（共通基盤 v1.2）を継承し、以下を上書きする
+**継承元**: `reader-rules-creation.md`（共通基盤 v1.4）を継承し、以下を上書きする
 
 ---
 
@@ -18,7 +18,7 @@
 | 1 | `transform/domains/reader-rules/reader-rules-creation-report.md`（本ファイル） | 生成ルール全体の把握 |
 | 2 | `transform/domains/quality-test/quality-test-domain-report.md` | **品質テスト基準の内面化（必須）** |
 | 3 | `/Users/uminomae/dev/creation-space/evidence/D{NN}-{domain}.md` | 当該ドメインの調査データ |
-| 4 | `base/text/m2-creation-process/creation-source.md` | 5段階モデルの定義（必要に応じて） |
+| 4 | `/Users/uminomae/dev/kesson-driven-thinking/base/text/m2-creation-process/creation-source.md`（未移植） | 5段階モデルの定義（必要に応じて） |
 
 **品質テストを頭に入れてから生成すること。**
 
@@ -51,13 +51,13 @@
 | ソース | 何のために |
 |--------|----------|
 | `/Users/uminomae/dev/creation-space/evidence/` | 30領域の調査結果データ。事実記述の根拠 |
-| `base/text/m2-creation-process/` | 5段階モデルの定義の原型 |
-| `base/schema/` | スキーマ定義（5段階の構造） |
+| `/Users/uminomae/dev/kesson-driven-thinking/base/text/m2-creation-process/`（未移植） | 5段階モデルの定義の原型 |
+| `knowledge/schema/` | スキーマ定義（5段階の構造） |
 | `skills/iss62-fieldwork/SKILL.md` | 調査方法・評価基準・判定基準の原典 |
-| `base/voice/pjdhiro-statements-db.md` | 理論的判断で迷ったときの最上位参照先 |
+| `/Users/uminomae/dev/kesson-driven-thinking/base/voice/pjdhiro-statements-db.md`（未移植） | 理論的判断で迷ったときの最上位参照先 |
 | `transform/domains/quality-test/quality-test-domain-report.md` | 品質テスト基準（生成前に必読） |
 
-ソースは上記に限定しない。base/ 配下で必要なものがあれば参照する。
+ソースは上記に限定しない。knowledge/ 配下や kesson-driven-thinking/base/ 配下で必要なものがあれば参照する。
 
 ### AI由来ソースの帰属ルール（NL-013）
 
@@ -65,7 +65,7 @@ evidence の `flags` に `[ai:*]` を持つエントリの内容を本文に反�
 
 - **`[ai:*]` のみ**: AI由来。三人称の報告体で記述
 - **`[hiro:確認]` あり**: pjdhiroがレビュー済みだが、元の調査・分析内容自体のAI帰属は変わらない。「著者が確認した調査結果として〜」は可。「著者は〜と考える」は不可
-- **`[hiro:*]` フラグなし・pjdhiro直接発言**: 一人称可（ただし `base/voice/` 等の明示的ソースに限る）
+- **`[hiro:*]` フラグなし・pjdhiro直接発言**: 一人称可（ただし `/Users/uminomae/dev/kesson-driven-thinking/base/voice/` 等の明示的ソースに限る）
 
 ⛔ 「pjdhiroが確認した」ことは「pjdhiroが考えた」ことではない。確認と創出を混同しない。
 
@@ -552,7 +552,7 @@ creation-general版（reader-rules-creation-general.md）は「休憩所の語�
 |--------|------|
 | `transform/domains/reader-rules/reader-rules-creation-report.md` | 本ファイル。生成ルール |
 | `transform/domains/quality-test/quality-test-domain-report.md` | **品質テストシート（生成前必読）** |
-| `base/text/m2-creation-process/creation-source.md` | ソース正本（5段階の定義） |
+| `/Users/uminomae/dev/kesson-driven-thinking/base/text/m2-creation-process/creation-source.md`（未移植） | ソース正本（5段階の定義） |
 | `/Users/uminomae/dev/creation-space/evidence/` | 30領域の調査結果データ |
 | `transform/guides/reader-rules/reader-rules-creation-general.md` | 一般向け読み物版（別の声） |
 | `transform/guides/reader-rules/reader-rules-creation-academic.md` | 学術版 |
@@ -567,8 +567,8 @@ creation-general版（reader-rules-creation-general.md）は「休憩所の語�
 | 2026-03-14 | 2.2 | cs#54: front matter の `title` を必須化。PDF/Markdown のタイトルは表示言語と一致させ、domain report は領域名を使う規則を追加 |
 | 2026-03-13 | 2.1 | #228: 各論に「読み取りとして」層を追加。§4 に NL-016 の各論具体化を反映し、各理論節を「事実として→読み取りとして→解釈として」に更新。§7-A に対応チェック追加。§9 に NL-016 追記 |
 | 2026-03-09 | 2.0 | NL-013追加。§0 に AI由来ソースの帰属ルールを追加。quality-test 連携前提を明文化（#150） |
-| 2026-03-08 | 1.9 | `generator_model` を front matter 必須フィールド化。`base/schema/evidence-metadata.md §2.5` 参照を追加（#140） |
-| 2026-03-14 | 2.0 | `generator_model` の参照先を `creation-space/docs/evidence-metadata-creation.md §2.5` へ更新 (#248) |
+| 2026-03-08 | 1.9 | `generator_model` を front matter 必須フィールド化。`/Users/uminomae/dev/kesson-driven-thinking/base/schema/evidence-metadata.md §2.5` 参照を追加（#140） |
+| 2026-03-14 | 2.0.1 | `generator_model` の参照先を `creation-space/docs/evidence-metadata-creation.md §2.5` へ更新 (#248) |
 | 2026-03-04 | 1.0 | 初版。品質レビュー（NL-001〜004）から導出。変換層の中核ルールとして新設 |
 | 2026-03-05 | 1.1 | #84-2: 共通基盤への紐づけ。§0ソース原則を追加（参照ソース一覧・調査方法の記述義務）。継承元を明記 |
 | 2026-03-05 | 1.2 | #84-2 点検: 継承/上書き対応表追加。§4構成パターンに返却の設計（立ち位置明示・安全弁・温度開示）を埋め込み。§7品質ゲートにE（返却チェック）追加。例文のS55整合修正 |

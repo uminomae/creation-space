@@ -67,6 +67,8 @@ docs/ に置かないもの:
 | `evidence/investigations/investigation-cs23-categorize.md` | REPORTS の進捗カテゴリ設計調査 |
 | `evidence/investigations/investigation-cs43-modal-deeplink.md` | モーダル deep link 設計調査 |
 | `docs/evidence-metadata-creation.md` | creation 固有 metadata 正本 |
+| `docs/quality-management.md` | 品質チェック・テキスト基準・レビュー基準 |
+| `docs/guardian-matrix.md` | ルール × 守護者マトリクス（CS-001〜 採番） |
 | `evidence/CLAUDE.md` | `evidence/` 配下での補助ルール |
 
 ## 5. 開発フロー
@@ -169,6 +171,20 @@ LLMの振る舞いは不確実であり、効率化の最適化がルールの�
 | 領域レポート再生成 | `transform/domains/README.md` |
 | 管理体系の更新 | `CLAUDE.md`, `.claude/rules/commit-rules.md`, `.claude/rules/project-structure.md` |
 
+## 8. 教訓管理
+
+教訓の記録・追跡・infusion（ルール反映）を管理する。
+
+| パス | 用途 |
+|---|---|
+| `docs/lessons/INDEX.md` | 教訓インデックス（CL-NNN 採番） |
+| `docs/lessons/TEMPLATE.md` | 新規教訓の記録テンプレート |
+
+ワークフロー:
+1. 作業中に教訓候補を検知したら `TEMPLATE.md` をコピーして記録する
+2. `INDEX.md` に1行追加する
+3. 対策をルール・ワークフローに反映（infusion）したら状態を `infused` に更新する
+
 ## 更新履歴
 
 | 日付 | バージョン | 内容 |
@@ -179,3 +195,4 @@ LLMの振る舞いは不確実であり、効率化の最適化がルールの�
 | 2026-03-14 | 2.1 | `docs/evidence-metadata-creation.md` を追加し、公開 metadata の正本参照先を更新 (#248) |
 | 2026-03-15 | 2.2 | docs/ スコープルール追加。investigation を `evidence/investigations/` へ移動、`survey-progress-taxonomy.md` 削除 |
 | 2026-03-15 | 3.0 | 設計原則 L1-L7 セクション追加、docs-navigator.md を管理書類一覧に追加 (cs#72) |
+| 2026-03-16 | 3.1 | guardian-matrix.md を管理書類一覧に追加 (cs#67) |

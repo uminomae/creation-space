@@ -66,18 +66,9 @@ export function createReportsRenderer({
             : (taxonomyEntry.descriptionEn || taxonomyEntry.descriptionJa || '');
     }
 
-    function formatProgressDescription(level, progressModel = []) {
-        const base = getProgressLevelDescription(level);
-        if (!progressModel.length || progressModel[0] === 'unknown') return base;
-
-        const modelStr = progressModel.join(' + ');
-        if (!base) return `（${modelStr}）`;
-
-        return normalizeLang(state.lang) === 'ja'
-            ? `${base}（${modelStr}）`
-            : `${base} (${modelStr})`;
+    function formatProgressDescription(level) {
+        return getProgressLevelDescription(level);
     }
-
     function getPresentProgressTaxonomy() {
         return state.progressTaxonomy.filter((entry) => (state.progressLevelCounts[entry.id] || 0) > 0);
     }
@@ -157,14 +148,14 @@ export function createReportsRenderer({
 
         const fragment = document.createDocumentFragment();
         const prefixNode = document.createElement('span');
-        prefixNode.className = 'reports-level-legend-prefix';
+        prefixNode.className = 'reports-level-legend-prefix d-block mb-1';
         prefixNode.textContent = `${strings.levelLegendPrefix}:`;
         fragment.appendChild(prefixNode);
 
         presentTaxonomy.forEach((entry) => {
             const paletteClass = getProgressPaletteClass(entry.id, paletteMap);
             const lineNode = document.createElement('span');
-            lineNode.className = 'reports-level-legend-line';
+            lineNode.className = 'reports-level-legend-line d-flex align-items-start gap-2 mt-1';
 
             const labelNode = document.createElement('span');
             labelNode.className = `badge rounded-pill reports-progress-chip reports-level-legend-label ${paletteClass}`;
@@ -388,15 +379,26 @@ export function createReportsRenderer({
         const level = normalizeProgressLevelId(report.progressLevel) || 'not_surveyed';
         const paletteClass = getProgressPaletteClass(level, paletteMap);
         const statusText = getProgressLevelLabel(level);
-        const statusDescription = formatProgressDescription(level, report.progressModel || []);
+        const statusDescription = formatProgressDescription(level);
         const sources = getReportSources(report);
         const clickable = sources.length > 0 && !muted;
-        const tile = clickable ? document.createElement('button') : document.createElement('article');
+        const col = document.createElement('div');
+        col.className = 'col';
+        const tile = document.createElement('article');
         const reportTitle = getDomainReportTitle(report, state.lang) || `${report.id} ${domainLabel}`;
 
         if (clickable) {
-            tile.type = 'button';
+            tile.setAttribute('role', 'button');
+            tile.setAttribute('tabindex', '0');
             tile.addEventListener('click', () => {
+                openDomainModalById(report.id, {
+                    historyMode: DOMAIN_HISTORY_MODE_PUSH,
+                    syncUrl: 'push',
+                });
+            });
+            tile.addEventListener('keydown', (event) => {
+                if (event.key !== 'Enter' && event.key !== ' ') return;
+                event.preventDefault();
                 openDomainModalById(report.id, {
                     historyMode: DOMAIN_HISTORY_MODE_PUSH,
                     syncUrl: 'push',
@@ -407,6 +409,9 @@ export function createReportsRenderer({
         tile.className = [
             'reports-domain-item',
             'card',
+            'h-100',
+            'w-100',
+            'text-start',
             paletteClass,
             `is-level-${level.replace(/_/g, '-')}`,
             muted ? 'is-filter-muted' : '',
@@ -425,10 +430,10 @@ export function createReportsRenderer({
         }
 
         const body = document.createElement('div');
-        body.className = 'card-body p-1 d-flex flex-column reports-domain-item-body';
+        body.className = 'card-body p-2 d-flex flex-column gap-1 h-100 reports-domain-item-body';
 
         const head = document.createElement('div');
-        head.className = 'd-flex align-items-center justify-content-between gap-2 reports-domain-item-head';
+        head.className = 'd-flex flex-wrap align-items-start justify-content-between gap-2 reports-domain-item-head';
 
         const idNode = document.createElement('span');
         idNode.className = 'reports-domain-item-id';
@@ -451,8 +456,9 @@ export function createReportsRenderer({
         body.appendChild(head);
         body.appendChild(nameNode);
         tile.appendChild(body);
+        col.appendChild(tile);
 
-        return tile;
+        return col;
     }
 
     function renderDomainGrid() {
@@ -464,7 +470,7 @@ export function createReportsRenderer({
         state.dom.domainGrid.innerHTML = '';
         if (!allReports.length) {
             const empty = document.createElement('div');
-            empty.className = 'reports-domain-empty text-body-secondary';
+            empty.className = 'reports-domain-empty col-12 text-body-secondary';
             empty.textContent = getReportsStrings(state.lang).empty;
             state.dom.domainGrid.appendChild(empty);
             return;

@@ -181,6 +181,7 @@
     <button type="button" class="btn btn-outline-light active" data-graphic-mode="i" aria-pressed="true">意</button>
   </div>
   <div id="dev-version-inline" class="dev-version-inline" aria-live="polite"></div>
+  <a id="dev-components-link" class="dev-components-link" href="./dev-components.html">Components</a>
 
   <div id="overlay" role="presentation">
     <div id="taglines"></div>
@@ -223,7 +224,7 @@
   <div id="hero-spacer"></div>
   <section id="model-section" aria-labelledby="model-section-heading">
     <div class="section-content-wrap">
-      <div class="container">
+      <div class="container d-flex flex-column mt-1">
         <p id="reports-ai-notice" class="reports-ai-notice">AIが執筆しているため間違いがある場合があります。</p>
         <h2 class="section-heading">
           <a id="model-section-heading" href="#model-section" class="section-heading-link" aria-label="創造の5段階モデル セクションへジャンプ">
@@ -239,7 +240,7 @@
   <div id="reports-spacer"></div>
   <section id="reports-section">
     <div class="section-content-wrap">
-      <div class="container">
+      <div class="container d-flex flex-column mt-1">
         <h2 class="section-heading">
           <a id="reports-section-heading" href="#reports-section" class="section-heading-link" aria-label="REPORTS セクションへジャンプ">
             REPORTS
@@ -258,8 +259,8 @@
             <p id="reports-scenario-note" class="reports-level-legend mb-2 d-none"></p>
             <p id="reports-level-legend" class="reports-level-legend mb-2">進捗分類を読み込み中...</p>
             <div id="reports-table-filters" class="d-none flex-wrap gap-2 mb-2" role="group" aria-label="領域別レポート絞り込み"></div>
-            <div id="reports-domain-grid" class="reports-domain-grid" aria-live="polite">
-              <div class="reports-domain-empty text-body-secondary">読み込み中...</div>
+            <div id="reports-domain-grid" class="reports-domain-grid row row-cols-2 row-cols-md-5 g-2" aria-live="polite">
+              <div class="reports-domain-empty col-12 text-body-secondary">読み込み中...</div>
             </div>
           </section>
         </div>
@@ -282,19 +283,19 @@
     </div>
   </section>
 
-  <div class="modal fade" id="reports-md-modal" tabindex="-1" aria-labelledby="reports-md-modal-title" aria-hidden="true">
+  <div class="modal fade" id="reports-md-modal" tabindex="-1" aria-labelledby="reports-md-modal-title">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
       <div class="modal-content reports-md-modal-content border border-secondary-subtle">
         <div class="modal-header">
           <h5 id="reports-md-modal-title" class="modal-title">Markdown</h5>
-          <div class="reports-md-header-actions">
+          <div class="reports-md-header-actions d-flex align-items-center gap-2 flex-shrink-0 ms-auto">
             <a id="reports-md-open-pdf" class="btn btn-outline-light btn-sm" href="#" target="_blank" rel="noopener">PDFを開く</a>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
         </div>
-        <div class="modal-body">
-          <div id="reports-md-meta" class="small text-body-secondary"></div>
-          <article id="reports-md-content" class="reports-md-content mt-3"></article>
+        <div class="modal-body pt-2 px-3 pb-3">
+          <div id="reports-md-meta" class="small text-body-secondary px-2 pt-1"></div>
+          <article id="reports-md-content" class="reports-md-content mt-2"></article>
         </div>
       </div>
     </div>
@@ -316,16 +317,16 @@
       <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body p-3">
-      <div id="articles-filter-group" class="articles-filter-group mb-3" role="group" aria-label="Filter articles by type">
-        <button type="button" class="articles-filter-btn is-active" data-type="all" aria-pressed="true">All</button>
-        <button type="button" class="articles-filter-btn" data-type="page" aria-pressed="false">Page</button>
-        <button type="button" class="articles-filter-btn" data-type="post" aria-pressed="false">Post</button>
+      <div id="articles-filter-group" class="articles-filter-group d-flex flex-wrap gap-2 mb-3" role="group" aria-label="Filter articles by type">
+        <button type="button" class="articles-filter-btn btn btn-outline-light btn-sm active is-active" data-type="all" aria-pressed="true">All</button>
+        <button type="button" class="articles-filter-btn btn btn-outline-light btn-sm" data-type="page" aria-pressed="false">Page</button>
+        <button type="button" class="articles-filter-btn btn btn-outline-light btn-sm" data-type="post" aria-pressed="false">Post</button>
       </div>
       <div id="offcanvas-articles-grid" class="row g-3"></div>
     </div>
   </div>
 
-  <button id="surface-btn" aria-label="ページ上部に戻る">↑ surface</button>
+  <button id="surface-btn" type="button" class="btn btn-outline-light btn-sm" aria-label="ページ上部に戻る">↑ surface</button>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

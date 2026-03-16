@@ -93,21 +93,6 @@ function buildTaxonomyMap(progressTaxonomy) {
   return map;
 }
 
-// --- generator_model ---
-
-function buildGeneratorModel(progressModel) {
-  if (!Array.isArray(progressModel) || progressModel.length === 0) return 'unknown';
-  if (progressModel.length === 1 && progressModel[0] === 'unknown') return 'unknown';
-
-  return progressModel.map((model) => {
-    if (model === 'unknown') return 'unknown';
-    if (model.startsWith('codex')) return `codex:${model}`;
-    if (model.startsWith('claude')) return `claude:${model}`;
-    if (model.startsWith('gpt')) return `gpt:${model}`;
-    return model;
-  }).join('+');
-}
-
 // --- File existence ---
 
 async function fileExists(filePath) {
@@ -234,7 +219,7 @@ async function generate(options) {
 
     report.label_description_ja = taxEntry?.description_ja ?? '';
     report.label_description_en = taxEntry?.description_en ?? '';
-    report.generator_model = typeof entry.generator_model === "string" ? entry.generator_model : buildGeneratorModel(entry.progress_model);
+    report.generator_model = typeof entry.generator_model === "string" ? entry.generator_model : "";
 
     reports.push(report);
   }
