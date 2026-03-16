@@ -1,6 +1,6 @@
 ---
-id: issue62-domain-index-ja-v1
-title: "Issue #62 学術分冊PDFインデックス"
+id: survey-domain-index-ja-v1
+title: "構造類似調査 学術分冊PDFインデックス"
 lang: ja
 version: 1.1
 date: 2026-03-04
@@ -8,7 +8,7 @@ generator_model: GPT-5 Codex (OpenAI)
 generated_at: 2026-03-04
 ---
 
-# Issue #62 学術分冊PDFインデックス
+# 構造類似調査 学術分冊PDFインデックス
 
 > LLMモデル: GPT-5 Codex (OpenAI)
 
@@ -23,8 +23,8 @@ generated_at: 2026-03-04
 | 文書 | 用途 |
 |---|---|
 | `transform/domains/reader-rules/reader-rules-creation-report.md` | 各領域分冊の変換ルール正本 |
-| `transform/domains/publish/issue62-research-bridge-ja.md` | 研究結果を上位プロジェクトへ接続するメタ台帳 |
-| `transform/domains/publish/issue62-status-ja.md` | 横断ハブ（進捗・運用方針） |
+| `transform/domains/publish/survey-research-bridge-ja.md` | 研究結果を上位プロジェクトへ接続するメタ台帳 |
+| `transform/domains/publish/survey-status-ja.md` | 横断ハブ（進捗・運用方針） |
 
 ## 重点5分野（優先作成）
 
