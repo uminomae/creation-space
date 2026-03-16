@@ -532,6 +532,7 @@ function normalizeReport(report, index) {
         progressLevel: normalizeProgressLevel(report?.progress_level, report?.status),
         generatorModel: typeof report?.generator_model === 'string' ? report.generator_model.trim() : '',
         progressNote: typeof report?.progress_note === 'string' ? report.progress_note.trim() : '',
+        generated: typeof report?.generated === 'string' ? report.generated.trim() : '',
         mdPath: typeof mdRaw === 'string' ? mdRaw.trim() : '',
         pdfPath: typeof pdfRaw === 'string' ? pdfRaw.trim() : '',
         mdByLang: typeof mdRaw === 'object' && mdRaw !== null ? mdRaw : null,
@@ -675,16 +676,21 @@ export function resolveDomainReportSources(
     const normalizedLang = normalizeLang(lang);
     const sources = [];
 
+    const reportGenerated = hasText(report?.generated) ? report.generated.trim() : '';
+    const reportGeneratorModel = hasText(report?.generatorModel) ? report.generatorModel.trim() : '';
+
     if (report?.mdByLang) {
         const mdUrl = resolveV2LangPath(report.mdByLang, normalizedLang, PJDHIRO_CREATION_RAW);
         const pdfUrl = resolveV2LangPath(report.pdfByLang, normalizedLang, PJDHIRO_CREATION_PAGES);
         if (mdUrl) {
-            sources.push({ mdUrl, pdfUrl: pdfUrl || '' });
+            sources.push({ mdUrl, pdfUrl: pdfUrl || '', generated: reportGenerated, generatorModel: reportGeneratorModel });
         }
     }
 
     const creationSource = buildCreationDomainSource(report, normalizedLang);
     if (creationSource) {
+        creationSource.generated = reportGenerated;
+        creationSource.generatorModel = reportGeneratorModel;
         sources.push(...buildLocalizedSourceCandidates(creationSource, normalizedLang));
     }
 
@@ -692,6 +698,8 @@ export function resolveDomainReportSources(
         const baseSource = {
             mdUrl: resolveReportAssetUrl(report.mdPath, { assetBaseUrl, assetMdBaseUrl }),
             pdfUrl: resolveReportAssetUrl(report?.pdfPath, { assetBaseUrl, assetMdBaseUrl }),
+            generated: reportGenerated,
+            generatorModel: reportGeneratorModel,
         };
         sources.push(...buildLocalizedSourceCandidates(baseSource, normalizedLang));
     }

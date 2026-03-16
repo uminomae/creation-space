@@ -6,7 +6,7 @@
  */
 
 import { readFile, readdir, stat, writeFile } from 'node:fs/promises';
-import { dirname, isAbsolute, resolve } from 'node:path';
+import { dirname, isAbsolute, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
@@ -167,6 +167,38 @@ async function checkDomainFiles(domainId, slug, publishBase) {
   return { paths, exists, status };
 }
 
+// --- Source .md front matter ---
+
+function parseFrontmatter(text) {
+  const match = text.match(/^---\n([\s\S]*?)\n---/);
+  if (!match) return {};
+  const meta = {};
+  match[1].split('\n').forEach((line) => {
+    const idx = line.indexOf(':');
+    if (idx <= 0) return;
+    const key = line.slice(0, idx).trim();
+    const val = line.slice(idx + 1).trim().replace(/^["']|["']$/g, '');
+    meta[key] = val;
+  });
+  return meta;
+}
+
+async function readSourceGenerated(domainId, indexJsonDir) {
+  // Source .md files are in the same directory as index.json
+  // Named: domain-{id}-*-ja.md (e.g., domain-D01-mathematics-academic-ja.md)
+  try {
+    const files = await readdir(indexJsonDir);
+    const prefix = `domain-${domainId}-`;
+    const match = files.find((f) => f.startsWith(prefix) && f.endsWith('-ja.md'));
+    if (!match) return '';
+    const content = await readFile(join(indexJsonDir, match), 'utf8');
+    const meta = parseFrontmatter(content);
+    return meta.date || meta.generated_at || '';
+  } catch {
+    return '';
+  }
+}
+
 // --- Main generation ---
 
 async function generate(options) {
@@ -182,6 +214,7 @@ async function generate(options) {
 
   const taxonomy = buildTaxonomyMap(index.progress_taxonomy);
   const publishBase = resolve(options.publishRepo, 'assets', 'creation');
+  const indexJsonDir = dirname(options.indexJson);
   const warnings = [];
 
   const reports = [];
@@ -203,12 +236,15 @@ async function generate(options) {
       warnings.push(`${entry.id}: status=published but progress_level=not_surveyed (likely data inconsistency)`);
     }
 
+    const generated = await readSourceGenerated(entry.id, indexJsonDir);
+
     const report = {
       id: entry.id,
       name_ja: entry.name_ja,
       slug,
       status: fileCheck.status,
       progress_level: entry.progress_level,
+      generated: generated || '',
     };
 
     // md/pdf paths (only include if files exist)
@@ -267,7 +303,7 @@ async function runCheck(options, generated) {
       continue;
     }
 
-    const fields = ['slug', 'status', 'progress_level', 'label_description_ja', 'label_description_en', 'generator_model'];
+    const fields = ['slug', 'status', 'progress_level', 'label_description_ja', 'label_description_en', 'generator_model', 'generated'];
     for (const field of fields) {
       if (JSON.stringify(ex[field]) !== JSON.stringify(gen[field])) {
         diffs.push(`${gen.id}.${field}: "${ex[field]}" → "${gen[field]}"`);
@@ -298,6 +334,34 @@ async function runCheck(options, generated) {
   return 1;
 }
 
+// --- Schema validation (cs#106) ---
+
+const REQUIRED_REPORT_FIELDS = ['id', 'name_ja', 'slug', 'status', 'progress_level'];
+
+function validateSchema(output) {
+  const errors = [];
+
+  if (!Array.isArray(output.reports) || output.reports.length === 0) {
+    errors.push('reports array is missing or empty');
+  }
+
+  if (!Array.isArray(output.progress_taxonomy) || output.progress_taxonomy.length === 0) {
+    errors.push('progress_taxonomy array is missing or empty');
+  }
+
+  if (Array.isArray(output.reports)) {
+    for (const report of output.reports) {
+      for (const field of REQUIRED_REPORT_FIELDS) {
+        if (typeof report[field] !== 'string' || !report[field].trim()) {
+          errors.push(`${report.id || '?'}: required field "${field}" is missing or empty`);
+        }
+      }
+    }
+  }
+
+  return errors;
+}
+
 async function main() {
   const { help, options } = parseArgs(process.argv.slice(2));
   if (help) {
@@ -320,6 +384,18 @@ async function main() {
   }
 
   console.log(`\nGenerated ${output.reports.length} domains`);
+
+  // Schema validation (cs#106)
+  const schemaErrors = validateSchema(output);
+  if (schemaErrors.length > 0) {
+    console.error(`\nSchema validation FAILED (${schemaErrors.length} error(s)):`);
+    for (const e of schemaErrors) {
+      console.error(`  ✗ ${e}`);
+    }
+    process.exitCode = 1;
+    return;
+  }
+  console.log('Schema validation: OK');
 
   const json = JSON.stringify(output, null, 2) + '\n';
 
