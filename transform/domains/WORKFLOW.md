@@ -1,6 +1,6 @@
-# 領域別レポート End-to-End ワークフロー v1.0
+# 領域別レポート End-to-End ワークフロー v1.1
 
-**用途**: 領域別レポート（domains）の生成→品質テスト→PDF公開→manifest更新の全手順
+**用途**: 領域別レポート（domains）の生成→品質テスト→独立レビュー→PDF公開の全手順
 **前提**: evidence が `evidence/evidence-D{NN}-*.md` に存在すること
 **参照 Issue**: cs#103, cs#76
 
@@ -41,7 +41,33 @@ pjdhiro/assets/creation/domains/ja/md/domain-D{NN}-{slug}.md
 - FAIL があれば再生成（Step 2 に戻る）
 - grep チェック + 目視チェック
 
-### Step 4: PDF 生成
+### Step 4: 独立レビュー（完了基準）
+
+生成したレポートを、生成者とは別のエンジン（Codex CLI 等）でレビューする。
+
+```
+レビュー観点:
+- T1: スコープ（構造比較の枠組みを維持しているか）
+- T5: 文体（です・ます調の統一）
+- NL-003: 5段階の均等記述
+- §7: 返却設計（立ち位置明示・安全弁・温度開示）
+- Colophon: evidence_count と本文の整合
+- §5: 知見の3層分析（事実/読み取り/解釈）
+```
+
+- **FAIL** → Step 2 に戻り修正。修正後に再レビュー
+- **WARN** → 修正して再レビュー（3件以上の WARN は再生成を検討）
+- **PASS** → Step 5 に進む
+
+レビュー結果は関連 Issue に記録する（品質保証の証跡）。
+
+**Colophon への記録**: レビューを経たレポートは Colophon に以下を追記する:
+```
+| review_engine | {レビュー実施エンジン名}（例: codex:gpt-5.4） |
+| review_result | PASS / WARN({件数}) |
+```
+
+### Step 5: PDF 生成
 
 ```bash
 bash transform/scripts/build-pdf-guide.sh --kind domains --lang ja
@@ -52,7 +78,7 @@ bash transform/scripts/build-pdf-guide.sh --kind domains --lang ja
 pjdhiro/assets/creation/domains/ja/pdf/domain-D{NN}-{slug}.pdf
 ```
 
-### Step 5: manifest 更新
+### Step 6: manifest 更新
 
 ```bash
 cd /Users/uminomae/dev/creation-space
@@ -66,7 +92,7 @@ node scripts/generate-domains-json.mjs --check
 
 **cs#101 準拠**: progress_level に意図しない変更がないことを確認する。
 
-### Step 6: pjdhiro 側 commit & push
+### Step 7: pjdhiro 側 commit & push
 
 ```bash
 cd /Users/uminomae/dev/pjdhiro
@@ -78,7 +104,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>"
 git push origin main
 ```
 
-### Step 7: creation-space 側 commit & push
+### Step 8: creation-space 側 commit & push
 
 ```bash
 cd /Users/uminomae/dev/creation-space
@@ -90,7 +116,7 @@ git pull --rebase origin develop
 git push origin develop
 ```
 
-### Step 8: creation-space develop → main マージ
+### Step 9: creation-space develop → main マージ
 
 ```bash
 cd /Users/uminomae/dev/creation-space
@@ -127,7 +153,12 @@ pjdhiro/assets/creation/domains/ja/md/domain-D{NN}-{slug}.md
 
 各レポートに quality-test を実施。FAIL は個別に修正。
 
-### Step 3: PDF 一括ビルド
+### Step 3: 独立レビュー一括
+
+全レポートを Codex CLI 等でバッチレビュー。FAIL/WARN は個別に修正→再レビュー。
+レビュー結果は Issue に記録。PASS になった領域のみ Step 4 に進む。
+
+### Step 4: PDF 一括ビルド
 
 ```bash
 bash transform/scripts/build-pdf-guide.sh --kind domains --lang ja
@@ -135,14 +166,14 @@ bash transform/scripts/build-pdf-guide.sh --kind domains --lang ja
 
 30件を一括でビルド。
 
-### Step 4: manifest 一括更新
+### Step 5: manifest 一括更新
 
 ```bash
 node scripts/generate-domains-json.mjs
 node scripts/generate-domains-json.mjs --check
 ```
 
-### Step 5: pjdhiro commit & push
+### Step 6: pjdhiro commit & push
 
 ```bash
 cd /Users/uminomae/dev/pjdhiro
@@ -153,7 +184,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>"
 git push origin main
 ```
 
-### Step 6: creation-space commit & push + main マージ
+### Step 7: creation-space commit & push + main マージ
 
 ```bash
 cd /Users/uminomae/dev/creation-space
@@ -232,6 +263,22 @@ A の Step 5-8 と同じ。
 | Colophon | §8 準拠 |
 
 **CLI向け判断基準**: テンプレート構造 + reader-rules の品質ゲート = 生成の全要件。両方を読むこと。
+
+---
+
+## 1領域の完了基準
+
+以下の全条件を満たしたとき、その領域のレポートは「完了」とする:
+
+1. **MD 生成済み**: reader-rules + template に準拠した MD が pjdhiro に配置されている
+2. **品質テスト PASS**: quality-test-domain-report.md の全項目を通過
+3. **独立レビュー PASS**: 生成者とは別のエンジンによるレビューで FAIL がない
+4. **レビュー証跡**: レビュー結果が Issue に記録されている
+5. **Colophon 記載**: review_engine と review_result が Colophon に含まれている
+6. **PDF 公開済み**: pjdhiro に PDF が push されている
+7. **main マージ済み**: creation-space の develop → main マージが完了している
+
+**この完了基準自体が品質保証の一部である。** 各レポートの §2（調査の方法）には、独立レビューを経ていることを方法論として記載する。
 
 ---
 
