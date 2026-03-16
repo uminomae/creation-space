@@ -3,6 +3,8 @@ title: "生命科学"
 lang: ja
 version: "1.0"
 date: "2026-03-16"
+domain_id: D09
+domain: life-sciences
 generator_model: "claude:claude-opus-4-6"
 ---
 
