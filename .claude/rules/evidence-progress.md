@@ -38,6 +38,9 @@ generate-domains-json.mjs 実行
 pjdhiro 側にコミット・push
 ```
 
+## 領域間配置ルール
+
+evidence 関連作業で複数領域にまたがる知見の配置に迷った場合は `transform/domains/cross-domain-reference.md` を参照すること。
 ## index.json 編集時の必須手順
 
 1. 編集前: `progress_level` と `progress_note` の現在値をメモする
