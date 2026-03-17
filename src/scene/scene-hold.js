@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { createSceneModule } from './core.js';
+import { createSceneModule, smoothstep } from './core.js';
 
 export { sceneParams } from './core.js';
 
