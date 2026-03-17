@@ -1,7 +1,7 @@
 .dev-components-link {
   display: none;
   position: fixed;
-  top: calc(var(--kesson-topbar-height) + 2.95rem);
+  top: calc(var(--kesson-topbar-actual-height, var(--kesson-topbar-height)) + 2.95rem);
   right: 0.95rem;
   z-index: 58;
   padding: 0.2rem 0.48rem;
@@ -28,28 +28,18 @@
   align-items: center;
 }
 #dev-version-inline {
-  display: inline-flex;
-  align-items: center;
   position: fixed;
-  top: calc(var(--kesson-topbar-height) + 2.95rem);
-  left: 0.95rem;
+  top: calc(var(--kesson-topbar-actual-height, var(--kesson-topbar-height)) + 2.2rem);
+  left: 1rem;
   z-index: 58;
-  max-width: min(92vw, 28rem);
-  padding: 0.2rem 0.48rem;
-  border-radius: 999px;
-  border: 1px solid var(--kesson-dev-hud-border);
-  background: var(--kesson-dev-hud-bg);
-  color: var(--kesson-dev-hud-text);
-  font-size: var(--kesson-dev-hud-font-size, 0.80rem);
-  letter-spacing: 0.04em;
+  color: rgba(var(--color-sub-text), 0.4);
+  font-size: var(--kesson-graphic-switcher-btn, 0.88rem);
+  letter-spacing: 0.06em;
   line-height: 1;
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-family: var(--kesson-font-mono-ui);
   pointer-events: none;
-  backdrop-filter: blur(7px);
-  -webkit-backdrop-filter: blur(7px);
+  user-select: none;
+  transition: opacity 0.6s ease;
 }
 
 .dev-fps-panel {
@@ -62,7 +52,7 @@
 
 #intent-timeline-hud {
   position: fixed;
-  top: calc(var(--kesson-topbar-height) + 4.1rem);
+  top: calc(var(--kesson-topbar-actual-height, var(--kesson-topbar-height)) + 4.1rem);
   left: 0.95rem;
   z-index: 58;
   width: fit-content;
@@ -366,14 +356,13 @@
 
 @media (max-width: 767.98px) {
   #dev-version-inline {
-    font-size: var(--kesson-dev-hud-font-size, 0.80rem);
-    top: calc(var(--kesson-topbar-height) + 2.68rem);
+    top: calc(var(--kesson-topbar-actual-height, var(--kesson-topbar-height)) + 1.8rem);
     left: 0.6rem;
-    max-width: min(95vw, 22rem);
+    font-size: 0.52rem;
   }
 
   #intent-timeline-hud {
-    top: calc(var(--kesson-topbar-height) + 3.8rem);
+    top: calc(var(--kesson-topbar-actual-height, var(--kesson-topbar-height)) + 3.8rem);
     left: 0.6rem;
     width: fit-content;
     min-width: 0;

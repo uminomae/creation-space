@@ -9,8 +9,8 @@
   --kesson-font-serif-display: "Noto Serif JP", "Yu Mincho", "MS PMincho", serif;
   --kesson-font-serif-ui: 'Georgia', "Noto Serif JP", serif;
   --kesson-font-mono-ui: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-  --kesson-font-size-ui-xs: 0.80rem;
-  --kesson-font-size-ui-sm: 0.80rem;
+  --kesson-font-size-ui-xs: 0.85rem;
+  --kesson-font-size-ui-sm: 0.88rem;
   --kesson-font-size-ui-arrow: clamp(0.7rem, 3.5vmin, 1.2rem);
   --reports-font-step: 0rem;
   --kesson-letter-ui-tight: 0.03em;
@@ -116,15 +116,15 @@
 
   --kesson-topbar-main-title-size: clamp(0.96rem, 1.85vw, 1.38rem);
   --kesson-topbar-main-title-size-sm: 0.86rem;
-  --kesson-topbar-title-size: clamp(0.80rem, 1.0vw, 0.88rem);
+  --kesson-topbar-title-size: clamp(0.88rem, 1.1vw, 0.96rem);
   --kesson-topbar-subtitle-size: var(--kesson-topbar-title-size);
-  --kesson-topbar-subtitle-size-md: 0.80rem;
-  --kesson-topbar-link-size: 0.80rem;
-  --kesson-topbar-note-size: 0.80rem;
+  --kesson-topbar-subtitle-size-md: 0.88rem;
+  --kesson-topbar-link-size: 0.88rem;
+  --kesson-topbar-note-size: 0.88rem;
   --kesson-topbar-note-size-sm: var(--kesson-topbar-note-size);
-  --kesson-topbar-credit-size: 0.80rem;
-  --kesson-topbar-meta-size: 0.80rem;
-  --kesson-topbar-meta-author-size: 0.80rem;
+  --kesson-topbar-credit-size: 0.84rem;
+  --kesson-topbar-meta-size: 0.86rem;
+  --kesson-topbar-meta-author-size: 0.84rem;
   --kesson-topbar-bg-start: rgba(10, 14, 24, var(--kesson-topbar-alpha-strong));
   --kesson-topbar-bg-end: rgba(10, 14, 24, var(--kesson-topbar-alpha-soft));
   --kesson-topbar-border-color: rgba(130, 170, 240, var(--kesson-topbar-border-alpha));
@@ -147,17 +147,19 @@
   --kesson-topbar-toggler-border: rgba(145, 178, 242, 0.55);
   --kesson-topbar-toggler-focus: rgba(140, 180, 252, 0.35);
 
-  --kesson-section-heading: 0.80rem;
-  --kesson-card-title: 0.8rem;
-  --kesson-card-text: 0.8rem;
-  --kesson-card-summary: 0.80rem;
-  --kesson-overlay-tagline: 0.80rem;
-  --kesson-overlay-tagline-en: 0.80rem;
-  --kesson-control-guide: 0.80rem;
-  --kesson-footer-line: 0.80rem;
-  --kesson-surface-btn: 0.80rem;
+  --kesson-section-heading: 0.88rem;
+  --kesson-card-title: 1.0rem;
+  --kesson-card-text: 0.92rem;
+  --kesson-card-summary: 0.92rem;
+  --kesson-overlay-tagline: 0.92rem;
+  --kesson-overlay-tagline-en: 0.88rem;
+  --kesson-control-guide: 0.82rem;
+  --kesson-footer-line: 0.82rem;
+  --kesson-surface-btn: 0.88rem;
   --kesson-dev-hud-font-size: 0.80rem;
-  --kesson-footer-signature-size: 0.80rem;
+  --kesson-footer-signature-size: 0.88rem;
+  --kesson-graphic-switcher-label: 0.88rem;
+  --kesson-graphic-switcher-btn: 0.88rem;
   --kesson-topbar-height: 3.25rem;
   --kesson-topbar-alpha-strong: 0.10;
   --kesson-topbar-alpha-soft: 0.10;
@@ -197,47 +199,51 @@ body {
 
 #graphic-switcher {
   position: fixed;
-  top: calc(var(--kesson-topbar-height) + 0.55rem);
-  left: 0.95rem;
+  top: calc(var(--kesson-topbar-actual-height, var(--kesson-topbar-height)) + 0.7rem);
+  left: 1rem;
   z-index: 58;
-  border-radius: 999px;
-  padding: 0.2rem;
-  background: rgba(10, 14, 24, 0.62);
-  border: 1px solid rgba(130, 170, 240, 0.25);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.26);
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+  transition: opacity 0.6s ease;
 }
 
-#graphic-switcher .btn {
-  border-radius: 999px;
-  border-color: rgba(130, 170, 240, 0.5);
-  color: rgba(220, 235, 255, 0.82);
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-  font-size: var(--kesson-font-size-ui-sm, 0.80rem);
+.graphic-switcher-label {
+  font-family: var(--kesson-font-serif-display);
+  font-size: var(--kesson-graphic-switcher-label, 0.68rem);
   letter-spacing: 0.08em;
-  text-transform: none;
-  padding: 0.23rem 0.62rem;
-  min-width: 3.7rem;
-  background: transparent;
+  color: rgba(var(--color-sub-text), 0.45);
+  margin-right: 0.4rem;
+  pointer-events: none;
+  user-select: none;
 }
 
-#graphic-switcher .btn:hover,
-#graphic-switcher .btn:focus-visible {
-  color: rgba(240, 248, 255, 0.96);
-  border-color: rgba(150, 190, 250, 0.78);
-  background: rgba(116, 165, 244, 0.18);
-  box-shadow: none;
+#graphic-switcher button {
+  appearance: none;
+  background: none;
+  border: none;
+  border-bottom: 1.5px solid transparent;
+  padding: 0.2rem 0.5rem 0.22rem;
+  color: rgba(var(--color-sub-text), 0.42);
+  font-family: var(--kesson-font-serif-display);
+  font-size: var(--kesson-graphic-switcher-btn, 0.88rem);
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: color 0.25s ease, border-color 0.25s ease;
 }
 
-#graphic-switcher .btn.active {
-  color: rgba(245, 250, 255, 0.98);
-  border-color: rgba(166, 202, 255, 0.94);
-  background: linear-gradient(
-    135deg,
-    rgba(100, 152, 246, 0.3),
-    rgba(92, 142, 212, 0.42)
-  );
+#graphic-switcher button:hover {
+  color: rgba(var(--color-sub-text), 0.6);
+}
+
+#graphic-switcher button:focus-visible {
+  outline: 1px solid rgba(var(--color-accent), 0.5);
+  outline-offset: 2px;
+}
+
+#graphic-switcher button.active {
+  color: rgba(var(--color-highlight), 0.75);
+  border-bottom-color: rgba(var(--color-accent), 0.4);
 }
 
 .nav-label {
@@ -480,7 +486,7 @@ html[lang="en"] #taglines {
 
 #scroll-hint-top {
   position: fixed;
-  top: calc(var(--kesson-topbar-height) + 6px);
+  top: calc(var(--kesson-topbar-actual-height, var(--kesson-topbar-height)) + 6px);
   left: 50%;
   transform: translateX(-50%);
   z-index: 20;
@@ -510,8 +516,8 @@ html[lang="en"] #taglines {
 
 #control-guide {
   position: fixed;
-  top: calc(var(--kesson-topbar-height) + 2.1rem);
-  right: 3%;
+  top: calc(var(--kesson-topbar-actual-height, var(--kesson-topbar-height)) + 0.7rem);
+  right: 1rem;
   z-index: 10;
   pointer-events: none;
   text-align: right;
@@ -741,14 +747,16 @@ html[lang="en"] #taglines {
 
 @media (max-width: 767.98px) {
   #graphic-switcher {
-    top: calc(var(--kesson-topbar-height) + 0.5rem);
+    top: calc(var(--kesson-topbar-actual-height, var(--kesson-topbar-height)) + 0.5rem);
     left: 0.6rem;
-    padding: 0.16rem;
   }
 
-  #graphic-switcher .btn {
-    font-size: var(--kesson-font-size-ui-sm, 0.80rem);
-    min-width: 3.3rem;
-    padding: 0.2rem 0.44rem;
+  #graphic-switcher button {
+    font-size: 0.72rem;
+    padding: 0.18rem 0.38rem 0.2rem;
+  }
+
+  .graphic-switcher-label {
+    font-size: 0.62rem;
   }
 }

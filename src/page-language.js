@@ -8,11 +8,9 @@ function formatDevVersionLabel(lang, { devVersion = '', devDate = '' } = {}) {
         ? strings.devVersionPrefix.trim()
         : 'dev';
     const normalizedVersion = typeof devVersion === 'string' ? devVersion.trim() : '';
-    const normalizedDate = typeof devDate === 'string' ? devDate.trim() : '';
     if (!normalizedVersion) return '';
-    return normalizedDate
-        ? `${prefix} ${normalizedVersion} · ${normalizedDate}`
-        : `${prefix} ${normalizedVersion}`;
+    // Drop patch version (last .N) — e.g. "v0.307.0" → "v0.307"
+    return normalizedVersion.replace(/\.\d+$/, '');
 }
 
 function updateInlineVersionLabel(lang, { devVersion = '', devDate = '' } = {}) {
@@ -77,6 +75,8 @@ export function applyPageLanguage(lang, { devMode = false, devVersion = '', devD
     if (reportsAiNotice) reportsAiNotice.textContent = strings.reportsAiNotice;
     if (offcanvasArticlesTitle) offcanvasArticlesTitle.textContent = strings.offcanvasArticlesTitle;
     if (graphicSwitcher) graphicSwitcher.setAttribute('aria-label', strings.graphicSwitcherAria);
+    const graphicSwitcherLabel = document.querySelector('.graphic-switcher-label');
+    if (graphicSwitcherLabel) graphicSwitcherLabel.textContent = strings.graphicSwitcherLabel;
     if (graphicHojiButton) graphicHojiButton.textContent = strings.graphicModeHoji;
     if (graphicSinobiButton) graphicSinobiButton.textContent = strings.graphicModeSinobi;
     if (graphicIntentButton) graphicIntentButton.textContent = strings.graphicModeIntent;

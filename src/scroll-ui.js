@@ -24,6 +24,8 @@ let _scrollHintBottom;
 let _scrollHintTop;
 let _surfaceBtn;
 let _articlesSection;
+let _graphicSwitcher;
+let _devVersionInline;
 
 // --- T-014: クリーンアップ ---
 let _cleanup = null;
@@ -41,6 +43,8 @@ export function initScrollUI() {
     _scrollHintTop = document.getElementById('scroll-hint-top');
     _surfaceBtn = document.getElementById('surface-btn');
     _articlesSection = document.getElementById('articles-section');
+    _graphicSwitcher = document.getElementById('graphic-switcher');
+    _devVersionInline = document.getElementById('dev-version-inline');
 
     // 浮上ボタン: クリックでページ最上部へ
     if (_surfaceBtn) {
@@ -125,6 +129,17 @@ export function updateScrollUI(scrollProg, breathVal) {
     // --- 操作ガイド: スクロール初期でフェードアウト ---
     if (_controlGuide) {
         _controlGuide.style.opacity = topFade;
+    }
+
+    // --- 背景スイッチャー: スクロール初期でフェードアウト ---
+    if (_graphicSwitcher) {
+        _graphicSwitcher.style.opacity = topFade;
+        _graphicSwitcher.style.pointerEvents = topFade < 0.1 ? 'none' : '';
+    }
+
+    // --- バージョン表示: スクロール初期でフェードアウト ---
+    if (_devVersionInline) {
+        _devVersionInline.style.opacity = topFade;
     }
 
     // Language toggle is part of the fixed top navbar and must not follow scroll fade.
