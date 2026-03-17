@@ -82,6 +82,8 @@ function resolvePath(pathValue) {
 
 // --- Taxonomy ---
 
+const QUALITY_LEVEL_ORDER = ['not_generated', 'generated', 'self_tested', 'independent_reviewed', 'pjdhiro_reviewed'];
+
 function buildTaxonomyMap(progressTaxonomy) {
   const map = new Map();
   for (const entry of progressTaxonomy) {
@@ -236,6 +238,15 @@ async function generate(options) {
       warnings.push(`${entry.id}: status=published but progress_level=not_surveyed (likely data inconsistency)`);
     }
 
+    // quality_level consistency checks (cs#111)
+    const ql = entry.quality_level || '';
+    if (fileCheck.exists.jaMd && ql === 'not_generated') {
+      warnings.push(`${entry.id}: MD exists but quality_level=not_generated`);
+    }
+    if (ql === 'independent_reviewed' && !entry.review_engine) {
+      warnings.push(`${entry.id}: quality_level=independent_reviewed but review_engine is empty`);
+    }
+
     const generated = await readSourceGenerated(entry.id, indexJsonDir);
 
     const report = {
@@ -263,6 +274,12 @@ async function generate(options) {
     report.label_description_en = taxEntry?.description_en ?? '';
     report.generator_model = typeof entry.generator_model === "string" ? entry.generator_model : "";
 
+    // quality_level fields (cs#111)
+    report.quality_level = entry.quality_level || 'generated';
+    report.quality_rules_version = entry.quality_rules_version || '';
+    report.review_engine = entry.review_engine || '';
+    report.review_result = entry.review_result || '';
+
     reports.push(report);
   }
 
@@ -271,6 +288,7 @@ async function generate(options) {
     generated_at: new Date().toISOString(),
     namespace: 'domains',
     progress_taxonomy: index.progress_taxonomy,
+    quality_taxonomy: index.quality_taxonomy || [],
     reports,
   };
 
@@ -303,7 +321,7 @@ async function runCheck(options, generated) {
       continue;
     }
 
-    const fields = ['slug', 'status', 'progress_level', 'label_description_ja', 'label_description_en', 'generator_model', 'generated'];
+    const fields = ['slug', 'status', 'progress_level', 'label_description_ja', 'label_description_en', 'generator_model', 'generated', 'quality_level', 'quality_rules_version', 'review_engine', 'review_result'];
     for (const field of fields) {
       if (JSON.stringify(ex[field]) !== JSON.stringify(gen[field])) {
         diffs.push(`${gen.id}.${field}: "${ex[field]}" → "${gen[field]}"`);

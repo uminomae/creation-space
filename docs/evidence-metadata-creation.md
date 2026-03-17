@@ -165,10 +165,49 @@ evidence-metadata-creation.md はタクソノミー**定義**の正本であり�
 
 移植元: `kesson-driven-thinking/base/schema/evidence-metadata.md` v1.9 の §4, §5, §6, §8
 
+## §2.9 品質レベルタクソノミー（quality_level）
+
+ドメインレポートの品質保証状態を追跡するためのフィールド。`progress_level`（調査進捗）とは独立した軸。
+
+| id | label_ja | 意味 |
+|---|---|---|
+| `not_generated` | 未生成 | MD が存在しない |
+| `generated` | 生成済み | MD が存在するが品質テスト未実施 |
+| `self_tested` | 自己テスト済み | quality-test-domain-report.md で PASS |
+| `independent_reviewed` | 独立レビュー済み | 生成者と別エンジンでレビュー PASS |
+| `pjdhiro_reviewed` | pjdhiro レビュー済み | pjdhiro しっくり感チェック PASS |
+
+### 関連フィールド
+
+| フィールド | 型 | 説明 |
+|---|---|---|
+| `quality_level` | string | 上記タクソノミーの id |
+| `quality_rules_version` | string | 適用した品質テストルールのバージョン（空欄可） |
+| `review_engine` | string | 独立レビューを実施したエンジン名（例: `codex:gpt-5.4`） |
+| `review_result` | string | レビュー結果（例: `PASS`, `WARN(2)`） |
+
+### quality_level の順序と逆行禁止
+
+quality_level は以下の順序で進行する。逆行（例: `independent_reviewed` → `generated`）は原則禁止。
+
+```
+not_generated → generated → self_tested → independent_reviewed → pjdhiro_reviewed
+```
+
+### quality_level と WORKFLOW の対応
+
+| WORKFLOW Step | quality_level 更新 |
+|---|---|
+| Step 2: MD 生成 | → `generated` |
+| Step 3: 品質テスト PASS | → `self_tested` |
+| Step 4: 独立レビュー PASS | → `independent_reviewed` + review_engine/review_result 記入 |
+| pjdhiro レビュー | → `pjdhiro_reviewed` |
+
 ## 更新履歴
 
 | 日付 | バージョン | 内容 |
 |---|---|---|
+| 2026-03-17 | 1.3 | §2.9 品質レベルタクソノミー（quality_level）を追加 (cs#111) |
 | 2026-03-16 | 1.2 | §3 運用ルール参照先を追加。kesson-driven-thinking §4/§5/§6/§8 の移植完了を記録 (cs#101) |
 | 2026-03-16 | 1.1 | §2.7 旧 level マイグレーションテーブル、§2.8 progress_note 運用ルールを追加 (cs#77 子タスク4-5) |
 | 2026-03-14 | 1.0 | `kesson-driven-thinking/base/schema/evidence-metadata.md` §2 / §2.5 を creation-space 側へ移植し、公開ラベルタクソノミーと `generator_model` の正本を分離 (#248) |

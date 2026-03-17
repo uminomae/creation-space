@@ -34,12 +34,16 @@ ls evidence/evidence-D{NN}-*.md
 pjdhiro/assets/creation/domains/ja/md/domain-D{NN}-{slug}.md
 ```
 
+**quality_level 更新**: index.json の当該ドメインの `quality_level` を `generated` に設定する。
+
 ### Step 3: 品質テスト
 
 `transform/domains/quality-test/quality-test-domain-report.md` で自己採点する。
 
 - FAIL があれば再生成（Step 2 に戻る）
 - grep チェック + 目視チェック
+
+**quality_level 更新**: PASS の場合、index.json の `quality_level` を `self_tested` に設定する。
 
 ### Step 4: 独立レビュー（完了基準）
 
@@ -66,6 +70,8 @@ pjdhiro/assets/creation/domains/ja/md/domain-D{NN}-{slug}.md
 | review_engine | {レビュー実施エンジン名}（例: codex:gpt-5.4） |
 | review_result | PASS / WARN({件数}) |
 ```
+
+**quality_level 更新**: PASS の場合、index.json の `quality_level` を `independent_reviewed` に設定し、`review_engine` と `review_result` も記入する。
 
 ### Step 5: PDF 生成
 
@@ -281,6 +287,18 @@ A の Step 5-8 と同じ。
 **この完了基準自体が品質保証の一部である。** 各レポートの §2（調査の方法）には、独立レビューを経ていることを方法論として記載する。
 
 ---
+
+## quality_level 更新ポイントまとめ（cs#111）
+
+| WORKFLOW Step | quality_level 更新 |
+|---|---|
+| Step 2: MD 生成 | → `generated` |
+| Step 3: 品質テスト PASS | → `self_tested` |
+| Step 4: 独立レビュー PASS | → `independent_reviewed` + review_engine/review_result 記入 |
+| pjdhiro レビュー | → `pjdhiro_reviewed` |
+
+quality_level の逆行（例: `independent_reviewed` → `generated`）は原則禁止。
+定義の正本: `docs/evidence-metadata-creation.md` §2.9
 
 ## 制約への参照
 

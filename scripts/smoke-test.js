@@ -112,6 +112,36 @@ async function main() {
       missingHooks.join(', '));
   }
 
+
+  // quality_level fields (cs#111)
+  const VALID_QUALITY_LEVELS = ['not_generated', 'generated', 'self_tested', 'independent_reviewed', 'pjdhiro_reviewed'];
+
+  const missingQuality = reports.filter(r => typeof r.quality_level \!== 'string' || \!r.quality_level.trim());
+  assert('all reports have quality_level', missingQuality.length === 0,
+    missingQuality.map(r => r.id).join(', '));
+
+  const invalidQuality = reports.filter(r => r.quality_level && \!VALID_QUALITY_LEVELS.includes(r.quality_level));
+  assert('all quality_level values are valid', invalidQuality.length === 0,
+    invalidQuality.map(r => `${r.id}=${r.quality_level}`).join(', '));
+
+  // quality_level + review_engine consistency
+  const reviewedNoEngine = reports.filter(r =>
+    r.quality_level === 'independent_reviewed' &&
+    (typeof r.review_engine \!== 'string' || \!r.review_engine.trim())
+  );
+  assert('independent_reviewed reports have review_engine', reviewedNoEngine.length === 0,
+    reviewedNoEngine.map(r => r.id).join(', '));
+
+  const reviewedNoResult = reports.filter(r =>
+    r.quality_level === 'independent_reviewed' &&
+    (typeof r.review_result \!== 'string' || \!r.review_result.trim())
+  );
+  assert('independent_reviewed reports have review_result', reviewedNoResult.length === 0,
+    reviewedNoResult.map(r => r.id).join(', '));
+
+  // quality-level-guard.sh hook exists (cs#111)
+  assert('quality-level-guard.sh exists', existsSync(resolve(hooksDir, 'quality-level-guard.sh')));
+
   // Summary
   console.log(`\n  ${passed} passed, ${failed} failed`);
   process.exitCode = failed > 0 ? 1 : 0;
