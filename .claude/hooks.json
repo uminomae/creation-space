@@ -56,6 +56,15 @@
             "command": ".claude/hooks/instruction-prereq-guard.sh"
           }
         ]
+      },
+      {
+        "matcher": "Edit|MultiEdit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/progress-level-guard.sh"
+          }
+        ]
       }
     ],
     "PostToolUse": [
@@ -94,6 +103,19 @@
             "command": ".claude/hooks/design-system-guard.sh"
           }
         ]
+      },
+      {
+        "matcher": "Edit|MultiEdit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/progress-level-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/domains-json-sync-guard.sh"
+          }
+        ]
       }
     ],
     "Stop": [
@@ -107,6 +129,10 @@
           {
             "type": "command",
             "command": ".claude/hooks/issue-sync-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/domains-json-sync-guard.sh"
           }
         ]
       }

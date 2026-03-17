@@ -83,6 +83,35 @@ async function main() {
   assert('all progress_level values exist in taxonomy', unknownLevels.length === 0,
     unknownLevels.map(r => `${r.id}=${r.progress_level}`).join(', '));
 
+
+  // Hooks infrastructure (cs#110)
+  const hooksDir = resolve(SCRIPT_DIR, '..', '.claude', 'hooks');
+  const hooksJsonPath = resolve(SCRIPT_DIR, '..', '.claude', 'hooks.json');
+
+  const { existsSync, statSync } = await import('node:fs');
+
+  assert('hooks.json exists', existsSync(hooksJsonPath));
+  assert('_common exists', existsSync(resolve(hooksDir, '_common')));
+  assert('progress-level-guard.sh exists', existsSync(resolve(hooksDir, 'progress-level-guard.sh')));
+  assert('domains-json-sync-guard.sh exists', existsSync(resolve(hooksDir, 'domains-json-sync-guard.sh')));
+
+  // Verify hooks.json references valid scripts
+  if (existsSync(hooksJsonPath)) {
+    const hooksJson = JSON.parse(await readFile(hooksJsonPath, 'utf8'));
+    const commands = new Set();
+    for (const eventHooks of Object.values(hooksJson.hooks || {})) {
+      for (const group of eventHooks) {
+        for (const hook of group.hooks || []) {
+          if (hook.command) commands.add(hook.command);
+        }
+      }
+    }
+    const repoRoot = resolve(SCRIPT_DIR, '..');
+    const missingHooks = [...commands].filter(cmd => !existsSync(resolve(repoRoot, cmd)));
+    assert('all hooks.json commands reference existing files', missingHooks.length === 0,
+      missingHooks.join(', '));
+  }
+
   // Summary
   console.log(`\n  ${passed} passed, ${failed} failed`);
   process.exitCode = failed > 0 ? 1 : 0;
