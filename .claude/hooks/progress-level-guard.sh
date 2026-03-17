@@ -52,13 +52,14 @@ has_progress_change() {
   if [ "$TOOL" = "Write" ] && [ -n "$content" ] && [ -f "$INDEX_ABS" ]; then
     # 現在のファイルから progress_level 値を抽出し、新しい content と比較
     local current_levels new_levels
-    current_levels="$(python3 -c "
+    current_levels="$(python3 - "$INDEX_ABS" <<'PY' 2>/dev/null || true
 import json, sys
-with open('$INDEX_ABS') as f:
+with open(sys.argv[1]) as f:
     data = json.load(f)
 for r in data.get('reports', []):
     print(r['id'], r.get('progress_level',''), r.get('progress_note',''))
-" 2>/dev/null || true)"
+PY
+)"
     new_levels="$(echo "$content" | python3 -c "
 import json, sys
 data = json.load(sys.stdin)
