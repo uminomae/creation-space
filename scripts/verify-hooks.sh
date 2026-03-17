@@ -78,6 +78,13 @@ assert "progress-level-guard.sh is executable" "[ -x '${HOOKS_DIR}/progress-leve
 assert "domains-json-sync-guard.sh exists" "[ -f '${HOOKS_DIR}/domains-json-sync-guard.sh' ]"
 assert "domains-json-sync-guard.sh is executable" "[ -x '${HOOKS_DIR}/domains-json-sync-guard.sh' ]"
 
+
+# 7. cs#111 hooks (quality-level-guard)
+echo ""
+echo "  Checking cs#111 hooks:"
+assert "quality-level-guard.sh exists" "[ -f '${HOOKS_DIR}/quality-level-guard.sh' ]"
+assert "quality-level-guard.sh is executable" "[ -x '${HOOKS_DIR}/quality-level-guard.sh' ]"
+
 # Summary
 echo ""
 echo "  ${passed} passed, ${failed} failed"
