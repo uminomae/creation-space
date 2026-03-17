@@ -1,0 +1,16 @@
+- 実行日: 2026-03-18
+- モデル: claude-opus-4-6 (Claude Opus 4.6, 1M context)
+- 入力ファイル:
+  - evidence/evidence-D02-physics.md
+  - evidence/investigation/D02-physics/phase6-structural-reread/output.md
+  - evidence/investigation/D02-physics/phase5-evidence-audit/output.md
+  - evidence/202602-deep-research-30domains-gpt/DR-D02-physics.md
+  - evidence/review/d02-phase2-evaluation.md
+- 出力ファイル: output.md
+- evidence フラグ: [ai:investigation:claude-opus-4-6]
+- 完了チェックリスト:
+  - [x] 全セクションヘッダー存在（5/5: §A 横断パターン, §B 精度と限界, §C 盲点, §D 保持論点の更新, §E 段階定義の精緻化提案）
+  - [x] JURISDICTION-CHECK 通過（5段階比較 >80%, ドメイン固有語 <20%）
+  - [x] 横断パターン 5件（>= 3件）
+  - [x] 段階精緻化テーブル存在
+  - [ ] pjdhiro しっくり感チェック
