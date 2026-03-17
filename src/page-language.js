@@ -40,7 +40,6 @@ export function applyPageLanguage(lang, { devMode = false, devVersion = '', devD
     const offcanvasArticlesTitle = document.getElementById('offcanvas-articles-title');
     const langToggle = document.getElementById('lang-toggle');
     const graphicSwitcher = document.getElementById('graphic-switcher');
-    const graphicHojiButton = document.querySelector('[data-graphic-mode="hoji"]');
     const graphicSinobiButton = document.querySelector('[data-graphic-mode="sinobi"]');
     const graphicIntentButton = document.querySelector('[data-graphic-mode="i"]');
     const surfaceButton = document.getElementById('surface-btn');
@@ -77,7 +76,6 @@ export function applyPageLanguage(lang, { devMode = false, devVersion = '', devD
     if (graphicSwitcher) graphicSwitcher.setAttribute('aria-label', strings.graphicSwitcherAria);
     const graphicSwitcherLabel = document.querySelector('.graphic-switcher-label');
     if (graphicSwitcherLabel) graphicSwitcherLabel.textContent = strings.graphicSwitcherLabel;
-    if (graphicHojiButton) graphicHojiButton.textContent = strings.graphicModeHoji;
     if (graphicSinobiButton) graphicSinobiButton.textContent = strings.graphicModeSinobi;
     if (graphicIntentButton) graphicIntentButton.textContent = strings.graphicModeIntent;
     if (surfaceButton) surfaceButton.setAttribute('aria-label', strings.surfaceButtonAria);

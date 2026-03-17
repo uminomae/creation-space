@@ -1,8 +1,8 @@
 export const GRAPHIC_MODE_DEFAULT = 'i';
-export const GRAPHIC_MODE_OPTIONS = new Set(['hoji', 'sinobi', 'i']);
+export const GRAPHIC_MODE_OPTIONS = new Set(['sinobi', 'i']);
 
 export function normalizeGraphicMode(mode) {
-    if (mode === 'hold') return 'hoji';
+    if (mode === 'hold' || mode === 'hoji') return 'sinobi';
     if (mode === 'wabi') return 'sinobi';
     if (mode === 'intent') return 'i';
     return GRAPHIC_MODE_OPTIONS.has(mode) ? mode : GRAPHIC_MODE_DEFAULT;
