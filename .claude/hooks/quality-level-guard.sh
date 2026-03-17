@@ -133,8 +133,9 @@ print(m.group(1) if m else '')
     return
   fi
 
-  # Write: 全体比較
-  python3 - "$INDEX_ABS" "$content" <<'PY'
+  # Write: 全体比較（content を stdin 経由で渡し ARG_MAX を回避）
+  local rc=0
+  echo "$content" | python3 - "$INDEX_ABS" <<'PY' || rc=$?
 import json, sys
 
 order = ['not_generated', 'generated', 'self_tested', 'independent_reviewed', 'pjdhiro_reviewed']
@@ -143,7 +144,7 @@ rank = {v: i for i, v in enumerate(order)}
 with open(sys.argv[1]) as f:
     current = json.load(f)
 
-new_data = json.loads(sys.argv[2])
+new_data = json.load(sys.stdin)
 
 current_map = {r['id']: r.get('quality_level', '') for r in current.get('reports', [])}
 regressions = []
@@ -160,7 +161,6 @@ if regressions:
     print("REGRESSION:" + "; ".join(regressions))
     sys.exit(1)
 PY
-  local rc=$?
   if [ $rc -ne 0 ]; then
     hook_block "quality_level の逆行を検知しました（evidence-metadata-creation.md §2.9）"
   fi
