@@ -2,7 +2,7 @@
 
 **バージョン**: 1.0
 **更新日**: 2026-03-16
-**採番規則**: CS-NNN（creation-space 固有。kesson-driven-thinking の G-ID とは独立）
+**採番規則**: CS-NNN（creation-space 固有）
 
 ## レビュー手順
 

@@ -54,4 +54,4 @@ evidence-D{NN}-pre-revise-{YYYYMMDD}.md
 ## 関連
 
 - Issue: #123, #126
-- Metadata rule: `docs/evidence-metadata-creation.md` / `/Users/uminomae/dev/kesson-driven-thinking/base/schema/evidence-metadata.md`
+- Metadata rule: `docs/evidence-metadata-creation.md`

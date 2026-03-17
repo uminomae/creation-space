@@ -27,8 +27,8 @@ generated_at: 2026-03-04
 
 | 接続先カテゴリ | 主な対象 | 代表ファイル |
 |---|---|---|
-| コア定義 | D1/D2/D3/D4 の定義・成立条件・循環 | `/Users/uminomae/dev/kesson-driven-thinking/base/schema/core-definitions.md` |
-| モデル構造 | 4層（M1）/5段階（M2）の関係 | `/Users/uminomae/dev/kesson-driven-thinking/base/schema/four-layers.md`, `knowledge/schema/five-stages.md` |
+| コア定義 | D1/D2/D3/D4 の定義・成立条件・循環 | `knowledge/schema/core-definitions.md (see CLAUDE.md D1-D4)` |
+| モデル構造 | 4層（M1）/5段階（M2）の関係 | `knowledge/schema/four-layers.md`, `knowledge/schema/five-stages.md` |
 | 論拠DB | 領域別の証拠・比較・判定 | `/Users/uminomae/dev/creation-space/evidence/evidence-DXX-*.md` |
 | 変換規則 | 読者別の変換方針 | `transform/domains/reader-rules/*.md`, `transform/guides/reader-rules/*.md`, `transform/survey/reader-rules/*.md` |
 | 公開ソース | モーダル/PDFに出る本文 | `transform/domains/publish/*.md` |

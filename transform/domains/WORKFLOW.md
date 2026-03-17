@@ -215,7 +215,7 @@ JA版が確定した後に実施する。
 
 ### Step 1: 翻訳ルールを読む
 
-`transform/translation-rules.md`（kesson-driven-thinking 側に正本あり）
+`transform/translation-rules.md`（未作成。EN 翻訳時に creation-space 側で作成すること）
 
 ### Step 2: EN MD 生成
 

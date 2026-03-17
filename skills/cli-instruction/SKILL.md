@@ -15,7 +15,7 @@ agent: "DT"
 
 **バージョン**: 1.0
 **作成日**: 2026-03-15
-**移植元**: kesson-driven-thinking/skills/cli-instruction/SKILL.md v1.3
+**移植元**: 旧 private repo skills/cli-instruction/SKILL.md v1.3
 
 ---
 
@@ -150,4 +150,4 @@ CLI 指示書を作成する際に **必ずロードされるスキル**。
 
 | 日付 | バージョン | 内容 |
 |---|---|---|
-| 2026-03-15 | 1.0 | kesson-driven-thinking から汎用スキルとして移植 |
+| 2026-03-15 | 1.0 | 旧 private repo から汎用スキルとして移植 |

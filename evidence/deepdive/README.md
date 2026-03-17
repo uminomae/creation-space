@@ -2,7 +2,7 @@
 
 **バージョン**: 1.5
 **更新日**: 2026-03-08
-**関連ルール**: `docs/evidence-metadata-creation.md §2` / `/Users/uminomae/dev/kesson-driven-thinking/base/schema/evidence-metadata.md §8`
+**関連ルール**: `docs/evidence-metadata-creation.md`
 
 ---
 
@@ -19,7 +19,7 @@ deepdive は、Level 2 の evidence を壊さずに、AIエージェントを使
 - 旧 deepdive 設計記録（D22 経営学の多段探索実験）
 - evidence メタ情報ルール一元化の記録
 - `docs/evidence-metadata-creation.md`（公開ラベル taxonomy / `generator_model`）
-- 外部 schema repo の `evidence-metadata.md`（deepdive 標準仕様・フラグ体系）
+- 本 README のフラグ書式（deepdive 標準仕様）
 
 ---
 
