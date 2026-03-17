@@ -31,7 +31,7 @@ DR-D{NN}-{slug}.md
 
 ## ヘッダー書式
 
-全DRファイルは、調査ロット、使用モデル、レビュー担当、指示書、GPT出力への参照を含む。モデル名の記載は必須（`/Users/uminomae/dev/kesson-driven-thinking/base/schema/evidence-metadata.md` §9）。
+全DRファイルは、調査ロット、使用モデル、レビュー担当、指示書、GPT出力への参照を含む。モデル名の記載は必須（`docs/evidence-metadata-creation.md` §2.5）。
 
 ```markdown
 # DR-D{NN}-{slug}.md - D{NN} {領域名} ディープリサーチ一次ソース
@@ -44,7 +44,7 @@ DR-D{NN}-{slug}.md
 ```
 
 モデル名が不明な場合は `unknown` と記載する。
-AIモデル来歴の正本は外部 schema repo の `evidence-metadata.md` を参照する。公開ラベル taxonomy / `generator_model` は `docs/evidence-metadata-creation.md` を参照する。
+AIモデル来歴・公開ラベル taxonomy / `generator_model` は `docs/evidence-metadata-creation.md` を参照する。
 
 ## 進捗管理（30領域全件）
 

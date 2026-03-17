@@ -36,3 +36,7 @@
 
 - 3軸品質基準: [quality-criteria.md](quality-criteria.md) — 調査範囲/深さ/洞察の定量評価基準（D23ベンチマーク）
 - 調査テンプレート: [survey-prompt-template.md](survey-prompt-template.md) — D23水準を再現する3Phaseプロンプト構造
+
+## 領域間配置ルール（cs#105）
+
+- 配置ルール: [cross-domain-reference.md](cross-domain-reference.md) — 一次配置と参照の判断基準

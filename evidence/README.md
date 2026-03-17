@@ -39,7 +39,7 @@ pjdhiro、Claude、Codex、および creation-space の REPORTS / evidence 閲�
 ### How
 
 幅優先スキャン → 本格調査 → GPTレビュー → deepdive → 横断分析という順で増築されてきた。
-`five-stages.md` と `academic-domains.md` の正本は `knowledge/schema/` に移行済み。公開ラベルタクソノミーと `generator_model` は `docs/evidence-metadata-creation.md`、フラグ体系と AI モデル来歴は外部 schema repo 側の `evidence-metadata.md` を参照する。
+`five-stages.md` と `academic-domains.md` の正本は `knowledge/schema/` に移行済み。公開ラベルタクソノミーと `generator_model` は `docs/evidence-metadata-creation.md`、フラグ書式は `evidence/deepdive/README.md` を参照する。
 
 ## ⚠️ evidence-D*.md を編集・Revise する前に
 
@@ -77,7 +77,6 @@ cp evidence/evidence-D{NN}-{slug}.md \
 - [202602-deep-research-30domains-gpt/README.md](/Users/uminomae/dev/creation-space/evidence/202602-deep-research-30domains-gpt/README.md)
 - [archive/README.md](/Users/uminomae/dev/creation-space/evidence/archive/README.md)
 - [docs/evidence-metadata-creation.md](/Users/uminomae/dev/creation-space/docs/evidence-metadata-creation.md)
-- `/Users/uminomae/dev/kesson-driven-thinking/base/schema/evidence-metadata.md`
 - 旧管理番号 #61
 - 旧管理番号 #62
 - 移行関連番号 #166
@@ -88,4 +87,4 @@ cp evidence/evidence-D{NN}-{slug}.md \
 - 関連記録番号: #61, #62, #120, #166, #180
 
 `PROJECT.md` はサブプロジェクト憲章であり、この README はディレクトリ案内を担う。役割を分けて参照すること。
-creation 固有の公開 metadata 正本は creation-space 側の `docs/evidence-metadata-creation.md` にある。フラグ体系と AI モデル来歴は外部 schema repo 側の `evidence-metadata.md` を参照する。
+creation 固有の公開 metadata 正本は creation-space 側の `docs/evidence-metadata-creation.md` にある。フラグ書式は `evidence/deepdive/README.md` を参照する。

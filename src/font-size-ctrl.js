@@ -10,43 +10,47 @@ const MIGRATION_KEY = 'kesson-font-step-v5';
 
 // Global UI font sizes (shell.css :root)
 const FONT_VARS = {
-    '--kesson-font-size-ui-xs': 0.80,
-    '--kesson-font-size-ui-sm': 0.80,
+    '--kesson-font-size-ui-xs': 0.85,
+    '--kesson-font-size-ui-sm': 0.88,
 };
 
 const CLASS_VARS = {
     // -- Card & section --
-    '--kesson-section-heading': 0.80,
-    '--kesson-card-title': 0.80,
-    '--kesson-card-text': 0.80,
-    '--kesson-card-summary': 0.80,
+    '--kesson-section-heading': 0.88,
+    '--kesson-card-title': 1.00,
+    '--kesson-card-text': 0.92,
+    '--kesson-card-summary': 0.92,
 
     // -- Overlay & guide --
-    '--kesson-overlay-tagline': 0.80,
-    '--kesson-overlay-tagline-en': 0.80,
-    '--kesson-control-guide': 0.80,
-    '--kesson-surface-btn': 0.80,
+    '--kesson-overlay-tagline': 0.92,
+    '--kesson-overlay-tagline-en': 0.88,
+    '--kesson-control-guide': 0.82,
+    '--kesson-surface-btn': 0.88,
 
     // -- Footer --
-    '--kesson-footer-line': 0.80,
-    '--kesson-footer-signature-size': 0.80,
+    '--kesson-footer-line': 0.82,
+    '--kesson-footer-signature-size': 0.88,
 
     // -- Dev HUD --
     '--kesson-dev-hud-font-size': 0.80,
 
     // -- Topbar --
-    '--kesson-topbar-link-size': 0.80,
-    '--kesson-topbar-credit-size': 0.80,
-    '--kesson-topbar-note-size': 0.80,
-    '--kesson-topbar-meta-size': 0.80,
-    '--kesson-topbar-meta-author-size': 0.80,
-    '--kesson-topbar-subtitle-size-md': 0.80,
-    '--kesson-topbar-title-size': 0.80,
-    '--kesson-topbar-main-title-size': 0.96,
-    '--kesson-topbar-main-title-size-sm': 0.86,
+    '--kesson-topbar-link-size': 0.88,
+    '--kesson-topbar-credit-size': 0.84,
+    '--kesson-topbar-note-size': 0.88,
+    '--kesson-topbar-meta-size': 0.86,
+    '--kesson-topbar-meta-author-size': 0.84,
+    '--kesson-topbar-subtitle-size-md': 0.88,
+    '--kesson-topbar-title-size': 0.88,
+    '--kesson-topbar-main-title-size': 1.04,
+    '--kesson-topbar-main-title-size-sm': 0.92,
+
+    // -- Graphic switcher --
+    '--kesson-graphic-switcher-label': 0.88,
+    '--kesson-graphic-switcher-btn': 0.88,
 
     // -- Hero h1 --
-    '--kesson-h1-size': 1.00,
+    '--kesson-h1-size': 1.10,
 };
 
 function normalizeStep(step) {
@@ -92,6 +96,11 @@ function applyStep(step) {
     if (down) down.disabled = normalized <= MIN_STEP;
     if (up) up.disabled = normalized >= MAX_STEP;
     if (reset) reset.disabled = normalized === DEFAULT_STEP;
+
+    // Notify listeners (e.g. topbar height sync)
+    requestAnimationFrame(() => {
+        window.dispatchEvent(new CustomEvent('kesson:font-step-change', { detail: { step: normalized } }));
+    });
 }
 
 export function initFontSizeCtrl() {

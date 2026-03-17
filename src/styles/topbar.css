@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  min-height: var(--kesson-topbar-height);
+  min-height: 3.25rem;
   z-index: 60;
   background: linear-gradient(
     to bottom,
@@ -19,7 +19,7 @@
 }
 
 #kesson-topbar .container-fluid {
-  min-height: var(--kesson-topbar-height);
+  min-height: 3.25rem;
 }
 
 #kesson-topbar .topbar-brand-wrap {
@@ -194,7 +194,7 @@
   -webkit-backdrop-filter: blur(10px);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
   #kessonTopbarNav {
     margin-top: 0;
     padding: 0;

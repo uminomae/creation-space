@@ -10,7 +10,7 @@
   - `evidence/deepdive/codex-parallel-deepdive/D22-business-management/run1/agent-boundary-guard.md`
   - `chatgpt/output/0304/REVIEW-D22-business-management.md`
   - `chatgpt/output/0304/RECONCILE-D22-business-management.md`
-  - `/Users/uminomae/dev/kesson-driven-thinking/base/schema/core-definitions.md`
+  - D1-D4 コア定義（正本: kesson-driven-thinking `base/schema/core-definitions.md`。概要は本repo CLAUDE.md 参照）
 
 Run1 が主に「対応の強弱」を見ていたのに対し、ここでは「D22 が欠損駆動思考のどこを押し広げうるか」を見る。焦点は採否ではなく、D1-D4 と F軸/O軸 の理論的厚みをどこで増やせるかに置く。
 

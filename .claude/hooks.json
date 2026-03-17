@@ -36,6 +36,10 @@
           {
             "type": "command",
             "command": ".claude/hooks/exfil-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/quality-level-guard.sh"
           }
         ]
       },
@@ -45,6 +49,10 @@
           {
             "type": "command",
             "command": ".claude/hooks/state-lock-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/quality-level-guard.sh"
           }
         ]
       },
@@ -54,6 +62,15 @@
           {
             "type": "command",
             "command": ".claude/hooks/instruction-prereq-guard.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|MultiEdit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/progress-level-guard.sh"
           }
         ]
       }
@@ -92,6 +109,23 @@
           {
             "type": "command",
             "command": ".claude/hooks/design-system-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/quality-level-guard.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|MultiEdit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/progress-level-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/domains-json-sync-guard.sh"
           }
         ]
       }
@@ -107,6 +141,10 @@
           {
             "type": "command",
             "command": ".claude/hooks/issue-sync-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/domains-json-sync-guard.sh"
           }
         ]
       }

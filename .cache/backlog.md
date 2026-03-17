@@ -43,7 +43,7 @@ cs#67 運用基盤移植（親）
 
 | Issue | タイトル | 状態 |
 |-------|---------|------|
-| cs#67 | kesson-driven-thinking → creation-space 運用基盤移植（親） | open |
+| cs#67 | 運用基盤の自己完結化（親） | open |
 | cs#68 | 移植: .claude/rules/ 汎用ルール5件 | open |
 | cs#69 | 移植: skills/ 汎用スキル4件 | open |
 | cs#70 | 移植: .claude/hooks/ 汎用ガード4件 | open |

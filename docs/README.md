@@ -108,7 +108,7 @@ git push origin develop
 このリポジトリは人間（pjdhiro）とAIが共同でプロダクトを構築するプロジェクトである。
 以下の原則は、この協働が機能するために設計レベルで組み込まれている構造を記述する。
 
-> 移植元: `kesson-driven-thinking` の設計原則 L1-L7 を creation-space の文脈に適応したもの。
+> 移植元: 旧 private repo の設計原則 L1-L7 を creation-space の文脈に適応したもの。
 
 **L1: 認知的継続性**
 新セッションのAIが、前セッションの決定と文脈を遺失しないこと。

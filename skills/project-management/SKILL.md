@@ -16,7 +16,7 @@ agent: "DT"
 
 **バージョン**: 1.0
 **作成日**: 2026-03-15
-**移植元**: kesson-driven-thinking/skills/project-management/SKILL.md v1.2
+**移植元**: 旧 private repo skills/project-management/SKILL.md v1.2
 
 ---
 
@@ -182,4 +182,4 @@ backlog + active + state から、オーナーの判断/確認が必要なもの
 
 | 日付 | バージョン | 内容 |
 |---|---|---|
-| 2026-03-15 | 1.0 | kesson-driven-thinking から汎用スキルとして移植 |
+| 2026-03-15 | 1.0 | 旧 private repo から汎用スキルとして移植 |

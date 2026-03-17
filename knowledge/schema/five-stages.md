@@ -1,7 +1,7 @@
 # 創造の5段階（Five Stages）
 
 **正本**: creation-space/knowledge/schema/five-stages.md
-**移植元**: kesson-driven-thinking/base/schema/five-stages.md（2026-02-04 版）
+**移植元**: 旧 private repo base/schema/five-stages.md（2026-02-04 版。移植完了・本ファイルが正本）
 **状態**: 移植版。調査の進展に合わせて更新する
 
 ---

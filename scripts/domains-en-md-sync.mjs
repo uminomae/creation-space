@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(SCRIPT_DIR, '..');
-const DEFAULT_BUILD_REPO = resolve(ROOT, '..', 'kesson-driven-thinking');
+const DEFAULT_BUILD_REPO = resolve(ROOT, '..', 'pjdhiro');
 const DEFAULT_PUBLISH_REPO = resolve(ROOT, '..', 'pjdhiro');
 
 function printHelp() {
@@ -17,7 +17,7 @@ function printHelp() {
   console.log('');
   console.log('Options:');
   console.log('  --mode <check|sync>        Default: check');
-  console.log('  --build-repo <path>        Source repo root (default: ../kesson-driven-thinking)');
+  console.log('  --build-repo <path>        Source repo root (default: ../pjdhiro)');
   console.log('  --publish-repo <path>      Publish repo root (default: ../pjdhiro)');
   console.log('  --manifest <path>          Override manifest path');
   console.log('  --dry-run                  Print sync actions without writing files');
@@ -26,7 +26,7 @@ function printHelp() {
   console.log('Behavior:');
   console.log('  - Reads EN domain markdown paths from pjdhiro/assets/creation/manifests/domains.json');
   console.log('  - Verifies build and publish copies for domains/en/md/*.md');
-  console.log('  - In sync mode, copies missing or changed files from kesson-driven-thinking/build/creation/');
+  console.log('  - In sync mode, copies missing or changed files from build repo's build/creation/');
 }
 
 function parseArgs(argv) {

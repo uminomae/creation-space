@@ -38,8 +38,32 @@ generate-domains-json.mjs 実行
 pjdhiro 側にコミット・push
 ```
 
+## 領域間配置ルール
+
+evidence 関連作業で複数領域にまたがる知見の配置に迷った場合は `transform/domains/cross-domain-reference.md` を参照すること。
 ## index.json 編集時の必須手順
 
 1. 編集前: `progress_level` と `progress_note` の現在値をメモする
 2. 編集後: メモと突き合わせ、意図しない変更がないことを確認する
 3. progress_level を変更する場合: Issue コメントで pjdhiro に確認を取る
+
+## progress_level 更新トリガー (cs#109)
+
+| トリガーイベント | 更新先 | 誰が |
+|---|---|---|
+| DR ファイル新規作成（GPTレビュー完了） | `claude_gpt_reviewed` に昇格 | CLI（pjdhiro承認 or Issue を根拠） |
+| deepdive 完了（Claude Agent） | `api_deepdive` | CLI（pjdhiro承認） |
+| deepdive 完了（Codex 並列） | `codex_parallel_deepdive` | CLI（pjdhiro承認） |
+| pjdhiro しっくり感チェック完了 | `human_reviewed` | pjdhiro 直接 |
+| レポート公開（MD+PDF が pjdhiro に配置） | `status` → `published`（自動判定） | generate-domains-json.mjs |
+
+## 保護ルール
+
+- **逆行禁止**: progress_level を下げる変更は原則 BLOCK
+- **human_reviewed への昇格は pjdhiro 専権**
+- **変更時は Issue 番号を根拠として記録**: コミットメッセージに `cs#NNN` を含める
+
+## status フィールドについて
+
+index.json の `status` フィールドは手動管理しない。
+`generate-domains-json.mjs` が pjdhiro 側の物理ファイル存在を確認して自動判定する。

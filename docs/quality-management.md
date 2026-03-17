@@ -3,7 +3,7 @@
 **バージョン**: 1.0
 **更新日**: 2026-03-15
 
-> 移植元: `kesson-driven-thinking/docs/quality-management.md` から AI 協働プロジェクト汎用の項目を抽出・適応。
+> 移植元: 旧 private repo の quality-management.md から AI 協働プロジェクト汎用の項目を抽出・適応。
 
 ---
 
@@ -90,4 +90,4 @@
 
 | 日付 | バージョン | 内容 |
 |------|-----------|------|
-| 2026-03-15 | 1.0 | 初版。kesson-driven-thinking から汎用項目を抽出して新規作成 (cs#67) |
+| 2026-03-15 | 1.0 | 初版。旧 private repo から汎用項目を抽出して新規作成 (cs#67) |

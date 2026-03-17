@@ -81,4 +81,4 @@ sudo tlmgr install collection-luatex luatexja haranoaji
 
 - 戦略方針の正本: [evidence/PROJECT.md](/Users/uminomae/dev/creation-space/evidence/PROJECT.md) §0
 - 現在の公開配置: `pjdhiro/assets/creation/`
-- 移植元（履歴情報）: kesson-driven-thinking 側の旧 creation workflow。現在は本ディレクトリが正本
+- 移植元（履歴情報）: 旧 private repo 側の creation workflow。現在は本ディレクトリが正本

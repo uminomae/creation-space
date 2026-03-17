@@ -8,8 +8,8 @@ import {
 export const INTENT_MOTION_DEFAULTS = Object.freeze({
     cameraRotateSpeed: 1.0,
     // Operator-facing camera heading seed (deg). Query seeds and Dev Panel use this.
-    cameraAngleDeg: 0.0,
-    startTimingMin: 7.638,
+    cameraAngleDeg: 220.0,
+    startTimingMin: 125.0,
     loopPeriodSec: 480.0,
     timeScale: 1.0,
     shiftTurnStartSec: INTENT_SHIFT_TURN_DEFAULT_START_SEC,

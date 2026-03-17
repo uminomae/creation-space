@@ -94,16 +94,13 @@
 <body class="creation-page">
   <div id="canvas-container" aria-hidden="true"></div>
 
-  <header id="kesson-topbar" class="navbar navbar-expand-md navbar-dark" aria-label="Main menu">
+  <header id="kesson-topbar" class="navbar navbar-expand-xl navbar-dark" aria-label="Main menu">
     <div class="container-fluid px-3 px-md-4">
       <div class="topbar-brand-wrap">
         <a id="topbar-main-title" class="navbar-brand topbar-main-title" href="./">
           創造とは
         </a>
-        <span id="topbar-preparing-badge" class="badge rounded-pill text-bg-warning-subtle border border-warning-subtle text-warning-emphasis topbar-status-badge">
-          準備中
-        </span>
-        <span id="credit-collab" class="topbar-collab-note">AIとの協働作業中</span>
+<span id="credit-collab" class="topbar-collab-note">AIとの協働作業中</span>
       </div>
       <button
         class="navbar-toggler topbar-toggler"
@@ -175,11 +172,11 @@
     </div>
   </header>
 
-  <div id="graphic-switcher" class="btn-group btn-group-sm" role="group" aria-label="グラフィック切り替え">
-    <button type="button" class="btn btn-outline-light" data-graphic-mode="hoji" aria-pressed="false">保持</button>
-    <button type="button" class="btn btn-outline-light" data-graphic-mode="sinobi" aria-pressed="false">忍</button>
-    <button type="button" class="btn btn-outline-light active" data-graphic-mode="i" aria-pressed="true">意</button>
-  </div>
+  <nav id="graphic-switcher" role="group" aria-label="背景グラフィック切り替え">
+    <span class="graphic-switcher-label">背景</span>
+    <button type="button" data-graphic-mode="sinobi" aria-pressed="false">忍</button>
+    <button type="button" data-graphic-mode="i" class="active" aria-pressed="true">意</button>
+  </nav>
   <div id="dev-version-inline" class="dev-version-inline" aria-live="polite"></div>
   <a id="dev-components-link" class="dev-components-link" href="./dev-components.html">Components</a>
 
