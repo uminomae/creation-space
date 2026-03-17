@@ -127,4 +127,3 @@ evidence（`evidence/` 配下）を新規作成・更新する作業では、以
 | リポジトリ | 関係 |
 |---|---|
 | `pjdhiro` | GitHub Pages 側の公開先。`assets/creation/` の manifest・Markdown・PDF をホスティングする |
-| `kesson-driven-thinking` | 管理体系と workflow の参照元。`transform/`・`knowledge/` の一部はここから移植された履歴を持つ |

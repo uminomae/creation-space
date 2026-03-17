@@ -95,7 +95,7 @@
 
 **pjdhiro**: 「guides側も言語でディレクトリを分ける」 → `{kind}/{lang}/md/` 構造
 
-**pjdhiro**: 「creation-pjdhiroは公開しないので生成ルールからも外して」 → guidesは3 audienceのみ。pjdhiro版はkesson-driven-thinking repoに出力（パス後日決定）
+**pjdhiro**: 「creation-pjdhiroは公開しないので生成ルールからも外して」 → guidesは3 audienceのみ。pjdhiro版は非公開 repo に出力（パス後日決定）
 
 **pjdhiro**: 「APIのように.mdのデータをとりに来る実装を予定しています」 → API層の.mdはエンドポイントとして機能する
 
@@ -117,4 +117,4 @@
 - #84-6: designer の点検・改訂
 - pjdhiro blog の出力ディレクトリの実際のクリーンアップ（kesson-* 削除、構造整理）
 - 発言集への追加（S60〜: 今回の発言群）
-- creation-pjdhiro の kesson-driven-thinking repo 内出力先パスの決定
+- creation-pjdhiro の 非公開 repo 内出力先パスの決定

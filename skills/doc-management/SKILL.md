@@ -13,7 +13,7 @@ agent: "DT"
 
 **バージョン**: 1.0
 **作成日**: 2026-03-15
-**移植元**: kesson-driven-thinking/skills/doc-management/SKILL.md v1.1
+**移植元**: 旧 private repo skills/doc-management/SKILL.md v1.1
 **原則**: README = IF-ELSEディレクトリのみ。詳細はSKILLへ委譲。Memoryは最小限。
 
 ---
@@ -172,4 +172,4 @@ ls skills/
 
 | 日付 | バージョン | 内容 |
 |------|-----------|------|
-| 2026-03-15 | 1.0 | kesson-driven-thinking から汎用スキルとして移植 |
+| 2026-03-15 | 1.0 | 旧 private repo から汎用スキルとして移植 |

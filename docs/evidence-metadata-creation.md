@@ -1,11 +1,11 @@
 # evidence-metadata（creation-space 固有）
 
 **正本**: creation-space/docs/evidence-metadata-creation.md
-**移植元**: kesson-driven-thinking/base/schema/evidence-metadata.md §2, §2.5
+**移植元**: 旧 private repo evidence-metadata.md §2, §2.5（移植完了・本ファイルが正本）
 **状態**: 移植版
 
 creation-space の公開ラベルタクソノミー、`generator_model`、`domains.json` 連携の正本。
-evidence 内部管理用のフラグ体系と AI モデル来歴は、引き続き `/Users/uminomae/dev/kesson-driven-thinking/base/schema/evidence-metadata.md` を参照する。
+evidence 内部管理用のフラグ書式は `evidence/deepdive/README.md` を参照する。
 
 ---
 
@@ -163,7 +163,7 @@ evidence-metadata-creation.md はタクソノミー**定義**の正本であり�
 | 内部Level→公開タクソノミーのマッピング | CLAUDE.md §progress_level の決定基準 |
 | 情報フローと SoT | `.claude/rules/evidence-progress.md` |
 
-移植元: `kesson-driven-thinking/base/schema/evidence-metadata.md` v1.9 の §4, §5, §6, §8
+移植元: 旧 private repo evidence-metadata.md v1.9 §4/§5/§6/§8（移植完了）
 
 ## §2.9 品質レベルタクソノミー（quality_level）
 
@@ -208,6 +208,6 @@ not_generated → generated → self_tested → independent_reviewed → pjdhiro
 | 日付 | バージョン | 内容 |
 |---|---|---|
 | 2026-03-17 | 1.3 | §2.9 品質レベルタクソノミー（quality_level）を追加 (cs#111) |
-| 2026-03-16 | 1.2 | §3 運用ルール参照先を追加。kesson-driven-thinking §4/§5/§6/§8 の移植完了を記録 (cs#101) |
+| 2026-03-16 | 1.2 | §3 運用ルール参照先を追加。旧 private repo §4/§5/§6/§8 の移植完了を記録 (cs#101) |
 | 2026-03-16 | 1.1 | §2.7 旧 level マイグレーションテーブル、§2.8 progress_note 運用ルールを追加 (cs#77 子タスク4-5) |
-| 2026-03-14 | 1.0 | `kesson-driven-thinking/base/schema/evidence-metadata.md` §2 / §2.5 を creation-space 側へ移植し、公開ラベルタクソノミーと `generator_model` の正本を分離 (#248) |
+| 2026-03-14 | 1.0 | 旧 private repo evidence-metadata.md §2/§2.5 を creation-space 側へ移植し、公開ラベルタクソノミーと `generator_model` の正本を分離 (#248) |

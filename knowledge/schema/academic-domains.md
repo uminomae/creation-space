@@ -1,7 +1,7 @@
 # 全学問領域マスターリスト
 
 **正本**: creation-space/knowledge/schema/academic-domains.md
-**移植元**: kesson-driven-thinking/base/schema/academic-domains.md（2026-02-21 版）
+**移植元**: 旧 private repo base/schema/academic-domains.md（2026-02-21 版。移植完了・本ファイルが正本）
 **用途**: 「全学問領域」と言ったらこのリスト。5段階の構造類似探索（#61）の基盤。
 **根拠**: 旧帝国大学7校の学部名称から抽出（品質基準の一つ。唯一の根拠ではない）。
 **最終更新**: 2026-02-21

@@ -11,7 +11,7 @@
 
 ## 移行状態
 
-kesson-driven-thinking/base/schema/ からの移植は完了。
+旧 private repo base/schema/ からの移植は完了。本ディレクトリが正本。
 `five-stages.md` と `academic-domains.md` の正本をこのディレクトリに集約した。
 
 ## ファイル

@@ -14,14 +14,14 @@
 - `evidence/deepdive/README.md`
 - `evidence/evidence-D*.md` 30件
 - `../pjdhiro/assets/creation/manifests/domains.json`
-- `../kesson-driven-thinking/chatgpt/output/` 配下の `REVIEW-*` / `RECONCILE-*`
+- `../(旧 private repo)/chatgpt/output/` 配下の `REVIEW-*` / `RECONCILE-*`
 - `evidence/deepdive/claude-code-agent/D22-business-management/run1/README.md`
 - `evidence/deepdive/codex-parallel-deepdive/D22-business-management/run1/README.md`
 - `evidence/deepdive/codex-parallel-deepdive/D23-developmental-psychology/insight1/README.md`
 
 ### 読めなかったもの
 
-- `../kesson-driven-thinking/base/evidence/iss62-sources/README.md`
+- `../(旧 private repo)/base/evidence/iss62-sources/README.md`
 
 現環境では `iss62-sources` 直下に `.DS_Store` しかなく、指示対象の `README.md` は存在しなかった。したがって 30領域の実態確認は `creation-space` 側の `evidence/PROJECT.md`、各 `evidence-D*.md` frontmatter、`chatgpt/output` の `REVIEW-*` / `RECONCILE-*` を代替根拠として行った。
 
@@ -107,7 +107,7 @@
 
 - `claude_screened` の定義は「Claude（1ターン）による候補ピックアップ実施」。
 - 上記 8件は evidence frontmatter が `Phase 4完了`。
-- さらに `../kesson-driven-thinking/chatgpt/output/0304/REVIEW-*` と `RECONCILE-*` が揃っている。
+- さらに `../(旧 private repo)/chatgpt/output/0304/REVIEW-*` と `RECONCILE-*` が揃っている。
 
 したがって現行定義に照らす限り、この 8件は少なくとも `claude_gpt_reviewed` 相当であり、`claude_screened` には置けない。
 
@@ -127,7 +127,7 @@
 
 ### 3.5 `iss62-sources/README.md` が欠落している
 
-- 指示書の Step 1 にある `../kesson-driven-thinking/base/evidence/iss62-sources/README.md` は現環境に存在しない。
+- 指示書の Step 1 にある `../(旧 private repo)/base/evidence/iss62-sources/README.md` は現環境に存在しない。
 - 現在の進捗正本は、実質的に `creation-space/evidence/PROJECT.md` と各 evidence frontmatter 側に移っているように見える。
 
 ## 4. 新レベル候補
