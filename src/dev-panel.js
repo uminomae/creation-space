@@ -185,7 +185,7 @@ export function initDevPanel({
 
     function updateControlValue(path, value, step) {
         const entry = controlIndex.get(path);
-        if (\!entry) return;
+        if (!entry) return;
         entry.input.value = String(value);
         entry.valueNode.textContent = formatNumber(value, step);
     }
@@ -196,7 +196,7 @@ export function initDevPanel({
 
     function updateColorControlValue(path, color) {
         const entry = colorControlIndex.get(path);
-        if (\!entry || \!color || typeof color.getHex \!== 'function') return;
+        if (!entry || !color || typeof color.getHex !== 'function') return;
         const hex = color.getHex();
         entry.input.value = formatHex(hex);
         entry.valueNode.textContent = formatHex(hex);
@@ -299,7 +299,7 @@ export function initDevPanel({
     function applyJson() {
         try {
             const payload = JSON.parse(jsonArea.value);
-            if (\!payload || typeof payload \!== 'object') {
+            if (!payload || typeof payload !== 'object') {
                 throw new Error('Invalid JSON object.');
             }
 
@@ -315,7 +315,7 @@ export function initDevPanel({
     }
 
     toggleBtn.addEventListener('click', () => {
-        const willOpen = \!panel.classList.contains('is-open') && \!panel.classList.contains('open');
+        const willOpen = !panel.classList.contains('is-open') && !panel.classList.contains('open');
         setPanelOpen(willOpen);
     });
 

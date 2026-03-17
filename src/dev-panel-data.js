@@ -593,7 +593,7 @@ export function normalizeSceneVariant(sceneVariant) {
 export function resolveVisibleParamGroups(sceneVariant) {
     const variant = normalizeSceneVariant(sceneVariant);
     const hiddenGroupIds = HIDDEN_GROUP_IDS_BY_VARIANT[variant] || new Set();
-    return PARAM_GROUPS.filter((group) => \!hiddenGroupIds.has(group.id));
+    return PARAM_GROUPS.filter((group) => !hiddenGroupIds.has(group.id));
 }
 
 export function getFieldKey(field) {
@@ -604,8 +604,8 @@ export function resolveVisibleFields(sceneVariant, group) {
     const variant = normalizeSceneVariant(sceneVariant);
     const hiddenByGroup = HIDDEN_FIELD_KEYS_BY_VARIANT[variant];
     const hiddenFieldKeys = hiddenByGroup?.[group.id];
-    if (\!hiddenFieldKeys || hiddenFieldKeys.size === 0) {
+    if (!hiddenFieldKeys || hiddenFieldKeys.size === 0) {
         return group.fields;
     }
-    return group.fields.filter((field) => \!hiddenFieldKeys.has(getFieldKey(field)));
+    return group.fields.filter((field) => !hiddenFieldKeys.has(getFieldKey(field)));
 }
