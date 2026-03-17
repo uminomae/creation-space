@@ -41,8 +41,8 @@ if [ "$EVENT" = "Stop" ]; then
 
   # generate-domains-json.mjs --check を実行
   if [ -x "${REPO_ROOT}/scripts/generate-domains-json.mjs" ] || [ -f "${REPO_ROOT}/scripts/generate-domains-json.mjs" ]; then
-    check_output="$(node "${REPO_ROOT}/scripts/generate-domains-json.mjs" --check 2>&1)" || true
-    check_exit=$?
+    check_exit=0
+    check_output="$(node "${REPO_ROOT}/scripts/generate-domains-json.mjs" --check 2>&1)" || check_exit=$?
 
     if [ $check_exit -ne 0 ] || echo "$check_output" | grep -qiE 'differ|mismatch|changed'; then
       hook_warn "index.json が変更されましたが pjdhiro/domains.json と同期されていません。generate-domains-json.mjs を実行してください。"
