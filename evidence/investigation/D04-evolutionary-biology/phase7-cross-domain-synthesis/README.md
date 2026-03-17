@@ -1,0 +1,16 @@
+- 実行日: 2026-03-18
+- モデル: claude-opus-4-6
+- 入力ファイル:
+  - evidence/evidence-D04-evolutionary-biology.md
+  - evidence/investigation/D04-evolutionary-biology/phase6-structural-reread/output.md
+  - evidence/investigation/D04-evolutionary-biology/phase5-evidence-audit/output.md
+  - evidence/202602-deep-research-30domains-gpt/DR-D04-evolutionary-biology.md
+  - evidence/investigation/PROTOCOL.md
+- 出力ファイル: output.md
+- evidence フラグ: [ai:investigation:claude-opus-4-6]
+- 完了チェックリスト:
+  - [x] 全セクションヘッダー存在（5セクション: A, B, C, D, E）
+  - [x] JURISDICTION-CHECK 通過（5段階比較 >85%、ドメイン固有語 <15%）
+  - [x] 横断パターン 5件（>= 3件）
+  - [x] 段階精緻化テーブル存在
+  - [ ] pjdhiro しっくり感チェック
