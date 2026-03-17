@@ -26,6 +26,17 @@ export function initMobileNavAutoCollapse() {
         });
     });
 
+    // Close nav when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!nav.classList.contains('show')) return;
+        const topbar = document.getElementById('kesson-topbar');
+        if (topbar && topbar.contains(e.target)) return;
+        const collapseApi = window.bootstrap?.Collapse;
+        if (!collapseApi) return;
+        const collapse = collapseApi.getOrCreateInstance(nav, { toggle: false });
+        collapse.hide();
+    });
+
     // Sync actual height for elements positioned below topbar
     syncTopbarHeight();
     window.addEventListener('resize', syncTopbarHeight);
