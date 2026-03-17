@@ -1,0 +1,14 @@
+- 実行日: 2026-03-18
+- モデル: claude-opus-4-6 (Claude Opus 4.6, 1M context)
+- 入力ファイル:
+  - evidence/evidence-D02-physics.md
+  - evidence/investigation/D02-physics/phase5-evidence-audit/output.md
+  - evidence/202602-deep-research-30domains-gpt/DR-D02-physics.md
+  - evidence/review/d02-phase2-evaluation.md
+- 出力ファイル: output.md
+- evidence フラグ: [ai:investigation:claude-opus-4-6]
+- 完了チェックリスト:
+  - [x] 全セクションヘッダー存在（4/4: §A Entry-by-entry reread, §B 再読から浮上した問い, §C 仮説と統合的知見, §D 保持論点）
+  - [x] JURISDICTION-CHECK 通過（5段階比較 >80%, ドメイン固有語 <20%）
+  - [x] 全エントリ網羅（002-011、有効10件。001 Rejected は除外注記あり）
+  - [ ] pjdhiro しっくり感チェック

@@ -1,0 +1,14 @@
+- 実行日: 2026-03-18
+- モデル: claude-opus-4-6 (Claude Opus 4.6, 1M context)
+- 入力ファイル:
+  - evidence/evidence-D02-physics.md
+  - evidence/202602-deep-research-30domains-gpt/DR-D02-physics.md
+  - evidence/investigation/PROTOCOL.md
+  - evidence/review/d02-phase2-evaluation.md
+- 出力ファイル: output.md
+- evidence フラグ: [ai:investigation:claude-opus-4-6]
+- 完了チェックリスト:
+  - [x] 全セクションヘッダー存在（8/8: Scope, Summary, Entry-level audit, Gap scan, Boundary guard, Stage coverage map, Safety valves, Audit verdict）
+  - [x] JURISDICTION-CHECK 通過（5段階比較 >80%, ドメイン固有語 <20%）
+  - [x] 全エントリ網羅（001-011、全11件）
+  - [ ] pjdhiro しっくり感チェック
