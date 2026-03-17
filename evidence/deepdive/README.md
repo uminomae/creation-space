@@ -1,8 +1,12 @@
-# deepdive/ — 深掘り探索ディレクトリ
+# deepdive/ — 深掘り探索ディレクトリ（アーカイブ）
 
 **バージョン**: 1.5
-**更新日**: 2026-03-08
+**更新日**: 2026-03-18
 **関連ルール**: `docs/evidence-metadata-creation.md`
+
+> **⚠️ 移行通知**: Phase 5-7 の統一調査プロトコルが `evidence/investigation/` に新設されました。
+> 今後の深掘り調査は `evidence/investigation/PROTOCOL.md` に従って実施してください。
+> 本ディレクトリの既存成果（D22/D23）はアーカイブ参照用として保持します。
 
 ---
 
