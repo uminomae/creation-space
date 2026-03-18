@@ -1,0 +1,15 @@
+- 実行日: 2026-03-18
+- モデル: claude-opus-4-6
+- 入力ファイル:
+  - evidence/evidence-D15-aesthetics.md
+  - evidence/202602-deep-research-30domains-gpt/DR-D15-aesthetics.md
+  - evidence/investigation/PROTOCOL.md
+  - evidence/investigation/D15-aesthetics/phase5-evidence-audit/output.md
+  - evidence/investigation/D15-aesthetics/phase6-structural-reread/output.md
+- 出力ファイル: output.md
+- evidence フラグ: [ai:investigation:claude-opus-4-6]
+- 完了チェックリスト:
+  - [x] 全セクションヘッダー存在
+  - [x] JURISDICTION-CHECK 通過
+  - [x] 全エントリ網羅
+  - [ ] pjdhiro しっくり感チェック
