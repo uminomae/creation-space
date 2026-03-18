@@ -1,0 +1,16 @@
+- 実行日: 2026-03-18
+- モデル: claude-opus-4-6 (1M context)
+- 入力ファイル:
+  - evidence/evidence-D20-law-politics.md
+  - evidence/202602-deep-research-30domains-gpt/DR-D20-law-politics.md
+  - evidence/investigation/PROTOCOL.md
+  - evidence/investigation/D20-law-politics/phase5-evidence-audit/output.md
+  - evidence/investigation/D20-law-politics/phase6-structural-reread/output.md
+- 出力ファイル: output.md
+- evidence フラグ: [ai:investigation:claude-opus-4-6]
+- 完了チェックリスト:
+  - [x] 全セクションヘッダー存在（§A, §B, §C, §D, §E）
+  - [x] JURISDICTION-CHECK 通過（5段階比較 >80%）
+  - [x] 横断パターン 5件（>3件要件充足）
+  - [x] 段階精緻化テーブル存在
+  - [ ] pjdhiro しっくり感チェック
