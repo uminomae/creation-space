@@ -1,0 +1,14 @@
+- 実行日: 2026-03-18
+- モデル: claude-opus-4-6 (Claude Opus 4.6, 1M context)
+- 入力ファイル:
+  - evidence/evidence-D23-developmental-psychology.md
+  - evidence/investigation/D23-developmental-psychology/phase5-evidence-audit/output.md
+  - evidence/202602-deep-research-30domains-gpt/DR-D23-developmental-psychology.md
+  - evidence/investigation/PROTOCOL.md
+- 出力ファイル: output.md
+- evidence フラグ: [ai:investigation:claude-opus-4-6]
+- 完了チェックリスト:
+  - [x] 全セクションヘッダー存在
+  - [x] JURISDICTION-CHECK 通過
+  - [x] 全エントリ網羅
+  - [ ] pjdhiro しっくり感チェック
