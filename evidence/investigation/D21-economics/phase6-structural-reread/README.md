@@ -1,0 +1,14 @@
+- 実行日: 2026-03-18
+- モデル: claude-opus-4-6 (1M context)
+- 入力ファイル:
+  - evidence/evidence-D21-economics.md
+  - evidence/202602-deep-research-30domains-gpt/DR-D21-economics.md
+  - evidence/investigation/PROTOCOL.md
+  - evidence/investigation/D21-economics/phase5-evidence-audit/output.md
+- 出力ファイル: output.md
+- evidence フラグ: [ai:investigation:claude-opus-4-6]
+- 完了チェックリスト:
+  - [x] 全セクションヘッダー存在（§A, §B, §C, §D）
+  - [x] JURISDICTION-CHECK 通過（5段階比較 >80%）
+  - [x] 全エントリ網羅（EV-EC-001〜010 in §A）
+  - [ ] pjdhiro しっくり感チェック
