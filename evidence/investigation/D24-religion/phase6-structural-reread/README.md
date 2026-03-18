@@ -1,0 +1,14 @@
+- 実行日: 2026-03-18
+- モデル: claude-opus-4-6 (Claude Opus 4.6, 1M context)
+- 入力ファイル:
+  - evidence/evidence-D24-religion.md
+  - evidence/investigation/D24-religion/phase5-evidence-audit/output.md
+  - evidence/202602-deep-research-30domains-gpt/DR-D24-religious-studies.md
+  - evidence/investigation/PROTOCOL.md
+- 出力ファイル: output.md
+- evidence フラグ: [ai:investigation:claude-opus-4-6]
+- 完了チェックリスト:
+  - [x] 全セクションヘッダー存在（§A, §B, §C, §D）
+  - [x] JURISDICTION-CHECK 通過（5段階比較 ~85%, ドメイン固有語 ~15%）
+  - [x] 全エントリ網羅（RL-001〜RL-010 in §A）
+  - [ ] pjdhiro しっくり感チェック
