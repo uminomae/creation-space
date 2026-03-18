@@ -1,0 +1,10 @@
+- 実行日: 2026-03-18
+- モデル: claude-opus-4-6
+- 入力ファイル: evidence/evidence-D13-philosophy.md, evidence/202602-deep-research-30domains-gpt/DR-D13-philosophy.md, evidence/investigation/PROTOCOL.md
+- 出力ファイル: output.md
+- evidence フラグ: [ai:investigation:claude-opus-4-6]
+- 完了チェックリスト:
+  - [x] 全セクションヘッダー存在（8セクション）
+  - [x] JURISDICTION-CHECK 通過（5段階比較 >80%, ドメイン固有語 <20%）
+  - [x] 全エントリ網羅（11/11）
+  - [ ] pjdhiro しっくり感チェック
