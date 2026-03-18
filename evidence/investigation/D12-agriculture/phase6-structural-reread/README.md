@@ -1,0 +1,14 @@
+- 実行日: 2026-03-18
+- モデル: claude-opus-4-6 (1M context)
+- 入力ファイル:
+  - evidence/evidence-D12-agriculture.md
+  - evidence/investigation/D12-agriculture/phase5-evidence-audit/output.md
+  - evidence/202602-deep-research-30domains-gpt/DR-D12-agriculture-ecology.md
+  - evidence/investigation/PROTOCOL.md
+- 出力ファイル: output.md
+- evidence フラグ: [ai:investigation:claude-opus-4-6]
+- 完了チェックリスト:
+  - [x] 全セクションヘッダー存在（§A, §B, §C, §D）
+  - [x] JURISDICTION-CHECK 通過（5段階比較 >80%、ドメイン固有語 <20%）
+  - [x] 全エントリ網羅（AG-001〜010）
+  - [ ] pjdhiro しっくり感チェック
