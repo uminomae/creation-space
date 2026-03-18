@@ -1,0 +1,16 @@
+- 実行日: 2026-03-18
+- モデル: claude-opus-4-6 (1M context)
+- 入力ファイル:
+  - evidence/evidence-D10-clinical-medicine.md
+  - evidence/investigation/D10-clinical-medicine/phase6-structural-reread/output.md
+  - evidence/investigation/D10-clinical-medicine/phase5-evidence-audit/output.md
+  - evidence/202602-deep-research-30domains-gpt/DR-D10-clinical-medicine.md
+  - evidence/investigation/PROTOCOL.md
+- 出力ファイル: output.md
+- evidence フラグ: [ai:investigation:claude-opus-4-6]
+- 完了チェックリスト:
+  - [x] 全セクションヘッダー存在（5セクション）
+  - [x] JURISDICTION-CHECK 通過
+  - [x] 横断パターン 5件（3件以上）
+  - [x] 段階精緻化テーブル存在
+  - [ ] pjdhiro しっくり感チェック
