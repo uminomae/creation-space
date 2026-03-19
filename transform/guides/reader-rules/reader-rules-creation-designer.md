@@ -39,6 +39,9 @@
 - 先行研究者（ショーン、Csikszentmihalyi、Bion 等）は本文に自然に組み込む。独立した紹介セクションは不要
 - 根拠の確かさを正直に書く
 
+## 原典照合（cs#126）
+
+本文中で理論名・人物名を挙げた場合（ショーン、Csikszentmihalyi、Bion 等）は、共通基盤 §8.F の原典照合チェックを適用する。
 ## ソース
 
 - `knowledge/schema/five-stages.md` — 5段階の正本定義
