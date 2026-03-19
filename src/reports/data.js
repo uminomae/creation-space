@@ -76,61 +76,61 @@ export const MODEL_GUIDE_LINKS = [
     },
 ];
 
-// 正本: docs/evidence-metadata-creation.md §2
+// 正本: docs/evidence-metadata-creation.md §2 (v2.0 — Phase ベース, cs#123)
 export const DEFAULT_PROGRESS_TAXONOMY = [
     {
         id: 'not_surveyed',
         labelJa: '調査前',
         labelEn: 'Not yet surveyed',
-        descriptionJa: 'Claude・GPTによる調査未実施',
+        descriptionJa: 'AI支援調査が未実施',
         descriptionEn: 'No AI-assisted survey conducted yet',
         tone: 'secondary',
         order: 10,
     },
     {
-        id: 'claude_screened',
-        labelJa: 'Claude初期抽出済',
-        labelEn: 'Claude-screened',
-        descriptionJa: 'Claudeとの対話（1セッション）で候補理論を抽出した',
-        descriptionEn: 'Candidate theories extracted via single-session Claude dialogue',
+        id: 'initial_scan',
+        labelJa: '初期スキャン済',
+        labelEn: 'Initial scan',
+        descriptionJa: '幅優先スキャンで候補理論を抽出した（Phase 1-2）',
+        descriptionEn: 'Candidate theories extracted via breadth-first scan (Phase 1-2)',
         tone: 'warning',
         order: 20,
     },
     {
-        id: 'claude_gpt_reviewed',
-        labelJa: 'Claude＋GPT照合済',
-        labelEn: 'Claude + GPT reviewed',
-        descriptionJa: 'Claude抽出後、ChatGPTによる独立レビューと突き合わせを実施した',
-        descriptionEn: 'Claude screening followed by independent ChatGPT review cross-check',
+        id: 'cross_reviewed',
+        labelJa: '独立照合済',
+        labelEn: 'Cross-reviewed',
+        descriptionJa: '複数AIエンジンによる独立レビューと突き合わせを実施した（Phase 3-4）',
+        descriptionEn: 'Independent review and cross-check by multiple AI engines (Phase 3-4)',
         tone: 'primary',
         order: 30,
     },
     {
-        id: 'api_deepdive',
-        labelJa: 'Claude Agent深掘り済',
-        labelEn: 'Claude Agent deepdive',
-        descriptionJa: 'Claude Code Agentによる逐次多ラウンド深掘り探索を実施した',
-        descriptionEn: 'Multi-round sequential deep exploration via Claude Code Agent',
+        id: 'deep_investigated',
+        labelJa: '深掘り調査済',
+        labelEn: 'Deep-investigated',
+        descriptionJa: '論拠監査・構造再読・横断統合を含む多段階深掘り調査を実施した（Phase 5-7）',
+        descriptionEn: 'Multi-stage deep investigation including audit, re-reading, and cross-integration (Phase 5-7)',
         tone: 'primary',
-        order: 35,
+        order: 40,
     },
     {
-        id: 'codex_parallel_deepdive',
-        labelJa: 'Codex並列深掘り済',
-        labelEn: 'Codex parallel deepdive',
-        descriptionJa: 'Codex CLIマルチエージェント（並列）による深掘り探索を実施した',
-        descriptionEn: 'Parallel multi-agent deep exploration via Codex CLI',
+        id: 'cross_explored',
+        labelJa: '領域横断探索済',
+        labelEn: 'Cross-domain explored',
+        descriptionJa: '領域横断的な構造探索を実施した（Phase 8）',
+        descriptionEn: 'Cross-domain structural exploration conducted (Phase 8)',
         tone: 'primary',
-        order: 36,
+        order: 50,
     },
     {
         id: 'human_reviewed',
         labelJa: '人間レビュー済',
         labelEn: 'Human-reviewed',
-        descriptionJa: 'Claude＋GPT照合に加え、著者による最終確認を実施した',
-        descriptionEn: 'Claude + GPT review plus author final confirmation',
+        descriptionJa: '著者による最終確認を実施した',
+        descriptionEn: 'Author final confirmation conducted',
         tone: 'success',
-        order: 40,
+        order: 60,
     },
 ];
 
@@ -490,9 +490,15 @@ export function looksLikeHtmlDocument(text) {
 
 function normalizeProgressLevel(rawLevel, rawStatus) {
     const level = normalizeProgressLevelId(rawLevel);
-    if (level === 'quick_scan') return 'claude_screened';
-    if (level === 'structure_exploration') return 'claude_screened';
-    if (level === 'analysis_complete') return 'claude_gpt_reviewed';
+    // v3.0 以前の旧 level → Phase ベース新 level
+    if (level === 'quick_scan') return 'initial_scan';
+    if (level === 'structure_exploration') return 'initial_scan';
+    if (level === 'analysis_complete') return 'cross_reviewed';
+    // v4.2 以前の旧 level → Phase ベース新 level (cs#123)
+    if (level === 'claude_screened') return 'initial_scan';
+    if (level === 'claude_gpt_reviewed') return 'cross_reviewed';
+    if (level === 'api_deepdive') return 'deep_investigated';
+    if (level === 'codex_parallel_deepdive') return 'deep_investigated';
     if (level) return level;
 
     // progress_level が空でも published ステータスを根拠に暗黙変換しない。
