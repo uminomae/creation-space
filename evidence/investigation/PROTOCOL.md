@@ -352,3 +352,118 @@ evidence/investigation/phase8/
 Phase 5-7 完了領域のドメインレポート §2「調査の方法」に以下を追加:
 
 > Phase 5（論拠監査）で既存{N}件の強度分類とギャップ分析を実施し、Phase 6（構造再読）で各エントリの5段階対応を4軸で再評価した。Phase 7（横断統合）で領域内の横断パターンを抽出した。
+
+---
+
+## レポート再生成時のマニフェスト同期チェックリスト（cs#121）
+
+ドメインレポートを再生成・更新した場合、以下を必ず実行すること。
+
+### 手順
+
+1. **レポート配置**: `knowledge/domains/{slug}/ja/report.md` を `pjdhiro/assets/creation/domains/ja/md/` にコピー
+2. **survey.json 更新**: `pjdhiro/assets/creation/manifests/survey.json` の `generated_at` を当日日付に更新
+3. **domains.json 同期**: `index.json` の `progress_level` / `generated` / `generator_model` / `label_description_*` を更新し、`generate-domains-json.mjs` で `pjdhiro/domains.json` に同期
+4. **front matter 除去確認**: `pjdhiro/assets/` 配下の `.md` ファイルに YAML front matter (`---`) が付いていないこと（NL-012）
+5. **整合チェック実行**:
+   ```bash
+   bash ~/dev/kesson-driven-thinking/scripts/validate-manifest-sync.sh
+   ```
+   全 Check が PASS であることを確認。特に Check 6（ソース vs 公開の本文 diff）に注意。
+
+### チェック項目一覧（validate-manifest-sync.sh）
+
+| Check | 内容 |
+|-------|------|
+| 1 | domains.json vs index.json の progress_level / generated 一致 |
+| 2 | survey.json generated_at >= max(domains.json generated) |
+| 3 | pjdhiro/assets/ の md に front matter がないこと（NL-012） |
+| 4 | index.json の progress_level が progress_taxonomy に存在するか |
+| 5 | data.js と index.json の taxonomy ID 一致 |
+| 6 | ソース（knowledge/）と公開（pjdhiro assets/）の本文 diff なし |
+
+---
+
+## Phase 9: source-verification（原典ベース再検証）
+
+### 概要
+
+Phase 8 の統合的洞察（Layer 3）が帰納的に導出した仮説群を、原典に遡って検証する。
+Phase 8 までは「30領域の調査データから何が言えるか」。Phase 9 は「それは原典で本当に支持されるか」。
+
+### 前提
+
+Phase 8 Layer 3 が完了していること。
+
+### サブフェーズ構成
+
+| サブフェーズ | slug | 方法 | 入力 | ツール要件 |
+|------------|------|------|------|-----------|
+| Phase 9-0 | prep | 検証基盤の準備 | Layer 3 §3 | なし |
+| Phase 9-1 | web-verify | Web検索ベース検証 | 優先度リスト + evidence + Web検索 | WebSearch / WebFetch |
+| Phase 9-2 | rag-verify | RAG ベース検証 | 優先度リスト + evidence + 原典テキスト | RAG パイプライン（要構築） |
+| Phase 9-3 | specialist-rag | 専門RAG検証 | Phase 9-2 で unverifiable だった項目 | 専門データベース・論文検索 |
+
+### Phase 9-1 → 9-2 → 9-3 の切り替え条件
+
+- **Phase 9-1 で開始**: 全検証対象について Web 検索ベースで実施
+- **Phase 9-2 へ移行**: Phase 9-1 で unverifiable 率が 30% を超えた検証対象、または Phase 9-1 の plausible 判定を verified/overstated に確定させたい場合
+- **Phase 9-3 へ移行**: Phase 9-2 でも unverifiable が残り、かつ段階定義への影響が大きい項目（優先度リスト順位1-2）
+
+**判断が必要な点（pjdhiro確認事項）**:
+- RAG パイプラインの技術選定（Phase 9-2 開始前に決定）
+- unverifiable 率の打ち切り基準（全体の何%まで許容するか）
+
+### 検証優先度
+
+正本: `phase9/verification-priority.md`
+
+### 判定基準
+
+| 判定 | 定義 |
+|------|------|
+| verified | 原典の記述が5段階モデルとの構造類似を直接支持する |
+| plausible | 原典の記述と矛盾しないが、直接の支持とは言えない |
+| overstated | 5段階モデルとの対応が過大に主張されている |
+| unverifiable | 原典へのアクセスが困難、または原典に該当する記述が見つからない |
+
+テンプレート正本: `phase9/verification-template.md`
+
+### ディレクトリ構造
+
+```
+evidence/investigation/phase9/
+  verification-priority.md      ← 検証優先度リスト
+  verification-template.md      ← テンプレート・判定基準
+  web-verify/                   ← Phase 9-1 成果物
+    {検証対象slug}/
+      report-D{NN}.md           ← 個別検証レポート
+      summary.md                ← 検証対象単位の集計
+  rag-verify/                   ← Phase 9-2 成果物（同構造）
+  specialist-rag/               ← Phase 9-3 成果物（同構造）
+```
+
+### 品質ゲート
+
+| # | チェック項目 |
+|---|------------|
+| 1 | 各検証レポートに判定理由が記載されている |
+| 2 | 原典の参照が具体的（著者・タイトル・年・該当箇所） |
+| 3 | overstated 判定時に evidence への修正提案が含まれている |
+| 4 | 検証対象単位の集計で自然科学/人文社会/実践の分布が報告されている |
+| 5 | pjdhiro の「しっくり感チェック」（検証対象単位の統合判断） |
+
+### スコープガード
+
+- Phase 9 は「原典で確認できるか」の検証であり、新たな理論構築ではない
+- 検証中に新たなパターンを発見した場合、検証レポートの備考に記録するが、判定には影響させない
+- 原典の解釈が分かれる場合は plausible とし、複数の解釈を併記する
+
+### 実行モデル
+
+| サブフェーズ | 実行環境 | モデル | 方式 |
+|------------|---------|--------|------|
+| Phase 9-0（準備） | Claude CLI Main | claude-opus-4-6 | 手動 |
+| Phase 9-1（Web検索） | Claude CLI | claude-opus-4-6 | Agent-BG / Main |
+| Phase 9-2（RAG） | 未定 | 未定 | RAG パイプライン要構築 |
+| Phase 9-3（専門RAG） | 未定 | 未定 | 専門DB要選定 |
