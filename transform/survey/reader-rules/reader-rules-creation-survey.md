@@ -163,6 +163,7 @@ survey 固有:
 - [ ] §6.5 方法論的開示義務が含まれているか
 - [ ] survey-status から survey-domain-index への導線があるか
 - [ ] survey-domain-index の全30領域にエントリがあるか
+- [ ] §4 で名前を挙げた理論について原典照合が完了しているか（共通基盤 §8.F）
 
 ---
 
