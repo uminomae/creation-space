@@ -51,11 +51,30 @@ evidence 関連作業で複数領域にまたがる知見の配置に迷った�
 
 | トリガーイベント | 更新先 | 誰が |
 |---|---|---|
-| DR ファイル新規作成（GPTレビュー完了） | `claude_gpt_reviewed` に昇格 | CLI（pjdhiro承認 or Issue を根拠） |
-| deepdive 完了（Claude Agent） | `api_deepdive` | CLI（pjdhiro承認） |
-| deepdive 完了（Codex 並列） | `codex_parallel_deepdive` | CLI（pjdhiro承認） |
+| Phase 1-2 完了（初期スキャン） | `initial_scan` | CLI（pjdhiro承認） |
+| Phase 3-4 完了（独立照合） | `cross_reviewed` | CLI（pjdhiro承認） |
+| Phase 5-7 完了（深掘り調査） | `deep_investigated` | CLI（pjdhiro承認） |
+| Phase 8 完了（領域横断探索） | `cross_explored` | CLI（pjdhiro承認） |
 | pjdhiro しっくり感チェック完了 | `human_reviewed` | pjdhiro 直接 |
 | レポート公開（MD+PDF が pjdhiro に配置） | `status` → `published`（自動判定） | generate-domains-json.mjs |
+
+## Phase 遷移チェックリスト (cs#123)
+
+progress_level を変更するとき、以下を**すべて**確認してから commit すること。
+
+1. **対象ドメインの特定**: 全30領域が同一 Phase を完了したなら**全30領域を同時に更新**。一部だけ異なる ID にしない
+2. **taxonomy ID の確認**: `index.json` の `progress_taxonomy[]` に、使おうとしている ID が存在するか
+3. **4箇所の整合確認**:
+   - `docs/evidence-metadata-creation.md §2` — taxonomy 定義
+   - `transform/domains/publish/domains/index.json` — progress_taxonomy[] + reports[].progress_level
+   - `src/reports/data.js` — DEFAULT_PROGRESS_TAXONOMY
+   - `src/reports/data.js` — normalizeProgressLevel() の後方互換マッピング
+4. **検証コマンド実行**:
+   - `node scripts/generate-domains-json.mjs --check` — Schema validation: OK + No differences
+   - `bash scripts/validate-manifest-sync.sh` — Check 4 (taxonomy整合) + Check 5 (定義ドリフト) PASS
+5. **Issue 番号をコミットメッセージに含める**: `cs#NNN`
+
+> **教訓 (cs#123)**: ツール名ベースの taxonomy ID を使ったことで、同一 Phase でも D22/D23 だけ別ラベルになり、3回修正しても直らなかった。taxonomy ID は「調査状態」を表す名前にすること。
 
 ## 保護ルール
 

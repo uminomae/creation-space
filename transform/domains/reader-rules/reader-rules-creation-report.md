@@ -83,7 +83,12 @@ evidence の `flags` に `[ai:*]` を持つエントリの内容を本文に反�
 
 ツール名（Claude / ChatGPT / Codex）は方法論の一部として脚注レベルで言及してよいが、本文の主題にしない。
 
-### front matter 必須フィールド
+### front matter 必須フィールド（ソースファイル）
+
+> **2ゾーンモデル（cs#121）**: front matter はソースファイル（`knowledge/domains/*/report.md`）にのみ適用。
+> `pjdhiro/assets/` に配置する公開ファイルでは front matter を除去すること（NL-012）。
+> メタデータ（`generated`, `generator_model`）は manifest JSON（domains.json, survey.json）に同期する。
+> `title` は H1 見出しに昇格する。
 
 | フィールド | 必須 | 有効値 |
 |---|---|---|
@@ -92,6 +97,7 @@ evidence の `flags` に `[ai:*]` を持つエントリの内容を本文に反�
 | `lang` | ✅ | `ja` / `en` |
 | `version` | ✅ | セマンティックバージョン |
 | `date` | ✅ | `YYYY-MM-DD` |
+| `generated` | ✅ | `YYYY-MM-DD`（modal 日付表示のソース。manifest JSON にも同期必須） |
 
 ### タイトル命名規則
 
