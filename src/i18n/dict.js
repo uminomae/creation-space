@@ -94,6 +94,12 @@ export const dict = {
             },
             featureRead: '解説を表示',
             featurePdf: 'PDF',
+            phase8Themes: {
+                heading: '領域横断分析（Phase 8）',
+                description: '30領域を横断して抽出された5つの構造テーマ。',
+                cardDomains: '{count}領域',
+                empty: '横断分析テーマがありません。',
+            },
         },
         viewer: {
             closeAria: '閉じる',
@@ -199,6 +205,12 @@ export const dict = {
             },
             featureRead: 'Open Guide',
             featurePdf: 'PDF',
+            phase8Themes: {
+                heading: 'Cross-Domain Analysis (Phase 8)',
+                description: 'Five structural themes extracted across 30 domains.',
+                cardDomains: '{count} domains',
+                empty: 'No cross-domain themes available.',
+            },
         },
         viewer: {
             closeAria: 'Close',
