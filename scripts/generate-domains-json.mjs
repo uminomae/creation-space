@@ -229,7 +229,8 @@ async function generate(options) {
     const fileCheck = await checkDomainFiles(entry.id, slug, options.publishRepo);
     const taxEntry = taxonomy.get(entry.progress_level);
     if (!taxEntry) {
-      warnings.push(`${entry.id}: unknown progress_level "${entry.progress_level}"`);
+      // cs#123: unknown progress_level は warning ではなく error（見逃し防止）
+      warnings.push(`ERROR: ${entry.id}: unknown progress_level "${entry.progress_level}" — taxonomy に存在しない`);
     }
     if (!entry.progress_level || !entry.progress_level.trim()) {
       warnings.push(`${entry.id}: progress_level is empty or missing`);
@@ -367,12 +368,18 @@ function validateSchema(output) {
     errors.push('progress_taxonomy array is missing or empty');
   }
 
+  // cs#123: taxonomy 整合チェック — progress_level が taxonomy に存在するか
+  const validLevels = new Set((output.progress_taxonomy || []).map((t) => t.id));
   if (Array.isArray(output.reports)) {
     for (const report of output.reports) {
       for (const field of REQUIRED_REPORT_FIELDS) {
         if (typeof report[field] !== 'string' || !report[field].trim()) {
           errors.push(`${report.id || '?'}: required field "${field}" is missing or empty`);
         }
+      }
+      // progress_level が taxonomy 定義に存在するか
+      if (report.progress_level && !validLevels.has(report.progress_level)) {
+        errors.push(`${report.id}: progress_level "${report.progress_level}" is not in progress_taxonomy`);
       }
     }
   }
