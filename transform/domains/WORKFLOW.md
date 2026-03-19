@@ -45,6 +45,19 @@ pjdhiro/assets/creation/domains/ja/md/domain-D{NN}-{slug}.md
 
 **quality_level 更新**: PASS の場合、index.json の `quality_level` を `self_tested` に設定する。
 
+
+### Step 3.5: 原典照合（cs#126）
+
+品質テスト PASS 後、独立レビューの前に原典照合を実施する。
+
+1. 本文で名前を挙げた理論・人物を列挙する
+2. 各理論について信頼できる参照（原著、教科書、学術レビュー、百科事典等）を調べる
+3. 共通基盤 §8.F の判定基準（`verified` / `plausible` / `overstated` / `unverifiable`）で検証する
+4. 検証結果を `{filename}-ref-check.md` として生成物と同じディレクトリに保存する（公開はしない）
+5. `overstated` → 本文を修正して Step 3 に戻る
+6. `unverifiable` → 本文から除外、または温度を下げる
+
+**判定基準の詳細**: `transform/domains/reader-rules/reader-rules-creation.md` §8.F を参照。
 ### Step 4: 独立レビュー（完了基準）
 
 生成したレポートを、生成者とは別のエンジン（Codex CLI 等）でレビューする。
