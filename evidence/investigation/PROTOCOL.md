@@ -336,6 +336,17 @@ evidence/investigation/phase8/
 
 ---
 
+## reader-rules との関係（cs#120）
+
+本プロトコルは **調査実行** の仕様。生成ルール（reader-rules）は **コンテンツ生成** の仕様。
+
+- Phase 5-7 の output.md は本プロトコルの品質ゲートに準拠する（reader-rules ではない）
+- Phase 7 完了後に生成される **ドメインレポート** は `reader-rules-creation-report.md` に準拠する
+- 本プロトコルのスコープガード（5段階比較 >80%）と reader-rules §3（均等記述義務）は整合する
+- **同期ルール**: 本プロトコルのスコープガードまたは品質ゲートを変更した場合、reader-rules §8 との整合性を確認すること
+
+---
+
 ## ドメインレポート §2 テンプレ追記
 
 Phase 5-7 完了領域のドメインレポート §2「調査の方法」に以下を追加:
