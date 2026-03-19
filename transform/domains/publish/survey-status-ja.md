@@ -3,7 +3,7 @@ id: survey-status
 title: "全分野構造類似探索: 調査概要"
 lang: ja
 audience: survey
-version: 2.1
+version: 3.0
 date: 2026-03-19
 generated: 2026-03-19
 source: evidence/review/p1-cross-domain-insights.md, evidence/PROJECT.md, evidence/investigation/
