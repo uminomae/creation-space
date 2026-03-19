@@ -58,6 +58,24 @@ evidence 関連作業で複数領域にまたがる知見の配置に迷った�
 | pjdhiro しっくり感チェック完了 | `human_reviewed` | pjdhiro 直接 |
 | レポート公開（MD+PDF が pjdhiro に配置） | `status` → `published`（自動判定） | generate-domains-json.mjs |
 
+## Phase 遷移チェックリスト (cs#123)
+
+progress_level を変更するとき、以下を**すべて**確認してから commit すること。
+
+1. **対象ドメインの特定**: 全30領域が同一 Phase を完了したなら**全30領域を同時に更新**。一部だけ異なる ID にしない
+2. **taxonomy ID の確認**: `index.json` の `progress_taxonomy[]` に、使おうとしている ID が存在するか
+3. **4箇所の整合確認**:
+   - `docs/evidence-metadata-creation.md §2` — taxonomy 定義
+   - `transform/domains/publish/domains/index.json` — progress_taxonomy[] + reports[].progress_level
+   - `src/reports/data.js` — DEFAULT_PROGRESS_TAXONOMY
+   - `src/reports/data.js` — normalizeProgressLevel() の後方互換マッピング
+4. **検証コマンド実行**:
+   - `node scripts/generate-domains-json.mjs --check` — Schema validation: OK + No differences
+   - `bash scripts/validate-manifest-sync.sh` — Check 4 (taxonomy整合) + Check 5 (定義ドリフト) PASS
+5. **Issue 番号をコミットメッセージに含める**: `cs#NNN`
+
+> **教訓 (cs#123)**: ツール名ベースの taxonomy ID を使ったことで、同一 Phase でも D22/D23 だけ別ラベルになり、3回修正しても直らなかった。taxonomy ID は「調査状態」を表す名前にすること。
+
 ## 保護ルール
 
 - **逆行禁止**: progress_level を下げる変更は原則 BLOCK
