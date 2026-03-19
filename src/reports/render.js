@@ -3,6 +3,7 @@ import { dict } from '../i18n/dict.js';
 import {
     MODEL_GUIDE_LINKS,
     STATUS_REPORT_LINKS,
+    SURVEY_MANIFEST_URL,
     formatReportsScenarioFallbackLabel,
     getDefaultProgressTaxonomyEntry,
     hasText,
@@ -489,11 +490,23 @@ export function createReportsRenderer({
         if (state.quickLinksBound) return;
 
         if (state.dom.openStatusBtn && !state.dom.openStatusBtn.dataset.boundClick) {
-            state.dom.openStatusBtn.addEventListener('click', () => {
+            state.dom.openStatusBtn.addEventListener('click', async () => {
                 const strings = getReportsStrings(state.lang);
+                let surveyGenerated = '';
+                try {
+                    const resp = await fetch(SURVEY_MANIFEST_URL, { cache: 'no-store' });
+                    if (resp.ok) {
+                        const manifest = await resp.json();
+                        surveyGenerated = manifest.generated_at || '';
+                    }
+                } catch { /* use empty fallback */ }
+                const enrichedLinks = {
+                    ja: { ...STATUS_REPORT_LINKS.ja, generated: surveyGenerated },
+                    en: { ...STATUS_REPORT_LINKS.en, generated: surveyGenerated },
+                };
                 openMarkdownModal({
                     title: strings.statusReportTitle,
-                    sources: resolveLocalizedSources(STATUS_REPORT_LINKS, state.lang),
+                    sources: resolveLocalizedSources(enrichedLinks, state.lang),
                 });
             });
             state.dom.openStatusBtn.dataset.boundClick = '1';
