@@ -139,9 +139,21 @@ export function createReportsRenderer({
             const level = presentTaxonomy[0].id;
             const count = state.progressLevelCounts[level] || 0;
             const label = getProgressLevelLabel(level);
-            legendNode.textContent = strings.levelLegendSingle
+            const description = getProgressLevelDescription(level);
+            const summaryText = strings.levelLegendSingle
                 .replace('{count}', String(count))
                 .replace('{label}', label);
+            legendNode.innerHTML = '';
+            const summaryNode = document.createElement('span');
+            summaryNode.className = 'd-block';
+            summaryNode.textContent = summaryText;
+            legendNode.appendChild(summaryNode);
+            if (description) {
+                const descNode = document.createElement('span');
+                descNode.className = 'reports-level-legend-description d-block mt-1';
+                descNode.textContent = `${label}: ${description}`;
+                legendNode.appendChild(descNode);
+            }
             return;
         }
 
