@@ -86,27 +86,35 @@ pjdhiro/assets/creation/domains/ja/md/domain-D{NN}-{slug}.md
 
 **quality_level 更新**: PASS の場合、index.json の `quality_level` を `independent_reviewed` に設定し、`review_engine` と `review_result` も記入する。
 
-### Step 5: PDF 生成
+### Step 5: PDF 生成 + manifest 更新 + 日付検証
 
+**推奨: パイプラインを使用する（cs#128）:**
 ```bash
+cd /Users/uminomae/dev/creation-space
+bash scripts/generate-domain-pipeline.sh --domain D{NN}   # 単一
+bash scripts/generate-domain-pipeline.sh --all             # 全30件
+```
+
+パイプラインは PDF 生成 → manifest 更新 → 日付検証 を一括実行する。
+
+**個別実行する場合:**
+```bash
+# PDF 生成
 bash transform/scripts/build-pdf-guide.sh --kind domains --lang ja
+
+# manifest 更新
+node scripts/generate-domains-json.mjs
+
+# 確認
+node scripts/generate-domains-json.mjs --check
+
+# 日付検証
+bash scripts/verify-domain-dates.sh --domain D{NN}
 ```
 
 出力確認:
 ```
 pjdhiro/assets/creation/domains/ja/pdf/domain-D{NN}-{slug}.pdf
-```
-
-### Step 6: manifest 更新
-
-```bash
-cd /Users/uminomae/dev/creation-space
-node scripts/generate-domains-json.mjs
-```
-
-実行後の確認:
-```bash
-node scripts/generate-domains-json.mjs --check
 ```
 
 **cs#101 準拠**: progress_level に意図しない変更がないことを確認する。
@@ -228,24 +236,52 @@ JA版が確定した後に実施する。
 
 ### Step 1: 翻訳ルールを読む
 
-`transform/translation-rules.md`（未作成。EN 翻訳時に creation-space 側で作成すること）
+`transform/domains/reader-rules/translation-rules.md`（EN 翻訳の品質基準・voice・用語統一ルール）
 
-### Step 2: EN MD 生成
+### Step 2: EN MD 生成（手動ステップ）
 
-JA MD を入力として EN を生成。出力先:
+JA MD を入力として EN を生成。翻訳ルールの全項目を遵守すること。出力先:
 ```
 pjdhiro/assets/creation/domains/en/md/domain-D{NN}-{slug}.md
 ```
 
-### Step 3: PDF 生成
+### Step 3: PDF 生成 + manifest 更新 + 日付検証（パイプライン）
 
 ```bash
-bash transform/scripts/build-pdf-guide.sh --kind domains --lang en
+# 単一ドメイン
+bash scripts/generate-domain-pipeline.sh --domain D{NN}
+
+# 全ドメイン
+bash scripts/generate-domain-pipeline.sh --all
 ```
 
-### Step 4: manifest 更新 → pjdhiro push → creation-space main マージ
+パイプラインは以下を自動実行する:
+1. JA PDF 生成（build-pdf-guide.sh --kind domains --lang ja）
+2. EN PDF 生成（EN MD が存在する場合）
+3. domains.json 更新（generate-domains-json.mjs）
+4. 日付検証（verify-domain-dates.sh）
 
-A の Step 5-8 と同じ。
+### Step 4: pjdhiro push → creation-space main マージ
+
+A の Step 7-9 と同じ。
+
+---
+
+## E. パイプラインスクリプト一覧（cs#128）
+
+| スクリプト | 用途 |
+|-----------|------|
+| `scripts/generate-domain-pipeline.sh` | JA→EN+PDF 一括パイプライン |
+| `scripts/verify-domain-dates.sh` | ソース date と domains.json generated の一致検証 |
+| `transform/scripts/build-pdf-guide.sh` | PDF ビルド（JA/EN） |
+| `scripts/generate-domains-json.mjs` | domains.json 生成 |
+| `transform/domains/reader-rules/translation-rules.md` | EN 翻訳ルール |
+
+### verify-domain-dates.sh の検証内容
+
+1. ソース MD（publish/domains/）の front matter `date` と domains.json の `generated` の一致
+2. JA MD が存在するのに JA PDF がない場合の検出
+3. EN MD が存在するのに EN PDF がない場合の検出
 
 ---
 
