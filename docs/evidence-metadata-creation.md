@@ -18,7 +18,7 @@ creation-space の REPORTS 画面に表示されるラベルの正本。
 | `not_surveyed` | 調査前 | Not yet surveyed | AI支援調査が未実施 | 10 | secondary |
 | `initial_scan` | 初期スキャン済 | Initial scan | 幅優先スキャンで候補理論を抽出した（Phase 1-2） | 20 | warning |
 | `cross_reviewed` | 独立照合済 | Cross-reviewed | 複数AIエンジンによる独立レビューと突き合わせを実施した（Phase 3-4） | 30 | primary |
-| `deep_investigated` | 深掘り調査済 | Deep-investigated | 論拠監査・構造再読・横断統合を含む多段階深掘り調査を実施した（Phase 5-7） | 40 | primary |
+| `deep_investigated` | 多段階検証済 | Multi-stage verified | 複数AIエンジンによる論拠監査・構造再読・統合検証を実施した（Phase 5-7） | 40 | primary |
 | `cross_explored` | 領域横断探索済 | Cross-domain explored | 領域横断的な構造探索を実施した（Phase 8） | 50 | primary |
 | `human_reviewed` | 人間レビュー済 | Human-reviewed | 著者による最終確認を実施した | 60 | success |
 
@@ -32,7 +32,7 @@ creation-space の REPORTS 画面に表示されるラベルの正本。
 | `not_surveyed` | No AI-assisted survey conducted yet |
 | `initial_scan` | Candidate theories extracted via breadth-first scan (Phase 1-2) |
 | `cross_reviewed` | Independent review and cross-check by multiple AI engines (Phase 3-4) |
-| `deep_investigated` | Multi-stage deep investigation including audit, re-reading, and cross-integration (Phase 5-7) |
+| `deep_investigated` | Multi-stage verification by multiple AI engines: audit, structural re-reading, and integration (Phase 5-7) |
 | `cross_explored` | Cross-domain structural exploration conducted (Phase 8) |
 | `human_reviewed` | Author final confirmation conducted |
 
