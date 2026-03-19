@@ -44,6 +44,20 @@
 
 ---
 
+## Phase 8: 領域横断インサイト探索
+
+**プロトコル**: [PROTOCOL.md](PROTOCOL.md) §Phase 8
+**Issue**: cs#116
+**状態**: 設計完了・実行前
+
+| Layer | 内容 | 状態 |
+|-------|------|------|
+| Layer 1 | 圧縮カード生成（30枚） | ⬜ 未 |
+| Layer 2 | テーマ別横断分析（5-7本） | ⬜ 未（Layer 1 完了後） |
+| Layer 3 | 統合 | ⬜ 未（Layer 2 完了後） |
+
+---
+
 ## 旧 deepdive との関係
 
 D22/D23 で実施済みの deepdive（`evidence/deepdive/`）はアーカイブ参照用として保持。
