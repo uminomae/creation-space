@@ -51,9 +51,10 @@ evidence 関連作業で複数領域にまたがる知見の配置に迷った�
 
 | トリガーイベント | 更新先 | 誰が |
 |---|---|---|
-| DR ファイル新規作成（GPTレビュー完了） | `claude_gpt_reviewed` に昇格 | CLI（pjdhiro承認 or Issue を根拠） |
-| deepdive 完了（Claude Agent） | `api_deepdive` | CLI（pjdhiro承認） |
-| deepdive 完了（Codex 並列） | `codex_parallel_deepdive` | CLI（pjdhiro承認） |
+| Phase 1-2 完了（初期スキャン） | `initial_scan` | CLI（pjdhiro承認） |
+| Phase 3-4 完了（独立照合） | `cross_reviewed` | CLI（pjdhiro承認） |
+| Phase 5-7 完了（深掘り調査） | `deep_investigated` | CLI（pjdhiro承認） |
+| Phase 8 完了（領域横断探索） | `cross_explored` | CLI（pjdhiro承認） |
 | pjdhiro しっくり感チェック完了 | `human_reviewed` | pjdhiro 直接 |
 | レポート公開（MD+PDF が pjdhiro に配置） | `status` → `published`（自動判定） | generate-domains-json.mjs |
 

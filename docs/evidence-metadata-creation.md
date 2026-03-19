@@ -15,12 +15,12 @@ creation-space の REPORTS 画面に表示されるラベルの正本。
 
 | id | label_ja | label_en | description_ja（読者向け・操作の事実） | order | tone |
 |---|---|---|---|---|---|
-| `not_surveyed` | 調査前 | Not yet surveyed | Claude・GPTによる調査未実施 | 10 | secondary |
-| `claude_screened` | Claude初期抽出済 | Claude-screened | Claudeとの対話（1セッション）で候補理論を抽出した | 20 | warning |
-| `claude_gpt_reviewed` | Claude＋GPT照合済 | Claude + GPT reviewed | Claude抽出後、ChatGPTによる独立レビューと突き合わせを実施した | 30 | primary |
-| `api_deepdive` | Claude Agent深掘り済 | Claude Agent deepdive | Claude Code Agentによる逐次多ラウンド深掘り探索を実施した | 35 | primary |
-| `codex_parallel_deepdive` | Codex並列深掘り済 | Codex parallel deepdive | Codex CLIマルチエージェント（並列）による深掘り探索を実施した | 36 | primary |
-| `human_reviewed` | 人間レビュー済 | Human-reviewed | Claude＋GPT照合に加え、著者による最終確認を実施した | 40 | success |
+| `not_surveyed` | 調査前 | Not yet surveyed | AI支援調査が未実施 | 10 | secondary |
+| `initial_scan` | 初期スキャン済 | Initial scan | 幅優先スキャンで候補理論を抽出した（Phase 1-2） | 20 | warning |
+| `cross_reviewed` | 独立照合済 | Cross-reviewed | 複数AIエンジンによる独立レビューと突き合わせを実施した（Phase 3-4） | 30 | primary |
+| `deep_investigated` | 深掘り調査済 | Deep-investigated | 論拠監査・構造再読・横断統合を含む多段階深掘り調査を実施した（Phase 5-7） | 40 | primary |
+| `cross_explored` | 領域横断探索済 | Cross-domain explored | 領域横断的な構造探索を実施した（Phase 8） | 50 | primary |
+| `human_reviewed` | 人間レビュー済 | Human-reviewed | 著者による最終確認を実施した | 60 | success |
 
 > **tone の有効値**: `secondary` / `warning` / `primary` / `success`
 > `info` は `reports.js` の badgeClass マップに未定義のため使用不可（`secondary` にフォールバックする）。
@@ -30,11 +30,11 @@ creation-space の REPORTS 画面に表示されるラベルの正本。
 | id | description_en |
 |---|---|
 | `not_surveyed` | No AI-assisted survey conducted yet |
-| `claude_screened` | Candidate theories extracted via single-session Claude dialogue |
-| `claude_gpt_reviewed` | Claude screening followed by independent ChatGPT review cross-check |
-| `api_deepdive` | Multi-round sequential deep exploration via Claude Code Agent |
-| `codex_parallel_deepdive` | Parallel multi-agent deep exploration via Codex CLI |
-| `human_reviewed` | Claude + GPT review plus author final confirmation |
+| `initial_scan` | Candidate theories extracted via breadth-first scan (Phase 1-2) |
+| `cross_reviewed` | Independent review and cross-check by multiple AI engines (Phase 3-4) |
+| `deep_investigated` | Multi-stage deep investigation including audit, re-reading, and cross-integration (Phase 5-7) |
+| `cross_explored` | Cross-domain structural exploration conducted (Phase 8) |
+| `human_reviewed` | Author final confirmation conducted |
 
 ### 新設時の必須ルール
 
@@ -81,12 +81,12 @@ front matter および manifest で使用する `generator_model` フィール�
 
 | progress_level | 典型的な generator_model |
 |---|---|
-| `claude_screened` | `claude:{model}` |
-| `claude_gpt_reviewed` | `claude:{model}+gpt:deep-research` |
-| `api_deepdive` | `claude:{model}+gpt:deep-research+claude-code-agent:{model}` |
-| `codex_parallel_deepdive` | `claude:{model}+gpt:deep-research+codex:{version}` |
-| `human_reviewed` | 上記のいずれか（pjdhiro確認済み） |
 | `not_surveyed` | `not_applicable` |
+| `initial_scan` | `claude:{model}` |
+| `cross_reviewed` | `claude:{model}+gpt:deep-research` |
+| `deep_investigated` | `claude:{model}+gpt:deep-research+claude-code-agent:{model}` |
+| `cross_explored` | 上記 + 横断分析モデル |
+| `human_reviewed` | 上記のいずれか（pjdhiro確認済み） |
 
 ### フィールド名の統一
 
@@ -133,9 +133,13 @@ creation-space/src/reports.js
 
 | 旧 level | 変換先 | 導入時期 |
 |----------|--------|---------|
-| `quick_scan` | `claude_screened` | v3.0以前 |
-| `structure_exploration` | `claude_screened` | v3.0以前 |
-| `analysis_complete` | `claude_gpt_reviewed` | v3.0以前 |
+| `quick_scan` | `initial_scan` | v3.0以前 |
+| `structure_exploration` | `initial_scan` | v3.0以前 |
+| `analysis_complete` | `cross_reviewed` | v3.0以前 |
+| `claude_screened` | `initial_scan` | v4.2以前 |
+| `claude_gpt_reviewed` | `cross_reviewed` | v4.2以前 |
+| `api_deepdive` | `deep_investigated` | v4.2以前 |
+| `codex_parallel_deepdive` | `deep_investigated` | v4.2以前 |
 
 新規データでは旧 level 名を使用しないこと。
 
@@ -207,6 +211,7 @@ not_generated → generated → self_tested → independent_reviewed → pjdhiro
 
 | 日付 | バージョン | 内容 |
 |---|---|---|
+| 2026-03-19 | 2.0 | §2 Phase ベースタクソノミーに全面改訂、§2.5/§2.7 マイグレーション更新 (cs#123) |
 | 2026-03-17 | 1.3 | §2.9 品質レベルタクソノミー（quality_level）を追加 (cs#111) |
 | 2026-03-16 | 1.2 | §3 運用ルール参照先を追加。旧 private repo §4/§5/§6/§8 の移植完了を記録 (cs#101) |
 | 2026-03-16 | 1.1 | §2.7 旧 level マイグレーションテーブル、§2.8 progress_note 運用ルールを追加 (cs#77 子タスク4-5) |
