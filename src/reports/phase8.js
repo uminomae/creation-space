@@ -3,6 +3,7 @@
  *
  * Displays five structural themes extracted from the Phase 8 cross-domain
  * analysis as independent clickable cards in the REPORTS section.
+ * Also renders conclusion summary cards above the domain grid.
  */
 
 import { normalizeLang } from '../i18n.js';
@@ -30,17 +31,26 @@ function normalizeTheme(raw) {
         descriptionEn: typeof raw?.description_en === 'string' ? raw.description_en.trim() : '',
         domainCount: typeof raw?.domain_count === 'number' ? raw.domain_count : 0,
         priority: typeof raw?.priority === 'string' ? raw.priority.trim() : '',
-        mdByLang: typeof raw?.md === 'object' && raw.md !== null ? raw.md : null,
+        mdByLang: typeof raw?.md === 'object' && raw.md \!== null ? raw.md : null,
+        summaryMdByLang: typeof raw?.summary_md === 'object' && raw.summary_md \!== null ? raw.summary_md : null,
         generatorModel: typeof raw?.generator_model === 'string' ? raw.generator_model.trim() : '',
         generated: typeof raw?.generated === 'string' ? raw.generated.trim() : '',
     };
 }
 
 function resolveThemeMdUrl(theme, lang = 'ja') {
-    if (!theme.mdByLang) return '';
+    if (\!theme.mdByLang) return '';
     const normalizedLang = normalizeLang(lang);
     const relPath = theme.mdByLang[normalizedLang] || theme.mdByLang['ja'];
-    if (!relPath) return '';
+    if (\!relPath) return '';
+    return `${PJDHIRO_CREATION_RAW}/${relPath}`;
+}
+
+function resolveSummaryMdUrl(theme, lang = 'ja') {
+    if (\!theme.summaryMdByLang) return '';
+    const normalizedLang = normalizeLang(lang);
+    const relPath = theme.summaryMdByLang[normalizedLang] || theme.summaryMdByLang['ja'];
+    if (\!relPath) return '';
     return `${PJDHIRO_CREATION_RAW}/${relPath}`;
 }
 
@@ -61,7 +71,7 @@ function getThemeDescription(theme, lang = 'ja') {
 export async function loadPhase8Themes(url = PHASE8_THEMES_MANIFEST_URL) {
     try {
         const response = await fetch(url, { cache: 'no-store' });
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        if (\!response.ok) throw new Error(`HTTP ${response.status}`);
         const payload = await response.json();
         const rawThemes = Array.isArray(payload?.themes) ? payload.themes : [];
         return {
@@ -87,14 +97,114 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
     let headingEl = null;
     let descriptionEl = null;
 
+    let summaryContainerEl = null;
+    let summarySectionEl = null;
+    let summaryHeadingEl = null;
+    let summaryDescriptionEl = null;
+
     function cacheDom() {
         containerEl = document.getElementById('reports-phase8-grid');
         headingEl = document.getElementById('reports-phase8-heading');
         descriptionEl = document.getElementById('reports-phase8-description');
+
+        summaryContainerEl = document.getElementById('reports-phase8-summary-grid');
+        summarySectionEl = document.getElementById('reports-phase8-summary-section');
+        summaryHeadingEl = document.getElementById('reports-phase8-summary-heading');
+        summaryDescriptionEl = document.getElementById('reports-phase8-summary-description');
+    }
+
+    function renderSummaryCards(themes = []) {
+        if (\!summaryContainerEl || \!summarySectionEl) return;
+
+        const lang = getLang();
+        const strings = getPhase8Strings(lang);
+
+        if (summaryHeadingEl) {
+            summaryHeadingEl.textContent = strings.summaryHeading || '横断分析テーマ結論要約';
+        }
+        if (summaryDescriptionEl) {
+            summaryDescriptionEl.textContent = strings.summaryDescription || '5つの構造テーマの結論要約。';
+        }
+
+        const themesWithSummary = themes.filter((t) => t.summaryMdByLang);
+        if (\!themesWithSummary.length) {
+            summarySectionEl.style.display = 'none';
+            return;
+        }
+
+        summarySectionEl.style.display = '';
+        summaryContainerEl.innerHTML = '';
+
+        const fragment = document.createDocumentFragment();
+
+        themesWithSummary.forEach((theme) => {
+            const col = document.createElement('div');
+            col.className = 'col';
+
+            const card = document.createElement('article');
+            card.className = 'card kesson-card h-100 reports-phase8-summary-card';
+            card.setAttribute('role', 'button');
+            card.setAttribute('tabindex', '0');
+
+            const name = getThemeDisplayName(theme, lang);
+
+            card.setAttribute('aria-label', `${theme.id} ${name} - ${strings.summaryLabel || 'Summary'}`);
+
+            const body = document.createElement('div');
+            body.className = 'card-body p-2 p-md-3 d-flex flex-column gap-1';
+
+            const head = document.createElement('div');
+            head.className = 'd-flex flex-wrap align-items-start justify-content-between gap-2';
+
+            const idNode = document.createElement('span');
+            idNode.className = 'badge rounded-pill bg-warning bg-opacity-25 text-warning-emphasis';
+            idNode.textContent = theme.id;
+
+            const summaryBadge = document.createElement('span');
+            summaryBadge.className = 'badge rounded-pill bg-success bg-opacity-25 text-success-emphasis';
+            summaryBadge.textContent = strings.summaryBadge || 'Summary';
+
+            head.appendChild(idNode);
+            head.appendChild(summaryBadge);
+
+            const titleNode = document.createElement('h4');
+            titleNode.className = 'h6 mb-0 text-light';
+            titleNode.textContent = name;
+
+            const openCard = () => {
+                const mdUrl = resolveSummaryMdUrl(theme, lang);
+                if (\!mdUrl) return;
+                openMarkdownModal({
+                    title: `${theme.id}: ${name}`,
+                    sources: [{
+                        mdUrl,
+                        pdfUrl: '',
+                        generatorModel: theme.generatorModel,
+                        generated: theme.generated,
+                    }],
+                });
+            };
+
+            card.addEventListener('click', openCard);
+            card.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    openCard();
+                }
+            });
+
+            body.appendChild(head);
+            body.appendChild(titleNode);
+            card.appendChild(body);
+            col.appendChild(card);
+            fragment.appendChild(col);
+        });
+
+        summaryContainerEl.appendChild(fragment);
     }
 
     function renderThemes(themes = []) {
-        if (!containerEl) return;
+        if (\!containerEl) return;
 
         const lang = getLang();
         const strings = getPhase8Strings(lang);
@@ -104,7 +214,7 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
 
         containerEl.innerHTML = '';
 
-        if (!themes.length) {
+        if (\!themes.length) {
             const empty = document.createElement('div');
             empty.className = 'col-12 text-body-secondary';
             empty.textContent = strings.empty;
@@ -156,7 +266,7 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
 
             const openCard = () => {
                 const mdUrl = resolveThemeMdUrl(theme, lang);
-                if (!mdUrl) return;
+                if (\!mdUrl) return;
                 openMarkdownModal({
                     title: `${theme.id}: ${name}`,
                     sources: [{
@@ -185,6 +295,9 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
         });
 
         containerEl.appendChild(fragment);
+
+        // Also render summary cards
+        renderSummaryCards(themes);
     }
 
     return { cacheDom, renderThemes };
