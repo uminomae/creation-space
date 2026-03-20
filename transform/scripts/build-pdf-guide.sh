@@ -1,16 +1,18 @@
 #!/usr/bin/env bash
-# build-pdf-guide.sh — creation-space PDF 生成 v2.0
+# build-pdf-guide.sh — creation-space PDF 生成 v2.1
 #
 # 概要:
-#   --kind で guides / domains / all を指定し、PDF を生成する。
+#   --kind で guides / domains / themes / all を指定し、PDF を生成する。
 #   guides:  pjdhiro/assets/creation/guides/{lang}/md/ の MD から PDF を生成。
 #   domains: pjdhiro/assets/creation/domains/{lang}/md/ の MD から PDF を生成。
+#   themes:  pjdhiro/assets/creation/phase8-themes/{lang}/md/ の MD から PDF を生成。
 #
 # 使い方:
 #   bash transform/scripts/build-pdf-guide.sh                                  # guides general JA（デフォルト）
 #   bash transform/scripts/build-pdf-guide.sh --kind guides --audience all     # guides 全3種 JA
 #   bash transform/scripts/build-pdf-guide.sh --kind guides --lang all         # guides general JA+EN
 #   bash transform/scripts/build-pdf-guide.sh --kind domains --lang ja         # domains JA 全30件
+#   bash transform/scripts/build-pdf-guide.sh --kind themes --lang all         # themes JA+EN
 #   bash transform/scripts/build-pdf-guide.sh --kind all --lang ja             # 全種 JA
 #   bash transform/scripts/build-pdf-guide.sh --push                           # ビルド後 manifest を更新
 #   bash transform/scripts/build-pdf-guide.sh --setup                          # 依存チェックのみ
@@ -18,9 +20,13 @@
 # 出力:
 #   guides:  pjdhiro/assets/creation/guides/{lang}/pdf/creation-{audience}.pdf
 #   domains: pjdhiro/assets/creation/domains/{lang}/pdf/domain-D{NN}-{name}.pdf
+#   themes:  pjdhiro/assets/creation/phase8-themes/{lang}/pdf/theme-{slug}.pdf
 #
 # 互換性:
 #   bash 3.2以上（macOS標準）で動作。${var^^} は使用しない。
+#
+# v2.1 変更点:
+#   - Phase 8 横断分析テーマ（themes）ビルド対応
 #
 # v2.0 変更点:
 #   - 表紙（タイトル・サブタイトル・日付）生成
@@ -43,6 +49,7 @@ CREATION_SPACE_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 PJDHIRO_DIR="/Users/uminomae/dev/pjdhiro"
 GUIDES_BASE="$PJDHIRO_DIR/assets/creation/guides"
 DOMAINS_BASE="$PJDHIRO_DIR/assets/creation/domains"
+THEMES_BASE="$PJDHIRO_DIR/assets/creation/phase8-themes"
 IMG_DIR="$PJDHIRO_DIR/assets/creation/img"
 MANIFESTS_DIR="$PJDHIRO_DIR/assets/creation/manifests"
 
@@ -119,7 +126,7 @@ get_guide_subtitle() {
     fi
 }
 
-# ── domain タイトル取得（front matter の title フィールド） ──
+# ── domain / theme タイトル取得（front matter の title フィールド） ──
 get_domain_title() {
     local file="$1"
     local fallback
@@ -330,6 +337,68 @@ build_domains() {
     return 0
 }
 
+# ── themes ビルド（Phase 8 横断分析テーマ） ──
+build_themes() {
+    local lang="${1:-ja}"
+    local md_dir="$THEMES_BASE/${lang}/md"
+    local pdf_dir="$THEMES_BASE/${lang}/pdf"
+
+    local lang_label="JA"
+    [ "$lang" = "en" ] && lang_label="EN"
+    echo -e "${BLUE}📄 themes [${lang_label}] ビルド中...${NC}"
+
+    if [ ! -d "$md_dir" ] || [ -z "$(ls "$md_dir"/theme-*.md 2>/dev/null)" ]; then
+        echo -e "  ${YELLOW}スキップ${NC}: $md_dir に theme-*.md がありません"
+        return 0
+    fi
+
+    mkdir -p "$pdf_dir"
+    mkdir -p "$CREATION_SPACE_ROOT/.build-tmp"
+
+    local t_success=0 t_fail=0
+    for md_file in "$md_dir"/theme-*.md; do
+        local basename_md
+        basename_md=$(basename "$md_file" .md)
+        local out="$pdf_dir/${basename_md}.pdf"
+        local tmp="$CREATION_SPACE_ROOT/.build-tmp/_theme_${basename_md}_${lang}.md"
+
+        local title
+        title="$(get_domain_title "$md_file")"
+
+        echo -e "  ${BLUE}→${NC} ${basename_md} [${lang_label}]"
+
+        # pandoc 用ヘッダー生成
+        if [ "$lang" = "en" ]; then
+            make_header_en "$title" "" > "$tmp"
+        else
+            make_header_ja "$title" "" > "$tmp"
+        fi
+
+        # フロントマターを除去して連結
+        cat "$md_file" | strip_frontmatter >> "$tmp"
+
+        if pandoc "$tmp" \
+            -o "$out" \
+            --pdf-engine=lualatex \
+            --wrap=none \
+            2>&1 | sed 's/^/      /'; then
+            local size
+            size=$(du -k "$out" 2>/dev/null | cut -f1)
+            echo -e "    ${GREEN}✅${NC} ${basename_md}.pdf (${size:-?} KB)"
+            t_success=$((t_success + 1))
+        else
+            echo -e "    ${RED}✗${NC} ビルド失敗: ${basename_md}.pdf"
+            t_fail=$((t_fail + 1))
+        fi
+
+        rm -f "$tmp"
+    done
+
+    echo -e "  themes [${lang_label}]: ${t_success}成功 / ${t_fail}失敗"
+    [ "$t_fail" -gt 0 ] && return 1
+    return 0
+}
+
 # ── manifest 更新 ──
 update_manifests() {
     echo -e "${BLUE}📋 manifests 更新${NC}"
@@ -418,7 +487,7 @@ print(json.dumps(manifest, indent=2, ensure_ascii=False))
 # ── メイン ──
 main() {
     echo -e "${BLUE}══════════════════════════════════════${NC}"
-    echo -e "${BLUE}  creation-space — PDF生成 v2.0${NC}"
+    echo -e "${BLUE}  creation-space — PDF生成 v2.1${NC}"
     echo -e "${BLUE}══════════════════════════════════════${NC}"
     echo ""
 
@@ -438,7 +507,7 @@ main() {
                 echo "使い方: bash transform/scripts/build-pdf-guide.sh [オプション]"
                 echo ""
                 echo "オプション:"
-                echo "  --kind {guides|domains|all}                      種別（デフォルト: guides）"
+                echo "  --kind {guides|domains|themes|all}                 種別（デフォルト: guides）"
                 echo "  --audience {general|designer|academic|all}       対象（guides時のみ。デフォルト: general）"
                 echo "  --lang {ja|en|all}                               言語（デフォルト: ja）"
                 echo "  --push                                           ビルド後 manifest を更新"
@@ -448,6 +517,7 @@ main() {
                 echo "  bash build-pdf-guide.sh --kind guides --audience all     # guides 全3種 JA"
                 echo "  bash build-pdf-guide.sh --kind guides --lang all         # guides general JA+EN"
                 echo "  bash build-pdf-guide.sh --kind domains --lang ja         # domains JA 全30件"
+                echo "  bash build-pdf-guide.sh --kind themes --lang all         # themes JA+EN"
                 echo "  bash build-pdf-guide.sh --kind all --lang all            # 全種 JA+EN"
                 echo "  bash build-pdf-guide.sh --kind all --lang ja --push      # 全種 JA + manifest更新"
                 exit 0
@@ -468,9 +538,10 @@ main() {
 
     local kinds=()
     case "$kind" in
-        all)     kinds=(guides domains) ;;
+        all)     kinds=(guides domains themes) ;;
         guides)  kinds=(guides) ;;
         domains) kinds=(domains) ;;
+        themes)  kinds=(themes) ;;
         *) echo -e "${RED}不明なkind: $kind${NC}"; exit 1 ;;
     esac
 
@@ -500,6 +571,16 @@ main() {
             domains)
                 for l in "${langs[@]}"; do
                     if build_domains "$l"; then
+                        success=$((success + 1))
+                    else
+                        fail=$((fail + 1))
+                    fi
+                    echo ""
+                done
+                ;;
+            themes)
+                for l in "${langs[@]}"; do
+                    if build_themes "$l"; then
                         success=$((success + 1))
                     else
                         fail=$((fail + 1))
