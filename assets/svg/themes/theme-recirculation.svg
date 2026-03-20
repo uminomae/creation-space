@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <marker id="arrowRC" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#666666"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="#FAFAF8" rx="8"/>
+  <rect x="1" y="1" width="798" height="598" fill="none" stroke="#E0DDD8" stroke-width="1" rx="8"/>
+
+  <!-- Title -->
+  <text x="400" y="45" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="24" fill="#2C2C2C" font-weight="bold">T5 再循環メカニズム — 横断的パターン図</text>
+  <text x="400" y="68" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="14" fill="#666666">束→場の還流 (19/30領域が明示的に言及)</text>
+
+  <!-- Central spiral concept -->
+  <ellipse cx="400" cy="250" rx="95" ry="48" fill="#5B8B6A" opacity="0.12" stroke="#5B8B6A" stroke-width="2.5"/>
+  <text x="400" y="240" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="16" fill="#5B8B6A" font-weight="bold">束→場 螺旋的還流</text>
+  <text x="400" y="260" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="12" fill="#5B8B6A">束は終点でなく次の場の種</text>
+
+  <!-- 5 circulation modes arranged radially -->
+
+  <!-- Mode 1: 自然崩壊型 (top) -->
+  <rect x="320" y="90" width="160" height="45" rx="8" fill="#C45B4D" opacity="0.12" stroke="#C45B4D" stroke-width="1.5"/>
+  <text x="400" y="112" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#C45B4D" font-weight="bold">自然崩壊型</text>
+  <text x="400" y="128" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#666666">束が内部から崩壊</text>
+  <line x1="400" y1="135" x2="400" y2="202" stroke="#C45B4D" stroke-width="1.5"/>
+
+  <circle cx="305" cy="108" r="16" fill="#C45B4D" opacity="0.15" stroke="#C45B4D" stroke-width="1"/>
+  <text x="305" y="112" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="9" fill="#2C2C2C" font-weight="bold">D16</text>
+  <text x="260" y="112" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="9" fill="#666666">自壊</text>
+  <line x1="305" y1="124" x2="320" y2="108" stroke="#C45B4D" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <circle cx="495" cy="108" r="16" fill="#C45B4D" opacity="0.15" stroke="#C45B4D" stroke-width="1"/>
+  <text x="495" y="112" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="9" fill="#2C2C2C" font-weight="bold">D21</text>
+  <text x="540" y="112" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="9" fill="#666666">Minsky</text>
+  <line x1="495" y1="124" x2="480" y2="108" stroke="#C45B4D" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- Mode 2: 能動的更新型 (upper-right) -->
+  <rect x="590" y="150" width="160" height="45" rx="8" fill="#5B8B6A" opacity="0.12" stroke="#5B8B6A" stroke-width="1.5"/>
+  <text x="670" y="172" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#5B8B6A" font-weight="bold">能動的更新型</text>
+  <text x="670" y="188" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#666666">環境との相互作用で再構成</text>
+  <line x1="590" y1="175" x2="495" y2="238" stroke="#5B8B6A" stroke-width="1.5"/>
+
+  <circle cx="720" cy="210" r="16" fill="#5B8B6A" opacity="0.15" stroke="#5B8B6A" stroke-width="1"/>
+  <text x="720" y="214" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="9" fill="#2C2C2C" font-weight="bold">D04</text>
+  <text x="720" y="235" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="9" fill="#666666">ニッチ構築</text>
+
+  <circle cx="720" cy="140" r="16" fill="#5B8B6A" opacity="0.15" stroke="#5B8B6A" stroke-width="1"/>
+  <text x="720" y="144" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="9" fill="#2C2C2C" font-weight="bold">D30</text>
+  <text x="720" y="165" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="9" fill="#666666">TEK更新</text>
+
+  <!-- Mode 3: 劇的変換型 (lower-right) -->
+  <rect x="560" y="310" width="170" height="45" rx="8" fill="#D4A857" opacity="0.12" stroke="#D4A857" stroke-width="1.5"/>
+  <text x="645" y="332" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#D4A857" font-weight="bold">劇的変換型</text>
+  <text x="645" y="348" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#666666">以降の全ての場を決定的に変える</text>
+  <line x1="560" y1="330" x2="490" y2="275" stroke="#D4A857" stroke-width="1.5"/>
+
+  <circle cx="700" cy="370" r="16" fill="#D4A857" opacity="0.15" stroke="#D4A857" stroke-width="1"/>
+  <text x="700" y="374" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="9" fill="#2C2C2C" font-weight="bold">D04</text>
+  <text x="700" y="395" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="9" fill="#666666">内共生</text>
+
+  <circle cx="620" cy="370" r="16" fill="#D4A857" opacity="0.15" stroke="#D4A857" stroke-width="1"/>
+  <text x="620" y="374" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="9" fill="#2C2C2C" font-weight="bold">D06</text>
+  <text x="620" y="395" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="9" fill="#666666">超新星</text>
+
+  <!-- Mode 4: 制度的循環型 (lower-left) -->
+  <rect x="70" y="310" width="170" height="45" rx="8" fill="#5B8DB8" opacity="0.12" stroke="#5B8DB8" stroke-width="1.5"/>
+  <text x="155" y="332" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#5B8DB8" font-weight="bold">制度的循環型</text>
+  <text x="155" y="348" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#666666">循環が制度として設計</text>
+  <line x1="240" y1="330" x2="310" y2="275" stroke="#5B8DB8" stroke-width="1.5"/>
+
+  <circle cx="100" cy="370" r="16" fill="#5B8DB8" opacity="0.15" stroke="#5B8DB8" stroke-width="1"/>
+  <text x="100" y="374" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="9" fill="#2C2C2C" font-weight="bold">D11</text>
+  <text x="100" y="395" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="9" fill="#666666">薬学</text>
+
+  <circle cx="180" cy="370" r="16" fill="#5B8DB8" opacity="0.15" stroke="#5B8DB8" stroke-width="1"/>
+  <text x="180" y="374" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="9" fill="#2C2C2C" font-weight="bold">D30</text>
+  <text x="180" y="395" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="9" fill="#666666">民俗芸能</text>
+
+  <!-- Mode 5: 内在的循環型 (upper-left) -->
+  <rect x="50" y="150" width="170" height="45" rx="8" fill="#8B8682" opacity="0.12" stroke="#8B8682" stroke-width="1.5"/>
+  <text x="135" y="172" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#8B8682" font-weight="bold">内在的循環型</text>
+  <text x="135" y="188" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#666666">循環が理論に内蔵</text>
+  <line x1="220" y1="175" x2="305" y2="238" stroke="#8B8682" stroke-width="1.5"/>
+
+  <circle cx="80" cy="210" r="16" fill="#8B8682" opacity="0.15" stroke="#8B8682" stroke-width="1"/>
+  <text x="80" y="214" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="9" fill="#2C2C2C" font-weight="bold">D29</text>
+  <text x="80" y="235" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="9" fill="#666666">SOC</text>
+
+  <circle cx="80" cy="140" r="16" fill="#8B8682" opacity="0.15" stroke="#8B8682" stroke-width="1"/>
+  <text x="80" y="144" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="9" fill="#2C2C2C" font-weight="bold">D03</text>
+  <text x="80" y="165" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="9" fill="#666666">触媒サイクル</text>
+
+  <!-- Philosophical drivers (D13) -->
+  <rect x="250" y="390" width="300" height="30" rx="6" fill="#D4A857" opacity="0.1" stroke="#D4A857" stroke-width="1"/>
+  <text x="400" y="410" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#D4A857">D13 哲学: 駆動力の5系統 (シモンドン/ホワイトヘッド/パース/ガダマー/アドルノ)</text>
+
+  <!-- Convergence summary -->
+  <rect x="40" y="440" width="720" height="130" rx="8" fill="#FAFAF8" stroke="#E0DDD8" stroke-width="1"/>
+  <text x="60" y="465" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="14" fill="#2C2C2C" font-weight="bold">収束点</text>
+  <text x="60" y="487" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="12" fill="#2C2C2C">1. 「束は終点でなく次のサイクルの場の種」(15+領域で収束、全カテゴリ横断) [P]</text>
+  <text x="60" y="505" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="12" fill="#2C2C2C">2. 循環は不可逆的螺旋 (12+領域) [P] — 「円環」より「螺旋」が構造的に正確</text>
+  <text x="60" y="523" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="12" fill="#2C2C2C">3. 駆動力は「束の不完全性」に由来 (8+領域) [M] — 完全な安定を達成できないことが駆動力</text>
+  <text x="60" y="541" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="12" fill="#2C2C2C">4. 束→場循環には質的に異なる5モード (6+領域) [P]</text>
+  <text x="60" y="559" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">分岐: 循環は普遍的か条件依存か (D06一方向モード、D07閉形式解=循環不要)</text>
+</svg>

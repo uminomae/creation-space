@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <marker id="arrow26" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666666"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="#FAFAF8" rx="8"/>
+  <rect x="1" y="1" width="798" height="598" fill="none" stroke="#E0DDD8" stroke-width="1" rx="8"/>
+
+  <!-- Title -->
+  <text x="400" y="52" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="24" fill="#2C2C2C" font-weight="bold">D26 音楽学 — 5段階モデルとの構造対応図</text>
+
+  <!-- 5 Stages - horizontal boxes -->
+  <!-- Stage 1: Ba (Field) -->
+  <rect x="45" y="90" width="130" height="60" rx="10" fill="#8B8682" opacity="0.15" stroke="#8B8682" stroke-width="2"/>
+  <text x="110" y="118" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="18" fill="#8B8682" font-weight="bold">場</text>
+  <text x="110" y="138" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#8B8682">Field</text>
+
+  <!-- Stage 2: Nami (Wave) -->
+  <rect x="195" y="90" width="130" height="60" rx="10" fill="#5B8DB8" opacity="0.15" stroke="#5B8DB8" stroke-width="2"/>
+  <text x="260" y="118" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="18" fill="#5B8DB8" font-weight="bold">波</text>
+  <text x="260" y="138" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#5B8DB8">Wave</text>
+
+  <!-- Stage 3: En (Edge) -->
+  <rect x="345" y="90" width="130" height="60" rx="10" fill="#D4A857" opacity="0.15" stroke="#D4A857" stroke-width="2"/>
+  <text x="410" y="118" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="18" fill="#D4A857" font-weight="bold">縁</text>
+  <text x="410" y="138" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#D4A857">Edge</text>
+
+  <!-- Stage 4: Uzu (Vortex) -->
+  <rect x="495" y="90" width="130" height="60" rx="10" fill="#C45B4D" opacity="0.15" stroke="#C45B4D" stroke-width="2"/>
+  <text x="560" y="118" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="18" fill="#C45B4D" font-weight="bold">渦</text>
+  <text x="560" y="138" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#C45B4D">Vortex</text>
+
+  <!-- Stage 5: Taba (Bundle) -->
+  <rect x="645" y="90" width="130" height="60" rx="10" fill="#5B8B6A" opacity="0.15" stroke="#5B8B6A" stroke-width="2"/>
+  <text x="710" y="118" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="18" fill="#5B8B6A" font-weight="bold">束</text>
+  <text x="710" y="138" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#5B8B6A">Bundle</text>
+
+  <!-- Arrows between stages -->
+  <line x1="175" y1="120" x2="195" y2="120" stroke="#666666" stroke-width="2" marker-end="url(#arrow26)"/>
+  <line x1="325" y1="120" x2="345" y2="120" stroke="#666666" stroke-width="2" marker-end="url(#arrow26)"/>
+  <line x1="475" y1="120" x2="495" y2="120" stroke="#666666" stroke-width="2" marker-end="url(#arrow26)"/>
+  <line x1="625" y1="120" x2="645" y2="120" stroke="#666666" stroke-width="2" marker-end="url(#arrow26)"/>
+
+  <!-- Connecting lines to concepts (solid=strong, dashed=partial, dotted=weak) -->
+  <!-- Ba concepts -->
+  <line x1="110" y1="150" x2="110" y2="175" stroke="#8B8682" stroke-width="2"/>
+  <rect x="40" y="175" width="140" height="110" rx="6" fill="#FAFAF8" stroke="#8B8682" stroke-width="1.5"/>
+  <text x="110" y="195" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">聴取者の期待体系</text>
+  <text x="110" y="215" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">音響的環境</text>
+  <text x="110" y="235" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">スタイル規範</text>
+  <text x="110" y="260" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#666666">(Meyer/Huron)</text>
+
+  <!-- Nami concepts -->
+  <line x1="260" y1="150" x2="260" y2="175" stroke="#5B8DB8" stroke-width="2"/>
+  <rect x="190" y="175" width="140" height="110" rx="6" fill="#FAFAF8" stroke="#5B8DB8" stroke-width="1.5"/>
+  <text x="260" y="195" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">期待の阻害/遅延</text>
+  <text x="260" y="215" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">転調・逸脱</text>
+  <text x="260" y="235" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">リズムの偏差</text>
+  <text x="260" y="260" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#666666">(Pressing/Witek)</text>
+
+  <!-- En concepts -->
+  <line x1="410" y1="150" x2="410" y2="175" stroke="#D4A857" stroke-width="2"/>
+  <rect x="340" y="175" width="140" height="110" rx="6" fill="#FAFAF8" stroke="#D4A857" stroke-width="2"/>
+  <text x="410" y="195" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">サスペンス</text>
+  <text x="410" y="215" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">グルーヴ逆U字</text>
+  <text x="410" y="235" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">予測応答の並立</text>
+  <text x="410" y="260" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#666666">(Meyer/Huron)</text>
+
+  <!-- Uzu concepts -->
+  <line x1="560" y1="150" x2="560" y2="175" stroke="#C45B4D" stroke-width="2"/>
+  <rect x="490" y="175" width="140" height="110" rx="6" fill="#FAFAF8" stroke="#C45B4D" stroke-width="1.5"/>
+  <text x="560" y="195" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">解決の瞬間</text>
+  <text x="560" y="215" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">即興の収斂</text>
+  <text x="560" y="235" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">聴覚的統合</text>
+  <text x="560" y="260" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#666666">(Bregman/Pressing)</text>
+
+  <!-- Taba concepts -->
+  <line x1="710" y1="150" x2="710" y2="175" stroke="#5B8B6A" stroke-width="2"/>
+  <rect x="640" y="175" width="140" height="110" rx="6" fill="#FAFAF8" stroke="#5B8B6A" stroke-width="1.5"/>
+  <text x="710" y="195" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">様式・形式の定着</text>
+  <text x="710" y="215" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">ラーガの体系</text>
+  <text x="710" y="235" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">文化的伝承</text>
+  <text x="710" y="260" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#666666">(NHS/Savage)</text>
+
+  <!-- Correspondence strength legend -->
+  <rect x="40" y="310" width="720" height="110" rx="8" fill="#FAFAF8" stroke="#E0DDD8" stroke-width="1"/>
+  <text x="60" y="335" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="14" fill="#2C2C2C" font-weight="bold">対応の強さ</text>
+
+  <line x1="60" y1="355" x2="100" y2="355" stroke="#2C2C2C" stroke-width="2"/>
+  <text x="110" y="360" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">強い対応（実線）</text>
+
+  <line x1="280" y1="355" x2="320" y2="355" stroke="#2C2C2C" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="330" y="360" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">部分的対応（破線）</text>
+
+  <line x1="510" y1="355" x2="550" y2="355" stroke="#D0D0D0" stroke-width="2" stroke-dasharray="2,3"/>
+  <text x="560" y="360" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#666666">弱い対応（点線）</text>
+
+  <text x="60" y="390" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">確定に近い: Meyer期待理論、Huron ITPRA理論</text>
+  <text x="60" y="408" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">有力: Pressing即興モデル、ソナタ形式、グルーヴ理論、聴覚景分析、歌の普遍性研究</text>
+
+  <!-- Summary -->
+  <rect x="40" y="440" width="720" height="130" rx="8" fill="#FAFAF8" stroke="#E0DDD8" stroke-width="1"/>
+  <text x="60" y="465" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="14" fill="#2C2C2C" font-weight="bold">全体評価サマリ</text>
+  <text x="60" y="490" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">10理論中7件で強い構造対応、3件で条件付き対応。対応なしの理論はゼロ。</text>
+  <text x="60" y="510" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">「縁」が多水準で確認される: サスペンス、最適偏差ゾーン、展開部の転調、知覚的双安定。</text>
+  <text x="60" y="530" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">「期待→偏差→再評価」がミリ秒から世紀まで再帰的に出現する点が固有の強み。</text>
+  <text x="60" y="550" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">縁の類型: 可能性空間型（予測誤差の時間芸術的保持、身体的エントレインメント）。</text>
+</svg>

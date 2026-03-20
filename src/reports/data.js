@@ -547,6 +547,7 @@ function normalizeReport(report, index) {
         pdfPath: typeof pdfRaw === 'string' ? pdfRaw.trim() : '',
         mdByLang: typeof mdRaw === 'object' && mdRaw !== null ? mdRaw : null,
         pdfByLang: typeof pdfRaw === 'object' && pdfRaw !== null ? pdfRaw : null,
+        thumbnail: typeof report?.thumbnail === 'string' ? report.thumbnail.trim() : '',
     };
 }
 
@@ -715,6 +716,13 @@ export function resolveDomainReportSources(
     }
 
     return dedupeSources(sources);
+}
+
+export function resolveDomainThumbnailUrl(report) {
+    if (typeof report?.thumbnail === 'string' && report.thumbnail.trim()) {
+        return `${PJDHIRO_CREATION_PAGES}/${report.thumbnail.trim()}`;
+    }
+    return '';
 }
 
 export function countReportsByProgressLevel(reports = []) {

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <marker id="arrowBS" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#666666"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="#FAFAF8" rx="8"/>
+  <rect x="1" y="1" width="798" height="598" fill="none" stroke="#E0DDD8" stroke-width="1" rx="8"/>
+
+  <!-- Title -->
+  <text x="400" y="45" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="24" fill="#2C2C2C" font-weight="bold">T7+T9 盲点と反例 — 横断的パターン図</text>
+  <text x="400" y="68" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="14" fill="#666666">秩序解体・5段階が記述できないもの (13+11ドメインが関与)</text>
+
+  <!-- Central theme node -->
+  <ellipse cx="400" cy="260" rx="90" ry="45" fill="#C45B4D" opacity="0.15" stroke="#C45B4D" stroke-width="2"/>
+  <text x="400" y="253" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="16" fill="#C45B4D" font-weight="bold">盲点と反例</text>
+  <text x="400" y="273" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="12" fill="#C45B4D">5段階の射程限界</text>
+
+  <!-- Category 1: 秩序解体 (top-left cluster) -->
+  <rect x="50" y="100" width="160" height="30" rx="6" fill="#C45B4D" opacity="0.2" stroke="#C45B4D" stroke-width="1.5"/>
+  <text x="130" y="120" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#C45B4D" font-weight="bold">秩序解体・破壊的過程</text>
+
+  <!-- Domain nodes for category 1 -->
+  <circle cx="70" cy="160" r="22" fill="#8B8682" opacity="0.2" stroke="#8B8682" stroke-width="1.5"/>
+  <text x="70" y="164" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#2C2C2C" font-weight="bold">D05</text>
+  <text x="70" y="195" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#666666">大量絶滅</text>
+
+  <circle cx="130" cy="160" r="22" fill="#5B8DB8" opacity="0.2" stroke="#5B8DB8" stroke-width="1.5"/>
+  <text x="130" y="164" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#2C2C2C" font-weight="bold">D09</text>
+  <text x="130" y="195" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#666666">アポトーシス</text>
+
+  <circle cx="190" cy="160" r="22" fill="#D4A857" opacity="0.2" stroke="#D4A857" stroke-width="1.5"/>
+  <text x="190" y="164" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#2C2C2C" font-weight="bold">D21</text>
+  <text x="190" y="195" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#666666">Minskyモーメント</text>
+
+  <!-- Lines to center -->
+  <line x1="87" y1="175" x2="320" y2="240" stroke="#C45B4D" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="140" y1="180" x2="330" y2="240" stroke="#C45B4D" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="200" y1="178" x2="340" y2="240" stroke="#C45B4D" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Category 2: 段階化への抵抗 (top-right cluster) -->
+  <rect x="560" y="100" width="190" height="30" rx="6" fill="#D4A857" opacity="0.2" stroke="#D4A857" stroke-width="1.5"/>
+  <text x="655" y="120" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#D4A857" font-weight="bold">段階化への抵抗</text>
+
+  <circle cx="580" cy="160" r="22" fill="#D4A857" opacity="0.2" stroke="#D4A857" stroke-width="1.5"/>
+  <text x="580" y="164" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#2C2C2C" font-weight="bold">D01</text>
+  <text x="580" y="195" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#666666">非完遂パターン</text>
+
+  <circle cx="650" cy="160" r="22" fill="#5B8DB8" opacity="0.2" stroke="#5B8DB8" stroke-width="1.5"/>
+  <text x="650" y="164" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#2C2C2C" font-weight="bold">D13</text>
+  <text x="650" y="195" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#666666">リゾーム的思考</text>
+
+  <circle cx="720" cy="160" r="22" fill="#8B8682" opacity="0.2" stroke="#8B8682" stroke-width="1.5"/>
+  <text x="720" y="164" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#2C2C2C" font-weight="bold">D24</text>
+  <text x="720" y="195" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#666666">段階数の多様性</text>
+
+  <line x1="570" y1="178" x2="460" y2="240" stroke="#D4A857" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="640" y1="180" x2="470" y2="240" stroke="#D4A857" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="710" y1="178" x2="480" y2="240" stroke="#D4A857" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Category 3: 前提への問い (bottom cluster) -->
+  <rect x="270" y="340" width="260" height="30" rx="6" fill="#5B8B6A" opacity="0.2" stroke="#5B8B6A" stroke-width="1.5"/>
+  <text x="400" y="360" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#5B8B6A" font-weight="bold">5段階が前提とするもの</text>
+
+  <!-- Bottom domain nodes -->
+  <circle cx="180" cy="400" r="22" fill="#C45B4D" opacity="0.2" stroke="#C45B4D" stroke-width="1.5"/>
+  <text x="180" y="404" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#2C2C2C" font-weight="bold">D29</text>
+  <text x="180" y="435" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#666666">エントロピー増大</text>
+
+  <circle cx="290" cy="415" r="22" fill="#5B8B6A" opacity="0.2" stroke="#5B8B6A" stroke-width="1.5"/>
+  <text x="290" y="419" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#2C2C2C" font-weight="bold">D16</text>
+  <text x="290" y="450" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#666666">文明崩壊</text>
+
+  <circle cx="400" cy="425" r="22" fill="#5B8DB8" opacity="0.2" stroke="#5B8DB8" stroke-width="1.5"/>
+  <text x="400" y="429" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#2C2C2C" font-weight="bold">D25</text>
+  <text x="400" y="460" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#666666">schism(渦不到達)</text>
+
+  <circle cx="510" cy="415" r="22" fill="#D4A857" opacity="0.2" stroke="#D4A857" stroke-width="1.5"/>
+  <text x="510" y="419" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#2C2C2C" font-weight="bold">D27</text>
+  <text x="510" y="450" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#666666">border vacuum</text>
+
+  <circle cx="620" cy="400" r="22" fill="#8B8682" opacity="0.2" stroke="#8B8682" stroke-width="1.5"/>
+  <text x="620" y="404" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#2C2C2C" font-weight="bold">D28</text>
+  <text x="620" y="435" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#666666">ブロック(停止)</text>
+
+  <line x1="195" y1="385" x2="350" y2="290" stroke="#5B8B6A" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="300" y1="395" x2="370" y2="295" stroke="#5B8B6A" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="400" y1="403" x2="400" y2="305" stroke="#5B8B6A" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="500" y1="395" x2="430" y2="295" stroke="#5B8B6A" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="605" y1="385" x2="450" y2="290" stroke="#5B8B6A" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Convergence summary -->
+  <rect x="40" y="490" width="720" height="80" rx="8" fill="#FAFAF8" stroke="#E0DDD8" stroke-width="1"/>
+  <text x="60" y="515" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="14" fill="#2C2C2C" font-weight="bold">収束点</text>
+  <text x="60" y="537" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="12" fill="#2C2C2C">1. 5段階は秩序の生成に特化、解体の理論を持たない [P] | 2. 解体は5段階の逆ではない [M]</text>
+  <text x="60" y="557" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="12" fill="#2C2C2C">3. 失敗モードは5段階に内在する [M] | 4. 計画的解体は生成の一部である [M]</text>
+</svg>
