@@ -18,10 +18,7 @@ export function syncGraphicModeQuery(mode) {
 
 export function setGraphicButtonState(mode) {
     const normalized = normalizeGraphicMode(mode);
-    const zoomGuideRow = document.getElementById('control-guide-zoom-row');
-    if (zoomGuideRow instanceof HTMLElement) {
-        zoomGuideRow.hidden = normalized === 'i';
-    }
+    // ズームガイド行は削除済み（controls.js にズーム機能は残存するが UI ガイドは不要）
     document.querySelectorAll('[data-graphic-mode]').forEach((button) => {
         if (!(button instanceof HTMLButtonElement)) return;
         const isActive = normalizeGraphicMode(button.dataset.graphicMode) === normalized;
