@@ -104,6 +104,15 @@ export const dict = {
                 summaryBadge: '要約',
                 summaryLabel: '結論要約',
             },
+            synthesis: {
+                heading: '総合レポート',
+                description: '30領域横断分析の統合的知見と段階定義フィードバック。',
+                reportTitle: '30領域横断分析 — 構造類似探索の統合的知見',
+                reportDescription: '5テーマ統合・段階定義フィードバックを含む総合レポート。',
+                presentationTitle: 'プレゼン資料',
+                presentationDescription: '14スライド構成のプレゼンテーション資料。',
+                presentationModalTitle: '30領域横断分析 — 統合的知見',
+            },
         },
         viewer: {
             closeAria: '閉じる',
@@ -218,6 +227,15 @@ export const dict = {
                 summaryDescription: 'Conclusion summaries for the five structural themes.',
                 summaryBadge: 'Summary',
                 summaryLabel: 'Conclusion Summary',
+            },
+            synthesis: {
+                heading: 'Synthesis Report',
+                description: 'Integrated findings from cross-domain analysis of 30 academic fields.',
+                reportTitle: 'Cross-Domain Synthesis — Integrated Findings from 30 Academic Fields',
+                reportDescription: 'Comprehensive report with five-theme integration and stage definition feedback.',
+                presentationTitle: 'Presentation',
+                presentationDescription: '14-slide presentation of the cross-domain findings.',
+                presentationModalTitle: 'Cross-Domain Synthesis — Integrated Findings',
             },
         },
         viewer: {

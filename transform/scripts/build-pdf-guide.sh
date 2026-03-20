@@ -54,6 +54,7 @@ PJDHIRO_DIR="/Users/uminomae/dev/pjdhiro"
 GUIDES_BASE="$PJDHIRO_DIR/assets/creation/guides"
 DOMAINS_BASE="$PJDHIRO_DIR/assets/creation/domains"
 THEMES_BASE="$PJDHIRO_DIR/assets/creation/phase8-themes"
+SYNTHESIS_BASE="$PJDHIRO_DIR/assets/creation/synthesis"
 IMG_DIR="$PJDHIRO_DIR/assets/creation/img"
 MANIFESTS_DIR="$PJDHIRO_DIR/assets/creation/manifests"
 GENERATE_SVG="$CREATION_SPACE_ROOT/transform/scripts/generate-svg.sh"
@@ -405,6 +406,65 @@ build_themes() {
 }
 
 
+
+# ── synthesis ビルド（領域横断分析 総合レポート） ──
+build_synthesis() {
+    local lang="${1:-ja}"
+    local md_dir="$SYNTHESIS_BASE/${lang}/md"
+    local pdf_dir="$SYNTHESIS_BASE/${lang}/pdf"
+
+    local lang_label="JA"
+    [ "$lang" = "en" ] && lang_label="EN"
+    echo -e "${BLUE}📄 synthesis [${lang_label}] ビルド中...${NC}"
+
+    if [ \! -d "$md_dir" ] || [ -z "$(ls "$md_dir"/cross-domain-synthesis*.md 2>/dev/null)" ]; then
+        echo -e "  ${YELLOW}スキップ${NC}: $md_dir に cross-domain-synthesis*.md がありません"
+        return 0
+    fi
+
+    mkdir -p "$pdf_dir"
+    mkdir -p "$CREATION_SPACE_ROOT/.build-tmp"
+
+    local s_success=0 s_fail=0
+    for md_file in "$md_dir"/cross-domain-synthesis*.md; do
+        local basename_md
+        basename_md=$(basename "$md_file" .md)
+        local out="$pdf_dir/${basename_md}.pdf"
+        local tmp="$CREATION_SPACE_ROOT/.build-tmp/_synthesis_${basename_md}_${lang}.md"
+
+        local title
+        title="$(get_domain_title "$md_file")"
+
+        echo -e "  ${BLUE}→${NC} ${basename_md} [${lang_label}]"
+
+        # pandoc 用ヘッダー生成
+        if [ "$lang" = "en" ]; then
+            make_header_en "$title" "" > "$tmp"
+        else
+            make_header_ja "$title" "" > "$tmp"
+        fi
+
+        # フロントマターを除去して連結
+        cat "$md_file" | strip_frontmatter >> "$tmp"
+
+        if pandoc "$tmp"             -o "$out"             --pdf-engine=lualatex             --wrap=none             2>&1 | sed 's/^/      /'; then
+            local size
+            size=$(du -k "$out" 2>/dev/null | cut -f1)
+            echo -e "    ${GREEN}✅${NC} ${basename_md}.pdf (${size:-?} KB)"
+            s_success=$((s_success + 1))
+        else
+            echo -e "    ${RED}✗${NC} ビルド失敗: ${basename_md}.pdf"
+            s_fail=$((s_fail + 1))
+        fi
+
+        rm -f "$tmp"
+    done
+
+    echo -e "  synthesis [${lang_label}]: ${s_success}成功 / ${s_fail}失敗"
+    [ "$s_fail" -gt 0 ] && return 1
+    return 0
+}
+
 # ── SVG 生成（generate-svg.sh に委譲） ──
 build_svg() {
     local svg_args=("--dry-run")
@@ -533,7 +593,7 @@ main() {
                 echo "使い方: bash transform/scripts/build-pdf-guide.sh [オプション]"
                 echo ""
                 echo "オプション:"
-                echo "  --kind {guides|domains|themes|svg|all}             種別（デフォルト: guides）"
+                echo "  --kind {guides|domains|themes|synthesis|svg|all}             種別（デフォルト: guides）"
                 echo "  --audience {general|designer|academic|all}       対象（guides時のみ。デフォルト: general）"
                 echo "  --lang {ja|en|all}                               言語（デフォルト: ja）"
                 echo "  --push                                           ビルド後 manifest を更新"
@@ -564,11 +624,12 @@ main() {
 
     local kinds=()
     case "$kind" in
-        all)     kinds=(guides domains themes svg) ;;
+        all)     kinds=(guides domains themes synthesis svg) ;;
         guides)  kinds=(guides) ;;
         domains) kinds=(domains) ;;
         themes)  kinds=(themes) ;;
         svg)     kinds=(svg) ;;
+        synthesis) kinds=(synthesis) ;;
         *) echo -e "${RED}不明なkind: $kind${NC}"; exit 1 ;;
     esac
 
@@ -608,6 +669,16 @@ main() {
             themes)
                 for l in "${langs[@]}"; do
                     if build_themes "$l"; then
+                        success=$((success + 1))
+                    else
+                        fail=$((fail + 1))
+                    fi
+                    echo ""
+                done
+                ;;
+            synthesis)
+                for l in "${langs[@]}"; do
+                    if build_synthesis "$l"; then
                         success=$((success + 1))
                     else
                         fail=$((fail + 1))

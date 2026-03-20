@@ -19,6 +19,23 @@ export const SURVEY_MANIFEST_URL = `${PJDHIRO_CREATION_RAW}/manifests/survey.jso
 
 export const PHASE8_THEMES_MANIFEST_URL = `${PJDHIRO_CREATION_RAW}/manifests/phase8-themes.json`;
 
+export const SYNTHESIS_REPORT_LINKS = {
+    ja: {
+        mdUrl: `${PJDHIRO_CREATION_RAW}/synthesis/ja/md/cross-domain-synthesis-ja.md`,
+        pdfUrl: `${PJDHIRO_CREATION_PAGES}/synthesis/ja/pdf/cross-domain-synthesis-ja.pdf`,
+        generatorModel: CREATION_GUIDE_GENERATOR_MODEL,
+        generated: '2026-03-20',
+    },
+};
+
+export const SYNTHESIS_PRESENTATION_LINKS = {
+    ja: {
+        mdUrl: `${PJDHIRO_CREATION_RAW}/synthesis/ja/md/cross-domain-synthesis-presentation-ja.md`,
+        pdfUrl: `${PJDHIRO_CREATION_PAGES}/synthesis/ja/pdf/cross-domain-synthesis-presentation-ja.pdf`,
+        generatorModel: CREATION_GUIDE_GENERATOR_MODEL,
+        generated: '2026-03-20',
+    },
+};
 export const STATUS_REPORT_LINKS = {
     ja: {
         mdUrl: `${PJDHIRO_CREATION_RAW}/survey/ja/md/survey-status.md`,

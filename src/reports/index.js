@@ -22,6 +22,7 @@ import {
 import { createReportsModalController } from './modal.js';
 import { createReportsRenderer, getDomainReportTitle, getReportsStrings } from './render.js';
 import { createPhase8Renderer, loadPhase8Themes } from './phase8.js';
+import { createSynthesisRenderer } from './synthesis.js';
 
 const state = {
     lang: 'ja',
@@ -90,6 +91,11 @@ const renderer = createReportsRenderer({
 });
 
 const phase8Renderer = createPhase8Renderer({
+    openMarkdownModal: (...args) => modalController.openMarkdownModal(...args),
+    getLang: () => state.lang,
+});
+
+const synthesisRenderer = createSynthesisRenderer({
     openMarkdownModal: (...args) => modalController.openMarkdownModal(...args),
     getLang: () => state.lang,
 });
@@ -173,6 +179,7 @@ export async function initReports({
 } = {}) {
     renderer.cacheDom();
     phase8Renderer.cacheDom();
+    synthesisRenderer.cacheDom();
     renderer.bindUiEvents();
     historyController.bindHistorySyncEvents();
 
@@ -231,6 +238,7 @@ export async function initReports({
         state.phase8Themes = [];
     }
     phase8Renderer.renderThemes(state.phase8Themes);
+    synthesisRenderer.renderSynthesis();
 
 
     if (!state.loadError) {
@@ -246,6 +254,7 @@ export function setReportsLanguage(lang) {
     state.lang = normalizeLang(lang);
     renderer.renderReports();
     phase8Renderer.renderThemes(state.phase8Themes);
+    synthesisRenderer.renderSynthesis();
 }
 
 export {
