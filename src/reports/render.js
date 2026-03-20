@@ -9,6 +9,7 @@ import {
     hasText,
     normalizeProgressLevelId,
     resolveLocalizedSources,
+    resolveDomainPresentationSources,
 } from './data.js';
 import { DOMAIN_HISTORY_MODE_PUSH } from './history.js';
 
@@ -468,6 +469,24 @@ export function createReportsRenderer({
         head.appendChild(statusNode);
         body.appendChild(head);
         body.appendChild(nameNode);
+
+        // Presentation button
+        const presSources = resolveDomainPresentationSources(report, { lang: state.lang });
+        if (presSources.length > 0) {
+            const presBtn = document.createElement('button');
+            presBtn.className = 'btn btn-sm btn-outline-light mt-auto reports-domain-pres-btn';
+            presBtn.textContent = normalizeLang(state.lang) === 'ja' ? 'プレゼン' : 'Slides';
+            presBtn.setAttribute('aria-label', `${domainLabel} presentation`);
+            presBtn.addEventListener('click', (event) => {
+                event.stopPropagation();
+                openMarkdownModal({
+                    title: `${report.id} ${domainLabel} - ${normalizeLang(state.lang) === 'ja' ? 'プレゼン資料' : 'Presentation'}`,
+                    sources: presSources,
+                });
+            });
+            body.appendChild(presBtn);
+        }
+
         tile.appendChild(body);
         col.appendChild(tile);
 

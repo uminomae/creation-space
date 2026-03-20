@@ -686,6 +686,26 @@ function buildCreationDomainSource(report, lang = 'ja') {
     };
 }
 
+function buildCreationDomainPresentationSource(report, lang = 'ja') {
+    if (typeof report?.id \!== 'string' || typeof report?.slug \!== 'string') return null;
+    if (\!report.id.trim() || \!report.slug.trim()) return null;
+    const idOrig = report.id.trim();
+    const slug = report.slug.trim();
+    const normalizedLang = normalizeLang(lang);
+    const baseName = `domain-${idOrig}-${slug}-presentation-${normalizedLang}`;
+    return {
+        mdUrl: `${PJDHIRO_CREATION_RAW}/domains/${normalizedLang}/presentations/md/${baseName}.md`,
+        pdfUrl: `${PJDHIRO_CREATION_PAGES}/domains/${normalizedLang}/presentations/pdf/${baseName}.pdf`,
+    };
+}
+
+export function resolveDomainPresentationSources(report, { lang = 'ja' } = {}) {
+    const normalizedLang = normalizeLang(lang);
+    const source = buildCreationDomainPresentationSource(report, normalizedLang);
+    if (\!source) return [];
+    return [source];
+}
+
 function resolveV2LangPath(pathByLang, lang, urlBase) {
     if (!pathByLang || typeof pathByLang !== 'object') return '';
     const relPath = pathByLang[lang];
