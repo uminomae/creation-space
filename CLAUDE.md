@@ -37,6 +37,10 @@
 4. `develop` 作業なら `git pull --rebase origin develop` の後に `git push origin develop`
 5. 管理体系を更新した場合は `CLAUDE.md`、`docs/README.md`、`.claude/rules/` の整合を取る
 
+## コーディング禁止事項
+
+- **JS/TS ファイルで `!` を `\!` と書いてはならない**。`!==`, `!value`, `!arr.length` 等はすべてバックスラッシュなしの `!` を使う。`\!` は SyntaxError になる。この問題は繰り返し発生しているため厳守すること。
+
 ## CSS変更時のルール
 
 CSS（`src/styles/` 配下）を変更する前に:
