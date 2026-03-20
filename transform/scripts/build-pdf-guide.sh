@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# build-pdf-guide.sh — creation-space PDF 生成 v2.1
+# build-pdf-guide.sh — creation-space PDF/SVG 生成 v2.2
 #
 # 概要:
-#   --kind で guides / domains / themes / all を指定し、PDF を生成する。
+#   --kind で guides / domains / themes / svg / all を指定し、PDF/SVG を生成する。
 #   guides:  pjdhiro/assets/creation/guides/{lang}/md/ の MD から PDF を生成。
 #   domains: pjdhiro/assets/creation/domains/{lang}/md/ の MD から PDF を生成。
 #   themes:  pjdhiro/assets/creation/phase8-themes/{lang}/md/ の MD から PDF を生成。
@@ -14,6 +14,7 @@
 #   bash transform/scripts/build-pdf-guide.sh --kind domains --lang ja         # domains JA 全30件
 #   bash transform/scripts/build-pdf-guide.sh --kind themes --lang all         # themes JA+EN
 #   bash transform/scripts/build-pdf-guide.sh --kind all --lang ja             # 全種 JA
+#   bash transform/scripts/build-pdf-guide.sh --kind svg                          # SVG対象一覧
 #   bash transform/scripts/build-pdf-guide.sh --push                           # ビルド後 manifest を更新
 #   bash transform/scripts/build-pdf-guide.sh --setup                          # 依存チェックのみ
 #
@@ -24,6 +25,9 @@
 #
 # 互換性:
 #   bash 3.2以上（macOS標準）で動作。${var^^} は使用しない。
+#
+# v2.2 変更点:
+#   - SVG 図解生成ワークフロー統合（--kind svg）
 #
 # v2.1 変更点:
 #   - Phase 8 横断分析テーマ（themes）ビルド対応
@@ -52,6 +56,7 @@ DOMAINS_BASE="$PJDHIRO_DIR/assets/creation/domains"
 THEMES_BASE="$PJDHIRO_DIR/assets/creation/phase8-themes"
 IMG_DIR="$PJDHIRO_DIR/assets/creation/img"
 MANIFESTS_DIR="$PJDHIRO_DIR/assets/creation/manifests"
+GENERATE_SVG="$CREATION_SPACE_ROOT/transform/scripts/generate-svg.sh"
 
 # ── YAML front matter を除去 ──
 strip_frontmatter() {
@@ -399,6 +404,27 @@ build_themes() {
     return 0
 }
 
+
+# ── SVG 生成（generate-svg.sh に委譲） ──
+build_svg() {
+    local svg_args=("--dry-run")
+
+    echo -e "${BLUE}📄 SVG 図解生成${NC}"
+
+    if [ ! -f "$GENERATE_SVG" ]; then
+        echo -e "  ${RED}✗${NC} generate-svg.sh が見つかりません: $GENERATE_SVG"
+        return 1
+    fi
+
+    if bash "$GENERATE_SVG" --dry-run; then
+        echo -e "  ${GREEN}✅${NC} SVG 対象一覧出力完了"
+        echo -e "  ${YELLOW}自動生成するには: bash transform/scripts/generate-svg.sh --generate${NC}"
+    else
+        echo -e "  ${RED}✗${NC} SVG 対象一覧取得に失敗"
+        return 1
+    fi
+}
+
 # ── manifest 更新 ──
 update_manifests() {
     echo -e "${BLUE}📋 manifests 更新${NC}"
@@ -487,7 +513,7 @@ print(json.dumps(manifest, indent=2, ensure_ascii=False))
 # ── メイン ──
 main() {
     echo -e "${BLUE}══════════════════════════════════════${NC}"
-    echo -e "${BLUE}  creation-space — PDF生成 v2.1${NC}"
+    echo -e "${BLUE}  creation-space — PDF/SVG生成 v2.2${NC}"
     echo -e "${BLUE}══════════════════════════════════════${NC}"
     echo ""
 
@@ -507,7 +533,7 @@ main() {
                 echo "使い方: bash transform/scripts/build-pdf-guide.sh [オプション]"
                 echo ""
                 echo "オプション:"
-                echo "  --kind {guides|domains|themes|all}                 種別（デフォルト: guides）"
+                echo "  --kind {guides|domains|themes|svg|all}             種別（デフォルト: guides）"
                 echo "  --audience {general|designer|academic|all}       対象（guides時のみ。デフォルト: general）"
                 echo "  --lang {ja|en|all}                               言語（デフォルト: ja）"
                 echo "  --push                                           ビルド後 manifest を更新"
@@ -538,10 +564,11 @@ main() {
 
     local kinds=()
     case "$kind" in
-        all)     kinds=(guides domains themes) ;;
+        all)     kinds=(guides domains themes svg) ;;
         guides)  kinds=(guides) ;;
         domains) kinds=(domains) ;;
         themes)  kinds=(themes) ;;
+        svg)     kinds=(svg) ;;
         *) echo -e "${RED}不明なkind: $kind${NC}"; exit 1 ;;
     esac
 
@@ -587,6 +614,14 @@ main() {
                     fi
                     echo ""
                 done
+                ;;
+            svg)
+                if build_svg; then
+                    success=$((success + 1))
+                else
+                    fail=$((fail + 1))
+                fi
+                echo ""
                 ;;
         esac
     done

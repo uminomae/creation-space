@@ -1,4 +1,4 @@
-#\!/usr/bin/env bash
+#!/usr/bin/env bash
 # generate-domain-pipeline.sh — JA→EN+PDF 自動生成パイプライン (cs#128)
 #
 # 概要:
@@ -29,12 +29,14 @@ DOMAINS_BASE="$PJDHIRO_DIR/assets/creation/domains"
 BUILD_PDF="$CREATION_SPACE_ROOT/transform/scripts/build-pdf-guide.sh"
 VERIFY_DATES="$SCRIPT_DIR/verify-domain-dates.sh"
 GEN_DOMAINS_JSON="$SCRIPT_DIR/generate-domains-json.mjs"
+GENERATE_SVG="$CREATION_SPACE_ROOT/transform/scripts/generate-svg.sh"
 
 # ── 引数解析 ──
 DOMAIN=""
 ALL=false
 JA_ONLY=false
 SKIP_VERIFY=false
+SKIP_SVG=false
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
@@ -42,6 +44,7 @@ while [[ $# -gt 0 ]]; do
         --all|-a)    ALL=true; shift ;;
         --ja-only)   JA_ONLY=true; shift ;;
         --skip-verify) SKIP_VERIFY=true; shift ;;
+        --skip-svg)    SKIP_SVG=true; shift ;;
         --help|-h)
             echo "使い方: bash scripts/generate-domain-pipeline.sh [オプション]"
             echo ""
@@ -50,6 +53,7 @@ while [[ $# -gt 0 ]]; do
             echo "  --all             全ドメイン"
             echo "  --ja-only         JA PDF のみ生成（EN スキップ）"
             echo "  --skip-verify     日付検証をスキップ"
+            echo "  --skip-svg        SVG 生成をスキップ"
             echo "  --help            このヘルプを表示"
             exit 0
             ;;
@@ -72,7 +76,7 @@ echo ""
 if [ "$ALL" = true ]; then
     echo -e "${BLUE}[Step 0] 対象: 全ドメイン${NC}"
     JA_MD_DIR="$DOMAINS_BASE/ja/md"
-    if [ \! -d "$JA_MD_DIR" ] || [ -z "$(ls "$JA_MD_DIR"/domain-D*.md 2>/dev/null)" ]; then
+    if [ ! -d "$JA_MD_DIR" ] || [ -z "$(ls "$JA_MD_DIR"/domain-D*.md 2>/dev/null)" ]; then
         echo -e "${RED}エラー: $JA_MD_DIR に domain-D*.md がありません${NC}"
         exit 1
     fi
@@ -122,6 +126,28 @@ if [ "$JA_ONLY" = false ]; then
     fi
 else
     echo -e "${BLUE}[Step 2] EN PDF 生成: ${YELLOW}スキップ（--ja-only）${NC}"
+fi
+echo ""
+
+# ── Step 2.5: SVG 図解生成 ──
+if [ "$SKIP_SVG" = false ]; then
+    echo -e "${BLUE}[Step 2.5] SVG 図解生成${NC}"
+    if [ -f "$GENERATE_SVG" ]; then
+        local svg_args="--kind domains --dry-run"
+        if [ -n "$DOMAIN" ]; then
+            svg_args="--domain $DOMAIN --dry-run"
+        fi
+        if bash "$GENERATE_SVG" $svg_args; then
+            echo -e "  ${GREEN}SVG 対象確認完了${NC}"
+            echo -e "  ${YELLOW}SVG を生成するには: bash transform/scripts/generate-svg.sh --generate${NC}"
+        else
+            echo -e "  ${YELLOW}SVG 対象確認に問題あり（続行）${NC}"
+        fi
+    else
+        echo -e "  ${YELLOW}generate-svg.sh が見つかりません。スキップ${NC}"
+    fi
+else
+    echo -e "${BLUE}[Step 2.5] SVG 図解生成: ${YELLOW}スキップ（--skip-svg）${NC}"
 fi
 echo ""
 

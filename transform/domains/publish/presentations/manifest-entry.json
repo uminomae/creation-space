@@ -1,0 +1,31 @@
+{
+  "_comment": "プレゼン資料の manifest エントリフォーマット案。domains.json 等への統合時に使用する。",
+  "presentations": [
+    {
+      "domain_id": "D08",
+      "slug": "neuroscience",
+      "title_ja": "神経科学 - 5段階モデルとの構造対応",
+      "type": "presentation",
+      "lang": "ja",
+      "version": "1.0",
+      "date": "2026-03-20",
+      "generator_model": "claude:claude-opus-4-6",
+      "source": "domain-D08-neuroscience-academic-ja.md",
+      "file": "domain-D08-neuroscience-presentation-ja.md",
+      "path": "transform/domains/publish/presentations/domain-D08-neuroscience-presentation-ja.md"
+    }
+  ],
+  "_schema": {
+    "domain_id": "D{NN} 形式のドメイン ID",
+    "slug": "ドメインの英語スラッグ",
+    "title_ja": "プレゼンの日本語タイトル",
+    "type": "presentation 固定",
+    "lang": "ja / en",
+    "version": "セマンティックバージョン",
+    "date": "YYYY-MM-DD",
+    "generator_model": "生成モデル",
+    "source": "元のドメインレポートファイル名",
+    "file": "プレゼンファイル名",
+    "path": "リポジトリルートからの相対パス"
+  }
+}
