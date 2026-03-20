@@ -264,12 +264,6 @@
           <div id="reports-metrics" class="row g-2" aria-live="polite"></div>
         </div>
         <div class="reports-tab-content reports-stack">
-          <section class="reports-stack-section" id="reports-phase8-summary-section" style="display:none;">
-            <h3 id="reports-phase8-summary-heading" class="reports-subheading">横断分析テーマ結論要約</h3>
-            <p id="reports-phase8-summary-description" class="reports-level-legend mb-2">5つの構造テーマの結論要約。</p>
-            <div id="reports-phase8-summary-grid" class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-2" aria-live="polite">
-            </div>
-          </section>
           <section class="reports-stack-section">
             <h3 id="reports-domains-heading" class="reports-subheading">領域別レポート</h3>
             <p id="reports-scenario-note" class="reports-level-legend mb-2 d-none"></p>
@@ -279,11 +273,20 @@
               <div class="reports-domain-empty col-12 text-body-secondary">読み込み中...</div>
             </div>
           </section>
-          <section class="reports-stack-section mt-4">
-            <h3 id="reports-phase8-heading" class="reports-subheading">領域横断分析（Phase 8）</h3>
-            <p id="reports-phase8-description" class="reports-level-legend mb-2">30領域を横断して抽出された5つの構造テーマ。</p>
-            <div id="reports-phase8-grid" class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-2" aria-live="polite">
-              <div class="col-12 text-body-secondary">読み込み中...</div>
+          <section class="reports-stack-section mt-4" id="reports-cross-analysis-section">
+            <h3 id="reports-cross-analysis-heading" class="reports-subheading">領域横断分析</h3>
+            <div id="reports-phase8-summary-section" style="display:none;">
+              <h4 id="reports-phase8-summary-heading" class="reports-subheading h6 mt-3">横断分析テーマ結論要約</h4>
+              <p id="reports-phase8-summary-description" class="reports-level-legend mb-2">5つの構造テーマの結論要約。</p>
+              <div id="reports-phase8-summary-grid" class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-2" aria-live="polite">
+              </div>
+            </div>
+            <div class="mt-3">
+              <h4 id="reports-phase8-heading" class="reports-subheading h6">領域横断分析（Phase 8）</h4>
+              <p id="reports-phase8-description" class="reports-level-legend mb-2">30領域を横断して抽出された5つの構造テーマ。</p>
+              <div id="reports-phase8-grid" class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-2" aria-live="polite">
+                <div class="col-12 text-body-secondary">読み込み中...</div>
+              </div>
             </div>
           </section>
         </div>
