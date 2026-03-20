@@ -100,7 +100,7 @@
 ### チェック対象語
 
 - 欠損駆動思考 / Kesson-Driven Thinking
-- Withhold（D2/D3 の内部用語として）
+- 抱持（D2/D3 の内部用語として）
 - Container（D4 の内部用語として）
 - F-O軸 / F軸 / O軸
 - 5段階（内部用語としての使用）

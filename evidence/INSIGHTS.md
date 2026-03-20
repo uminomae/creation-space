@@ -13,7 +13,7 @@
 |---|---|---|---|---|
 | D22 経営学 | claude-code-agent | Run1 | [deepdive/claude-code-agent/D22-business-management/run1/output.md](deepdive/claude-code-agent/D22-business-management/run1/output.md) | 11件維持・強度3層分類（Anchor/Scoped/High-risk）。縁フラグ再検討で🟢6件に増加 |
 | D22 経営学 | codex-parallel | Run1 | [deepdive/codex-parallel-deepdive/D22-business-management/run1/output.md](deepdive/codex-parallel-deepdive/D22-business-management/run1/output.md) | 4系統並列監査・Run2候補5件。Anchor/Scoped/High-risk の3層分類を独立確認 |
-| D22 経営学 | codex-parallel | insight1 | [deepdive/codex-parallel-deepdive/D22-business-management/insight1/output.md](deepdive/codex-parallel-deepdive/D22-business-management/insight1/output.md) | D3制度化・場は設計対象（仮説1〜4）。D22の不足5系統が「組織のWithhold喪失」に収束する可能性 |
+| D22 経営学 | codex-parallel | insight1 | [deepdive/codex-parallel-deepdive/D22-business-management/insight1/output.md](deepdive/codex-parallel-deepdive/D22-business-management/insight1/output.md) | D3制度化・場は設計対象（仮説1〜4）。D22の不足5系統が「組織の抱持喪失」に収束する可能性 |
 | D22 経営学 | codex-parallel | insight2 | [deepdive/codex-parallel-deepdive/D22-business-management/insight2/output.md](deepdive/codex-parallel-deepdive/D22-business-management/insight2/output.md) | D22 の厚みは縁→渦と束の制度化に集中し、場の入口と束→場回帰が5段階モデル側の保持論点として残る |
 | D22 経営学 | codex-parallel | cross-insight | [deepdive/codex-parallel-deepdive/D22-business-management/cross-insight/output.md](deepdive/codex-parallel-deepdive/D22-business-management/cross-insight/output.md) | 縁は関係網・未決定性・渦駆動を備えた界面で、束は継承可能な残存構造として読むと D22 横断の精度が上がる |
 | D23 発達心理学 | codex-parallel | insight1 | [deepdive/codex-parallel-deepdive/D23-developmental-psychology/insight1/output.md](deepdive/codex-parallel-deepdive/D23-developmental-psychology/insight1/output.md) | 縁は三項的・媒介的な界面として最も強く、束は個人内安定より移送・慣行化で測るべきだと整理 |

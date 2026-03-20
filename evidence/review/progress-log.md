@@ -17,12 +17,12 @@
   - `evidence/evidence-chemistry.md` — EV-CH-001 を Level 2 に昇格
   - `evidence/review/memo-level2.md` — D03完了チェック、横断的気づきK-01~K-03、保持論点H-04~H-05追記
 - **横断的気づき**:
-  - K-01: 遅延負帰還≈Withhold のフラクタル性（6領域確認）
+  - K-01: 遅延負帰還≈抱持 のフラクタル性（6領域確認）
   - K-02: 「閾値」概念の導入示唆（Hopf分岐→D2）
   - K-03: Belousov拒絶物語＝D1最良フック
 - **保持論点**:
   - H-04: [P]/[M]境界管理の徹底
-  - H-05: 「意識のないWithhold」概念の可否
+  - H-05: 「意識のない抱持」概念の可否
 - **未sync**: ローカルのみ。GitHub push待ち
 
 ---
