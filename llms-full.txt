@@ -1,0 +1,120 @@
+# creation-space (Full Reference)
+
+> 軽量版: [llms.txt](https://raw.githubusercontent.com/uminomae/creation-space/main/llms.txt)
+> 安全ガイダンス（必読）: llms.txt の §1-§3 を先に確認してください。
+
+## Project Summary
+
+「創造とは何か」を探索するプロジェクト。30の学術領域から創造プロセスの構造類似パターンを収集・分析し、創造の5段階モデル（場→波→縁→渦→束）の妥当性を検証する。特定の思想体系に依存しない独立モジュール。
+
+詳細: [Project Charter](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/PROJECT.md)
+
+## Five-Stage Model (5段階モデル)
+
+| 段階 | 英語 | 概要 |
+|---|---|---|
+| 場 | Ba | まだ分化していない場 |
+| 波 | Wave | 差異やゆらぎが立ち上がる段階 |
+| 縁 | En | 関係が境界として働く段階 |
+| 渦 | Vortex | 局所的なまとまりが凝集する段階 |
+| 束 | Soku | 構造として定着する段階 |
+
+このモデルは記述的であり、「創造はこう起きている」という観察の構造化を目指す。規範モデルではない。
+
+## Knowledge Base
+
+| ファイル | 内容 |
+|---|---|
+| [five-stages-guide.md](https://raw.githubusercontent.com/uminomae/creation-space/main/knowledge/five-stages-guide.md) | 5段階モデル解説。各段階の読み方・遷移条件・よくある誤読 |
+| [glossary.md](https://raw.githubusercontent.com/uminomae/creation-space/main/knowledge/glossary.md) | 用語集。5段階モデルと関連概念の定義 |
+| [five-stages.md (schema)](https://raw.githubusercontent.com/uminomae/creation-space/main/knowledge/schema/five-stages.md) | 5段階の定義テーブル・各段階の詳細・対応概念 |
+| [academic-domains.md (schema)](https://raw.githubusercontent.com/uminomae/creation-space/main/knowledge/schema/academic-domains.md) | D01-D30 全学問領域マスターリスト |
+
+## Evidence: 30 Domain Reports
+
+30の学術領域それぞれの構造類似調査データ。各ファイルには候補理論、5段階との対応分析、調査ラベルが含まれる。
+
+| D# | 領域 | レポート |
+|---|---|---|
+| D01 | 数学 | [evidence-D01-mathematics.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D01-mathematics.md) |
+| D02 | 物理学 | [evidence-D02-physics.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D02-physics.md) |
+| D03 | 化学 | [evidence-D03-chemistry.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D03-chemistry.md) |
+| D04 | 進化生物学 | [evidence-D04-evolutionary-biology.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D04-evolutionary-biology.md) |
+| D05 | 地球科学 | [evidence-D05-earth-science.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D05-earth-science.md) |
+| D06 | 天文学 | [evidence-D06-astronomy.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D06-astronomy.md) |
+| D07 | 工学・情報科学 | [evidence-D07-engineering.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D07-engineering.md) |
+| D08 | 神経科学 | [evidence-D08-neuroscience.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D08-neuroscience.md) |
+| D09 | 生命科学 | [evidence-D09-life-sciences.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D09-life-sciences.md) |
+| D10 | 臨床医学・免疫学 | [evidence-D10-clinical-medicine.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D10-clinical-medicine.md) |
+| D11 | 薬学 | [evidence-D11-pharmacy.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D11-pharmacy.md) |
+| D12 | 農学・生態学 | [evidence-D12-agriculture.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D12-agriculture.md) |
+| D13 | 哲学 | [evidence-D13-philosophy.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D13-philosophy.md) |
+| D14 | 心理学 | [evidence-D14-psychology.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D14-psychology.md) |
+| D15 | 美学 | [evidence-D15-aesthetics.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D15-aesthetics.md) |
+| D16 | 歴史学 | [evidence-D16-history.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D16-history.md) |
+| D17 | 言語学 | [evidence-D17-linguistics.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D17-linguistics.md) |
+| D18 | 社会学 | [evidence-D18-sociology.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D18-sociology.md) |
+| D19 | 文学 | [evidence-D19-literary-studies.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D19-literary-studies.md) |
+| D20 | 法学・政治学 | [evidence-D20-law-politics.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D20-law-politics.md) |
+| D21 | 経済学 | [evidence-D21-economics.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D21-economics.md) |
+| D22 | 経営学 | [evidence-D22-business-management.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D22-business-management.md) |
+| D23 | 発達心理学 | [evidence-D23-developmental-psychology.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D23-developmental-psychology.md) |
+| D24 | 宗教学 | [evidence-D24-religion.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D24-religion.md) |
+| D25 | 人類学 | [evidence-D25-anthropology.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D25-anthropology.md) |
+| D26 | 音楽学 | [evidence-D26-musicology.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D26-musicology.md) |
+| D27 | 建築・デザイン学 | [evidence-D27-architecture.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D27-architecture.md) |
+| D28 | 舞台芸術 | [evidence-D28-performing-arts.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D28-performing-arts.md) |
+| D29 | 複雑系科学 | [evidence-D29-complexity-science.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D29-complexity-science.md) |
+| D30 | 伝統知 | [evidence-D30-traditional-knowledge.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D30-traditional-knowledge.md) |
+
+## Phase 8: Cross-Domain Exploration (横断分析)
+
+30領域を横断して抽出された5つのテーマ。各テーマは複数領域にまたがるパターンを分析している。
+
+| ID | テーマ | 対象領域数 | レポート |
+|---|---|---|---|
+| T1 | 縁の類型学と統一分類 | 26 | [theme-edge-typology.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/investigation/phase8/themes/theme-edge-typology.md) |
+| T5 | 再循環メカニズム（束→場の還流） | 19 | [theme-recirculation.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/investigation/phase8/themes/theme-recirculation.md) |
+| T6 | 場の多層性（原初的/循環的/存在論的） | 18 | [theme-field-layers.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/investigation/phase8/themes/theme-field-layers.md) |
+| T7+T9 | 盲点と反例 — 5段階が記述できないもの | 13+11 | [theme-blind-spots.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/investigation/phase8/themes/theme-blind-spots.md) |
+| T2 | 閾値構造と縁→渦遷移の条件 | 11 | [theme-threshold.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/investigation/phase8/themes/theme-threshold.md) |
+
+テーマレジストリ: [theme-registry.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/investigation/phase8/theme-registry.md)
+
+## Deep Research Sources
+
+GPT Deep Research による30領域の一次ソース集:
+[Deep Research Index](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/202602-deep-research-30domains-gpt/README.md)
+
+## How to Use (活用例)
+
+### 1. 5段階モデルで自分の領域を分析する
+
+1. [five-stages-guide.md](https://raw.githubusercontent.com/uminomae/creation-space/main/knowledge/five-stages-guide.md) でモデルの全体像を把握する
+2. 自分の専門に近い領域のレポート（上記30領域）を読み、構造類似の探し方を確認する
+3. 自分の領域で「場→波→縁→渦→束」に対応するプロセスを探す
+
+### 2. 横断テーマから着想を得る
+
+Phase 8 の5つのテーマは、単一領域では見えにくいパターンを浮かび上がらせる。例えば:
+- 「縁の類型学」(T1) は、異なる領域で「境界」がどう機能しているかを26領域分比較している
+- 「盲点と反例」(T7+T9) は、モデルが記述できないケースを正直に収集している
+
+### 3. ナレッジベースとして LLM に読ませる
+
+LLM のプロジェクト知識として使う場合:
+1. まず `llms.txt` を読ませて安全ガイダンスを確認する
+2. `knowledge/glossary.md` と `knowledge/five-stages-guide.md` を読ませて用語とモデルを把握させる
+3. 必要な領域のレポートを選択的に読ませる
+
+### 4. 調査方法論を参考にする
+
+30領域を横断調査するプロセス自体が公開されている:
+- [PROJECT.md §3](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/PROJECT.md) に調査方法の変遷と改善の記録がある
+- Phase 5-9 の統一調査プロトコルは [PROTOCOL.md](https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/investigation/PROTOCOL.md) に定義されている
+
+## License & Attribution
+
+著者: pjdhiro
+ホームページ: https://uminomae.github.io/pjdhiro/
+リポジトリ: https://github.com/uminomae/creation-space

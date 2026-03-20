@@ -17,6 +17,8 @@ export const GUIDES_MANIFEST_URL = `${PJDHIRO_CREATION_RAW}/manifests/guides.jso
 
 export const SURVEY_MANIFEST_URL = `${PJDHIRO_CREATION_RAW}/manifests/survey.json`;
 
+export const PHASE8_THEMES_MANIFEST_URL = `${PJDHIRO_CREATION_RAW}/manifests/phase8-themes.json`;
+
 export const STATUS_REPORT_LINKS = {
     ja: {
         mdUrl: `${PJDHIRO_CREATION_RAW}/survey/ja/md/survey-status.md`,

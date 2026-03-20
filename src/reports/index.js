@@ -5,6 +5,7 @@ import {
     DEFAULT_REPORTS_DATA_URL,
     DEFAULT_REPORTS_MD_ASSET_BASE,
     GUIDES_MANIFEST_URL,
+    PHASE8_THEMES_MANIFEST_URL,
     countReportsByProgressLevel,
     loadGuidesGeneratedAt,
     loadReportsData,
@@ -20,6 +21,7 @@ import {
 } from './history.js';
 import { createReportsModalController } from './modal.js';
 import { createReportsRenderer, getDomainReportTitle, getReportsStrings } from './render.js';
+import { createPhase8Renderer, loadPhase8Themes } from './phase8.js';
 
 const state = {
     lang: 'ja',
@@ -38,6 +40,8 @@ const state = {
     mdRequestId: 0,
     quickLinksBound: false,
     reportsReady: false,
+    phase8Themes: [],
+    phase8GeneratedAt: '',
     activeDomainId: '',
     activeDomainHistoryMode: '',
     pendingDomainId: '',
@@ -59,6 +63,9 @@ const state = {
         mdModalMeta: null,
         mdModalContent: null,
         mdOpenPdf: null,
+        phase8Heading: null,
+        phase8Description: null,
+        phase8Grid: null,
     },
 };
 
@@ -80,6 +87,11 @@ const renderer = createReportsRenderer({
         assetBaseUrl: state.assetBaseUrl,
         assetMdBaseUrl: state.assetMdBaseUrl,
     }),
+});
+
+const phase8Renderer = createPhase8Renderer({
+    openMarkdownModal: (...args) => modalController.openMarkdownModal(...args),
+    getLang: () => state.lang,
 });
 
 historyController = createReportsHistoryController({
@@ -160,6 +172,7 @@ export async function initReports({
     assetMdBaseUrl = DEFAULT_REPORTS_MD_ASSET_BASE,
 } = {}) {
     renderer.cacheDom();
+    phase8Renderer.cacheDom();
     renderer.bindUiEvents();
     historyController.bindHistorySyncEvents();
 
@@ -208,6 +221,18 @@ export async function initReports({
 
     renderer.renderReports();
 
+    // Load Phase 8 cross-domain themes
+    try {
+        const phase8Data = await loadPhase8Themes();
+        state.phase8Themes = phase8Data.themes;
+        state.phase8GeneratedAt = phase8Data.generatedAt;
+    } catch (error) {
+        console.warn('[reports] phase8 themes load failed:', error);
+        state.phase8Themes = [];
+    }
+    phase8Renderer.renderThemes(state.phase8Themes);
+
+
     if (!state.loadError) {
         historyController.syncDomainModalWithUrl({
             historyState: window.history?.state,
@@ -220,6 +245,7 @@ export async function initReports({
 export function setReportsLanguage(lang) {
     state.lang = normalizeLang(lang);
     renderer.renderReports();
+    phase8Renderer.renderThemes(state.phase8Themes);
 }
 
 export {
@@ -228,4 +254,5 @@ export {
     DEFAULT_REPORTS_DATA_URL,
     DEFAULT_REPORTS_MD_ASSET_BASE,
     GUIDES_MANIFEST_URL,
+    PHASE8_THEMES_MANIFEST_URL,
 };

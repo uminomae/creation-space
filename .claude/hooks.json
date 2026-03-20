@@ -113,6 +113,10 @@
           {
             "type": "command",
             "command": ".claude/hooks/quality-level-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/backslash-bang-guard.sh"
           }
         ]
       },
@@ -145,6 +149,10 @@
           {
             "type": "command",
             "command": ".claude/hooks/domains-json-sync-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash ~/dev/kesson-driven-thinking/scripts/validate-manifest-sync.sh"
           }
         ]
       }
