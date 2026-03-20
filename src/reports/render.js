@@ -8,7 +8,6 @@ import {
     getDefaultProgressTaxonomyEntry,
     hasText,
     normalizeProgressLevelId,
-    resolveDomainThumbnailUrl,
     resolveLocalizedSources,
 } from './data.js';
 import { DOMAIN_HISTORY_MODE_PUSH } from './history.js';
@@ -464,16 +463,6 @@ export function createReportsRenderer({
         nameNode.className = 'reports-domain-item-name';
         nameNode.title = domainLabel;
         nameNode.textContent = domainLabel;
-
-        const thumbnailUrl = resolveDomainThumbnailUrl(report);
-        if (thumbnailUrl) {
-            const thumbImg = document.createElement('img');
-            thumbImg.className = 'reports-domain-item-thumbnail';
-            thumbImg.src = thumbnailUrl;
-            thumbImg.alt = `${domainLabel} structure diagram`;
-            thumbImg.loading = 'lazy';
-            tile.appendChild(thumbImg);
-        }
 
         head.appendChild(idNode);
         head.appendChild(statusNode);
