@@ -134,7 +134,7 @@ export function createReportsModalController({
                     return `<img ${pre}src="${absUrl}"`;
                 });
             }
-            const html = DOMPurify.sanitize(parsedHtml);
+            const html = DOMPurify.sanitize(parsedHtml, { FORBID_TAGS: ['a'] });
             const availablePdfUrl = await availablePdfUrlPromise;
 
             if (requestId !== state.mdRequestId) return;
@@ -174,11 +174,7 @@ export function createReportsModalController({
                             document.body.appendChild(overlay);
                             return;
                         }
-                        const link = event.target.closest('.md-body a');
-                        if (link) {
-                            event.preventDefault();
-                            window.open(link.href, '_blank');
-                        }
+
                     });
                 }
             }
