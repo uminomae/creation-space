@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <marker id="arrowhead19" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666666"/>
+    </marker>
+    <style>
+      .title { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 24px; fill: #2C2C2C; font-weight: 600; }
+      .stage-label { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 14px; fill: #FAFAF8; font-weight: 600; }
+      .stage-sub { font-family: 'Inter', 'Helvetica Neue', sans-serif; font-size: 11px; fill: #FAFAF8; }
+      .concept { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 12px; fill: #2C2C2C; }
+      .summary-title { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 14px; fill: #2C2C2C; font-weight: 600; }
+      .summary { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 12px; fill: #666666; }
+      .strength-label { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 11px; fill: #666666; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="#FAFAF8" rx="0"/>
+  <rect x="20" y="20" width="760" height="560" fill="none" stroke="#E0DDD8" stroke-width="1" rx="8"/>
+
+  <!-- Title -->
+  <text x="400" y="60" text-anchor="middle" class="title">文学研究 (D19) — 5段階モデルとの構造対応図</text>
+
+  <!-- Stage boxes -->
+  <!-- 場 Field -->
+  <rect x="48" y="95" width="120" height="65" rx="8" fill="#8B8682"/>
+  <text x="108" y="122" text-anchor="middle" class="stage-label">場（Field）</text>
+  <text x="108" y="140" text-anchor="middle" class="stage-sub">未分化の初期条件</text>
+
+  <!-- Arrow 場→波 -->
+  <line x1="168" y1="127" x2="192" y2="127" stroke="#666666" stroke-width="2" marker-end="url(#arrowhead19)"/>
+
+  <!-- 波 Wave -->
+  <rect x="196" y="95" width="120" height="65" rx="8" fill="#5B8DB8"/>
+  <text x="256" y="122" text-anchor="middle" class="stage-label">波（Wave）</text>
+  <text x="256" y="140" text-anchor="middle" class="stage-sub">差異・揺れの前景化</text>
+
+  <!-- Arrow 波→縁 -->
+  <line x1="316" y1="127" x2="340" y2="127" stroke="#666666" stroke-width="2" marker-end="url(#arrowhead19)"/>
+
+  <!-- 縁 Edge -->
+  <rect x="344" y="95" width="120" height="65" rx="8" fill="#D4A857"/>
+  <text x="404" y="122" text-anchor="middle" class="stage-label">縁（Edge）</text>
+  <text x="404" y="140" text-anchor="middle" class="stage-sub">関係・境界の編成</text>
+
+  <!-- Arrow 縁→渦 -->
+  <line x1="464" y1="127" x2="488" y2="127" stroke="#666666" stroke-width="2" marker-end="url(#arrowhead19)"/>
+
+  <!-- 渦 Vortex -->
+  <rect x="492" y="95" width="120" height="65" rx="8" fill="#C45B4D"/>
+  <text x="552" y="122" text-anchor="middle" class="stage-label">渦（Vortex）</text>
+  <text x="552" y="140" text-anchor="middle" class="stage-sub">新たな形の成立</text>
+
+  <!-- Arrow 渦→束 -->
+  <line x1="612" y1="127" x2="636" y2="127" stroke="#666666" stroke-width="2" marker-end="url(#arrowhead19)"/>
+
+  <!-- 束 Bundle -->
+  <rect x="640" y="95" width="120" height="65" rx="8" fill="#5B8B6A"/>
+  <text x="700" y="122" text-anchor="middle" class="stage-label">束（Bundle）</text>
+  <text x="700" y="140" text-anchor="middle" class="stage-sub">持続的構造</text>
+
+  <!-- Concepts under each stage -->
+  <!-- 場 concepts (strong = solid 2px) -->
+  <line x1="108" y1="160" x2="108" y2="185" stroke="#2C2C2C" stroke-width="2"/>
+  <text x="108" y="200" text-anchor="middle" class="concept">自動化した知覚</text>
+  <text x="108" y="218" text-anchor="middle" class="concept">(Shklovsky)</text>
+  <text x="108" y="240" text-anchor="middle" class="concept">期待の地平</text>
+  <text x="108" y="258" text-anchor="middle" class="concept">(Jauss/Iser)</text>
+  <text x="108" y="280" text-anchor="middle" class="concept">先行者の作品群</text>
+  <text x="108" y="298" text-anchor="middle" class="concept">(Bloom)</text>
+
+  <!-- 波 concepts (strong = solid 2px) -->
+  <line x1="256" y1="160" x2="256" y2="185" stroke="#2C2C2C" stroke-width="2"/>
+  <text x="256" y="200" text-anchor="middle" class="concept">知覚の鈍化への気づき</text>
+  <text x="256" y="218" text-anchor="middle" class="concept">(Shklovsky)</text>
+  <text x="256" y="240" text-anchor="middle" class="concept">美的距離・期待の裏切り</text>
+  <text x="256" y="258" text-anchor="middle" class="concept">(Jauss)</text>
+  <text x="256" y="280" text-anchor="middle" class="concept">声の対立・アイロニー</text>
+  <text x="256" y="298" text-anchor="middle" class="concept">(Bakhtin)</text>
+
+  <!-- 縁 concepts (strong = solid 2px) -->
+  <line x1="404" y1="160" x2="404" y2="185" stroke="#2C2C2C" stroke-width="2"/>
+  <text x="404" y="200" text-anchor="middle" class="concept">異化装置の導入</text>
+  <text x="404" y="218" text-anchor="middle" class="concept">(Shklovsky)</text>
+  <text x="404" y="240" text-anchor="middle" class="concept">空所の能動的補完</text>
+  <text x="404" y="258" text-anchor="middle" class="concept">(Iser)</text>
+  <text x="404" y="280" text-anchor="middle" class="concept">創造的誤読</text>
+  <text x="404" y="298" text-anchor="middle" class="concept">(Bloom)</text>
+
+  <!-- 渦 concepts (strong = solid 2px) -->
+  <line x1="552" y1="160" x2="552" y2="185" stroke="#2C2C2C" stroke-width="2"/>
+  <text x="552" y="200" text-anchor="middle" class="concept">遅延された知覚の回復</text>
+  <text x="552" y="218" text-anchor="middle" class="concept">(Shklovsky)</text>
+  <text x="552" y="240" text-anchor="middle" class="concept">新しい意味の成立</text>
+  <text x="552" y="258" text-anchor="middle" class="concept">(Jauss/Iser)</text>
+  <text x="552" y="280" text-anchor="middle" class="concept">多声的秩序の形成</text>
+  <text x="552" y="298" text-anchor="middle" class="concept">(Bakhtin)</text>
+
+  <!-- 束 concepts (strong = solid 2px) -->
+  <line x1="700" y1="160" x2="700" y2="185" stroke="#2C2C2C" stroke-width="2"/>
+  <text x="700" y="200" text-anchor="middle" class="concept">手法の規範化・再自動化</text>
+  <text x="700" y="218" text-anchor="middle" class="concept">(Shklovsky)</text>
+  <text x="700" y="240" text-anchor="middle" class="concept">文学史的評価の定着</text>
+  <text x="700" y="258" text-anchor="middle" class="concept">(Jauss)</text>
+  <text x="700" y="280" text-anchor="middle" class="concept">奉献と制度化</text>
+  <text x="700" y="298" text-anchor="middle" class="concept">(Bourdieu)</text>
+
+  <!-- Strength legend -->
+  <rect x="48" y="330" width="712" height="1" fill="#E0DDD8"/>
+  <text x="60" y="358" class="strength-label">対応の強さ:</text>
+  <line x1="150" y1="354" x2="180" y2="354" stroke="#2C2C2C" stroke-width="2"/>
+  <text x="185" y="358" class="strength-label">強い対応</text>
+  <line x1="260" y1="354" x2="290" y2="354" stroke="#666666" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="295" y="358" class="strength-label">部分的対応</text>
+  <line x1="380" y1="354" x2="410" y2="354" stroke="#D0D0D0" stroke-width="1" stroke-dasharray="2,3"/>
+  <text x="415" y="358" class="strength-label">弱い対応</text>
+
+  <!-- Summary -->
+  <rect x="48" y="378" width="712" height="180" rx="6" fill="none" stroke="#E0DDD8" stroke-width="1"/>
+  <text x="68" y="402" class="summary-title">全体の対応評価サマリ</text>
+
+  <text x="68" y="428" class="summary">対応度: 全体として有力（Shklovsky, Jauss/Iser, Bakhtinが確定に近い対応）</text>
+
+  <text x="68" y="454" class="summary">強い対応: Shklovsky異化、Jauss/Iser受容美学、Bakhtin対話性、Bloom影響の不安、Bourdieu文学場</text>
+
+  <text x="68" y="478" class="summary">特徴1: 「縁」が極めて多様 — 10理論に10種類の異なる縁の型（異化装置、空所補完、創造的誤読等）</text>
+
+  <text x="68" y="502" class="summary">特徴2: 知覚・テクスト・受容・制度の4スケールで対応を確認 — スケール非依存性の好材料</text>
+
+  <text x="68" y="526" class="summary">特徴3: 束→場の循環が複数理論で明示 — Shklovskyの再自動化、Bloomの新作品が後続者の場に</text>
+
+  <text x="68" y="550" class="summary">条件付き: Todorov（原典照合未完了）、Frye（体系の恣意性批判あり）</text>
+</svg>
