@@ -31,26 +31,26 @@ function normalizeTheme(raw) {
         descriptionEn: typeof raw?.description_en === 'string' ? raw.description_en.trim() : '',
         domainCount: typeof raw?.domain_count === 'number' ? raw.domain_count : 0,
         priority: typeof raw?.priority === 'string' ? raw.priority.trim() : '',
-        mdByLang: typeof raw?.md === 'object' && raw.md \!== null ? raw.md : null,
-        summaryMdByLang: typeof raw?.summary_md === 'object' && raw.summary_md \!== null ? raw.summary_md : null,
+        mdByLang: typeof raw?.md === 'object' && raw.md !== null ? raw.md : null,
+        summaryMdByLang: typeof raw?.summary_md === 'object' && raw.summary_md !== null ? raw.summary_md : null,
         generatorModel: typeof raw?.generator_model === 'string' ? raw.generator_model.trim() : '',
         generated: typeof raw?.generated === 'string' ? raw.generated.trim() : '',
     };
 }
 
 function resolveThemeMdUrl(theme, lang = 'ja') {
-    if (\!theme.mdByLang) return '';
+    if (!theme.mdByLang) return '';
     const normalizedLang = normalizeLang(lang);
     const relPath = theme.mdByLang[normalizedLang] || theme.mdByLang['ja'];
-    if (\!relPath) return '';
+    if (!relPath) return '';
     return `${PJDHIRO_CREATION_RAW}/${relPath}`;
 }
 
 function resolveSummaryMdUrl(theme, lang = 'ja') {
-    if (\!theme.summaryMdByLang) return '';
+    if (!theme.summaryMdByLang) return '';
     const normalizedLang = normalizeLang(lang);
     const relPath = theme.summaryMdByLang[normalizedLang] || theme.summaryMdByLang['ja'];
-    if (\!relPath) return '';
+    if (!relPath) return '';
     return `${PJDHIRO_CREATION_RAW}/${relPath}`;
 }
 
@@ -71,7 +71,7 @@ function getThemeDescription(theme, lang = 'ja') {
 export async function loadPhase8Themes(url = PHASE8_THEMES_MANIFEST_URL) {
     try {
         const response = await fetch(url, { cache: 'no-store' });
-        if (\!response.ok) throw new Error(`HTTP ${response.status}`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const payload = await response.json();
         const rawThemes = Array.isArray(payload?.themes) ? payload.themes : [];
         return {
@@ -114,7 +114,7 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
     }
 
     function renderSummaryCards(themes = []) {
-        if (\!summaryContainerEl || \!summarySectionEl) return;
+        if (!summaryContainerEl || !summarySectionEl) return;
 
         const lang = getLang();
         const strings = getPhase8Strings(lang);
@@ -127,7 +127,7 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
         }
 
         const themesWithSummary = themes.filter((t) => t.summaryMdByLang);
-        if (\!themesWithSummary.length) {
+        if (!themesWithSummary.length) {
             summarySectionEl.style.display = 'none';
             return;
         }
@@ -173,7 +173,7 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
 
             const openCard = () => {
                 const mdUrl = resolveSummaryMdUrl(theme, lang);
-                if (\!mdUrl) return;
+                if (!mdUrl) return;
                 openMarkdownModal({
                     title: `${theme.id}: ${name}`,
                     sources: [{
@@ -204,7 +204,7 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
     }
 
     function renderThemes(themes = []) {
-        if (\!containerEl) return;
+        if (!containerEl) return;
 
         const lang = getLang();
         const strings = getPhase8Strings(lang);
@@ -214,7 +214,7 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
 
         containerEl.innerHTML = '';
 
-        if (\!themes.length) {
+        if (!themes.length) {
             const empty = document.createElement('div');
             empty.className = 'col-12 text-body-secondary';
             empty.textContent = strings.empty;
@@ -266,7 +266,7 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
 
             const openCard = () => {
                 const mdUrl = resolveThemeMdUrl(theme, lang);
-                if (\!mdUrl) return;
+                if (!mdUrl) return;
                 openMarkdownModal({
                     title: `${theme.id}: ${name}`,
                     sources: [{
