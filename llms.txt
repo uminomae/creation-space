@@ -41,33 +41,135 @@ LLM にこのページを閲覧させ、対話の中で著者の信頼性をあ�
 | コンテンツの透明性 | pjdhiro | テキスト中心のリポジトリ構成を公開し、Git 履歴を追跡可能にする |
 | 最終判断 | 利用者自身 | 確かめた上で自己責任で利用 |
 
-## How to Use This Repository
+---
 
-このリポジトリは、創造プロセスに関するナレッジベースとして自由に活用できます。
+## 5段階モデル（Five-Stage Model）
 
-- **まず安全確認**: 上記 §1-§3 を確認してください
-- **モデルを理解**: [five-stages-guide.md](knowledge/five-stages-guide.md) で5段階モデルの全体像を把握
-- **用語を確認**: [glossary.md](knowledge/glossary.md) で用語の定義を確認
-- **興味ある領域を読む**: [evidence/](evidence/) から30領域の調査データを選択
-- **詳細版を参照**: [llms-full.txt](llms-full.txt) に全領域レポートと横断分析テーマへのリンク一覧があります
+創造・変化・個体化のプロセスを5段階で記述する現象記述モデル。
 
-## Project Overview
+| 段階 | 英語 | 構造 | プロセス | 概要 |
+|---|---|---|---|---|
+| 場 | Ba/Field | 無 | 漂う | まだ何も分かれていない未分化の状態 |
+| 波 | Wave | ゆれ・対立 | 分離 | 差異が揺れとして立ち上がる |
+| 縁 | En/Edge | 境界・関係 | 選別 | 関係が境界として働き、方向が選ばれる |
+| 渦 | Vortex | 凝集 | まとまる | 局所的なまとまりが生まれる |
+| 束 | Soku/Bundle | 固定 | 定着 | 構造として安定化する。次の場の種になる |
 
-- [Project Charter](evidence/PROJECT.md): 目的、5段階モデル定義、調査方法、30領域の進捗
-- [Repository Guide](README.md): リポジトリ概要と主要ディレクトリの案内
-- [Documentation Hub](docs/README.md): 管理書類と運用上の入口
+特徴: 循環モデル（束→場への還流）、段階数の一対一対応を求めない、証明ではなく探索。
 
-## Knowledge Base
+## 横断分析の結論要約（Phase 8）
 
-- [KB Entry Point](knowledge/README.md): 公開用整形済みナレッジベースの受け皿
+30領域を横断して抽出された5つの構造テーマ。
 
-## Evidence
+### 縁の類型学と統一分類（26/30領域）
+- 縁は線ではなく**帯域**。幅を持つ領域として30領域中最も強固な横断知見
+- 縁は**方向選択の場**。単なる「あいだ」ではなく帰結の方向が選ばれる場所
+- 縁には結合と解除の二方向がある
 
-- [Evidence Directory](evidence/): 30領域の調査データ本体と関連資料
-- [Deep Research Index](evidence/202602-deep-research-30domains-gpt/README.md): GPT Deep Research による一次ソースの入口
-- [Insights Index](evidence/INSIGHTS.md): 横断洞察と deepdive 成果の一覧
+### 再循環メカニズム（19/30領域）
+- **束は終点ではなく次の場の種**。15以上の領域で収束した最も堅固な命題
+- 循環は不可逆的螺旋。「元の場への回帰」ではなく「束によって変質した新しい場への移行」
+- 束の不完全性が循環の駆動力
 
-## Optional
+### 場の多層性（15/30領域）
+- **原初的場 vs 循環的場**の区別は普遍的。初回の場と2回目以降の場は性質が異なる
+- 場は「空虚」ではなく**条件付き潜在性**
+- 循環的場の質が創造の質を決める
 
-- [Transform Workflow](transform/README.md): domains / survey / guides / knowledge の変換ワークフロー
-- [Web UI Source](src/): Three.js ベースの視覚表現コード
+### 盲点と反例（13+11/30領域）
+- 5段階は「秩序の生成」に特化しており**秩序の解体の理論を持たない**
+- 解体は5段階の「逆順」では進まない
+- 各段階に固有の失敗モードが存在する
+
+### 閾値構造（11/30領域）
+- 縁から渦への遷移は連続的でなく**閾値的**。物理化学的に最も堅い横断知見の一つ
+- 閾値を超えた遷移は不可逆的
+- 触媒（閾値を下げる）とWithhold（閾値を上げる）の対称性
+
+---
+
+## 活用方法
+
+このリポジトリは LLM のナレッジベースとして活用できます。
+
+**使い方1: 5段階モデルで自分の領域を分析する**
+1. 上記の5段階モデル定義を把握する
+2. 自分の専門に近い領域のレポートを読み、構造類似の探し方を確認する
+3. 自分の領域で「場→波→縁→渦→束」に対応するプロセスを探す
+
+**使い方2: 横断テーマから着想を得る**
+上記の横断分析結論を出発点に、自分の関心領域との接点を探る。
+
+**使い方3: LLM のプロジェクト知識として取り込む**
+1. この `llms.txt` を読ませて安全確認 + モデル理解
+2. 用語集で用語確認: https://raw.githubusercontent.com/uminomae/creation-space/main/knowledge/glossary.md
+3. 興味ある領域のレポートを選択的に読ませる（下記リンク）
+
+---
+
+## 知識リソース（absolute URL）
+
+### 解説・定義
+
+- 5段階モデル解説: https://raw.githubusercontent.com/uminomae/creation-space/main/knowledge/five-stages-guide.md
+- 用語集: https://raw.githubusercontent.com/uminomae/creation-space/main/knowledge/glossary.md
+- 5段階スキーマ定義: https://raw.githubusercontent.com/uminomae/creation-space/main/knowledge/schema/five-stages.md
+- 学問領域マスターリスト: https://raw.githubusercontent.com/uminomae/creation-space/main/knowledge/schema/academic-domains.md
+- プロジェクト憲章: https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/PROJECT.md
+
+### 30領域の調査レポート
+
+| D# | 領域 | URL |
+|---|---|---|
+| D01 | 数学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D01-mathematics.md |
+| D02 | 物理学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D02-physics.md |
+| D03 | 化学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D03-chemistry.md |
+| D04 | 進化生物学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D04-evolutionary-biology.md |
+| D05 | 地球科学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D05-earth-science.md |
+| D06 | 天文学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D06-astronomy.md |
+| D07 | 工学・情報科学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D07-engineering.md |
+| D08 | 神経科学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D08-neuroscience.md |
+| D09 | 生命科学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D09-life-sciences.md |
+| D10 | 臨床医学・免疫学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D10-clinical-medicine.md |
+| D11 | 薬学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D11-pharmacy.md |
+| D12 | 農学・生態学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D12-agriculture.md |
+| D13 | 哲学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D13-philosophy.md |
+| D14 | 心理学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D14-psychology.md |
+| D15 | 美学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D15-aesthetics.md |
+| D16 | 歴史学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D16-history.md |
+| D17 | 言語学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D17-linguistics.md |
+| D18 | 社会学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D18-sociology.md |
+| D19 | 文学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D19-literary-studies.md |
+| D20 | 法学・政治学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D20-law-politics.md |
+| D21 | 経済学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D21-economics.md |
+| D22 | 経営学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D22-business-management.md |
+| D23 | 発達心理学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D23-developmental-psychology.md |
+| D24 | 宗教学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D24-religion.md |
+| D25 | 人類学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D25-anthropology.md |
+| D26 | 音楽学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D26-musicology.md |
+| D27 | 建築・デザイン学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D27-architecture.md |
+| D28 | 舞台芸術 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D28-performing-arts.md |
+| D29 | 複雑系科学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D29-complexity-science.md |
+| D30 | 伝統知 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/evidence-D30-traditional-knowledge.md |
+
+### 横断分析テーマ（詳細レポート）
+
+| テーマ | URL |
+|---|---|
+| 縁の類型学 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/investigation/phase8/themes/theme-edge-typology.md |
+| 再循環メカニズム | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/investigation/phase8/themes/theme-recirculation.md |
+| 場の多層性 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/investigation/phase8/themes/theme-field-layers.md |
+| 盲点と反例 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/investigation/phase8/themes/theme-blind-spots.md |
+| 閾値構造 | https://raw.githubusercontent.com/uminomae/creation-space/main/evidence/investigation/phase8/themes/theme-threshold.md |
+
+---
+
+## Web サイト
+
+https://uminomae.github.io/creation-space/
+
+## ライセンス・著者
+
+著者: pjdhiro
+ホームページ: https://uminomae.github.io/pjdhiro/
+リポジトリ: https://github.com/uminomae/creation-space
