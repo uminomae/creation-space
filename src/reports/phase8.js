@@ -157,24 +157,10 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
 
             const name = getThemeDisplayName(theme, lang);
 
-            card.setAttribute('aria-label', `${theme.id} ${name} - ${strings.summaryLabel || 'Summary'}`);
+            card.setAttribute('aria-label', name);
 
             const body = document.createElement('div');
             body.className = 'card-body p-2 p-md-3 d-flex flex-column gap-1';
-
-            const head = document.createElement('div');
-            head.className = 'd-flex flex-wrap align-items-start justify-content-between gap-2';
-
-            const idNode = document.createElement('span');
-            idNode.className = 'badge rounded-pill bg-warning bg-opacity-25 text-warning-emphasis';
-            idNode.textContent = theme.id;
-
-            const summaryBadge = document.createElement('span');
-            summaryBadge.className = 'badge rounded-pill bg-success bg-opacity-25 text-success-emphasis';
-            summaryBadge.textContent = strings.summaryBadge || 'Summary';
-
-            head.appendChild(idNode);
-            head.appendChild(summaryBadge);
 
             const titleNode = document.createElement('h4');
             titleNode.className = 'h6 mb-0 text-light';
@@ -184,7 +170,7 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
                 const mdUrl = resolveSummaryMdUrl(theme, lang);
                 if (!mdUrl) return;
                 openMarkdownModal({
-                    title: `${theme.id}: ${name}`,
+                    title: name,
                     sources: [{
                         mdUrl,
                         pdfUrl: '',
@@ -202,7 +188,6 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
                 }
             });
 
-            body.appendChild(head);
             body.appendChild(titleNode);
             card.appendChild(body);
             col.appendChild(card);
@@ -244,26 +229,11 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
 
             const name = getThemeDisplayName(theme, lang);
             const description = getThemeDescription(theme, lang);
-            const domainLabel = strings.cardDomains.replace('{count}', String(theme.domainCount));
 
-            card.setAttribute('aria-label', `${theme.id} ${name}`);
+            card.setAttribute('aria-label', name);
 
             const body = document.createElement('div');
             body.className = 'card-body p-2 p-md-3 d-flex flex-column gap-1';
-
-            const head = document.createElement('div');
-            head.className = 'd-flex flex-wrap align-items-start justify-content-between gap-2';
-
-            const idNode = document.createElement('span');
-            idNode.className = 'badge rounded-pill bg-info bg-opacity-25 text-info-emphasis';
-            idNode.textContent = theme.id;
-
-            const domainBadge = document.createElement('span');
-            domainBadge.className = 'badge rounded-pill bg-secondary bg-opacity-25 text-secondary-emphasis';
-            domainBadge.textContent = domainLabel;
-
-            head.appendChild(idNode);
-            head.appendChild(domainBadge);
 
             const titleNode = document.createElement('h4');
             titleNode.className = 'h6 mb-1 text-light';
@@ -278,7 +248,7 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
                 if (!mdUrl) return;
                 const pdfUrl = resolveThemePdfUrl(theme, lang);
                 openMarkdownModal({
-                    title: `${theme.id}: ${name}`,
+                    title: name,
                     sources: [{
                         mdUrl,
                         pdfUrl,
@@ -296,7 +266,6 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
                 }
             });
 
-            body.appendChild(head);
             body.appendChild(titleNode);
             body.appendChild(descNode);
             card.appendChild(body);
