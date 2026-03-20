@@ -52,7 +52,7 @@ function resolveThemePdfUrl(theme, lang = 'ja') {
     const normalizedLang = normalizeLang(lang);
     const relPath = theme.pdfByLang[normalizedLang] || theme.pdfByLang['ja'];
     if (!relPath) return '';
-    return \`\${PJDHIRO_CREATION_RAW}/\${relPath}\`;
+    return `${PJDHIRO_CREATION_RAW}/${relPath}`;
 }
 
 function resolveSummaryMdUrl(theme, lang = 'ja') {
