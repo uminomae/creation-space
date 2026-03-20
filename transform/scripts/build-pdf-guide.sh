@@ -353,7 +353,10 @@ build_themes() {
     [ "$lang" = "en" ] && lang_label="EN"
     echo -e "${BLUE}📄 themes [${lang_label}] ビルド中...${NC}"
 
-    if [ ! -d "$md_dir" ] || [ -z "$(ls "$md_dir"/theme-*.md 2>/dev/null)" ]; then
+    local has_themes=0 has_summaries=0
+    [ -d "$md_dir" ] && [ -n "$(ls "$md_dir"/theme-*.md 2>/dev/null)" ] && has_themes=1
+    [ -d "$md_dir" ] && [ -n "$(ls "$md_dir"/summary-*.md 2>/dev/null)" ] && has_summaries=1
+    if [ "$has_themes" -eq 0 ] && [ "$has_summaries" -eq 0 ]; then
         echo -e "  ${YELLOW}スキップ${NC}: $md_dir に theme-*.md がありません"
         return 0
     fi
@@ -362,6 +365,7 @@ build_themes() {
     mkdir -p "$CREATION_SPACE_ROOT/.build-tmp"
 
     local t_success=0 t_fail=0
+    if [ "$has_themes" -eq 1 ]; then
     for md_file in "$md_dir"/theme-*.md; do
         local basename_md
         basename_md=$(basename "$md_file" .md)
@@ -399,6 +403,47 @@ build_themes() {
 
         rm -f "$tmp"
     done
+    fi
+
+    # ── summary-*.md もビルド ──
+    if [ -n "$(ls "$md_dir"/summary-*.md 2>/dev/null)" ]; then
+        echo -e "  ${BLUE}📄 themes summaries [${lang_label}] ビルド中...${NC}"
+        for md_file in "$md_dir"/summary-*.md; do
+            local basename_md
+            basename_md=$(basename "$md_file" .md)
+            local out="$pdf_dir/${basename_md}.pdf"
+            local tmp="$CREATION_SPACE_ROOT/.build-tmp/_theme_${basename_md}_${lang}.md"
+
+            local title
+            title="$(get_domain_title "$md_file")"
+
+            echo -e "  ${BLUE}→${NC} ${basename_md} [${lang_label}]"
+
+            if [ "$lang" = "en" ]; then
+                make_header_en "$title" "" > "$tmp"
+            else
+                make_header_ja "$title" "" > "$tmp"
+            fi
+
+            cat "$md_file" | strip_frontmatter >> "$tmp"
+
+            if pandoc "$tmp" \
+                -o "$out" \
+                --pdf-engine=lualatex \
+                --wrap=none \
+                2>&1 | sed 's/^/      /'; then
+                local size
+                size=$(du -k "$out" 2>/dev/null | cut -f1)
+                echo -e "    ${GREEN}✅${NC} ${basename_md}.pdf (${size:-?} KB)"
+                t_success=$((t_success + 1))
+            else
+                echo -e "    ${RED}✗${NC} ビルド失敗: ${basename_md}.pdf"
+                t_fail=$((t_fail + 1))
+            fi
+
+            rm -f "$tmp"
+        done
+    fi
 
     echo -e "  themes [${lang_label}]: ${t_success}成功 / ${t_fail}失敗"
     [ "$t_fail" -gt 0 ] && return 1

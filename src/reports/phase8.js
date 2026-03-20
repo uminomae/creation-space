@@ -34,6 +34,7 @@ function normalizeTheme(raw) {
         mdByLang: typeof raw?.md === 'object' && raw.md !== null ? raw.md : null,
         summaryMdByLang: typeof raw?.summary_md === 'object' && raw.summary_md !== null ? raw.summary_md : null,
         pdfByLang: typeof raw?.pdf === 'object' && raw.pdf !== null ? raw.pdf : null,
+        summaryPdfByLang: typeof raw?.summary_pdf === 'object' && raw.summary_pdf !== null ? raw.summary_pdf : null,
         generatorModel: typeof raw?.generator_model === 'string' ? raw.generator_model.trim() : '',
         generated: typeof raw?.generated === 'string' ? raw.generated.trim() : '',
     };
@@ -59,6 +60,14 @@ function resolveSummaryMdUrl(theme, lang = 'ja') {
     if (!theme.summaryMdByLang) return '';
     const normalizedLang = normalizeLang(lang);
     const relPath = theme.summaryMdByLang[normalizedLang] || theme.summaryMdByLang['ja'];
+    if (!relPath) return '';
+    return `${PJDHIRO_CREATION_RAW}/${relPath}`;
+}
+
+function resolveSummaryPdfUrl(theme, lang = 'ja') {
+    if (!theme.summaryPdfByLang) return '';
+    const normalizedLang = normalizeLang(lang);
+    const relPath = theme.summaryPdfByLang[normalizedLang] || theme.summaryPdfByLang['ja'];
     if (!relPath) return '';
     return `${PJDHIRO_CREATION_RAW}/${relPath}`;
 }
@@ -169,11 +178,12 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
             const openCard = () => {
                 const mdUrl = resolveSummaryMdUrl(theme, lang);
                 if (!mdUrl) return;
+                const pdfUrl = resolveSummaryPdfUrl(theme, lang);
                 openMarkdownModal({
                     title: name,
                     sources: [{
                         mdUrl,
-                        pdfUrl: '',
+                        pdfUrl,
                         generatorModel: theme.generatorModel,
                         generated: theme.generated,
                     }],
