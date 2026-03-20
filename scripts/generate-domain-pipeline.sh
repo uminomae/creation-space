@@ -133,7 +133,7 @@ echo ""
 if [ "$SKIP_SVG" = false ]; then
     echo -e "${BLUE}[Step 2.5] SVG 図解生成${NC}"
     if [ -f "$GENERATE_SVG" ]; then
-        local svg_args="--kind domains --dry-run"
+        svg_args="--kind domains --dry-run"
         if [ -n "$DOMAIN" ]; then
             svg_args="--domain $DOMAIN --dry-run"
         fi
