@@ -479,19 +479,6 @@ export function createReportsRenderer({
             const btnGroup = document.createElement('div');
             btnGroup.className = 'd-flex gap-1 mt-auto';
 
-            const presBtn = document.createElement('button');
-            presBtn.className = 'btn btn-sm btn-outline-light reports-domain-pres-btn';
-            presBtn.textContent = normalizeLang(state.lang) === 'ja' ? 'プレゼン' : 'Pres';
-            presBtn.setAttribute('aria-label', `${domainLabel} presentation`);
-            presBtn.addEventListener('click', (event) => {
-                event.stopPropagation();
-                openMarkdownModal({
-                    title: `${report.id} ${domainLabel} - ${normalizeLang(state.lang) === 'ja' ? 'プレゼン資料' : 'Presentation'}`,
-                    sources: presSources,
-                });
-            });
-            btnGroup.appendChild(presBtn);
-
             const slideBtn = document.createElement('button');
             slideBtn.className = 'btn btn-sm btn-outline-info reports-domain-slide-btn';
             slideBtn.textContent = normalizeLang(state.lang) === 'ja' ? 'スライド' : 'Slides';
