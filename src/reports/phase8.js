@@ -216,14 +216,18 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
                 slidesBtn.textContent = strings.slidesButton || 'Slides';
                 slidesBtn.addEventListener('click', (event) => {
                     event.stopPropagation();
-                    fetch(summaryPresMdUrl)
+                    const currentLang = getLang();
+                    const currentUrl = resolveThemePresentationMdUrl(theme, currentLang);
+                    if (!currentUrl) return;
+                    const currentName = getThemeDisplayName(theme, currentLang);
+                    fetch(currentUrl)
                         .then((res) => {
                             if (!res.ok) throw new Error('HTTP ' + res.status);
                             return res.text();
                         })
                         .then((md) => {
-                            const mdBaseUrl = summaryPresMdUrl.replace(/[^/]*$/, '');
-                            openSlideViewer({ markdownText: md, title: name, mdBaseUrl });
+                            const mdBaseUrl = currentUrl.replace(/[^/]*$/, '');
+                            openSlideViewer({ markdownText: md, title: currentName, mdBaseUrl });
                         })
                         .catch((err) => console.warn('[phase8] slides load failed:', err));
                 });
@@ -316,14 +320,18 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
                 slidesBtn.textContent = strings.slidesButton || 'Slides';
                 slidesBtn.addEventListener('click', (event) => {
                     event.stopPropagation();
-                    fetch(presentationMdUrl)
+                    const currentLang = getLang();
+                    const currentUrl = resolveThemePresentationMdUrl(theme, currentLang);
+                    if (!currentUrl) return;
+                    const currentName = getThemeDisplayName(theme, currentLang);
+                    fetch(currentUrl)
                         .then((res) => {
                             if (!res.ok) throw new Error('HTTP ' + res.status);
                             return res.text();
                         })
                         .then((md) => {
-                            const mdBaseUrl = presentationMdUrl.replace(/[^/]*$/, '');
-                            openSlideViewer({ markdownText: md, title: name, mdBaseUrl });
+                            const mdBaseUrl = currentUrl.replace(/[^/]*$/, '');
+                            openSlideViewer({ markdownText: md, title: currentName, mdBaseUrl });
                         })
                         .catch((err) => console.warn('[phase8] slides load failed:', err));
                 });

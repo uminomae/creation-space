@@ -136,7 +136,9 @@ export function createSynthesisRenderer({ openMarkdownModal, getLang }) {
         presSlideBtn.setAttribute('aria-label', strings.presentationTitle + ' slides');
         presSlideBtn.addEventListener('click', async (event) => {
             event.stopPropagation();
-            const sources = resolveLocalizedSources(SYNTHESIS_PRESENTATION_LINKS, lang);
+            const currentLang = getLang();
+            const currentStrings = getSynthesisStrings(currentLang);
+            const sources = resolveLocalizedSources(SYNTHESIS_PRESENTATION_LINKS, currentLang);
             const source = sources[0];
             if (!source || !source.mdUrl) return;
             const candidates = buildMarkdownFetchCandidates(source.mdUrl);
@@ -158,7 +160,7 @@ export function createSynthesisRenderer({ openMarkdownModal, getLang }) {
             if (!markdownText) return;
             openSlideViewer({
                 markdownText,
-                title: strings.presentationModalTitle || strings.presentationTitle,
+                title: currentStrings.presentationModalTitle || currentStrings.presentationTitle,
                 mdBaseUrl,
             });
         });
