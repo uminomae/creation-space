@@ -485,7 +485,8 @@ export function createReportsRenderer({
             slideBtn.setAttribute('aria-label', `${domainLabel} slides`);
             slideBtn.addEventListener('click', async (event) => {
                 event.stopPropagation();
-                const source = presSources[0];
+                const currentSources = resolveDomainPresentationSources(report, { lang: state.lang });
+                const source = currentSources[0];
                 if (!source || !source.mdUrl) return;
                 const candidates = buildMarkdownFetchCandidates(source.mdUrl);
                 let markdownText = '';
