@@ -8,10 +8,13 @@
 
 import { normalizeLang } from '../i18n.js';
 import { dict } from '../i18n/dict.js';
+import { openSlideViewer } from '../slide-viewer.js';
 import {
     SYNTHESIS_REPORT_LINKS,
     SYNTHESIS_PRESENTATION_LINKS,
     resolveLocalizedSources,
+    buildMarkdownFetchCandidates,
+    looksLikeHtmlDocument,
 } from './data.js';
 
 function getSynthesisStrings(lang = 'ja') {
@@ -127,8 +130,42 @@ export function createSynthesisRenderer({ openMarkdownModal, getLang }) {
             }
         });
 
+        const presSlideBtn = document.createElement('button');
+        presSlideBtn.className = 'btn btn-sm btn-outline-info mt-auto reports-domain-slide-btn';
+        presSlideBtn.textContent = normalizeLang(lang) === 'ja' ? 'スライド' : 'Slides';
+        presSlideBtn.setAttribute('aria-label', strings.presentationTitle + ' slides');
+        presSlideBtn.addEventListener('click', async (event) => {
+            event.stopPropagation();
+            const sources = resolveLocalizedSources(SYNTHESIS_PRESENTATION_LINKS, lang);
+            const source = sources[0];
+            if (!source || !source.mdUrl) return;
+            const candidates = buildMarkdownFetchCandidates(source.mdUrl);
+            let markdownText = '';
+            let mdBaseUrl = '';
+            for (const url of candidates) {
+                try {
+                    const resp = await fetch(url, { cache: 'no-store' });
+                    if (!resp.ok) continue;
+                    const text = await resp.text();
+                    if (looksLikeHtmlDocument(text)) continue;
+                    markdownText = text;
+                    mdBaseUrl = url.replace(/\/[^/]*$/, '/');
+                    break;
+                } catch {
+                    continue;
+                }
+            }
+            if (!markdownText) return;
+            openSlideViewer({
+                markdownText,
+                title: strings.presentationModalTitle || strings.presentationTitle,
+                mdBaseUrl,
+            });
+        });
+
         presBody.appendChild(presTitle);
         presBody.appendChild(presDesc);
+        presBody.appendChild(presSlideBtn);
         presCard.appendChild(presBody);
         presCol.appendChild(presCard);
         fragment.appendChild(presCol);
