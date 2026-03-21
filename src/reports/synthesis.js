@@ -36,7 +36,7 @@ export function createSynthesisRenderer({ openMarkdownModal, getLang }) {
     }
 
     function renderSynthesis() {
-        if (\!containerEl) return;
+        if (!containerEl) return;
 
         const lang = getLang();
         const strings = getSynthesisStrings(lang);
