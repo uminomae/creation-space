@@ -387,10 +387,14 @@ build_themes() {
         # フロントマターを除去して連結
         cat "$md_file" | strip_frontmatter >> "$tmp"
 
+        # 画像の相対パスを絶対パスに変換（PDF生成用）
+        sed -i "" "s|](\.\./.*/img/|]($PJDHIRO_DIR/assets/creation/img/|g" "$tmp"
+
         if pandoc "$tmp" \
             -o "$out" \
             --pdf-engine=lualatex \
             --wrap=none \
+            --resource-path="$IMG_DIR:$md_dir:$PJDHIRO_DIR/assets/creation" \
             2>&1 | sed 's/^/      /'; then
             local size
             size=$(du -k "$out" 2>/dev/null | cut -f1)
@@ -427,10 +431,14 @@ build_themes() {
 
             cat "$md_file" | strip_frontmatter >> "$tmp"
 
+            # 画像の相対パスを絶対パスに変換（PDF生成用）
+            sed -i "" "s|](\.\./.*/img/|]($PJDHIRO_DIR/assets/creation/img/|g" "$tmp"
+
             if pandoc "$tmp" \
                 -o "$out" \
                 --pdf-engine=lualatex \
                 --wrap=none \
+                --resource-path="$IMG_DIR:$md_dir:$PJDHIRO_DIR/assets/creation" \
                 2>&1 | sed 's/^/      /'; then
                 local size
                 size=$(du -k "$out" 2>/dev/null | cut -f1)
