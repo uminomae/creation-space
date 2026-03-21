@@ -103,6 +103,7 @@ export const dict = {
                 summaryDescription: '5つの構造テーマの結論要約。',
                 summaryBadge: '要約',
                 summaryLabel: '結論要約',
+                slidesButton: 'スライド',
             },
             synthesis: {
                 heading: '総合レポート',
@@ -227,6 +228,7 @@ export const dict = {
                 summaryDescription: 'Conclusion summaries for the five structural themes.',
                 summaryBadge: 'Summary',
                 summaryLabel: 'Conclusion Summary',
+                slidesButton: 'Slides',
             },
             synthesis: {
                 heading: 'Synthesis Report',
