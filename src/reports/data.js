@@ -35,6 +35,12 @@ export const SYNTHESIS_PRESENTATION_LINKS = {
         generatorModel: CREATION_GUIDE_GENERATOR_MODEL,
         generated: '2026-03-20',
     },
+    en: {
+        mdUrl: `${PJDHIRO_CREATION_RAW}/synthesis/en/md/cross-domain-synthesis-presentation-en.md`,
+        pdfUrl: `${PJDHIRO_CREATION_PAGES}/synthesis/en/pdf/cross-domain-synthesis-presentation-en.pdf`,
+        generatorModel: CREATION_GUIDE_GENERATOR_MODEL,
+        generated: '2026-03-20',
+    },
 };
 export const STATUS_REPORT_LINKS = {
     ja: {
