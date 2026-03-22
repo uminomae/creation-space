@@ -19,6 +19,8 @@ export const SURVEY_MANIFEST_URL = `${PJDHIRO_CREATION_RAW}/manifests/survey.jso
 
 export const PHASE8_THEMES_MANIFEST_URL = `${PJDHIRO_CREATION_RAW}/manifests/phase8-themes.json`;
 
+export const PHASE9_TRACKS_MANIFEST_URL = `${PJDHIRO_CREATION_RAW}/manifests/phase9-tracks.json`;
+
 export const SYNTHESIS_REPORT_LINKS = {
     ja: {
         mdUrl: `${PJDHIRO_CREATION_RAW}/synthesis/ja/md/cross-domain-synthesis-ja.md`,

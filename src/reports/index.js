@@ -6,6 +6,7 @@ import {
     DEFAULT_REPORTS_MD_ASSET_BASE,
     GUIDES_MANIFEST_URL,
     PHASE8_THEMES_MANIFEST_URL,
+    PHASE9_TRACKS_MANIFEST_URL,
     countReportsByProgressLevel,
     loadGuidesGeneratedAt,
     loadReportsData,
@@ -22,6 +23,7 @@ import {
 import { createReportsModalController } from './modal.js';
 import { createReportsRenderer, getDomainReportTitle, getReportsStrings } from './render.js';
 import { createPhase8Renderer, loadPhase8Themes } from './phase8.js';
+import { createPhase9Renderer, loadPhase9Tracks } from './phase9.js';
 import { createSynthesisRenderer } from './synthesis.js';
 
 const state = {
@@ -43,6 +45,9 @@ const state = {
     reportsReady: false,
     phase8Themes: [],
     phase8GeneratedAt: '',
+    phase9Tracks: [],
+    phase9OverviewPlanMd: null,
+    phase9GeneratedAt: '',
     activeDomainId: '',
     activeDomainHistoryMode: '',
     pendingDomainId: '',
@@ -91,6 +96,11 @@ const renderer = createReportsRenderer({
 });
 
 const phase8Renderer = createPhase8Renderer({
+    openMarkdownModal: (...args) => modalController.openMarkdownModal(...args),
+    getLang: () => state.lang,
+});
+
+const phase9Renderer = createPhase9Renderer({
     openMarkdownModal: (...args) => modalController.openMarkdownModal(...args),
     getLang: () => state.lang,
 });
@@ -179,6 +189,7 @@ export async function initReports({
 } = {}) {
     renderer.cacheDom();
     phase8Renderer.cacheDom();
+    phase9Renderer.cacheDom();
     synthesisRenderer.cacheDom();
     renderer.bindUiEvents();
     historyController.bindHistorySyncEvents();
@@ -238,6 +249,18 @@ export async function initReports({
         state.phase8Themes = [];
     }
     phase8Renderer.renderThemes(state.phase8Themes);
+
+    // Load Phase 9 deep exploration tracks
+    try {
+        const phase9Data = await loadPhase9Tracks();
+        state.phase9Tracks = phase9Data.tracks;
+        state.phase9OverviewPlanMd = phase9Data.overviewPlanMd;
+        state.phase9GeneratedAt = phase9Data.generatedAt;
+    } catch (error) {
+        console.warn('[reports] phase9 tracks load failed:', error);
+        state.phase9Tracks = [];
+    }
+    phase9Renderer.renderTracks(state.phase9Tracks, state.phase9OverviewPlanMd);
     synthesisRenderer.renderSynthesis();
 
 
@@ -254,6 +277,7 @@ export function setReportsLanguage(lang) {
     state.lang = normalizeLang(lang);
     renderer.renderReports();
     phase8Renderer.renderThemes(state.phase8Themes);
+    phase9Renderer.renderTracks(state.phase9Tracks, state.phase9OverviewPlanMd);
     synthesisRenderer.renderSynthesis();
 }
 
@@ -264,4 +288,5 @@ export {
     DEFAULT_REPORTS_MD_ASSET_BASE,
     GUIDES_MANIFEST_URL,
     PHASE8_THEMES_MANIFEST_URL,
+    PHASE9_TRACKS_MANIFEST_URL,
 };
