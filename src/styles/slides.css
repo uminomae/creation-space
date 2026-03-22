@@ -120,11 +120,10 @@
    ========================================================================== */
 
 #slide-viewer-overlay .reveal .slides section {
-  box-sizing: border-box;
   color: var(--slide-text-primary);
   font-family: var(--slide-font-body);
   text-align: left;
-  padding: 32px 48px;
+  /* No padding — reveal.js manages section dimensions internally */
 }
 
 /* --- Headings --- */
@@ -346,9 +345,7 @@
 
 /* --- Title slide --- */
 #slide-viewer-overlay .reveal .slides section.slide-title {
-  /* No display override — reveal.js manages section visibility */
   text-align: center;
-  padding: 48px;
 }
 
 #slide-viewer-overlay .reveal .slides section.slide-title h2 {
@@ -399,7 +396,7 @@
 
 /* --- Table-heavy slides --- */
 #slide-viewer-overlay .reveal .slides section.slide-table {
-  padding: 24px 36px;
+  /* visual-only styling, no layout overrides */
 }
 
 #slide-viewer-overlay .reveal .slides section.slide-table h2 {
@@ -409,7 +406,7 @@
 
 /* --- Entry/detail slides --- */
 #slide-viewer-overlay .reveal .slides section.slide-entry {
-  padding: 28px 44px;
+  /* visual-only styling, no layout overrides */
 }
 
 #slide-viewer-overlay .reveal .slides section.slide-entry p {
