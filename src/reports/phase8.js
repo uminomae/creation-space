@@ -3,7 +3,6 @@
  *
  * Displays five structural themes extracted from the Phase 8 cross-domain
  * analysis as independent clickable cards in the REPORTS section.
- * Also renders conclusion summary cards above the domain grid.
  */
 
 import { normalizeLang } from '../i18n.js';
@@ -33,9 +32,7 @@ function normalizeTheme(raw) {
         domainCount: typeof raw?.domain_count === 'number' ? raw.domain_count : 0,
         priority: typeof raw?.priority === 'string' ? raw.priority.trim() : '',
         mdByLang: typeof raw?.md === 'object' && raw.md !== null ? raw.md : null,
-        summaryMdByLang: typeof raw?.summary_md === 'object' && raw.summary_md !== null ? raw.summary_md : null,
         pdfByLang: typeof raw?.pdf === 'object' && raw.pdf !== null ? raw.pdf : null,
-        summaryPdfByLang: typeof raw?.summary_pdf === 'object' && raw.summary_pdf !== null ? raw.summary_pdf : null,
         presentationMdByLang: typeof raw?.presentation_md === 'object' && raw.presentation_md !== null ? raw.presentation_md : null,
         generatorModel: typeof raw?.generator_model === 'string' ? raw.generator_model.trim() : '',
         generated: typeof raw?.generated === 'string' ? raw.generated.trim() : '',
@@ -62,21 +59,6 @@ function resolveThemePresentationMdUrl(theme, lang = 'ja') {
     if (!theme.presentationMdByLang) return '';
     const normalizedLang = normalizeLang(lang);
     const relPath = theme.presentationMdByLang[normalizedLang] || theme.presentationMdByLang['ja'];
-    if (!relPath) return '';
-    return `${PJDHIRO_CREATION_RAW}/${relPath}`;
-}
-function resolveSummaryMdUrl(theme, lang = 'ja') {
-    if (!theme.summaryMdByLang) return '';
-    const normalizedLang = normalizeLang(lang);
-    const relPath = theme.summaryMdByLang[normalizedLang] || theme.summaryMdByLang['ja'];
-    if (!relPath) return '';
-    return `${PJDHIRO_CREATION_RAW}/${relPath}`;
-}
-
-function resolveSummaryPdfUrl(theme, lang = 'ja') {
-    if (!theme.summaryPdfByLang) return '';
-    const normalizedLang = normalizeLang(lang);
-    const relPath = theme.summaryPdfByLang[normalizedLang] || theme.summaryPdfByLang['ja'];
     if (!relPath) return '';
     return `${PJDHIRO_CREATION_RAW}/${relPath}`;
 }
@@ -124,122 +106,10 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
     let headingEl = null;
     let descriptionEl = null;
 
-    let summaryContainerEl = null;
-    let summarySectionEl = null;
-    let summaryHeadingEl = null;
-    let summaryDescriptionEl = null;
-
     function cacheDom() {
         containerEl = document.getElementById('reports-phase8-grid');
         headingEl = document.getElementById('reports-phase8-heading');
         descriptionEl = document.getElementById('reports-phase8-description');
-
-        summaryContainerEl = document.getElementById('reports-phase8-summary-grid');
-        summarySectionEl = document.getElementById('reports-phase8-summary-section');
-        summaryHeadingEl = document.getElementById('reports-phase8-summary-heading');
-        summaryDescriptionEl = document.getElementById('reports-phase8-summary-description');
-    }
-
-    function renderSummaryCards(themes = []) {
-        if (!summaryContainerEl || !summarySectionEl) return;
-
-        const lang = getLang();
-        const strings = getPhase8Strings(lang);
-
-        if (summaryHeadingEl) {
-            summaryHeadingEl.textContent = strings.summaryHeading || '横断分析テーマ結論要約';
-        }
-        if (summaryDescriptionEl) {
-            summaryDescriptionEl.textContent = strings.summaryDescription || '5つの構造テーマの結論要約。';
-        }
-
-        const themesWithSummary = themes.filter((t) => t.summaryMdByLang);
-        if (!themesWithSummary.length) {
-            summarySectionEl.style.display = 'none';
-            return;
-        }
-
-        summarySectionEl.style.display = '';
-        summaryContainerEl.innerHTML = '';
-
-        const fragment = document.createDocumentFragment();
-
-        themesWithSummary.forEach((theme) => {
-            const col = document.createElement('div');
-            col.className = 'col';
-
-            const card = document.createElement('article');
-            card.className = 'card kesson-card h-100 reports-phase8-summary-card';
-            card.setAttribute('role', 'button');
-            card.setAttribute('tabindex', '0');
-
-            const name = getThemeDisplayName(theme, lang);
-
-            card.setAttribute('aria-label', name);
-
-            const body = document.createElement('div');
-            body.className = 'card-body p-2 p-md-3 d-flex flex-column gap-1';
-
-            const titleNode = document.createElement('h4');
-            titleNode.className = 'h6 mb-0 text-light';
-            titleNode.textContent = name;
-
-            const openCard = () => {
-                const mdUrl = resolveSummaryMdUrl(theme, lang);
-                if (!mdUrl) return;
-                const pdfUrl = resolveSummaryPdfUrl(theme, lang);
-                openMarkdownModal({
-                    title: name,
-                    sources: [{
-                        mdUrl,
-                        pdfUrl,
-                        generatorModel: theme.generatorModel,
-                        generated: theme.generated,
-                    }],
-                });
-            };
-
-            card.addEventListener('click', openCard);
-            card.addEventListener('keydown', (event) => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault();
-                    openCard();
-                }
-            });
-
-            body.appendChild(titleNode);
-
-            const summaryPresMdUrl = resolveThemePresentationMdUrl(theme, lang);
-            if (summaryPresMdUrl) {
-                const slidesBtn = document.createElement('button');
-                slidesBtn.className = 'btn btn-sm btn-outline-light mt-1 align-self-start';
-                slidesBtn.textContent = strings.slidesButton || 'Slides';
-                slidesBtn.addEventListener('click', (event) => {
-                    event.stopPropagation();
-                    const currentLang = getLang();
-                    const currentUrl = resolveThemePresentationMdUrl(theme, currentLang);
-                    if (!currentUrl) return;
-                    const currentName = getThemeDisplayName(theme, currentLang);
-                    fetch(currentUrl)
-                        .then((res) => {
-                            if (!res.ok) throw new Error('HTTP ' + res.status);
-                            return res.text();
-                        })
-                        .then((md) => {
-                            const mdBaseUrl = currentUrl.replace(/[^/]*$/, '');
-                            openSlideViewer({ markdownText: md, title: currentName, mdBaseUrl });
-                        })
-                        .catch((err) => console.warn('[phase8] slides load failed:', err));
-                });
-                body.appendChild(slidesBtn);
-            }
-
-            card.appendChild(body);
-            col.appendChild(card);
-            fragment.appendChild(col);
-        });
-
-        summaryContainerEl.appendChild(fragment);
     }
 
     function renderThemes(themes = []) {
@@ -344,9 +214,6 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
         });
 
         containerEl.appendChild(fragment);
-
-        // Also render summary cards
-        renderSummaryCards(themes);
     }
 
     return { cacheDom, renderThemes };

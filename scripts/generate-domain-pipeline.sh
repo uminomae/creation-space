@@ -30,6 +30,7 @@ BUILD_PDF="$CREATION_SPACE_ROOT/transform/scripts/build-pdf-guide.sh"
 VERIFY_DATES="$SCRIPT_DIR/verify-domain-dates.sh"
 GEN_DOMAINS_JSON="$SCRIPT_DIR/generate-domains-json.mjs"
 GENERATE_SVG="$CREATION_SPACE_ROOT/transform/scripts/generate-svg.sh"
+SYNC_SVG_EMBEDS="$CREATION_SPACE_ROOT/scripts/sync-public-svg-embeds.py"
 
 # ── 引数解析 ──
 DOMAIN=""
@@ -100,8 +101,36 @@ else
 fi
 echo ""
 
-# ── Step 1: JA PDF 生成 ──
-echo -e "${BLUE}[Step 1] JA PDF 生成${NC}"
+# ── Step 1: SVG 図解生成 + public md 同期 ──
+if [ "$SKIP_SVG" = false ]; then
+    echo -e "${BLUE}[Step 1] SVG 図解生成 + public md 同期${NC}"
+    if [ -f "$GENERATE_SVG" ]; then
+        svg_args="--kind domains --generate"
+        if [ "$JA_ONLY" = true ]; then
+            svg_args="$svg_args --lang ja"
+        fi
+        if [ -n "$DOMAIN" ]; then
+            svg_args="$svg_args --domain $DOMAIN"
+        fi
+        if bash "$GENERATE_SVG" $svg_args; then
+            if [ -f "$SYNC_SVG_EMBEDS" ]; then
+                python3 "$SYNC_SVG_EMBEDS"
+            fi
+            echo -e "  ${GREEN}SVG 生成・md同期 完了${NC}"
+        else
+            echo -e "  ${RED}SVG 生成失敗${NC}"
+            exit 1
+        fi
+    else
+        echo -e "  ${YELLOW}generate-svg.sh が見つかりません。スキップ${NC}"
+    fi
+else
+    echo -e "${BLUE}[Step 1] SVG 図解生成: ${YELLOW}スキップ（--skip-svg）${NC}"
+fi
+echo ""
+
+# ── Step 2: JA PDF 生成 ──
+echo -e "${BLUE}[Step 2] JA PDF 生成${NC}"
 if bash "$BUILD_PDF" --kind domains --lang ja; then
     echo -e "  ${GREEN}JA PDF 生成完了${NC}"
 else
@@ -110,11 +139,11 @@ else
 fi
 echo ""
 
-# ── Step 2: EN PDF 生成 ──
+# ── Step 3: EN PDF 生成 ──
 if [ "$JA_ONLY" = false ]; then
     EN_MD_DIR="$DOMAINS_BASE/en/md"
     if [ -d "$EN_MD_DIR" ] && [ -n "$(ls "$EN_MD_DIR"/domain-D*.md 2>/dev/null)" ]; then
-        echo -e "${BLUE}[Step 2] EN PDF 生成${NC}"
+        echo -e "${BLUE}[Step 3] EN PDF 生成${NC}"
         if bash "$BUILD_PDF" --kind domains --lang en; then
             echo -e "  ${GREEN}EN PDF 生成完了${NC}"
         else
@@ -122,37 +151,15 @@ if [ "$JA_ONLY" = false ]; then
             exit 1
         fi
     else
-        echo -e "${BLUE}[Step 2] EN PDF 生成: ${YELLOW}スキップ（EN MD なし）${NC}"
+        echo -e "${BLUE}[Step 3] EN PDF 生成: ${YELLOW}スキップ（EN MD なし）${NC}"
     fi
 else
-    echo -e "${BLUE}[Step 2] EN PDF 生成: ${YELLOW}スキップ（--ja-only）${NC}"
+    echo -e "${BLUE}[Step 3] EN PDF 生成: ${YELLOW}スキップ（--ja-only）${NC}"
 fi
 echo ""
 
-# ── Step 2.5: SVG 図解生成 ──
-if [ "$SKIP_SVG" = false ]; then
-    echo -e "${BLUE}[Step 2.5] SVG 図解生成${NC}"
-    if [ -f "$GENERATE_SVG" ]; then
-        svg_args="--kind domains --dry-run"
-        if [ -n "$DOMAIN" ]; then
-            svg_args="--domain $DOMAIN --dry-run"
-        fi
-        if bash "$GENERATE_SVG" $svg_args; then
-            echo -e "  ${GREEN}SVG 対象確認完了${NC}"
-            echo -e "  ${YELLOW}SVG を生成するには: bash transform/scripts/generate-svg.sh --generate${NC}"
-        else
-            echo -e "  ${YELLOW}SVG 対象確認に問題あり（続行）${NC}"
-        fi
-    else
-        echo -e "  ${YELLOW}generate-svg.sh が見つかりません。スキップ${NC}"
-    fi
-else
-    echo -e "${BLUE}[Step 2.5] SVG 図解生成: ${YELLOW}スキップ（--skip-svg）${NC}"
-fi
-echo ""
-
-# ── Step 3: domains.json 更新 ──
-echo -e "${BLUE}[Step 3] domains.json 更新${NC}"
+# ── Step 4: domains.json 更新 ──
+echo -e "${BLUE}[Step 4] domains.json 更新${NC}"
 if node "$GEN_DOMAINS_JSON"; then
     echo -e "  ${GREEN}domains.json 更新完了${NC}"
 else
@@ -161,8 +168,8 @@ else
 fi
 echo ""
 
-# ── Step 4: domains.json 整合チェック ──
-echo -e "${BLUE}[Step 4] domains.json 整合チェック${NC}"
+# ── Step 5: domains.json 整合チェック ──
+echo -e "${BLUE}[Step 5] domains.json 整合チェック${NC}"
 if node "$GEN_DOMAINS_JSON" --check; then
     echo -e "  ${GREEN}整合チェック OK${NC}"
 else

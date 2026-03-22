@@ -7,7 +7,7 @@
 - **Who**: domains レポートを更新する Claude Code CLI と review 担当者が使います。
 - **When**: 新規生成、evidence 更新後の再生成、bilingual 展開時に使います。
 - **Where**: 入力は `evidence/`、ルールは `reader-rules/`、品質基準は `quality-test/`、公開用整形先はリポジトリ直下の `knowledge/` です。
-- **How**: report ルールを読んで md を生成し、quality-test を通してから PDF と bilingual へ進みます。
+- **How**: report ルールを読んで public md を生成し、SVG を同期してから、その same md を使って PDF と bilingual へ進みます。
 
 ## 現在の状態
 
@@ -17,7 +17,7 @@
 
 ## ワークフロー
 
-**End-to-End 手順書**: [WORKFLOW.md](WORKFLOW.md) — 生成→品質テスト→PDF公開→manifest更新の全手順
+**End-to-End 手順書**: [WORKFLOW.md](WORKFLOW.md) — 生成→品質テスト→SVG同期→PDF公開→manifest更新の全手順
 
 | やりたいこと | 参照先 |
 |---|---|

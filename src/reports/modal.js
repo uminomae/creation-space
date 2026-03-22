@@ -101,6 +101,7 @@ export function createReportsModalController({
             let raw = '';
             let lastError = null;
             let resolvedSource = firstSource;
+            let resolvedMdUrl = '';
 
             for (const source of modalSources) {
                 const mdCandidates = buildMarkdownFetchCandidates(source.mdUrl);
@@ -114,6 +115,7 @@ export function createReportsModalController({
                         }
                         raw = text;
                         resolvedSource = source;
+                        resolvedMdUrl = candidateUrl;
                         break;
                     } catch (error) {
                         lastError = error;
@@ -125,8 +127,8 @@ export function createReportsModalController({
             if (!raw) throw (lastError || new Error('No markdown source could be loaded'));
 
             const { meta, body } = parseFrontmatter(raw);
-            // MD取得元URLから画像の相対パスを解決する
-            const mdBaseUrl = resolvedSource.mdUrl ? resolvedSource.mdUrl.replace(/\/[^/]*$/, '/') : '';
+            // 実際に取得できた Markdown URL を基準に相対パスを解決する。
+            const mdBaseUrl = resolvedMdUrl ? resolvedMdUrl.replace(/\/[^/]*$/, '/') : '';
             let parsedHtml = marked.parse(body || raw);
             if (mdBaseUrl) {
                 parsedHtml = parsedHtml.replace(/<img\s+([^>]*?)src="(?!https?:\/\/)([^"]+)"/g, (match, pre, relPath) => {

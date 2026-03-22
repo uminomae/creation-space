@@ -65,3 +65,140 @@
     line-height: 1.3;
     opacity: 0.7;
 }
+
+/* Theme Verification (Phase 9) */
+.tv-card {
+    cursor: pointer;
+    transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+.tv-card:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--reports-panel-shadow-hover, 0 4px 12px rgba(0,0,0,0.3));
+}
+.tv-card:focus-visible {
+    outline: 2px solid rgba(var(--color-accent), .38);
+    outline-offset: 1px;
+}
+
+.tv-integration-card {
+    border-left: 3px solid rgba(255, 193, 7, 0.4);
+}
+
+.tv-confidence-badge {
+    display: inline-block;
+    padding: 0.15em 0.5em;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.4;
+}
+.tv-confidence-confirmed {
+    background: rgba(25, 135, 84, 0.25);
+    color: #5dd39e;
+}
+.tv-confidence-strong {
+    background: rgba(92, 145, 255, 0.2);
+    color: #80b3ff;
+}
+.tv-confidence-hypothesis {
+    background: rgba(255, 193, 7, 0.2);
+    color: #ffc107;
+}
+
+.tv-theme-id {
+    font-size: 0.7rem;
+    opacity: 0.6;
+    font-family: ui-monospace, SFMono-Regular, monospace;
+}
+
+.tv-description {
+    line-height: 1.45;
+}
+
+/* Robustness score bar */
+.tv-robustness-wrap {
+    margin-top: 0.25rem;
+}
+.tv-robustness-label {
+    font-size: 0.72rem;
+    opacity: 0.7;
+    margin-bottom: 0.2rem;
+    font-family: ui-monospace, SFMono-Regular, monospace;
+}
+.tv-robustness-bar-outer {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 3px;
+    overflow: hidden;
+}
+.tv-robustness-bar-inner {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.4s ease;
+}
+.tv-robustness-high {
+    background: linear-gradient(90deg, #2dd4a8, #5dd39e);
+}
+.tv-robustness-mid {
+    background: linear-gradient(90deg, #5c91ff, #80b3ff);
+}
+.tv-robustness-low {
+    background: linear-gradient(90deg, #ffc107, #ffdb4d);
+}
+
+/* Meta chips */
+.tv-meta-row {
+    font-size: 0.72rem;
+}
+.tv-meta-chip {
+    display: inline-block;
+    padding: 0.1em 0.45em;
+    border-radius: 0.2rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.65);
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    font-size: 0.68rem;
+    line-height: 1.5;
+}
+
+/* Comparison chips in integration card */
+.tv-comparison-mini {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+.tv-comparison-chip {
+    display: inline-block;
+    padding: 0.2em 0.55em;
+    border-radius: 0.25rem;
+    font-size: 0.72rem;
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    font-weight: 500;
+    line-height: 1.4;
+}
+.tv-comparison-chip.tv-robustness-high {
+    background: rgba(45, 212, 168, 0.18);
+    color: #5dd39e;
+    border: 1px solid rgba(45, 212, 168, 0.3);
+}
+.tv-comparison-chip.tv-robustness-mid {
+    background: rgba(92, 145, 255, 0.15);
+    color: #80b3ff;
+    border: 1px solid rgba(92, 145, 255, 0.28);
+}
+.tv-comparison-chip.tv-robustness-low {
+    background: rgba(255, 193, 7, 0.15);
+    color: #ffc107;
+    border: 1px solid rgba(255, 193, 7, 0.28);
+}
+
+@media (max-width: 760px) {
+    .tv-robustness-label {
+        font-size: 0.68rem;
+    }
+    .tv-meta-chip {
+        font-size: 0.64rem;
+    }
+}

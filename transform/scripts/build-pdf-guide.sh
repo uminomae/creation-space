@@ -58,6 +58,7 @@ SYNTHESIS_BASE="$PJDHIRO_DIR/assets/creation/synthesis"
 IMG_DIR="$PJDHIRO_DIR/assets/creation/img"
 MANIFESTS_DIR="$PJDHIRO_DIR/assets/creation/manifests"
 GENERATE_SVG="$CREATION_SPACE_ROOT/transform/scripts/generate-svg.sh"
+REWRITE_SVG_FOR_PDF="$CREATION_SPACE_ROOT/transform/scripts/rewrite-svg-links-for-pdf.py"
 
 # ── YAML front matter を除去 ──
 strip_frontmatter() {
@@ -225,6 +226,33 @@ toc-depth: 2
 YAML
 }
 
+rewrite_svg_links_for_pdf() {
+    local tmp_md="$1"
+    local source_md="$2"
+    local raster_dir="$3"
+
+    if [ ! -f "$REWRITE_SVG_FOR_PDF" ]; then
+        return 0
+    fi
+
+    python3 "$REWRITE_SVG_FOR_PDF" \
+        --input-md "$tmp_md" \
+        --source-md "$source_md" \
+        --raster-dir "$raster_dir"
+}
+
+run_pandoc_pdf() {
+    local input_md="$1"
+    local output_pdf="$2"
+    shift 2
+
+    mkdir -p "$CREATION_SPACE_ROOT/.build-tmp/texmf-var" "$CREATION_SPACE_ROOT/.build-tmp/texmf-config"
+    env \
+        TEXMFVAR="$CREATION_SPACE_ROOT/.build-tmp/texmf-var" \
+        TEXMFCONFIG="$CREATION_SPACE_ROOT/.build-tmp/texmf-config" \
+        pandoc "$input_md" -o "$output_pdf" "$@"
+}
+
 # ── guides ビルド（1ファイル） ──
 build_guide() {
     local audience="$1"
@@ -261,10 +289,10 @@ build_guide() {
 
     # フロントマターを除去して連結
     cat "$md_file" | strip_frontmatter >> "$tmp"
+    rewrite_svg_links_for_pdf "$tmp" "$md_file" "$CREATION_SPACE_ROOT/.build-tmp/svg-raster/guides/${lang}-${audience}"
 
     echo "  pandoc 変換中..."
-    if pandoc "$tmp" \
-        -o "$pdf_file" \
+    if run_pandoc_pdf "$tmp" "$pdf_file" \
         --pdf-engine=lualatex \
         --resource-path="$IMG_DIR:$md_dir" \
         --wrap=none \
@@ -320,10 +348,11 @@ build_domains() {
 
         # フロントマターを除去して連結
         cat "$md_file" | strip_frontmatter >> "$tmp"
+        rewrite_svg_links_for_pdf "$tmp" "$md_file" "$CREATION_SPACE_ROOT/.build-tmp/svg-raster/domains/${lang}-${basename_md}"
 
-        if pandoc "$tmp" \
-            -o "$out" \
+        if run_pandoc_pdf "$tmp" "$out" \
             --pdf-engine=lualatex \
+            --resource-path="$PJDHIRO_DIR/assets/creation:$md_dir:$PJDHIRO_DIR/assets/creation/img:$PJDHIRO_DIR/assets/creation/img/svg:$PJDHIRO_DIR/assets/creation/img/svg/domains/$lang" \
             --wrap=none \
             2>&1 | sed 's/^/      /'; then
             local size
@@ -353,10 +382,9 @@ build_themes() {
     [ "$lang" = "en" ] && lang_label="EN"
     echo -e "${BLUE}📄 themes [${lang_label}] ビルド中...${NC}"
 
-    local has_themes=0 has_summaries=0
+    local has_themes=0
     [ -d "$md_dir" ] && [ -n "$(ls "$md_dir"/theme-*.md 2>/dev/null)" ] && has_themes=1
-    [ -d "$md_dir" ] && [ -n "$(ls "$md_dir"/summary-*.md 2>/dev/null)" ] && has_summaries=1
-    if [ "$has_themes" -eq 0 ] && [ "$has_summaries" -eq 0 ]; then
+    if [ "$has_themes" -eq 0 ]; then
         echo -e "  ${YELLOW}スキップ${NC}: $md_dir に theme-*.md がありません"
         return 0
     fi
@@ -386,12 +414,12 @@ build_themes() {
 
         # フロントマターを除去して連結
         cat "$md_file" | strip_frontmatter >> "$tmp"
+        rewrite_svg_links_for_pdf "$tmp" "$md_file" "$CREATION_SPACE_ROOT/.build-tmp/svg-raster/themes/${lang}-${basename_md}"
 
         # 画像の相対パスを絶対パスに変換（PDF生成用）
         sed -i "" "s|](\.\./.*/img/|]($PJDHIRO_DIR/assets/creation/img/|g" "$tmp"
 
-        if pandoc "$tmp" \
-            -o "$out" \
+        if run_pandoc_pdf "$tmp" "$out" \
             --pdf-engine=lualatex \
             --wrap=none \
             --resource-path="$IMG_DIR:$md_dir:$PJDHIRO_DIR/assets/creation" \
@@ -407,50 +435,6 @@ build_themes() {
 
         rm -f "$tmp"
     done
-    fi
-
-    # ── summary-*.md もビルド ──
-    if [ -n "$(ls "$md_dir"/summary-*.md 2>/dev/null)" ]; then
-        echo -e "  ${BLUE}📄 themes summaries [${lang_label}] ビルド中...${NC}"
-        for md_file in "$md_dir"/summary-*.md; do
-            local basename_md
-            basename_md=$(basename "$md_file" .md)
-            local out="$pdf_dir/${basename_md}.pdf"
-            local tmp="$CREATION_SPACE_ROOT/.build-tmp/_theme_${basename_md}_${lang}.md"
-
-            local title
-            title="$(get_domain_title "$md_file")"
-
-            echo -e "  ${BLUE}→${NC} ${basename_md} [${lang_label}]"
-
-            if [ "$lang" = "en" ]; then
-                make_header_en "$title" "" > "$tmp"
-            else
-                make_header_ja "$title" "" > "$tmp"
-            fi
-
-            cat "$md_file" | strip_frontmatter >> "$tmp"
-
-            # 画像の相対パスを絶対パスに変換（PDF生成用）
-            sed -i "" "s|](\.\./.*/img/|]($PJDHIRO_DIR/assets/creation/img/|g" "$tmp"
-
-            if pandoc "$tmp" \
-                -o "$out" \
-                --pdf-engine=lualatex \
-                --wrap=none \
-                --resource-path="$IMG_DIR:$md_dir:$PJDHIRO_DIR/assets/creation" \
-                2>&1 | sed 's/^/      /'; then
-                local size
-                size=$(du -k "$out" 2>/dev/null | cut -f1)
-                echo -e "    ${GREEN}✅${NC} ${basename_md}.pdf (${size:-?} KB)"
-                t_success=$((t_success + 1))
-            else
-                echo -e "    ${RED}✗${NC} ビルド失敗: ${basename_md}.pdf"
-                t_fail=$((t_fail + 1))
-            fi
-
-            rm -f "$tmp"
-        done
     fi
 
     echo -e "  themes [${lang_label}]: ${t_success}成功 / ${t_fail}失敗"
@@ -499,8 +483,9 @@ build_synthesis() {
 
         # フロントマターを除去して連結
         cat "$md_file" | strip_frontmatter >> "$tmp"
+        rewrite_svg_links_for_pdf "$tmp" "$md_file" "$CREATION_SPACE_ROOT/.build-tmp/svg-raster/synthesis/${lang}-${basename_md}"
 
-        if pandoc "$tmp"             -o "$out"             --pdf-engine=lualatex             --wrap=none             2>&1 | sed 's/^/      /'; then
+        if run_pandoc_pdf "$tmp" "$out" --pdf-engine=lualatex --wrap=none 2>&1 | sed 's/^/      /'; then
             local size
             size=$(du -k "$out" 2>/dev/null | cut -f1)
             echo -e "    ${GREEN}✅${NC} ${basename_md}.pdf (${size:-?} KB)"

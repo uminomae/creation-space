@@ -19,11 +19,11 @@ import argparse
 from datetime import date
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-DOMAINS_DIR = os.path.join(ROOT, "transform/domains/publish/domains")
+DOMAINS_DIR = os.path.join("/Users/uminomae/dev/pjdhiro", "assets/creation/domains/ja/md")
 PRESENTATIONS_DIR = os.path.join(ROOT, "transform/domains/publish/presentations")
-INDEX_JSON = os.path.join(DOMAINS_DIR, "index.json")
+INDEX_JSON = os.path.join(ROOT, "transform/domains/publish/domains/index.json")
 SVG_DOMAINS_DIR = os.path.join(ROOT, "assets/svg/domains")
-CREATION_SPACE_PAGES_BASE = "https://uminomae.github.io/creation-space"
+PUBLISHED_CREATION_ASSET_BASE = "https://uminomae.github.io/pjdhiro/assets/creation"
 
 
 def load_index():
@@ -33,10 +33,8 @@ def load_index():
 
 
 def find_report_file(domain_id, slug):
-    for f in os.listdir(DOMAINS_DIR):
-        if f.startswith("domain-" + domain_id + "-") and f.endswith("-academic-ja.md"):
-            return os.path.join(DOMAINS_DIR, f)
-    return None
+    path = os.path.join(DOMAINS_DIR, "domain-%s-%s.md" % (domain_id, slug))
+    return path if os.path.isfile(path) else None
 
 
 def read_file(path):
@@ -269,7 +267,7 @@ def resolve_domain_svg_url(domain_id):
     prefix = "domain-%s-" % domain_id
     for name in sorted(os.listdir(SVG_DOMAINS_DIR)):
         if name.startswith(prefix) and name.endswith(".svg"):
-            return "%s/assets/svg/domains/%s" % (CREATION_SPACE_PAGES_BASE, name)
+            return "%s/img/svg/domains/ja/%s" % (PUBLISHED_CREATION_ASSET_BASE, name)
     return ""
 
 
@@ -277,7 +275,7 @@ def generate_presentation(domain_info, content, fm):
     domain_id = domain_info["id"]
     name_ja = domain_info["name_ja"]
     slug = domain_info["slug"]
-    source_file = "domain-%s-%s-academic-ja.md" % (domain_id, slug)
+    source_file = "domain-%s-%s.md" % (domain_id, slug)
     svg_url = resolve_domain_svg_url(domain_id)
 
     num_theories = count_theories(content)

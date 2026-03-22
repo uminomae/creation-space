@@ -31,6 +31,7 @@ export function applyPageLanguage(lang, { devMode = false, devVersion = '', devD
     const topbarReportsLink = document.getElementById('topbar-reports-link');
     const topbarPreparingBadge = document.getElementById('topbar-preparing-badge');
     const topbarBlogLink = document.getElementById('topbar-blog-link');
+    const topbarThemesLink = document.getElementById('topbar-themes-link');
     const topbarCollab = document.getElementById('credit-collab');
     const footerSignature = document.getElementById('footer-signature');
     const modelSectionHeading = document.getElementById('model-section-heading');
@@ -56,6 +57,10 @@ export function applyPageLanguage(lang, { devMode = false, devVersion = '', devD
     if (topbarBlogLink) {
         topbarBlogLink.textContent = strings.topbarBlog;
         topbarBlogLink.setAttribute('aria-label', strings.topbarBlogAria);
+    }
+    if (topbarThemesLink) {
+        topbarThemesLink.textContent = strings.topbarThemes;
+        topbarThemesLink.setAttribute('aria-label', strings.topbarThemesAria);
     }
     if (topbarCollab) topbarCollab.textContent = strings.topbarCollab;
     if (footerSignature) footerSignature.textContent = strings.creditSignature;
