@@ -13,6 +13,7 @@ import re
 from pathlib import Path
 
 PUBLISH_ROOT = Path("/Users/uminomae/dev/pjdhiro/assets/creation")
+PUBLISHED_CREATION_ASSET_BASE = "https://uminomae.github.io/pjdhiro/assets/creation"
 
 IMAGE_LINE_RE = re.compile(r"^\\?!\[[^\]]*\]\(([^)]+)\)\s*$")
 DOMAIN_ID_RE = re.compile(r"domain-(D\d+)-", re.I)
@@ -20,6 +21,10 @@ DOMAIN_ID_RE = re.compile(r"domain-(D\d+)-", re.I)
 
 def has_text(value: str | None) -> bool:
     return isinstance(value, str) and bool(value.strip())
+
+
+def build_public_svg_url(kind: str, lang: str, svg_name: str) -> str:
+    return f"{PUBLISHED_CREATION_ASSET_BASE}/img/svg/{kind}/{lang}/{svg_name}"
 
 
 def find_domain_svg(domain_id: str, lang: str) -> str:
@@ -98,7 +103,7 @@ def sync_domain_report(path: Path, lang: str) -> bool:
 
     text = path.read_text(encoding="utf-8")
     title = next((line[2:].strip() for line in text.splitlines() if line.startswith("# ")), domain_id)
-    image_line = f"![{title} — {'5段階モデルとの構造対応図' if lang == 'ja' else 'Structural correspondence diagram'}](../../../img/svg/domains/{lang}/{svg_name})"
+    image_line = f"![{title} — {'5段階モデルとの構造対応図' if lang == 'ja' else 'Structural correspondence diagram'}]({build_public_svg_url('domains', lang, svg_name)})"
     updated = normalize_h1_svg_embed(text, image_line, is_domain_diagram_line)
     if updated != text:
         path.write_text(updated, encoding="utf-8")
@@ -123,7 +128,7 @@ def sync_domain_presentation(path: Path, lang: str) -> bool:
 
     image_title = "## 構造対応図" if lang == "ja" else "## Structural Correspondence Diagram"
     alt_title = "構造対応図" if lang == "ja" else "Structural correspondence diagram"
-    image_slide = f"{image_title}\n\n![{alt_title}](../../../../img/svg/domains/{lang}/{svg_name})"
+    image_slide = f"{image_title}\n\n![{alt_title}]({build_public_svg_url('domains', lang, svg_name)})"
 
     replaced = False
     for idx, chunk in enumerate(slides):
@@ -149,9 +154,7 @@ def sync_theme_markdown(path: Path, lang: str, presentation: bool = False) -> bo
         return False
 
     base = "themes"
-    rel_prefix = "../../../../img/svg/themes" if presentation else "../../../img/svg/themes"
-
-    svg_path = f"{rel_prefix}/{lang}/{svg_name}"
+    svg_path = build_public_svg_url("themes", lang, svg_name)
     text = path.read_text(encoding="utf-8")
     lines = text.splitlines()
     changed = False

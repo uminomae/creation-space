@@ -192,11 +192,11 @@ teaser・PDF 冒頭などで使う PNG とは用途を分ける。slide viewer �
 | 横断パターン | SVG: ベン図/ネットワーク図 | 共通点の可視化 |
 | 結論 | SVG: サマリーダイアグラム | 全体像の俯瞰 |
 
-SVGファイルは公開 assets の `img/svg/domains/{lang}/` に配置し、presentation では title/overview の次に参照する:
+SVGファイルは公開 assets の `img/svg/domains/{lang}/` に配置し、presentation では GitHub Pages 上の絶対 URL を title/overview の次に参照する:
 ```markdown
 ## 構造対応図
 
-![構造対応図](../../../../img/svg/domains/{lang}/domain-D{NN}-{name}.svg)
+![構造対応図](https://uminomae.github.io/pjdhiro/assets/creation/img/svg/domains/{lang}/domain-D{NN}-{name}.svg)
 ```
 ドメイン slug と SVG ファイル名が一致しない場合があるため、`img/svg/domains/{lang}/domain-D{NN}-*.svg` の実在ファイルを優先して参照する。
 

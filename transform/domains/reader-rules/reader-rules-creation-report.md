@@ -271,7 +271,7 @@ H1 見出しの直後に配置する:
 ```markdown
 # 数学
 
-![数学 — 5段階モデルとの構造対応図](../../../img/svg/domains/ja/domain-D01-mathematics.svg)
+![数学 — 5段階モデルとの構造対応図](https://uminomae.github.io/pjdhiro/assets/creation/img/svg/domains/ja/domain-D01-mathematics.svg)
 
 > **立ち位置明示**
 > ...

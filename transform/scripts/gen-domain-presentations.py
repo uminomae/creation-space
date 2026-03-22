@@ -23,6 +23,7 @@ DOMAINS_DIR = os.path.join("/Users/uminomae/dev/pjdhiro", "assets/creation/domai
 PRESENTATIONS_DIR = os.path.join(ROOT, "transform/domains/publish/presentations")
 INDEX_JSON = os.path.join(ROOT, "transform/domains/publish/domains/index.json")
 SVG_DOMAINS_DIR = os.path.join(ROOT, "assets/svg/domains")
+PUBLISHED_CREATION_ASSET_BASE = "https://uminomae.github.io/pjdhiro/assets/creation"
 
 
 def load_index():
@@ -266,7 +267,7 @@ def resolve_domain_svg_url(domain_id):
     prefix = "domain-%s-" % domain_id
     for name in sorted(os.listdir(SVG_DOMAINS_DIR)):
         if name.startswith(prefix) and name.endswith(".svg"):
-            return "../../../img/svg/domains/ja/%s" % name
+            return "%s/img/svg/domains/ja/%s" % (PUBLISHED_CREATION_ASSET_BASE, name)
     return ""
 
 
