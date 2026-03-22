@@ -30,6 +30,43 @@ function resolveImageUrls(html, mdBaseUrl) {
     );
 }
 
+/**
+ * Classify a slide section into a type for CSS styling.
+ * Returns one of: slide-title, slide-overview, slide-table, slide-entry,
+ * slide-conclusion, slide-patterns, slide-questions, slide-default.
+ */
+function classifySlide(section, index, total) {
+    const text = section.textContent || '';
+    const hasTable = section.querySelector('table') !== null;
+    const hasList = section.querySelector('ul, ol') !== null;
+    const paragraphs = section.querySelectorAll('p');
+    const h2 = section.querySelector('h2');
+    const heading = h2 ? h2.textContent : '';
+
+    // First slide is always title
+    if (index === 0) return 'slide-title';
+
+    // Last slide is conclusion
+    if (index === total - 1) return 'slide-conclusion';
+
+    // Heading-based detection
+    if (/概要|overview/i.test(heading) && hasList) return 'slide-overview';
+    if (/結論|まとめ|conclusion/i.test(heading)) return 'slide-conclusion';
+    if (/横断|パターン|pattern|cross/i.test(heading)) return 'slide-patterns';
+    if (/未解決|open.*question|問い/i.test(heading)) return 'slide-questions';
+
+    // Content-based detection
+    if (hasTable) return 'slide-table';
+
+    // Dense prose = entry slide (3+ paragraphs or long text)
+    if (paragraphs.length >= 3 || text.length > 400) return 'slide-entry';
+
+    // Bullet-heavy = overview-like
+    if (hasList && paragraphs.length <= 1) return 'slide-overview';
+
+    return 'slide-default';
+}
+
 function createOverlay() {
     const node = document.createElement('div');
     node.id = 'slide-viewer-overlay';
@@ -69,11 +106,12 @@ export async function openSlideViewer({ markdownText, title, mdBaseUrl }) {
     const slidesContainer = overlayNode.querySelector('.slides');
     slidesContainer.innerHTML = '';
 
-    for (const slideContent of slides) {
+    for (let i = 0; i < slides.length; i++) {
         const section = document.createElement('section');
-        let parsedHtml = marked.parse(slideContent.trim());
+        let parsedHtml = marked.parse(slides[i].trim());
         parsedHtml = resolveImageUrls(parsedHtml, mdBaseUrl);
         section.innerHTML = DOMPurify.sanitize(parsedHtml, { FORBID_TAGS: ['a'] });
+        section.classList.add(classifySlide(section, i, slides.length));
         slidesContainer.appendChild(section);
     }
 
@@ -98,7 +136,9 @@ export async function openSlideViewer({ markdownText, title, mdBaseUrl }) {
         keyboard: true,
         overview: false,
         center: true,
-        transition: 'slide',
+        transition: 'fade',
+        transitionSpeed: 'default',
+        backgroundTransition: 'fade',
         width: 960,
         height: 700,
     });
