@@ -25,6 +25,7 @@ import { createReportsRenderer, getDomainReportTitle, getReportsStrings } from '
 import { createPhase8Renderer, loadPhase8Themes } from './phase8.js';
 import { createPhase9Renderer, loadPhase9Tracks } from './phase9.js';
 import { createSynthesisRenderer } from './synthesis.js';
+import { createThemeVerificationRenderer } from './theme-verification.js';
 
 const state = {
     lang: 'ja',
@@ -110,6 +111,11 @@ const synthesisRenderer = createSynthesisRenderer({
     getLang: () => state.lang,
 });
 
+const themeVerificationRenderer = createThemeVerificationRenderer({
+    openMarkdownModal: (...args) => modalController.openMarkdownModal(...args),
+    getLang: () => state.lang,
+});
+
 historyController = createReportsHistoryController({
     state,
     ensureMdModalInstance: () => modalController.ensureMdModalInstance(),
@@ -191,6 +197,7 @@ export async function initReports({
     phase8Renderer.cacheDom();
     phase9Renderer.cacheDom();
     synthesisRenderer.cacheDom();
+    themeVerificationRenderer.cacheDom();
     renderer.bindUiEvents();
     historyController.bindHistorySyncEvents();
 
@@ -279,6 +286,7 @@ export function setReportsLanguage(lang) {
     phase8Renderer.renderThemes(state.phase8Themes);
     phase9Renderer.renderTracks(state.phase9Tracks, state.phase9OverviewPlanMd);
     synthesisRenderer.renderSynthesis();
+    themeVerificationRenderer.renderVerification();
 }
 
 export {
