@@ -90,65 +90,80 @@ function onKeyDown(event) {
 }
 
 export async function openSlideViewer({ markdownText, title, mdBaseUrl }) {
+    console.log('[slide-viewer] openSlideViewer called', { title, hasText: !!markdownText });
     if (!markdownText) return;
 
-    if (!overlayNode) {
-        overlayNode = createOverlay();
+    try {
+        if (!overlayNode) {
+            overlayNode = createOverlay();
+            console.log('[slide-viewer] overlay created');
+        }
+
+        const { body } = parseFrontmatter(markdownText);
+
+        const slides = body.split(/\n---\n/).filter((s) => s.trim());
+        console.log('[slide-viewer] slides parsed:', slides.length);
+
+        const { marked } = await import('marked');
+        marked.setOptions({ breaks: true, gfm: true });
+
+        const slidesContainer = overlayNode.querySelector('.slides');
+        slidesContainer.innerHTML = '';
+
+        for (let i = 0; i < slides.length; i++) {
+            const section = document.createElement('section');
+            let parsedHtml = marked.parse(slides[i].trim());
+            parsedHtml = resolveImageUrls(parsedHtml, mdBaseUrl);
+            section.innerHTML = DOMPurify.sanitize(parsedHtml, { FORBID_TAGS: ['a'] });
+            const slideType = classifySlide(section, i, slides.length);
+            section.classList.add(slideType);
+            slidesContainer.appendChild(section);
+        }
+        console.log('[slide-viewer] sections appended');
+
+        overlayNode.classList.add('visible');
+        console.log('[slide-viewer] overlay visible');
+
+        const Reveal = (await import('reveal.js')).default;
+        console.log('[slide-viewer] Reveal imported');
+
+        if (revealInstance) {
+            console.log('[slide-viewer] destroying old instance');
+            revealInstance.destroy();
+            revealInstance = null;
+        }
+
+        const revealEl = overlayNode.querySelector('.reveal');
+
+        revealInstance = new Reveal(revealEl, {
+            hash: false,
+            history: false,
+            controls: true,
+            progress: true,
+            slideNumber: true,
+            embedded: true,
+            keyboard: true,
+            overview: false,
+            center: true,
+            transition: 'fade',
+            transitionSpeed: 'default',
+            backgroundTransition: 'fade',
+            width: 960,
+            height: 700,
+        });
+
+        await revealInstance.initialize();
+        console.log('[slide-viewer] Reveal initialized');
+
+        window.addEventListener('keydown', onKeyDown);
+        console.log('[slide-viewer] ready');
+    } catch (err) {
+        console.error('[slide-viewer] ERROR:', err);
     }
-
-    const { body } = parseFrontmatter(markdownText);
-
-    const slides = body.split(/\n---\n/).filter((s) => s.trim());
-
-    const { marked } = await import('marked');
-    marked.setOptions({ breaks: true, gfm: true });
-
-    const slidesContainer = overlayNode.querySelector('.slides');
-    slidesContainer.innerHTML = '';
-
-    for (let i = 0; i < slides.length; i++) {
-        const section = document.createElement('section');
-        let parsedHtml = marked.parse(slides[i].trim());
-        parsedHtml = resolveImageUrls(parsedHtml, mdBaseUrl);
-        section.innerHTML = DOMPurify.sanitize(parsedHtml, { FORBID_TAGS: ['a'] });
-        section.classList.add(classifySlide(section, i, slides.length));
-        slidesContainer.appendChild(section);
-    }
-
-    overlayNode.classList.add('visible');
-
-    const Reveal = (await import('reveal.js')).default;
-
-    if (revealInstance) {
-        revealInstance.destroy();
-        revealInstance = null;
-    }
-
-    const revealEl = overlayNode.querySelector('.reveal');
-
-    revealInstance = new Reveal(revealEl, {
-        hash: false,
-        history: false,
-        controls: true,
-        progress: true,
-        slideNumber: true,
-        embedded: true,
-        keyboard: true,
-        overview: false,
-        center: true,
-        transition: 'fade',
-        transitionSpeed: 'default',
-        backgroundTransition: 'fade',
-        width: 960,
-        height: 700,
-    });
-
-    await revealInstance.initialize();
-
-    window.addEventListener('keydown', onKeyDown);
 }
 
 export function closeSlideViewer() {
+    console.log('[slide-viewer] closeSlideViewer called', new Error().stack);
     window.removeEventListener('keydown', onKeyDown);
 
     if (revealInstance) {
