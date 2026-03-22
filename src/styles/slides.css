@@ -120,6 +120,7 @@
    ========================================================================== */
 
 #slide-viewer-overlay .reveal .slides section {
+  box-sizing: border-box;
   color: var(--slide-text-primary);
   font-family: var(--slide-font-body);
   text-align: left;
