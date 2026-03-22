@@ -324,6 +324,7 @@ build_domains() {
         if pandoc "$tmp" \
             -o "$out" \
             --pdf-engine=lualatex \
+            --resource-path="$PJDHIRO_DIR/assets/creation:$md_dir:$PJDHIRO_DIR/assets/creation/img:$PJDHIRO_DIR/assets/creation/img/svg:$PJDHIRO_DIR/assets/creation/img/svg/domains/$lang" \
             --wrap=none \
             2>&1 | sed 's/^/      /'; then
             local size

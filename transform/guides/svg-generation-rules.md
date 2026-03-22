@@ -1,6 +1,7 @@
 # SVG 生成ルール — 図解スタイルガイド (cs#136)
 
 公開用 MD の内容を図解する SVG を生成する際のルール。
+SVG は公開用 `.md` と同じ言語単位（`ja` / `en`）で生成し、同じ `.md` から modal / PDF / EN版で共用する。
 
 ## 1. 基本仕様
 
@@ -116,24 +117,24 @@
 
 MD ファイルから SVG を参照する際の標準記法:
 
-### インライン画像として埋め込む場合
+### ドメイン report (`assets/creation/domains/{lang}/md/*.md`) に埋め込む場合
 
 ```markdown
-\![{タイトル}の構造図](../assets/svg/domains/domain-D{NN}-{name}.svg)
+\![{タイトル}の構造図](../../img/svg/domains/{lang}/domain-D{NN}-{name}.svg)
 ```
 
-### HTML 直接埋め込み（サイズ制御が必要な場合）
+### ドメイン presentation (`assets/creation/domains/{lang}/presentations/md/*.md`) に埋め込む場合
 
 ```html
 <div align="center">
-  <img src="../assets/svg/domains/domain-D{NN}-{name}.svg" alt="{タイトル}の構造図" width="700">
+  <img src="../../../img/svg/domains/{lang}/domain-D{NN}-{name}.svg" alt="{タイトル}の構造図" width="700">
 </div>
 ```
 
 ### テーマ図の参照
 
 ```markdown
-\![{テーマ名}の分析図](../assets/svg/themes/theme-{slug}.svg)
+\![{テーマ名}の分析図](../../img/svg/themes/{lang}/theme-{slug}.svg)
 ```
 
 ## 7. 品質チェック項目
@@ -149,6 +150,7 @@ SVG 生成後、以下を確認する:
 - [ ] ファイルサイズが 200KB 以下
 - [ ] 命名規約に準拠（domain-D{NN}-{name}.svg / theme-{slug}.svg）
 - [ ] MDの内容と図の整合性がある（タイトル・構造の一致）
+- [ ] JA/EN を公開する場合、文字ラベルが本文言語と一致している
 
 ## 8. pandoc PDF 埋め込み設定
 
@@ -157,11 +159,10 @@ pandoc で SVG を含む MD から PDF を生成する場合:
 ```bash
 pandoc input.md -o output.pdf \
   --pdf-engine=lualatex \
-  --resource-path=".:assets/svg/domains:assets/svg/themes" \
+  --resource-path=".:assets/creation:assets/creation/img/svg/domains/ja:assets/creation/img/svg/domains/en:assets/creation/img/svg/themes/ja:assets/creation/img/svg/themes/en" \
   --wrap=none
 ```
 
 `--resource-path` に SVG ディレクトリを追加することで、MD 内の相対パスで SVG を解決できる。
 
-> **注意**: lualatex は SVG を直接埋め込めないため、rsvg-convert 等で PNG/PDF に変換するか、
-> `--lua-filter` で SVG → PDF 変換を挟む必要がある。将来の拡張として検討。
+> **注意**: PDF 生成では `rsvg-convert` などの SVG 変換依存を利用する。公開用 `.md` の画像参照は SVG を正本とし、PDF 側で必要な変換を吸収する。
