@@ -269,6 +269,7 @@ export async function initReports({
     }
     phase9Renderer.renderTracks(state.phase9Tracks, state.phase9OverviewPlanMd);
     synthesisRenderer.renderSynthesis();
+    themeVerificationRenderer.renderVerification();
 
 
     if (!state.loadError) {
