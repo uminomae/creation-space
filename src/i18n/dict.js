@@ -99,10 +99,6 @@ export const dict = {
                 description: '30領域を横断して抽出された5つの構造テーマ。',
                 cardDomains: '{count}領域',
                 empty: '横断分析テーマがありません。',
-                summaryHeading: '横断分析テーマ結論要約',
-                summaryDescription: '5つの構造テーマの結論要約。',
-                summaryBadge: '要約',
-                summaryLabel: '結論要約',
                 slidesButton: 'スライド',
             },
             phase9Tracks: {
@@ -243,10 +239,6 @@ export const dict = {
                 description: 'Five structural themes extracted across 30 domains.',
                 cardDomains: '{count} domains',
                 empty: 'No cross-domain themes available.',
-                summaryHeading: 'Cross-Domain Theme Conclusions',
-                summaryDescription: 'Conclusion summaries for the five structural themes.',
-                summaryBadge: 'Summary',
-                summaryLabel: 'Conclusion Summary',
                 slidesButton: 'Slides',
             },
             phase9Tracks: {

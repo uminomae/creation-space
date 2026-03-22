@@ -35,8 +35,6 @@ def find_domain_svg(domain_id: str, lang: str) -> str:
 
 def theme_svg_name_from_markdown(path: Path) -> str:
     stem = path.stem
-    if stem.startswith("summary-"):
-        return f"theme-{stem.removeprefix('summary-')}.svg"
     if stem.startswith("theme-") and "-presentation-" in stem:
         return f"{stem.split('-presentation-', 1)[0]}.svg"
     if stem.startswith("theme-"):
@@ -207,7 +205,7 @@ def main() -> int:
     if not args.domains_only:
         for lang in ("ja", "en"):
             theme_md_dir = PUBLISH_ROOT / "phase8-themes" / lang / "md"
-            for path in sorted(theme_md_dir.glob("*.md")):
+            for path in sorted(theme_md_dir.glob("theme-*.md")):
                 if sync_theme_markdown(path, lang, presentation=False):
                     touched.append(str(path))
 

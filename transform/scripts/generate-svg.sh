@@ -134,10 +134,7 @@ get_svg_name_domain() {
 get_svg_name_theme() {
     local base
     base="$(basename "$1" .md)"
-    case "$base" in
-        summary-*) printf '%s\n' "theme-${base#summary-}" ;;
-        *) printf '%s\n' "$base" ;;
-    esac
+    printf '%s\n' "$base"
 }
 
 resolve_ja_template() {
@@ -357,7 +354,7 @@ process_themes() {
             continue
         fi
 
-        for md_file in "$md_dir"/theme-*.md "$md_dir"/summary-*.md; do
+        for md_file in "$md_dir"/theme-*.md; do
             [ -f "$md_file" ] || continue
 
             local svg_name
