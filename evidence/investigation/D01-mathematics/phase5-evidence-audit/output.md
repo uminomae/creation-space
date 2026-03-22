@@ -134,8 +134,8 @@
 | conf | 0.60 |
 | 縁フラグ | 黄 |
 | 5段階カバレッジ | 場:○ 波:○ 縁:△ 渦:○ 束:○ |
-| 課題 | 縁（birth）は「関係網の成立」として縁的だが未決定性が弱い。「persistence = Withhold」の対応は語義的であり構造的検証が不足。birth-deathペアの「消滅」は5段階にない概念 |
-| 推奨アクション | Accept維持。birth-death構造の独自性を深掘りする価値あり。[UNCERTAIN]タグで「persistence = Withhold」対応を保持 |
+| 課題 | 縁（birth）は「関係網の成立」として縁的だが未決定性が弱い。「persistence = 抱持」の対応は語義的であり構造的検証が不足。birth-deathペアの「消滅」は5段階にない概念 |
+| 推奨アクション | Accept維持。birth-death構造の独自性を深掘りする価値あり。[UNCERTAIN]タグで「persistence = 抱持」対応を保持 |
 
 ### EV-D01-009: 特異摂動と境界層
 

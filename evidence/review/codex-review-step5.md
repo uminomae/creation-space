@@ -176,7 +176,7 @@
 | EV-NS-013 | D08 神経科学 | [UNCERTAIN] 縁への明示対応なし | △ | triage=Accept |
 | EV-LS-001 | D09 生命科学（代謝・細胞） | アストロサイトによる乳酸供給（代謝的保持支援） | ○ | triage=Accept |
 | EV-LS-002 | D09 生命科学（代謝・細胞） | アストロサイトの遅い統合（秒〜十秒＝保持の時間基盤） | ○ | triage=Accept |
-| EV-LS-003 | D09 生命科学（代謝・細胞） | 全段階の代謝的制約。mtCB1が代謝出力の上限を設定→Withhold（縁→渦）の持続可能時間を規定 | ○ | triage=Accept |
+| EV-LS-003 | D09 生命科学（代謝・細胞） | 全段階の代謝的制約。mtCB1が代謝出力の上限を設定→抱持（縁→渦）の持続可能時間を規定 | ○ | triage=Accept |
 | EV-LS-004 | D09 生命科学（代謝・細胞） | 補体系による標識 | ○ | triage=Accept |
 | EV-LS-005 | D09 生命科学（代謝・細胞） | OPCの分化・ミエリン形成開始 | ○ | triage=Accept |
 | EV-LS-006 | D09 生命科学（代謝・細胞） | アロスタティック調整（適応的コスト） | ○ | triage=Accept |
@@ -222,7 +222,7 @@
 | EV-CR-012 | D14 心理学 | [UNCERTAIN] 縁への明示対応なし | △ | triage=Accept |
 | EV-CR-013 | D14 心理学 | 場→波→縁（発散・探索側）の測定に焦点。渦→束（収束・確定）は測定対象外 | ○ | triage=Accept |
 | EV-CR-014 | D14 心理学 | 制約の緩和・再符号化 | ○ | triage=Accept |
-| EV-CR-015 | D14 心理学 | 柔軟性経路=場→波→縁（拡散・探索）, 持続性経路=縁→渦→束（Withholdを保った深掘り）。2経路は5段階の前半/後半に対応 | ○ | triage=Accept |
+| EV-CR-015 | D14 心理学 | 柔軟性経路=場→波→縁（拡散・探索）, 持続性経路=縁→渦→束（抱持を保った深掘り）。2経路は5段階の前半/後半に対応 | ○ | triage=Accept |
 | EV-CR-016 | D14 心理学 | DMN=場→波→縁（連想・内省・拡散）, ECN=渦→束（制御・評価・収束）。両ネットワークの協調が5段階の循環を神経レベルで実現 | ○ | triage=Accept |
 | EV-CR-017 | D14 心理学 | アイデアの選別・組合せ | ○ | triage=Accept |
 | EV-CR-018 | D14 心理学 | [UNCERTAIN] 縁への明示対応なし | △ | triage=Accept |
@@ -236,14 +236,14 @@
 | EV-PA-003 | D14 心理学 | 意識と無意識の調整的交流 | ◎ | triage=Accept |
 | EV-PA-004 | D14 心理学 | PS-D振動（統合と分裂の間の保持） | ◎ | triage=Accept |
 | EV-PA-005 | D14 心理学 | 投影された部分と対象の同一化 | ◎ | triage=CA |
-| EV-PA-006 | D14 心理学 | 葛藤の保持（Withhold） | ○ | triage=Accept |
+| EV-PA-006 | D14 心理学 | 葛藤の保持（抱持） | ○ | triage=Accept |
 | EV-PA-007 | D14 心理学 | 養育者との再接続 | ◎ | triage=Accept |
 | EV-PA-008 | D14 心理学 | [UNCERTAIN] 縁への明示対応なし | △ | triage=Accept |
 | EV-PA-009 | D14 心理学 | 二次的間主観性（三者関係） | ◎ | triage=Accept |
 | EV-PA-010 | D14 心理学 | [UNCERTAIN] 縁への明示対応なし | △ | triage=Accept |
-| EV-AE-001 | D15 美学 | 葛藤の保持（Withhold） | ○ | triage=Accept |
+| EV-AE-001 | D15 美学 | 葛藤の保持（抱持） | ○ | triage=Accept |
 | EV-AE-002 | D15 美学 | 保持（秘する・忍ぶ） | ○ | triage=Accept |
-| EV-AE-003 | D15 美学 | 無関心性（F-O停止=Withhold） | ○ | triage=CA |
+| EV-AE-003 | D15 美学 | 無関心性（F-O停止=抱持） | ○ | triage=CA |
 | EV-AE-004 | D15 美学 | 闘争の保持 | ○ | triage=CA |
 | EV-HI-001 | D16 歴史学 | 交易・外交・戦争で接続 | ◎ | triage=Accept |
 | EV-HI-002 | D16 歴史学 | 応答主体の編成 | ○ | triage=Accept |
@@ -276,13 +276,13 @@
 | EV-BZ-011 | D22 経営学 | イナクトメント | ○ | triage=Accept |
 | EV-BZ-012 | D22 経営学 | ストレスとの接触（皮膚の露出） | ◎ | triage=Accept |
 | EV-BZ-013 | D22 経営学 | 多品種対応（境界での接触） | ◎ | triage=Accept |
-| EV-BZ-014 | D22 経営学 | オプション保持（Withhold＝「待つ権利」） | ○ | triage=Accept |
+| EV-BZ-014 | D22 経営学 | オプション保持（抱持＝「待つ権利」） | ○ | triage=Accept |
 | EV-BZ-015 | D22 経営学 | [UNCERTAIN] 5段階対応欄未記載 | △ | triage=Accept |
 | EV-BZ-016 | D22 経営学 | [UNCERTAIN] 5段階対応欄未記載 | △ | triage=Accept |
 | EV-BZ-017 | D22 経営学 | [UNCERTAIN] 5段階対応欄未記載 | △ | triage=Accept |
 | EV-BZ-CMP | D22 経営学 | [UNCERTAIN] 縁への明示対応なし | △ | triage=CA |
 | EV-DP-001 | D23 発達心理学・教育学 | 調節（スキーマの修正プロセス） | ○ | triage=CA |
-| EV-DP-002 | D23 発達心理学・教育学 | 他者による足場かけ（外的Withhold支援） | ◎ | triage=CA |
+| EV-DP-002 | D23 発達心理学・教育学 | 他者による足場かけ（外的抱持支援） | ◎ | triage=CA |
 | EV-DP-003 | D23 発達心理学・教育学 | [UNCERTAIN] 縁への明示対応なし | △ | triage=CA |
 | EV-DP-004 | D23 発達心理学・教育学 | 抑制の発達（出力の保留） | ○ | triage=CA |
 | EV-RL-001 | D24 宗教学・神秘主義 | 追跡・捕獲の相互作用 | ◎ | triage=Accept |
@@ -328,7 +328,7 @@
 
 ### 新規パターン候補（追加）
 - **P-1: 外的Container依存パターン**
-  - D14（EV-PA-002, EV-DP-002, EV-CS-004）と D22（EV-BZ-009）に共通して、創造的保持（Withhold）は個体内完結でなく外的支えを要する。
+  - D14（EV-PA-002, EV-DP-002, EV-CS-004）と D22（EV-BZ-009）に共通して、創造的保持（抱持）は個体内完結でなく外的支えを要する。
 - **P-2: 制度化された束の再起動パターン**
   - D20（法制度）、D11（薬事開発）、D21（産業進化）で、束（制度・標準）が固定後にショックで場へ戻る循環が反復する。
 

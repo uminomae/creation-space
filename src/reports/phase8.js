@@ -7,6 +7,7 @@
  */
 
 import { normalizeLang } from '../i18n.js';
+import { openSlideViewer } from '../slide-viewer.js';
 import { dict } from '../i18n/dict.js';
 import {
     PHASE8_THEMES_MANIFEST_URL,
@@ -34,6 +35,8 @@ function normalizeTheme(raw) {
         mdByLang: typeof raw?.md === 'object' && raw.md !== null ? raw.md : null,
         summaryMdByLang: typeof raw?.summary_md === 'object' && raw.summary_md !== null ? raw.summary_md : null,
         pdfByLang: typeof raw?.pdf === 'object' && raw.pdf !== null ? raw.pdf : null,
+        summaryPdfByLang: typeof raw?.summary_pdf === 'object' && raw.summary_pdf !== null ? raw.summary_pdf : null,
+        presentationMdByLang: typeof raw?.presentation_md === 'object' && raw.presentation_md !== null ? raw.presentation_md : null,
         generatorModel: typeof raw?.generator_model === 'string' ? raw.generator_model.trim() : '',
         generated: typeof raw?.generated === 'string' ? raw.generated.trim() : '',
     };
@@ -55,10 +58,25 @@ function resolveThemePdfUrl(theme, lang = 'ja') {
     return `${PJDHIRO_CREATION_RAW}/${relPath}`;
 }
 
+function resolveThemePresentationMdUrl(theme, lang = 'ja') {
+    if (!theme.presentationMdByLang) return '';
+    const normalizedLang = normalizeLang(lang);
+    const relPath = theme.presentationMdByLang[normalizedLang] || theme.presentationMdByLang['ja'];
+    if (!relPath) return '';
+    return `${PJDHIRO_CREATION_RAW}/${relPath}`;
+}
 function resolveSummaryMdUrl(theme, lang = 'ja') {
     if (!theme.summaryMdByLang) return '';
     const normalizedLang = normalizeLang(lang);
     const relPath = theme.summaryMdByLang[normalizedLang] || theme.summaryMdByLang['ja'];
+    if (!relPath) return '';
+    return `${PJDHIRO_CREATION_RAW}/${relPath}`;
+}
+
+function resolveSummaryPdfUrl(theme, lang = 'ja') {
+    if (!theme.summaryPdfByLang) return '';
+    const normalizedLang = normalizeLang(lang);
+    const relPath = theme.summaryPdfByLang[normalizedLang] || theme.summaryPdfByLang['ja'];
     if (!relPath) return '';
     return `${PJDHIRO_CREATION_RAW}/${relPath}`;
 }
@@ -169,11 +187,12 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
             const openCard = () => {
                 const mdUrl = resolveSummaryMdUrl(theme, lang);
                 if (!mdUrl) return;
+                const pdfUrl = resolveSummaryPdfUrl(theme, lang);
                 openMarkdownModal({
                     title: name,
                     sources: [{
                         mdUrl,
-                        pdfUrl: '',
+                        pdfUrl,
                         generatorModel: theme.generatorModel,
                         generated: theme.generated,
                     }],
@@ -189,6 +208,32 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
             });
 
             body.appendChild(titleNode);
+
+            const summaryPresMdUrl = resolveThemePresentationMdUrl(theme, lang);
+            if (summaryPresMdUrl) {
+                const slidesBtn = document.createElement('button');
+                slidesBtn.className = 'btn btn-sm btn-outline-light mt-1 align-self-start';
+                slidesBtn.textContent = strings.slidesButton || 'Slides';
+                slidesBtn.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    const currentLang = getLang();
+                    const currentUrl = resolveThemePresentationMdUrl(theme, currentLang);
+                    if (!currentUrl) return;
+                    const currentName = getThemeDisplayName(theme, currentLang);
+                    fetch(currentUrl)
+                        .then((res) => {
+                            if (!res.ok) throw new Error('HTTP ' + res.status);
+                            return res.text();
+                        })
+                        .then((md) => {
+                            const mdBaseUrl = currentUrl.replace(/[^/]*$/, '');
+                            openSlideViewer({ markdownText: md, title: currentName, mdBaseUrl });
+                        })
+                        .catch((err) => console.warn('[phase8] slides load failed:', err));
+                });
+                body.appendChild(slidesBtn);
+            }
+
             card.appendChild(body);
             col.appendChild(card);
             fragment.appendChild(col);
@@ -265,9 +310,34 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
                     openCard();
                 }
             });
-
             body.appendChild(titleNode);
             body.appendChild(descNode);
+
+            const presentationMdUrl = resolveThemePresentationMdUrl(theme, lang);
+            if (presentationMdUrl) {
+                const slidesBtn = document.createElement('button');
+                slidesBtn.className = 'btn btn-sm btn-outline-light mt-1 align-self-start';
+                slidesBtn.textContent = strings.slidesButton || 'Slides';
+                slidesBtn.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    const currentLang = getLang();
+                    const currentUrl = resolveThemePresentationMdUrl(theme, currentLang);
+                    if (!currentUrl) return;
+                    const currentName = getThemeDisplayName(theme, currentLang);
+                    fetch(currentUrl)
+                        .then((res) => {
+                            if (!res.ok) throw new Error('HTTP ' + res.status);
+                            return res.text();
+                        })
+                        .then((md) => {
+                            const mdBaseUrl = currentUrl.replace(/[^/]*$/, '');
+                            openSlideViewer({ markdownText: md, title: currentName, mdBaseUrl });
+                        })
+                        .catch((err) => console.warn('[phase8] slides load failed:', err));
+                });
+                body.appendChild(slidesBtn);
+            }
+
             card.appendChild(body);
             col.appendChild(card);
             fragment.appendChild(col);

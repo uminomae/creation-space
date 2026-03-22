@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <marker id="arrowCS" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#666666"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="#FAFAF8" rx="8"/>
+  <rect x="1" y="1" width="798" height="598" fill="none" stroke="#E0DDD8" stroke-width="1" rx="8"/>
+
+  <!-- Title -->
+  <text x="400" y="40" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="22" fill="#2C2C2C" font-weight="bold">Phase 8 横断分析 — 5テーマ統合構造図</text>
+  <text x="400" y="62" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#666666">30領域から抽出された5つの構造テーマとその相互関係</text>
+
+  <!-- Central node: 5-stage model -->
+  <ellipse cx="400" cy="300" rx="70" ry="35" fill="#2C2C2C" opacity="0.08" stroke="#2C2C2C" stroke-width="2"/>
+  <text x="400" y="295" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="14" fill="#2C2C2C" font-weight="bold">5段階モデル</text>
+  <text x="400" y="312" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">場→波→縁→渦→束</text>
+
+  <!-- T1: Edge Typology (top-left) -->
+  <rect x="60" y="100" width="200" height="80" rx="10" fill="#D4A857" opacity="0.12" stroke="#D4A857" stroke-width="2"/>
+  <text x="160" y="128" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="15" fill="#D4A857" font-weight="bold">T1 縁の類型学</text>
+  <text x="160" y="148" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">28/30領域が「縁」を主題化</text>
+  <text x="160" y="165" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#D4A857">帯域 / 方向選択 / 拮抗 / 実装独立</text>
+  <line x1="260" y1="160" x2="335" y2="280" stroke="#D4A857" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- T5: Recirculation (top-right) -->
+  <rect x="540" y="100" width="200" height="80" rx="10" fill="#5B8B6A" opacity="0.12" stroke="#5B8B6A" stroke-width="2"/>
+  <text x="640" y="128" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="15" fill="#5B8B6A" font-weight="bold">T5 再循環</text>
+  <text x="640" y="148" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">束→場の還流 (19領域)</text>
+  <text x="640" y="165" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#5B8B6A">束は終点でなく次の場の種</text>
+  <line x1="540" y1="160" x2="465" y2="280" stroke="#5B8B6A" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- T6: Field Layers (left) -->
+  <rect x="40" y="280" width="200" height="80" rx="10" fill="#8B8682" opacity="0.12" stroke="#8B8682" stroke-width="2"/>
+  <text x="140" y="308" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="15" fill="#8B8682" font-weight="bold">T6 場の多層性</text>
+  <text x="140" y="328" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">3層構造 (15領域)</text>
+  <text x="140" y="345" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#8B8682">原初的 / 循環的 / 存在論的</text>
+  <line x1="240" y1="320" x2="330" y2="300" stroke="#8B8682" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- T2: Threshold (right) -->
+  <rect x="560" y="280" width="200" height="80" rx="10" fill="#C45B4D" opacity="0.12" stroke="#C45B4D" stroke-width="2"/>
+  <text x="660" y="308" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="15" fill="#C45B4D" font-weight="bold">T2 閾値構造</text>
+  <text x="660" y="328" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">縁→渦遷移の条件 (11領域)</text>
+  <text x="660" y="345" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#C45B4D">連続でなく閾値的 / 不可逆性</text>
+  <line x1="560" y1="320" x2="470" y2="300" stroke="#C45B4D" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- T7+T9: Blind Spots (bottom) -->
+  <rect x="250" y="430" width="300" height="80" rx="10" fill="#8B4049" opacity="0.12" stroke="#8B4049" stroke-width="2"/>
+  <text x="400" y="458" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="15" fill="#8B4049" font-weight="bold">T7+T9 盲点と反例</text>
+  <text x="400" y="478" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">秩序解体・5段階が記述できないもの (24領域)</text>
+  <text x="400" y="495" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#8B4049">モデルの射程限界を明示</text>
+  <line x1="400" y1="430" x2="400" y2="335" stroke="#8B4049" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Inter-theme connections -->
+  <path d="M 260 145 Q 400 80 540 145" fill="none" stroke="#D4A857" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+  <text x="400" y="95" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="9" fill="#666666">縁の類型が閾値の型を規定</text>
+
+  <path d="M 540 170 Q 450 230 240 310" fill="none" stroke="#5B8B6A" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+  <text x="370" y="235" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="9" fill="#666666">還流先は場の各層</text>
+
+  <path d="M 270 440 Q 100 400 100 180" fill="none" stroke="#8B4049" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+  <text x="80" y="380" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="9" fill="#8B4049" transform="rotate(-70, 80, 380)">射程限界を画定</text>
+
+  <!-- Legend -->
+  <rect x="30" y="545" width="740" height="40" rx="6" fill="#F5F3F0" stroke="#E0DDD8" stroke-width="1"/>
+  <circle cx="60" cy="565" r="6" fill="#D4A857" opacity="0.5"/>
+  <text x="75" y="569" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#666666">縁(En)</text>
+  <circle cx="130" cy="565" r="6" fill="#5B8B6A" opacity="0.5"/>
+  <text x="145" y="569" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#666666">束(Taba)</text>
+  <circle cx="210" cy="565" r="6" fill="#8B8682" opacity="0.5"/>
+  <text x="225" y="569" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#666666">場(Ba)</text>
+  <circle cx="280" cy="565" r="6" fill="#C45B4D" opacity="0.5"/>
+  <text x="295" y="569" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#666666">渦(Uzu)</text>
+  <circle cx="350" cy="565" r="6" fill="#8B4049" opacity="0.5"/>
+  <text x="365" y="569" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#666666">限界</text>
+  <line x1="430" y1="565" x2="460" y2="565" stroke="#666666" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="470" y="569" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="10" fill="#666666">テーマ間の相互関係</text>
+</svg>

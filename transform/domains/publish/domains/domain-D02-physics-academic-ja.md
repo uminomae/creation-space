@@ -123,7 +123,7 @@ generated_at: 2026-03-04
 | 研究で得た結果 | 上位概念 | 反映先ファイル | 反映ステータス | 次アクション |
 |---|---|---|---|---|
 | 縁=相互作用/界面/競合/RG流の具体化 | M2（縁） | `knowledge/schema/five-stages.md` | 未反映 | Stage 3に「界面は線ではなく領域」補注を追加候補 |
-| marginal operator を保持として読む視点 | D3（Withhold） | `knowledge/schema/core-definitions.md (see CLAUDE.md D1-D4)` | 未反映 | D3計算論節に「一次判定で未決定の保持」を追記候補 |
+| marginal operator を保持として読む視点 | D3（抱持） | `knowledge/schema/core-definitions.md (see CLAUDE.md D1-D4)` | 未反映 | D3計算論節に「一次判定で未決定の保持」を追記候補 |
 | 核生成での物理的界面（臨界核） | D1/D3 + K-16境界厚み | `/Users/uminomae/dev/creation-space/evidence/evidence-D02-physics.md`（既反映）/ 横断メモ | 一部反映済 | D03/D05 との横断表を別紙化 |
 | 渦なし経路（デコヒーレンス） | ISS（5段階必須性） | `transform/domains/publish/survey-research-bridge-ja.md` | 未反映 | ISS項目として明示的に登録 |
 | D02運用実績のルール反映 | 変換層運用 | `transform/domains/reader-rules/reader-rules-creation-report.md` | 反映済（ルール移行） | D13で2本目検証し改訂点を記録 |

@@ -96,6 +96,8 @@
   <link rel="stylesheet" href="./src/styles/articles.css">
   <link rel="stylesheet" href="./src/styles/reports.css">
   <link rel="stylesheet" href="./src/styles/viewer.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+  <link rel="stylesheet" href="./src/styles/slides.css">
   <link rel="stylesheet" href="./src/styles/dev-legacy.css">
   <link rel="stylesheet" href="./src/styles/creation.css">
   <link rel="stylesheet" href="./src/styles/dev-panel.css">
@@ -106,7 +108,8 @@
         "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
         "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
         "marked": "https://cdn.jsdelivr.net/npm/marked@15.0.7/lib/marked.esm.js",
-        "dompurify": "https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.es.mjs"
+        "dompurify": "https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.es.mjs",
+        "reveal.js": "https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.esm.js"
       }
     }
   </script>
@@ -277,6 +280,11 @@
         <div class="reports-tab-content reports-stack mt-4">
           <section class="reports-stack-section" id="reports-cross-analysis-section">
             <h3 id="reports-cross-analysis-heading" class="reports-subheading">領域横断分析</h3>
+            <div id="reports-synthesis-section" class="mt-2 mb-3">
+              <p id="reports-synthesis-description" class="reports-level-legend mb-2">30領域横断分析の統合的知見。</p>
+              <div id="reports-synthesis-grid" class="row row-cols-1 row-cols-md-2 g-2" aria-live="polite">
+              </div>
+            </div>
             <div id="reports-phase8-summary-section" style="display:none;">
               <h4 id="reports-phase8-summary-heading" class="reports-subheading h6 mt-3">横断分析テーマ結論要約</h4>
               <p id="reports-phase8-summary-description" class="reports-level-legend mb-2">5つの構造テーマの結論要約。</p>
@@ -287,6 +295,13 @@
               <h4 id="reports-phase8-heading" class="reports-subheading h6">領域横断分析（Phase 8）</h4>
               <p id="reports-phase8-description" class="reports-level-legend mb-2">30領域を横断して抽出された5つの構造テーマ。</p>
               <div id="reports-phase8-grid" class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-2" aria-live="polite">
+                <div class="col-12 text-body-secondary">読み込み中...</div>
+              </div>
+            </div>
+            <div class="mt-4">
+              <h4 id="reports-phase9-heading" class="reports-subheading h6">深層探索（Phase 9）</h4>
+              <p id="reports-phase9-description" class="reports-level-legend mb-2">Phase 8 構造テーマの深化調査。</p>
+              <div id="reports-phase9-grid" class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-2" aria-live="polite">
                 <div class="col-12 text-body-secondary">読み込み中...</div>
               </div>
             </div>

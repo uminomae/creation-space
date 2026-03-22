@@ -19,6 +19,31 @@ export const SURVEY_MANIFEST_URL = `${PJDHIRO_CREATION_RAW}/manifests/survey.jso
 
 export const PHASE8_THEMES_MANIFEST_URL = `${PJDHIRO_CREATION_RAW}/manifests/phase8-themes.json`;
 
+export const PHASE9_TRACKS_MANIFEST_URL = `${PJDHIRO_CREATION_RAW}/manifests/phase9-tracks.json`;
+
+export const SYNTHESIS_REPORT_LINKS = {
+    ja: {
+        mdUrl: `${PJDHIRO_CREATION_RAW}/synthesis/ja/md/cross-domain-synthesis-ja.md`,
+        pdfUrl: `${PJDHIRO_CREATION_PAGES}/synthesis/ja/pdf/cross-domain-synthesis-ja.pdf`,
+        generatorModel: CREATION_GUIDE_GENERATOR_MODEL,
+        generated: '2026-03-20',
+    },
+};
+
+export const SYNTHESIS_PRESENTATION_LINKS = {
+    ja: {
+        mdUrl: `${PJDHIRO_CREATION_RAW}/synthesis/ja/md/cross-domain-synthesis-presentation-ja.md`,
+        pdfUrl: `${PJDHIRO_CREATION_PAGES}/synthesis/ja/pdf/cross-domain-synthesis-presentation-ja.pdf`,
+        generatorModel: CREATION_GUIDE_GENERATOR_MODEL,
+        generated: '2026-03-20',
+    },
+    en: {
+        mdUrl: `${PJDHIRO_CREATION_RAW}/synthesis/en/md/cross-domain-synthesis-presentation-en.md`,
+        pdfUrl: `${PJDHIRO_CREATION_PAGES}/synthesis/en/pdf/cross-domain-synthesis-presentation-en.pdf`,
+        generatorModel: CREATION_GUIDE_GENERATOR_MODEL,
+        generated: '2026-03-20',
+    },
+};
 export const STATUS_REPORT_LINKS = {
     ja: {
         mdUrl: `${PJDHIRO_CREATION_RAW}/survey/ja/md/survey-status.md`,
@@ -547,6 +572,7 @@ function normalizeReport(report, index) {
         pdfPath: typeof pdfRaw === 'string' ? pdfRaw.trim() : '',
         mdByLang: typeof mdRaw === 'object' && mdRaw !== null ? mdRaw : null,
         pdfByLang: typeof pdfRaw === 'object' && pdfRaw !== null ? pdfRaw : null,
+        thumbnail: typeof report?.thumbnail === 'string' ? report.thumbnail.trim() : '',
     };
 }
 
@@ -668,6 +694,26 @@ function buildCreationDomainSource(report, lang = 'ja') {
     };
 }
 
+function buildCreationDomainPresentationSource(report, lang = 'ja') {
+    if (typeof report?.id !== 'string' || typeof report?.slug !== 'string') return null;
+    if (!report.id.trim() || !report.slug.trim()) return null;
+    const idOrig = report.id.trim();
+    const slug = report.slug.trim();
+    const normalizedLang = normalizeLang(lang);
+    const baseName = `domain-${idOrig}-${slug}-presentation-${normalizedLang}`;
+    return {
+        mdUrl: `${PJDHIRO_CREATION_RAW}/domains/${normalizedLang}/presentations/md/${baseName}.md`,
+        pdfUrl: `${PJDHIRO_CREATION_PAGES}/domains/${normalizedLang}/presentations/pdf/${baseName}.pdf`,
+    };
+}
+
+export function resolveDomainPresentationSources(report, { lang = 'ja' } = {}) {
+    const normalizedLang = normalizeLang(lang);
+    const source = buildCreationDomainPresentationSource(report, normalizedLang);
+    if (!source) return [];
+    return [source];
+}
+
 function resolveV2LangPath(pathByLang, lang, urlBase) {
     if (!pathByLang || typeof pathByLang !== 'object') return '';
     const relPath = pathByLang[lang];
@@ -715,6 +761,13 @@ export function resolveDomainReportSources(
     }
 
     return dedupeSources(sources);
+}
+
+export function resolveDomainThumbnailUrl(report) {
+    if (typeof report?.thumbnail === 'string' && report.thumbnail.trim()) {
+        return `${PJDHIRO_CREATION_PAGES}/${report.thumbnail.trim()}`;
+    }
+    return '';
 }
 
 export function countReportsByProgressLevel(reports = []) {

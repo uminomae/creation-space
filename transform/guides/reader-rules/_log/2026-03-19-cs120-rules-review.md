@@ -10,7 +10,7 @@
 
 ### 発見した問題
 
-1. **audience別スコープ差異が暗黙的**: report版は欠損駆動思考・Withhold禁止、general/designer/academicは許可。この差異が共通基盤に明文化されていなかった
+1. **audience別スコープ差異が暗黙的**: report版は欠損駆動思考・抱持禁止、general/designer/academicは許可。この差異が共通基盤に明文化されていなかった
 2. **PROTOCOL.md と reader-rules の相互参照なし**: 調査実行時に生成ルールが反映されないリスク
 3. **§8A の NL-017 チェック項目が重複**: 同じ行が2回記載
 4. **ナレッジログの NL-017 が重複**: 同じエントリが2行

@@ -1,0 +1,24 @@
+{
+  "id": "cross-domain-synthesis",
+  "title_ja": "30領域横断分析 — 構造類似探索の統合的知見",
+  "title_en": "Cross-Domain Synthesis — Integrated Findings from 30 Academic Fields",
+  "type": "synthesis",
+  "generated_at": "2026-03-20",
+  "generator_model": "claude-opus-4-6",
+  "source_themes": ["T1", "T2", "T5", "T6", "T7T9"],
+  "domain_count": 30,
+  "files": {
+    "report": {
+      "ja": {
+        "md": "cross-domain-synthesis-ja.md",
+        "pdf": "cross-domain-synthesis-ja.pdf"
+      }
+    },
+    "presentation": {
+      "ja": {
+        "md": "cross-domain-synthesis-presentation-ja.md",
+        "pdf": "cross-domain-synthesis-presentation-ja.pdf"
+      }
+    }
+  }
+}

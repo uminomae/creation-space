@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <marker id="arrowD14" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666666"/>
+    </marker>
+    <style>
+      .title { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 24px; fill: #2C2C2C; font-weight: bold; }
+      .stage-label { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 14px; fill: #FAFAF8; font-weight: bold; }
+      .concept { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 12px; fill: #2C2C2C; }
+      .summary-title { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 14px; fill: #2C2C2C; font-weight: bold; }
+      .summary-text { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 12px; fill: #666666; }
+      .stage-sub { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 11px; fill: #FAFAF8; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="#FAFAF8" rx="8"/>
+  <rect x="20" y="20" width="760" height="560" fill="none" stroke="#E0DDD8" stroke-width="1" rx="6"/>
+
+  <!-- Title -->
+  <text x="400" y="60" text-anchor="middle" class="title">D14 心理学 — 5段階モデルとの構造対応図</text>
+
+  <!-- Stage boxes -->
+  <rect x="45" y="100" width="120" height="70" rx="10" fill="#8B8682"/>
+  <text x="105" y="128" text-anchor="middle" class="stage-label">場（Field）</text>
+  <text x="105" y="148" text-anchor="middle" class="stage-sub">認知の初期条件</text>
+
+  <rect x="195" y="100" width="120" height="70" rx="10" fill="#5B8DB8"/>
+  <text x="255" y="128" text-anchor="middle" class="stage-label">波（Wave）</text>
+  <text x="255" y="148" text-anchor="middle" class="stage-sub">誤差・不一致の発生</text>
+
+  <rect x="345" y="100" width="120" height="70" rx="10" fill="#D4A857"/>
+  <text x="405" y="128" text-anchor="middle" class="stage-label">縁（Edge）</text>
+  <text x="405" y="148" text-anchor="middle" class="stage-sub">関係の結び方の選択</text>
+
+  <rect x="495" y="100" width="120" height="70" rx="10" fill="#C45B4D"/>
+  <text x="555" y="128" text-anchor="middle" class="stage-label">渦（Vortex）</text>
+  <text x="555" y="148" text-anchor="middle" class="stage-sub">認知構造の再編</text>
+
+  <rect x="645" y="100" width="120" height="70" rx="10" fill="#5B8B6A"/>
+  <text x="705" y="128" text-anchor="middle" class="stage-label">束（Bundle）</text>
+  <text x="705" y="148" text-anchor="middle" class="stage-sub">表象の定着</text>
+
+  <!-- Arrows -->
+  <line x1="165" y1="135" x2="193" y2="135" stroke="#666666" stroke-width="2" marker-end="url(#arrowD14)"/>
+  <line x1="315" y1="135" x2="343" y2="135" stroke="#666666" stroke-width="2" marker-end="url(#arrowD14)"/>
+  <line x1="465" y1="135" x2="493" y2="135" stroke="#666666" stroke-width="2" marker-end="url(#arrowD14)"/>
+  <line x1="615" y1="135" x2="643" y2="135" stroke="#666666" stroke-width="2" marker-end="url(#arrowD14)"/>
+
+  <!-- Concepts -->
+  <!-- Field -->
+  <line x1="105" y1="170" x2="105" y2="195" stroke="#8B8682" stroke-width="2"/>
+  <rect x="40" y="195" width="130" height="90" rx="6" fill="none" stroke="#8B8682" stroke-width="1.5"/>
+  <text x="105" y="215" text-anchor="middle" class="concept">初期表象</text>
+  <text x="105" y="235" text-anchor="middle" class="concept">生成モデル（世界像）</text>
+  <text x="105" y="255" text-anchor="middle" class="concept">既存スキーマ</text>
+
+  <!-- Wave -->
+  <line x1="255" y1="170" x2="255" y2="195" stroke="#5B8DB8" stroke-width="2"/>
+  <rect x="190" y="195" width="130" height="90" rx="6" fill="none" stroke="#5B8DB8" stroke-width="1.5"/>
+  <text x="255" y="215" text-anchor="middle" class="concept">インパス / 予測誤差</text>
+  <text x="255" y="235" text-anchor="middle" class="concept">認知的不協和</text>
+  <text x="255" y="255" text-anchor="middle" class="concept">スキーマ不均衡</text>
+
+  <!-- Edge -->
+  <line x1="405" y1="170" x2="405" y2="195" stroke="#D4A857" stroke-width="2"/>
+  <rect x="340" y="195" width="130" height="90" rx="6" fill="none" stroke="#D4A857" stroke-width="1.5"/>
+  <text x="405" y="215" text-anchor="middle" class="concept">制約緩和（洞察）</text>
+  <text x="405" y="235" text-anchor="middle" class="concept">precision weighting</text>
+  <text x="405" y="255" text-anchor="middle" class="concept">同化/調節の選択</text>
+
+  <!-- Vortex -->
+  <line x1="555" y1="170" x2="555" y2="195" stroke="#C45B4D" stroke-width="2"/>
+  <rect x="490" y="195" width="130" height="90" rx="6" fill="none" stroke="#C45B4D" stroke-width="1.5"/>
+  <text x="555" y="215" text-anchor="middle" class="concept">Aha体験（表象変化）</text>
+  <text x="555" y="235" text-anchor="middle" class="concept">モデル更新</text>
+  <text x="555" y="255" text-anchor="middle" class="concept">スキーマ再構成</text>
+
+  <!-- Bundle -->
+  <line x1="705" y1="170" x2="705" y2="195" stroke="#5B8B6A" stroke-width="2"/>
+  <rect x="640" y="195" width="130" height="90" rx="6" fill="none" stroke="#5B8B6A" stroke-width="1.5"/>
+  <text x="705" y="215" text-anchor="middle" class="concept">更新された表象</text>
+  <text x="705" y="235" text-anchor="middle" class="concept">世界モデルの定着</text>
+  <text x="705" y="255" text-anchor="middle" class="concept">スキーマ安定化</text>
+
+  <!-- Correspondence legend -->
+  <text x="400" y="325" text-anchor="middle" class="summary-title">対応の強さ（理論別）</text>
+
+  <line x1="60" y1="348" x2="100" y2="348" stroke="#2C2C2C" stroke-width="2"/>
+  <text x="108" y="352" class="summary-text">強い対応</text>
+  <line x1="240" y1="348" x2="280" y2="348" stroke="#2C2C2C" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="288" y="352" class="summary-text">部分的対応</text>
+  <line x1="440" y1="348" x2="480" y2="348" stroke="#D0D0D0" stroke-width="2" stroke-dasharray="2,3"/>
+  <text x="488" y="352" class="summary-text">条件付き対応</text>
+
+  <!-- Theory rows -->
+  <rect x="45" y="370" width="710" height="185" rx="6" fill="none" stroke="#E0DDD8" stroke-width="1"/>
+
+  <text x="60" y="395" class="concept" font-weight="bold">確定に近い:</text>
+  <line x1="60" y1="405" x2="740" y2="405" stroke="#2C2C2C" stroke-width="2"/>
+  <text x="60" y="420" class="summary-text">洞察問題解決、ベイズ脳仮説、スキーマ理論、注意のバイアス競合、認知的柔軟性</text>
+
+  <text x="60" y="445" class="concept" font-weight="bold">有力:</text>
+  <line x1="60" y1="455" x2="740" y2="455" stroke="#2C2C2C" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="60" y="470" class="summary-text">認知的不協和、フロー体験、概念メタファー</text>
+
+  <text x="60" y="495" class="concept" font-weight="bold">条件付き:</text>
+  <line x1="60" y1="505" x2="740" y2="505" stroke="#D0D0D0" stroke-width="2" stroke-dasharray="2,3"/>
+  <text x="60" y="520" class="summary-text">4E認知、アフォーダンス（メタ理論的枠組み。場の性質を記述）</text>
+
+  <!-- Overall summary -->
+  <text x="400" y="545" text-anchor="middle" class="summary-text">特徴: 「縁」が6つの型（制約緩和/方略分岐/精度重み付け/同化調節/競合解決/セット切替）で精密に記述。</text>
+</svg>

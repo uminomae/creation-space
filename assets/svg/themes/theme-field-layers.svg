@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <marker id="arrowFL" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#666666"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="#FAFAF8" rx="8"/>
+  <rect x="1" y="1" width="798" height="598" fill="none" stroke="#E0DDD8" stroke-width="1" rx="8"/>
+
+  <!-- Title -->
+  <text x="400" y="45" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="24" fill="#2C2C2C" font-weight="bold">T6 場の多層性 — 横断的パターン図</text>
+  <text x="400" y="68" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="14" fill="#666666">原初的/循環的/存在論的 (15/30ドメインが直接主題化)</text>
+
+  <!-- Central theme node - Field/Ba color -->
+  <ellipse cx="400" cy="255" rx="100" ry="50" fill="#8B8682" opacity="0.15" stroke="#8B8682" stroke-width="2.5"/>
+  <text x="400" y="248" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="18" fill="#8B8682" font-weight="bold">場の多層性</text>
+  <text x="400" y="270" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="12" fill="#8B8682">空虚でなく条件付き潜在性</text>
+
+  <!-- Layer 1: 原初的場 (upper-left) -->
+  <rect x="55" y="100" width="160" height="70" rx="10" fill="#8B8682" opacity="0.1" stroke="#8B8682" stroke-width="2"/>
+  <text x="135" y="125" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="16" fill="#8B8682" font-weight="bold">原初的場</text>
+  <text x="135" y="145" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">構造がまだ存在しない</text>
+  <text x="135" y="160" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">未分節状態</text>
+  <line x1="215" y1="140" x2="305" y2="240" stroke="#8B8682" stroke-width="2"/>
+
+  <!-- Original field domain nodes -->
+  <circle cx="75" cy="200" r="18" fill="#8B8682" opacity="0.2" stroke="#8B8682" stroke-width="1"/>
+  <text x="75" y="204" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="10" fill="#2C2C2C" font-weight="bold">D01</text>
+  <text x="75" y="228" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="9" fill="#666666">未構造化空間</text>
+  <line x1="85" y1="215" x2="120" y2="170" stroke="#8B8682" stroke-width="1" stroke-dasharray="4,2"/>
+
+  <circle cx="145" cy="210" r="18" fill="#8B8682" opacity="0.2" stroke="#8B8682" stroke-width="1"/>
+  <text x="145" y="214" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="10" fill="#2C2C2C" font-weight="bold">D06</text>
+  <text x="145" y="238" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="9" fill="#666666">星間分子雲</text>
+  <line x1="145" y1="192" x2="145" y2="170" stroke="#8B8682" stroke-width="1" stroke-dasharray="4,2"/>
+
+  <circle cx="215" cy="200" r="18" fill="#5B8DB8" opacity="0.2" stroke="#5B8DB8" stroke-width="1"/>
+  <text x="215" y="204" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="10" fill="#2C2C2C" font-weight="bold">D02</text>
+  <text x="215" y="228" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="9" fill="#666666">量子真空(揺らぎの海)</text>
+  <line x1="215" y1="183" x2="180" y2="170" stroke="#8B8682" stroke-width="1" stroke-dasharray="4,2"/>
+
+  <!-- Layer 2: 循環的場 (upper-right) -->
+  <rect x="575" y="100" width="180" height="70" rx="10" fill="#5B8DB8" opacity="0.1" stroke="#5B8DB8" stroke-width="2"/>
+  <text x="665" y="125" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="16" fill="#5B8DB8" font-weight="bold">循環的場</text>
+  <text x="665" y="145" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">前の束が初期条件を提供</text>
+  <text x="665" y="160" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">構造化された状態</text>
+  <line x1="580" y1="145" x2="495" y2="240" stroke="#5B8DB8" stroke-width="2"/>
+
+  <!-- Circular field domain nodes -->
+  <circle cx="585" cy="200" r="18" fill="#5B8DB8" opacity="0.2" stroke="#5B8DB8" stroke-width="1"/>
+  <text x="585" y="204" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="10" fill="#2C2C2C" font-weight="bold">D04</text>
+  <text x="585" y="228" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="9" fill="#666666">遺伝子プール</text>
+  <line x1="593" y1="183" x2="620" y2="170" stroke="#5B8DB8" stroke-width="1" stroke-dasharray="4,2"/>
+
+  <circle cx="660" cy="210" r="18" fill="#5B8DB8" opacity="0.2" stroke="#5B8DB8" stroke-width="1"/>
+  <text x="660" y="214" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="10" fill="#2C2C2C" font-weight="bold">D05</text>
+  <text x="660" y="238" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="9" fill="#666666">地球システム</text>
+  <line x1="660" y1="192" x2="660" y2="170" stroke="#5B8DB8" stroke-width="1" stroke-dasharray="4,2"/>
+
+  <circle cx="735" cy="200" r="18" fill="#5B8B6A" opacity="0.2" stroke="#5B8B6A" stroke-width="1"/>
+  <text x="735" y="204" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="10" fill="#2C2C2C" font-weight="bold">D09</text>
+  <text x="735" y="228" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="9" fill="#666666">幹細胞ニッチ</text>
+  <line x1="720" y1="188" x2="710" y2="170" stroke="#5B8DB8" stroke-width="1" stroke-dasharray="4,2"/>
+
+  <!-- Layer 3: 存在論的場 (bottom) -->
+  <rect x="300" y="360" width="200" height="70" rx="10" fill="#D4A857" opacity="0.1" stroke="#D4A857" stroke-width="2"/>
+  <text x="400" y="385" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="16" fill="#D4A857" font-weight="bold">存在論的場(3レベル?)</text>
+  <text x="400" y="405" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">経験的/存在論的/究極的</text>
+  <text x="400" y="420" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#D4A857">(保持論点: 5段階の射程内か?)</text>
+  <line x1="400" y1="305" x2="400" y2="360" stroke="#D4A857" stroke-width="2" stroke-dasharray="6,3"/>
+
+  <!-- Ontological field domain nodes -->
+  <circle cx="250" cy="420" r="18" fill="#D4A857" opacity="0.2" stroke="#D4A857" stroke-width="1"/>
+  <text x="250" y="424" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="10" fill="#2C2C2C" font-weight="bold">D13</text>
+  <text x="250" y="450" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="9" fill="#666666">西田の絶対無</text>
+  <line x1="268" y1="420" x2="300" y2="400" stroke="#D4A857" stroke-width="1" stroke-dasharray="4,2"/>
+
+  <circle cx="550" cy="420" r="18" fill="#D4A857" opacity="0.2" stroke="#D4A857" stroke-width="1"/>
+  <text x="550" y="424" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="10" fill="#2C2C2C" font-weight="bold">D24</text>
+  <text x="550" y="450" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="9" fill="#666666">仏教の空</text>
+  <line x1="532" y1="420" x2="500" y2="400" stroke="#D4A857" stroke-width="1" stroke-dasharray="4,2"/>
+
+  <!-- Convergence summary -->
+  <rect x="40" y="480" width="720" height="90" rx="8" fill="#FAFAF8" stroke="#E0DDD8" stroke-width="1"/>
+  <text x="60" y="505" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="14" fill="#2C2C2C" font-weight="bold">収束点</text>
+  <text x="60" y="527" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="12" fill="#2C2C2C">1. 原初的場 vs 循環的場の区別は普遍的 [P] (10ドメインが独立に提案)</text>
+  <text x="60" y="545" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="12" fill="#2C2C2C">2. 場は空虚でなく条件付き潜在性 [M] | 3. 場は全段階の基盤条件 [S] | 4. 循環的場の質が創造の質を決める [M]</text>
+  <text x="60" y="560" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">分岐: 場は「前提」か「到達物」か (D28舞台芸術: 場は実践的達成 vs D06天文: 所与の初期条件)</text>
+</svg>

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# build-pdf-guide.sh — creation-space PDF 生成 v2.1
+# build-pdf-guide.sh — creation-space PDF/SVG 生成 v2.2
 #
 # 概要:
-#   --kind で guides / domains / themes / all を指定し、PDF を生成する。
+#   --kind で guides / domains / themes / svg / all を指定し、PDF/SVG を生成する。
 #   guides:  pjdhiro/assets/creation/guides/{lang}/md/ の MD から PDF を生成。
 #   domains: pjdhiro/assets/creation/domains/{lang}/md/ の MD から PDF を生成。
 #   themes:  pjdhiro/assets/creation/phase8-themes/{lang}/md/ の MD から PDF を生成。
@@ -14,6 +14,7 @@
 #   bash transform/scripts/build-pdf-guide.sh --kind domains --lang ja         # domains JA 全30件
 #   bash transform/scripts/build-pdf-guide.sh --kind themes --lang all         # themes JA+EN
 #   bash transform/scripts/build-pdf-guide.sh --kind all --lang ja             # 全種 JA
+#   bash transform/scripts/build-pdf-guide.sh --kind svg                          # SVG対象一覧
 #   bash transform/scripts/build-pdf-guide.sh --push                           # ビルド後 manifest を更新
 #   bash transform/scripts/build-pdf-guide.sh --setup                          # 依存チェックのみ
 #
@@ -24,6 +25,9 @@
 #
 # 互換性:
 #   bash 3.2以上（macOS標準）で動作。${var^^} は使用しない。
+#
+# v2.2 変更点:
+#   - SVG 図解生成ワークフロー統合（--kind svg）
 #
 # v2.1 変更点:
 #   - Phase 8 横断分析テーマ（themes）ビルド対応
@@ -50,8 +54,10 @@ PJDHIRO_DIR="/Users/uminomae/dev/pjdhiro"
 GUIDES_BASE="$PJDHIRO_DIR/assets/creation/guides"
 DOMAINS_BASE="$PJDHIRO_DIR/assets/creation/domains"
 THEMES_BASE="$PJDHIRO_DIR/assets/creation/phase8-themes"
+SYNTHESIS_BASE="$PJDHIRO_DIR/assets/creation/synthesis"
 IMG_DIR="$PJDHIRO_DIR/assets/creation/img"
 MANIFESTS_DIR="$PJDHIRO_DIR/assets/creation/manifests"
+GENERATE_SVG="$CREATION_SPACE_ROOT/transform/scripts/generate-svg.sh"
 
 # ── YAML front matter を除去 ──
 strip_frontmatter() {
@@ -347,7 +353,10 @@ build_themes() {
     [ "$lang" = "en" ] && lang_label="EN"
     echo -e "${BLUE}📄 themes [${lang_label}] ビルド中...${NC}"
 
-    if [ ! -d "$md_dir" ] || [ -z "$(ls "$md_dir"/theme-*.md 2>/dev/null)" ]; then
+    local has_themes=0 has_summaries=0
+    [ -d "$md_dir" ] && [ -n "$(ls "$md_dir"/theme-*.md 2>/dev/null)" ] && has_themes=1
+    [ -d "$md_dir" ] && [ -n "$(ls "$md_dir"/summary-*.md 2>/dev/null)" ] && has_summaries=1
+    if [ "$has_themes" -eq 0 ] && [ "$has_summaries" -eq 0 ]; then
         echo -e "  ${YELLOW}スキップ${NC}: $md_dir に theme-*.md がありません"
         return 0
     fi
@@ -356,6 +365,7 @@ build_themes() {
     mkdir -p "$CREATION_SPACE_ROOT/.build-tmp"
 
     local t_success=0 t_fail=0
+    if [ "$has_themes" -eq 1 ]; then
     for md_file in "$md_dir"/theme-*.md; do
         local basename_md
         basename_md=$(basename "$md_file" .md)
@@ -377,10 +387,14 @@ build_themes() {
         # フロントマターを除去して連結
         cat "$md_file" | strip_frontmatter >> "$tmp"
 
+        # 画像の相対パスを絶対パスに変換（PDF生成用）
+        sed -i "" "s|](\.\./.*/img/|]($PJDHIRO_DIR/assets/creation/img/|g" "$tmp"
+
         if pandoc "$tmp" \
             -o "$out" \
             --pdf-engine=lualatex \
             --wrap=none \
+            --resource-path="$IMG_DIR:$md_dir:$PJDHIRO_DIR/assets/creation" \
             2>&1 | sed 's/^/      /'; then
             local size
             size=$(du -k "$out" 2>/dev/null | cut -f1)
@@ -393,10 +407,135 @@ build_themes() {
 
         rm -f "$tmp"
     done
+    fi
+
+    # ── summary-*.md もビルド ──
+    if [ -n "$(ls "$md_dir"/summary-*.md 2>/dev/null)" ]; then
+        echo -e "  ${BLUE}📄 themes summaries [${lang_label}] ビルド中...${NC}"
+        for md_file in "$md_dir"/summary-*.md; do
+            local basename_md
+            basename_md=$(basename "$md_file" .md)
+            local out="$pdf_dir/${basename_md}.pdf"
+            local tmp="$CREATION_SPACE_ROOT/.build-tmp/_theme_${basename_md}_${lang}.md"
+
+            local title
+            title="$(get_domain_title "$md_file")"
+
+            echo -e "  ${BLUE}→${NC} ${basename_md} [${lang_label}]"
+
+            if [ "$lang" = "en" ]; then
+                make_header_en "$title" "" > "$tmp"
+            else
+                make_header_ja "$title" "" > "$tmp"
+            fi
+
+            cat "$md_file" | strip_frontmatter >> "$tmp"
+
+            # 画像の相対パスを絶対パスに変換（PDF生成用）
+            sed -i "" "s|](\.\./.*/img/|]($PJDHIRO_DIR/assets/creation/img/|g" "$tmp"
+
+            if pandoc "$tmp" \
+                -o "$out" \
+                --pdf-engine=lualatex \
+                --wrap=none \
+                --resource-path="$IMG_DIR:$md_dir:$PJDHIRO_DIR/assets/creation" \
+                2>&1 | sed 's/^/      /'; then
+                local size
+                size=$(du -k "$out" 2>/dev/null | cut -f1)
+                echo -e "    ${GREEN}✅${NC} ${basename_md}.pdf (${size:-?} KB)"
+                t_success=$((t_success + 1))
+            else
+                echo -e "    ${RED}✗${NC} ビルド失敗: ${basename_md}.pdf"
+                t_fail=$((t_fail + 1))
+            fi
+
+            rm -f "$tmp"
+        done
+    fi
 
     echo -e "  themes [${lang_label}]: ${t_success}成功 / ${t_fail}失敗"
     [ "$t_fail" -gt 0 ] && return 1
     return 0
+}
+
+
+
+# ── synthesis ビルド（領域横断分析 総合レポート） ──
+build_synthesis() {
+    local lang="${1:-ja}"
+    local md_dir="$SYNTHESIS_BASE/${lang}/md"
+    local pdf_dir="$SYNTHESIS_BASE/${lang}/pdf"
+
+    local lang_label="JA"
+    [ "$lang" = "en" ] && lang_label="EN"
+    echo -e "${BLUE}📄 synthesis [${lang_label}] ビルド中...${NC}"
+
+    if [ \! -d "$md_dir" ] || [ -z "$(ls "$md_dir"/cross-domain-synthesis*.md 2>/dev/null)" ]; then
+        echo -e "  ${YELLOW}スキップ${NC}: $md_dir に cross-domain-synthesis*.md がありません"
+        return 0
+    fi
+
+    mkdir -p "$pdf_dir"
+    mkdir -p "$CREATION_SPACE_ROOT/.build-tmp"
+
+    local s_success=0 s_fail=0
+    for md_file in "$md_dir"/cross-domain-synthesis*.md; do
+        local basename_md
+        basename_md=$(basename "$md_file" .md)
+        local out="$pdf_dir/${basename_md}.pdf"
+        local tmp="$CREATION_SPACE_ROOT/.build-tmp/_synthesis_${basename_md}_${lang}.md"
+
+        local title
+        title="$(get_domain_title "$md_file")"
+
+        echo -e "  ${BLUE}→${NC} ${basename_md} [${lang_label}]"
+
+        # pandoc 用ヘッダー生成
+        if [ "$lang" = "en" ]; then
+            make_header_en "$title" "" > "$tmp"
+        else
+            make_header_ja "$title" "" > "$tmp"
+        fi
+
+        # フロントマターを除去して連結
+        cat "$md_file" | strip_frontmatter >> "$tmp"
+
+        if pandoc "$tmp"             -o "$out"             --pdf-engine=lualatex             --wrap=none             2>&1 | sed 's/^/      /'; then
+            local size
+            size=$(du -k "$out" 2>/dev/null | cut -f1)
+            echo -e "    ${GREEN}✅${NC} ${basename_md}.pdf (${size:-?} KB)"
+            s_success=$((s_success + 1))
+        else
+            echo -e "    ${RED}✗${NC} ビルド失敗: ${basename_md}.pdf"
+            s_fail=$((s_fail + 1))
+        fi
+
+        rm -f "$tmp"
+    done
+
+    echo -e "  synthesis [${lang_label}]: ${s_success}成功 / ${s_fail}失敗"
+    [ "$s_fail" -gt 0 ] && return 1
+    return 0
+}
+
+# ── SVG 生成（generate-svg.sh に委譲） ──
+build_svg() {
+    local svg_args=("--dry-run")
+
+    echo -e "${BLUE}📄 SVG 図解生成${NC}"
+
+    if [ ! -f "$GENERATE_SVG" ]; then
+        echo -e "  ${RED}✗${NC} generate-svg.sh が見つかりません: $GENERATE_SVG"
+        return 1
+    fi
+
+    if bash "$GENERATE_SVG" --dry-run; then
+        echo -e "  ${GREEN}✅${NC} SVG 対象一覧出力完了"
+        echo -e "  ${YELLOW}自動生成するには: bash transform/scripts/generate-svg.sh --generate${NC}"
+    else
+        echo -e "  ${RED}✗${NC} SVG 対象一覧取得に失敗"
+        return 1
+    fi
 }
 
 # ── manifest 更新 ──
@@ -487,7 +626,7 @@ print(json.dumps(manifest, indent=2, ensure_ascii=False))
 # ── メイン ──
 main() {
     echo -e "${BLUE}══════════════════════════════════════${NC}"
-    echo -e "${BLUE}  creation-space — PDF生成 v2.1${NC}"
+    echo -e "${BLUE}  creation-space — PDF/SVG生成 v2.2${NC}"
     echo -e "${BLUE}══════════════════════════════════════${NC}"
     echo ""
 
@@ -507,7 +646,7 @@ main() {
                 echo "使い方: bash transform/scripts/build-pdf-guide.sh [オプション]"
                 echo ""
                 echo "オプション:"
-                echo "  --kind {guides|domains|themes|all}                 種別（デフォルト: guides）"
+                echo "  --kind {guides|domains|themes|synthesis|svg|all}             種別（デフォルト: guides）"
                 echo "  --audience {general|designer|academic|all}       対象（guides時のみ。デフォルト: general）"
                 echo "  --lang {ja|en|all}                               言語（デフォルト: ja）"
                 echo "  --push                                           ビルド後 manifest を更新"
@@ -538,10 +677,12 @@ main() {
 
     local kinds=()
     case "$kind" in
-        all)     kinds=(guides domains themes) ;;
+        all)     kinds=(guides domains themes synthesis svg) ;;
         guides)  kinds=(guides) ;;
         domains) kinds=(domains) ;;
         themes)  kinds=(themes) ;;
+        svg)     kinds=(svg) ;;
+        synthesis) kinds=(synthesis) ;;
         *) echo -e "${RED}不明なkind: $kind${NC}"; exit 1 ;;
     esac
 
@@ -587,6 +728,24 @@ main() {
                     fi
                     echo ""
                 done
+                ;;
+            synthesis)
+                for l in "${langs[@]}"; do
+                    if build_synthesis "$l"; then
+                        success=$((success + 1))
+                    else
+                        fail=$((fail + 1))
+                    fi
+                    echo ""
+                done
+                ;;
+            svg)
+                if build_svg; then
+                    success=$((success + 1))
+                else
+                    fail=$((fail + 1))
+                fi
+                echo ""
                 ;;
         esac
     done

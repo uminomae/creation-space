@@ -1,14 +1,18 @@
 import { normalizeLang } from '../i18n.js';
 import { dict } from '../i18n/dict.js';
+import { openSlideViewer } from '../slide-viewer.js';
 import {
     MODEL_GUIDE_LINKS,
     STATUS_REPORT_LINKS,
     SURVEY_MANIFEST_URL,
+    buildMarkdownFetchCandidates,
     formatReportsScenarioFallbackLabel,
     getDefaultProgressTaxonomyEntry,
     hasText,
+    looksLikeHtmlDocument,
     normalizeProgressLevelId,
     resolveLocalizedSources,
+    resolveDomainPresentationSources,
 } from './data.js';
 import { DOMAIN_HISTORY_MODE_PUSH } from './history.js';
 
@@ -468,6 +472,50 @@ export function createReportsRenderer({
         head.appendChild(statusNode);
         body.appendChild(head);
         body.appendChild(nameNode);
+
+        // Presentation buttons
+        const presSources = resolveDomainPresentationSources(report, { lang: state.lang });
+        if (presSources.length > 0) {
+            const btnGroup = document.createElement('div');
+            btnGroup.className = 'd-flex gap-1 mt-auto';
+
+            const slideBtn = document.createElement('button');
+            slideBtn.className = 'btn btn-sm btn-outline-info reports-domain-slide-btn';
+            slideBtn.textContent = normalizeLang(state.lang) === 'ja' ? 'スライド' : 'Slides';
+            slideBtn.setAttribute('aria-label', `${domainLabel} slides`);
+            slideBtn.addEventListener('click', async (event) => {
+                event.stopPropagation();
+                const currentSources = resolveDomainPresentationSources(report, { lang: state.lang });
+                const source = currentSources[0];
+                if (!source || !source.mdUrl) return;
+                const candidates = buildMarkdownFetchCandidates(source.mdUrl);
+                let markdownText = '';
+                let mdBaseUrl = '';
+                for (const url of candidates) {
+                    try {
+                        const resp = await fetch(url, { cache: 'no-store' });
+                        if (!resp.ok) continue;
+                        const text = await resp.text();
+                        if (looksLikeHtmlDocument(text)) continue;
+                        markdownText = text;
+                        mdBaseUrl = url.replace(/\/[^/]*$/, '/');
+                        break;
+                    } catch {
+                        continue;
+                    }
+                }
+                if (!markdownText) return;
+                openSlideViewer({
+                    markdownText,
+                    title: `${report.id} ${domainLabel}`,
+                    mdBaseUrl,
+                });
+            });
+            btnGroup.appendChild(slideBtn);
+
+            body.appendChild(btnGroup);
+        }
+
         tile.appendChild(body);
         col.appendChild(tile);
 
