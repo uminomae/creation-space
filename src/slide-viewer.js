@@ -4,39 +4,6 @@ let overlayNode = null;
 let slidesState = [];
 let currentSlideIndex = 0;
 let previousBodyOverflow = '';
-const DOMAIN_VISUAL_ASSET_MAP = Object.freeze({
-    D01: 'domain-D01-mathematics',
-    D02: 'domain-D02-physics',
-    D03: 'domain-D03-chemistry',
-    D04: 'domain-D04-evolutionary-biology',
-    D05: 'domain-D05-earth-science',
-    D06: 'domain-D06-astronomy',
-    D07: 'domain-D07-engineering',
-    D08: 'domain-D08-neuroscience',
-    D09: 'domain-D09-life-science',
-    D10: 'domain-D10-immunology',
-    D11: 'domain-D11-pharmacology',
-    D12: 'domain-D12-ecology',
-    D13: 'domain-D13-philosophy',
-    D14: 'domain-D14-clinical-psychology',
-    D15: 'domain-D15-aesthetics',
-    D16: 'domain-D16-history',
-    D17: 'domain-D17-linguistics',
-    D18: 'domain-D18-sociology',
-    D19: 'domain-D19-literary-studies',
-    D20: 'domain-D20-law-politics',
-    D21: 'domain-D21-economics',
-    D22: 'domain-D22-business-management',
-    D23: 'domain-D23-developmental-psychology',
-    D24: 'domain-D24-religion',
-    D25: 'domain-D25-anthropology',
-    D26: 'domain-D26-music',
-    D27: 'domain-D27-architecture',
-    D28: 'domain-D28-improvisation',
-    D29: 'domain-D29-complexity',
-    D30: 'domain-D30-cognitive-science',
-});
-
 function parseFrontmatter(text) {
     const match = text.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
     if (!match) return { meta: {}, body: text.trim() };
@@ -62,40 +29,6 @@ function resolveImageUrls(html, mdBaseUrl) {
             return `<img ${pre}src="${absUrl}"`;
         }
     );
-}
-
-function buildLocalAssetUrl(relativePath) {
-    try {
-        return new URL(relativePath, window.location.href).href;
-    } catch {
-        return relativePath;
-    }
-}
-
-function buildDomainDiagramMarkdown(meta = {}, title = '') {
-    const source = typeof meta.source === 'string' ? meta.source : '';
-    const matched = source.match(/domain-(D\d+)-/i);
-    if (!matched) return '';
-    const domainId = matched[1].toUpperCase();
-    const assetBaseName = DOMAIN_VISUAL_ASSET_MAP[domainId];
-    if (!assetBaseName) return '';
-
-    const imageUrl = buildLocalAssetUrl(`./assets/svg/domains/${assetBaseName}.svg`);
-    const alt = `${title || domainId} の構造対応図`;
-    return `## 構造対応図\n\n![${alt}](${imageUrl})`;
-}
-
-function injectFallbackDiagramSlide(slideChunks, meta = {}, title = '') {
-    if (!Array.isArray(slideChunks) || !slideChunks.length) return slideChunks;
-    const hasImageReference = slideChunks.some((chunk) => /!\[[^\]]*\]\([^)]+\)|<img\b/i.test(chunk));
-    if (hasImageReference) return slideChunks;
-
-    const diagramSlide = buildDomainDiagramMarkdown(meta, title);
-    if (!diagramSlide) return slideChunks;
-
-    const nextChunks = [...slideChunks];
-    nextChunks.splice(Math.min(1, nextChunks.length), 0, diagramSlide);
-    return nextChunks;
 }
 
 function classifySlide(page, index, total) {
@@ -231,8 +164,7 @@ export async function openSlideViewer({ markdownText, title = '', mdBaseUrl }) {
         }
 
         const { meta, body } = parseFrontmatter(markdownText);
-        const rawChunks = body.split(/\n---\n/).filter((chunk) => chunk.trim());
-        const slideChunks = injectFallbackDiagramSlide(rawChunks, meta, title || meta.title || '');
+        const slideChunks = body.split(/\n---\n/).filter((chunk) => chunk.trim());
         if (!slideChunks.length) return;
 
         const { marked } = await import('marked');

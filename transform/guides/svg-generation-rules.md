@@ -120,21 +120,21 @@ MD ファイルから SVG を参照する際の標準記法:
 ### ドメイン report (`assets/creation/domains/{lang}/md/*.md`) に埋め込む場合
 
 ```markdown
-\![{タイトル}の構造図](../../img/svg/domains/{lang}/domain-D{NN}-{name}.svg)
+\![{タイトル}の構造図](../../../img/svg/domains/{lang}/domain-D{NN}-{name}.svg)
 ```
 
 ### ドメイン presentation (`assets/creation/domains/{lang}/presentations/md/*.md`) に埋め込む場合
 
 ```html
 <div align="center">
-  <img src="../../../img/svg/domains/{lang}/domain-D{NN}-{name}.svg" alt="{タイトル}の構造図" width="700">
+  <img src="../../../../img/svg/domains/{lang}/domain-D{NN}-{name}.svg" alt="{タイトル}の構造図" width="700">
 </div>
 ```
 
 ### テーマ図の参照
 
 ```markdown
-\![{テーマ名}の分析図](../../img/svg/themes/{lang}/theme-{slug}.svg)
+\![{テーマ名}の分析図](../../../img/svg/themes/{lang}/theme-{slug}.svg)
 ```
 
 ## 7. 品質チェック項目

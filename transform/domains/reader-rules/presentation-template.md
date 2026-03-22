@@ -196,7 +196,7 @@ SVGファイルは公開 assets の `img/svg/domains/{lang}/` に配置し、pre
 ```markdown
 ## 構造対応図
 
-![構造対応図](../../../img/svg/domains/{lang}/domain-D{NN}-{name}.svg)
+![構造対応図](../../../../img/svg/domains/{lang}/domain-D{NN}-{name}.svg)
 ```
 ドメイン slug と SVG ファイル名が一致しない場合があるため、`img/svg/domains/{lang}/domain-D{NN}-*.svg` の実在ファイルを優先して参照する。
 

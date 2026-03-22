@@ -271,7 +271,7 @@ H1 見出しの直後に配置する:
 ```markdown
 # 数学
 
-![数学 — 5段階モデルとの構造対応図](../../img/svg/domains/ja/domain-D01-mathematics.svg)
+![数学 — 5段階モデルとの構造対応図](../../../img/svg/domains/ja/domain-D01-mathematics.svg)
 
 > **立ち位置明示**
 > ...
@@ -532,9 +532,9 @@ grep -n "保持論点\|E-[0-9]\|CHK-\|\bAccept\b\|\bReject\b\|/Users/uminomae/de
 
 #### I. 図解チェック（cs#136）
 
-- [ ] 構造対応図（PNG）が `assets/img/domains/domain-D{NN}-{name}.png` に存在するか
-- [ ] MD の H1 直後に `![...](...)` で図が埋め込まれているか
-- [ ] PNG ファイルサイズが 500KB 以下か
+- [ ] 構造対応図（SVG）が `assets/creation/img/svg/domains/{lang}/domain-D{NN}-{name}.svg` に存在するか
+- [ ] 公開用 MD の H1 直後に `![...](...)` で図が埋め込まれているか
+- [ ] presentation MD にも同じ SVG を参照するスライドが入っているか
 - [ ] カラーパレット（場=#8B8682, 波=#5B8DB8, 縁=#D4A857, 渦=#C45B4D, 束=#5B8B6A）に準拠しているか
 
 #### H. 原典照合チェック（cs#126）

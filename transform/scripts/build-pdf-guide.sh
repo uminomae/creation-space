@@ -58,6 +58,7 @@ SYNTHESIS_BASE="$PJDHIRO_DIR/assets/creation/synthesis"
 IMG_DIR="$PJDHIRO_DIR/assets/creation/img"
 MANIFESTS_DIR="$PJDHIRO_DIR/assets/creation/manifests"
 GENERATE_SVG="$CREATION_SPACE_ROOT/transform/scripts/generate-svg.sh"
+REWRITE_SVG_FOR_PDF="$CREATION_SPACE_ROOT/transform/scripts/rewrite-svg-links-for-pdf.py"
 
 # ── YAML front matter を除去 ──
 strip_frontmatter() {
@@ -225,6 +226,33 @@ toc-depth: 2
 YAML
 }
 
+rewrite_svg_links_for_pdf() {
+    local tmp_md="$1"
+    local source_md="$2"
+    local raster_dir="$3"
+
+    if [ ! -f "$REWRITE_SVG_FOR_PDF" ]; then
+        return 0
+    fi
+
+    python3 "$REWRITE_SVG_FOR_PDF" \
+        --input-md "$tmp_md" \
+        --source-md "$source_md" \
+        --raster-dir "$raster_dir"
+}
+
+run_pandoc_pdf() {
+    local input_md="$1"
+    local output_pdf="$2"
+    shift 2
+
+    mkdir -p "$CREATION_SPACE_ROOT/.build-tmp/texmf-var" "$CREATION_SPACE_ROOT/.build-tmp/texmf-config"
+    env \
+        TEXMFVAR="$CREATION_SPACE_ROOT/.build-tmp/texmf-var" \
+        TEXMFCONFIG="$CREATION_SPACE_ROOT/.build-tmp/texmf-config" \
+        pandoc "$input_md" -o "$output_pdf" "$@"
+}
+
 # ── guides ビルド（1ファイル） ──
 build_guide() {
     local audience="$1"
@@ -261,10 +289,10 @@ build_guide() {
 
     # フロントマターを除去して連結
     cat "$md_file" | strip_frontmatter >> "$tmp"
+    rewrite_svg_links_for_pdf "$tmp" "$md_file" "$CREATION_SPACE_ROOT/.build-tmp/svg-raster/guides/${lang}-${audience}"
 
     echo "  pandoc 変換中..."
-    if pandoc "$tmp" \
-        -o "$pdf_file" \
+    if run_pandoc_pdf "$tmp" "$pdf_file" \
         --pdf-engine=lualatex \
         --resource-path="$IMG_DIR:$md_dir" \
         --wrap=none \
@@ -320,9 +348,9 @@ build_domains() {
 
         # フロントマターを除去して連結
         cat "$md_file" | strip_frontmatter >> "$tmp"
+        rewrite_svg_links_for_pdf "$tmp" "$md_file" "$CREATION_SPACE_ROOT/.build-tmp/svg-raster/domains/${lang}-${basename_md}"
 
-        if pandoc "$tmp" \
-            -o "$out" \
+        if run_pandoc_pdf "$tmp" "$out" \
             --pdf-engine=lualatex \
             --resource-path="$PJDHIRO_DIR/assets/creation:$md_dir:$PJDHIRO_DIR/assets/creation/img:$PJDHIRO_DIR/assets/creation/img/svg:$PJDHIRO_DIR/assets/creation/img/svg/domains/$lang" \
             --wrap=none \
@@ -387,12 +415,12 @@ build_themes() {
 
         # フロントマターを除去して連結
         cat "$md_file" | strip_frontmatter >> "$tmp"
+        rewrite_svg_links_for_pdf "$tmp" "$md_file" "$CREATION_SPACE_ROOT/.build-tmp/svg-raster/themes/${lang}-${basename_md}"
 
         # 画像の相対パスを絶対パスに変換（PDF生成用）
         sed -i "" "s|](\.\./.*/img/|]($PJDHIRO_DIR/assets/creation/img/|g" "$tmp"
 
-        if pandoc "$tmp" \
-            -o "$out" \
+        if run_pandoc_pdf "$tmp" "$out" \
             --pdf-engine=lualatex \
             --wrap=none \
             --resource-path="$IMG_DIR:$md_dir:$PJDHIRO_DIR/assets/creation" \
@@ -431,12 +459,12 @@ build_themes() {
             fi
 
             cat "$md_file" | strip_frontmatter >> "$tmp"
+            rewrite_svg_links_for_pdf "$tmp" "$md_file" "$CREATION_SPACE_ROOT/.build-tmp/svg-raster/themes/${lang}-${basename_md}"
 
             # 画像の相対パスを絶対パスに変換（PDF生成用）
             sed -i "" "s|](\.\./.*/img/|]($PJDHIRO_DIR/assets/creation/img/|g" "$tmp"
 
-            if pandoc "$tmp" \
-                -o "$out" \
+            if run_pandoc_pdf "$tmp" "$out" \
                 --pdf-engine=lualatex \
                 --wrap=none \
                 --resource-path="$IMG_DIR:$md_dir:$PJDHIRO_DIR/assets/creation" \
@@ -500,8 +528,9 @@ build_synthesis() {
 
         # フロントマターを除去して連結
         cat "$md_file" | strip_frontmatter >> "$tmp"
+        rewrite_svg_links_for_pdf "$tmp" "$md_file" "$CREATION_SPACE_ROOT/.build-tmp/svg-raster/synthesis/${lang}-${basename_md}"
 
-        if pandoc "$tmp"             -o "$out"             --pdf-engine=lualatex             --wrap=none             2>&1 | sed 's/^/      /'; then
+        if run_pandoc_pdf "$tmp" "$out" --pdf-engine=lualatex --wrap=none 2>&1 | sed 's/^/      /'; then
             local size
             size=$(du -k "$out" 2>/dev/null | cut -f1)
             echo -e "    ${GREEN}✅${NC} ${basename_md}.pdf (${size:-?} KB)"

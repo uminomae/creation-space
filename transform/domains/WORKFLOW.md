@@ -86,7 +86,23 @@ pjdhiro/assets/creation/domains/ja/md/domain-D{NN}-{slug}.md
 
 **quality_level 更新**: PASS の場合、index.json の `quality_level` を `independent_reviewed` に設定し、`review_engine` と `review_result` も記入する。
 
-### Step 5: PDF 生成 + manifest 更新 + 日付検証
+### Step 5: SVG 生成 + 公開 MD 同期
+
+公開用 `.md` を modal / PDF / EN で共用するため、PDF 前に SVG と md 埋め込みを同期する。
+
+```bash
+# JA/EN の SVG を生成
+bash transform/scripts/generate-svg.sh --generate
+
+# 公開用 md / presentation md に SVG 参照を同期
+python3 scripts/sync-public-svg-embeds.py
+```
+
+確認:
+- `pjdhiro/assets/creation/domains/{lang}/md/*.md` の H1 直後に SVG が入っている
+- `pjdhiro/assets/creation/domains/{lang}/presentations/md/*.md` にも SVG スライドが入っている
+
+### Step 6: PDF 生成 + manifest 更新 + 日付検証
 
 **推奨: パイプラインを使用する（cs#128）:**
 ```bash
@@ -99,7 +115,7 @@ bash scripts/generate-domain-pipeline.sh --all             # 全30件
 
 **個別実行する場合:**
 ```bash
-# PDF 生成
+# PDF 生成（同じ公開用 md を入力に使う。SVG は build 時に一時 PNG 化される）
 bash transform/scripts/build-pdf-guide.sh --kind domains --lang ja
 
 # manifest 更新
