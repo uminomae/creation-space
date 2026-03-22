@@ -3,7 +3,7 @@
  *
  * Renders two cards in the cross-analysis section:
  * 1. Synthesis report (full analysis)
- * 2. Presentation slides (14-slide summary)
+ * 2. Presentation slides (15-slide summary)
  */
 
 import { normalizeLang } from '../i18n.js';

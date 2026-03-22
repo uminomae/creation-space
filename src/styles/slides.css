@@ -355,9 +355,11 @@
 
 #slide-viewer-overlay .slide-viewer-page img[src$=".svg"] {
   max-width: 72%;
-  border: none;
-  box-shadow: none;
-  background: transparent;
+  padding: 1rem;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 18px 40px rgba(2, 6, 23, 0.22);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(241, 245, 249, 0.98));
 }
 
 #slide-viewer-overlay .slide-viewer-page.slide-title .slide-content {
@@ -411,9 +413,10 @@
   max-width: 92%;
   max-height: 58vh;
   margin: 0;
-  border: none;
-  box-shadow: none;
-  background: transparent;
+}
+
+#slide-viewer-overlay .slide-viewer-page.slide-visual img[src$=".svg"] {
+  padding: 1.25rem;
 }
 
 #slide-viewer-overlay .slide-viewer-page.slide-overview ul,
