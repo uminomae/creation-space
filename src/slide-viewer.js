@@ -31,6 +31,42 @@ function resolveImageUrls(html, mdBaseUrl) {
     );
 }
 
+async function inlineSvgImages(root) {
+    if (!root) return;
+
+    const images = Array.from(root.querySelectorAll('img'));
+    await Promise.all(images.map(async (img) => {
+        const src = img.getAttribute('src') || '';
+        if (!/\.svg(?:$|[?#])/i.test(src)) return;
+
+        try {
+            const response = await fetch(src, { cache: 'no-store' });
+            if (!response.ok) return;
+            const svgText = await response.text();
+            if (!svgText.trim().startsWith('<svg') && !svgText.trim().startsWith('<?xml')) return;
+            const parsed = new DOMParser().parseFromString(svgText, 'image/svg+xml');
+            const svgNode = parsed.documentElement;
+            if (!svgNode || svgNode.nodeName.toLowerCase() === 'parsererror') return;
+
+            const wrapper = document.createElement('figure');
+            wrapper.className = 'slide-inline-svg';
+            const alt = img.getAttribute('alt') || '';
+            if (alt) {
+                wrapper.setAttribute('aria-label', alt);
+                wrapper.setAttribute('role', 'img');
+            }
+
+            const imported = document.importNode(svgNode, true);
+            imported.removeAttribute('width');
+            imported.removeAttribute('height');
+            wrapper.appendChild(imported);
+            img.replaceWith(wrapper);
+        } catch (error) {
+            console.warn('[slide-viewer] svg inline failed:', src, error);
+        }
+    }));
+}
+
 function classifySlide(page, index, total) {
     const text = page.textContent || '';
     const hasTable = page.querySelector('table') !== null;
@@ -174,7 +210,9 @@ export async function openSlideViewer({ markdownText, title = '', mdBaseUrl }) {
         if (!stage) return;
 
         stage.innerHTML = '';
-        slidesState = slideChunks.map((chunk, index) => {
+        slidesState = [];
+
+        for (const [index, chunk] of slideChunks.entries()) {
             const page = document.createElement('article');
             page.className = 'slide-viewer-page';
             page.setAttribute('aria-hidden', 'true');
@@ -185,12 +223,13 @@ export async function openSlideViewer({ markdownText, title = '', mdBaseUrl }) {
             const content = document.createElement('div');
             content.className = 'slide-content';
             content.innerHTML = DOMPurify.sanitize(parsedHtml, { FORBID_TAGS: ['a'] });
+            await inlineSvgImages(content);
 
             page.classList.add(classifySlide(content, index, slideChunks.length));
             page.appendChild(content);
             stage.appendChild(page);
-            return page;
-        });
+            slidesState.push(page);
+        }
 
         currentSlideIndex = 0;
         overlayNode.classList.add('visible');
