@@ -155,6 +155,44 @@ export async function openSlideViewer({ markdownText, title, mdBaseUrl }) {
         await revealInstance.initialize();
         console.log('[slide-viewer] Reveal initialized');
 
+        // Debug: inspect first slide state after init
+        const firstSection = overlayNode.querySelector('.slides > section');
+        if (firstSection) {
+            const cs = window.getComputedStyle(firstSection);
+            console.log('[slide-viewer] first section classes:', firstSection.className);
+            console.log('[slide-viewer] first section computed:', {
+                display: cs.display,
+                opacity: cs.opacity,
+                visibility: cs.visibility,
+                width: cs.width,
+                height: cs.height,
+                position: cs.position,
+                transform: cs.transform,
+            });
+        }
+        const revealEl2 = overlayNode.querySelector('.reveal');
+        if (revealEl2) {
+            const cs2 = window.getComputedStyle(revealEl2);
+            console.log('[slide-viewer] .reveal computed:', {
+                display: cs2.display,
+                width: cs2.width,
+                height: cs2.height,
+                overflow: cs2.overflow,
+                position: cs2.position,
+            });
+        }
+        const slidesEl = overlayNode.querySelector('.slides');
+        if (slidesEl) {
+            const cs3 = window.getComputedStyle(slidesEl);
+            console.log('[slide-viewer] .slides computed:', {
+                display: cs3.display,
+                width: cs3.width,
+                height: cs3.height,
+                position: cs3.position,
+                transform: cs3.transform,
+            });
+        }
+
         window.addEventListener('keydown', onKeyDown);
         console.log('[slide-viewer] ready');
     } catch (err) {
