@@ -31,6 +31,7 @@
 - ダークテーマ前提: 背景は暗い。テキストは明るい。コントラストを確保する
 - `shell.css` を変更したら `dev-components.html` も確認・更新する
 - component-local 変数を変える場合も、元になっている root token まで辿って整合を確認する
+- Markdown を段組みで見せる viewer は、まず 16:9 固定の HTML modal として組む。外部 slide engine は、その固有機能が必要なときだけ導入する
 
 ## カテゴリと命名パターン
 

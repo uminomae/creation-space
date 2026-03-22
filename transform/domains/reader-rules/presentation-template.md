@@ -178,6 +178,9 @@ CSS が各スライドを自動分類する。生成時にスライドの役割�
 
 ### 図解の使用指針
 
+**義務**: domain presentation は、タイトル/概要の直後に **構造対応図の SVG スライドを必ず1枚入れる**。  
+teaser・PDF 冒頭などで使う PNG とは用途を分ける。slide viewer では SVG を正本とし、PNG は teaser / report PDF 用の派生物として扱う。
+
 各スライドタイプに適した図解パターン:
 
 | スライドタイプ | 推奨図解 | 用途 |
@@ -189,10 +192,14 @@ CSS が各スライドを自動分類する。生成時にスライドの役割�
 | 横断パターン | SVG: ベン図/ネットワーク図 | 共通点の可視化 |
 | 結論 | SVG: サマリーダイアグラム | 全体像の俯瞰 |
 
-SVGファイルは `assets/svg/domains/` に配置し、スライドから相対パスで参照:
+SVGファイルは `assets/svg/domains/` に配置し、presentation では title/overview の次に参照する:
 ```markdown
-![構造対応図](../../assets/svg/domains/D{NN}-mapping.svg)
+## 構造対応図
+
+![構造対応図](https://uminomae.github.io/creation-space/assets/svg/domains/domain-D{NN}-{name}.svg)
 ```
+
+ドメイン slug と SVG ファイル名が一致しない場合があるため、`assets/svg/domains/domain-D{NN}-*.svg` の実在ファイルを優先して参照する。
 
 ### カラーセマンティクス
 

@@ -22,6 +22,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 DOMAINS_DIR = os.path.join(ROOT, "transform/domains/publish/domains")
 PRESENTATIONS_DIR = os.path.join(ROOT, "transform/domains/publish/presentations")
 INDEX_JSON = os.path.join(DOMAINS_DIR, "index.json")
+SVG_DOMAINS_DIR = os.path.join(ROOT, "assets/svg/domains")
+CREATION_SPACE_PAGES_BASE = "https://uminomae.github.io/creation-space"
 
 
 def load_index():
@@ -260,11 +262,23 @@ def summarize_to_bullets(text, max_items=5):
     return "\n".join(bullets[:max_items])
 
 
+def resolve_domain_svg_url(domain_id):
+    if not os.path.isdir(SVG_DOMAINS_DIR):
+        return ""
+
+    prefix = "domain-%s-" % domain_id
+    for name in sorted(os.listdir(SVG_DOMAINS_DIR)):
+        if name.startswith(prefix) and name.endswith(".svg"):
+            return "%s/assets/svg/domains/%s" % (CREATION_SPACE_PAGES_BASE, name)
+    return ""
+
+
 def generate_presentation(domain_info, content, fm):
     domain_id = domain_info["id"]
     name_ja = domain_info["name_ja"]
     slug = domain_info["slug"]
     source_file = "domain-%s-%s-academic-ja.md" % (domain_id, slug)
+    svg_url = resolve_domain_svg_url(domain_id)
 
     num_theories = count_theories(content)
     judgments = extract_judgments(content)
@@ -306,6 +320,9 @@ def generate_presentation(domain_info, content, fm):
     if judgment_summary:
         overview_items.append("- **判定結果**: %s" % judgment_summary)
     slides.append("## 調査の概要\n\n" + "\n".join(overview_items))
+
+    if svg_url:
+        slides.append("## 構造対応図\n\n![%s — 5段階モデルとの構造対応図](%s)" % (name_ja, svg_url))
 
     # 5-stage model slide
     slides.append("""## 5段階モデルの概要
