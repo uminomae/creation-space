@@ -715,6 +715,15 @@ html[lang="en"] #taglines {
   line-height: 1.5;
 }
 
+.footer-dev-link {
+  color: rgba(150, 175, 210, 0.18);
+  text-decoration: none;
+  font-size: 0.70rem;
+}
+.footer-dev-link:hover {
+  color: rgba(150, 175, 210, 0.45);
+}
+
 @keyframes scrollHintPulse {
   0%, 100% { transform: translateX(-50%) translateY(0); }
   50% { transform: translateX(-50%) translateY(4px); }
