@@ -152,7 +152,7 @@
           },
           {
             "type": "command",
-            "command": "bash ~/dev/kesson-driven-thinking/scripts/validate-manifest-sync.sh"
+            "command": "bash scripts/validate-manifest-sync.sh"
           }
         ]
       }

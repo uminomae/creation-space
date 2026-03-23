@@ -71,7 +71,7 @@ progress_level を変更するとき、以下を**すべて**確認してから 
    - `src/reports/data.js` — normalizeProgressLevel() の後方互換マッピング
 4. **検証コマンド実行**:
    - `node scripts/generate-domains-json.mjs --check` — Schema validation: OK + No differences
-   - `bash scripts/validate-manifest-sync.sh` — Check 4 (taxonomy整合) + Check 5 (定義ドリフト) PASS
+   - `bash scripts/validate-manifest-sync.sh` — Check 1 (domains.json整合) + Check 4 (taxonomy整合) + Check 5 (定義ドリフト) PASS
 5. **Issue 番号をコミットメッセージに含める**: `cs#NNN`
 
 > **教訓 (cs#123)**: ツール名ベースの taxonomy ID を使ったことで、同一 Phase でも D22/D23 だけ別ラベルになり、3回修正しても直らなかった。taxonomy ID は「調査状態」を表す名前にすること。
