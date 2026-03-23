@@ -6,7 +6,7 @@
  */
 
 import { normalizeLang } from '../i18n.js';
-import { openSlideViewer } from '../slide-viewer.js';
+import { openSlideViewer, openRichSlideViewer } from '../slide-viewer.js';
 import { dict } from '../i18n/dict.js';
 import {
     PHASE8_THEMES_MANIFEST_URL,
@@ -188,12 +188,28 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
                 const slidesBtn = document.createElement('button');
                 slidesBtn.className = 'btn btn-sm btn-outline-light mt-1 align-self-start';
                 slidesBtn.textContent = strings.slidesButton || 'Slides';
-                slidesBtn.addEventListener('click', (event) => {
+                slidesBtn.addEventListener('click', async (event) => {
                     event.stopPropagation();
                     const currentLang = getLang();
                     const currentUrl = resolveThemePresentationMdUrl(theme, currentLang);
                     if (!currentUrl) return;
                     const currentName = getThemeDisplayName(theme, currentLang);
+
+                    // Try rich HTML first (same path with .html instead of .md)
+                    const richHtmlUrl = currentUrl.replace(/\/md\/([^/]+)\.md$/, '/html/$1.html');
+                    if (richHtmlUrl !== currentUrl) {
+                        try {
+                            const headResp = await fetch(richHtmlUrl, { method: 'HEAD', cache: 'no-store' });
+                            if (headResp.ok) {
+                                openRichSlideViewer({ htmlUrl: richHtmlUrl, title: currentName });
+                                return;
+                            }
+                        } catch {
+                            // Fall through to MD
+                        }
+                    }
+
+                    // Fallback to markdown viewer
                     fetch(currentUrl)
                         .then((res) => {
                             if (!res.ok) throw new Error('HTTP ' + res.status);

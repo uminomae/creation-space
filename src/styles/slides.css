@@ -552,3 +552,17 @@
     order: -1;
   }
 }
+
+/* ==========================================================================
+   Rich Slide Viewer (iframe mode)
+   ========================================================================== */
+
+/* When toolbar is hidden in rich mode, expand frame to fill the space */
+#slide-viewer-overlay .slide-viewer-stage > iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: inherit;
+  background: var(--slide-bg-deep);
+}

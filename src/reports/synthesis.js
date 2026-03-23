@@ -6,7 +6,7 @@
 
 import { normalizeLang } from '../i18n.js';
 import { dict } from '../i18n/dict.js';
-import { openSlideViewer } from '../slide-viewer.js';
+import { openSlideViewer, openRichSlideViewer } from '../slide-viewer.js';
 import {
     SYNTHESIS_REPORT_LINKS,
     SYNTHESIS_PRESENTATION_LINKS,
@@ -97,7 +97,26 @@ export function createSynthesisRenderer({ openMarkdownModal, getLang }) {
             const currentStrings = getSynthesisStrings(currentLang);
             const sources = resolveLocalizedSources(SYNTHESIS_PRESENTATION_LINKS, currentLang);
             const source = sources[0];
-            if (!source || !source.mdUrl) return;
+            if (!source) return;
+
+            // Try rich HTML first
+            if (source.mdUrl) {
+                const richHtmlUrl = source.mdUrl.replace(/\/md\/([^/]+)\.md$/, '/html/$1.html');
+                if (richHtmlUrl !== source.mdUrl) {
+                    try {
+                        const headResp = await fetch(richHtmlUrl, { method: 'HEAD', cache: 'no-store' });
+                        if (headResp.ok) {
+                            openRichSlideViewer({ htmlUrl: richHtmlUrl, title: currentStrings.reportTitle });
+                            return;
+                        }
+                    } catch {
+                        // Fall through to MD
+                    }
+                }
+            }
+
+            // Fallback to markdown viewer
+            if (!source.mdUrl) return;
             const candidates = buildMarkdownFetchCandidates(source.mdUrl);
             let markdownText = '';
             let mdBaseUrl = '';

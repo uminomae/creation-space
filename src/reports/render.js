@@ -1,6 +1,6 @@
 import { normalizeLang } from '../i18n.js';
 import { dict } from '../i18n/dict.js';
-import { openSlideViewer } from '../slide-viewer.js';
+import { openSlideViewer, openRichSlideViewer } from '../slide-viewer.js';
 import {
     MODEL_GUIDE_LINKS,
     STATUS_REPORT_LINKS,
@@ -487,7 +487,26 @@ export function createReportsRenderer({
                 event.stopPropagation();
                 const currentSources = resolveDomainPresentationSources(report, { lang: state.lang });
                 const source = currentSources[0];
-                if (!source || !source.mdUrl) return;
+                if (!source) return;
+
+                // Try rich HTML first
+                if (source.htmlUrl) {
+                    try {
+                        const htmlResp = await fetch(source.htmlUrl, { method: 'HEAD', cache: 'no-store' });
+                        if (htmlResp.ok) {
+                            openRichSlideViewer({
+                                htmlUrl: source.htmlUrl,
+                                title: `${report.id} ${domainLabel}`,
+                            });
+                            return;
+                        }
+                    } catch {
+                        // Rich HTML not available, fall through to MD
+                    }
+                }
+
+                // Fallback to markdown-based viewer
+                if (!source.mdUrl) return;
                 const candidates = buildMarkdownFetchCandidates(source.mdUrl);
                 let markdownText = '';
                 let mdBaseUrl = '';
