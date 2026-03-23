@@ -10,9 +10,9 @@ import { dict } from '../i18n/dict.js';
 
 /**
  * Static theme verification data extracted from the published reports.
- * These reports live in transform/themes/publish/ and are served locally.
+ * These reports live in pjdhiro/assets/creation/phase8-themes/ja/verification/.
  */
-const THEME_VERIFICATION_BASE = './transform/themes/publish';
+const THEME_VERIFICATION_BASE = 'https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/creation/phase8-themes/ja/verification';
 
 const THEME_DATA = [
     {

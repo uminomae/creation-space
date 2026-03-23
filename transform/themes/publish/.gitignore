@@ -1,0 +1,3 @@
+# Block MD files in publish/ — public MDs belong in pjdhiro/assets/creation/
+*.md
+!README.md

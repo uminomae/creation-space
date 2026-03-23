@@ -1,4 +1,6 @@
-# transform/domains/publish/domains/ — ドメイン公開素材
+# transform/domains/publish/domains/ — ドメイン公開ステージング
+
+> **注意**: ここは変換出力のステージング領域であり正本ではない。正本は `pjdhiro/assets/creation/domains/`。
 
 **目的**: creation ドメイン別の公開用 Markdown と進捗インデックスを置く。
 
