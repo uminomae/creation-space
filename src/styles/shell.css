@@ -719,6 +719,7 @@ html[lang="en"] #taglines {
   color: rgba(150, 175, 210, 0.18);
   text-decoration: none;
   font-size: 0.70rem;
+  pointer-events: auto;
 }
 .footer-dev-link:hover {
   color: rgba(150, 175, 210, 0.45);

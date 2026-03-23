@@ -5,6 +5,7 @@ import {
     DEFAULT_REPORTS_DATA_URL,
     DEFAULT_REPORTS_MD_ASSET_BASE,
     GUIDES_MANIFEST_URL,
+    MODEL_GUIDE_LINKS,
     PHASE8_THEMES_MANIFEST_URL,
     countReportsByProgressLevel,
     loadGuidesGeneratedAt,
@@ -12,6 +13,7 @@ import {
     normalizeAssetBaseUrl,
     normalizeDomainId,
     normalizeProgressTaxonomy,
+    resolveLocalizedSources,
     resolveDomainReportSources,
 } from './data.js';
 import {
@@ -257,6 +259,24 @@ export async function initReports({
             treatAsInitial: !state.pendingDomainHistoryMode && Boolean(historyController.getDomainIdFromUrl()),
         });
     }
+
+    // Auto-open guide modal from ?guide=general|designer|expert
+    try {
+        const guideKey = new URLSearchParams(window.location.search).get('guide');
+        if (guideKey) {
+            const guide = MODEL_GUIDE_LINKS.find((g) => g.key === guideKey);
+            if (guide) {
+                const strings = getReportsStrings(state.lang);
+                const featureText = strings.features[guide.key];
+                if (featureText) {
+                    modalController.openMarkdownModal({
+                        title: featureText.modalTitle || featureText.title,
+                        sources: resolveLocalizedSources(guide.links, state.lang),
+                    });
+                }
+            }
+        }
+    } catch { /* ignore parse errors */ }
 }
 
 export function setReportsLanguage(lang) {

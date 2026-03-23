@@ -7,6 +7,27 @@
       "query": {},
       "devOnly": true
     },
+    "guide_general": {
+      "label": "解説: 一般向け",
+      "path": "./",
+      "query": {
+        "guide": "general"
+      }
+    },
+    "guide_designer": {
+      "label": "解説: 設計者向け",
+      "path": "./",
+      "query": {
+        "guide": "designer"
+      }
+    },
+    "guide_expert": {
+      "label": "解説: 専門家向け",
+      "path": "./",
+      "query": {
+        "guide": "expert"
+      }
+    },
     "domain_d23_developmental_psychology": {
       "label": "D23 発達心理学",
       "path": "./",
