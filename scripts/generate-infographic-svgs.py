@@ -358,6 +358,8 @@ def validate_svg(svg_text):
             errors.append(f"Forbidden element: {forbidden}")
     if "viewBox" not in svg_text:
         errors.append("Missing viewBox")
+    if 'xmlns="http://www.w3.org/2000/svg"' not in svg_text:
+        errors.append("Missing xmlns")
     return errors
 
 
