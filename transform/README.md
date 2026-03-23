@@ -22,7 +22,6 @@
 | `domains/` | evidence から領域別調査レポート（md + PDF）を再生成する | **Phase A 実装済み** |
 | `themes/` | Phase 8 テーマ検証レポートの変換ルール・テンプレート | **ルール配置済み** |
 | `synthesis/` | 横断統合レポートの変換ワークフロー | **WORKFLOW 配置済み** |
-| `presentations/` | プレゼンテーション用変換ワークフロー | **WORKFLOW 配置済み** |
 | `phase9/` | Phase 9 検証の変換ワークフロー | **WORKFLOW 配置済み** |
 | `survey/` | 30領域全体の概要・索引を整える | **reader-rules 移管済み** |
 | `guides/` | 5段階モデルの guide 類を strict separation で再構成する | **reader-rules / drafts / introductions 移管済み** |

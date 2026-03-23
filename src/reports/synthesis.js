@@ -1,9 +1,7 @@
 /**
  * Cross-Domain Synthesis Report — card rendering for the synthesis section.
  *
- * Renders two cards in the cross-analysis section:
- * 1. Synthesis report (full analysis)
- * 2. Presentation slides (15-slide summary)
+ * Renders a single card with the synthesis report + slide button.
  */
 
 import { normalizeLang } from '../i18n.js';
@@ -52,7 +50,7 @@ export function createSynthesisRenderer({ openMarkdownModal, getLang }) {
 
         const fragment = document.createDocumentFragment();
 
-        // Card 1: Synthesis report
+        // Single card: Synthesis report + slide button
         const reportCol = document.createElement('div');
         reportCol.className = 'col';
 
@@ -88,53 +86,12 @@ export function createSynthesisRenderer({ openMarkdownModal, getLang }) {
             }
         });
 
-        reportBody.appendChild(reportTitle);
-        reportBody.appendChild(reportDesc);
-        reportCard.appendChild(reportBody);
-        reportCol.appendChild(reportCard);
-        fragment.appendChild(reportCol);
-
-        // Card 2: Presentation
-        const presCol = document.createElement('div');
-        presCol.className = 'col';
-
-        const presCard = document.createElement('article');
-        presCard.className = 'card kesson-card h-100 reports-feature-card';
-        presCard.setAttribute('role', 'button');
-        presCard.setAttribute('tabindex', '0');
-        presCard.setAttribute('aria-label', strings.presentationTitle);
-
-        const presBody = document.createElement('div');
-        presBody.className = 'card-body p-2 p-md-3 d-flex flex-column gap-1';
-
-        const presTitle = document.createElement('h4');
-        presTitle.className = 'h6 mb-1 text-light';
-        presTitle.textContent = strings.presentationTitle;
-
-        const presDesc = document.createElement('p');
-        presDesc.className = 'small mb-0 reports-feature-description';
-        presDesc.textContent = strings.presentationDescription;
-
-        const openPresentation = () => {
-            openMarkdownModal({
-                title: strings.presentationModalTitle || strings.presentationTitle,
-                sources: resolveLocalizedSources(SYNTHESIS_PRESENTATION_LINKS, lang),
-            });
-        };
-
-        presCard.addEventListener('click', openPresentation);
-        presCard.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                openPresentation();
-            }
-        });
-
-        const presSlideBtn = document.createElement('button');
-        presSlideBtn.className = 'btn btn-sm btn-outline-info mt-auto reports-domain-slide-btn';
-        presSlideBtn.textContent = normalizeLang(lang) === 'ja' ? 'スライド' : 'Slides';
-        presSlideBtn.setAttribute('aria-label', strings.presentationTitle + ' slides');
-        presSlideBtn.addEventListener('click', async (event) => {
+        // Slide button
+        const slideBtn = document.createElement('button');
+        slideBtn.className = 'btn btn-sm btn-outline-info mt-auto align-self-start reports-domain-slide-btn';
+        slideBtn.textContent = normalizeLang(lang) === 'ja' ? 'スライド' : 'Slides';
+        slideBtn.setAttribute('aria-label', strings.reportTitle + ' slides');
+        slideBtn.addEventListener('click', async (event) => {
             event.stopPropagation();
             const currentLang = getLang();
             const currentStrings = getSynthesisStrings(currentLang);
@@ -160,17 +117,17 @@ export function createSynthesisRenderer({ openMarkdownModal, getLang }) {
             if (!markdownText) return;
             openSlideViewer({
                 markdownText,
-                title: currentStrings.presentationModalTitle || currentStrings.presentationTitle,
+                title: currentStrings.reportTitle,
                 mdBaseUrl,
             });
         });
 
-        presBody.appendChild(presTitle);
-        presBody.appendChild(presDesc);
-        presBody.appendChild(presSlideBtn);
-        presCard.appendChild(presBody);
-        presCol.appendChild(presCard);
-        fragment.appendChild(presCol);
+        reportBody.appendChild(reportTitle);
+        reportBody.appendChild(reportDesc);
+        reportBody.appendChild(slideBtn);
+        reportCard.appendChild(reportBody);
+        reportCol.appendChild(reportCard);
+        fragment.appendChild(reportCol);
 
         containerEl.appendChild(fragment);
     }
