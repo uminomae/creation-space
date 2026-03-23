@@ -178,3 +178,16 @@ See `context/design-system.md` for the unified visual design specification.
 | `scripts/generate-infographic-svgs.py` | Phase 1: Gemini API → SVG 生成 |
 | `scripts/insert-infographic-links.py` | Phase 2: MD への SVG リンク挿入 |
 | `transform/scripts/build-pdf-guide.sh` | Phase 4: PDF 再ビルド |
+
+## Related Workflows
+
+Each content container has its own end-to-end workflow documenting the full pipeline from MD generation through SVG insertion, PDF build, and publish push.
+
+| Container | Workflow | Description |
+|-----------|----------|-------------|
+| Domains | `transform/domains/WORKFLOW.md` | 30 domain academic reports |
+| Presentations | `transform/presentations/WORKFLOW.md` | Domain presentation slides |
+| Themes (Phase 8) | `transform/themes/WORKFLOW.md` | 5 cross-domain theme reports |
+| Synthesis | `transform/synthesis/WORKFLOW.md` | Cross-domain synthesis report |
+| Guides | `transform/guides/WORKFLOW.md` | 3 audience-level guides |
+| Phase 9 | `transform/phase9/WORKFLOW.md` | Verification track plans |
