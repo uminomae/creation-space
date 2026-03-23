@@ -85,10 +85,34 @@ Generate SVG infographics for domain reports, theme reports, presentations, and 
 | TYPE B | `## 4.` | `![{domain_name} — 理論×5段階対応マトリクス]({url})` |
 | TYPE C | `## 6.` | `![{domain_name} — 横断的パターン図]({url})` |
 
-### Presentations (JA/EN)
+### Presentations (JA/EN) — SVG Layout Rules (cs#160)
 
-Same TYPE A/B/C rules apply. Presentations are shorter but follow identical section numbering.
-If a presentation does not contain `## 4.` or `## 6.`, skip that TYPE.
+Presentations use section-name triggers (not numbered headings like domain reports).
+Each SVG is placed **immediately after the section heading**, before the section's content.
+
+**Design rationale**: SVGs serve as visual anchors — the overview heatmap orients the reader at the start, the theory matrix accompanies the evidence table, and the cross-cutting diagram precedes the pattern analysis. This "infographic then prose" order lets the reader form a visual mental model before reading details.
+
+| Type | JA trigger heading | EN trigger heading | Alt text (JA) | Alt text (EN) |
+|------|-------------------|-------------------|---------------|---------------|
+| TYPE A | `## 調査の概要` | `## Survey Overview` or `## Overview of the Study` | `Domain — 調査概要インフォグラフィック` | `Domain — Research Overview Infographic` |
+| TYPE B | `## 構造対応の全体像` | `## Overall Structural Correspondence` or `## Overview of Structural Correspondences` (variants OK) | `Domain — 理論×5段階対応マトリクス` | `Domain — Theory x 5-Stage Correspondence Matrix` |
+| TYPE C | `## 横断的パターン` | `## Cross-Cutting Patterns` or `## Cross-Domain Patterns` | `Domain — 横断的パターン図` | `Domain — Cross-Cutting Patterns Diagram` |
+
+**Insertion format** (no caption, no page break — the heading itself serves as context):
+
+```markdown
+## {Section Heading}
+
+![{Alt text}](https://uminomae.github.io/pjdhiro/assets/creation/img/svg/domains/ja/D{NN}-{suffix}.svg)
+
+- First bullet point of section content...
+```
+
+**Rules**:
+- One blank line before and after the `![...]()` image link
+- No separate `## 構造対応図` / `## Structural Correspondence Diagram` section — TYPE A replaces the old overview diagram
+- EN presentations reference JA SVGs (same URL path) per the Language Handling rule above
+- If a presentation uses a non-standard heading variant, match by substring (e.g. "Structural Correspond" for TYPE B)
 
 ### Theme reports
 
