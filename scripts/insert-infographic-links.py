@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Insert TYPE A/B/C infographic SVG links into domain report MDs.
 
+NOTE: The old cs#136 overview SVGs (domain-D{NN}-{slug}.svg) are deprecated
+and fully replaced by TYPE A infographics. This script only inserts TYPE A/B/C.
+
 Insertion points (from SKILL.md):
 - TYPE A: After section 1 heading
 - TYPE B: After section 4 heading

@@ -75,6 +75,8 @@ Generate SVG infographics for domain reports, theme reports, presentations, and 
 
 ## SVG Insertion Points
 
+**旧概要図（cs#136）は廃止**: `domain-D{NN}-{slug}.svg` 形式の冒頭概要図は TYPE A に統合・廃止。新規レポートには挿入しない。
+
 ### Domain reports (JA/EN)
 
 | Type | Trigger (section heading) | Markdown link format |
@@ -105,9 +107,6 @@ If a presentation does not contain `## 4.` or `## 6.`, skip that TYPE.
 if infographic SVG exists in img/svg/{kind}/ja/:
     # JA infographic がある → EN MD からも JA の SVG URL を参照
     url = "https://uminomae.github.io/pjdhiro/assets/creation/img/svg/{kind}/ja/{filename}"
-elif overview SVG exists in img/svg/{kind}/en/:
-    # EN 専用 overview SVG がある → それを参照（既存の概要図）
-    url = "https://uminomae.github.io/pjdhiro/assets/creation/img/svg/{kind}/en/{filename}"
 else:
     # SVG なし → リンクを挿入しない
     skip
