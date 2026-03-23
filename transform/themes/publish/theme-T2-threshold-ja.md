@@ -3,6 +3,12 @@
 > **立ち位置明示**
 > 本稿は、30領域横断分析（Phase 8）で抽出された構造テーマ「閾値構造と縁→渦遷移の条件」の検証結果を報告するものです。学術的根拠調査、敵対的反証探索、新領域への予測検証、数理形式化の4つの視点から検証を行いました。検証結果には確度の高いものから未解決のものまで含まれます。
 
+![閾値構造 横断的パターン図](https://uminomae.github.io/pjdhiro/assets/creation/img/svg/themes/ja/theme-threshold.svg)
+
+![閾値構造 収束ネットワーク図](https://uminomae.github.io/pjdhiro/assets/creation/img/svg/themes/ja/theme-threshold-01-convergence-svg.svg)
+
+![閾値構造 分岐・緊張構造図](https://uminomae.github.io/pjdhiro/assets/creation/img/svg/themes/ja/theme-threshold-02-divergence-svg.svg)
+
 ---
 
 ## 1. テーマの概要と主張

@@ -3,6 +3,8 @@
 > **立ち位置明示**
 > 本稿は、30領域横断分析（Phase 8）で抽出された5つの構造テーマに対する Phase 9 検証（実証接地・反証探索・未踏領域探索・数理形式化）の総括です。個別テーマの検証結果を統合し、モデル全体の堅牢性と今後の方向性を報告します。
 
+![テーマ総括 サマリー図](https://uminomae.github.io/pjdhiro/assets/creation/img/svg/themes/ja/theme-conclusion-summary.svg)
+
 ---
 
 ## 1. Phase 9 検証の全体像

@@ -6,6 +6,11 @@
 > 新領域への予測検証、数理形式化の4つの視点から検証を行いました。
 > 検証結果には確度の高いものから未解決のものまで含まれます。
 
+![盲点と反例 横断的パターン図](https://uminomae.github.io/pjdhiro/assets/creation/img/svg/themes/ja/theme-blind-spots.svg)
+
+![盲点と反例 収束ネットワーク図](https://uminomae.github.io/pjdhiro/assets/creation/img/svg/themes/ja/theme-blind-spots-01-convergence-svg.svg)
+
+![盲点と反例 分岐・緊張構造図](https://uminomae.github.io/pjdhiro/assets/creation/img/svg/themes/ja/theme-blind-spots-02-divergence-svg.svg)
 ## 1. テーマの概要と主張
 
 ### 1.1 テーマの定義

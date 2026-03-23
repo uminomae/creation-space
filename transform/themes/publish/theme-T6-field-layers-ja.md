@@ -6,6 +6,12 @@
 > 新領域への予測検証、数理形式化の4つの視点から検証を行いました。
 > 検証結果には確度の高いものから未解決のものまで含まれます。
 
+![場の多層性 横断的パターン図](https://uminomae.github.io/pjdhiro/assets/creation/img/svg/themes/ja/theme-field-layers.svg)
+
+![場の多層性 収束ネットワーク図](https://uminomae.github.io/pjdhiro/assets/creation/img/svg/themes/ja/theme-field-layers-01-convergence-svg.svg)
+
+![場の多層性 分岐・緊張構造図](https://uminomae.github.io/pjdhiro/assets/creation/img/svg/themes/ja/theme-field-layers-02-divergence-svg.svg)
+
 ## 1. テーマの概要と主張
 
 ### 1.1 テーマの定義
