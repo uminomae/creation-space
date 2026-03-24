@@ -28,7 +28,7 @@
 |------|------|
 | Issue番号（#62 等） | 内部管理情報 |
 | Phase番号、DR、triage | 内部ワークフロー用語 |
-| 内部進捗ログ、state.md | AI作業環境（NL-002） |
+| 内部進捗ログ | AI作業環境（NL-002） |
 | 202602-deep-research-30domains-gpt/README.md | 内部管理表 |
 
 ---
