@@ -73,6 +73,7 @@ export async function runMainOrchestrator({
         intentTimelineRuntime,
         updateScene,
         postFxRuntime,
+        devMode,
         getDevStatsBegin: () => devStatsBridge.getBegin(),
         getDevStatsEnd: () => devStatsBridge.getEnd(),
     });

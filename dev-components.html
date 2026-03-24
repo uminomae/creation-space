@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="src/styles/reports.css">
   <link rel="stylesheet" href="src/styles/articles.css">
   <link rel="stylesheet" href="src/styles/creation.css">
-  <link rel="stylesheet" href="src/styles/dev-legacy.css">
+  <link rel="stylesheet" href="src/styles/dev-hud.css">
   <style>
     * {
       box-sizing: border-box;
@@ -737,8 +737,8 @@
     <section class="ds-section" data-category="token-map" aria-labelledby="token-map-title">
       <header>
         <h2 id="token-map-title">Token Map</h2>
-        <p>現在の <code>shell.css :root</code> は 116 個の root token と、Reports の文字調整用ブリッジ <code>--reports-font-step</code> を持ちます。加えて <code>reports.css</code> には 40 個の component-local 変数、<code>viewer.css</code> と <code>dev-legacy.css</code> には <code>--bs-offcanvas-width</code> の橋渡し変数があります。</p>
-        <p class="ds-meta">Source files: <code>src/styles/shell.css</code>, <code>src/styles/topbar.css</code>, <code>src/styles/dev-panel.css</code>, <code>src/styles/viewer.css</code>, <code>src/styles/reports.css</code>, <code>src/styles/articles.css</code>, <code>src/styles/creation.css</code>, <code>src/styles/dev-legacy.css</code></p>
+        <p>現在の <code>shell.css :root</code> は 116 個の root token と、Reports の文字調整用ブリッジ <code>--reports-font-step</code> を持ちます。加えて <code>reports.css</code> には 40 個の component-local 変数、<code>viewer.css</code> と <code>dev-hud.css</code> には <code>--bs-offcanvas-width</code> の橋渡し変数があります。</p>
+        <p class="ds-meta">Source files: <code>src/styles/shell.css</code>, <code>src/styles/topbar.css</code>, <code>src/styles/dev-panel.css</code>, <code>src/styles/viewer.css</code>, <code>src/styles/reports.css</code>, <code>src/styles/articles.css</code>, <code>src/styles/creation.css</code>, <code>src/styles/dev-hud.css</code></p>
       </header>
       <div class="ds-inline-grid">
         <div class="ds-component">
@@ -953,7 +953,7 @@
       <!-- Component: runtime-ui-hints -->
       <!-- Variables: --kesson-ui-label-color, --kesson-ui-arrow-color, --kesson-ui-label-hover-color, --kesson-focus-ring-soft, --kesson-font-size-ui-xs, --kesson-font-size-ui-arrow, --kesson-control-guide, --kesson-dev-toggle-bg, --kesson-dev-toggle-bg-hover, --kesson-dev-toggle-border -->
       <!-- Intent: ヒントや開発トグルなどの補助 UI が前景を邪魔しない強さを確認する -->
-      <article class="ds-component" data-component="runtime-ui-hints" data-source="src/styles/shell.css src/styles/dev-panel.css src/styles/dev-legacy.css" data-variables="--kesson-ui-label-color,--kesson-ui-arrow-color,--kesson-ui-label-hover-color,--kesson-focus-ring-soft,--kesson-font-size-ui-xs,--kesson-font-size-ui-arrow,--kesson-control-guide,--kesson-dev-toggle-bg,--kesson-dev-toggle-bg-hover,--kesson-dev-toggle-border">
+      <article class="ds-component" data-component="runtime-ui-hints" data-source="src/styles/shell.css src/styles/dev-panel.css src/styles/dev-hud.css" data-variables="--kesson-ui-label-color,--kesson-ui-arrow-color,--kesson-ui-label-hover-color,--kesson-focus-ring-soft,--kesson-font-size-ui-xs,--kesson-font-size-ui-arrow,--kesson-control-guide,--kesson-dev-toggle-bg,--kesson-dev-toggle-bg-hover,--kesson-dev-toggle-border">
         <h3>Hints, Labels, Toggle</h3>
         <p>scroll hint、left link、control guide、開発トグルの色と存在感をまとめて見ます。</p>
         <div class="ds-demo-shell ds-runtime-surface">
@@ -1083,7 +1083,7 @@
       <!-- Component: offcanvas-kesson -->
       <!-- Variables: --kesson-offcanvas-width, --kesson-offcanvas-bg, --kesson-offcanvas-text, --kesson-offcanvas-heading, --kesson-offcanvas-link, --bs-offcanvas-width -->
       <!-- Intent: 外周情報や記事一覧を本体から分離して載せる。背景は暗く、文字とリンクだけを少し温かくする -->
-      <article class="ds-component" data-component="offcanvas-kesson" data-source="src/styles/shell.css src/styles/viewer.css src/styles/dev-legacy.css index.html" data-variables="--kesson-offcanvas-width,--kesson-offcanvas-bg,--kesson-offcanvas-text,--kesson-offcanvas-heading,--kesson-offcanvas-link,--bs-offcanvas-width">
+      <article class="ds-component" data-component="offcanvas-kesson" data-source="src/styles/shell.css src/styles/viewer.css src/styles/dev-hud.css index.html" data-variables="--kesson-offcanvas-width,--kesson-offcanvas-bg,--kesson-offcanvas-text,--kesson-offcanvas-heading,--kesson-offcanvas-link,--bs-offcanvas-width">
         <h3>Offcanvas Panel</h3>
         <p><code>offcanvas-kesson</code> は width と background を token で制御しています。本文文字色とリンク色は今後 token 利用を増やせる余地があります。</p>
         <div class="ds-demo-shell">
@@ -1191,7 +1191,7 @@
       <!-- Component: form-controls -->
       <!-- Variables: --kesson-focus-ring, --kesson-focus-ring-soft, --kesson-dev-toggle-bg, --kesson-dev-toggle-bg-hover, --kesson-dev-toggle-border -->
       <!-- Intent: 設定変更や開発用調整を行う面。視認性は要るが主役にはしない -->
-      <article class="ds-component" data-component="form-controls" data-source="src/styles/dev-panel.css src/styles/dev-legacy.css src/dev-panel.js" data-variables="--kesson-focus-ring,--kesson-focus-ring-soft,--kesson-dev-toggle-bg,--kesson-dev-toggle-bg-hover,--kesson-dev-toggle-border">
+      <article class="ds-component" data-component="form-controls" data-source="src/styles/dev-panel.css src/styles/dev-hud.css src/dev-panel.js" data-variables="--kesson-focus-ring,--kesson-focus-ring-soft,--kesson-dev-toggle-bg,--kesson-dev-toggle-bg-hover,--kesson-dev-toggle-border">
         <h3>Dev Panel Form Controls</h3>
         <p>dev-panel.css の input / label / range を縮小展示しています。トグルは runtime chrome と同じ token を共有します。</p>
         <div class="ds-demo-shell ds-dev-panel-demo">

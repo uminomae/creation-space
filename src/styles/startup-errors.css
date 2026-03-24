@@ -1,0 +1,39 @@
+/* Boot-error overlay (index.html inline script) */
+#boot-error-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  max-height: 52vh;
+  margin: 0;
+  padding: 10px 12px;
+  z-index: 100000;
+  overflow: auto;
+  white-space: pre-wrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.45;
+  background: rgba(44, 12, 14, 0.96);
+  color: #ffd8de;
+  border-bottom: 1px solid rgba(255, 173, 186, 0.45);
+}
+
+/* App startup-error overlay (src/startup-error-overlay.js) */
+#app-startup-error-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  max-height: 55vh;
+  margin: 0;
+  padding: 12px 14px;
+  z-index: 99999;
+  overflow: auto;
+  white-space: pre-wrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.45;
+  background: rgba(31, 9, 13, 0.95);
+  color: #ffd5db;
+  border-bottom: 1px solid rgba(255, 173, 186, 0.42);
+}

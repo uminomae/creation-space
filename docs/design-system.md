@@ -10,7 +10,7 @@
 
 補足:
 - `reports.css` などにある `--reports-*` は component-local な派生変数。root token を束ねた二次層として扱う。
-- `viewer.css` / `dev-legacy.css` の `--bs-offcanvas-width` は Bootstrap bridge 変数。offcanvas 幅の接続点として見る。
+- `viewer.css` / `dev-hud.css` の `--bs-offcanvas-width` は Bootstrap bridge 変数。offcanvas 幅の接続点として見る。
 
 ## CSS変更前に必ず行うこと
 

@@ -13,19 +13,22 @@ export function createMainFrameRuntime({
     intentTimelineRuntime,
     updateScene,
     postFxRuntime,
+    devMode = false,
     getDevStatsBegin = () => (() => {}),
     getDevStatsEnd = () => (() => {}),
 }) {
     let frameId = 0;
     let running = false;
+    const useDevStats = Boolean(devMode);
 
     function frame() {
         if (!running) return;
         frameId = requestAnimationFrame(frame);
 
-        const devBegin = getDevStatsBegin();
-        const devEnd = getDevStatsEnd();
-        devBegin();
+        if (useDevStats) {
+            const devBegin = getDevStatsBegin();
+            devBegin();
+        }
 
         const time = clock.getElapsedTime();
         const breathVal = breathValue(time, breathConfig.period);
@@ -78,7 +81,10 @@ export function createMainFrameRuntime({
             renderer.render(scene, camera);
         }
 
-        devEnd();
+        if (useDevStats) {
+            const devEnd = getDevStatsEnd();
+            devEnd();
+        }
     }
 
     function start() {
