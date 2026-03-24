@@ -505,7 +505,8 @@ export function createReportsRenderer({
                     }
                 }
 
-                // Fallback to markdown-based viewer
+                // DEPRECATED fallback — only runs when rich HTML is unavailable (404/network error)
+                // Do NOT extend this path. New slide work uses openRichSlideViewer() above.
                 if (!source.mdUrl) return;
                 const candidates = buildMarkdownFetchCandidates(source.mdUrl);
                 let markdownText = '';

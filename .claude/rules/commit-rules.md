@@ -29,7 +29,6 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 4. 自律 push 範囲（CLAUDE.md 参照）は確認不要で push 可。それ以外はオーナーに確認
 5. 関連 Issue に変更サマリを投稿
 6. `git push origin develop`
-7. state.md に最新コミット SHA を記録
 
 ## コミット時 DIC（成果品整合性チェック）
 

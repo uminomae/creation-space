@@ -13,12 +13,14 @@ CLI は docs/ を自動読み込みしない。以下の対応表に従い、タ
 | レポート品質レビュー | `transform/domains/quality-test/quality-test-domain-report.md` | レビュー評価基準 |
 | KB 更新 | `knowledge/README.md`, `knowledge/schema/five-stages.md` | KB 構造と schema 定義 |
 | evidence metadata 操作 | `docs/evidence-metadata-creation.md` | 公開ラベル taxonomy と generator_model |
-| ファイル構造の変更・新規作成 | `.claude/rules/project-structure.md` | ディレクトリ構成・データフロー |
+| ファイル構造の変更・新規作成 | `docs/operations/project-structure.md` | ディレクトリ構成・データフロー |
 | commit・push | `.claude/rules/commit-rules.md` | コミットメッセージと push 前チェック |
-| 管理体系の更新 | `CLAUDE.md`, `.claude/rules/commit-rules.md`, `.claude/rules/project-structure.md` | 管理文書の正本群 |
+| 管理体系の更新 | `CLAUDE.md`, `.claude/rules/commit-rules.md`, `docs/operations/project-structure.md` | 管理文書の正本群 |
 | プロジェクト全体の状況把握 | `docs/README.md` | エントリーポイント（管理ハブ） |
 | 解説書(guides)の生成・更新 | `transform/guides/WORKFLOW.md`, `transform/guides/reader-rules/evidence-constraint.md`, `transform/guides/quality-test/quality-test-guide.md` | ガイド生成ワークフロー、evidence 制約、品質テスト |
-| Cowork セッション作業 | `.claude/rules/cowork-session.md`, `.claude/rules/cowork-output.md` | VM 制約と出力先ルール |
+| Cowork セッション作業 | `docs/operations/cowork-session.md`, `docs/operations/cowork-output.md` | VM 制約と出力先ルール |
+| エージェント運用 | `docs/operations/agents.md` | 標準エージェント・中立性原則・敵対パターン |
+| メモリ管理 | `docs/operations/memory-policy.md` | CLI メモリと .cache/ の棲み分け |
 
 ## 読み方の原則
 

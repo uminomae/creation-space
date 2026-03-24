@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#\!/usr/bin/env bash
 set -euo pipefail
 
 source "$(dirname "$0")/_common"
@@ -106,7 +106,7 @@ if [ "$event_name" = "PostToolUse" ] && [ "$tool_name" = "Bash" ]; then
   exit 0
 fi
 
-if [ "$event_name" != "Stop" ]; then
+if [ "$event_name" \!= "Stop" ]; then
   exit 0
 fi
 
@@ -118,23 +118,19 @@ fi
 needs_sync="$(printf '%s' "$session_json" | jq -r 'any(.actions[]; .action == "create" or .action == "close")')"
 has_comment="$(printf '%s' "$session_json" | jq -r 'any(.actions[]; .action == "comment" or .with_comment == true)')"
 
-if [ "$needs_sync" = "true" ] && ! hook_transcript_contains ".cache/backlog.md"; then
-  hook_block "Issue 起票/close 後は同一セッションで .cache/backlog.md を更新してください。"
-fi
-
-if [ "$needs_sync" = "true" ] && [ "$has_comment" != "true" ]; then
+if [ "$needs_sync" = "true" ] && [ "$has_comment" \!= "true" ]; then
   hook_block "Issue 起票/close を行ったセッションでは comment も同一セッションで残してください。"
 fi
 
 if printf '%s' "$session_json" | jq -e 'any(.actions[]; .action == "close")' >/dev/null; then
   close_issue_ref="$(printf '%s' "$session_json" | jq -r '.actions[] | select(.action == "close") | .issue_ref' | head -n 1)"
   instruction_file="$(find "${REPO_ROOT}/.cache/inbox" -maxdepth 1 -type f -name "*${close_issue_ref}*.md" | head -n 1 || true)"
-  if [ -n "$instruction_file" ] && ! rg -q '^## Issue close 条件' "$instruction_file"; then
+  if [ -n "$instruction_file" ] && \! rg -q '^## Issue close 条件' "$instruction_file"; then
     hook_warn "Issue #${close_issue_ref} を close する前提の指示書に '## Issue close 条件' が見つかりません。"
   fi
 fi
 
-if hook_transcript_contains "_instructions-" && ! find "${REPO_ROOT}/.cache/outbox" -maxdepth 1 -type f -name 'DONE-*.md' | grep -q .; then
+if hook_transcript_contains "_instructions-" && \! find "${REPO_ROOT}/.cache/outbox" -maxdepth 1 -type f -name 'DONE-*.md' | grep -q .; then
   hook_block "外部エージェント完了セッションでは .cache/outbox/DONE-*.md の作成が必須です。"
 fi
 
@@ -156,7 +152,7 @@ for p in data.get('pending', []):
     if p.get('status') == 'running':
         print(f\"  - #{p['issue']} ({p['description']})\")
 " 2>/dev/null || echo "  (読み取り失敗)")
-    hook_warn "Agent subagent で処理した Issue の完了処理（コメント・close・backlog更新）が未確認です:
+    hook_warn "Agent subagent で処理した Issue の完了処理（コメント・close）が未確認です:
 ${pending_issues}
 手動で Issue を更新してください。"
   fi

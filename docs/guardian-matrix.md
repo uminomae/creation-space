@@ -39,23 +39,17 @@
 | CS-ID | ルール要旨 | 守護者（主） | 守護者（副） | チェックタイミング | 正本 | hook coverage |
 |---|---|---|---|---|---|---|
 | CS-001 | セッション開始時に branch 確認・git status・docs/README.md を読む | CLI自律 | — | セッション開始時 | `CLAUDE.md` §セッション開始手順 | hook: session-start-guard.sh |
-| CS-002 | state.md の「CLI 作業中」にセッション登録し HEAD SHA を更新する | CLI自律 | — | セッション開始時 | `.claude/rules/state-sync.md` | hook: session-start-guard.sh |
+| CS-002 | ~~廃止（state.md 廃止に伴い cs#170/171 で削除）~~ | — | — | — | — | — |
 | CS-003 | セッション終了時に git diff 確認・Issue コメント・commit・push する | CLI自律 | — | セッション終了時 | `CLAUDE.md` §セッション終了時 | hook: — |
-| CS-004 | state.md / backlog.md 書き換え時に lock 取得→読込→更新→解放する | CLI自律 | — | state 更新時 | `.claude/rules/state-sync.md`, `.claude/rules/session-management.md` | hook: state-lock-guard.sh |
+| CS-004 | ~~廃止（state.md / backlog.md 廃止に伴い cs#170/171 で削除）~~ | — | — | — | — | — |
 | CS-005 | セッションログを `.cache/session/log-{YYYYMMDD}-{seq}.md` に作成する | CLI自律 | — | セッション終了時 | `.claude/rules/session-management.md` | hook: — |
 | CS-006 | handoff ファイルの命名・確認・読了追記・archive ルールを守る | CLI自律 | — | セッション開始時 / handoff 読了時 | `.claude/rules/session-management.md` | hook: — |
 | CS-007 | compaction 後はタスクプラン再読・作業中ファイル再読・仮定禁止を実行する | CLI自律 | — | compaction 後 | セッション運用の一般原則 | hook: — |
 | CS-008 | DIC（成果品整合性チェック）をセッション開始時とコミット時に実行する | CLI自律 | — | セッション開始時 / コミット時 | `.claude/rules/session-management.md` | hook: — |
 
-### state.md / backlog.md 同期
+### ~~state.md / backlog.md 同期~~（cs#170/171 で廃止）
 
-| CS-ID | ルール要旨 | 守護者（主） | 守護者（副） | チェックタイミング | 正本 | hook coverage |
-|---|---|---|---|---|---|---|
-| CS-009 | Issue 起票と backlog.md 更新は同一ターンで実行する（分離禁止） | CLI自律 | — | Issue 起票時 | `.claude/rules/state-sync.md` | hook: issue-sync-guard.sh |
-| CS-010 | commit & push 後に state.md の HEAD SHA を更新する | CLI自律 | — | push 後 | `.claude/rules/state-sync.md` | hook: — |
-| CS-011 | タスク完了時に state.md から削除し backlog.md に完了フラグを立て Issue にコメントする | CLI自律 | — | タスク完了時 | `.claude/rules/state-sync.md` | hook: issue-sync-guard.sh |
-| CS-012 | 外部エージェント並行実行の開始時に state.md の「外部エージェント待ち」に登録する | CLI自律 | — | Agent 投入時 | `.claude/rules/state-sync.md` | hook: — |
-| CS-013 | 外部エージェント完了時に投入側が state.md / backlog.md を更新する（Agent は state.md を操作しない） | CLI自律 | — | Agent 完了時 | `.claude/rules/state-sync.md` | hook: — |
+> CS-009〜CS-013 は state.md / backlog.md 廃止に伴い無効。Issue 管理は GitHub Issues に一元化。
 
 ### Git・コミット
 
@@ -73,11 +67,11 @@
 |---|---|---|---|---|---|---|
 | CS-019 | Agent 起動時に下流消費者リストと完了処理をプロンプトに含める | CLI自律 | — | Agent 起動時 | `.claude/rules/agent-completion.md` | hook: — |
 | CS-020 | Agent 完了報告を Read/Grep で検証し、Issue コメント・backlog を同一ターンで処理する | CLI自律 | — | Agent 完了時 | `.claude/rules/agent-completion.md` | hook: — |
-| CS-021 | Agent は state.md / backlog.md を操作しない。投入側の責務 | CLI自律 | — | Agent 実行中 | `.claude/rules/agent-completion.md`, `.claude/rules/state-sync.md` | hook: — |
+| CS-021 | Agent は共有管理ファイルを操作しない。投入側の責務 | CLI自律 | — | Agent 実行中 | `.claude/rules/agent-completion.md` | hook: — |
 | CS-022 | エージェント指示は中立的な表現で記述する（忖度誘導を避ける） | CLI自律 | — | 指示書作成時 | `.claude/rules/agents.md` | hook: — |
 | CS-023 | Agent-WT 起動時は max_turns を必ず設定する（フリーズ防止） | CLI自律 | — | Agent-WT 起動時 | `.claude/rules/parallel-worktree.md` | hook: — |
 | CS-024 | ファイル所有権を宣言し、1ファイルを同時に2レーンが編集しない | CLI自律 | — | Agent 振り分け時 | `.claude/rules/parallel-worktree.md` | hook: — |
-| CS-025 | 共有禁止ファイル（CLAUDE.md, .claude/rules/*, state.md, backlog.md）は Main のみ編集 | CLI自律 | — | Agent 実行中 | `.claude/rules/parallel-worktree.md` | hook: — |
+| CS-025 | 共有禁止ファイル（CLAUDE.md, .claude/rules/*）は Main のみ編集 | CLI自律 | — | Agent 実行中 | `.claude/rules/parallel-worktree.md` | hook: — |
 
 ### 破壊的変更
 
@@ -165,9 +159,8 @@
 
 | hook スクリプト | カバー CS-ID | トリガー |
 |---|---|---|
-| `session-start-guard.sh` | CS-001, CS-002 | SessionStart |
-| `state-lock-guard.sh` | CS-004 | PreToolUse(Edit/Write), Stop |
-| `issue-sync-guard.sh` | CS-009, CS-011 | PostToolUse(Bash), Stop |
+| `session-start-guard.sh` | CS-001 | SessionStart |
+| `issue-sync-guard.sh` | ~~CS-009, CS-011~~ (state.md 廃止により縮退) | PostToolUse(Bash), Stop |
 | `read-path-guard.sh` | CS-028, CS-029, CS-030 | PreToolUse(Read/Glob/Grep/Bash), PostToolUse(Read) |
 | `credential-guard.sh` | CS-046 | PreToolUse(Read/Glob/Grep/LS/Bash) |
 | `exfil-guard.sh` | CS-047 | PreToolUse(Bash) |

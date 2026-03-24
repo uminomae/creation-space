@@ -213,7 +213,8 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
                         }
                     }
 
-                    // Fallback to markdown viewer
+                    // DEPRECATED fallback — only runs when rich HTML is unavailable
+                    // Do NOT extend this path. New slide work uses openRichSlideViewer() above.
                     fetch(currentUrl)
                         .then((res) => {
                             if (!res.ok) throw new Error('HTTP ' + res.status);

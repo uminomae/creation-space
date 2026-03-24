@@ -43,14 +43,9 @@ pjdhiro/assets/creation/phase8-themes/ja/md/theme-{slug}.md        # テーマ�
 pjdhiro/assets/creation/phase8-themes/ja/md/summary-{slug}.md      # サマリーレポート
 ```
 
-**統合レポート**:
+**統合レポート**（pjdhiro 正本）:
 ```
-transform/themes/publish/theme-integration-ja.md
-```
-
-creation-space 内の中間生成物:
-```
-transform/themes/publish/theme-T{N}-{slug}-ja.md
+pjdhiro/assets/creation/phase8-themes/ja/verification/theme-integration-ja.md
 ```
 
 ### Step 3: SVG インフォグラフィック
