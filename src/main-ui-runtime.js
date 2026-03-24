@@ -14,8 +14,6 @@ export function initMainUiRuntime({
     initialGraphicMode,
     applyGraphicMode,
     devMode,
-    devVersion,
-    devDate,
     setArticlesLanguage,
     setReportsLanguage,
 }) {
@@ -29,7 +27,7 @@ export function initMainUiRuntime({
 
     initScrollUI();
     initLanguageToggle(initialLang, (currentLang) => {
-        applyPageLanguage(currentLang, { devMode, devVersion, devDate });
+        applyPageLanguage(currentLang, { devMode });
         refreshGuideLang();
         setArticlesLanguage(currentLang);
         if (typeof setReportsLanguage === 'function') {

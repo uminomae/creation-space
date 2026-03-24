@@ -28,8 +28,6 @@ function applyIntentLoopStartupOverrides(intentQuerySeed) {
 export function prepareMainBootstrap({
     sceneStateStore,
     devMode,
-    devVersion,
-    devDate,
     intentQuerySeed = null,
 }) {
     const initialLang = normalizeLang(detectLang());
@@ -46,7 +44,7 @@ export function prepareMainBootstrap({
         applyConfigState(initialSceneState);
     }
     applyIntentLoopStartupOverrides(intentQuerySeed);
-    applyPageLanguage(initialLang, { devMode, devVersion, devDate });
+    applyPageLanguage(initialLang, { devMode });
     initMouseTracking();
 
     return {
