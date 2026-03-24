@@ -2,21 +2,7 @@
   margin-top: var(--kesson-section-grid-margin-top);
 }
 
-.btn-read-more {
-  --bs-btn-color: var(--kesson-action-text);
-  --bs-btn-bg: var(--kesson-action-bg);
-  --bs-btn-border-color: var(--kesson-action-border);
-  --bs-btn-hover-color: var(--kesson-action-text-hover);
-  --bs-btn-hover-bg: var(--kesson-action-bg-hover);
-  --bs-btn-hover-border-color: rgba(var(--color-accent), 0.32);
-  --bs-btn-active-color: var(--kesson-action-text-hover);
-  --bs-btn-active-bg: var(--kesson-action-bg-hover);
-  --bs-btn-active-border-color: rgba(var(--color-accent), 0.36);
-  --bs-btn-focus-shadow-rgb: var(--color-accent);
-  font-family: var(--kesson-font-serif-ui);
-  letter-spacing: var(--kesson-letter-ui-wide);
-  text-transform: uppercase;
-}
+/* .btn-read-more inherits from .btn-kesson-action (shell.css) */
 
 .articles-filter-btn.is-active,
 .articles-filter-btn.active,

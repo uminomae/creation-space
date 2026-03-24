@@ -61,6 +61,22 @@
   --kesson-h1-size: clamp(1.0rem, 5.5vmin, 2.0rem);
 }
 
+.btn-kesson-action {
+  --bs-btn-color: var(--kesson-action-text);
+  --bs-btn-bg: var(--kesson-action-bg);
+  --bs-btn-border-color: var(--kesson-action-border);
+  --bs-btn-hover-color: var(--kesson-action-text-hover);
+  --bs-btn-hover-bg: var(--kesson-action-bg-hover);
+  --bs-btn-hover-border-color: rgba(var(--color-accent), 0.32);
+  --bs-btn-active-color: var(--kesson-action-text-hover);
+  --bs-btn-active-bg: var(--kesson-action-bg-hover);
+  --bs-btn-active-border-color: rgba(var(--color-accent), 0.36);
+  --bs-btn-focus-shadow-rgb: var(--color-accent);
+  font-family: var(--kesson-font-serif-ui);
+  letter-spacing: var(--kesson-letter-ui-wide);
+  text-transform: uppercase;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -491,20 +507,7 @@ html[lang="en"] #taglines {
   bottom: 24px;
   right: 24px;
   z-index: 20;
-  --bs-btn-color: var(--kesson-action-text);
-  --bs-btn-bg: var(--kesson-action-bg);
-  --bs-btn-border-color: var(--kesson-action-border);
-  --bs-btn-hover-color: var(--kesson-action-text-hover);
-  --bs-btn-hover-bg: var(--kesson-action-bg-hover);
-  --bs-btn-hover-border-color: rgba(var(--color-accent), 0.32);
-  --bs-btn-active-color: var(--kesson-action-text-hover);
-  --bs-btn-active-bg: var(--kesson-action-bg-hover);
-  --bs-btn-active-border-color: rgba(var(--color-accent), 0.36);
-  --bs-btn-focus-shadow-rgb: var(--color-accent);
-  font-family: var(--kesson-font-serif-ui);
   font-size: var(--kesson-surface-btn, 0.80rem);
-  letter-spacing: var(--kesson-letter-ui-wide);
-  text-transform: uppercase;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.6s ease, background 0.3s ease, color 0.3s ease;
