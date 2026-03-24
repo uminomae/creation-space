@@ -1,3 +1,38 @@
+:root {
+  --kesson-dev-toggle-bg: rgba(20, 30, 50, 0.7);
+  --kesson-dev-toggle-bg-hover: rgba(30, 45, 70, 0.82);
+  --kesson-dev-toggle-border: rgba(var(--color-accent), 0.15);
+  --kesson-dev-toggle-text: rgba(180, 200, 255, 0.75);
+  --kesson-dev-toggle-text-hover: rgba(210, 225, 255, 0.95);
+  --kesson-dev-panel-bg: rgba(7, 12, 24, 0.96);
+  --kesson-dev-panel-border: rgba(140, 178, 255, 0.3);
+  --kesson-dev-panel-header-border: rgba(140, 178, 255, 0.25);
+  --kesson-dev-panel-title-color: rgba(223, 236, 255, 0.95);
+  --kesson-dev-panel-accordion-bg: rgba(26, 40, 70, 0.5);
+  --kesson-dev-panel-accordion-text: rgba(222, 235, 255, 0.92);
+  --kesson-dev-panel-accordion-active-bg: rgba(46, 72, 116, 0.7);
+  --kesson-dev-panel-body-bg: rgba(11, 20, 38, 0.75);
+  --kesson-dev-panel-label-color: rgba(188, 211, 245, 0.95);
+  --kesson-dev-panel-help-color: rgba(176, 201, 238, 0.82);
+  --kesson-dev-panel-help-sub-color: rgba(162, 188, 228, 0.72);
+  --kesson-dev-panel-value-color: rgba(201, 221, 255, 0.86);
+  --kesson-dev-panel-status-color: rgba(201, 221, 255, 0.8);
+  --kesson-dev-panel-empty-bg: rgba(11, 20, 38, 0.6);
+  --kesson-dev-panel-empty-border: rgba(140, 178, 255, 0.25);
+  --kesson-dev-panel-empty-text: rgba(201, 221, 255, 0.85);
+  --kesson-dev-hud-border: rgba(120, 164, 235, 0.42);
+  --kesson-dev-hud-bg: rgba(8, 14, 26, 0.84);
+  --kesson-dev-hud-text: rgba(205, 224, 255, 0.92);
+  --kesson-dev-hud-btn-border: rgba(130, 170, 240, 0.45);
+  --kesson-dev-hud-btn-bg: rgba(100, 152, 246, 0.2);
+  --kesson-dev-hud-btn-text: rgba(238, 246, 255, 0.96);
+  --kesson-dev-hud-btn-bg-hover: rgba(116, 165, 244, 0.32);
+  --kesson-dev-hud-input-border: rgba(130, 170, 240, 0.35);
+  --kesson-dev-hud-input-bg: rgba(10, 18, 32, 0.88);
+  --kesson-dev-hud-input-text: rgba(220, 235, 255, 0.95);
+  --kesson-dev-hud-font-size: 0.80rem;
+}
+
 #dev-panel-toggle {
   position: fixed;
   top: 50%;
