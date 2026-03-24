@@ -59,7 +59,7 @@ Before generating HTML, classify each slide into a layout type:
 Run the generation script:
 
 ```bash
-python /path/to/skill/scripts/generate_slides.py \
+python transform/scripts/generate-rich-slides.py \
   --input input.md \
   --output output.html \
   --title "Presentation Title" \
@@ -67,7 +67,7 @@ python /path/to/skill/scripts/generate_slides.py \
 ```
 
 If the script is not available or you need custom layouts, generate the HTML directly
-following the design reference in `references/design-spec.md`.
+following the design reference in `transform/domains/reader-rules/rich-slides-design-spec.md`.
 
 ### Key HTML Requirements
 
@@ -164,19 +164,19 @@ title: "Presentation Title"
 ## File Organization
 
 ```
-rich-slides/
-├── SKILL.md              ← This file
-├── scripts/
-│   └── generate_slides.py  ← Python script for MD → HTML conversion
-├── references/
-│   └── design-spec.md      ← Detailed CSS patterns and layout templates
-└── assets/
-    └── (reserved for fonts, icons if needed)
+.claude/skills/rich-slides/
+└── SKILL.md                              ← This file (skill definition)
+
+transform/scripts/
+└── generate-rich-slides.py               ← Python script for MD → HTML conversion
+
+transform/domains/reader-rules/
+└── rich-slides-design-spec.md            ← Detailed CSS patterns and layout templates
 ```
 
 ## References
 
-- Read `references/design-spec.md` for detailed CSS patterns, HTML structures, and
-  layout templates for each slide type
+- Read `transform/domains/reader-rules/rich-slides-design-spec.md` for detailed CSS
+  patterns, HTML structures, and layout templates for each slide type
 - The design system draws from creation-space's `src/styles/slides.css` and
   `skills/gemini-infographic/context/design-system.md`
