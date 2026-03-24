@@ -38,11 +38,18 @@ Main がタスク振り分け時に対象ファイルを明示し、所有権を
 
 Agent-WT がデータパイプラインの上流を変更する場合は、下流への影響を報告し、Main が生成・配信する。
 
-## マージプロトコル
+## マージプロトコル（必須）
 
-1. Agent-WT 完了後、本体が diff を確認する
-2. 品質基準を満たしていれば `develop` にマージする
-3. 問題があれば修正するか、Agent-WT を再起動する
+Agent-WT 完了後、Main は以下を**同一ターンで**すべて実行する:
+
+1. `git log` / `git diff develop..{branch} --stat` で変更を確認する
+2. `git merge {branch} --no-edit` で develop にマージする
+3. `git worktree remove .claude/worktrees/{agent-id} --force` で worktree を削除する
+4. `git branch -D {branch}` でブランチを削除する
+5. 問題があればマージ前に修正するか、Agent-WT を再起動する
+
+**Agent-WT の起動プロンプトにもこの完了手順を含めること。**
+Agent 側がマージ・worktree 削除を行ってはならない。Main の責務。
 
 ## 注意事項
 
