@@ -100,7 +100,6 @@ python3 scripts/sync-public-svg-embeds.py
 
 確認:
 - `pjdhiro/assets/creation/domains/{lang}/md/*.md` の H1 直後に SVG が入っている
-- `pjdhiro/assets/creation/domains/{lang}/presentations/md/*.md` にも SVG スライドが入っている
 
 ### Step 6: PDF 生成 + manifest 更新 + 日付検証
 

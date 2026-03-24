@@ -704,6 +704,7 @@ function buildCreationDomainPresentationSource(report, lang = 'ja') {
     return {
         mdUrl: `${PJDHIRO_CREATION_RAW}/domains/${normalizedLang}/presentations/md/${baseName}.md`,
         pdfUrl: `${PJDHIRO_CREATION_PAGES}/domains/${normalizedLang}/presentations/pdf/${baseName}.pdf`,
+        htmlUrl: `${PJDHIRO_CREATION_PAGES}/domains/${normalizedLang}/presentations/html/${baseName}.html`,
     };
 }
 

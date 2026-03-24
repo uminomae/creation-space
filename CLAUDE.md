@@ -135,3 +135,10 @@ evidence（`evidence/` 配下）を新規作成・更新する作業では、以
 | リポジトリ | 関係 |
 |---|---|
 | `pjdhiro` | GitHub Pages 側の公開先。`assets/creation/` の manifest・Markdown・PDF をホスティングする |
+
+## 公開 MD の正本ルール
+
+- 公開用 MD の正本は `pjdhiro/assets/creation/` のみ
+- `transform/` には変換ルール・テンプレート・スクリプトのみ配置
+- `transform/*/publish/` に MD の実体を置かない
+- UI は pjdhiro の raw URL または GitHub Pages URL を参照する

@@ -401,6 +401,8 @@ async function main() {
 
   const { output, warnings } = await generate(options);
 
+  const hasErrors = warnings.some((w) => w.startsWith('ERROR:'));
+
   if (warnings.length > 0) {
     console.log(`\nWarnings (${warnings.length}):`);
     for (const w of warnings) {
@@ -421,6 +423,13 @@ async function main() {
     return;
   }
   console.log('Schema validation: OK');
+
+  // unknown progress_level 等の ERROR warnings は exit 1（再発防止）
+  if (hasErrors) {
+    console.error('\nERROR warnings detected — aborting.');
+    process.exitCode = 1;
+    return;
+  }
 
   const json = JSON.stringify(output, null, 2) + '\n';
 

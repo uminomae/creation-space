@@ -39,6 +39,10 @@
           },
           {
             "type": "command",
+            "command": ".claude/hooks/destructive-command-guard.sh"
+          },
+          {
+            "type": "command",
             "command": ".claude/hooks/quality-level-guard.sh"
           }
         ]
@@ -152,7 +156,7 @@
           },
           {
             "type": "command",
-            "command": "bash ~/dev/kesson-driven-thinking/scripts/validate-manifest-sync.sh"
+            "command": "bash scripts/validate-manifest-sync.sh"
           }
         ]
       }

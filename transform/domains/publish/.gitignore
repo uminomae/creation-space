@@ -1,0 +1,5 @@
+# Block MD files in publish/ and subdirectories
+# Public MDs belong in pjdhiro/assets/creation/
+# JSON (index.json, manifest) is allowed.
+**/*.md
+!**/README.md

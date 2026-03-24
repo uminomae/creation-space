@@ -80,6 +80,20 @@ Main:                       上記以外の全ファイル
 - `.cache/session/state.md`
 - `.cache/backlog.md`
 
+## 生成物所有権（共有出力の競合防止）
+
+入力ファイルの所有権だけでなく、生成物（共有出力）の所有権も明示する。
+複数レーンが同じ生成物に書き込むと、3/15 インシデント（Reports 消失）の原因になる。
+
+| 生成物 | 所有レーン | 理由 |
+|--------|-----------|------|
+| `pjdhiro/assets/creation/manifests/domains.json` | Main のみ | `generate-domains-json.mjs` の実行と pjdhiro への配信は Main が責任を持つ |
+| `transform/domains/publish/domains/index.json` | Main のみ | progress_level の SoT。pjdhiro 承認が必要 |
+| PDF（`pjdhiro/assets/creation/domains/*/pdf/`） | Main のみ | ビルドと配信の一貫性を保つ |
+
+Agent-WT がデータパイプラインの上流（index.json, generate script）を変更する場合は、
+下流の生成物への影響を報告し、Main が生成・配信を実行する。
+
 ## タスク分類基準
 
 ### Main 向き
@@ -124,8 +138,7 @@ Issue に紐づく Agent subagent を起動する場合、以下をプロンプ�
 3. `.cache/outbox/DONE-{issue}-{YYYYMMDD}.md` を作成すること
 ```
 
-対象タスクに対応する `skills/*/SKILL.md` がある場合は、その参照も起動プロンプトに含める。
-指示書作成は `skills/cli-instruction/SKILL.md`、コミット後レビューは `skills/commit-review-with-log/SKILL.md` を参照する。
+対象タスクに対応する指示書テンプレートがある場合は、その参照も起動プロンプトに含める。
 
 ## マージプロトコル
 
