@@ -38,7 +38,7 @@
 | `evidence/frontier/domain-{NN}-{name}/` | 9C 未踏領域: ブラインド予測・的中率 |
 | `evidence/formalization/theme-{NN}-{slug}/` | 9D 数理形式化: 定義・定理・限界 |
 | `evidence/investigation/phase8/themes/` | Phase 8 テーマ詳細（入力の正本） |
-| `transform/domains/publish/cross-domain-synthesis-ja.md` | 横断分析（文脈として参照） |
+| `pjdhiro/assets/creation/synthesis/ja/md/cross-domain-synthesis-ja.md` | 横断分析（文脈として参照） |
 
 ### ソース利用の原則
 
@@ -133,10 +133,10 @@
 
 ---
 
-## 出力先
+## 出力先（pjdhiro 正本）
 
 ```
-transform/themes/publish/
+pjdhiro/assets/creation/phase8-themes/ja/verification/
 ├── theme-T1-edge-typology-ja.md
 ├── theme-T2-threshold-ja.md
 ├── theme-T5-recirculation-ja.md
@@ -146,4 +146,3 @@ transform/themes/publish/
 ```
 
 PDF 配置先: `pjdhiro/assets/creation/themes/ja/pdf/`
-MD 配置先: `pjdhiro/assets/creation/themes/ja/md/`
