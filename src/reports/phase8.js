@@ -13,8 +13,10 @@ import {
 } from './data.js';
 
 const PJDHIRO_RAW_BASE = 'https://raw.githubusercontent.com/uminomae/pjdhiro/main';
+const PJDHIRO_PAGES_BASE = 'https://uminomae.github.io/pjdhiro';
 const CREATION_PATH = '/assets/creation';
 const PJDHIRO_CREATION_RAW = `${PJDHIRO_RAW_BASE}${CREATION_PATH}`;
+const PJDHIRO_CREATION_PAGES = `${PJDHIRO_PAGES_BASE}${CREATION_PATH}`;
 
 function getPhase8Strings(lang = 'ja') {
     const l = normalizeLang(lang);
@@ -195,8 +197,10 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
                     if (!currentUrl) return;
                     const currentName = getThemeDisplayName(theme, currentLang);
 
-                    // Try rich HTML first (same path with .html instead of .md)
-                    const richHtmlUrl = currentUrl.replace(/\/md\/([^/]+)\.md$/, '/html/$1.html');
+                    // Try rich HTML first (Pages URL with /html/ instead of /md/)
+                    const richHtmlUrl = currentUrl
+                        .replace(PJDHIRO_CREATION_RAW, PJDHIRO_CREATION_PAGES)
+                        .replace(/\/md\/([^/]+)\.md$/, '/html/$1.html');
                     if (richHtmlUrl !== currentUrl) {
                         try {
                             const headResp = await fetch(richHtmlUrl, { method: 'HEAD', cache: 'no-store' });

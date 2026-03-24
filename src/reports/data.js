@@ -34,12 +34,14 @@ export const SYNTHESIS_PRESENTATION_LINKS = {
     ja: {
         mdUrl: `${PJDHIRO_CREATION_RAW}/synthesis/ja/md/cross-domain-synthesis-presentation-ja.md`,
         pdfUrl: `${PJDHIRO_CREATION_PAGES}/synthesis/ja/pdf/cross-domain-synthesis-presentation-ja.pdf`,
+        htmlUrl: `${PJDHIRO_CREATION_PAGES}/synthesis/ja/html/cross-domain-synthesis-presentation-ja.html`,
         generatorModel: CREATION_GUIDE_GENERATOR_MODEL,
         generated: '2026-03-20',
     },
     en: {
         mdUrl: `${PJDHIRO_CREATION_RAW}/synthesis/en/md/cross-domain-synthesis-presentation-en.md`,
         pdfUrl: `${PJDHIRO_CREATION_PAGES}/synthesis/en/pdf/cross-domain-synthesis-presentation-en.pdf`,
+        htmlUrl: `${PJDHIRO_CREATION_PAGES}/synthesis/en/html/cross-domain-synthesis-presentation-en.html`,
         generatorModel: CREATION_GUIDE_GENERATOR_MODEL,
         generated: '2026-03-20',
     },

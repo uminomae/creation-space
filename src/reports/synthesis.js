@@ -100,18 +100,15 @@ export function createSynthesisRenderer({ openMarkdownModal, getLang }) {
             if (!source) return;
 
             // Try rich HTML first
-            if (source.mdUrl) {
-                const richHtmlUrl = source.mdUrl.replace(/\/md\/([^/]+)\.md$/, '/html/$1.html');
-                if (richHtmlUrl !== source.mdUrl) {
-                    try {
-                        const headResp = await fetch(richHtmlUrl, { method: 'HEAD', cache: 'no-store' });
-                        if (headResp.ok) {
-                            openRichSlideViewer({ htmlUrl: richHtmlUrl, title: currentStrings.reportTitle });
-                            return;
-                        }
-                    } catch {
-                        // Fall through to MD
+            if (source.htmlUrl) {
+                try {
+                    const headResp = await fetch(source.htmlUrl, { method: 'HEAD', cache: 'no-store' });
+                    if (headResp.ok) {
+                        openRichSlideViewer({ htmlUrl: source.htmlUrl, title: currentStrings.reportTitle });
+                        return;
                     }
+                } catch {
+                    // Fall through to MD
                 }
             }
 
