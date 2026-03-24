@@ -12,6 +12,13 @@ description: >
 
 # Rich Slides — MD to Browser-Ready 16:9 HTML Slides
 
+> **IMPORTANT**: This is the ONLY correct slide generation method.
+> `openSlideViewer()` in `src/slide-viewer.js` is DEPRECATED legacy code
+> (kept solely as a network-error fallback). All new slide work MUST use
+> this rich-slides pipeline: `generate-rich-slides.py` → self-contained HTML
+> → `openRichSlideViewer()` (iframe display). Do NOT use or extend the old
+> Markdown direct-rendering approach.
+
 ## What This Skill Does
 
 Transforms Markdown content into a self-contained, visually polished HTML file that

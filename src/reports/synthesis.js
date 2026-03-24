@@ -112,7 +112,8 @@ export function createSynthesisRenderer({ openMarkdownModal, getLang }) {
                 }
             }
 
-            // Fallback to markdown viewer
+            // DEPRECATED fallback — only runs when rich HTML is unavailable
+            // Do NOT extend this path. New slide work uses openRichSlideViewer() above.
             if (!source.mdUrl) return;
             const candidates = buildMarkdownFetchCandidates(source.mdUrl);
             let markdownText = '';

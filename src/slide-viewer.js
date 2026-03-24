@@ -1,3 +1,8 @@
+// IMPORTANT: openSlideViewer() is DEPRECATED (legacy MD fallback only).
+// New code MUST use openRichSlideViewer() which displays pre-generated
+// rich HTML via iframe. Do NOT call openSlideViewer() for new features.
+// See: .claude/skills/rich-slides/SKILL.md
+
 import DOMPurify from 'dompurify';
 
 let overlayNode = null;
@@ -191,6 +196,11 @@ function onKeyDown(event) {
     }
 }
 
+/**
+ * @deprecated LEGACY fallback only. Do NOT use for new features.
+ * Use openRichSlideViewer() instead. This function exists solely as a
+ * fallback when rich HTML is unavailable (404 / network error).
+ */
 export async function openSlideViewer({ markdownText, title = '', mdBaseUrl }) {
     if (!markdownText) return;
 
