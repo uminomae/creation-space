@@ -13,8 +13,10 @@
 以下を読む:
 1. `base/text/m2-creation-process/creation-source.md`（5段階モデルの正本テキスト）
 2. `transform/guides/reader-rules/`（ガイド用 reader-rules）
-3. `transform/guides/svg-generation-rules.md`（SVG 生成ルール）
-4. 必要に応じてドメインレポートの事例
+3. `transform/guides/reader-rules/evidence-constraint.md`（evidence 制約ルール）
+4. `transform/guides/quality-test/quality-test-guide.md`（品質テスト — 生成前に内面化）
+5. `transform/guides/svg-generation-rules.md`（SVG 生成ルール）
+6. 必要に応じてドメインレポートの事例
 
 ### Step 2: MD 生成
 
@@ -33,6 +35,24 @@ pjdhiro/assets/creation/guides/en/md/creation-{audience}.md
 ```
 
 kesson-driven-thinking の `/generate-drafts` コマンドを参照して生成手順を確認できる。
+
+### Step 2.5: Evidence 検証 & 品質テスト
+
+#### 2.5a: 機械チェック
+```bash
+bash scripts/validate-guide-evidence.sh pjdhiro/assets/creation/guides/{lang}/md/creation-{audience}.md
+```
+
+FAIL が 1 件でもあれば Step 2 に戻り修正する。
+
+#### 2.5b: 品質テスト（目視）
+`transform/guides/quality-test/quality-test-guide.md` に従い、全カテゴリをチェック。
+FAIL が 1 件でもあれば再生成。WARN は 3 件以上で再生成を検討。
+
+#### 2.5c: evidence 対応表の作成
+生成した MD 内で言及した先行研究者・理論の一覧を作成し、
+各項目が evidence のどのエントリに対応するかを記録する。
+記録先: `pjdhiro/assets/creation/guides/{lang}/md/creation-{audience}-evidence-map.md`
 
 ### Step 3: SVG インフォグラフィック
 
