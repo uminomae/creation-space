@@ -4,7 +4,7 @@
 
 ## プロジェクト概要
 
-- `creation-space` は「創造とは何か」を探索する独立モジュール。
+- `creation-space` は「創造とは」を探索する独立モジュール。
 - 30領域の調査資産を `evidence/` に蓄積し、`transform/` で公開用に整形し、`knowledge/` と Web UI に接続する。
 - フロントエンドは `index.html` + `src/` の静的構成で、Three.js を中心に動く。
 - `src/reports.js` は `pjdhiro` 側でホスティングされる manifest / Markdown / PDF を取得して表示する。
