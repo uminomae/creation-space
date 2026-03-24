@@ -52,10 +52,6 @@
         "hooks": [
           {
             "type": "command",
-            "command": ".claude/hooks/state-lock-guard.sh"
-          },
-          {
-            "type": "command",
             "command": ".claude/hooks/quality-level-guard.sh"
           }
         ]
@@ -142,10 +138,6 @@
       {
         "matcher": ".*",
         "hooks": [
-          {
-            "type": "command",
-            "command": ".claude/hooks/state-lock-guard.sh"
-          },
           {
             "type": "command",
             "command": ".claude/hooks/issue-sync-guard.sh"

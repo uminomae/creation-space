@@ -40,7 +40,3 @@ fi
 if find "${REPO_ROOT}/.cache/outbox" -maxdepth 1 -type f \( -name 'DONE-*.md' -o -name 'REVIEW-*.md' \) 2>/dev/null | grep -q .; then
   hook_warn "未処理の DONE/REVIEW outbox があります。セッション開始手順どおり先に確認してください。"
 fi
-
-if \! hook_transcript_contains ".cache/session/state.md" && [ -f "${REPO_ROOT}/.cache/session/state.md" ]; then
-  hook_warn "セッション開始手順の先頭で .cache/session/state.md を確認してください。"
-fi

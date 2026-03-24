@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
+#\!/usr/bin/env bash
 # agent-post-check.sh — Agent subagent 完了後の自動検証スクリプト
-# 用途: DONE ファイル・pending agents・Issue コメント・backlog 同期を機械的にチェック
+# 用途: DONE ファイル・pending agents・Issue コメントを機械的にチェック
 #
 # Usage:
 #   bash scripts/agent-post-check.sh              # 全般チェック（引数なし）
@@ -88,18 +88,15 @@ fi
 
 if [[ -n "$ISSUE" ]]; then
   if command -v gh &>/dev/null; then
-    # gh CLI が利用可能
     head_sha="$(git -C "$REPO_ROOT" rev-parse --short HEAD 2>/dev/null || true)"
 
     if [[ -z "$head_sha" ]]; then
       fail "Issue #${ISSUE}: could not determine HEAD SHA"
     else
-      # 最新コメントを取得し SHA が含まれるか確認
       comments_json="$(gh issue view "$ISSUE" --json comments 2>/dev/null || true)"
       if [[ -z "$comments_json" ]]; then
         fail "Issue #${ISSUE}: could not fetch issue comments (gh failed)"
       else
-        # コメント本文全体から SHA を検索
         if echo "$comments_json" | grep -q "$head_sha"; then
           pass "Issue #${ISSUE}: comment with SHA found"
         else
@@ -109,29 +106,6 @@ if [[ -n "$ISSUE" ]]; then
     fi
   else
     echo "[SKIP] Issue #${ISSUE}: gh CLI not available"
-  fi
-fi
-
-# ============================================================
-# Check 4: backlog.md 整合（--issue 指定時のみ）
-# ============================================================
-
-if [[ -n "$ISSUE" ]]; then
-  backlog_file="${CACHE_DIR}/backlog.md"
-  if [[ -f "$backlog_file" ]]; then
-    # Issue 番号の行を探し、完了マーク（完了 or DONE）があるか確認
-    issue_line="$(grep -n "#${ISSUE}\b\|#${ISSUE} " "$backlog_file" 2>/dev/null || true)"
-    if [[ -z "$issue_line" ]]; then
-      fail "Backlog: Issue #${ISSUE} not found in backlog.md"
-    else
-      if echo "$issue_line" | grep -qi '完了\|done\|closed'; then
-        pass "Backlog: Issue #${ISSUE} marked as complete"
-      else
-        fail "Backlog: Issue #${ISSUE} not marked as complete"
-      fi
-    fi
-  else
-    warn "Backlog: backlog.md not found"
   fi
 fi
 

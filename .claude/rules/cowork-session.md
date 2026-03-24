@@ -13,7 +13,6 @@ CLI（Claude Code）とはプロセス・コンテキストが完全に分離さ
 | git 操作 | `.git/index.lock` が FUSE 制約で削除不能な場合がある | コミットを CLI に委任する |
 | ネットワーク | egress proxy により curl/wget がブロックされる場合がある | GitHub MCP API を代替手段とする |
 | CLI メモリ | `~/.claude/` にアクセス不可 | handoff ファイルで CLI に委任する |
-| state.md / backlog.md | 直接更新は推奨しない（lock プロトコルの FUSE 問題） | CLI に委任する |
 
 ## セッション開始手順
 
@@ -53,7 +52,6 @@ CLI（Claude Code）とはプロセス・コンテキストが完全に分離さ
 - git commit / push（lock 問題のリスク）
 - pjdhiro へのデプロイ
 - Issue の起票・管理
-- state.md / backlog.md の更新
 - 外部 URL からの大量ファイル取得
 
 ## CLI への引き継ぎ手順
