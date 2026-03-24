@@ -253,7 +253,7 @@ def build_slides_html(md_text: str, title: str = '', lang: str = 'ja') -> str:
         slides_html.append(slide)
 
     # Read the design-spec template
-    spec_path = Path(__file__).parent.parent / 'references' / 'design-spec.md'
+    spec_path = Path(__file__).parent.parent / 'domains' / 'reader-rules' / 'rich-slides-design-spec.md'
     if spec_path.exists():
         spec_text = spec_path.read_text()
         # Extract the HTML shell from the code block
