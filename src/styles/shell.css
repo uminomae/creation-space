@@ -9,6 +9,7 @@
   --kesson-font-serif-display: "Noto Serif JP", "Yu Mincho", "MS PMincho", serif;
   --kesson-font-serif-ui: 'Georgia', "Noto Serif JP", serif;
   --kesson-font-mono-ui: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  --kesson-font-mono-system: ui-monospace, SFMono-Regular, 'SF Mono', 'Consolas', monospace;
   --kesson-font-size-ui-xs: 0.85rem;
   --kesson-font-size-ui-sm: 0.88rem;
   --kesson-font-size-ui-arrow: clamp(0.7rem, 3.5vmin, 1.2rem);
@@ -255,7 +256,7 @@ body {
   border: none;
   padding: 0;
   color: rgba(var(--color-heading), 0.9);
-  font-family: "Noto Serif JP", "Yu Mincho", "MS PMincho", serif;
+  font-family: var(--kesson-font-serif-display);
   font-size: clamp(0.80rem, 2.8vmin, 1.1rem);
   letter-spacing: clamp(0.05em, 0.4vmin, 0.15em);
   text-shadow: 0 0 12px rgba(var(--color-accent), 0.5), 0 0 4px rgba(0, 0, 0, 0.8);
@@ -318,7 +319,7 @@ body {
 #credit .credit-line {
   font-size: 0.80rem;
   color: rgba(var(--color-sub-text), 0.45);
-  font-family: 'Georgia', 'Noto Serif JP', serif;
+  font-family: var(--kesson-font-serif-ui);
   letter-spacing: 0.05em;
   line-height: 1.7;
   text-shadow: 0 0 8px rgba(60, 100, 180, 0.2);
@@ -327,7 +328,7 @@ body {
 #credit .credit-signature {
   font-size: var(--kesson-footer-signature-size, 0.80rem);
   color: rgba(150, 175, 210, 0.35);
-  font-family: 'Georgia', serif;
+  font-family: var(--kesson-font-serif-ui);
   letter-spacing: 0.08em;
   margin-top: 2px;
 }
@@ -354,7 +355,7 @@ body {
 
 h1 {
   color: rgba(var(--color-heading), 0.95);
-  font-family: "Noto Serif JP", "Yu Mincho", "MS PMincho", serif;
+  font-family: var(--kesson-font-serif-display);
   font-weight: 400;
   font-size: var(--kesson-h1-size);
   letter-spacing: clamp(0.15em, 1.2vmin, 0.5em);
@@ -631,7 +632,7 @@ html[lang="en"] #taglines {
   color: rgba(var(--color-sub-text), 0.5);
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: var(--kesson-font-mono-ui);
   margin: 0 0 0.85rem;
 }
 

@@ -264,7 +264,7 @@
 }
 
 .md-body pre code {
-  font-family: 'SF Mono', 'Consolas', 'Monaco', 'Menlo', monospace;
+  font-family: var(--kesson-font-mono-ui);
   font-size: 0.82rem;
   color: rgba(var(--color-sub-text), 0.8);
   background: none;
@@ -275,7 +275,7 @@
 }
 
 .md-body code {
-  font-family: 'SF Mono', 'Consolas', 'Monaco', 'Menlo', monospace;
+  font-family: var(--kesson-font-mono-ui);
   font-size: 0.85em;
   color: var(--kesson-md-inline-code);
   background: var(--kesson-md-inline-code-bg);

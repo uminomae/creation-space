@@ -13,7 +13,7 @@
   border-radius: 4px 0 0 4px;
   color: var(--kesson-dev-toggle-text);
   font-size: var(--kesson-dev-hud-font-size, 0.80rem);
-  font-family: monospace;
+  font-family: var(--kesson-font-mono-ui);
   padding: 8px 5px;
   cursor: pointer;
   writing-mode: vertical-rl;

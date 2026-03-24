@@ -69,7 +69,7 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(224, 236, 255, 0.86);
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: var(--kesson-font-mono-ui);
 }
 
 .creation-card-placeholder p {
@@ -78,7 +78,7 @@
   font-size: 0.72rem;
   line-height: 1.65;
   letter-spacing: 0.04em;
-  font-family: "Noto Serif JP", "Yu Mincho", serif;
+  font-family: var(--kesson-font-serif-display);
 }
 
 #articles-error {
