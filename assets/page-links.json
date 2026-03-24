@@ -35,6 +35,11 @@
         "domain": "D23"
       }
     },
+    "slide_d23_developmental_psychology": {
+      "label": "D23 発達心理学 スライド",
+      "path": "https://uminomae.github.io/pjdhiro/assets/creation/domains/ja/presentations/html/domain-D23-developmental-psychology-presentation-ja.html",
+      "query": {}
+    },
     "intent_utime7500_cam40": {
       "label": "Intent: uTime 7500 / Cam 40deg",
       "path": "./",
