@@ -159,29 +159,6 @@
   border-color: #5d8fe3;
 }
 
-#dev-version-badge {
-  display: inline-flex;
-  align-items: center;
-  margin-left: 0.5rem;
-  padding: 0.2rem 0.45rem;
-  border-radius: 999px;
-  border: 1px solid var(--kesson-dev-hud-border);
-  background: var(--kesson-dev-hud-bg);
-  color: var(--kesson-dev-hud-text);
-  font-size: 0.80rem;
-  letter-spacing: 0.04em;
-  line-height: 1;
-  backdrop-filter: blur(7px);
-  pointer-events: none;
-  white-space: nowrap;
-}
-
-@media (max-width: 767.98px) {
-  #dev-version-badge {
-    display: none;
-  }
-}
-
 @media (max-width: 640px) {
   #dev-panel-toggle {
     top: 50%;

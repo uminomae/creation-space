@@ -1,25 +1,7 @@
 import { normalizeLang, syncLangQuery } from './i18n.js';
 import { dict } from './i18n/dict.js';
 
-function formatDevVersionLabel(lang, { devVersion = '', devDate = '' } = {}) {
-    const resolvedLang = normalizeLang(lang);
-    const strings = dict[resolvedLang]?.page || dict.ja.page;
-    const prefix = typeof strings.devVersionPrefix === 'string' && strings.devVersionPrefix.trim()
-        ? strings.devVersionPrefix.trim()
-        : 'dev';
-    const normalizedVersion = typeof devVersion === 'string' ? devVersion.trim() : '';
-    if (!normalizedVersion) return '';
-    // Drop patch version (last .N) — e.g. "v0.307.0" → "v0.307"
-    return normalizedVersion.replace(/\.\d+$/, '');
-}
-
-function updateInlineVersionLabel(lang, { devVersion = '', devDate = '' } = {}) {
-    const label = document.getElementById('dev-version-inline');
-    if (!label || !devVersion) return;
-    label.textContent = formatDevVersionLabel(lang, { devVersion, devDate });
-}
-
-export function applyPageLanguage(lang, { devMode = false, devVersion = '', devDate = '' } = {}) {
+export function applyPageLanguage(lang, { devMode = false } = {}) {
     const normalized = normalizeLang(lang);
     const strings = dict[normalized]?.page || dict.ja.page;
 
@@ -93,7 +75,6 @@ export function applyPageLanguage(lang, { devMode = false, devVersion = '', devD
 
     document.documentElement.lang = normalized;
     document.title = strings.documentTitle;
-    updateInlineVersionLabel(normalized, { devMode, devVersion, devDate });
 }
 
 export function initLanguageToggle(initialLang, onLanguageChanged) {

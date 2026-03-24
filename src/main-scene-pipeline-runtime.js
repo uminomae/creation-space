@@ -9,8 +9,6 @@ export async function initMainScenePipelineRuntime({
     initialGraphicMode,
     initialSceneVariant,
     devMode,
-    devVersion,
-    devDate,
     sceneStateStore,
 }) {
     const {
@@ -49,8 +47,6 @@ export async function initMainScenePipelineRuntime({
         initialGraphicMode,
         applyGraphicMode,
         devMode,
-        devVersion,
-        devDate,
     });
 
     return {

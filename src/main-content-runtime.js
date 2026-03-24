@@ -11,8 +11,6 @@ export function initMainContentRuntime({
     initialGraphicMode,
     applyGraphicMode,
     devMode,
-    devVersion,
-    devDate,
 }) {
     initMainUiRuntime({
         camera,
@@ -23,8 +21,6 @@ export function initMainContentRuntime({
         initialGraphicMode,
         applyGraphicMode,
         devMode,
-        devVersion,
-        devDate,
         setArticlesLanguage,
         setReportsLanguage,
     });
