@@ -17,6 +17,8 @@ CLI は docs/ を自動読み込みしない。以下の対応表に従い、タ
 | commit・push | `.claude/rules/commit-rules.md` | コミットメッセージと push 前チェック |
 | 管理体系の更新 | `CLAUDE.md`, `.claude/rules/commit-rules.md`, `.claude/rules/project-structure.md` | 管理文書の正本群 |
 | プロジェクト全体の状況把握 | `docs/README.md` | エントリーポイント（管理ハブ） |
+| 解説書(guides)の生成・更新 | `transform/guides/WORKFLOW.md`, `transform/guides/reader-rules/evidence-constraint.md`, `transform/guides/quality-test/quality-test-guide.md` | ガイド生成ワークフロー、evidence 制約、品質テスト |
+| Cowork セッション作業 | `.claude/rules/cowork-session.md`, `.claude/rules/cowork-output.md` | VM 制約と出力先ルール |
 
 ## 読み方の原則
 
