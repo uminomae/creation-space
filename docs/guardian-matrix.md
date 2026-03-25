@@ -68,7 +68,7 @@
 | CS-019 | Agent 起動時に下流消費者リストと完了処理をプロンプトに含める | CLI自律 | — | Agent 起動時 | `.claude/rules/agent-completion.md` | hook: — |
 | CS-020 | Agent 完了報告を Read/Grep で検証し、Issue コメント・backlog を同一ターンで処理する | CLI自律 | — | Agent 完了時 | `.claude/rules/agent-completion.md` | hook: — |
 | CS-021 | Agent は共有管理ファイルを操作しない。投入側の責務 | CLI自律 | — | Agent 実行中 | `.claude/rules/agent-completion.md` | hook: — |
-| CS-022 | エージェント指示は中立的な表現で記述する（忖度誘導を避ける） | CLI自律 | — | 指示書作成時 | `.claude/rules/agents.md` | hook: — |
+| CS-022 | エージェント指示は中立的な表現で記述する（忖度誘導を避ける） | CLI自律 | — | 指示書作成時 | `docs/operations/agents.md` | hook: — |
 | CS-023 | Agent-WT 起動時は max_turns を必ず設定する（フリーズ防止） | CLI自律 | — | Agent-WT 起動時 | `.claude/rules/parallel-worktree.md` | hook: — |
 | CS-024 | ファイル所有権を宣言し、1ファイルを同時に2レーンが編集しない | CLI自律 | — | Agent 振り分け時 | `.claude/rules/parallel-worktree.md` | hook: — |
 | CS-025 | 共有禁止ファイル（CLAUDE.md, .claude/rules/*）は Main のみ編集 | CLI自律 | — | Agent 実行中 | `.claude/rules/parallel-worktree.md` | hook: — |
@@ -113,8 +113,8 @@
 
 | CS-ID | ルール要旨 | 守護者（主） | 守護者（副） | チェックタイミング | 正本 | hook coverage |
 |---|---|---|---|---|---|---|
-| CS-042 | CLI メモリと .cache/ に同じ情報を書かない（重複禁止） | CLI自律 | — | メモリ書き込み時 | `.claude/rules/memory-policy.md` | hook: — |
-| CS-043 | CLI メモリにはコード構造・ファイルパス・Git 履歴・セッション状態を書かない | CLI自律 | — | メモリ書き込み時 | `.claude/rules/memory-policy.md` | hook: — |
+| CS-042 | CLI メモリと .cache/ に同じ情報を書かない（重複禁止） | CLI自律 | — | メモリ書き込み時 | `docs/operations/memory-policy.md` | hook: — |
+| CS-043 | CLI メモリにはコード構造・ファイルパス・Git 履歴・セッション状態を書かない | CLI自律 | — | メモリ書き込み時 | `docs/operations/memory-policy.md` | hook: — |
 
 ### 教訓管理
 
@@ -141,7 +141,7 @@
 
 | CS-ID | ルール要旨 | 守護者（主） | 守護者（副） | チェックタイミング | 正本 | hook coverage |
 |---|---|---|---|---|---|---|
-| CS-050 | ディレクトリ構成とデータフローは project-structure.md に従う | CLI自律 | — | ファイル作成・移動時 | `.claude/rules/project-structure.md` | hook: — |
+| CS-050 | ディレクトリ構成とデータフローは project-structure.md に従う | CLI自律 | — | ファイル作成・移動時 | `docs/operations/project-structure.md` | hook: — |
 | CS-051 | docs/ には管理書類・ナレッジ・リファレンスのみ。調査原本は evidence/ に置く | CLI自律 | — | ファイル配置時 | `docs/README.md` §docs/ のスコープ | hook: — |
 
 ### 設計原則（参照用）

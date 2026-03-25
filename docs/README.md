@@ -62,7 +62,7 @@ docs/ に置かないもの:
 |---|---|
 | `CLAUDE.md` | セッション開始・終了、Git 規約、関連 repo の要約 |
 | `.claude/rules/commit-rules.md` | コミットメッセージと push 前チェック |
-| `.claude/rules/project-structure.md` | `src/` 構成、CSS 配置、データフロー概要 |
+| `docs/operations/project-structure.md` | `src/` 構成、CSS 配置、データフロー概要 |
 | `.claude/rules/docs-navigator.md` | タスク種別に応じた参照ガイド |
 | `evidence/investigations/investigation-cs23-categorize.md` | REPORTS の進捗カテゴリ設計調査 |
 | `evidence/investigations/investigation-cs43-modal-deeplink.md` | モーダル deep link 設計調査 |
@@ -169,7 +169,7 @@ LLMの振る舞いは不確実であり、効率化の最適化がルールの�
 | UI / Reports 変更 | `src/reports.js`, `evidence/investigations/investigation-cs23-categorize.md`, `evidence/investigations/investigation-cs43-modal-deeplink.md` |
 | 調査方針の確認 | `evidence/PROJECT.md` |
 | 領域レポート再生成 | `transform/domains/README.md` |
-| 管理体系の更新 | `CLAUDE.md`, `.claude/rules/commit-rules.md`, `.claude/rules/project-structure.md` |
+| 管理体系の更新 | `CLAUDE.md`, `.claude/rules/commit-rules.md`, `docs/operations/project-structure.md` |
 
 ## 8. 教訓管理
 
