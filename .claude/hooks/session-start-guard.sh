@@ -1,10 +1,10 @@
-#\!/usr/bin/env bash
+#!/usr/bin/env bash
 set -euo pipefail
 
 source "$(dirname "$0")/_common"
 hook_init
 
-if [ "$(hook_event_name)" \!= "SessionStart" ]; then
+if [ "$(hook_event_name)" != "SessionStart" ]; then
   exit 0
 fi
 
@@ -33,7 +33,7 @@ with open(state_path, "w", encoding="utf-8") as fh:
     fh.write("\n")
 PY
 
-if [ "$branch_name" \!= "develop" ]; then
+if [ "$branch_name" != "develop" ]; then
   hook_block "セッション開始時は develop ブランチである必要があります。現在: ${branch_name}"
 fi
 

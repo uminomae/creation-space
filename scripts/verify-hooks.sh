@@ -1,4 +1,4 @@
-#\!/usr/bin/env bash
+#!/usr/bin/env bash
 # verify-hooks.sh — cs#110
 # hooks ファイルの存在・executable 権限・_common 依存の整合を検証
 

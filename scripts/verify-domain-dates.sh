@@ -1,4 +1,4 @@
-#\!/usr/bin/env bash
+#!/usr/bin/env bash
 # verify-domain-dates.sh — ドメインレポート日付一致検証 (cs#128)
 #
 # 概要:
@@ -76,7 +76,7 @@ print('')
 # ── ヘルパー: domains.json から generated を抽出 ──
 extract_json_generated() {
     local domain_id="$1"
-    if [ \! -f "$DOMAINS_JSON" ]; then
+    if [ ! -f "$DOMAINS_JSON" ]; then
         echo ""
         return
     fi
@@ -113,8 +113,8 @@ verify_domain() {
         # domains.json の generated が ISO形式の場合、日付部分のみ比較
         local json_date
         json_date=$(echo "$json_generated" | cut -d'T' -f1)
-        if [ "$source_date" \!= "$json_date" ]; then
-            echo -e "  ${RED}FAIL${NC} ${domain_id}: source date=${source_date} \!= domains.json generated=${json_date}"
+        if [ "$source_date" != "$json_date" ]; then
+            echo -e "  ${RED}FAIL${NC} ${domain_id}: source date=${source_date} != domains.json generated=${json_date}"
             ERRORS=$((ERRORS + 1))
             has_error=true
         fi
@@ -159,7 +159,7 @@ echo ""
 if [ "$ALL" = true ]; then
     # ソース MD から全ドメイン ID を収集
     for source_file in "$SOURCE_DIR"/domain-D*-*-ja.md; do
-        [ \! -f "$source_file" ] && continue
+        [ ! -f "$source_file" ] && continue
         basename_file=$(basename "$source_file")
         # domain-D01-mathematics-academic-ja.md → D01
         domain_id=$(echo "$basename_file" | sed 's/^domain-\(D[0-9]*\)-.*/\1/')

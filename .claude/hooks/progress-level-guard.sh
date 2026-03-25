@@ -1,4 +1,4 @@
-#\!/usr/bin/env bash
+#!/usr/bin/env bash
 # progress-level-guard.sh — cs#110
 # PreToolUse: index.json の progress_level/progress_note 変更を検知、Issue番号なしなら BLOCK
 # PostToolUse: human_reviewed への昇格検知で WARN
@@ -66,7 +66,7 @@ data = json.load(sys.stdin)
 for r in data.get('reports', []):
     print(r['id'], r.get('progress_level',''), r.get('progress_note',''))
 " 2>/dev/null || true)"
-    if [ -n "$current_levels" ] && [ -n "$new_levels" ] && [ "$current_levels" \!= "$new_levels" ]; then
+    if [ -n "$current_levels" ] && [ -n "$new_levels" ] && [ "$current_levels" != "$new_levels" ]; then
       return 0
     fi
   fi
@@ -117,7 +117,7 @@ case "$EVENT" in
   PreToolUse)
     # progress_level/progress_note の変更を検知
     if has_progress_change; then
-      if \! has_issue_reference; then
+      if ! has_issue_reference; then
         hook_block "progress_level/progress_note の変更には Issue 番号（cs#NNN）が必要です。evidence-progress.md §鉄則 参照。"
       fi
     fi

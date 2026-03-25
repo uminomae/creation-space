@@ -1,4 +1,4 @@
-#\!/usr/bin/env bash
+#!/usr/bin/env bash
 # domains-json-sync-guard.sh — cs#110
 # Stop: index.json 変更時に generate-domains-json.mjs --check 実行、差分あれば WARN
 # PostToolUse: pjdhiro/domains.json への直接書き込みを BLOCK

@@ -1,4 +1,4 @@
-#\!/usr/bin/env bash
+#!/usr/bin/env bash
 # agent-post-check.sh — Agent subagent 完了後の自動検証スクリプト
 # 用途: DONE ファイル・pending agents・Issue コメントを機械的にチェック
 #

@@ -1,4 +1,4 @@
-#\!/usr/bin/env bash
+#!/usr/bin/env bash
 # quality-level-guard.sh — cs#111
 # PreToolUse: quality_level の逆行を BLOCK
 # PostToolUse: 独立レビュー未実施のまま PDF 公開しようとしたら WARN
@@ -79,7 +79,7 @@ data = json.load(sys.stdin)
 for r in data.get('reports', []):
     print(r['id'], r.get('quality_level',''))
 " 2>/dev/null || true)"
-    if [ -n "$current_levels" ] && [ -n "$new_levels" ] && [ "$current_levels" \!= "$new_levels" ]; then
+    if [ -n "$current_levels" ] && [ -n "$new_levels" ] && [ "$current_levels" != "$new_levels" ]; then
       return 0
     fi
   fi
@@ -100,7 +100,7 @@ check_quality_regression() {
   local content
   content="$(hook_tool_input_field 'content')" || true
 
-  if [ "$TOOL" \!= "Write" ] || [ -z "$content" ] || [ \! -f "$INDEX_ABS" ]; then
+  if [ "$TOOL" != "Write" ] || [ -z "$content" ] || [ ! -f "$INDEX_ABS" ]; then
     # Edit の場合は old_string/new_string から検知
     local old_string new_string
     old_string="$(hook_tool_input_field 'old_string')" || true
