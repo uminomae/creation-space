@@ -28,6 +28,41 @@
         "guide": "expert"
       }
     },
+    "modal_status": {
+      "label": "ステータスレポート",
+      "path": "./",
+      "query": {
+        "modal": "status"
+      }
+    },
+    "modal_synthesis": {
+      "label": "領域横断統合レポート",
+      "path": "./",
+      "query": {
+        "modal": "synthesis"
+      }
+    },
+    "modal_phase8_recirculation": {
+      "label": "Phase8: 再循環メカニズム",
+      "path": "./",
+      "query": {
+        "modal": "phase8-recirculation"
+      }
+    },
+    "modal_verify_T7T9": {
+      "label": "検証: 盲点と反例",
+      "path": "./",
+      "query": {
+        "modal": "verify-T7T9"
+      }
+    },
+    "modal_verify_integration": {
+      "label": "検証: 5テーマ統合レポート",
+      "path": "./",
+      "query": {
+        "modal": "verify-integration"
+      }
+    },
     "domain_d23_developmental_psychology": {
       "label": "D23 発達心理学",
       "path": "./",
@@ -35,10 +70,33 @@
         "domain": "D23"
       }
     },
+    "slide_d01_mathematics": {
+      "label": "D01 数学 スライド",
+      "path": "./",
+      "query": {
+        "slide": "D01"
+      }
+    },
     "slide_d23_developmental_psychology": {
       "label": "D23 発達心理学 スライド",
-      "path": "https://uminomae.github.io/pjdhiro/assets/creation/domains/ja/presentations/html/domain-D23-developmental-psychology-presentation-ja.html",
-      "query": {}
+      "path": "./",
+      "query": {
+        "slide": "D23"
+      }
+    },
+    "slide_synthesis": {
+      "label": "統合レポート スライド",
+      "path": "./",
+      "query": {
+        "slide": "synthesis"
+      }
+    },
+    "slide_phase8_edge_typology": {
+      "label": "Phase8: 縁の類型学 スライド",
+      "path": "./",
+      "query": {
+        "slide": "phase8-edge-typology"
+      }
     },
     "intent_utime7500_cam40": {
       "label": "Intent: uTime 7500 / Cam 40deg",
