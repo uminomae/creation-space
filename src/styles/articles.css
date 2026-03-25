@@ -2,21 +2,7 @@
   margin-top: var(--kesson-section-grid-margin-top);
 }
 
-.btn-read-more {
-  --bs-btn-color: var(--kesson-action-text);
-  --bs-btn-bg: var(--kesson-action-bg);
-  --bs-btn-border-color: var(--kesson-action-border);
-  --bs-btn-hover-color: var(--kesson-action-text-hover);
-  --bs-btn-hover-bg: var(--kesson-action-bg-hover);
-  --bs-btn-hover-border-color: rgba(var(--color-accent), 0.32);
-  --bs-btn-active-color: var(--kesson-action-text-hover);
-  --bs-btn-active-bg: var(--kesson-action-bg-hover);
-  --bs-btn-active-border-color: rgba(var(--color-accent), 0.36);
-  --bs-btn-focus-shadow-rgb: var(--color-accent);
-  font-family: var(--kesson-font-serif-ui);
-  letter-spacing: var(--kesson-letter-ui-wide);
-  text-transform: uppercase;
-}
+/* .btn-read-more inherits from .btn-kesson-action (shell.css) */
 
 .articles-filter-btn.is-active,
 .articles-filter-btn.active,
@@ -69,7 +55,7 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(224, 236, 255, 0.86);
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: var(--kesson-font-mono-ui);
 }
 
 .creation-card-placeholder p {
@@ -78,7 +64,7 @@
   font-size: 0.72rem;
   line-height: 1.65;
   letter-spacing: 0.04em;
-  font-family: "Noto Serif JP", "Yu Mincho", serif;
+  font-family: var(--kesson-font-serif-display);
 }
 
 #articles-error {

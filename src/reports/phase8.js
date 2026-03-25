@@ -102,7 +102,7 @@ export async function loadPhase8Themes(url = PHASE8_THEMES_MANIFEST_URL) {
  * @param {Function} opts.openMarkdownModal - from the modal controller
  * @param {Function} opts.getLang - returns current language
  */
-export function createPhase8Renderer({ openMarkdownModal, getLang }) {
+export function createPhase8Renderer({ openMarkdownModal, getLang, wrapSlideOpen }) {
     let containerEl = null;
 
     let headingEl = null;
@@ -172,6 +172,7 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
                         generatorModel: theme.generatorModel,
                         generated: theme.generated,
                     }],
+                    modalContext: { type: 'generic', modalKey: 'phase8-' + theme.slug, historyMode: 'push' },
                 });
             };
 
@@ -196,6 +197,7 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
                     const currentUrl = resolveThemePresentationMdUrl(theme, currentLang);
                     if (!currentUrl) return;
                     const currentName = getThemeDisplayName(theme, currentLang);
+                    const slideOnClose = typeof wrapSlideOpen === 'function' ? wrapSlideOpen('phase8-' + theme.slug) : null;
 
                     // Try rich HTML first (Pages URL with /html/ instead of /md/)
                     const richHtmlUrl = currentUrl
@@ -205,7 +207,7 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
                         try {
                             const headResp = await fetch(richHtmlUrl, { method: 'HEAD', cache: 'no-store' });
                             if (headResp.ok) {
-                                openRichSlideViewer({ htmlUrl: richHtmlUrl, title: currentName });
+                                openRichSlideViewer({ htmlUrl: richHtmlUrl, title: currentName, onClose: slideOnClose });
                                 return;
                             }
                         } catch {
@@ -222,7 +224,7 @@ export function createPhase8Renderer({ openMarkdownModal, getLang }) {
                         })
                         .then((md) => {
                             const mdBaseUrl = currentUrl.replace(/[^/]*$/, '');
-                            openSlideViewer({ markdownText: md, title: currentName, mdBaseUrl });
+                            openSlideViewer({ markdownText: md, title: currentName, mdBaseUrl, onClose: slideOnClose });
                         })
                         .catch((err) => console.warn('[phase8] slides load failed:', err));
                 });

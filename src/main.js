@@ -2,10 +2,12 @@ import { installStartupErrorHandlers, showStartupErrorOverlay } from './startup-
 import { createMainRuntimeContext } from './main-runtime-context.js';
 import { runMainOrchestrator } from './main-orchestrator.js';
 import { initFontSizeCtrl } from './font-size-ctrl.js';
+import { initScrollCoordinator } from './scroll-coordinator.js';
 
 installStartupErrorHandlers();
 
 function startMainApp() {
+    initScrollCoordinator();
     initFontSizeCtrl();
     const runtimeContext = createMainRuntimeContext();
     return runMainOrchestrator({

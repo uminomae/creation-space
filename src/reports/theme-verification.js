@@ -12,9 +12,9 @@ import { dict } from '../i18n/dict.js';
  * Static theme verification data extracted from the published reports.
  * These reports live in pjdhiro/assets/creation/phase8-themes/ja/verification/.
  */
-const THEME_VERIFICATION_BASE = 'https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/creation/phase8-themes/ja/verification';
+export const THEME_VERIFICATION_BASE = 'https://raw.githubusercontent.com/uminomae/pjdhiro/main/assets/creation/phase8-themes/ja/verification';
 
-const THEME_DATA = [
+export const THEME_DATA = [
     {
         id: 'T7+T9',
         nameJa: '盲点と反例',
@@ -87,7 +87,7 @@ const THEME_DATA = [
     },
 ];
 
-const INTEGRATION_REPORT = {
+export const INTEGRATION_REPORT = {
     nameJa: '5テーマ統合レポート',
     nameEn: 'Five-Theme Integration Report',
     descriptionJa: '5テーマ比較・テーマ間の構造的関係・モデル全体の堅牢性評価。',
@@ -203,6 +203,7 @@ export function createThemeVerificationRenderer({ openMarkdownModal, getLang }) 
             openMarkdownModal({
                 title: name,
                 sources: [{ mdUrl }],
+                modalContext: { type: 'generic', modalKey: 'verify-integration', historyMode: 'push' },
             });
         };
 
@@ -309,11 +310,13 @@ export function createThemeVerificationRenderer({ openMarkdownModal, getLang }) 
             body.appendChild(metaRow);
 
             // Card click
+            const normalizedId = theme.id.replace(/\+/g, '');
             const openCard = () => {
                 const mdUrl = THEME_VERIFICATION_BASE + '/' + theme.mdFile;
                 openMarkdownModal({
                     title: name,
                     sources: [{ mdUrl }],
+                    modalContext: { type: 'generic', modalKey: 'verify-' + normalizedId, historyMode: 'push' },
                 });
             };
 

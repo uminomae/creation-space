@@ -9,6 +9,7 @@ let overlayNode = null;
 let slidesState = [];
 let currentSlideIndex = 0;
 let previousBodyOverflow = '';
+let onCloseCallback = null;
 function parseFrontmatter(text) {
     const match = text.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
     if (!match) return { meta: {}, body: text.trim() };
@@ -201,10 +202,12 @@ function onKeyDown(event) {
  * Use openRichSlideViewer() instead. This function exists solely as a
  * fallback when rich HTML is unavailable (404 / network error).
  */
-export async function openSlideViewer({ markdownText, title = '', mdBaseUrl }) {
+export async function openSlideViewer({ markdownText, title = '', mdBaseUrl, onClose = null }) {
     if (!markdownText) return;
 
     try {
+        onCloseCallback = typeof onClose === 'function' ? onClose : null;
+
         if (!overlayNode) {
             overlayNode = createOverlay();
         }
@@ -271,6 +274,12 @@ export function closeSlideViewer() {
 
     slidesState = [];
     currentSlideIndex = 0;
+
+    if (onCloseCallback) {
+        const cb = onCloseCallback;
+        onCloseCallback = null;
+        cb();
+    }
 }
 
 /**
@@ -283,10 +292,12 @@ export function closeSlideViewer() {
  * @param {string} options.htmlUrl - URL of the rich HTML slide file
  * @param {string} [options.title] - Title for the overlay aria-label
  */
-export function openRichSlideViewer({ htmlUrl, title = '' }) {
+export function openRichSlideViewer({ htmlUrl, title = '', onClose = null }) {
     if (!htmlUrl) return;
 
     try {
+        onCloseCallback = typeof onClose === 'function' ? onClose : null;
+
         if (!overlayNode) {
             overlayNode = createOverlay();
         }

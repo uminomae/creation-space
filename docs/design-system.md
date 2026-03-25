@@ -38,7 +38,7 @@
 | prefix | 用途 |
 |---|---|
 | `--color-*` | 基本パレット（accent, sub-text, highlight, link, heading, bg-body） |
-| `--kesson-font-*` | タイポグラフィ（serif-display, serif-ui, mono-ui） |
+| `--kesson-font-*` | タイポグラフィ（serif-display, serif-ui, mono-ui, mono-system） |
 | `--kesson-card-*` | カードコンポーネント |
 | `--kesson-action-*` | ボタン・アクション |
 | `--kesson-offcanvas-*` | オフキャンバスパネル |

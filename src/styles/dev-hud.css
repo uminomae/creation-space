@@ -12,7 +12,7 @@
   font-size: var(--kesson-dev-hud-font-size, 0.80rem);
   letter-spacing: 0.04em;
   line-height: 1;
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: var(--kesson-font-mono-ui);
   white-space: nowrap;
   text-decoration: none;
   pointer-events: auto;
@@ -49,7 +49,7 @@
   border: 1px solid var(--kesson-dev-hud-border);
   background: var(--kesson-dev-hud-bg);
   color: var(--kesson-dev-hud-text);
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: var(--kesson-font-mono-ui);
   font-size: var(--kesson-dev-hud-font-size, 0.80rem);
   line-height: 1.45;
   display: none;
@@ -71,7 +71,7 @@
   border: 1px solid var(--kesson-dev-hud-border);
   background: var(--kesson-dev-hud-bg);
   color: var(--kesson-dev-hud-text);
-  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-family: var(--kesson-font-mono-ui);
   font-size: var(--kesson-dev-hud-font-size, 0.80rem);
   line-height: 1.45;
   backdrop-filter: blur(8px);
@@ -152,7 +152,7 @@
   border-radius: 4px 0 0 4px;
   color: var(--kesson-dev-toggle-text);
   font-size: var(--kesson-dev-hud-font-size, 0.80rem);
-  font-family: monospace;
+  font-family: var(--kesson-font-mono-ui);
   padding: 8px 5px;
   cursor: pointer;
   writing-mode: vertical-rl;
@@ -202,7 +202,7 @@
 
 #dev-panel .form-check-label {
   font-size: 0.80rem;
-  font-family: monospace;
+  font-family: var(--kesson-font-mono-ui);
   color: rgba(var(--color-sub-text), 0.7);
   order: -1;
   padding-left: 0;
@@ -234,7 +234,7 @@
   justify-content: space-between;
   align-items: center;
   font-size: var(--kesson-dev-hud-font-size, 0.80rem);
-  font-family: monospace;
+  font-family: var(--kesson-font-mono-ui);
   color: rgba(var(--color-sub-text), 0.6);
   margin-bottom: 0.15rem;
 }
@@ -254,7 +254,7 @@
 }
 
 .dev-panel-header-text {
-  font-family: monospace;
+  font-family: var(--kesson-font-mono-ui);
   letter-spacing: 0.1em;
 }
 
@@ -275,7 +275,7 @@
   border-radius: 4px 0 0 4px;
   color: var(--kesson-dev-toggle-text);
   font-size: var(--kesson-dev-hud-font-size, 0.80rem);
-  font-family: monospace;
+  font-family: var(--kesson-font-mono-ui);
   padding: 8px 5px;
   cursor: pointer;
   writing-mode: vertical-rl;
@@ -317,7 +317,7 @@
 .dev-links-key {
   font-size: 0.80rem;
   color: rgba(170, 190, 220, 0.7);
-  font-family: monospace;
+  font-family: var(--kesson-font-mono-ui);
   letter-spacing: 0.05em;
 }
 

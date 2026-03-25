@@ -34,18 +34,19 @@ export function createReportsRenderer({
     openMarkdownModal,
     openDomainModalById,
     getReportSources,
+    wrapSlideOpen,
 }) {
-    function getReportsScenarioLabel(scenario = state.activeScenario) {
+    function getReportsScenarioLabel(scenario = state.data.activeScenario) {
         if (!scenario) return '';
-        if (normalizeLang(state.lang) === 'ja') {
+        if (normalizeLang(state.config.lang) === 'ja') {
             return scenario.labelJa || scenario.labelEn || formatReportsScenarioFallbackLabel(scenario.name);
         }
         return scenario.labelEn || scenario.labelJa || formatReportsScenarioFallbackLabel(scenario.name);
     }
 
-    function getReportsScenarioDescription(scenario = state.activeScenario) {
+    function getReportsScenarioDescription(scenario = state.data.activeScenario) {
         if (!scenario) return '';
-        if (normalizeLang(state.lang) === 'ja') {
+        if (normalizeLang(state.config.lang) === 'ja') {
             return scenario.descriptionJa || scenario.descriptionEn || '';
         }
         return scenario.descriptionEn || scenario.descriptionJa || '';
@@ -53,20 +54,20 @@ export function createReportsRenderer({
 
     function getProgressTaxonomyEntry(level) {
         const normalizedLevel = normalizeProgressLevelId(level);
-        return state.progressTaxonomy.find((entry) => entry.id === normalizedLevel)
+        return state.data.progressTaxonomy.find((entry) => entry.id === normalizedLevel)
             || getDefaultProgressTaxonomyEntry(normalizedLevel);
     }
 
     function getProgressLevelLabel(level) {
         const taxonomyEntry = getProgressTaxonomyEntry(level);
-        return normalizeLang(state.lang) === 'ja'
+        return normalizeLang(state.config.lang) === 'ja'
             ? (taxonomyEntry.labelJa || taxonomyEntry.labelEn || taxonomyEntry.id)
             : (taxonomyEntry.labelEn || taxonomyEntry.labelJa || taxonomyEntry.id);
     }
 
     function getProgressLevelDescription(level) {
         const taxonomyEntry = getProgressTaxonomyEntry(level);
-        return normalizeLang(state.lang) === 'ja'
+        return normalizeLang(state.config.lang) === 'ja'
             ? (taxonomyEntry.descriptionJa || taxonomyEntry.descriptionEn || '')
             : (taxonomyEntry.descriptionEn || taxonomyEntry.descriptionJa || '');
     }
@@ -75,12 +76,12 @@ export function createReportsRenderer({
         return getProgressLevelDescription(level);
     }
     function getPresentProgressTaxonomy() {
-        return state.progressTaxonomy.filter((entry) => (state.progressLevelCounts[entry.id] || 0) > 0);
+        return state.data.progressTaxonomy.filter((entry) => (state.data.progressLevelCounts[entry.id] || 0) > 0);
     }
 
     function buildProgressPaletteMap(presentTaxonomy = getPresentProgressTaxonomy()) {
         const paletteMap = new Map();
-        const source = presentTaxonomy.length ? presentTaxonomy : state.progressTaxonomy;
+        const source = presentTaxonomy.length ? presentTaxonomy : state.data.progressTaxonomy;
 
         source.forEach((entry, index) => {
             paletteMap.set(entry.id, `is-palette-${(index % 10) + 1}`);
@@ -130,18 +131,18 @@ export function createReportsRenderer({
     function renderLevelLegend() {
         if (!state.dom.levelLegend) return;
 
-        const strings = getReportsStrings(state.lang);
+        const strings = getReportsStrings(state.config.lang);
         const legendNode = state.dom.levelLegend;
         const presentTaxonomy = getPresentProgressTaxonomy();
         const paletteMap = buildProgressPaletteMap(presentTaxonomy);
         if (!presentTaxonomy.length) {
-            legendNode.textContent = state.loadError ? strings.levelLegendUnavailable : strings.levelLegend;
+            legendNode.textContent = state.data.loadError ? strings.levelLegendUnavailable : strings.levelLegend;
             return;
         }
 
         if (presentTaxonomy.length === 1) {
             const level = presentTaxonomy[0].id;
-            const count = state.progressLevelCounts[level] || 0;
+            const count = state.data.progressLevelCounts[level] || 0;
             const label = getProgressLevelLabel(level);
             const description = getProgressLevelDescription(level);
             const summaryText = strings.levelLegendSingle
@@ -213,11 +214,11 @@ export function createReportsRenderer({
     function updateFilterButtons() {
         if (!state.dom.filterGroup) return;
 
-        const strings = getReportsStrings(state.lang);
+        const strings = getReportsStrings(state.config.lang);
         const presentTaxonomy = getPresentProgressTaxonomy();
         const paletteMap = buildProgressPaletteMap(presentTaxonomy);
         if (presentTaxonomy.length <= 1) {
-            state.tableFilter = 'all';
+            state.ui.tableFilter = 'all';
             state.dom.filterGroup.innerHTML = '';
             state.dom.filterGroup.classList.remove('d-flex');
             state.dom.filterGroup.classList.add('d-none');
@@ -226,22 +227,22 @@ export function createReportsRenderer({
 
         state.dom.filterGroup.classList.remove('d-none');
         state.dom.filterGroup.classList.add('d-flex');
-        if (!getAvailableFilterKeys().has(state.tableFilter)) {
-            state.tableFilter = 'all';
+        if (!getAvailableFilterKeys().has(state.ui.tableFilter)) {
+            state.ui.tableFilter = 'all';
         }
 
         const fragment = document.createDocumentFragment();
         fragment.appendChild(createFilterButton({
             filterKey: 'all',
             label: strings.filterAll,
-            isActive: state.tableFilter === 'all',
+            isActive: state.ui.tableFilter === 'all',
         }));
 
         presentTaxonomy.forEach((entry) => {
             fragment.appendChild(createFilterButton({
                 filterKey: entry.id,
                 label: getProgressLevelLabel(entry.id),
-                isActive: state.tableFilter === entry.id,
+                isActive: state.ui.tableFilter === entry.id,
                 paletteClass: getProgressPaletteClass(entry.id, paletteMap),
             }));
         });
@@ -251,7 +252,7 @@ export function createReportsRenderer({
     }
 
     function applyStaticText() {
-        const strings = getReportsStrings(state.lang);
+        const strings = getReportsStrings(state.config.lang);
 
         if (state.dom.domainsHeading) state.dom.domainsHeading.textContent = strings.tabDomains;
         if (state.dom.scenarioNote) {
@@ -278,7 +279,7 @@ export function createReportsRenderer({
     function renderFeatureCards() {
         if (!state.dom.featureCards) return;
 
-        const strings = getReportsStrings(state.lang);
+        const strings = getReportsStrings(state.config.lang);
         state.dom.featureCards.innerHTML = '';
 
         const fragment = document.createDocumentFragment();
@@ -309,7 +310,8 @@ export function createReportsRenderer({
             const openCardModal = () => {
                 openMarkdownModal({
                     title: featureText.modalTitle || featureText.title,
-                    sources: resolveLocalizedSources(guide.links, state.lang),
+                    sources: resolveLocalizedSources(guide.links, state.config.lang),
+                    modalContext: { type: 'guide', guideKey: guide.key, historyMode: 'push' },
                 });
             };
 
@@ -365,9 +367,9 @@ export function createReportsRenderer({
     function renderMetrics() {
         if (!state.dom.metrics) return;
 
-        const strings = getReportsStrings(state.lang);
-        const total = state.reports.length;
-        const generatedValue = state.generatedAt ? state.generatedAt.slice(0, 10) : '-';
+        const strings = getReportsStrings(state.config.lang);
+        const total = state.data.reports.length;
+        const generatedValue = state.data.generatedAt ? state.data.generatedAt.slice(0, 10) : '-';
         const presentTaxonomy = getPresentProgressTaxonomy();
         const paletteMap = buildProgressPaletteMap(presentTaxonomy);
 
@@ -379,7 +381,7 @@ export function createReportsRenderer({
         presentTaxonomy.forEach((entry) => {
             fragment.appendChild(createMetricCard(
                 getProgressLevelLabel(entry.id),
-                String(state.progressLevelCounts[entry.id] || 0),
+                String(state.data.progressLevelCounts[entry.id] || 0),
                 { paletteClass: getProgressPaletteClass(entry.id, paletteMap) },
             ));
         });
@@ -388,8 +390,8 @@ export function createReportsRenderer({
     }
 
     function createDomainGridItem({ report, muted = false, paletteMap }) {
-        const strings = getReportsStrings(state.lang);
-        const useJapanese = normalizeLang(state.lang) === 'ja';
+        const strings = getReportsStrings(state.config.lang);
+        const useJapanese = normalizeLang(state.config.lang) === 'ja';
         const domainLabel = useJapanese
             ? (report.nameJa || report.nameEn)
             : (report.nameEn || report.nameJa);
@@ -402,7 +404,7 @@ export function createReportsRenderer({
         const col = document.createElement('div');
         col.className = 'col';
         const tile = document.createElement('article');
-        const reportTitle = getDomainReportTitle(report, state.lang) || `${report.id} ${domainLabel}`;
+        const reportTitle = getDomainReportTitle(report, state.config.lang) || `${report.id} ${domainLabel}`;
 
         if (clickable) {
             tile.setAttribute('role', 'button');
@@ -474,20 +476,22 @@ export function createReportsRenderer({
         body.appendChild(nameNode);
 
         // Presentation buttons
-        const presSources = resolveDomainPresentationSources(report, { lang: state.lang });
+        const presSources = resolveDomainPresentationSources(report, { lang: state.config.lang });
         if (presSources.length > 0) {
             const btnGroup = document.createElement('div');
             btnGroup.className = 'd-flex gap-1 mt-auto';
 
             const slideBtn = document.createElement('button');
             slideBtn.className = 'btn btn-sm btn-outline-info reports-domain-slide-btn';
-            slideBtn.textContent = normalizeLang(state.lang) === 'ja' ? 'スライド' : 'Slides';
+            slideBtn.textContent = normalizeLang(state.config.lang) === 'ja' ? 'スライド' : 'Slides';
             slideBtn.setAttribute('aria-label', `${domainLabel} slides`);
             slideBtn.addEventListener('click', async (event) => {
                 event.stopPropagation();
-                const currentSources = resolveDomainPresentationSources(report, { lang: state.lang });
+                const currentSources = resolveDomainPresentationSources(report, { lang: state.config.lang });
                 const source = currentSources[0];
                 if (!source) return;
+                const slideKey = report.id;
+                const slideOnClose = typeof wrapSlideOpen === 'function' ? wrapSlideOpen(slideKey) : null;
 
                 // Try rich HTML first
                 if (source.htmlUrl) {
@@ -497,6 +501,7 @@ export function createReportsRenderer({
                             openRichSlideViewer({
                                 htmlUrl: source.htmlUrl,
                                 title: `${report.id} ${domainLabel}`,
+                                onClose: slideOnClose,
                             });
                             return;
                         }
@@ -529,6 +534,7 @@ export function createReportsRenderer({
                     markdownText,
                     title: `${report.id} ${domainLabel}`,
                     mdBaseUrl,
+                    onClose: slideOnClose,
                 });
             });
             btnGroup.appendChild(slideBtn);
@@ -545,21 +551,21 @@ export function createReportsRenderer({
     function renderDomainGrid() {
         if (!state.dom.domainGrid) return;
 
-        const allReports = state.reports;
+        const allReports = state.data.reports;
         const paletteMap = buildProgressPaletteMap(getPresentProgressTaxonomy());
 
         state.dom.domainGrid.innerHTML = '';
         if (!allReports.length) {
             const empty = document.createElement('div');
             empty.className = 'reports-domain-empty col-12 text-body-secondary';
-            empty.textContent = getReportsStrings(state.lang).empty;
+            empty.textContent = getReportsStrings(state.config.lang).empty;
             state.dom.domainGrid.appendChild(empty);
             return;
         }
 
         const fragment = document.createDocumentFragment();
         allReports.forEach((report) => {
-            const muted = state.tableFilter !== 'all' && report.progressLevel !== state.tableFilter;
+            const muted = state.ui.tableFilter !== 'all' && report.progressLevel !== state.ui.tableFilter;
             fragment.appendChild(createDomainGridItem({ report, muted, paletteMap }));
         });
 
@@ -567,11 +573,11 @@ export function createReportsRenderer({
     }
 
     function bindUiEvents() {
-        if (state.quickLinksBound) return;
+        if (state.ui.quickLinksBound) return;
 
         if (state.dom.openStatusBtn && !state.dom.openStatusBtn.dataset.boundClick) {
             state.dom.openStatusBtn.addEventListener('click', async () => {
-                const strings = getReportsStrings(state.lang);
+                const strings = getReportsStrings(state.config.lang);
                 let surveyGenerated = '';
                 try {
                     const resp = await fetch(SURVEY_MANIFEST_URL, { cache: 'no-store' });
@@ -586,7 +592,8 @@ export function createReportsRenderer({
                 };
                 openMarkdownModal({
                     title: strings.statusReportTitle,
-                    sources: resolveLocalizedSources(enrichedLinks, state.lang),
+                    sources: resolveLocalizedSources(enrichedLinks, state.config.lang),
+                    modalContext: { type: 'generic', modalKey: 'status', historyMode: 'push' },
                 });
             });
             state.dom.openStatusBtn.dataset.boundClick = '1';
@@ -609,16 +616,16 @@ export function createReportsRenderer({
                 if (!(button instanceof HTMLButtonElement)) return;
 
                 const nextFilter = button.dataset.filter;
-                if (!getAvailableFilterKeys().has(nextFilter) || nextFilter === state.tableFilter) return;
+                if (!getAvailableFilterKeys().has(nextFilter) || nextFilter === state.ui.tableFilter) return;
 
-                state.tableFilter = nextFilter;
+                state.ui.tableFilter = nextFilter;
                 updateFilterButtons();
                 renderDomainGrid();
             });
             state.dom.filterGroup.dataset.boundClick = '1';
         }
 
-        state.quickLinksBound = true;
+        state.ui.quickLinksBound = true;
     }
 
     function renderReports() {
@@ -626,7 +633,7 @@ export function createReportsRenderer({
         renderFeatureCards();
         renderMetrics();
         renderDomainGrid();
-        setReportsError(state.loadError ? getReportsStrings(state.lang).error : '');
+        setReportsError(state.data.loadError ? getReportsStrings(state.config.lang).error : '');
     }
 
     return {

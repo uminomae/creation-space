@@ -10,7 +10,7 @@
   z-index: 100000;
   overflow: auto;
   white-space: pre-wrap;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: var(--kesson-font-mono-system);
   font-size: 12px;
   line-height: 1.45;
   background: rgba(44, 12, 14, 0.96);
@@ -30,7 +30,7 @@
   z-index: 99999;
   overflow: auto;
   white-space: pre-wrap;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: var(--kesson-font-mono-system);
   font-size: 12px;
   line-height: 1.45;
   background: rgba(31, 9, 13, 0.95);

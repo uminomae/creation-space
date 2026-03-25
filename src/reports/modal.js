@@ -15,6 +15,10 @@ export function createReportsModalController({
     state,
     getStrings,
     setActiveDomainModalState,
+    setActiveGuideState,
+    setActiveGenericModalState,
+    updateGuideHistoryEntry,
+    updateGenericHistoryEntry,
 }) {
     let markedParser = null;
 
@@ -29,10 +33,10 @@ export function createReportsModalController({
 
     function ensureMdModalInstance() {
         if (!state.dom.mdModal || !globalThis.bootstrap?.Modal) return null;
-        if (!state.mdModalInstance) {
-            state.mdModalInstance = globalThis.bootstrap.Modal.getOrCreateInstance(state.dom.mdModal);
+        if (!state.modal.mdModalInstance) {
+            state.modal.mdModalInstance = globalThis.bootstrap.Modal.getOrCreateInstance(state.dom.mdModal);
         }
-        return state.mdModalInstance;
+        return state.modal.mdModalInstance;
     }
 
     function isMdModalVisible() {
@@ -41,7 +45,7 @@ export function createReportsModalController({
 
     function setModalPdfButton(pdfUrl) {
         if (!state.dom.mdOpenPdf) return;
-        const strings = getStrings(state.lang);
+        const strings = getStrings(state.config.lang);
         const browserPdfUrl = normalizePdfBrowserUrl(pdfUrl);
         if (browserPdfUrl) {
             state.dom.mdOpenPdf.href = browserPdfUrl;
@@ -57,7 +61,7 @@ export function createReportsModalController({
     }
 
     function setMarkdownModalLoading({ title, pdfUrl = '' }) {
-        const strings = getStrings(state.lang);
+        const strings = getStrings(state.config.lang);
 
         if (state.dom.mdModalTitle) {
             state.dom.mdModalTitle.textContent = title || strings.modalTitleDefault;
@@ -83,6 +87,16 @@ export function createReportsModalController({
 
         if (modalContext?.type === 'domain') {
             setActiveDomainModalState(modalContext.domainId, modalContext.historyMode);
+        } else if (modalContext?.type === 'guide') {
+            if (modalContext.historyMode === 'push') {
+                updateGuideHistoryEntry(modalContext.guideKey, { method: 'push', mode: 'push' });
+            }
+            setActiveGuideState(modalContext.guideKey, modalContext.historyMode);
+        } else if (modalContext?.type === 'generic') {
+            if (modalContext.historyMode === 'push') {
+                updateGenericHistoryEntry(modalContext.modalKey, { method: 'push', mode: 'push' });
+            }
+            setActiveGenericModalState(modalContext.modalKey, modalContext.historyMode);
         }
 
         const modal = ensureMdModalInstance();
@@ -91,7 +105,7 @@ export function createReportsModalController({
             return;
         }
 
-        const requestId = ++state.mdRequestId;
+        const requestId = ++state.modal.mdRequestId;
         const availablePdfUrlPromise = resolveFirstAvailablePdfUrl(modalSources);
         setMarkdownModalLoading({ title, pdfUrl: '' });
         modal.show();
@@ -139,7 +153,7 @@ export function createReportsModalController({
             const html = DOMPurify.sanitize(parsedHtml, { FORBID_TAGS: ['a'] });
             const availablePdfUrl = await availablePdfUrlPromise;
 
-            if (requestId !== state.mdRequestId) return;
+            if (requestId !== state.modal.mdRequestId) return;
 
             setModalPdfButton(availablePdfUrl);
             if (state.dom.mdModalContent) {
@@ -181,11 +195,11 @@ export function createReportsModalController({
                 }
             }
 
-            const strings = getStrings(state.lang);
+            const strings = getStrings(state.config.lang);
             const metaParts = [];
             const generatorModel = hasText(meta.generator_model) ? meta.generator_model.trim() : resolvedSource.generatorModel;
             const generated = hasText(meta.generated) ? meta.generated.trim() : resolvedSource.generated;
-            const guideDate = state.guidesGeneratedAt || '';
+            const guideDate = state.data.guidesGeneratedAt || '';
             if (generatorModel) metaParts.push(`${strings.modalModel}: ${generatorModel}`);
             if (generated) {
                 metaParts.push(`${strings.modalGenerated}: ${formatDate(generated)}`);
@@ -198,14 +212,14 @@ export function createReportsModalController({
         } catch (error) {
             console.warn('[reports] markdown load failed:', error);
             const availablePdfUrl = await availablePdfUrlPromise.catch(() => '');
-            if (requestId !== state.mdRequestId) return;
+            if (requestId !== state.modal.mdRequestId) return;
 
-            const strings = getStrings(state.lang);
+            const strings = getStrings(state.config.lang);
             if (state.dom.mdModalMeta) {
                 state.dom.mdModalMeta.textContent = '';
             }
             if (state.dom.mdModalContent) {
-                const pendingMessage = state.lang === 'en' ? strings.modalPreparing : strings.modalError;
+                const pendingMessage = state.config.lang === 'en' ? strings.modalPreparing : strings.modalError;
                 state.dom.mdModalContent.innerHTML = `<p class="text-warning-emphasis mb-0">${pendingMessage}</p>`;
             }
             setModalPdfButton(availablePdfUrl);
