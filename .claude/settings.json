@@ -32,6 +32,7 @@
       "Bash(gh pr *)",
       "Bash(gh api *)",
       "Bash(git push origin develop)",
+      "Bash(cd /Users/uminomae/dev/pjdhiro && git push *)",
       "Bash(git worktree *)",
       "Bash(git rm *)"
     ],
