@@ -27,7 +27,7 @@ function getSynthesisStrings(lang = 'ja') {
  * @param {Function} opts.openMarkdownModal - from the modal controller
  * @param {Function} opts.getLang - returns current language
  */
-export function createSynthesisRenderer({ openMarkdownModal, getLang }) {
+export function createSynthesisRenderer({ openMarkdownModal, getLang, wrapSlideOpen }) {
     let containerEl = null;
     let descriptionEl = null;
 
@@ -75,6 +75,7 @@ export function createSynthesisRenderer({ openMarkdownModal, getLang }) {
             openMarkdownModal({
                 title: strings.reportTitle,
                 sources: resolveLocalizedSources(SYNTHESIS_REPORT_LINKS, lang),
+                modalContext: { type: 'generic', modalKey: 'synthesis', historyMode: 'push' },
             });
         };
 
@@ -98,13 +99,14 @@ export function createSynthesisRenderer({ openMarkdownModal, getLang }) {
             const sources = resolveLocalizedSources(SYNTHESIS_PRESENTATION_LINKS, currentLang);
             const source = sources[0];
             if (!source) return;
+            const slideOnClose = typeof wrapSlideOpen === 'function' ? wrapSlideOpen('synthesis') : null;
 
             // Try rich HTML first
             if (source.htmlUrl) {
                 try {
                     const headResp = await fetch(source.htmlUrl, { method: 'HEAD', cache: 'no-store' });
                     if (headResp.ok) {
-                        openRichSlideViewer({ htmlUrl: source.htmlUrl, title: currentStrings.reportTitle });
+                        openRichSlideViewer({ htmlUrl: source.htmlUrl, title: currentStrings.reportTitle, onClose: slideOnClose });
                         return;
                     }
                 } catch {
@@ -136,6 +138,7 @@ export function createSynthesisRenderer({ openMarkdownModal, getLang }) {
                 markdownText,
                 title: currentStrings.reportTitle,
                 mdBaseUrl,
+                onClose: slideOnClose,
             });
         });
 

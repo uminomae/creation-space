@@ -34,6 +34,7 @@ export function createReportsRenderer({
     openMarkdownModal,
     openDomainModalById,
     getReportSources,
+    wrapSlideOpen,
 }) {
     function getReportsScenarioLabel(scenario = state.data.activeScenario) {
         if (!scenario) return '';
@@ -310,6 +311,7 @@ export function createReportsRenderer({
                 openMarkdownModal({
                     title: featureText.modalTitle || featureText.title,
                     sources: resolveLocalizedSources(guide.links, state.config.lang),
+                    modalContext: { type: 'guide', guideKey: guide.key, historyMode: 'push' },
                 });
             };
 
@@ -488,6 +490,8 @@ export function createReportsRenderer({
                 const currentSources = resolveDomainPresentationSources(report, { lang: state.config.lang });
                 const source = currentSources[0];
                 if (!source) return;
+                const slideKey = report.id;
+                const slideOnClose = typeof wrapSlideOpen === 'function' ? wrapSlideOpen(slideKey) : null;
 
                 // Try rich HTML first
                 if (source.htmlUrl) {
@@ -497,6 +501,7 @@ export function createReportsRenderer({
                             openRichSlideViewer({
                                 htmlUrl: source.htmlUrl,
                                 title: `${report.id} ${domainLabel}`,
+                                onClose: slideOnClose,
                             });
                             return;
                         }
@@ -529,6 +534,7 @@ export function createReportsRenderer({
                     markdownText,
                     title: `${report.id} ${domainLabel}`,
                     mdBaseUrl,
+                    onClose: slideOnClose,
                 });
             });
             btnGroup.appendChild(slideBtn);
@@ -587,6 +593,7 @@ export function createReportsRenderer({
                 openMarkdownModal({
                     title: strings.statusReportTitle,
                     sources: resolveLocalizedSources(enrichedLinks, state.config.lang),
+                    modalContext: { type: 'generic', modalKey: 'status', historyMode: 'push' },
                 });
             });
             state.dom.openStatusBtn.dataset.boundClick = '1';

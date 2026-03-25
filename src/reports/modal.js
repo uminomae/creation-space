@@ -15,6 +15,10 @@ export function createReportsModalController({
     state,
     getStrings,
     setActiveDomainModalState,
+    setActiveGuideState,
+    setActiveGenericModalState,
+    updateGuideHistoryEntry,
+    updateGenericHistoryEntry,
 }) {
     let markedParser = null;
 
@@ -83,6 +87,16 @@ export function createReportsModalController({
 
         if (modalContext?.type === 'domain') {
             setActiveDomainModalState(modalContext.domainId, modalContext.historyMode);
+        } else if (modalContext?.type === 'guide') {
+            if (modalContext.historyMode === 'push') {
+                updateGuideHistoryEntry(modalContext.guideKey, { method: 'push', mode: 'push' });
+            }
+            setActiveGuideState(modalContext.guideKey, modalContext.historyMode);
+        } else if (modalContext?.type === 'generic') {
+            if (modalContext.historyMode === 'push') {
+                updateGenericHistoryEntry(modalContext.modalKey, { method: 'push', mode: 'push' });
+            }
+            setActiveGenericModalState(modalContext.modalKey, modalContext.historyMode);
         }
 
         const modal = ensureMdModalInstance();
