@@ -28,30 +28,38 @@ import { createSynthesisRenderer } from './synthesis.js';
 import { createThemeVerificationRenderer } from './theme-verification.js';
 
 const state = {
-    lang: 'ja',
-    generatedAt: '',
-    guidesGeneratedAt: '',
-    reports: [],
-    progressTaxonomy: DEFAULT_PROGRESS_TAXONOMY.map((entry) => ({ ...entry })),
-    progressLevelCounts: {},
-    activeScenario: null,
-    tableFilter: 'all',
-    loadError: false,
-    dataUrl: DEFAULT_REPORTS_DATA_URL,
-    assetBaseUrl: DEFAULT_REPORTS_ASSET_BASE,
-    assetMdBaseUrl: DEFAULT_REPORTS_MD_ASSET_BASE,
-    mdModalInstance: null,
-    mdRequestId: 0,
-    quickLinksBound: false,
-    reportsReady: false,
-    phase8Themes: [],
-    phase8GeneratedAt: '',
-    activeDomainId: '',
-    activeDomainHistoryMode: '',
-    pendingDomainId: '',
-    pendingDomainHistoryMode: '',
-    _isHistorySyncing: false,
-    historyEventsBound: false,
+    config: {
+        lang: 'ja',
+        dataUrl: DEFAULT_REPORTS_DATA_URL,
+        assetBaseUrl: DEFAULT_REPORTS_ASSET_BASE,
+        assetMdBaseUrl: DEFAULT_REPORTS_MD_ASSET_BASE,
+    },
+    data: {
+        reports: [],
+        generatedAt: '',
+        guidesGeneratedAt: '',
+        progressTaxonomy: DEFAULT_PROGRESS_TAXONOMY.map((entry) => ({ ...entry })),
+        progressLevelCounts: {},
+        activeScenario: null,
+        phase8Themes: [],
+        phase8GeneratedAt: '',
+        reportsReady: false,
+        loadError: false,
+    },
+    ui: {
+        tableFilter: 'all',
+        quickLinksBound: false,
+    },
+    modal: {
+        mdModalInstance: null,
+        mdRequestId: 0,
+        activeDomainId: '',
+        activeDomainHistoryMode: '',
+        pendingDomainId: '',
+        pendingDomainHistoryMode: '',
+        _isHistorySyncing: false,
+        historyEventsBound: false,
+    },
     dom: {
         error: null,
         openStatusBtn: null,
@@ -87,25 +95,25 @@ const renderer = createReportsRenderer({
     openMarkdownModal: (...args) => modalController.openMarkdownModal(...args),
     openDomainModalById: (...args) => openDomainModalByIdImpl(...args),
     getReportSources: (report) => resolveDomainReportSources(report, {
-        lang: state.lang,
-        assetBaseUrl: state.assetBaseUrl,
-        assetMdBaseUrl: state.assetMdBaseUrl,
+        lang: state.config.lang,
+        assetBaseUrl: state.config.assetBaseUrl,
+        assetMdBaseUrl: state.config.assetMdBaseUrl,
     }),
 });
 
 const phase8Renderer = createPhase8Renderer({
     openMarkdownModal: (...args) => modalController.openMarkdownModal(...args),
-    getLang: () => state.lang,
+    getLang: () => state.config.lang,
 });
 
 const synthesisRenderer = createSynthesisRenderer({
     openMarkdownModal: (...args) => modalController.openMarkdownModal(...args),
-    getLang: () => state.lang,
+    getLang: () => state.config.lang,
 });
 
 const themeVerificationRenderer = createThemeVerificationRenderer({
     openMarkdownModal: (...args) => modalController.openMarkdownModal(...args),
-    getLang: () => state.lang,
+    getLang: () => state.config.lang,
 });
 
 historyController = createReportsHistoryController({
@@ -118,7 +126,7 @@ historyController = createReportsHistoryController({
 function findReportById(domainId) {
     const normalizedId = normalizeDomainId(domainId);
     if (!normalizedId) return null;
-    return state.reports.find((report) => normalizeDomainId(report?.id) === normalizedId) || null;
+    return state.data.reports.find((report) => normalizeDomainId(report?.id) === normalizedId) || null;
 }
 
 openDomainModalByIdImpl = function openDomainModalById(
@@ -133,9 +141,9 @@ openDomainModalByIdImpl = function openDomainModalById(
     if (!report) return false;
 
     const sources = resolveDomainReportSources(report, {
-        lang: state.lang,
-        assetBaseUrl: state.assetBaseUrl,
-        assetMdBaseUrl: state.assetMdBaseUrl,
+        lang: state.config.lang,
+        assetBaseUrl: state.config.assetBaseUrl,
+        assetMdBaseUrl: state.config.assetMdBaseUrl,
     });
     if (!sources.length) return false;
 
@@ -168,7 +176,7 @@ openDomainModalByIdImpl = function openDomainModalById(
 
     historyController.clearPendingDomainSync();
     modalController.openMarkdownModal({
-        title: getDomainReportTitle(report, state.lang),
+        title: getDomainReportTitle(report, state.config.lang),
         sources,
         modalContext: {
             type: 'domain',
@@ -192,18 +200,18 @@ export async function initReports({
     renderer.bindUiEvents();
     historyController.bindHistorySyncEvents();
 
-    state.lang = normalizeLang(lang);
-    state.dataUrl = dataUrl;
-    state.assetBaseUrl = normalizeAssetBaseUrl(assetBaseUrl);
-    state.assetMdBaseUrl = normalizeAssetBaseUrl(assetMdBaseUrl, DEFAULT_REPORTS_MD_ASSET_BASE);
-    state.generatedAt = '';
-    state.reports = [];
-    state.progressTaxonomy = normalizeProgressTaxonomy([]);
-    state.progressLevelCounts = countReportsByProgressLevel([]);
-    state.activeScenario = null;
-    state.tableFilter = 'all';
-    state.loadError = false;
-    state.reportsReady = false;
+    state.config.lang = normalizeLang(lang);
+    state.config.dataUrl = dataUrl;
+    state.config.assetBaseUrl = normalizeAssetBaseUrl(assetBaseUrl);
+    state.config.assetMdBaseUrl = normalizeAssetBaseUrl(assetMdBaseUrl, DEFAULT_REPORTS_MD_ASSET_BASE);
+    state.data.generatedAt = '';
+    state.data.reports = [];
+    state.data.progressTaxonomy = normalizeProgressTaxonomy([]);
+    state.data.progressLevelCounts = countReportsByProgressLevel([]);
+    state.data.activeScenario = null;
+    state.ui.tableFilter = 'all';
+    state.data.loadError = false;
+    state.data.reportsReady = false;
     historyController.clearPendingDomainSync();
 
     renderer.renderReports();
@@ -212,26 +220,26 @@ export async function initReports({
 
     try {
         const loaded = await loadReportsData({
-            dataUrl: state.dataUrl,
-            lang: state.lang,
-            assetBaseUrl: state.assetBaseUrl,
-            assetMdBaseUrl: state.assetMdBaseUrl,
+            dataUrl: state.config.dataUrl,
+            lang: state.config.lang,
+            assetBaseUrl: state.config.assetBaseUrl,
+            assetMdBaseUrl: state.config.assetMdBaseUrl,
         });
-        state.generatedAt = loaded.generatedAt;
-        state.reports = loaded.reports;
-        state.progressTaxonomy = loaded.progressTaxonomy;
-        state.progressLevelCounts = loaded.progressLevelCounts;
-        state.activeScenario = loaded.activeScenario;
-        state.loadError = false;
-        state.reportsReady = true;
-        state.guidesGeneratedAt = await guidesDatePromise;
+        state.data.generatedAt = loaded.generatedAt;
+        state.data.reports = loaded.reports;
+        state.data.progressTaxonomy = loaded.progressTaxonomy;
+        state.data.progressLevelCounts = loaded.progressLevelCounts;
+        state.data.activeScenario = loaded.activeScenario;
+        state.data.loadError = false;
+        state.data.reportsReady = true;
+        state.data.guidesGeneratedAt = await guidesDatePromise;
     } catch (error) {
-        state.reports = [];
-        state.progressTaxonomy = normalizeProgressTaxonomy([]);
-        state.progressLevelCounts = countReportsByProgressLevel([]);
-        state.activeScenario = null;
-        state.loadError = true;
-        state.reportsReady = false;
+        state.data.reports = [];
+        state.data.progressTaxonomy = normalizeProgressTaxonomy([]);
+        state.data.progressLevelCounts = countReportsByProgressLevel([]);
+        state.data.activeScenario = null;
+        state.data.loadError = true;
+        state.data.reportsReady = false;
         console.warn('[reports] load failed:', error);
     }
 
@@ -240,23 +248,23 @@ export async function initReports({
     // Load Phase 8 cross-domain themes
     try {
         const phase8Data = await loadPhase8Themes();
-        state.phase8Themes = phase8Data.themes;
-        state.phase8GeneratedAt = phase8Data.generatedAt;
+        state.data.phase8Themes = phase8Data.themes;
+        state.data.phase8GeneratedAt = phase8Data.generatedAt;
     } catch (error) {
         console.warn('[reports] phase8 themes load failed:', error);
-        state.phase8Themes = [];
+        state.data.phase8Themes = [];
     }
-    phase8Renderer.renderThemes(state.phase8Themes);
+    phase8Renderer.renderThemes(state.data.phase8Themes);
 
     synthesisRenderer.renderSynthesis();
     themeVerificationRenderer.renderVerification();
 
 
-    if (!state.loadError) {
+    if (!state.data.loadError) {
         historyController.syncDomainModalWithUrl({
             historyState: window.history?.state,
-            fallbackHistoryMode: state.pendingDomainHistoryMode,
-            treatAsInitial: !state.pendingDomainHistoryMode && Boolean(historyController.getDomainIdFromUrl()),
+            fallbackHistoryMode: state.modal.pendingDomainHistoryMode,
+            treatAsInitial: !state.modal.pendingDomainHistoryMode && Boolean(historyController.getDomainIdFromUrl()),
         });
     }
 
@@ -266,12 +274,12 @@ export async function initReports({
         if (guideKey) {
             const guide = MODEL_GUIDE_LINKS.find((g) => g.key === guideKey);
             if (guide) {
-                const strings = getReportsStrings(state.lang);
+                const strings = getReportsStrings(state.config.lang);
                 const featureText = strings.features[guide.key];
                 if (featureText) {
                     modalController.openMarkdownModal({
                         title: featureText.modalTitle || featureText.title,
-                        sources: resolveLocalizedSources(guide.links, state.lang),
+                        sources: resolveLocalizedSources(guide.links, state.config.lang),
                     });
                 }
             }
@@ -280,9 +288,9 @@ export async function initReports({
 }
 
 export function setReportsLanguage(lang) {
-    state.lang = normalizeLang(lang);
+    state.config.lang = normalizeLang(lang);
     renderer.renderReports();
-    phase8Renderer.renderThemes(state.phase8Themes);
+    phase8Renderer.renderThemes(state.data.phase8Themes);
     synthesisRenderer.renderSynthesis();
     themeVerificationRenderer.renderVerification();
 }

@@ -87,45 +87,45 @@ export function createReportsHistoryController({
     openDomainModalById,
 }) {
     function setActiveDomainModalState(domainId, historyMode = DOMAIN_HISTORY_MODE_PUSH) {
-        state.activeDomainId = normalizeDomainId(domainId);
-        state.activeDomainHistoryMode = state.activeDomainId
+        state.modal.activeDomainId = normalizeDomainId(domainId);
+        state.modal.activeDomainHistoryMode = state.modal.activeDomainId
             ? (historyMode === DOMAIN_HISTORY_MODE_INITIAL ? DOMAIN_HISTORY_MODE_INITIAL : DOMAIN_HISTORY_MODE_PUSH)
             : '';
     }
 
     function clearActiveDomainModalState() {
-        state.activeDomainId = '';
-        state.activeDomainHistoryMode = '';
+        state.modal.activeDomainId = '';
+        state.modal.activeDomainHistoryMode = '';
     }
 
     function queuePendingDomainSync(domainId, historyMode = DOMAIN_HISTORY_MODE_PUSH) {
-        state.pendingDomainId = normalizeDomainId(domainId);
-        state.pendingDomainHistoryMode = state.pendingDomainId
+        state.modal.pendingDomainId = normalizeDomainId(domainId);
+        state.modal.pendingDomainHistoryMode = state.modal.pendingDomainId
             ? (historyMode === DOMAIN_HISTORY_MODE_INITIAL ? DOMAIN_HISTORY_MODE_INITIAL : DOMAIN_HISTORY_MODE_PUSH)
             : '';
     }
 
     function clearPendingDomainSync() {
-        state.pendingDomainId = '';
-        state.pendingDomainHistoryMode = '';
+        state.modal.pendingDomainId = '';
+        state.modal.pendingDomainHistoryMode = '';
     }
 
     function hideActiveDomainModalFromHistory() {
-        if (!state.activeDomainId) return;
+        if (!state.modal.activeDomainId) return;
 
         if (!isMdModalVisible()) {
             clearActiveDomainModalState();
             return;
         }
 
-        state._isHistorySyncing = true;
+        state.modal._isHistorySyncing = true;
         const modal = ensureMdModalInstance();
         if (modal) {
             modal.hide();
             return;
         }
 
-        state._isHistorySyncing = false;
+        state.modal._isHistorySyncing = false;
         clearActiveDomainModalState();
     }
 
@@ -141,7 +141,7 @@ export function createReportsHistoryController({
             if (rawHasDomainParam) {
                 updateDomainHistoryEntry('', { method: 'replace' });
             }
-            if (!state.activeDomainId) {
+            if (!state.modal.activeDomainId) {
                 return;
             }
             hideActiveDomainModalFromHistory();
@@ -155,12 +155,12 @@ export function createReportsHistoryController({
                     ? DOMAIN_HISTORY_MODE_PUSH
                     : (treatAsInitial ? DOMAIN_HISTORY_MODE_INITIAL : DOMAIN_HISTORY_MODE_PUSH)));
 
-        if (!state.reportsReady) {
+        if (!state.data.reportsReady) {
             queuePendingDomainSync(domainId, historyMode);
             return;
         }
 
-        if (state.activeDomainId === domainId && isMdModalVisible()) {
+        if (state.modal.activeDomainId === domainId && isMdModalVisible()) {
             setActiveDomainModalState(domainId, historyMode);
             clearPendingDomainSync();
             if (treatAsInitial) {
@@ -185,16 +185,16 @@ export function createReportsHistoryController({
     }
 
     function handleMdModalHidden() {
-        if (state._isHistorySyncing) {
-            state._isHistorySyncing = false;
+        if (state.modal._isHistorySyncing) {
+            state.modal._isHistorySyncing = false;
             clearActiveDomainModalState();
             return;
         }
 
-        if (!state.activeDomainId) return;
+        if (!state.modal.activeDomainId) return;
 
-        const activeDomainId = state.activeDomainId;
-        const historyMode = state.activeDomainHistoryMode;
+        const activeDomainId = state.modal.activeDomainId;
+        const historyMode = state.modal.activeDomainHistoryMode;
         clearActiveDomainModalState();
         clearPendingDomainSync();
 
@@ -212,7 +212,7 @@ export function createReportsHistoryController({
         const domainId = getDomainIdFromUrl();
         const fallbackHistoryMode = getDomainHistoryMarker(event.state, domainId)?.mode || '';
 
-        if (!state.reportsReady) {
+        if (!state.data.reportsReady) {
             queuePendingDomainSync(domainId, fallbackHistoryMode || DOMAIN_HISTORY_MODE_PUSH);
             if (!domainId) {
                 clearPendingDomainSync();
@@ -228,12 +228,12 @@ export function createReportsHistoryController({
     }
 
     function bindHistorySyncEvents() {
-        if (state.historyEventsBound) return;
+        if (state.modal.historyEventsBound) return;
         if (state.dom.mdModal) {
             state.dom.mdModal.addEventListener('hidden.bs.modal', handleMdModalHidden);
         }
         window.addEventListener('popstate', handleDomainPopState);
-        state.historyEventsBound = true;
+        state.modal.historyEventsBound = true;
     }
 
     return {
