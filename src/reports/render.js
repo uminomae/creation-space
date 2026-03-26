@@ -15,6 +15,7 @@ import {
     resolveDomainPresentationSources,
 } from './data.js';
 import { DOMAIN_HISTORY_MODE_PUSH } from './history.js';
+import { observeGridItems } from '../reveal-observer.js';
 
 export function getReportsStrings(lang = 'ja') {
     return dict[normalizeLang(lang)]?.reports || dict.ja.reports;
@@ -570,6 +571,7 @@ export function createReportsRenderer({
         });
 
         state.dom.domainGrid.appendChild(fragment);
+        observeGridItems();
     }
 
     function bindUiEvents() {

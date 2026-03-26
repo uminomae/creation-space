@@ -34,3 +34,56 @@ body.creation-page {
     max-width: 82vw;
   }
 }
+
+/* ── Room narration bridges (cs#179 Phase A) ── */
+
+.room-narration {
+  min-height: 28vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+}
+
+.room-narration-text {
+  font-family: 'Noto Serif JP', Georgia, serif;
+  font-size: clamp(0.95rem, 2.8vmin, 1.35rem);
+  font-weight: 300;
+  color: rgba(210, 225, 250, 0.65);
+  letter-spacing: 0.08em;
+  line-height: 2.2;
+  text-align: center;
+  max-width: 580px;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.room-narration-text.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Grid row stagger reveal (cs#179 Phase A) ── */
+
+.reports-domain-grid > .col {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.reports-domain-grid > .col.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Reduced motion ── */
+
+@media (prefers-reduced-motion: reduce) {
+  .room-narration-text,
+  .reports-domain-grid > .col {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
