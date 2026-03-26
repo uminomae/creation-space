@@ -4,6 +4,24 @@
 
 ---
 
+## Overview (English)
+
+**What is Creativity?** This project explores creative processes across 30 academic domains, structured through the Five Stages of Creation model (Field, Wave, Edge, Vortex, Bundle). By collecting and analyzing structural similarity patterns across disciplines -- from mathematics and physics to philosophy, aesthetics, and traditional knowledge -- it validates a cross-domain framework for understanding how creation unfolds.
+
+### Key Concepts
+- **Five Stages of Creation** (創造の5段階モデル): Field (場) -- undifferentiated potential; Wave (波) -- separation into opposites; Edge (縁) -- connecting at boundaries; Vortex (渦) -- integrating into a whole; Bundle (束) -- converging into lasting structure.
+- **Beauty-Driven Thinking** (美駆動思考): An approach where aesthetic perception guides the recognition and pursuit of structural patterns across domains.
+- **Cross-Domain Validation** (領域横断検証): Multi-phase verification using multiple AI engines to validate structural similarities.
+
+### Related Projects
+- [project-design](https://github.com/uminomae/project-design): Project Design Theory -- the overarching framework
+- [awareness-space](https://github.com/uminomae/awareness-space): Exploring consciousness through the Four-Layer Model
+- [kesson-space](https://github.com/uminomae/kesson-space): 3D experiential space for Kesson-Driven Thinking
+
+> For the full theoretical framework, see [Project Design](https://uminomae.github.io/pjdhiro/project-design/).
+
+---
+
 ## 概要 / Overview
 
 30の学術領域から創造プロセスの構造類似パターンを収集・分析し、領域横断的に共通する「創造の5段階モデル」の妥当性を検証するプロジェクト。
