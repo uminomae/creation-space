@@ -4,8 +4,7 @@ export const dict = {
             documentTitle: '創造とは',
             title: '創造とは',
             taglines: [
-                '関係し合う欠片が、まだ名前を持たない輪郭を生む。',
-                '観測と選択のあいだで、創造は静かに立ち上がる。',
+                'これは定義ではない。探索の記録だ。',
             ],
             topbarMainTitle: '創造とは',
             topbarAwareness: 'AWARENESS',
@@ -91,6 +90,13 @@ export const dict = {
             },
             featureRead: '解説を表示',
             featurePdf: 'PDF',
+            stages: [
+                { label: '場', sub: 'Field', desc: '創造が生まれる環境と条件。潜在的な可能性が蓄えられた状態。' },
+                { label: '波', sub: 'Wave', desc: '探索と揺らぎの過程。既存の枠が揺さぶられ、新たな方向が模索される。' },
+                { label: '縁', sub: 'Edge', desc: '異質な要素が出会う境界。偶然と必然が交差する臨界点。' },
+                { label: '渦', sub: 'Vortex', desc: '要素が結合し変容する核心的段階。不可逆な統合が起きる。' },
+                { label: '束', sub: 'Bundle', desc: '新たな形式として統合される完成。ひとつの輪郭を持った成果物。' },
+            ],
             phase8Themes: {
                 heading: '領域横断分析（Phase 8）',
                 description: '30領域を横断して抽出された5つの構造テーマ。',
@@ -131,8 +137,7 @@ export const dict = {
             documentTitle: 'What Is Creation',
             title: 'What Is Creation',
             taglines: [
-                'Fragments in relation generate forms before they are named.',
-                'Creation rises quietly between observation and choice.',
+                'Not a definition. A record of exploration.',
             ],
             topbarMainTitle: 'What Is Creation',
             topbarAwareness: 'AWARENESS',
@@ -218,6 +223,13 @@ export const dict = {
             },
             featureRead: 'Open Guide',
             featurePdf: 'PDF',
+            stages: [
+                { label: 'Field', sub: '場', desc: 'The environment and conditions where creation is born. A state of latent potential.' },
+                { label: 'Wave', sub: '波', desc: 'The process of exploration and fluctuation. Existing frames are shaken, new directions sought.' },
+                { label: 'Edge', sub: '縁', desc: 'The boundary where heterogeneous elements meet. A critical point of chance and necessity.' },
+                { label: 'Vortex', sub: '渦', desc: 'The core stage of binding and transformation. An irreversible integration occurs.' },
+                { label: 'Bundle', sub: '束', desc: 'Completion as a new form. A deliverable with its own contour.' },
+            ],
             phase8Themes: {
                 heading: 'Cross-Domain Analysis (Phase 8)',
                 description: 'Five structural themes extracted across 30 domains.',

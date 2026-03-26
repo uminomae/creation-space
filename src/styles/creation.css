@@ -77,11 +77,197 @@ body.creation-page {
   transform: translateY(0);
 }
 
+/* ── Prologue timeline (cs#179 Phase B) ── */
+
+.prologue-timeline {
+  margin-bottom: 2rem;
+  padding: 1.5rem 0;
+}
+
+.prologue-nodes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  position: relative;
+  padding: 0 1rem;
+  max-width: 700px;
+  margin: 0 auto 1.5rem;
+}
+
+.prologue-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  flex: 1;
+  cursor: pointer;
+  z-index: 1;
+  padding: 0.5rem 0.25rem;
+  transition: transform 0.3s ease;
+}
+
+.prologue-node:focus-visible {
+  outline: 2px solid rgba(100, 150, 255, 0.6);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.prologue-node.is-active {
+  transform: scale(1.12);
+}
+
+.prologue-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(210, 225, 250, 0.25);
+  border: 2px solid rgba(210, 225, 250, 0.3);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.prologue-node.is-active .prologue-dot {
+  background: var(--stage-color, rgba(100, 150, 255, 0.9));
+  border-color: var(--stage-color, rgba(100, 150, 255, 0.9));
+  box-shadow: 0 0 12px var(--stage-color, rgba(100, 150, 255, 0.4));
+}
+
+.prologue-label {
+  font-family: 'Noto Serif JP', Georgia, serif;
+  font-size: clamp(0.95rem, 2.5vmin, 1.2rem);
+  font-weight: 400;
+  color: rgba(210, 225, 250, 0.5);
+  transition: color 0.3s ease;
+}
+
+.prologue-node.is-active .prologue-label {
+  color: rgba(210, 225, 250, 0.95);
+}
+
+.prologue-sub {
+  font-family: 'Inter', 'Helvetica Neue', sans-serif;
+  font-size: 0.7rem;
+  color: rgba(210, 225, 250, 0.3);
+  letter-spacing: 0.06em;
+  transition: color 0.3s ease;
+}
+
+.prologue-node.is-active .prologue-sub {
+  color: rgba(210, 225, 250, 0.6);
+}
+
+/* 進行線 */
+.prologue-progress-line {
+  position: absolute;
+  top: 18px;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    rgba(100, 150, 255, 0.5) var(--progress, 20%),
+    rgba(210, 225, 250, 0.1) var(--progress, 20%)
+  );
+  z-index: 0;
+  transition: background 0.4s ease;
+  pointer-events: none;
+}
+
+/* 説明エリア */
+.prologue-desc {
+  text-align: center;
+  max-width: 520px;
+  margin: 0 auto;
+  min-height: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.prologue-desc-title {
+  font-family: 'Noto Serif JP', Georgia, serif;
+  font-size: clamp(1rem, 2.5vmin, 1.15rem);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+}
+
+.prologue-desc-text {
+  font-family: 'Noto Serif JP', Georgia, serif;
+  font-size: clamp(0.82rem, 2vmin, 0.95rem);
+  font-weight: 300;
+  color: rgba(210, 225, 250, 0.6);
+  line-height: 1.8;
+}
+
+/* ── Next question block (cs#179 Phase C) ── */
+
+.next-question {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  margin-top: 2rem;
+  border-top: 1px solid rgba(210, 225, 250, 0.1);
+}
+
+.next-question-text {
+  font-family: 'Noto Serif JP', Georgia, serif;
+  font-size: clamp(0.9rem, 2.5vmin, 1.1rem);
+  font-weight: 300;
+  color: rgba(210, 225, 250, 0.55);
+  letter-spacing: 0.06em;
+  line-height: 2;
+  font-style: italic;
+}
+
+/* ── Phase 9 collapse toggle ── */
+
+.phase9-toggle {
+  color: rgba(210, 225, 250, 0.6);
+  border-color: rgba(210, 225, 250, 0.25);
+  font-size: 0.85rem;
+}
+
+.phase9-toggle:hover {
+  color: rgba(210, 225, 250, 0.85);
+  border-color: rgba(210, 225, 250, 0.4);
+}
+
+/* ── Mobile timeline ── */
+
+@media (max-width: 575.98px) {
+  .prologue-nodes {
+    gap: 0;
+    padding: 0 0.5rem;
+  }
+
+  .prologue-label {
+    font-size: 0.85rem;
+  }
+
+  .prologue-sub {
+    font-size: 0.6rem;
+  }
+
+  .prologue-dot {
+    width: 11px;
+    height: 11px;
+  }
+
+  .prologue-progress-line {
+    top: 15px;
+  }
+}
+
 /* ── Reduced motion ── */
 
 @media (prefers-reduced-motion: reduce) {
   .room-narration-text,
-  .reports-domain-grid > .col {
+  .reports-domain-grid > .col,
+  .prologue-node,
+  .prologue-dot,
+  .prologue-label,
+  .prologue-sub,
+  .prologue-progress-line {
     opacity: 1;
     transform: none;
     transition: none;

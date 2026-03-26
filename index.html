@@ -302,10 +302,22 @@
               </div>
             </div>
             <div class="mt-4">
-              <h4 id="reports-theme-verification-heading" class="reports-subheading h6">テーマ検証（Phase 9）</h4>
-              <p id="reports-theme-verification-description" class="reports-level-legend mb-2">Phase 9 の検証結果に基づく5テーマの堅牢性評価。</p>
-              <div id="reports-theme-verification-grid" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2" aria-live="polite">
-                <div class="col-12 text-body-secondary">読み込み中...</div>
+              <button class="btn btn-outline-light btn-sm phase9-toggle"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#phase9-collapse"
+                      aria-expanded="false"
+                      aria-controls="phase9-collapse"
+                      data-ja="テーマ検証結果を見る（Phase 9）"
+                      data-en="Show Theme Verification (Phase 9)">
+                テーマ検証結果を見る（Phase 9）
+              </button>
+              <div id="phase9-collapse" class="collapse mt-3">
+                <h4 id="reports-theme-verification-heading" class="reports-subheading h6">テーマ検証（Phase 9）</h4>
+                <p id="reports-theme-verification-description" class="reports-level-legend mb-2">Phase 9 の検証結果に基づく5テーマの堅牢性評価。</p>
+                <div id="reports-theme-verification-grid" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2" aria-live="polite">
+                  <div class="col-12 text-body-secondary">読み込み中...</div>
+                </div>
               </div>
             </div>
           </section>
@@ -325,6 +337,9 @@
         </h2>
         <div id="articles-error" class="d-none"></div>
         <div id="articles-grid" class="row g-3"></div>
+        <div class="next-question" id="next-question">
+          <p class="next-question-text" data-ja="あなたの領域では、創造はどのように記述されていますか？" data-en="How is creation described in your domain?">あなたの領域では、創造はどのように記述されていますか？</p>
+        </div>
       </div>
     </div>
   </section>
