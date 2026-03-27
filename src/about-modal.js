@@ -1,9 +1,11 @@
-import { detectLang, normalizeLang } from './i18n.js';
+import { getCurrentLang, normalizeLang } from './i18n.js';
 import { dict } from './i18n/dict.js';
 
 let overlayEl = null;
 let titleEl = null;
 let bodyEl = null;
+let triggerBtnEl = null;
+let closeBtnEl = null;
 
 export function initAboutModal() {
   createAboutButton();
@@ -16,26 +18,27 @@ function t(lang) {
 }
 
 function createAboutButton() {
-  const overlay = document.getElementById('overlay');
-  if (!overlay) return;
+    const overlay = document.getElementById('overlay');
+    if (!overlay) return;
 
-  const btn = document.createElement('button');
-  btn.type = 'button';
-  btn.className = 'about-trigger';
-  btn.setAttribute('aria-label', 'About this site');
-  btn.innerHTML = [
-    '<svg viewBox="0 0 24 24" aria-hidden="true">',
-    '<circle cx="12" cy="12" r="10"/>',
-    '<line x1="12" y1="16" x2="12" y2="12"/>',
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'about-trigger';
+    btn.innerHTML = [
+        '<svg viewBox="0 0 24 24" aria-hidden="true">',
+        '<circle cx="12" cy="12" r="10"/>',
+        '<line x1="12" y1="16" x2="12" y2="12"/>',
     '<line x1="12" y1="8" x2="12.01" y2="8"/>',
     '</svg>',
   ].join('');
 
   btn.style.marginTop = '0.8rem';
 
-  btn.addEventListener('click', () => openAbout());
+    btn.addEventListener('click', () => openAbout());
 
-  overlay.appendChild(btn);
+    overlay.appendChild(btn);
+    triggerBtnEl = btn;
+    setAboutLanguage(getCurrentLang());
 }
 
 function createAboutOverlay() {
@@ -43,6 +46,7 @@ function createAboutOverlay() {
   el.id = 'about-overlay';
   el.setAttribute('role', 'dialog');
   el.setAttribute('aria-modal', 'true');
+  el.tabIndex = -1;
 
   const glass = document.createElement('div');
   glass.className = 'about-glass';
@@ -50,7 +54,7 @@ function createAboutOverlay() {
   const closeBtn = document.createElement('button');
   closeBtn.type = 'button';
   closeBtn.className = 'about-close';
-  closeBtn.innerHTML = '&#x2715;';
+  closeBtn.textContent = '✕';
 
   titleEl = document.createElement('h2');
   titleEl.className = 'about-title';
@@ -65,6 +69,7 @@ function createAboutOverlay() {
   document.body.appendChild(el);
 
   overlayEl = el;
+  closeBtnEl = closeBtn;
 
   closeBtn.addEventListener('click', () => closeAbout());
   el.addEventListener('click', (e) => {
@@ -96,7 +101,7 @@ function renderContent(lang) {
 
 function openAbout() {
   if (!overlayEl) return;
-  const lang = detectLang();
+  const lang = getCurrentLang();
   renderContent(lang);
 
   overlayEl.classList.add('visible');
@@ -127,5 +132,19 @@ function closeAbout() {
   } else {
     overlayEl.addEventListener('transitionend', onEnd, { once: true });
     setTimeout(onEnd, 600);
+  }
+}
+
+export function setAboutLanguage(lang) {
+  const aboutStrings = t(lang);
+  if (triggerBtnEl) {
+    triggerBtnEl.setAttribute('aria-label', aboutStrings.triggerAria);
+  }
+  if (closeBtnEl) {
+    closeBtnEl.setAttribute('aria-label', aboutStrings.closeAria);
+  }
+  if (overlayEl?.classList.contains('visible')) {
+    renderContent(lang);
+    overlayEl.setAttribute('aria-label', aboutStrings.title);
   }
 }

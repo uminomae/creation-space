@@ -30,6 +30,13 @@ UI 変更を含む Issue の close 前に確認する。
 - [ ] EN 切替でラベルが英語になる
 - [ ] EN モーダルで英語版 MD が表示される
 
+### 6. トップページ i18n / bootstrap
+- [ ] `?lang=ja` 初期表示でヒーロー、タイムライン、REPORTS 初期文言が日本語になる
+- [ ] `?lang=en` 初期表示でヒーロー、タイムライン、REPORTS 初期文言が英語になる
+- [ ] トグル後 `ja/en` の表示が初期表示 `ja/en` と一致する
+- [ ] WebGL 初期化に失敗しても articles / reports / 言語切替が継続動作する
+- [ ] 3D 失敗時はページ全体の startup error ではなく警告バナーで継続表示される
+
 ## 自動 smoke test
 
 ```bash

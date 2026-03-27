@@ -1,42 +1,53 @@
 import { initControls } from './controls.js';
-import { initScrollUI, refreshGuideLang } from './scroll-ui.js';
+import { initScrollUI } from './scroll-ui.js';
 import { initCreationLinkInteractions } from './creation-link-interactions.js';
 import { initLanguageToggle, applyPageLanguage } from './page-language.js';
 import { initMobileNavAutoCollapse } from './topbar-nav.js';
 import { initGraphicModeButtons } from './graphic-mode.js';
+import { setNarrationLanguage } from './reveal-observer.js';
+import { setPrologueTimelineLanguage } from './prologue-timeline.js';
+import { setAboutLanguage } from './about-modal.js';
 
-export function initMainUiRuntime({
+export function initMainPageUiRuntime({
+    initialLang,
+    initialGraphicMode,
+    applyGraphicMode,
+    setArticlesLanguage,
+    setReportsLanguage,
+}) {
+    initScrollUI();
+    initLanguageToggle(initialLang, (currentLang) => {
+        applyPageLanguage(currentLang);
+        setArticlesLanguage(currentLang);
+        if (typeof setReportsLanguage === 'function') {
+            setReportsLanguage(currentLang);
+        }
+        setNarrationLanguage(currentLang);
+        setPrologueTimelineLanguage(currentLang);
+        setAboutLanguage(currentLang);
+    });
+
+    initMobileNavAutoCollapse();
+    initGraphicModeButtons(initialGraphicMode, (nextMode) => {
+        applyGraphicMode(nextMode);
+    });
+}
+
+export function attachMainSceneUiRuntime({
     camera,
     container,
     renderer,
     getCreationLinkTargetMeshes,
-    initialLang,
-    initialGraphicMode,
-    applyGraphicMode,
-    devMode,
-    setArticlesLanguage,
-    setReportsLanguage,
 }) {
+    if (!camera || !container || !renderer) {
+        return;
+    }
+
     initControls(camera, container, renderer);
 
     initCreationLinkInteractions({
         camera,
         domElement: renderer.domElement,
         getTargets: getCreationLinkTargetMeshes,
-    });
-
-    initScrollUI();
-    initLanguageToggle(initialLang, (currentLang) => {
-        applyPageLanguage(currentLang, { devMode });
-        refreshGuideLang();
-        setArticlesLanguage(currentLang);
-        if (typeof setReportsLanguage === 'function') {
-            setReportsLanguage(currentLang);
-        }
-    });
-
-    initMobileNavAutoCollapse();
-    initGraphicModeButtons(initialGraphicMode, (nextMode) => {
-        applyGraphicMode(nextMode);
     });
 }

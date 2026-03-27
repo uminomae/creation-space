@@ -6,10 +6,12 @@ import { initScrollCoordinator } from './scroll-coordinator.js';
 import { injectNarrations, initRevealObserver } from './reveal-observer.js';
 import { initPrologueTimeline } from './prologue-timeline.js';
 import { initAboutModal } from './about-modal.js';
+import { detectLang, initLanguageState } from './i18n.js';
 
 installStartupErrorHandlers();
 
 function startMainApp() {
+    initLanguageState(detectLang());
     initScrollCoordinator();
     initFontSizeCtrl();
     injectNarrations();
