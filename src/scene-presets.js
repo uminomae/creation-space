@@ -247,9 +247,9 @@ const HOLD_PRESET = {
     },
     breathConfig: {
         period: 8.0,
-        htmlMinOpacity: 0.1,
+        htmlMinOpacity: 0.4,
         htmlMaxOpacity: 0.8,
-        htmlMaxBlur: 3.0,
+        htmlMaxBlur: 1.5,
         htmlMinScale: 0.95,
         fovBase: 60.0,
         fovAmplitude: 1.0,
@@ -444,9 +444,9 @@ const WABI_PRESET = {
     },
     breathConfig: {
         period: 8,
-        htmlMinOpacity: 0.1,
+        htmlMinOpacity: 0.4,
         htmlMaxOpacity: 0.8,
-        htmlMaxBlur: 3,
+        htmlMaxBlur: 1.5,
         htmlMinScale: 0.95,
         fovBase: 60,
         fovAmplitude: 1,
