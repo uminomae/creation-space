@@ -153,7 +153,7 @@ function createReadMoreButton(lang, totalCount, visibleCount) {
 
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'card kesson-card btn btn-sm d-inline-block';
+    btn.className = 'card kesson-card btn btn-kesson-action btn-sm d-inline-block';
     btn.setAttribute('data-bs-toggle', 'offcanvas');
     btn.setAttribute('data-bs-target', '#articlesOffcanvas');
     btn.setAttribute('aria-controls', 'articlesOffcanvas');

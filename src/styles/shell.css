@@ -468,6 +468,15 @@ html[lang="en"] #taglines {
   display: flex;
 }
 
+/* ── 共通パネル基盤 ── */
+.kesson-panel {
+  background: var(--kesson-card-bg);
+  border: 1px solid var(--kesson-card-border);
+  border-radius: var(--kesson-radius-lg);
+  box-shadow: var(--kesson-card-shadow-soft);
+  color: rgba(var(--color-heading), 0.82);
+}
+
 .card.kesson-card {
   --bs-card-bg: var(--kesson-card-bg);
   background-color: var(--bs-card-bg);

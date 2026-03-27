@@ -3,7 +3,7 @@
    ========================================================================== */
 
 #slide-viewer-overlay {
-  --slide-bg-deep: #0a0e17;
+  --slide-bg-deep: var(--color-bg-body, #0a0e17);
   --slide-bg-elevated: #1e293b;
   --slide-text-primary: #f1f5f9;
   --slide-text-secondary: #94a3b8;
