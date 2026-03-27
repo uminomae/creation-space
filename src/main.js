@@ -5,6 +5,7 @@ import { initFontSizeCtrl } from './font-size-ctrl.js';
 import { initScrollCoordinator } from './scroll-coordinator.js';
 import { injectNarrations, initRevealObserver } from './reveal-observer.js';
 import { initPrologueTimeline } from './prologue-timeline.js';
+import { initAboutModal } from './about-modal.js';
 
 installStartupErrorHandlers();
 
@@ -14,6 +15,7 @@ function startMainApp() {
     injectNarrations();
     initRevealObserver();
     initPrologueTimeline();
+    initAboutModal();
     const runtimeContext = createMainRuntimeContext();
     return runMainOrchestrator({
         runtimeContext,

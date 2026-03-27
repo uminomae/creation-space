@@ -131,6 +131,17 @@ export const dict = {
             draftLoadFailed: 'draft.md の読み込みに失敗しました。',
             openSource: 'ソースを開く',
         },
+        about: {
+            title: 'このサイトについて',
+            body: [
+                '「創造とは何か」を、30の学術領域から探索するプロジェクトです。',
+                '神経科学、哲学、芸術学、物理学——異なる領域が、創造について驚くほど似た構造を語っていました。',
+                'その共通構造を「創造の5段階モデル」として抽出しました。',
+                '__stages__',
+                'このサイトでは、30領域の調査レポート、横断分析、そして理論の全体像を公開しています。',
+            ],
+            stages: '場（Field）\u2192 波（Wave）\u2192 縁（Edge）\u2192 渦（Vortex）\u2192 束（Bundle）',
+        },
     },
     en: {
         page: {
@@ -263,6 +274,17 @@ export const dict = {
             openDraft: 'Open draft.md',
             draftLoadFailed: 'Failed to load draft.md.',
             openSource: 'Open source',
+        },
+        about: {
+            title: 'About This Site',
+            body: [
+                'This is a project exploring "What is Creation?" across 30 academic domains.',
+                'Neuroscience, philosophy, art studies, physics \u2014 different domains were telling remarkably similar stories about creation.',
+                'We extracted that common structure as the "Five Stages of Creation" model:',
+                '__stages__',
+                'This site presents investigation reports from 30 domains, cross-domain analysis, and the overall theoretical framework.',
+            ],
+            stages: 'Field \u2192 Wave \u2192 Edge \u2192 Vortex \u2192 Bundle',
         },
     },
 };
