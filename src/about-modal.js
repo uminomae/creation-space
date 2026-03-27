@@ -24,13 +24,7 @@ function createAboutButton() {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'about-trigger';
-    btn.innerHTML = [
-        '<svg viewBox="0 0 24 24" aria-hidden="true">',
-        '<circle cx="12" cy="12" r="10"/>',
-        '<line x1="12" y1="16" x2="12" y2="12"/>',
-    '<line x1="12" y1="8" x2="12.01" y2="8"/>',
-    '</svg>',
-  ].join('');
+    btn.innerHTML = '<span class="about-trigger__letter">i</span>';
 
   btn.style.marginTop = '0.8rem';
 
