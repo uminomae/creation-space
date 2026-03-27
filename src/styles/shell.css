@@ -481,11 +481,6 @@ html[lang="en"] #taglines {
   color: rgba(var(--color-heading), 0.82);
 }
 
-/* ── Section surface (lightest layer) ── */
-.kesson-section {
-  background: var(--kesson-surface-1);
-}
-
 .card.kesson-card {
   --bs-card-bg: var(--kesson-card-bg);
   background-color: var(--bs-card-bg);
