@@ -13,7 +13,7 @@ agent: "CLI"
 
 # agent-team-workflow スキル
 
-**バージョン**: 1.1
+**バージョン**: 1.2
 **作成日**: 2026-03-27
 **Issue**: cs#188
 **参照元**: [Imbad0202/academic-research-skills](https://github.com/Imbad0202/academic-research-skills) (CC BY-NC 4.0) のエッセンスを抽出し、pjdhiro プロジェクト向けに独自設計・独自実装。
@@ -76,11 +76,11 @@ alignment:
 
 ### Phase 1: SURVEY（調査）
 
-**実行者**: researcher agent（Agent ツールで起動）
+**実行者**: researcher agent（Agent Teams で起動）
 
 **Main の手順**:
 
-1. Agent ツールで team-researcher を起動する。プロンプトに以下を含める:
+1. Agent Teams で team-researcher を起動する。プロンプトに以下を含める:
    - `.claude/agents/team-researcher.md` を読むこと
    - alignment（共有辞書）
    - 答えるべき questions リスト
@@ -94,12 +94,12 @@ alignment:
 
 ### Phase 2: REVIEW（調査のレビュー）
 
-**実行者**: critic agent（Agent ツールで起動）
+**実行者**: critic agent（Agent Teams で起動）
 
 **Main の手順**:
 
 1. Phase 1 の researcher 出力を集約する
-2. Agent ツールで team-critic を起動する。プロンプトに以下を含める:
+2. Agent Teams で team-critic を起動する。プロンプトに以下を含める:
    - `.claude/agents/team-critic.md` を読むこと
    - alignment（共有辞書）
    - researcher の Handoff 出力（全 agent 分）
@@ -278,5 +278,6 @@ review:
 
 | 日付 | バージョン | 内容 |
 |------|-----------|------|
+| 2026-03-27 | 1.2 | Agent subagent → Agent Teams に切り替え |
 | 2026-03-27 | 1.1 | 実行可能な手順に更新。Agent 定義追加、Main の具体的手順を記述 |
 | 2026-03-27 | 1.0 | 初版。cs#188 設計に基づき骨格を作成 |
