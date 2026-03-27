@@ -19,9 +19,9 @@ export const toggles = {
 
 export const breathConfig = {
     period: 8,
-    htmlMinOpacity: 0.1,
+    htmlMinOpacity: 0.4,
     htmlMaxOpacity: 0.8,
-    htmlMaxBlur: 3,
+    htmlMaxBlur: 1.5,
     htmlMinScale: 0.95,
     fovBase: 60,
     fovAmplitude: 1,

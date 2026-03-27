@@ -250,8 +250,8 @@ body {
   z-index: 10;
   pointer-events: none;
   text-align: left;
-  opacity: 0.1;
-  filter: blur(3px);
+  opacity: 0.4;
+  filter: blur(1.5px);
   transform: scale(0.95);
   transform-origin: left bottom;
   will-change: opacity, filter, transform;
