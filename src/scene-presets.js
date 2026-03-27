@@ -462,7 +462,7 @@ const INTENT_PRESET = {
         flowObjects: false,
         fog: false,
         fovBreath: false,
-        htmlBreath: false,
+        htmlBreath: true,
         autoRotate: true,
         postProcess: false,
         fluidField: false,
