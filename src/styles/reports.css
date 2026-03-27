@@ -148,7 +148,7 @@
 .reports-tab-content {
   border: 1px solid var(--reports-border-soft);
   border-radius: var(--reports-panel-radius);
-  background: var(--kesson-card-bg);
+  background: var(--kesson-surface-2);
   padding: var(--reports-panel-padding);
   box-shadow: var(--reports-panel-shadow);
 }

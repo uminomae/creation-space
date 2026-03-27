@@ -157,7 +157,7 @@ export function createThemeVerificationRenderer({ openMarkdownModal, getLang }) 
         col.className = 'col-12';
 
         const card = document.createElement('article');
-        card.className = 'card kesson-card h-100 tv-card tv-integration-card';
+        card.className = 'card kesson-card kesson-panel h-100 tv-card tv-integration-card';
         card.setAttribute('role', 'button');
         card.setAttribute('tabindex', '0');
 
@@ -226,7 +226,7 @@ export function createThemeVerificationRenderer({ openMarkdownModal, getLang }) 
             col.className = 'col';
 
             const card = document.createElement('article');
-            card.className = 'card kesson-card h-100 tv-card';
+            card.className = 'card kesson-card kesson-panel h-100 tv-card';
             card.setAttribute('role', 'button');
             card.setAttribute('tabindex', '0');
 

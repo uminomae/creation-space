@@ -44,7 +44,11 @@
 
   --kesson-section-content-padding: 1rem 1.5rem 0;
   --kesson-section-grid-margin-top: 1.5rem;
-  --kesson-card-bg: rgba(20, 25, 40, 0.9);
+  /* ── Surface hierarchy (single color, varying opacity) ── */
+  --kesson-surface-1: rgba(20, 25, 40, 0.3);   /* section level */
+  --kesson-surface-2: rgba(20, 25, 40, 0.6);   /* panel level */
+  --kesson-surface-3: rgba(20, 25, 40, 0.9);   /* card level (= --kesson-card-bg) */
+  --kesson-card-bg: var(--kesson-surface-3);
 
   --kesson-section-heading: 0.88rem;
   --kesson-card-title: 1.0rem;
@@ -470,11 +474,16 @@ html[lang="en"] #taglines {
 
 /* ── 共通パネル基盤 ── */
 .kesson-panel {
-  background: var(--kesson-card-bg);
+  background: var(--kesson-surface-2);
   border: 1px solid var(--kesson-card-border);
   border-radius: var(--kesson-radius-lg);
   box-shadow: var(--kesson-card-shadow-soft);
   color: rgba(var(--color-heading), 0.82);
+}
+
+/* ── Section surface (lightest layer) ── */
+.kesson-section {
+  background: var(--kesson-surface-1);
 }
 
 .card.kesson-card {

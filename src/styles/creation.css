@@ -259,6 +259,8 @@ body.creation-page {
   padding: 3rem 1.5rem;
   margin-top: 2rem;
   border-top: 1px solid rgba(210, 225, 250, 0.1);
+  background: var(--kesson-surface-1);
+  border-radius: var(--kesson-radius-lg);
 }
 
 .next-question-text {
