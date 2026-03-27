@@ -524,6 +524,8 @@ html[lang="en"] #taglines {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.6s ease, background 0.3s ease, color 0.3s ease;
+  background: transparent;
+  border-color: transparent;
 }
 
 .section-content-wrap {
