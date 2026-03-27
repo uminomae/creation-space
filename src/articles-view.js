@@ -171,8 +171,9 @@ function renderMainArticles(mainGrid, articles, lang) {
     if (!mainGrid) return;
     clearNode(mainGrid);
 
-    const existingReadMore = mainGrid.parentNode
-        ? mainGrid.parentNode.querySelector('[data-role="articles-readmore-wrap"]')
+    const searchRoot = mainGrid.closest('.container') || mainGrid.parentNode;
+    const existingReadMore = searchRoot
+        ? searchRoot.querySelector('[data-role="articles-readmore-wrap"]')
         : null;
     if (existingReadMore) {
         existingReadMore.remove();
@@ -190,9 +191,11 @@ function renderMainArticles(mainGrid, articles, lang) {
     });
     mainGrid.appendChild(mainFrag);
 
-    if (mainGrid.parentNode) {
+    // Insert button outside .reports-tab-content, after the container
+    const container = mainGrid.closest('.reports-tab-content') || mainGrid.parentNode;
+    if (container && container.parentNode) {
         const readMoreButton = createReadMoreButton(lang, articles.length, initialItems.length);
-        mainGrid.parentNode.insertBefore(readMoreButton, mainGrid.nextSibling);
+        container.parentNode.insertBefore(readMoreButton, container.nextSibling);
     }
 }
 
