@@ -147,13 +147,11 @@ function createArticleCard(article, lang, useWideLayout) {
 
 function createReadMoreButton(lang, totalCount, visibleCount) {
     const strings = getArticlesStrings(lang);
-    const btnContainer = document.createElement('div');
-    btnContainer.className = 'text-center mt-3';
-    btnContainer.dataset.role = 'articles-readmore-wrap';
 
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'card kesson-card btn btn-kesson-action btn-sm d-inline-block';
+    btn.className = 'card kesson-card btn btn-kesson-action btn-sm d-block mx-auto mt-3';
+    btn.dataset.role = 'articles-readmore-wrap';
     btn.setAttribute('data-bs-toggle', 'offcanvas');
     btn.setAttribute('data-bs-target', '#articlesOffcanvas');
     btn.setAttribute('aria-controls', 'articlesOffcanvas');
@@ -163,8 +161,7 @@ function createReadMoreButton(lang, totalCount, visibleCount) {
         ? `${strings.readMore} (${remaining})`
         : `${strings.viewAll} (${totalCount})`;
 
-    btnContainer.appendChild(btn);
-    return btnContainer;
+    return btn;
 }
 
 function renderMainArticles(mainGrid, articles, lang) {
@@ -191,12 +188,9 @@ function renderMainArticles(mainGrid, articles, lang) {
     });
     mainGrid.appendChild(mainFrag);
 
-    // Insert button outside .reports-tab-content, after the container
-    const container = mainGrid.closest('.reports-tab-content') || mainGrid.parentNode;
-    if (container && container.parentNode) {
-        const readMoreButton = createReadMoreButton(lang, articles.length, initialItems.length);
-        container.parentNode.insertBefore(readMoreButton, container.nextSibling);
-    }
+    // Insert button inside the same container as the grid
+    const readMoreButton = createReadMoreButton(lang, articles.length, initialItems.length);
+    mainGrid.after(readMoreButton);
 }
 
 function renderOffcanvasArticles(offcanvasGrid, filteredArticles, lang) {
