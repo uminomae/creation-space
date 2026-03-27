@@ -7,7 +7,7 @@ export const dict = {
             toggleMenuAria: 'メニューを切り替え',
             fontSizeControlsAria: '文字サイズ調整',
             taglines: [
-                'これは定義ではない。探索の記録だ。',
+                'これは定義ではありません。探索の記録です。',
             ],
             narrations: {
                 modelSection: 'ひとつの問いから始まりました。三十の領域が、同じ方向を指していたのです。',
