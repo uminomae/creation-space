@@ -12,6 +12,7 @@ import {
     plasmaParams,
     quantumWaveParams,
     sceneParams,
+    textStyleParams,
     toggles,
 } from './config.js';
 
@@ -30,6 +31,7 @@ const GROUP_TARGETS = {
     breathConfig,
     intentMotionParams,
     intentConsciousnessParams,
+    textStyleParams,
 };
 
 function cloneGroupState(target) {

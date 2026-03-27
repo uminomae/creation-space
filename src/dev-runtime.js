@@ -1,4 +1,5 @@
 import { initDevPanel } from './dev-panel.js';
+import { textStyleParams } from './config.js';
 
 export function initDevAuxTools({ setStatsHandlers }) {
     import('./dev-links-panel.js').then(({ initDevLinksPanel }) => {
@@ -17,6 +18,18 @@ export function initDevAuxTools({ setStatsHandlers }) {
     }).catch((err) => {
         console.warn('[dev-stats] import failed:', err.message);
     });
+}
+
+function syncTextStyleCSSVars() {
+    const s = document.documentElement.style;
+    const p = textStyleParams;
+    s.setProperty('--text-narration-opacity', String(p.narrationOpacity));
+    s.setProperty('--text-timeline-label-opacity', String(p.timelineLabelOpacity));
+    s.setProperty('--text-timeline-desc-opacity', String(p.timelineDescOpacity));
+    s.setProperty('--text-question-opacity', String(p.questionOpacity));
+    s.setProperty('--text-shadow-blur', p.shadowBlur + 'px');
+    s.setProperty('--text-shadow-blur2', (p.shadowBlur * 2) + 'px');
+    s.setProperty('--text-shadow-opacity', String(p.shadowOpacity));
 }
 
 export function initDevPanelRuntime({
@@ -40,6 +53,7 @@ export function initDevPanelRuntime({
             if (typeof onSyncShiftTurn === 'function') {
                 onSyncShiftTurn();
             }
+            syncTextStyleCSSVars();
         },
         onStateSnapshot: (state) => {
             if (typeof onStateSnapshot === 'function') {

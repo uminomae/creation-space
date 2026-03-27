@@ -5,20 +5,20 @@ import { detectLang } from './i18n.js';
 
 const NARRATIONS = {
     'model-section': {
-        ja: '30の学術領域を横断して、ひとつの構造が浮かび上がった。',
-        en: 'Across 30 academic domains, a single structure emerged.',
+        ja: 'ひとつの問いから始まりました。三十の領域が、同じ方向を指していたのです。',
+        en: 'It began with one question. Thirty domains pointed in the same direction.',
     },
     'reports-section': {
-        ja: '神経科学から芸術学まで。30の領域を、ひとつずつ訪ねた。',
-        en: 'From neuroscience to art studies. We visited 30 domains, one by one.',
+        ja: 'ここから先には、三十の個室があります。どれも、違う言語で同じことを語っています。',
+        en: 'Beyond here, thirty private rooms. Each speaks a different language about the same thing.',
     },
     'reports-cross-analysis-section': {
-        ja: '30の探索を重ねると、領域を超えた構造テーマが見えてきた。',
-        en: 'Layer the 30 explorations, and structural themes emerge across domains.',
+        ja: '三十の旅人が別々の道を歩きました。全員が、同じ跡を残していたのです。',
+        en: 'Thirty travelers, each taking a different road. They all left the same footprints.',
     },
     'articles-section': {
-        ja: '探索はまだ続いている。',
-        en: 'The exploration continues.',
+        ja: '思考の途中が、記事になりました。',
+        en: 'These are thoughts in the middle of becoming.',
     },
 };
 
@@ -95,6 +95,8 @@ export function injectNarrations() {
         const section = document.getElementById(sectionId);
         if (!section) continue;
         if (section.querySelector('.room-narration')) continue;
+        // Also check if narration was already placed outside (before parent container)
+        if (section.closest('.reports-tab-content, .section-content-wrap')?.previousElementSibling?.classList.contains('room-narration')) continue;
 
         const wrapper = document.createElement('div');
         wrapper.className = 'room-narration';
@@ -102,15 +104,29 @@ export function injectNarrations() {
 
         const p = document.createElement('p');
         p.className = 'room-narration-text';
-        p.textContent = texts[lang] || texts.ja;
+        const raw = texts[lang] || texts.ja;
+        if (lang === 'ja') {
+            p.innerHTML = raw.replace(/。/g, '。<br>');
+        } else {
+            p.innerHTML = raw.replace(/\. /g, '.<br>');
+        }
 
         wrapper.appendChild(p);
 
+        // Insert narration before the section's outermost container,
+        // so it sits outside any card/panel wrapper.
         const contentWrap = section.querySelector('.section-content-wrap');
         if (contentWrap) {
-            contentWrap.insertBefore(wrapper, contentWrap.firstChild);
+            section.insertBefore(wrapper, contentWrap);
         } else {
-            section.insertBefore(wrapper, section.firstChild);
+            // Section may be nested inside a container (e.g. .reports-tab-content).
+            // Insert before that container so the narration floats free.
+            const parentContainer = section.closest('.reports-tab-content, .section-content-wrap');
+            if (parentContainer && parentContainer.parentElement) {
+                parentContainer.parentElement.insertBefore(wrapper, parentContainer);
+            } else {
+                section.insertBefore(wrapper, section.firstChild);
+            }
         }
     }
 }

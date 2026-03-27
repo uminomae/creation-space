@@ -261,6 +261,15 @@ export const distortionParams = {
     dofFocusRadius: 0.26
 };
 
+export const textStyleParams = {
+    narrationOpacity: 0.9,
+    timelineLabelOpacity: 0.9,
+    timelineDescOpacity: 0.9,
+    questionOpacity: 0.9,
+    shadowBlur: 10,
+    shadowOpacity: 1.0,
+};
+
 export const intentMotionParams = {
     ...INTENT_MOTION_DEFAULTS,
 };

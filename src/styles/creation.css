@@ -1,3 +1,15 @@
+/* ── Text style CSS custom properties (dev-panel controllable) ── */
+
+:root {
+  --text-narration-opacity: 0.9;
+  --text-timeline-label-opacity: 0.9;
+  --text-timeline-desc-opacity: 0.9;
+  --text-question-opacity: 0.9;
+  --text-shadow-blur: 10px;
+  --text-shadow-blur2: 20px;
+  --text-shadow-opacity: 1.0;
+}
+
 body.creation-page {
   background:
     radial-gradient(circle at 20% 20%, rgba(46, 72, 116, 0.18), transparent 45%),
@@ -35,6 +47,29 @@ body.creation-page {
   }
 }
 
+/* ── Action buttons — match card contrast ── */
+
+.creation-page .btn-kesson-action {
+  --bs-btn-color: rgba(var(--color-heading), 0.5);
+  --bs-btn-bg: rgba(20, 25, 40, 0.9);
+  --bs-btn-border-color: rgba(var(--color-accent), 0.1);
+  --bs-btn-hover-color: rgba(var(--color-heading), 0.7);
+  --bs-btn-hover-bg: rgba(20, 25, 40, 0.9);
+  --bs-btn-hover-border-color: rgba(var(--color-accent), 0.28);
+  --bs-btn-active-color: rgba(var(--color-heading), 0.7);
+  --bs-btn-active-bg: rgba(20, 25, 40, 0.9);
+  --bs-btn-active-border-color: rgba(var(--color-accent), 0.28);
+}
+
+/* ── Section headings — high contrast + shadow ── */
+
+.creation-page .section-heading {
+  color: rgba(var(--color-sub-text), var(--text-narration-opacity));
+  text-shadow:
+    0 0 var(--text-shadow-blur) rgba(0, 0, 0, var(--text-shadow-opacity)),
+    0 0 var(--text-shadow-blur2) rgba(0, 0, 0, calc(var(--text-shadow-opacity) * 0.67));
+}
+
 /* ── Room narration bridges (cs#179 Phase A) ── */
 
 .room-narration {
@@ -49,7 +84,7 @@ body.creation-page {
   font-family: 'Noto Serif JP', Georgia, serif;
   font-size: clamp(0.95rem, 2.8vmin, 1.35rem);
   font-weight: 300;
-  color: rgba(210, 225, 250, 0.65);
+  color: rgba(210, 225, 250, var(--text-narration-opacity));
   letter-spacing: 0.08em;
   line-height: 2.2;
   text-align: center;
@@ -62,6 +97,9 @@ body.creation-page {
 .room-narration-text.is-visible {
   opacity: 1;
   transform: translateY(0);
+  text-shadow:
+    0 0 var(--text-shadow-blur) rgba(0, 0, 0, var(--text-shadow-opacity)),
+    0 0 var(--text-shadow-blur2) rgba(0, 0, 0, calc(var(--text-shadow-opacity) * 0.67));
 }
 
 /* ── Grid row stagger reveal (cs#179 Phase A) ── */
@@ -121,8 +159,8 @@ body.creation-page {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: rgba(210, 225, 250, 0.25);
-  border: 2px solid rgba(210, 225, 250, 0.3);
+  background: rgba(210, 225, 250, 0.4);
+  border: 2px solid rgba(210, 225, 250, 0.5);
   transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -136,24 +174,33 @@ body.creation-page {
   font-family: 'Noto Serif JP', Georgia, serif;
   font-size: clamp(0.95rem, 2.5vmin, 1.2rem);
   font-weight: 400;
-  color: rgba(210, 225, 250, 0.5);
+  color: rgba(210, 225, 250, 0.7);
   transition: color 0.3s ease;
+  text-shadow:
+    0 0 var(--text-shadow-blur) rgba(0, 0, 0, var(--text-shadow-opacity)),
+    0 0 var(--text-shadow-blur2) rgba(0, 0, 0, calc(var(--text-shadow-opacity) * 0.67));
 }
 
 .prologue-node.is-active .prologue-label {
-  color: rgba(210, 225, 250, 0.95);
+  color: rgba(210, 225, 250, var(--text-timeline-label-opacity));
+  text-shadow:
+    0 0 var(--text-shadow-blur) rgba(0, 0, 0, var(--text-shadow-opacity)),
+    0 0 var(--text-shadow-blur2) rgba(0, 0, 0, calc(var(--text-shadow-opacity) * 0.67));
 }
 
 .prologue-sub {
   font-family: 'Inter', 'Helvetica Neue', sans-serif;
   font-size: 0.7rem;
-  color: rgba(210, 225, 250, 0.3);
+  color: rgba(210, 225, 250, 0.5);
   letter-spacing: 0.06em;
   transition: color 0.3s ease;
+  text-shadow:
+    0 0 var(--text-shadow-blur) rgba(0, 0, 0, var(--text-shadow-opacity)),
+    0 0 var(--text-shadow-blur2) rgba(0, 0, 0, calc(var(--text-shadow-opacity) * 0.67));
 }
 
 .prologue-node.is-active .prologue-sub {
-  color: rgba(210, 225, 250, 0.6);
+  color: rgba(210, 225, 250, var(--text-narration-opacity));
 }
 
 /* 進行線 */
@@ -190,14 +237,20 @@ body.creation-page {
   font-size: clamp(1rem, 2.5vmin, 1.15rem);
   font-weight: 400;
   letter-spacing: 0.05em;
+  text-shadow:
+    0 0 var(--text-shadow-blur) rgba(0, 0, 0, var(--text-shadow-opacity)),
+    0 0 var(--text-shadow-blur2) rgba(0, 0, 0, calc(var(--text-shadow-opacity) * 0.67));
 }
 
 .prologue-desc-text {
   font-family: 'Noto Serif JP', Georgia, serif;
   font-size: clamp(0.82rem, 2vmin, 0.95rem);
   font-weight: 300;
-  color: rgba(210, 225, 250, 0.6);
+  color: rgba(210, 225, 250, var(--text-timeline-desc-opacity));
   line-height: 1.8;
+  text-shadow:
+    0 0 var(--text-shadow-blur) rgba(0, 0, 0, var(--text-shadow-opacity)),
+    0 0 var(--text-shadow-blur2) rgba(0, 0, 0, calc(var(--text-shadow-opacity) * 0.67));
 }
 
 /* ── Next question block (cs#179 Phase C) ── */
@@ -213,10 +266,13 @@ body.creation-page {
   font-family: 'Noto Serif JP', Georgia, serif;
   font-size: clamp(0.9rem, 2.5vmin, 1.1rem);
   font-weight: 300;
-  color: rgba(210, 225, 250, 0.55);
+  color: rgba(210, 225, 250, var(--text-question-opacity));
   letter-spacing: 0.06em;
   line-height: 2;
   font-style: italic;
+  text-shadow:
+    0 0 var(--text-shadow-blur) rgba(0, 0, 0, var(--text-shadow-opacity)),
+    0 0 var(--text-shadow-blur2) rgba(0, 0, 0, calc(var(--text-shadow-opacity) * 0.67));
 }
 
 /* ── Phase 9 collapse toggle ── */

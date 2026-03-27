@@ -16,6 +16,7 @@ import {
     quantumWaveParams,
     sceneParams,
     plasmaParams,
+    textStyleParams,
     toggles,
 } from './config.js';
 import {
@@ -24,6 +25,7 @@ import {
 } from './intent-motion-constants.js';
 
 export const GROUP_HELP_JA = {
+    textStyle: 'ナレーション・タイムラインのテキスト不透明度と影を調整します。',
     toggles: '表示や機能のON/OFFを切り替えます。',
     scene: 'カメラ位置や霧の濃さなど、シーン全体を調整します。',
     intentCamera: '意グラフィックのカメラ位置と注視点を調整します。',
@@ -536,6 +538,20 @@ export const PARAM_GROUPS = [
             ['htmlMaxOpacity', 'HTML Max Opacity', 0.0, 1.0, 0.01],
             ['htmlMaxBlur', 'HTML Max Blur', 0.0, 8.0, 0.05],
             ['htmlMinScale', 'HTML Min Scale', 0.5, 1.0, 0.005],
+        ],
+    },
+    {
+        id: 'textStyle',
+        title: 'Text Style',
+        type: 'range',
+        target: textStyleParams,
+        fields: [
+            ['narrationOpacity', 'Narration Opacity', 0.0, 1.0, 0.01],
+            ['timelineLabelOpacity', 'Timeline Label', 0.0, 1.0, 0.01],
+            ['timelineDescOpacity', 'Timeline Desc', 0.0, 1.0, 0.01],
+            ['questionOpacity', 'Question Opacity', 0.0, 1.0, 0.01],
+            ['shadowBlur', 'Shadow Blur', 0, 60, 1],
+            ['shadowOpacity', 'Shadow Opacity', 0.0, 1.0, 0.01],
         ],
     },
 ];
