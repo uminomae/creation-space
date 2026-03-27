@@ -73,6 +73,95 @@ async function inlineSvgImages(root) {
     }));
 }
 
+/**
+ * Search for a domain SVG file matching the given base path prefix.
+ * The SVG files follow the pattern: domain-D01-mathematics.svg
+ * Since we only know the domain ID (e.g. "D01"), we list the directory
+ * and find the first match.
+ * @param {string} basePath - e.g. "assets/svg/domains/domain-D01"
+ * @returns {Promise<string|null>} Full SVG path or null
+ */
+async function findDomainSvg(basePath) {
+    // Try a HEAD request with a wildcard-style approach:
+    // Fetch the directory listing is not reliable, so we try the known path pattern.
+    // The basePath is like "assets/svg/domains/domain-D01"
+    // We need to find "assets/svg/domains/domain-D01-*.svg"
+    // Strategy: fetch the directory index and parse, or try common suffixes.
+    // For robustness, we attempt a fetch of the basePath directory to find matches.
+    try {
+        const dirPath = basePath.replace(/\/[^/]*$/, '/');
+        const prefix = basePath.split('/').pop(); // e.g. "domain-D01"
+        const resp = await fetch(dirPath);
+        if (!resp.ok) return null;
+        const html = await resp.text();
+        // Parse links from directory listing or HTML page
+        const linkPattern = new RegExp(`href="([^"]*${prefix}[^"]*\\.svg)"`, 'i');
+        const match = html.match(linkPattern);
+        if (match) {
+            const filename = match[1];
+            // Handle both absolute and relative hrefs
+            if (filename.startsWith('http')) return filename;
+            return dirPath + filename.replace(/^\.\//, '');
+        }
+    } catch {
+        // Directory listing not available
+    }
+    return null;
+}
+
+/**
+ * Inject an SVG diagram into a slide based on its type.
+ * @param {HTMLElement} page - Slide page element
+ * @param {string} slideType - Return value of classifySlide()
+ * @param {string} domainId - Domain ID (e.g. "D01")
+ */
+async function injectDiagramIfAvailable(page, slideType, domainId) {
+    // Slide types that do not need diagrams
+    const skipTypes = ['slide-entry', 'slide-questions', 'slide-visual', 'slide-default'];
+    if (skipTypes.includes(slideType)) return;
+
+    // Skip text-heavy slides (over 400 characters)
+    const textLen = (page.textContent || '').length;
+    if (textLen > 400) return;
+
+    // Slide type to SVG path mapping
+    const svgMap = {
+        'slide-title': `assets/svg/domains/domain-${domainId}`,
+        'slide-overview': `assets/svg/domains/domain-${domainId}`,
+        'slide-patterns': `assets/svg/domains/domain-${domainId}`,
+        'slide-table': `assets/svg/domains/domain-${domainId}`,
+        'slide-conclusion': `assets/svg/domains/domain-${domainId}`,
+    };
+
+    const basePath = svgMap[slideType];
+    if (!basePath) return;
+
+    try {
+        const svgPath = await findDomainSvg(basePath);
+        if (!svgPath) return;
+
+        const res = await fetch(svgPath);
+        if (!res.ok) return;
+
+        const svgText = await res.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(svgText, 'image/svg+xml');
+        if (doc.querySelector('parsererror')) return;
+
+        const figure = document.createElement('figure');
+        figure.className = 'slide-inline-svg';
+        figure.appendChild(doc.documentElement);
+
+        // slide-title uses thumbnail placement (bottom-right), others append at end
+        if (slideType === 'slide-title') {
+            figure.classList.add('slide-diagram-thumbnail');
+        }
+        page.appendChild(figure);
+    } catch {
+        // SVG injection failure is silent (fallback: no diagram)
+    }
+}
+
 function classifySlide(page, index, total) {
     const text = page.textContent || '';
     const hasTable = page.querySelector('table') !== null;
@@ -238,10 +327,21 @@ export async function openSlideViewer({ markdownText, title = '', mdBaseUrl, onC
             content.innerHTML = DOMPurify.sanitize(parsedHtml, { FORBID_TAGS: ['a'] });
             await inlineSvgImages(content);
 
-            page.classList.add(classifySlide(content, index, slideChunks.length));
+            const slideType = classifySlide(content, index, slideChunks.length);
+            page.classList.add(slideType);
             page.appendChild(content);
             stage.appendChild(page);
             slidesState.push(page);
+
+            // Attempt SVG diagram injection based on slide type
+            // Extract domainId from frontmatter, title, or mdBaseUrl (e.g. "D01")
+            const domainId = meta.domain_id
+                || (title.match(/\b(D\d{2})\b/) || [])[1]
+                || (mdBaseUrl && (mdBaseUrl.match(/\b(D\d{2})\b/) || [])[1])
+                || '';
+            if (domainId) {
+                await injectDiagramIfAvailable(page, slideType, domainId);
+            }
         }
 
         currentSlideIndex = 0;

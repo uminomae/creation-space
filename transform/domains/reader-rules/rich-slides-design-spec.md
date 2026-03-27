@@ -136,6 +136,9 @@ Every generated slide deck uses this outer structure. All CSS and JS are inlined
     line-height: 1.3;
     letter-spacing: -0.01em;
     margin-bottom: 1.2rem;
+    border-bottom: 2px solid transparent;
+    border-image: linear-gradient(90deg, var(--accent-blue), var(--accent-violet)) 1;
+    padding-bottom: 0.3em;
   }
   h3 {
     font-family: var(--font-heading);
@@ -237,6 +240,13 @@ Every generated slide deck uses this outer structure. All CSS and JS are inlined
   td {
     padding: 0.7rem 1.2rem;
     border-bottom: 1px solid rgba(148, 163, 184, 0.06);
+  }
+  table tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.025);
+  }
+  th:first-child,
+  td:first-child {
+    font-weight: 600;
   }
   tr:last-child td { border-bottom: none; }
 
@@ -414,11 +424,13 @@ Every generated slide deck uses this outer structure. All CSS and JS are inlined
   }
   .layout-quote blockquote {
     border: none;
-    border-left: none;
+    border-left: 4px solid var(--accent-amber);
     background: none;
     font-size: clamp(1.3rem, 2vw, 1.8rem);
     line-height: 1.6;
     max-width: 80%;
+    padding-left: 1.5em;
+    font-style: italic;
     color: var(--text-primary);
   }
   .layout-quote .attribution {
@@ -758,6 +770,60 @@ Every generated slide deck uses this outer structure. All CSS and JS are inlined
 | Conclusions | `--green` | Completion, positive |
 | Warnings / caveats | `--amber` | Attention |
 | Quotes / insights | `--amber` | Warmth |
+
+## Phase 1 CSS Improvements (reflected from slides.css)
+
+### Table Stripe
+
+Alternating row backgrounds improve readability on data-heavy slides.
+
+```css
+table tbody tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.025);
+}
+```
+
+### First Column Emphasis
+
+The first column of every table is rendered in `font-weight: 600` to visually anchor row labels.
+
+```css
+th:first-child,
+td:first-child {
+  font-weight: 600;
+}
+```
+
+### h2 Accent Line
+
+All `h2` elements carry a gradient bottom border (blue to violet) as a visual accent, replacing the need for a separate `.accent-line` div after every heading.
+
+```css
+h2 {
+  border-bottom: 2px solid transparent;
+  border-image: linear-gradient(90deg, var(--accent-blue), var(--accent-violet)) 1;
+  padding-bottom: 0.3em;
+}
+```
+
+### accent-amber Variable
+
+Defined in `:root` as `--accent-amber: #fbbf24`. Used for:
+
+- **Quote layout** (`layout-quote`): blockquote left border
+- **Amber background** (`slide-bg--amber`): warm gradient for quotes and warnings
+
+### Quote Layout Enhancement
+
+`.layout-quote blockquote` now uses an amber left border instead of being fully borderless, adding warmth to quote slides while maintaining the centered layout.
+
+```css
+.layout-quote blockquote {
+  border-left: 4px solid var(--accent-amber);
+  padding-left: 1.5em;
+  font-style: italic;
+}
+```
 
 ## Jekyll Integration
 

@@ -278,6 +278,7 @@ def _fallback_shell(slides_html: list, title: str, lang: str) -> str:
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{escape(title)}</title>
 <style>
+:root {{ --accent-amber: #fbbf24; }}
 *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
 html, body {{ width: 100%; height: 100%; background: #0a0e17; color: #f1f5f9; font-family: "Inter", "Noto Sans JP", system-ui, sans-serif; overflow: hidden; }}
 .deck {{ width: 100vw; height: 100vh; position: relative; }}
@@ -287,8 +288,11 @@ html, body {{ width: 100%; height: 100%; background: #0a0e17; color: #f1f5f9; fo
 .slide-bg {{ position: absolute; inset: 0; background: linear-gradient(180deg, #0c1220, #0a0e17); }}
 .slide-content {{ position: relative; z-index: 1; width: 100%; height: 100%; padding: 3.5rem 4rem; display: flex; flex-direction: column; }}
 h1 {{ font-size: 2.5rem; font-weight: 700; }}
-h2 {{ font-size: 1.8rem; font-weight: 600; margin-bottom: 1rem; }}
+h2 {{ font-size: 1.8rem; font-weight: 600; margin-bottom: 1rem; border-bottom: 2px solid transparent; border-image: linear-gradient(90deg, #60a5fa, #a78bfa) 1; padding-bottom: 0.3em; }}
 p {{ font-size: 1rem; line-height: 1.8; margin-bottom: 0.8rem; }}
+table tbody tr:nth-child(even) {{ background: rgba(255, 255, 255, 0.025); }}
+th:first-child, td:first-child {{ font-weight: 600; }}
+.layout-quote blockquote {{ border-left: 4px solid var(--accent-amber); padding-left: 1.5em; font-style: italic; }}
 </style>
 </head>
 <body>

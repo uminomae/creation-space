@@ -377,6 +377,19 @@
   height: auto;
 }
 
+/* 図解サムネイル（タイトルスライド右下） */
+#slide-viewer-overlay .slide-diagram-thumbnail {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  width: min(30%, 200px);
+  opacity: 0.6;
+}
+
+#slide-viewer-overlay .slide-diagram-thumbnail:hover {
+  opacity: 1;
+}
+
 #slide-viewer-overlay .slide-viewer-page.slide-title .slide-content {
   display: flex;
   flex-direction: column;
