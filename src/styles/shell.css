@@ -30,11 +30,11 @@
   --kesson-ui-label-color: rgba(var(--color-sub-text), 0.3);
   --kesson-ui-arrow-color: rgba(var(--color-sub-text), 0.25);
   --kesson-ui-label-hover-color: rgba(var(--color-sub-text), 0.6);
-  --kesson-action-bg: rgba(var(--color-accent), 0.1);
-  --kesson-action-border: rgba(var(--color-accent), 0.2);
-  --kesson-action-text: rgba(var(--color-sub-text), 0.5);
-  --kesson-action-bg-hover: rgba(var(--color-accent), 0.2);
-  --kesson-action-text-hover: rgba(var(--color-highlight), 0.7);
+  --kesson-action-bg: var(--kesson-card-bg);
+  --kesson-action-border: rgba(var(--color-accent), 0.1);
+  --kesson-action-text: rgba(var(--color-heading), 0.5);
+  --kesson-action-bg-hover: var(--kesson-card-bg);
+  --kesson-action-text-hover: rgba(var(--color-heading), 0.7);
   --kesson-card-border: rgba(var(--color-accent), 0.1);
   --kesson-card-border-strong: rgba(var(--color-accent), 0.28);
   --kesson-card-shadow-soft: 0 4px 12px rgba(var(--color-accent), 0.15);
