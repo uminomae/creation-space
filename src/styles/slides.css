@@ -11,6 +11,7 @@
   --slide-accent-blue: #60a5fa;
   --slide-accent-violet: #a78bfa;
   --slide-accent-green: #34d399;
+  --slide-accent-amber: #fbbf24;
   --slide-glass-bg: rgba(17, 24, 39, 0.74);
   --slide-glass-border: rgba(148, 163, 184, 0.14);
   --slide-border-subtle: rgba(148, 163, 184, 0.08);
@@ -506,6 +507,60 @@
   border-bottom: none;
 }
 
+/* ── Patterns slide (横断・比較) ── */
+
+#slide-viewer-overlay .slide-viewer-page.slide-patterns h2::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 2px;
+  margin-top: 0.4em;
+  background: linear-gradient(90deg, var(--slide-accent-violet), var(--slide-accent-blue));
+  border-radius: 2px;
+}
+
+/* ── Questions slide (問い・未解決) ── */
+
+#slide-viewer-overlay .slide-viewer-page.slide-questions h2 {
+  color: rgba(167, 139, 250, 0.9);
+  border-bottom-color: rgba(167, 139, 250, 0.2);
+}
+
+#slide-viewer-overlay .slide-viewer-page.slide-questions li {
+  padding: 0.55em 1em 0.55em 1.5em;
+  border-left: 2px solid rgba(167, 139, 250, 0.4);
+  margin-bottom: 0.5em;
+}
+
+/* ── Entry slide — strong pill background ── */
+
+#slide-viewer-overlay .slide-viewer-page.slide-entry strong {
+  background: rgba(96, 165, 250, 0.12);
+  color: var(--slide-accent-blue);
+}
+
+/* ── Table striping & first-column emphasis ── */
+
+#slide-viewer-overlay .slide-viewer-page tr:nth-child(even) td {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+#slide-viewer-overlay .slide-viewer-page td:first-child {
+  color: var(--slide-text-primary);
+  font-weight: 500;
+}
+
+/* ── h2 accent line for regular content slides ── */
+
+#slide-viewer-overlay .slide-viewer-page:not(.slide-title):not(.slide-visual) h2 {
+  padding-bottom: 0.4em;
+  background: linear-gradient(90deg, rgba(96, 165, 250, 0.5), transparent);
+  background-size: 100% 1px;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  border-bottom: none;
+}
+
 @media (max-width: 900px) {
   #slide-viewer-overlay .slide-viewer-shell {
     padding: 1.25rem 0.85rem 1rem;
@@ -550,6 +605,199 @@
 
   #slide-viewer-overlay .slide-viewer-meta {
     order: -1;
+  }
+}
+
+/* ==========================================================================
+   Mobile — phone portrait (≤575px)
+   ========================================================================== */
+
+@media (max-width: 575px) {
+  #slide-viewer-overlay .slide-viewer-shell {
+    padding: 0.75rem 0.5rem 0.6rem;
+    gap: 0.5rem;
+  }
+
+  /* Release 16:9 constraint — let content flow naturally on phones */
+  #slide-viewer-overlay .slide-viewer-frame {
+    width: 100%;
+    aspect-ratio: auto;
+    flex: 1 1 auto;
+    min-height: 0;
+    border-radius: 12px;
+  }
+
+  #slide-viewer-overlay .slide-viewer-toolbar {
+    width: 100%;
+  }
+
+  #slide-viewer-overlay .slide-content {
+    padding: 1rem 1rem;
+  }
+
+  #slide-viewer-overlay .slide-viewer-page.slide-title .slide-content {
+    padding: 1.25rem 1rem;
+  }
+
+  #slide-viewer-overlay .slide-viewer-page.slide-entry .slide-content,
+  #slide-viewer-overlay .slide-viewer-page.slide-table .slide-content {
+    padding: 1rem 1rem;
+  }
+
+  /* Typography — larger for readability on small screens */
+  #slide-viewer-overlay .slide-viewer-page h1 {
+    font-size: 1.4rem;
+    line-height: 1.3;
+  }
+
+  #slide-viewer-overlay .slide-viewer-page h2 {
+    font-size: 1.1rem;
+    line-height: 1.35;
+    margin-bottom: 0.5em;
+    padding-bottom: 0.2em;
+  }
+
+  #slide-viewer-overlay .slide-viewer-page h3 {
+    font-size: 0.95rem;
+  }
+
+  #slide-viewer-overlay .slide-viewer-page p {
+    font-size: 0.88rem;
+    line-height: 1.7;
+  }
+
+  #slide-viewer-overlay .slide-viewer-page ul,
+  #slide-viewer-overlay .slide-viewer-page ol {
+    font-size: 0.86rem;
+    line-height: 1.65;
+    padding-left: 1em;
+  }
+
+  #slide-viewer-overlay .slide-viewer-page li {
+    margin-bottom: 0.35em;
+  }
+
+  #slide-viewer-overlay .slide-viewer-page table {
+    font-size: 0.72rem;
+  }
+
+  #slide-viewer-overlay .slide-viewer-page th {
+    padding: 0.45em 0.55em;
+    font-size: 0.65rem;
+  }
+
+  #slide-viewer-overlay .slide-viewer-page td {
+    padding: 0.4em 0.55em;
+  }
+
+  #slide-viewer-overlay .slide-viewer-page blockquote {
+    padding: 0.7rem 0.9rem;
+    margin: 0.6em 0;
+  }
+
+  #slide-viewer-overlay .slide-viewer-page pre code {
+    padding: 0.7em 0.9em;
+    font-size: 0.75em;
+  }
+
+  #slide-viewer-overlay .slide-viewer-page img {
+    max-width: 100%;
+  }
+
+  #slide-viewer-overlay .slide-viewer-page img[src$=".svg"] {
+    max-width: 90%;
+    padding: 0.6rem;
+  }
+
+  #slide-viewer-overlay .slide-inline-svg {
+    width: min(92%, 640px);
+    padding: 0.6rem;
+  }
+
+  /* Title slide — tighter on phones */
+  #slide-viewer-overlay .slide-viewer-page.slide-title h2 {
+    font-size: 1.4rem;
+  }
+
+  #slide-viewer-overlay .slide-viewer-page.slide-title p {
+    max-width: 95%;
+    font-size: 0.92rem;
+  }
+
+  /* Toolbar — stack vertically, compact */
+  #slide-viewer-overlay .slide-viewer-toolbar {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+
+  #slide-viewer-overlay .slide-viewer-meta {
+    order: -1;
+    padding: 0.45rem 0.75rem;
+    border-radius: 12px;
+  }
+
+  #slide-viewer-overlay .slide-viewer-title {
+    font-size: 0.82rem;
+  }
+
+  #slide-viewer-overlay .slide-viewer-nav {
+    min-width: 0;
+    padding: 0.4rem 0.7rem;
+    font-size: 0.72rem;
+  }
+
+  /* Close button — easier to tap */
+  .slide-viewer-close {
+    top: 10px;
+    right: 14px;
+    width: 44px;
+    height: 44px;
+    font-size: 1.6rem;
+  }
+
+  /* Visual slides */
+  #slide-viewer-overlay .slide-viewer-page.slide-visual img {
+    max-width: 100%;
+    max-height: 45vh;
+  }
+
+  #slide-viewer-overlay .slide-viewer-page.slide-visual .slide-inline-svg {
+    width: min(100%, 640px);
+    padding: 0.75rem;
+  }
+
+  /* Entry slide */
+  #slide-viewer-overlay .slide-viewer-page.slide-entry p {
+    font-size: 0.84rem;
+    line-height: 1.7;
+  }
+
+  #slide-viewer-overlay .slide-viewer-page.slide-entry strong {
+    font-size: 0.72rem;
+    padding: 0.1em 0.45em;
+  }
+
+  /* Table slide */
+  #slide-viewer-overlay .slide-viewer-page.slide-table h2 {
+    font-size: 1.05rem;
+    margin-bottom: 0.4em;
+  }
+
+  /* Conclusion slide */
+  #slide-viewer-overlay .slide-viewer-page.slide-conclusion li {
+    font-size: 0.88rem;
+    padding: 0.35em 0;
+  }
+
+  /* Overview slide — cards tighter */
+  #slide-viewer-overlay .slide-viewer-page.slide-overview li {
+    padding: 0.5em 0.8em;
+    margin-bottom: 0.4em;
+  }
+
+  /* Scrollbar — thinner on phones */
+  #slide-viewer-overlay .slide-content::-webkit-scrollbar {
+    width: 6px;
   }
 }
 
