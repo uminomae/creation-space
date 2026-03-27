@@ -256,7 +256,6 @@ body.creation-page {
 
 .next-question {
   text-align: center;
-  border-top: 1px solid rgba(210, 225, 250, 0.1);
   padding: 3rem 1.5rem;
   margin-top: 2rem;
 }
