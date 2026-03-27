@@ -6,7 +6,8 @@
 }
 
 #model-section,
-#reports-section {
+#reports-section,
+#articles-section {
   position: relative;
   z-index: 5;
   --reports-font-mono: var(--kesson-font-mono-ui);
