@@ -113,17 +113,20 @@ export function injectNarrations() {
 
         wrapper.appendChild(p);
 
-        // Insert narration before the section's outermost container,
-        // so it sits outside any card/panel wrapper.
+        // Insert narration following the pattern: narration → heading → container
         const contentWrap = section.querySelector('.section-content-wrap');
         if (contentWrap) {
             section.insertBefore(wrapper, contentWrap);
         } else {
-            // Section may be nested inside a container (e.g. .reports-tab-content).
-            // Insert before that container so the narration floats free.
             const parentContainer = section.closest('.reports-tab-content, .section-content-wrap');
             if (parentContainer && parentContainer.parentElement) {
-                parentContainer.parentElement.insertBefore(wrapper, parentContainer);
+                // If there's a heading before the container, insert before the heading
+                const heading = parentContainer.previousElementSibling;
+                if (heading && heading.classList.contains('reports-subheading')) {
+                    parentContainer.parentElement.insertBefore(wrapper, heading);
+                } else {
+                    parentContainer.parentElement.insertBefore(wrapper, parentContainer);
+                }
             } else {
                 section.insertBefore(wrapper, section.firstChild);
             }
