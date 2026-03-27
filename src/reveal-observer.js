@@ -122,7 +122,7 @@ export function injectNarrations() {
             if (parentContainer && parentContainer.parentElement) {
                 // If there's a heading before the container, insert before the heading
                 const heading = parentContainer.previousElementSibling;
-                if (heading && heading.classList.contains('reports-subheading')) {
+                if (heading && heading.classList.contains('section-heading')) {
                     parentContainer.parentElement.insertBefore(wrapper, heading);
                 } else {
                     parentContainer.parentElement.insertBefore(wrapper, parentContainer);
