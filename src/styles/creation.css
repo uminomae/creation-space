@@ -256,11 +256,9 @@ body.creation-page {
 
 .next-question {
   text-align: center;
-  /* background は .kesson-panel から継承 */
   border-top: 1px solid rgba(210, 225, 250, 0.1);
   padding: 3rem 1.5rem;
   margin-top: 2rem;
-  border-radius: var(--kesson-radius-lg);
 }
 
 .next-question-text {
