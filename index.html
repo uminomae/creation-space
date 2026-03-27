@@ -280,18 +280,18 @@
         <div id="reports-error" class="alert alert-danger py-2 px-3 d-none mb-3" role="alert"></div>
         <div class="reports-overview mb-3">
           <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-2" id="reports-primary-actions">
-            <button id="reports-open-status-btn" type="button" class="btn btn-outline-light btn-sm reports-status-cta" data-i18n="reportsOpenStatus">調査内容</button>
+            <button id="reports-open-status-btn" type="button" class="btn btn-outline-light btn-sm reports-status-cta"></button>
           </div>
           <div id="reports-metrics" class="row g-2" aria-live="polite"></div>
         </div>
-        <h3 id="reports-domains-heading" class="section-heading">DOMAINS</h3>
+        <h3 id="reports-domains-heading" class="section-heading"></h3>
         <div class="reports-tab-content reports-stack">
           <section class="reports-stack-section">
             <p id="reports-scenario-note" class="reports-level-legend mb-2 d-none"></p>
-            <p id="reports-level-legend" class="reports-level-legend mb-2" data-i18n="reportsLevelLegend">進捗分類を読み込み中...</p>
-            <div id="reports-table-filters" class="d-none flex-wrap gap-2 mb-2" role="group" aria-label="領域別レポート絞り込み"></div>
+            <p id="reports-level-legend" class="reports-level-legend mb-2"></p>
+            <div id="reports-table-filters" class="d-none flex-wrap gap-2 mb-2" role="group"></div>
             <div id="reports-domain-grid" class="reports-domain-grid row row-cols-2 row-cols-md-5 g-2" aria-live="polite">
-              <div class="reports-domain-empty col-12 text-body-secondary" data-i18n="reportsLoading">読み込み中...</div>
+              <div class="reports-domain-empty col-12 text-body-secondary"></div>
             </div>
           </section>
         </div>
@@ -305,9 +305,9 @@
             </div>
             <div class="mt-3">
               <h4 id="reports-phase8-heading" class="reports-subheading h6 d-none"></h4>
-              <p id="reports-phase8-description" class="reports-level-legend mb-2" data-i18n="reportsPhase8Description">30領域を横断して抽出された5つの構造テーマ。</p>
+              <p id="reports-phase8-description" class="reports-level-legend mb-2"></p>
               <div id="reports-phase8-grid" class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-2" aria-live="polite">
-                <div class="col-12 text-body-secondary" data-i18n="reportsLoading">読み込み中...</div>
+                <div class="col-12 text-body-secondary"></div>
               </div>
             </div>
             <div class="mt-4">
@@ -317,14 +317,12 @@
                       data-bs-target="#phase9-collapse"
                       aria-expanded="false"
                       aria-controls="phase9-collapse"
-                      data-i18n="phase9Toggle">
-                テーマ検証結果を見る
-              </button>
+                      data-i18n="phase9Toggle"></button>
               <div id="phase9-collapse" class="collapse mt-3">
-                <h4 id="reports-theme-verification-heading" class="section-heading">テーマ検証</h4>
-                <p id="reports-theme-verification-description" class="reports-level-legend mb-2" data-i18n="reportsThemeVerificationDescription">Phase 9 の検証結果に基づく5テーマの堅牢性評価。</p>
+                <h4 id="reports-theme-verification-heading" class="section-heading"></h4>
+                <p id="reports-theme-verification-description" class="reports-level-legend mb-2"></p>
                 <div id="reports-theme-verification-grid" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2" aria-live="polite">
-                  <div class="col-12 text-body-secondary" data-i18n="reportsLoading">読み込み中...</div>
+                  <div class="col-12 text-body-secondary"></div>
                 </div>
               </div>
             </div>
@@ -358,9 +356,9 @@
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
       <div class="modal-content reports-md-modal-content border border-secondary-subtle">
         <div class="modal-header">
-          <h5 id="reports-md-modal-title" class="modal-title">Markdown</h5>
+          <h5 id="reports-md-modal-title" class="modal-title"></h5>
           <div class="reports-md-header-actions d-flex align-items-center gap-2 flex-shrink-0 ms-auto">
-            <a id="reports-md-open-pdf" class="btn btn-outline-light btn-sm" href="#" target="_blank" rel="noopener">PDFを開く</a>
+            <a id="reports-md-open-pdf" class="btn btn-outline-light btn-sm" href="#" target="_blank" rel="noopener"></a>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" data-i18n-attr-aria-label="modalCloseAria"></button>
           </div>
         </div>
@@ -390,9 +388,9 @@
     </div>
     <div class="offcanvas-body p-3">
       <div id="articles-filter-group" class="articles-filter-group d-flex flex-wrap gap-2 mb-3" role="group" aria-label="Filter articles by type" data-i18n-attr-aria-label="articlesFilterGroupAria">
-        <button type="button" class="articles-filter-btn btn btn-outline-light btn-sm active is-active" data-type="all" aria-pressed="true">All</button>
-        <button type="button" class="articles-filter-btn btn btn-outline-light btn-sm" data-type="page" aria-pressed="false">Page</button>
-        <button type="button" class="articles-filter-btn btn btn-outline-light btn-sm" data-type="post" aria-pressed="false">Post</button>
+        <button type="button" class="articles-filter-btn btn btn-outline-light btn-sm active is-active" data-type="all" aria-pressed="true"></button>
+        <button type="button" class="articles-filter-btn btn btn-outline-light btn-sm" data-type="page" aria-pressed="false"></button>
+        <button type="button" class="articles-filter-btn btn btn-outline-light btn-sm" data-type="post" aria-pressed="false"></button>
       </div>
       <div id="offcanvas-articles-grid" class="row g-3"></div>
     </div>
