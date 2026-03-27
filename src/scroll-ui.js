@@ -1,8 +1,8 @@
 // scroll-ui.js — スクロール連動のHTML UI制御
-// overlay, credit, lang-toggle, control-guide, scroll hints, surface button の表示/非表示を一元管理
+// overlay, control-guide, scroll hints, surface button の表示/非表示を一元管理
 //
 // Scroll fade targets (must be checked when layout/classes are changed):
-// - IDs: #overlay, #credit, #control-guide
+// - IDs: #overlay, #control-guide
 // - Hint visibility by class toggle: #scroll-hint.visible, #scroll-hint-top.visible
 //
 // Update-time manual test checklist:
@@ -12,13 +12,11 @@
 // 4) Near bottom, surface button behavior remains unchanged.
 
 import { toggles, breathConfig } from './config.js';
-import { detectLang } from './i18n.js';
 import { requestScroll } from './scroll-coordinator.js';
 import { pxFromViewportHeight } from './nav/responsive.js';
 
 // --- DOM要素キャッシュ ---
 let _overlay;
-let _credit;
 let _controlGuide;
 let _scrollHintBottom;
 let _scrollHintTop;
@@ -36,7 +34,6 @@ export function initScrollUI() {
     _cleanup?.();
 
     _overlay = document.getElementById('overlay');
-    _credit = document.getElementById('credit');
     _controlGuide = document.getElementById('control-guide');
     _scrollHintBottom = document.getElementById('scroll-hint');
     _scrollHintTop = document.getElementById('scroll-hint-top');
@@ -52,9 +49,6 @@ export function initScrollUI() {
     if (_scrollHintTop) {
         _scrollHintTop.addEventListener('click', scrollToTop);
     }
-
-    // 操作ガイドの言語切替
-    applyGuideLang();
 
     // --- クリーンアップ関数を登録 ---
     _cleanup = () => {
@@ -73,23 +67,6 @@ export function destroyScrollUI() {
 
 function scrollToTop() {
     requestScroll(0, 'scroll-ui:scroll-to-top', { behavior: 'smooth' });
-}
-
-/**
- * 操作ガイドの表示テキストを言語に応じて切替
- */
-function applyGuideLang() {
-    if (!_controlGuide) return;
-    const lang = detectLang();
-    const isJa = lang === 'ja';
-
-    _controlGuide.querySelectorAll('[data-ja]').forEach(el => {
-        el.textContent = isJa ? el.dataset.ja : el.dataset.en;
-    });
-}
-
-export function refreshGuideLang() {
-    applyGuideLang();
 }
 
 /**
@@ -113,16 +90,11 @@ export function updateScrollUI(scrollProg, breathVal) {
     const atTop = window.scrollY < atTopThresholdPx;
     const atBottom = isNearBottom();
 
-    // --- 共通フェード係数（credit と同じタイミング） ---
+    // --- 共通フェード係数 ---
     const topFade = Math.max(0, 1 - scrollProg * 4);
 
     // --- オーバーレイ（タイトル）: スクロール初期でフェードアウト ---
     updateOverlayFade(scrollProg, breathVal);
-
-    // --- クレジット: スクロール初期でフェードアウト ---
-    if (_credit) {
-        _credit.style.opacity = topFade;
-    }
 
     // --- 操作ガイド: スクロール初期でフェードアウト ---
     if (_controlGuide) {

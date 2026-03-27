@@ -4,12 +4,22 @@ import { createMainDevStatsBridge } from './main-dev-stats-bridge.js';
 import { prepareMainBootstrap } from './main-bootstrap.js';
 import { createMainFrameRuntime } from './main-frame-runtime.js';
 import { initMainScenePipelineRuntime } from './main-scene-pipeline-runtime.js';
+import { initMainContentRuntime, attachMainSceneContentRuntime } from './main-content-runtime.js';
+import { initMainGraphicModeRuntime } from './main-graphic-mode-runtime.js';
+import { showStartupWarningBanner } from './startup-error-overlay.js';
 import { intentMotionParams, sceneParams } from './config.js';
 import { createIntentShiftTurnState } from './intent-shift-turn-state.js';
 import { createIntentTimelineRuntime } from './intent-timeline-runtime.js';
 import { resolveIntentShiftTurnRange } from './intent-timeline.js';
 import { setCameraPosition, setCameraTarget } from './controls.js';
 import { initDevAuxTools, initDevPanelRuntime } from './dev-runtime.js';
+import { normalizeLang } from './i18n.js';
+
+function getSceneFallbackMessage(lang) {
+    return normalizeLang(lang) === 'ja'
+        ? '3D 背景の初期化に失敗したため、コンテンツ表示のみで継続しています。'
+        : 'The 3D background failed to initialize. Content view is still available.';
+}
 
 export async function runMainOrchestrator({
     runtimeContext,
@@ -28,30 +38,52 @@ export async function runMainOrchestrator({
         initialSceneVariant,
     } = prepareMainBootstrap({
         sceneStateStore,
-        devMode,
         intentQuerySeed,
     });
 
     const container = document.getElementById('canvas-container');
     if (!container) return;
 
-    const scenePipeline = await initMainScenePipelineRuntime({
-        container,
-        initialLang,
-        initialGraphicMode,
-        initialSceneVariant,
-        devMode,
+    const getSceneVariant = () => initialSceneVariant;
+    const applyGraphicMode = initMainGraphicModeRuntime({
+        getActiveSceneVariant: getSceneVariant,
         sceneStateStore,
     });
+
+    initMainContentRuntime({
+        initialLang,
+        initialGraphicMode,
+        applyGraphicMode,
+        devMode,
+    });
+
+    let scenePipeline;
+    try {
+        scenePipeline = await initMainScenePipelineRuntime({
+            container,
+            initialSceneVariant,
+        });
+    } catch (error) {
+        console.error('[scene] init failed:', error);
+        showStartupWarningBanner(getSceneFallbackMessage(initialLang));
+        return;
+    }
     const {
         scene,
         camera,
         renderer,
         updateScene,
         isIntentScene,
-        getSceneVariant,
+        getCreationLinkTargetMeshes,
         postFxRuntime,
     } = scenePipeline;
+
+    attachMainSceneContentRuntime({
+        camera,
+        container,
+        renderer,
+        getCreationLinkTargetMeshes,
+    });
 
     const clock = new THREE.Clock();
 

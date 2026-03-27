@@ -217,32 +217,6 @@ body {
   pointer-events: none !important;
 }
 
-#credit {
-  position: fixed;
-  top: 3%;
-  left: 3%;
-  z-index: 10;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-#credit .credit-line {
-  font-size: 0.80rem;
-  color: rgba(var(--color-sub-text), 0.45);
-  font-family: var(--kesson-font-serif-ui);
-  letter-spacing: 0.05em;
-  line-height: 1.7;
-  text-shadow: 0 0 8px rgba(60, 100, 180, 0.2);
-}
-
-#credit .credit-signature {
-  font-size: var(--kesson-footer-signature-size, 0.80rem);
-  color: rgba(150, 175, 210, 0.35);
-  font-family: var(--kesson-font-serif-ui);
-  letter-spacing: 0.08em;
-  margin-top: 2px;
-}
-
 #overlay {
   position: fixed;
   bottom: 8%;
@@ -250,8 +224,8 @@ body {
   z-index: 10;
   pointer-events: none;
   text-align: left;
-  opacity: 0.1;
-  filter: blur(3px);
+  opacity: 0.4;
+  filter: blur(1.5px);
   transform: scale(0.95);
   transform-origin: left bottom;
   will-change: opacity, filter, transform;
@@ -532,6 +506,12 @@ html[lang="en"] #taglines {
   position: relative;
   z-index: 20;
   padding: var(--kesson-section-content-padding);
+}
+
+.creation-section-shell {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.25rem;
 }
 
 .section-heading {

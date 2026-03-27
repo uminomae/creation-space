@@ -1,26 +1,17 @@
 import { initArticles, setArticlesLanguage } from './articles.js';
 import { initReports, setReportsLanguage } from './reports/index.js';
-import { initMainUiRuntime } from './main-ui-runtime.js';
+import { initMainPageUiRuntime, attachMainSceneUiRuntime } from './main-ui-runtime.js';
 
 export function initMainContentRuntime({
-    camera,
-    container,
-    renderer,
-    getCreationLinkTargetMeshes,
     initialLang,
     initialGraphicMode,
     applyGraphicMode,
     devMode,
 }) {
-    initMainUiRuntime({
-        camera,
-        container,
-        renderer,
-        getCreationLinkTargetMeshes,
+    initMainPageUiRuntime({
         initialLang,
         initialGraphicMode,
         applyGraphicMode,
-        devMode,
         setArticlesLanguage,
         setReportsLanguage,
     });
@@ -33,5 +24,19 @@ export function initMainContentRuntime({
 
     initReports({ lang: initialLang }).catch((error) => {
         console.warn('[reports] init failed:', error);
+    });
+}
+
+export function attachMainSceneContentRuntime({
+    camera,
+    container,
+    renderer,
+    getCreationLinkTargetMeshes,
+}) {
+    attachMainSceneUiRuntime({
+        camera,
+        container,
+        renderer,
+        getCreationLinkTargetMeshes,
     });
 }

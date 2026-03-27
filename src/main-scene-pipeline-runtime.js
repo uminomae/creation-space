@@ -1,15 +1,9 @@
 import { createMainSceneRuntime } from './main-bootstrap.js';
-import { initMainContentRuntime } from './main-content-runtime.js';
-import { initMainGraphicModeRuntime } from './main-graphic-mode-runtime.js';
 import { initMainPostFxRuntime } from './main-postfx-runtime.js';
 
 export async function initMainScenePipelineRuntime({
     container,
-    initialLang,
-    initialGraphicMode,
     initialSceneVariant,
-    devMode,
-    sceneStateStore,
 }) {
     const {
         scene,
@@ -22,14 +16,7 @@ export async function initMainScenePipelineRuntime({
         sceneVariant: initialSceneVariant,
     });
 
-    const activeSceneVariant = initialSceneVariant;
-    const getSceneVariant = () => activeSceneVariant;
-    const isIntentScene = () => getSceneVariant() === 'intent';
-
-    const applyGraphicMode = initMainGraphicModeRuntime({
-        getActiveSceneVariant: getSceneVariant,
-        sceneStateStore,
-    });
+    const isIntentScene = () => initialSceneVariant === 'intent';
 
     const { postFxRuntime } = initMainPostFxRuntime({
         renderer,
@@ -38,24 +25,13 @@ export async function initMainScenePipelineRuntime({
         isIntentScene,
     });
 
-    initMainContentRuntime({
-        camera,
-        container,
-        renderer,
-        getCreationLinkTargetMeshes,
-        initialLang,
-        initialGraphicMode,
-        applyGraphicMode,
-        devMode,
-    });
-
     return {
         scene,
         camera,
         renderer,
         updateScene,
         isIntentScene,
-        getSceneVariant,
+        getCreationLinkTargetMeshes,
         postFxRuntime,
     };
 }

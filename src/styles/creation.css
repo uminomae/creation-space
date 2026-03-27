@@ -76,7 +76,7 @@ body.creation-page {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem 1.5rem;
+  padding: 3rem 1.5rem 2rem;
 }
 
 .room-narration-text {
@@ -232,7 +232,7 @@ body.creation-page {
 }
 
 .prologue-desc-title {
-  font-family: 'Noto Serif JP', Georgia, serif;
+  font-family: var(--kesson-font-serif-ui);
   font-size: clamp(1rem, 2.5vmin, 1.15rem);
   font-weight: 400;
   letter-spacing: 0.05em;
@@ -242,7 +242,7 @@ body.creation-page {
 }
 
 .prologue-desc-text {
-  font-family: 'Noto Serif JP', Georgia, serif;
+  font-family: var(--kesson-font-serif-ui);
   font-size: clamp(0.82rem, 2vmin, 0.95rem);
   font-weight: 300;
   color: rgba(210, 225, 250, var(--text-timeline-desc-opacity));
@@ -261,7 +261,7 @@ body.creation-page {
 }
 
 .next-question-text {
-  font-family: 'Noto Serif JP', Georgia, serif;
+  font-family: var(--kesson-font-serif-ui);
   font-size: clamp(0.9rem, 2.5vmin, 1.1rem);
   font-weight: 300;
   color: rgba(210, 225, 250, var(--text-question-opacity));

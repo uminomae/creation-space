@@ -4,7 +4,7 @@ import { applyScenePreset, resolveSceneVariant } from './scene-presets.js';
 import { applyPageLanguage } from './page-language.js';
 import { normalizeGraphicMode } from './graphic-mode.js';
 import { loadSceneModule } from './scene-module-loader.js';
-import { detectLang, normalizeLang } from './i18n.js';
+import { detectLang, initLanguageState } from './i18n.js';
 import { intentMotionParams } from './config.js';
 import { startTimingMinForElapsedSecAtZero } from './intent-timeline.js';
 
@@ -27,10 +27,9 @@ function applyIntentLoopStartupOverrides(intentQuerySeed) {
 
 export function prepareMainBootstrap({
     sceneStateStore,
-    devMode,
     intentQuerySeed = null,
 }) {
-    const initialLang = normalizeLang(detectLang());
+    const initialLang = initLanguageState(detectLang());
     const initialGraphicMode = normalizeGraphicMode(new URLSearchParams(window.location.search).get('graphic'));
     const initialSceneVariant = resolveSceneVariant(initialGraphicMode);
 
@@ -44,7 +43,7 @@ export function prepareMainBootstrap({
         applyConfigState(initialSceneState);
     }
     applyIntentLoopStartupOverrides(intentQuerySeed);
-    applyPageLanguage(initialLang, { devMode });
+    applyPageLanguage(initialLang);
     initMouseTracking();
 
     return {

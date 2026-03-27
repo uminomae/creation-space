@@ -25,6 +25,19 @@ export function showStartupErrorOverlay(errorLike) {
     overlay.textContent = `[startup-error]\n${message}`;
 }
 
+export function showStartupWarningBanner(message) {
+    const doc = window.document;
+    if (!doc) return;
+    let banner = doc.getElementById('app-startup-warning-banner');
+    if (!banner) {
+        banner = doc.createElement('div');
+        banner.id = 'app-startup-warning-banner';
+        const parent = doc.body || doc.documentElement;
+        if (parent) parent.appendChild(banner);
+    }
+    banner.textContent = message;
+}
+
 let installed = false;
 
 export function installStartupErrorHandlers() {

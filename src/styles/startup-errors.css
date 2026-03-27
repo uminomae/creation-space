@@ -37,3 +37,22 @@
   color: #ffd5db;
   border-bottom: 1px solid rgba(255, 173, 186, 0.42);
 }
+
+#app-startup-warning-banner {
+  position: fixed;
+  top: calc(var(--kesson-topbar-actual-height, var(--kesson-topbar-height, 3.4rem)) + 0.6rem);
+  right: 0.75rem;
+  max-width: min(28rem, calc(100vw - 1.5rem));
+  padding: 0.7rem 0.9rem;
+  z-index: 99998;
+  border: 1px solid rgba(255, 201, 122, 0.35);
+  border-radius: 0.45rem;
+  background: rgba(57, 40, 12, 0.9);
+  color: #ffe7bb;
+  font-family: var(--kesson-font-serif-ui);
+  font-size: 0.84rem;
+  line-height: 1.5;
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}

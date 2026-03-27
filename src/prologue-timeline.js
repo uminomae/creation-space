@@ -1,6 +1,6 @@
 // prologue-timeline.js — 5段階モデルのタイムライン表示 (cs#179 Phase B)
 
-import { detectLang, normalizeLang } from './i18n.js';
+import { getCurrentLang, normalizeLang } from './i18n.js';
 import { dict } from './i18n/dict.js';
 
 const STAGE_COLORS = [
@@ -12,40 +12,69 @@ const STAGE_COLORS = [
 ];
 
 let _observer = null;
+let _scrollListener = null;
+let _timeline = null;
+let _nodesRow = null;
+let _descArea = null;
+let _stages = [];
+let _activeStageIndex = 0;
+
+function getStages(lang) {
+    return dict[normalizeLang(lang)]?.reports?.stages || dict.ja.reports.stages;
+}
 
 export function initPrologueTimeline() {
     const section = document.getElementById('model-section');
     if (!section) return;
-    if (section.querySelector('.prologue-timeline')) return;
-
-    const lang = normalizeLang(detectLang());
-    const stages = dict[lang]?.reports?.stages || dict.ja.reports.stages;
 
     const contentWrap = section.querySelector('.section-content-wrap');
     if (!contentWrap) return;
 
-    // タイムラインコンテナ
-    const timeline = document.createElement('div');
-    timeline.className = 'prologue-timeline';
-    timeline.setAttribute('role', 'list');
-    timeline.setAttribute('aria-label', lang === 'ja' ? '創造の5段階' : 'Five Stages of Creation');
+    if (!_timeline) {
+        _timeline = document.createElement('div');
+        _timeline.className = 'prologue-timeline';
+        _timeline.setAttribute('role', 'list');
 
-    // ノード行
-    const nodesRow = document.createElement('div');
-    nodesRow.className = 'prologue-nodes';
+        _nodesRow = document.createElement('div');
+        _nodesRow.className = 'prologue-nodes';
 
-    // 説明エリア
-    const descArea = document.createElement('div');
-    descArea.className = 'prologue-desc';
-    descArea.setAttribute('aria-live', 'polite');
+        _descArea = document.createElement('div');
+        _descArea.className = 'prologue-desc';
+        _descArea.setAttribute('aria-live', 'polite');
 
-    stages.forEach((stage, i) => {
+        _timeline.appendChild(_nodesRow);
+        _timeline.appendChild(_descArea);
+    }
+
+    // feature cards の前に挿入
+    const container = contentWrap.querySelector('.container');
+    const featureCards = document.getElementById('reports-feature-cards');
+    if (_timeline && !container?.contains(_timeline)) {
+        if (container && featureCards) {
+            container.insertBefore(_timeline, featureCards.closest('.reports-tab-content') || featureCards);
+        } else if (container) {
+            container.appendChild(_timeline);
+        }
+    }
+
+    renderTimeline(getCurrentLang());
+}
+
+function renderTimeline(lang) {
+    if (!_timeline || !_nodesRow || !_descArea) return;
+
+    const normalized = normalizeLang(lang);
+    _stages = getStages(normalized);
+    _timeline.setAttribute('aria-label', normalized === 'ja' ? '創造の5段階' : 'Five Stages of Creation');
+    _nodesRow.innerHTML = '';
+
+    _stages.forEach((stage, index) => {
         const node = document.createElement('div');
         node.className = 'prologue-node';
         node.setAttribute('role', 'listitem');
         node.setAttribute('tabindex', '0');
-        node.dataset.stageIndex = String(i);
-        node.style.setProperty('--stage-color', STAGE_COLORS[i]);
+        node.dataset.stageIndex = String(index);
+        node.style.setProperty('--stage-color', STAGE_COLORS[index]);
 
         const dot = document.createElement('span');
         dot.className = 'prologue-dot';
@@ -62,110 +91,103 @@ export function initPrologueTimeline() {
         node.appendChild(label);
         node.appendChild(sub);
 
-        node.addEventListener('click', () => activateStage(i, stages, descArea));
-        node.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                activateStage(i, stages, descArea);
+        node.addEventListener('click', () => activateStage(index));
+        node.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                activateStage(index);
             }
         });
-        node.addEventListener('focus', () => activateStage(i, stages, descArea));
+        node.addEventListener('focus', () => activateStage(index));
 
-        nodesRow.appendChild(node);
+        _nodesRow.appendChild(node);
     });
 
-    // 進行線
     const progressLine = document.createElement('div');
     progressLine.className = 'prologue-progress-line';
-    nodesRow.appendChild(progressLine);
+    _nodesRow.appendChild(progressLine);
 
-    timeline.appendChild(nodesRow);
-    timeline.appendChild(descArea);
-
-    // feature cards の前に挿入
-    const container = contentWrap.querySelector('.container');
-    const featureCards = document.getElementById('reports-feature-cards');
-    if (container && featureCards) {
-        container.insertBefore(timeline, featureCards.closest('.reports-tab-content') || featureCards);
-    } else if (container) {
-        container.appendChild(timeline);
-    }
-
-    // 初期状態: 最初のステージをアクティブに
-    activateStage(0, stages, descArea);
-
-    // スクロール連動
-    initScrollObserver(nodesRow, stages, descArea);
+    activateStage(Math.min(_activeStageIndex, _stages.length - 1));
+    initScrollObserver();
 }
 
-function activateStage(index, stages, descArea) {
-    const nodes = document.querySelectorAll('.prologue-node');
-    nodes.forEach((n, i) => {
-        n.classList.toggle('is-active', i === index);
+function activateStage(index) {
+    _activeStageIndex = index;
+    const nodes = _nodesRow?.querySelectorAll('.prologue-node') || [];
+    nodes.forEach((node, i) => {
+        node.classList.toggle('is-active', i === index);
     });
 
     // 進行線の更新
-    const line = document.querySelector('.prologue-progress-line');
+    const line = _nodesRow?.querySelector('.prologue-progress-line');
     if (line) {
-        const progress = ((index + 1) / stages.length) * 100;
+        const progress = ((index + 1) / _stages.length) * 100;
         line.style.setProperty('--progress', `${progress}%`);
     }
 
     // 説明テキスト更新
-    const stage = stages[index];
-    if (descArea && stage) {
-        descArea.innerHTML = '';
+    const stage = _stages[index];
+    if (_descArea && stage) {
+        _descArea.innerHTML = '';
         const title = document.createElement('span');
         title.className = 'prologue-desc-title';
-        title.textContent = `${stage.label}（${stage.sub}）`;
+        title.textContent = normalizeLang(getCurrentLang()) === 'ja'
+            ? `${stage.label}（${stage.sub}）`
+            : `${stage.label} (${stage.sub})`;
         title.style.color = STAGE_COLORS[index];
 
         const text = document.createElement('span');
         text.className = 'prologue-desc-text';
         text.textContent = stage.desc;
 
-        descArea.appendChild(title);
-        descArea.appendChild(text);
+        _descArea.appendChild(title);
+        _descArea.appendChild(text);
     }
 }
 
-function initScrollObserver(nodesRow, stages, descArea) {
-    if (_observer) _observer.disconnect();
+function detachScrollListener() {
+    if (_scrollListener) {
+        window.removeEventListener('scroll', _scrollListener);
+        _scrollListener = null;
+    }
+}
 
-    // タイムライン全体がビューポートにいるときにスクロール位置で段階を切り替え
+function initScrollObserver() {
+    if (!_nodesRow) return;
+    if (_observer) _observer.disconnect();
+    detachScrollListener();
+
+    const updateOnScroll = () => {
+        if (!_nodesRow || !_stages.length) return;
+        const rect = _nodesRow.getBoundingClientRect();
+        const viewportH = window.innerHeight;
+        const centerRatio = 1 - (rect.top / viewportH);
+        const stageIndex = Math.min(
+            _stages.length - 1,
+            Math.max(0, Math.floor(centerRatio * _stages.length * 0.6)),
+        );
+        activateStage(stageIndex);
+    };
+
     _observer = new IntersectionObserver(
         (entries) => {
-            for (const entry of entries) {
-                if (entry.isIntersecting) {
-                    // ビューポート内での位置から段階を算出
-                    const updateOnScroll = () => {
-                        const rect = nodesRow.getBoundingClientRect();
-                        const viewportH = window.innerHeight;
-                        // ノード行がビューポートの中央付近にいるとき
-                        const centerRatio = 1 - (rect.top / viewportH);
-                        const stageIndex = Math.min(
-                            stages.length - 1,
-                            Math.max(0, Math.floor(centerRatio * stages.length * 0.6)),
-                        );
-                        activateStage(stageIndex, stages, descArea);
-                    };
-                    window.addEventListener('scroll', updateOnScroll, { passive: true });
-
-                    // cleanup when leaving
-                    const leaveObserver = new IntersectionObserver(
-                        (es) => {
-                            if (!es[0].isIntersecting) {
-                                window.removeEventListener('scroll', updateOnScroll);
-                                leaveObserver.disconnect();
-                            }
-                        },
-                        { threshold: 0 },
-                    );
-                    leaveObserver.observe(nodesRow);
+            const entry = entries[0];
+            if (!entry) return;
+            if (entry.isIntersecting) {
+                if (!_scrollListener) {
+                    _scrollListener = updateOnScroll;
+                    window.addEventListener('scroll', _scrollListener, { passive: true });
                 }
+                updateOnScroll();
+                return;
             }
+            detachScrollListener();
         },
         { threshold: 0.2 },
     );
-    _observer.observe(nodesRow);
+    _observer.observe(_nodesRow);
+}
+
+export function setPrologueTimelineLanguage(lang) {
+    renderTimeline(lang);
 }

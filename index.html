@@ -140,14 +140,15 @@
 </head>
 <body class="creation-page">
   <div id="canvas-container" aria-hidden="true"></div>
+  <!-- Runtime page shell: localized via data-i18n. SEO / crawler-facing copy lives in #seo-content-summary and <noscript>. -->
 
-  <header id="kesson-topbar" class="navbar navbar-expand-xl navbar-dark" aria-label="Main menu">
+  <header id="kesson-topbar" class="navbar navbar-expand-xl navbar-dark" aria-label="Main menu" data-i18n-attr-aria-label="mainMenuAria">
     <div class="container-fluid px-3 px-md-4">
       <div class="topbar-brand-wrap">
-        <a id="topbar-main-title" class="navbar-brand topbar-main-title" href="./">
+        <a id="topbar-main-title" class="navbar-brand topbar-main-title" href="./" data-i18n="topbarMainTitle">
           創造とは
         </a>
-<span id="credit-collab" class="topbar-collab-note">AIとの協働作業中</span>
+        <span id="credit-collab" class="topbar-collab-note" data-i18n="topbarCollab">AIとの協働作業中</span>
       </div>
       <button
         class="navbar-toggler topbar-toggler"
@@ -156,7 +157,8 @@
         data-bs-target="#kessonTopbarNav"
         aria-controls="kessonTopbarNav"
         aria-expanded="false"
-        aria-label="Toggle menu">
+        aria-label="Toggle menu"
+        data-i18n-attr-aria-label="toggleMenuAria">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="kessonTopbarNav">
@@ -172,7 +174,9 @@
               id="topbar-awareness-link"
               class="nav-link topbar-link"
               href="../awareness-space/"
-              aria-label="AWARENESS — 欠損駆動思考の気づき空間">
+              aria-label="AWARENESS — 欠損駆動思考の気づき空間"
+              data-i18n="topbarAwareness"
+              data-i18n-attr-aria-label="topbarAwarenessAria">
               AWARENESS
             </a>
           </li>
@@ -183,12 +187,14 @@
               href="https://uminomae.github.io/pjdhiro/dialogueCreation/"
               target="_blank"
               rel="noopener"
-              aria-label="BLOG: 創造とは？">
+              aria-label="BLOG: 創造とは？"
+              data-i18n="topbarBlog"
+              data-i18n-attr-aria-label="topbarBlogAria">
               BLOG
             </a>
           </li>
           <li class="nav-item">
-            <div class="btn-group btn-group-sm topbar-font-size-ctrl" role="group" aria-label="文字サイズ調整">
+            <div class="btn-group btn-group-sm topbar-font-size-ctrl" role="group" aria-label="文字サイズ調整" data-i18n-attr-aria-label="fontSizeControlsAria">
               <button type="button" class="btn topbar-font-btn" id="font-size-down" aria-label="文字を小さく">A-</button>
               <button type="button" class="btn topbar-font-btn" id="font-size-reset" aria-label="文字サイズをリセット" disabled>↺</button>
               <button type="button" class="btn topbar-font-btn" id="font-size-up" aria-label="文字を大きく">A+</button>
@@ -199,7 +205,9 @@
               type="button"
               id="lang-toggle"
               class="nav-link topbar-link topbar-link-btn topbar-lang-btn"
-              aria-label="言語を英語に切り替え">
+              aria-label="言語を英語に切り替え"
+              data-i18n="langToggleLabel"
+              data-i18n-attr-aria-label="langToggleAria">
               English
             </button>
           </li>
@@ -208,29 +216,29 @@
     </div>
   </header>
 
-  <nav id="graphic-switcher" role="group" aria-label="背景グラフィック切り替え">
-    <span class="graphic-switcher-label">背景</span>
-    <button type="button" data-graphic-mode="sinobi" aria-pressed="false">忍</button>
-    <button type="button" data-graphic-mode="i" class="active" aria-pressed="true">意</button>
+  <nav id="graphic-switcher" role="group" aria-label="背景グラフィック切り替え" data-i18n-attr-aria-label="graphicSwitcherAria">
+    <span class="graphic-switcher-label" data-i18n="graphicSwitcherLabel">背景</span>
+    <button type="button" data-graphic-mode="sinobi" aria-pressed="false" data-i18n="graphicModeSinobi">忍</button>
+    <button type="button" data-graphic-mode="i" class="active" aria-pressed="true" data-i18n="graphicModeIntent">意</button>
   </nav>
   <a id="dev-components-link" class="dev-components-link" href="./dev-components.html">Components</a>
 
   <div id="overlay" role="presentation">
     <div id="taglines"></div>
-    <h1 id="title-h1">創造とは</h1>
+    <h1 id="title-h1" data-i18n="title">創造とは</h1>
   </div>
 
   <div id="control-guide">
     <div class="guide-row guide-desktop">
-      <span class="guide-key" data-ja="ドラッグ" data-en="drag">drag</span>
+      <span class="guide-key" data-i18n="controlGuideDrag">ドラッグ</span>
       <span class="guide-sep">—</span>
-      <span class="guide-action" data-ja="回転" data-en="rotate">rotate</span>
+      <span class="guide-action" data-i18n="controlGuideRotate">回転</span>
     </div>
     <!-- ズームガイドは非表示（ズーム機能は controls.js に残存するが UI ガイドとしては不要） -->
     <div class="guide-row guide-touch">
-      <span class="guide-key" data-ja="横スワイプ" data-en="swipe">swipe</span>
+      <span class="guide-key" data-i18n="controlGuideSwipe">横スワイプ</span>
       <span class="guide-sep">—</span>
-      <span class="guide-action" data-ja="回転" data-en="rotate">rotate</span>
+      <span class="guide-action" data-i18n="controlGuideRotate">回転</span>
     </div>
   </div>
 
@@ -247,10 +255,10 @@
   <div id="hero-spacer"></div>
   <section id="model-section" aria-labelledby="model-section-heading">
     <div class="section-content-wrap">
-      <div class="container d-flex flex-column mt-1">
-        <p id="reports-ai-notice" class="reports-ai-notice">AIが執筆しているため間違いがある場合があります。</p>
+      <div class="container creation-section-shell">
+        <p id="reports-ai-notice" class="reports-ai-notice" data-i18n="reportsAiNotice">AIが執筆しているため間違いがある場合があります。</p>
         <h2 class="section-heading">
-          <a id="model-section-heading" href="#model-section" class="section-heading-link" aria-label="創造の5段階モデル セクションへジャンプ">
+          <a id="model-section-heading" href="#model-section" class="section-heading-link" aria-label="創造の5段階モデル セクションへジャンプ" data-i18n="modelSectionHeading" data-i18n-attr-aria-label="modelSectionHeadingAria">
             創造の5段階モデル
           </a>
         </h2>
@@ -263,16 +271,16 @@
   <div id="reports-spacer"></div>
   <section id="reports-section">
     <div class="section-content-wrap">
-      <div class="container d-flex flex-column mt-1">
+      <div class="container creation-section-shell">
         <h2 class="section-heading">
-          <a id="reports-section-heading" href="#reports-section" class="section-heading-link" aria-label="REPORTS セクションへジャンプ">
+          <a id="reports-section-heading" href="#reports-section" class="section-heading-link" aria-label="REPORTS セクションへジャンプ" data-i18n="reportsSectionHeading" data-i18n-attr-aria-label="reportsSectionHeadingAria">
             REPORTS
           </a>
         </h2>
         <div id="reports-error" class="alert alert-danger py-2 px-3 d-none mb-3" role="alert"></div>
         <div class="reports-overview mb-3">
           <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-2" id="reports-primary-actions">
-            <button id="reports-open-status-btn" type="button" class="btn btn-outline-light btn-sm reports-status-cta">調査内容</button>
+            <button id="reports-open-status-btn" type="button" class="btn btn-outline-light btn-sm reports-status-cta" data-i18n="reportsOpenStatus">調査内容</button>
           </div>
           <div id="reports-metrics" class="row g-2" aria-live="polite"></div>
         </div>
@@ -280,14 +288,14 @@
         <div class="reports-tab-content reports-stack">
           <section class="reports-stack-section">
             <p id="reports-scenario-note" class="reports-level-legend mb-2 d-none"></p>
-            <p id="reports-level-legend" class="reports-level-legend mb-2">進捗分類を読み込み中...</p>
+            <p id="reports-level-legend" class="reports-level-legend mb-2" data-i18n="reportsLevelLegend">進捗分類を読み込み中...</p>
             <div id="reports-table-filters" class="d-none flex-wrap gap-2 mb-2" role="group" aria-label="領域別レポート絞り込み"></div>
             <div id="reports-domain-grid" class="reports-domain-grid row row-cols-2 row-cols-md-5 g-2" aria-live="polite">
-              <div class="reports-domain-empty col-12 text-body-secondary">読み込み中...</div>
+              <div class="reports-domain-empty col-12 text-body-secondary" data-i18n="reportsLoading">読み込み中...</div>
             </div>
           </section>
         </div>
-        <h3 id="reports-cross-analysis-heading" class="section-heading">CROSS ANALYSIS</h3>
+        <h3 id="reports-cross-analysis-heading" class="section-heading" data-i18n="crossAnalysisHeading">CROSS ANALYSIS</h3>
         <div class="reports-tab-content reports-stack mt-4">
           <section class="reports-stack-section" id="reports-cross-analysis-section">
             <div id="reports-synthesis-section" class="mt-2 mb-3">
@@ -297,9 +305,9 @@
             </div>
             <div class="mt-3">
               <h4 id="reports-phase8-heading" class="reports-subheading h6 d-none"></h4>
-              <p id="reports-phase8-description" class="reports-level-legend mb-2">30領域を横断して抽出された5つの構造テーマ。</p>
+              <p id="reports-phase8-description" class="reports-level-legend mb-2" data-i18n="reportsPhase8Description">30領域を横断して抽出された5つの構造テーマ。</p>
               <div id="reports-phase8-grid" class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-2" aria-live="polite">
-                <div class="col-12 text-body-secondary">読み込み中...</div>
+                <div class="col-12 text-body-secondary" data-i18n="reportsLoading">読み込み中...</div>
               </div>
             </div>
             <div class="mt-4">
@@ -309,15 +317,14 @@
                       data-bs-target="#phase9-collapse"
                       aria-expanded="false"
                       aria-controls="phase9-collapse"
-                      data-ja="テーマ検証結果を見る"
-                      data-en="Show Theme Verification">
+                      data-i18n="phase9Toggle">
                 テーマ検証結果を見る
               </button>
               <div id="phase9-collapse" class="collapse mt-3">
                 <h4 id="reports-theme-verification-heading" class="section-heading">テーマ検証</h4>
-                <p id="reports-theme-verification-description" class="reports-level-legend mb-2">Phase 9 の検証結果に基づく5テーマの堅牢性評価。</p>
+                <p id="reports-theme-verification-description" class="reports-level-legend mb-2" data-i18n="reportsThemeVerificationDescription">Phase 9 の検証結果に基づく5テーマの堅牢性評価。</p>
                 <div id="reports-theme-verification-grid" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2" aria-live="polite">
-                  <div class="col-12 text-body-secondary">読み込み中...</div>
+                  <div class="col-12 text-body-secondary" data-i18n="reportsLoading">読み込み中...</div>
                 </div>
               </div>
             </div>
@@ -330,9 +337,9 @@
 
   <section id="articles-section">
     <div class="section-content-wrap">
-      <div class="container d-flex flex-column mt-1">
+      <div class="container creation-section-shell">
         <h2 class="section-heading">
-          <a id="articles-section-heading" href="#articles-section" class="section-heading-link" aria-label="ARTICLES セクションへジャンプ">
+          <a id="articles-section-heading" href="#articles-section" class="section-heading-link" aria-label="ARTICLES セクションへジャンプ" data-i18n="articlesSectionHeading" data-i18n-attr-aria-label="articlesSectionHeadingAria">
             ARTICLES
           </a>
         </h2>
@@ -341,7 +348,7 @@
           <div id="articles-grid" class="row g-3"></div>
         </div>
         <div class="next-question" id="next-question">
-          <p class="next-question-text" data-ja="あなたの領域では、創造はどのように記述されていますか？" data-en="How is creation described in your domain?">あなたの領域では、創造はどのように記述されていますか？</p>
+          <p class="next-question-text" data-i18n="nextQuestion">あなたの領域では、創造はどのように記述されていますか？</p>
         </div>
       </div>
     </div>
@@ -354,7 +361,7 @@
           <h5 id="reports-md-modal-title" class="modal-title">Markdown</h5>
           <div class="reports-md-header-actions d-flex align-items-center gap-2 flex-shrink-0 ms-auto">
             <a id="reports-md-open-pdf" class="btn btn-outline-light btn-sm" href="#" target="_blank" rel="noopener">PDFを開く</a>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" data-i18n-attr-aria-label="modalCloseAria"></button>
           </div>
         </div>
         <div class="modal-body pt-2 px-3 pb-3">
@@ -369,20 +376,20 @@
     <div class="tech-footer-line">GitHub Pages</div>
     <div class="tech-footer-line">Vanilla JS · ES Modules</div>
     <div class="tech-footer-line">Three.js · Bootstrap</div>
-    <div id="footer-signature" class="footer-signature">Project Designer: pjdhiro</div>
+    <div id="footer-signature" class="footer-signature" data-i18n="creditSignature">Project Designer: pjdhiro</div>
     <div class="tech-footer-line"><a id="footer-dev-link" class="footer-dev-link" href="./?dev">dev</a></div>
   </footer>
 
   <div class="offcanvas offcanvas-end offcanvas-kesson" tabindex="-1" id="articlesOffcanvas" data-bs-backdrop="true">
     <div class="offcanvas-header border-bottom border-secondary">
       <div>
-        <h5 id="offcanvas-articles-title" class="text-light mb-0 offcanvas-title-spaced">ARTICLES</h5>
+        <h5 id="offcanvas-articles-title" class="text-light mb-0 offcanvas-title-spaced" data-i18n="offcanvasArticlesTitle">ARTICLES</h5>
         <small class="text-muted" id="offcanvas-articles-count"></small>
       </div>
-      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close" data-i18n-attr-aria-label="modalCloseAria"></button>
     </div>
     <div class="offcanvas-body p-3">
-      <div id="articles-filter-group" class="articles-filter-group d-flex flex-wrap gap-2 mb-3" role="group" aria-label="Filter articles by type">
+      <div id="articles-filter-group" class="articles-filter-group d-flex flex-wrap gap-2 mb-3" role="group" aria-label="Filter articles by type" data-i18n-attr-aria-label="articlesFilterGroupAria">
         <button type="button" class="articles-filter-btn btn btn-outline-light btn-sm active is-active" data-type="all" aria-pressed="true">All</button>
         <button type="button" class="articles-filter-btn btn btn-outline-light btn-sm" data-type="page" aria-pressed="false">Page</button>
         <button type="button" class="articles-filter-btn btn btn-outline-light btn-sm" data-type="post" aria-pressed="false">Post</button>
@@ -391,9 +398,9 @@
     </div>
   </div>
 
-  <button id="surface-btn" type="button" class="btn btn-sm btn-kesson-action" aria-label="ページ上部に戻る">↑ surface</button>
+  <button id="surface-btn" type="button" class="btn btn-sm btn-kesson-action" aria-label="ページ上部に戻る" data-i18n-attr-aria-label="surfaceButtonAria">↑ surface</button>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <\!-- SEO: 主要コンテンツの静的要約（クローラー向け） -->
+  <!-- SEO: 主要コンテンツの静的要約（クローラー向け） -->
   <div class="visually-hidden" aria-hidden="true" id="seo-content-summary">
     <h2>創造とは — 30の学術領域から探るクリエイティブプロセス</h2>
     <h3>創造の5段階モデル（Five-Stage Model of Creation）</h3>
