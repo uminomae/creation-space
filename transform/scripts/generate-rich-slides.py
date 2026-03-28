@@ -286,10 +286,10 @@ html, body {{ width: 100%; height: 100%; background: #0a0e17; color: #f1f5f9; fo
 .slide.active {{ opacity: 1; visibility: visible; }}
 .slide-inner {{ width: min(92vw, calc(88vh * 16 / 9)); aspect-ratio: 16 / 9; border-radius: 16px; border: 1px solid rgba(148,163,184,0.14); overflow: hidden; position: relative; box-shadow: 0 24px 80px rgba(0,0,0,0.5); }}
 .slide-bg {{ position: absolute; inset: 0; background: linear-gradient(180deg, #0c1220, #0a0e17); }}
-.slide-content {{ position: relative; z-index: 1; width: 100%; height: 100%; padding: 3.5rem 4rem; display: flex; flex-direction: column; }}
-h1 {{ font-size: 2.5rem; font-weight: 700; }}
-h2 {{ font-size: 1.8rem; font-weight: 600; margin-bottom: 1rem; border-bottom: 2px solid transparent; border-image: linear-gradient(90deg, #60a5fa, #a78bfa) 1; padding-bottom: 0.3em; }}
-p {{ font-size: 1rem; line-height: 1.8; margin-bottom: 0.8rem; }}
+.slide-content {{ position: relative; z-index: 1; width: 100%; height: 100%; padding: min(3.5rem, 4.8vw) min(4rem, 5.4vw); display: flex; flex-direction: column; }}
+h1 {{ font-size: min(3rem, 3.2vw); font-weight: 700; }}
+h2 {{ font-size: min(2rem, 2.2vw); font-weight: 600; margin-bottom: 1rem; border-bottom: 2px solid transparent; border-image: linear-gradient(90deg, #60a5fa, #a78bfa) 1; padding-bottom: 0.3em; }}
+p {{ font-size: min(1.1rem, 1.2vw); line-height: 1.8; margin-bottom: 0.8rem; }}
 table tbody tr:nth-child(even) {{ background: rgba(255, 255, 255, 0.025); }}
 th:first-child, td:first-child {{ font-weight: 600; }}
 .layout-quote blockquote {{ border-left: 4px solid var(--accent-amber); padding-left: 1.5em; font-style: italic; }}

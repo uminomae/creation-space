@@ -116,7 +116,7 @@ Every generated slide deck uses this outer structure. All CSS and JS are inlined
     z-index: 1;
     width: 100%;
     height: 100%;
-    padding: 3.5rem 4rem;
+    padding: min(3.5rem, 4.8vw) min(4rem, 5.4vw);
     display: flex;
     flex-direction: column;
   }
@@ -124,14 +124,14 @@ Every generated slide deck uses this outer structure. All CSS and JS are inlined
   /* === TYPOGRAPHY === */
   h1 {
     font-family: var(--font-heading);
-    font-size: clamp(2rem, 3.2vw, 3rem);
+    font-size: min(3rem, 3.2vw);
     font-weight: 700;
     line-height: 1.2;
     letter-spacing: -0.02em;
   }
   h2 {
     font-family: var(--font-heading);
-    font-size: clamp(1.4rem, 2.2vw, 2rem);
+    font-size: min(2rem, 2.2vw);
     font-weight: 600;
     line-height: 1.3;
     letter-spacing: -0.01em;
@@ -142,13 +142,13 @@ Every generated slide deck uses this outer structure. All CSS and JS are inlined
   }
   h3 {
     font-family: var(--font-heading);
-    font-size: clamp(1rem, 1.4vw, 1.3rem);
+    font-size: min(1.3rem, 1.4vw);
     font-weight: 500;
     color: var(--accent-violet);
     margin-bottom: 0.8rem;
   }
   p {
-    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+    font-size: min(1.1rem, 1.2vw);
     line-height: 1.8;
     color: var(--text-primary);
     margin-bottom: 0.8rem;
@@ -199,7 +199,7 @@ Every generated slide deck uses this outer structure. All CSS and JS are inlined
   }
   .metric-value {
     font-family: var(--font-mono);
-    font-size: clamp(2rem, 3.5vw, 3.2rem);
+    font-size: min(3.2rem, 3.5vw);
     font-weight: 700;
     background: linear-gradient(135deg, var(--accent-blue), var(--accent-violet));
     -webkit-background-clip: text;
@@ -332,12 +332,12 @@ Every generated slide deck uses this outer structure. All CSS and JS are inlined
     gap: 0.5rem;
   }
   .layout-title h1 {
-    font-size: clamp(2.4rem, 4vw, 3.6rem);
+    font-size: min(3.6rem, 4vw);
     font-weight: 700;
     max-width: 80%;
   }
   .layout-title .subtitle {
-    font-size: clamp(1rem, 1.5vw, 1.3rem);
+    font-size: min(1.3rem, 1.5vw);
     color: var(--text-secondary);
     letter-spacing: 0.04em;
     max-width: 70%;
@@ -357,7 +357,7 @@ Every generated slide deck uses this outer structure. All CSS and JS are inlined
     text-align: center;
   }
   .layout-section h2 {
-    font-size: clamp(2rem, 3vw, 2.8rem);
+    font-size: min(2.8rem, 3vw);
     font-weight: 600;
   }
   .layout-section .section-number {
@@ -420,13 +420,13 @@ Every generated slide deck uses this outer structure. All CSS and JS are inlined
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 4rem 6rem;
+    padding: min(4rem, 5vw) min(6rem, 7vw);
   }
   .layout-quote blockquote {
     border: none;
     border-left: 4px solid var(--accent-amber);
     background: none;
-    font-size: clamp(1.3rem, 2vw, 1.8rem);
+    font-size: min(1.8rem, 2vw);
     line-height: 1.6;
     max-width: 80%;
     padding-left: 1.5em;
@@ -445,7 +445,7 @@ Every generated slide deck uses this outer structure. All CSS and JS are inlined
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    padding: 2rem 3rem;
+    padding: min(2rem, 2.8vw) min(3rem, 4vw);
   }
   .layout-visual img, .layout-visual svg {
     max-width: 90%;
