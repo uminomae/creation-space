@@ -8,6 +8,7 @@
 
   --kesson-font-serif-display: "Noto Serif JP", "Yu Mincho", "MS PMincho", serif;
   --kesson-font-serif-ui: 'Georgia', "Noto Serif JP", serif;
+  --kesson-font-sans-ui: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", "Meiryo", system-ui, sans-serif;
   --kesson-font-mono-ui: 'SF Mono', 'Fira Code', 'Consolas', monospace;
   --kesson-font-mono-system: ui-monospace, SFMono-Regular, 'SF Mono', 'Consolas', monospace;
   --kesson-font-size-ui-xs: 0.85rem;
