@@ -189,8 +189,11 @@ export function createPhase8Renderer({ openMarkdownModal, getLang, wrapSlideOpen
             const presentationMdUrl = resolveThemePresentationMdUrl(theme, lang);
             if (presentationMdUrl) {
                 const slidesBtn = document.createElement('button');
-                slidesBtn.className = 'btn btn-sm btn-outline-light mt-1 align-self-start';
-                slidesBtn.textContent = strings.slidesButton || 'Slides';
+                const slidesLabel = strings.slidesButton || 'Slides';
+                slidesBtn.type = 'button';
+                slidesBtn.className = 'reports-slide-btn mt-1 align-self-start';
+                slidesBtn.textContent = slidesLabel;
+                slidesBtn.setAttribute('aria-label', `${name} ${slidesLabel}`);
                 slidesBtn.addEventListener('click', async (event) => {
                     event.stopPropagation();
                     const currentLang = getLang();

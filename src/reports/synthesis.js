@@ -89,9 +89,11 @@ export function createSynthesisRenderer({ openMarkdownModal, getLang, wrapSlideO
 
         // Slide button
         const slideBtn = document.createElement('button');
-        slideBtn.className = 'btn btn-sm btn-outline-info mt-auto align-self-start reports-domain-slide-btn';
-        slideBtn.textContent = normalizeLang(lang) === 'ja' ? 'スライド' : 'Slides';
-        slideBtn.setAttribute('aria-label', strings.reportTitle + ' slides');
+        const slideLabel = normalizeLang(lang) === 'ja' ? 'スライド' : 'Slides';
+        slideBtn.type = 'button';
+        slideBtn.className = 'reports-slide-btn mt-auto align-self-start';
+        slideBtn.textContent = slideLabel;
+        slideBtn.setAttribute('aria-label', `${strings.reportTitle} ${slideLabel}`);
         slideBtn.addEventListener('click', async (event) => {
             event.stopPropagation();
             const currentLang = getLang();
