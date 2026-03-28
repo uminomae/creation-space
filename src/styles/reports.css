@@ -49,8 +49,12 @@
   padding-bottom: 1.2rem;
 }
 
-#model-section .reports-ai-notice {
-  margin: 0 0 .72rem;
+/* AI notice は hero 直後に移動（#model-section 外） */
+#reports-ai-notice {
+  position: relative;
+  z-index: 6;
+  text-align: center;
+  margin: 1.5rem 0 1rem;
 }
 
 #reports-primary-actions .btn,

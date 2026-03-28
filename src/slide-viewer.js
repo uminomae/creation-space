@@ -266,15 +266,33 @@ function createOverlay() {
         }
     });
 
+    // ESC handler for non-iframe cases (MD legacy slides, future extensions).
+    // NOTE (cs#198): This does NOT cover iframe-focused state — iframe has
+    // its own ESC handler injected in openRichSlideViewer().
+    // Do NOT remove during refactoring.
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && node.classList.contains('visible')) {
+            event.stopPropagation();
+            closeSlideViewer();
+        }
+    }, true);
+
+    // Cross-origin ESC fallback (cs#198): rich HTML slides post a message
+    // when ESC is pressed inside them. This covers file:// → https:// cases
+    // where contentDocument is inaccessible.
+    // Do NOT remove during refactoring.
+    window.addEventListener('message', (event) => {
+        if (event.data?.type === 'slide-escape' && node.classList.contains('visible')) {
+            closeSlideViewer();
+        }
+    });
+
     document.body.appendChild(node);
     return node;
 }
 
 function onKeyDown(event) {
-    if (event.key === 'Escape') {
-        closeSlideViewer();
-        return;
-    }
+    // ESC is handled by the capture-phase handler in createOverlay() (cs#198).
     if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
         event.preventDefault();
         moveSlide(-1);
@@ -422,23 +440,31 @@ export function openRichSlideViewer({ htmlUrl, title = '', onClose = null }) {
         iframe.setAttribute('loading', 'lazy');
         stage.appendChild(iframe);
 
-        // Focus iframe once loaded so keyboard nav works inside it
+        // ESC handler: inject into iframe's contentDocument after load (cs#198).
+        // IMPORTANT: iframe is a separate browsing context — keydown events
+        // inside iframe do NOT reach the parent document (not even in capture
+        // phase). We must register directly on iframe.contentDocument.
+        // Same-origin only; cross-origin silently falls back to close button.
+        // Do NOT remove this handler during refactoring.
         iframe.addEventListener('load', () => {
-            try { iframe.contentWindow.focus(); } catch (_) { /* cross-origin */ }
+            try {
+                iframe.contentDocument.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        closeSlideViewer();
+                    }
+                });
+            } catch (_) {
+                // Cross-origin (e.g. file:// opening https:// iframe):
+                // contentDocument is inaccessible. Use postMessage fallback.
+                // The rich HTML slides call parent.postMessage({type:'slide-escape'})
+                // when ESC is pressed inside them.
+                console.warn('[slide-viewer] cross-origin iframe — ESC uses postMessage fallback');
+            }
         });
 
         overlayNode.classList.add('visible');
         overlayNode.setAttribute('aria-label', title || 'Rich Slides');
         setBodyScrollLock(true);
-
-        // Only handle Escape at the parent level
-        const richKeyHandler = (event) => {
-            if (event.key === 'Escape') {
-                window.removeEventListener('keydown', richKeyHandler);
-                closeSlideViewer();
-            }
-        };
-        window.addEventListener('keydown', richKeyHandler);
     } catch (err) {
         console.error('[slide-viewer] rich slide ERROR:', err);
     }

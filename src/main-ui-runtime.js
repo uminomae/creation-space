@@ -4,7 +4,6 @@ import { initCreationLinkInteractions } from './creation-link-interactions.js';
 import { initLanguageToggle, applyPageLanguage } from './page-language.js';
 import { initMobileNavAutoCollapse } from './topbar-nav.js';
 import { initGraphicModeButtons } from './graphic-mode.js';
-import { setNarrationLanguage } from './reveal-observer.js';
 import { setPrologueTimelineLanguage } from './prologue-timeline.js';
 import { setAboutLanguage } from './about-modal.js';
 
@@ -22,7 +21,6 @@ export function initMainPageUiRuntime({
         if (typeof setReportsLanguage === 'function') {
             setReportsLanguage(currentLang);
         }
-        setNarrationLanguage(currentLang);
         setPrologueTimelineLanguage(currentLang);
         setAboutLanguage(currentLang);
     });

@@ -72,11 +72,10 @@ body.creation-page {
 /* ── Room narration bridges (cs#179 Phase A) ── */
 
 .room-narration {
-  min-height: 28vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem 1.5rem 2rem;
+  position: relative;
+  z-index: 21;
+  padding: 8rem 1.5rem 1.5rem;
+  text-align: center;
 }
 
 .room-narration-text {
@@ -86,16 +85,8 @@ body.creation-page {
   color: rgba(210, 225, 250, var(--text-narration-opacity));
   letter-spacing: 0.08em;
   line-height: 2.2;
-  text-align: center;
   max-width: 580px;
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.9s ease, transform 0.9s ease;
-}
-
-.room-narration-text.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+  margin: 0 auto;
   text-shadow:
     0 0 var(--text-shadow-blur) rgba(0, 0, 0, var(--text-shadow-opacity)),
     0 0 var(--text-shadow-blur2) rgba(0, 0, 0, calc(var(--text-shadow-opacity) * 0.67));
@@ -315,7 +306,6 @@ body.creation-page {
 /* ── Reduced motion ── */
 
 @media (prefers-reduced-motion: reduce) {
-  .room-narration-text,
   .reports-domain-grid > .col,
   .prologue-node,
   .prologue-dot,

@@ -1,0 +1,30 @@
+<div class="room-narration">
+  <p class="room-narration-text" data-i18n-html="narrations.reportsSection">ここから先には、三十の個室があります。<br>どれも、違う言語で同じことを語っています。</p>
+</div>
+<div class="section-content-wrap">
+  <div class="container creation-section-shell">
+    <h2 class="section-heading">
+      <a id="reports-section-heading" href="#reports-section" class="section-heading-link" aria-label="REPORTS セクションへジャンプ" data-i18n="reportsSectionHeading" data-i18n-attr-aria-label="reportsSectionHeadingAria">
+        REPORTS
+      </a>
+    </h2>
+    <div id="reports-error" class="alert alert-danger py-2 px-3 d-none mb-3" role="alert"></div>
+    <div class="reports-overview mb-3">
+      <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-2" id="reports-primary-actions">
+        <button id="reports-open-status-btn" type="button" class="btn btn-outline-light btn-sm reports-status-cta"></button>
+      </div>
+      <div id="reports-metrics" class="row g-2" aria-live="polite"></div>
+    </div>
+    <h3 id="reports-domains-heading" class="section-heading"></h3>
+    <div class="reports-tab-content reports-stack">
+      <section class="reports-stack-section">
+        <p id="reports-scenario-note" class="reports-level-legend mb-2 d-none"></p>
+        <p id="reports-level-legend" class="reports-level-legend mb-2"></p>
+        <div id="reports-table-filters" class="d-none flex-wrap gap-2 mb-2" role="group"></div>
+        <div id="reports-domain-grid" class="reports-domain-grid row row-cols-2 row-cols-md-5 g-2" aria-live="polite">
+          <div class="reports-domain-empty col-12 text-body-secondary"></div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

@@ -253,104 +253,15 @@
   </div>
 
   <div id="hero-spacer"></div>
-  <section id="model-section" aria-labelledby="model-section-heading">
-    <div class="section-content-wrap">
-      <div class="container creation-section-shell">
-        <p id="reports-ai-notice" class="reports-ai-notice" data-i18n="reportsAiNotice">AIが執筆しているため間違いがある場合があります。</p>
-        <h2 class="section-heading">
-          <a id="model-section-heading" href="#model-section" class="section-heading-link" aria-label="創造の5段階モデル セクションへジャンプ" data-i18n="modelSectionHeading" data-i18n-attr-aria-label="modelSectionHeadingAria">
-            創造の5段階モデル
-          </a>
-        </h2>
-        <div class="reports-tab-content">
-          <div id="reports-feature-cards" class="row row-cols-1 row-cols-md-3 g-2" aria-live="polite"></div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <div class="container">
+    <p id="reports-ai-notice" class="reports-ai-notice" data-i18n="reportsAiNotice">AIが執筆しているため間違いがある場合があります。</p>
+  </div>
+  <section id="model-section" aria-labelledby="model-section-heading"></section>
   <div id="reports-spacer"></div>
-  <section id="reports-section">
-    <div class="section-content-wrap">
-      <div class="container creation-section-shell">
-        <h2 class="section-heading">
-          <a id="reports-section-heading" href="#reports-section" class="section-heading-link" aria-label="REPORTS セクションへジャンプ" data-i18n="reportsSectionHeading" data-i18n-attr-aria-label="reportsSectionHeadingAria">
-            REPORTS
-          </a>
-        </h2>
-        <div id="reports-error" class="alert alert-danger py-2 px-3 d-none mb-3" role="alert"></div>
-        <div class="reports-overview mb-3">
-          <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-2" id="reports-primary-actions">
-            <button id="reports-open-status-btn" type="button" class="btn btn-outline-light btn-sm reports-status-cta"></button>
-          </div>
-          <div id="reports-metrics" class="row g-2" aria-live="polite"></div>
-        </div>
-        <h3 id="reports-domains-heading" class="section-heading"></h3>
-        <div class="reports-tab-content reports-stack">
-          <section class="reports-stack-section">
-            <p id="reports-scenario-note" class="reports-level-legend mb-2 d-none"></p>
-            <p id="reports-level-legend" class="reports-level-legend mb-2"></p>
-            <div id="reports-table-filters" class="d-none flex-wrap gap-2 mb-2" role="group"></div>
-            <div id="reports-domain-grid" class="reports-domain-grid row row-cols-2 row-cols-md-5 g-2" aria-live="polite">
-              <div class="reports-domain-empty col-12 text-body-secondary"></div>
-            </div>
-          </section>
-        </div>
-        <h3 id="reports-cross-analysis-heading" class="section-heading" data-i18n="crossAnalysisHeading">CROSS ANALYSIS</h3>
-        <div class="reports-tab-content reports-stack mt-4">
-          <section class="reports-stack-section" id="reports-cross-analysis-section">
-            <div id="reports-synthesis-section" class="mt-2 mb-3">
-              <p id="reports-synthesis-description" class="reports-level-legend mb-2 d-none"></p>
-              <div id="reports-synthesis-grid" class="row row-cols-1 g-2" aria-live="polite">
-              </div>
-            </div>
-            <div class="mt-3">
-              <h4 id="reports-phase8-heading" class="reports-subheading h6 d-none"></h4>
-              <p id="reports-phase8-description" class="reports-level-legend mb-2"></p>
-              <div id="reports-phase8-grid" class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-2" aria-live="polite">
-                <div class="col-12 text-body-secondary"></div>
-              </div>
-            </div>
-            <div class="mt-4">
-              <button class="btn btn-outline-light btn-sm phase9-toggle"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#phase9-collapse"
-                      aria-expanded="false"
-                      aria-controls="phase9-collapse"
-                      data-i18n="phase9Toggle"></button>
-              <div id="phase9-collapse" class="collapse mt-3">
-                <h4 id="reports-theme-verification-heading" class="section-heading"></h4>
-                <p id="reports-theme-verification-description" class="reports-level-legend mb-2"></p>
-                <div id="reports-theme-verification-grid" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2" aria-live="polite">
-                  <div class="col-12 text-body-secondary"></div>
-                </div>
-              </div>
-            </div>
-          </section>
-        </div>
-      </div>
-    </div>
-  </section>
+  <section id="reports-section" aria-labelledby="reports-section-heading"></section>
+  <section id="reports-cross-analysis-section" aria-labelledby="reports-cross-analysis-heading"></section>
   <div id="articles-spacer"></div>
-
-  <section id="articles-section">
-    <div class="section-content-wrap">
-      <div class="container creation-section-shell">
-        <h2 class="section-heading">
-          <a id="articles-section-heading" href="#articles-section" class="section-heading-link" aria-label="ARTICLES セクションへジャンプ" data-i18n="articlesSectionHeading" data-i18n-attr-aria-label="articlesSectionHeadingAria">
-            ARTICLES
-          </a>
-        </h2>
-        <div id="articles-error" class="d-none"></div>
-        <div class="reports-tab-content">
-          <div id="articles-grid" class="row g-3"></div>
-        </div>
-        <div class="next-question" id="next-question">
-          <p class="next-question-text" data-i18n="nextQuestion">あなたの領域では、創造はどのように記述されていますか？</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <section id="articles-section" aria-labelledby="articles-section-heading"></section>
 
   <div class="modal fade" id="reports-md-modal" tabindex="-1" aria-labelledby="reports-md-modal-title">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">

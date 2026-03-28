@@ -3,18 +3,19 @@ import { createMainRuntimeContext } from './main-runtime-context.js';
 import { runMainOrchestrator } from './main-orchestrator.js';
 import { initFontSizeCtrl } from './font-size-ctrl.js';
 import { initScrollCoordinator } from './scroll-coordinator.js';
-import { injectNarrations, initRevealObserver } from './reveal-observer.js';
+import { initRevealObserver } from './reveal-observer.js';
 import { initPrologueTimeline } from './prologue-timeline.js';
 import { initAboutModal } from './about-modal.js';
 import { detectLang, initLanguageState } from './i18n.js';
+import { loadComponents } from './component-loader.js';
 
 installStartupErrorHandlers();
 
-function startMainApp() {
+async function startMainApp() {
+    await loadComponents();
     initLanguageState(detectLang());
     initScrollCoordinator();
     initFontSizeCtrl();
-    injectNarrations();
     initRevealObserver();
     initPrologueTimeline();
     initAboutModal();
