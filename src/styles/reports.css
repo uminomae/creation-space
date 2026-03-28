@@ -7,7 +7,8 @@
 
 #model-section,
 #reports-section,
-#articles-section {
+#articles-section,
+#reports-cross-analysis-section {
   position: relative;
   z-index: 5;
   --reports-font-mono: var(--kesson-font-mono-ui);
