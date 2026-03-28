@@ -480,12 +480,14 @@ export function createReportsRenderer({
         const presSources = resolveDomainPresentationSources(report, { lang: state.config.lang });
         if (presSources.length > 0) {
             const btnGroup = document.createElement('div');
-            btnGroup.className = 'd-flex gap-1 mt-auto';
+            btnGroup.className = 'd-flex flex-wrap gap-1 mt-auto';
 
             const slideBtn = document.createElement('button');
-            slideBtn.className = 'btn btn-sm btn-outline-info reports-domain-slide-btn';
-            slideBtn.textContent = normalizeLang(state.config.lang) === 'ja' ? 'スライド' : 'Slides';
-            slideBtn.setAttribute('aria-label', `${domainLabel} slides`);
+            const slideLabel = normalizeLang(state.config.lang) === 'ja' ? 'スライド' : 'Slides';
+            slideBtn.type = 'button';
+            slideBtn.className = 'reports-slide-btn';
+            slideBtn.textContent = slideLabel;
+            slideBtn.setAttribute('aria-label', `${domainLabel} ${slideLabel}`);
             slideBtn.addEventListener('click', async (event) => {
                 event.stopPropagation();
                 const currentSources = resolveDomainPresentationSources(report, { lang: state.config.lang });

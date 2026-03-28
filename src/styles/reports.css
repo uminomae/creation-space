@@ -13,6 +13,7 @@
   z-index: 5;
   --reports-font-mono: var(--kesson-font-mono-ui);
   --reports-font-serif: var(--kesson-font-serif-ui);
+  --reports-font-sans: var(--kesson-font-sans-ui);
   --reports-panel-radius: .5rem;
   --reports-panel-padding: .9rem;
   --reports-stack-gap: .9rem;
@@ -40,6 +41,17 @@
   --reports-palette-8-rgb: 255, 111, 181;
   --reports-palette-9-rgb: 96, 207, 255;
   --reports-palette-10-rgb: 208, 218, 108;
+  --reports-slide-btn-rgb: var(--color-accent);
+  --reports-slide-btn-text: rgba(var(--color-highlight), .98);
+  --reports-slide-btn-text-strong: rgba(var(--color-heading), .98);
+  --reports-slide-btn-border: rgba(var(--reports-slide-btn-rgb), .56);
+  --reports-slide-btn-border-hover: rgba(var(--reports-slide-btn-rgb), .74);
+  --reports-slide-btn-bg-top: rgba(var(--reports-slide-btn-rgb), .34);
+  --reports-slide-btn-bg-bottom: rgba(var(--reports-slide-btn-rgb), .16);
+  --reports-slide-btn-bg-top-hover: rgba(var(--reports-slide-btn-rgb), .46);
+  --reports-slide-btn-bg-bottom-hover: rgba(var(--reports-slide-btn-rgb), .22);
+  --reports-slide-btn-bg-top-active: rgba(var(--reports-slide-btn-rgb), .52);
+  --reports-slide-btn-bg-bottom-active: rgba(var(--reports-slide-btn-rgb), .26);
 }
 
 #model-section {
@@ -243,6 +255,65 @@
   min-height: 100%;
 }
 
+.reports-slide-btn {
+  appearance: none;
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: clamp(5.4rem, 24vw, 6.5rem);
+  min-height: 2.25rem;
+  padding: .38rem .82rem;
+  border: 1px solid var(--reports-slide-btn-border);
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--reports-slide-btn-bg-top), var(--reports-slide-btn-bg-bottom));
+  color: var(--reports-slide-btn-text);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14), 0 .4rem 1rem rgba(0, 0, 0, .26), 0 0 1.1rem rgba(var(--reports-slide-btn-rgb), .22);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-family: var(--reports-font-sans);
+  font-size: clamp(calc(.78rem + var(--reports-font-step)), calc(2.1vmin + var(--reports-font-step)), calc(.86rem + var(--reports-font-step)));
+  font-weight: 700;
+  letter-spacing: .05em;
+  line-height: 1.1;
+  text-transform: none;
+  white-space: nowrap;
+  text-shadow: 0 0 12px rgba(var(--reports-slide-btn-rgb), .16);
+  cursor: pointer;
+  transition: border-color var(--kesson-transition-standard), background var(--kesson-transition-standard), color var(--kesson-transition-standard), box-shadow var(--kesson-transition-standard), transform var(--kesson-transition-snappy);
+}
+
+.reports-slide-btn:hover,
+.reports-slide-btn:focus-visible {
+  border-color: var(--reports-slide-btn-border-hover);
+  background: linear-gradient(180deg, var(--reports-slide-btn-bg-top-hover), var(--reports-slide-btn-bg-bottom-hover));
+  color: var(--reports-slide-btn-text-strong);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18), 0 .55rem 1.25rem rgba(0, 0, 0, .3), 0 0 1.3rem rgba(var(--reports-slide-btn-rgb), .3);
+  transform: translateY(-1px);
+}
+
+.reports-slide-btn:focus-visible {
+  outline: 2px solid rgba(var(--reports-slide-btn-rgb), .5);
+  outline-offset: 2px;
+}
+
+.reports-slide-btn:active {
+  background: linear-gradient(180deg, var(--reports-slide-btn-bg-top-active), var(--reports-slide-btn-bg-bottom-active));
+  transform: translateY(0);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14), 0 .28rem .7rem rgba(0, 0, 0, .26), 0 0 1.05rem rgba(var(--reports-slide-btn-rgb), .22);
+}
+
+.reports-slide-btn:disabled {
+  opacity: .48;
+  transform: none;
+  box-shadow: none;
+}
+
+.reports-domain-item .reports-slide-btn {
+  --reports-slide-btn-rgb: var(--reports-palette-rgb);
+}
+
 .reports-feature-description {
   color: rgba(var(--color-sub-text), .72);
   font-size: var(--kesson-card-text, .8rem);
@@ -410,6 +481,13 @@
     width: 100%;
     min-width: 0;
     min-height: 2.9rem;
+  }
+
+  .reports-slide-btn {
+    min-width: 5.8rem;
+    min-height: 2.35rem;
+    padding: .45rem .9rem;
+    font-size: calc(.78rem + var(--reports-font-step));
   }
 
   .report-metric-value {

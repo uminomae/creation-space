@@ -1255,11 +1255,11 @@
       </header>
 
       <!-- Component: reports-ui -->
-      <!-- Variables: --reports-font-step, --reports-panel-radius, --reports-panel-padding, --reports-panel-shadow, --reports-border-soft, --reports-border-base, --reports-border-strong, --reports-bg-base, --reports-bg-hover, --reports-bg-active, --reports-text-muted, --reports-text-bright, --reports-control-font-size, --reports-control-letter-spacing, --reports-palette-1-rgb, --reports-palette-2-rgb, --reports-palette-3-rgb, --reports-card-bg, --reports-card-border -->
-      <!-- Intent: Reports 専用の見出し、chip、domain card、CTA のトーンをまとめて確認する -->
-      <article class="ds-component" data-component="reports-ui" data-source="src/styles/shell.css src/styles/reports.css index.html" data-variables="--reports-font-step,--reports-panel-radius,--reports-panel-padding,--reports-panel-shadow,--reports-border-soft,--reports-border-base,--reports-border-strong,--reports-bg-base,--reports-bg-hover,--reports-bg-active,--reports-text-muted,--reports-text-bright,--reports-control-font-size,--reports-control-letter-spacing,--reports-palette-1-rgb,--reports-palette-2-rgb,--reports-palette-3-rgb,--reports-card-bg,--reports-card-border">
-        <h3>Reports Overview, Chip, Domain Item</h3>
-        <p>palette は Dxx カードのバリエーション、panel 系は overview と metric card の土台、font step は文字拡大縮小のブリッジです。</p>
+      <!-- Variables: --reports-font-step, --reports-font-sans, --reports-panel-radius, --reports-panel-padding, --reports-panel-shadow, --reports-border-soft, --reports-border-base, --reports-border-strong, --reports-bg-base, --reports-bg-hover, --reports-bg-active, --reports-text-muted, --reports-text-bright, --reports-control-font-size, --reports-control-letter-spacing, --reports-palette-1-rgb, --reports-palette-2-rgb, --reports-palette-3-rgb, --reports-card-bg, --reports-card-border, --reports-slide-btn-rgb, --reports-slide-btn-text, --reports-slide-btn-text-strong, --reports-slide-btn-border, --reports-slide-btn-border-hover, --reports-slide-btn-bg-top, --reports-slide-btn-bg-bottom, --reports-slide-btn-bg-top-hover, --reports-slide-btn-bg-bottom-hover, --reports-slide-btn-bg-top-active, --reports-slide-btn-bg-bottom-active -->
+      <!-- Intent: Reports 専用の見出し、chip、domain card、slide CTA のトーンをまとめて確認する -->
+      <article class="ds-component" data-component="reports-ui" data-source="src/styles/shell.css src/styles/reports.css index.html" data-variables="--reports-font-step,--reports-font-sans,--reports-panel-radius,--reports-panel-padding,--reports-panel-shadow,--reports-border-soft,--reports-border-base,--reports-border-strong,--reports-bg-base,--reports-bg-hover,--reports-bg-active,--reports-text-muted,--reports-text-bright,--reports-control-font-size,--reports-control-letter-spacing,--reports-palette-1-rgb,--reports-palette-2-rgb,--reports-palette-3-rgb,--reports-card-bg,--reports-card-border,--reports-slide-btn-rgb,--reports-slide-btn-text,--reports-slide-btn-text-strong,--reports-slide-btn-border,--reports-slide-btn-border-hover,--reports-slide-btn-bg-top,--reports-slide-btn-bg-bottom,--reports-slide-btn-bg-top-hover,--reports-slide-btn-bg-bottom-hover,--reports-slide-btn-bg-top-active,--reports-slide-btn-bg-bottom-active">
+        <h3>Reports Overview, Chip, Domain Item, Slide Button</h3>
+        <p>palette は Dxx カードのバリエーション、panel 系は overview と metric card の土台、slide button は root token から組み立てる reports 専用 action です。</p>
         <div id="reports-demo-scope" class="ds-demo-shell">
           <div class="ds-report-palette" aria-hidden="true">
             <span style="background: rgb(var(--reports-palette-1-rgb));"></span>
@@ -1273,6 +1273,10 @@
             <p class="reports-ai-notice">AI collaborative reports. Local vars here are derived from root palette and spacing tokens.</p>
             <div class="d-flex flex-wrap gap-2" id="reports-primary-actions">
               <button type="button" class="btn btn-outline-light btn-sm reports-status-cta">Open consolidated report</button>
+            </div>
+            <div class="d-flex flex-wrap gap-2 mt-2" role="group" aria-label="Reports slide button examples">
+              <button type="button" class="reports-slide-btn">スライド</button>
+              <button type="button" class="reports-slide-btn">Slides</button>
             </div>
             <p style="margin: 0.9rem 0 0.55rem;">
               <span class="reports-progress-chip">L3 synthesis</span>
@@ -1293,6 +1297,9 @@
                         <span class="reports-domain-item-status">deepdive</span>
                       </div>
                       <p class="reports-domain-item-name">発達心理学</p>
+                      <div class="d-flex gap-1 mt-auto">
+                        <button type="button" class="reports-slide-btn">スライド</button>
+                      </div>
                     </div>
                   </article>
                 </div>
@@ -1312,7 +1319,7 @@
           </div>
         </div>
         <div class="ds-table-wrap">
-          <table class="ds-variable-table" data-variable-table="--reports-font-step,--reports-panel-radius,--reports-panel-padding,--reports-stack-gap,--reports-panel-shadow,--reports-panel-shadow-hover,--reports-border-soft,--reports-border-base,--reports-border-strong,--reports-bg-base,--reports-bg-hover,--reports-bg-active,--reports-text-muted,--reports-text-bright,--reports-card-bg,--reports-card-border,--reports-control-font-size,--reports-control-letter-spacing,--reports-palette-1-rgb,--reports-palette-2-rgb,--reports-palette-3-rgb,--reports-palette-4-rgb,--reports-palette-5-rgb,--reports-palette-6-rgb,--reports-palette-rgb" data-scope="#reports-demo-scope">
+          <table class="ds-variable-table" data-variable-table="--reports-font-step,--reports-font-sans,--reports-panel-radius,--reports-panel-padding,--reports-stack-gap,--reports-panel-shadow,--reports-panel-shadow-hover,--reports-border-soft,--reports-border-base,--reports-border-strong,--reports-bg-base,--reports-bg-hover,--reports-bg-active,--reports-text-muted,--reports-text-bright,--reports-card-bg,--reports-card-border,--reports-control-font-size,--reports-control-letter-spacing,--reports-palette-1-rgb,--reports-palette-2-rgb,--reports-palette-3-rgb,--reports-palette-4-rgb,--reports-palette-5-rgb,--reports-palette-6-rgb,--reports-palette-rgb,--reports-slide-btn-rgb,--reports-slide-btn-text,--reports-slide-btn-text-strong,--reports-slide-btn-border,--reports-slide-btn-border-hover,--reports-slide-btn-bg-top,--reports-slide-btn-bg-bottom,--reports-slide-btn-bg-top-hover,--reports-slide-btn-bg-bottom-hover,--reports-slide-btn-bg-top-active,--reports-slide-btn-bg-bottom-active" data-scope="#reports-demo-scope">
             <tbody></tbody>
           </table>
         </div>
