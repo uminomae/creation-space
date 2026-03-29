@@ -68,6 +68,7 @@ const state = {
         pendingDomainHistoryMode: '',
         _isHistorySyncing: false,
         historyEventsBound: false,
+        hoverGridEventsBound: false,
         // Generic modal & guide history state
         activeGenericModalKey: '',
         activeGenericHistoryMode: '',
@@ -567,25 +568,11 @@ function closeHoverGridModal() {
     document.body.style.overflow = '';
 }
 
-let hoverGridEventsBound = false;
-function bindHoverGridModalEvents() {
-    const modal = document.getElementById('hover-grid-modal');
-    if (!modal || hoverGridEventsBound) return;
-    hoverGridEventsBound = true;
-
-    // Close button
-    const closeBtn = document.getElementById('hover-grid-modal-close');
-    if (closeBtn) {
-        closeBtn.addEventListener('click', closeHoverGridModal);
-    }
-
-    // ESC key — capture phase so we intercept before Bootstrap's bubbling handler
-    document.addEventListener('keydown', (e) => {
+function handleHoverGridEsc(modal) {
+    return (e) => {
         if (e.key !== 'Escape') return;
         if (modal.style.display === 'none') return;
-
-        // Image overlay (z-index:2000) handles its own ESC — don't interfere
-        if (document.querySelector('div[style*="z-index:2000"]')) return;
+        if (document.querySelector('[data-role="img-overlay"]')) return;
 
         e.stopPropagation();
 
@@ -597,7 +584,22 @@ function bindHoverGridModalEvents() {
         }
 
         closeHoverGridModal();
-    }, true);
+    };
+}
+
+function bindHoverGridModalEvents() {
+    const modal = document.getElementById('hover-grid-modal');
+    if (!modal || state.modal.hoverGridEventsBound) return;
+    state.modal.hoverGridEventsBound = true;
+
+    // Close button
+    const closeBtn = document.getElementById('hover-grid-modal-close');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeHoverGridModal);
+    }
+
+    // ESC key — capture phase so we intercept before Bootstrap's bubbling handler
+    document.addEventListener('keydown', handleHoverGridEsc(modal), true);
 
     // Background click (but not grid content)
     modal.addEventListener('click', (e) => {
