@@ -567,9 +567,11 @@ function closeHoverGridModal() {
     document.body.style.overflow = '';
 }
 
+let hoverGridEventsBound = false;
 function bindHoverGridModalEvents() {
     const modal = document.getElementById('hover-grid-modal');
-    if (!modal) return;
+    if (!modal || hoverGridEventsBound) return;
+    hoverGridEventsBound = true;
 
     // Close button
     const closeBtn = document.getElementById('hover-grid-modal-close');
@@ -577,23 +579,25 @@ function bindHoverGridModalEvents() {
         closeBtn.addEventListener('click', closeHoverGridModal);
     }
 
-    // ESC key — close detail modal first, then hover grid
+    // ESC key — capture phase so we intercept before Bootstrap's bubbling handler
     document.addEventListener('keydown', (e) => {
         if (e.key !== 'Escape') return;
         if (modal.style.display === 'none') return;
 
-        // If Bootstrap detail modal is open, stop propagation and let Bootstrap handle it
+        // Image overlay (z-index:2000) handles its own ESC — don't interfere
+        if (document.querySelector('div[style*="z-index:2000"]')) return;
+
+        e.stopPropagation();
+
         const detailModal = document.getElementById('reports-md-modal');
         if (detailModal && detailModal.classList.contains('show')) {
-            e.stopImmediatePropagation();
             const bsModal = bootstrap.Modal.getInstance(detailModal);
             if (bsModal) bsModal.hide();
             return;
         }
 
-        // Otherwise close the hover grid modal
         closeHoverGridModal();
-    });
+    }, true);
 
     // Background click (but not grid content)
     modal.addEventListener('click', (e) => {
