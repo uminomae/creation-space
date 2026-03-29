@@ -62,10 +62,9 @@
 .creation-card-placeholder p {
   margin: 0.75rem 0 0;
   color: rgba(var(--color-sub-text), 0.75);
-  font-size: 0.72rem;
-  line-height: 1.65;
-  letter-spacing: 0.04em;
-  font-family: var(--kesson-font-serif-display);
+  font-size: 0.875rem;
+  line-height: 1.6;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 #articles-error {
