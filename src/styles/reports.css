@@ -174,8 +174,8 @@
 .reports-subheading {
   margin: 0 0 .65rem;
   color: rgba(var(--color-heading), .82);
-  font-size: clamp(calc(.75rem + var(--reports-font-step)), calc(2.2vmin + var(--reports-font-step)), calc(.9rem + var(--reports-font-step)));
-  letter-spacing: .04em;
+  font-size: var(--kesson-card-title, 1.0rem);
+  letter-spacing: var(--kesson-letter-ui-heading);
   font-family: var(--kesson-font-serif-display);
   font-weight: 400;
   text-transform: none;
@@ -184,19 +184,21 @@
 .reports-ai-notice {
   margin: 0 0 .85rem;
   color: rgba(var(--color-sub-text), .78);
-  font-size: calc(.8rem + var(--reports-font-step));
-  letter-spacing: var(--kesson-letter-ui-tight);
-  line-height: 1.45;
-  font-family: var(--reports-font-serif);
+  font-size: var(--kesson-card-text, 0.92rem);
+  letter-spacing: 0.08em;
+  line-height: 1.8;
+  font-family: var(--kesson-font-serif-display);
+  font-weight: 300;
 }
 
 .reports-level-legend {
   margin: 0 0 .65rem;
   color: rgba(var(--color-sub-text), .7);
-  font-size: calc(.8rem + var(--reports-font-step));
-  letter-spacing: var(--kesson-letter-ui-tight);
-  line-height: 1.45;
-  font-family: var(--reports-font-serif);
+  font-size: var(--kesson-card-text, 0.92rem);
+  letter-spacing: 0.06em;
+  line-height: 1.8;
+  font-family: var(--kesson-font-serif-display);
+  font-weight: 300;
   white-space: normal;
 }
 
@@ -312,8 +314,11 @@
 
 .reports-feature-description {
   color: rgba(var(--color-sub-text), .72);
-  font-size: var(--kesson-card-text, .8rem);
-  line-height: 1.55;
+  font-size: var(--kesson-card-text, 0.92rem);
+  line-height: 1.8;
+  letter-spacing: 0.06em;
+  font-family: var(--kesson-font-serif-display);
+  font-weight: 300;
 }
 
 .report-metric-card {
@@ -802,7 +807,9 @@
 
 .hover-grid-cell-name {
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 400;
+  font-family: var(--kesson-font-serif-display);
+  letter-spacing: 0.06em;
   color: rgba(241, 245, 249, 0.92);
   margin-bottom: 0.75rem;
   line-height: 1.4;
@@ -810,7 +817,7 @@
 
 .hover-grid-cell.expanded .hover-grid-cell-name {
   font-size: 1.4rem;
-  font-weight: 600;
+  font-weight: 400;
   margin-bottom: 1rem;
 }
 
@@ -823,8 +830,10 @@
 }
 
 .hover-grid-cell-content {
-  font-size: 0.9rem;
+  font-size: var(--kesson-card-text, 0.92rem);
   font-weight: 300;
+  font-family: var(--kesson-font-serif-display);
+  letter-spacing: 0.06em;
   line-height: 1.9;
   color: rgba(255, 255, 255, 0.85);
   display: none;
@@ -920,14 +929,16 @@
   font-weight: 400;
   color: rgba(241, 245, 249, 0.92);
   font-family: var(--kesson-font-serif-display, 'Noto Serif JP', serif);
-  letter-spacing: 0.04em;
+  letter-spacing: var(--kesson-letter-ui-heading);
 }
 
 .hover-grid-modal-status {
   margin: 0;
   font-size: 0.78rem;
   color: rgba(241, 245, 249, 0.5);
-  line-height: 1.4;
+  line-height: 1.6;
+  letter-spacing: 0.06em;
+  font-family: var(--kesson-font-serif-display);
 }
 
 .hover-grid-modal-close-btn {
