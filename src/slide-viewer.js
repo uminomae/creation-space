@@ -199,6 +199,73 @@ function setBodyScrollLock(locked) {
     previousBodyOverflow = '';
 }
 
+function getFullscreenElement() {
+    return document.fullscreenElement || document.webkitFullscreenElement || null;
+}
+
+function requestElementFullscreen(element) {
+    if (!element) return Promise.reject(new Error('missing fullscreen target'));
+    if (typeof element.requestFullscreen === 'function') {
+        return element.requestFullscreen();
+    }
+    if (typeof element.webkitRequestFullscreen === 'function') {
+        element.webkitRequestFullscreen();
+        return Promise.resolve();
+    }
+    return Promise.reject(new Error('fullscreen unsupported'));
+}
+
+function exitFullscreenMode() {
+    if (typeof document.exitFullscreen === 'function') {
+        return document.exitFullscreen();
+    }
+    if (typeof document.webkitExitFullscreen === 'function') {
+        document.webkitExitFullscreen();
+    }
+    return Promise.resolve();
+}
+
+function isOverlayFullscreen() {
+    return getFullscreenElement() === overlayNode;
+}
+
+function updateFullscreenUi() {
+    const button = getOverlayPart('.slide-viewer-fullscreen');
+    if (!button) return;
+
+    const supported = Boolean(
+        overlayNode
+        && (typeof overlayNode.requestFullscreen === 'function'
+            || typeof overlayNode.webkitRequestFullscreen === 'function')
+    );
+    if (!supported) {
+        button.hidden = true;
+        return;
+    }
+
+    button.hidden = false;
+    const active = isOverlayFullscreen();
+    button.textContent = active ? '⤢' : '⛶';
+    button.setAttribute('aria-label', active ? 'Exit fullscreen' : 'Enter fullscreen');
+    button.setAttribute('aria-pressed', active ? 'true' : 'false');
+}
+
+async function toggleFullscreen() {
+    if (!overlayNode) return;
+
+    try {
+        if (isOverlayFullscreen()) {
+            await exitFullscreenMode();
+        } else {
+            await requestElementFullscreen(overlayNode);
+        }
+    } catch {
+        // Fullscreen is best-effort. Keep the viewer usable even if the API fails.
+    } finally {
+        updateFullscreenUi();
+    }
+}
+
 function updateSlideUi(title = '') {
     if (!overlayNode || !slidesState.length) return;
 
@@ -243,6 +310,7 @@ function createOverlay() {
     node.innerHTML = `
         <div class="slide-viewer-shell">
             <button class="slide-viewer-close" aria-label="Close slides">&times;</button>
+            <button class="slide-viewer-fullscreen" aria-label="Enter fullscreen" aria-pressed="false">⛶</button>
             <div class="slide-viewer-frame">
                 <div class="slide-viewer-stage"></div>
             </div>
@@ -258,6 +326,9 @@ function createOverlay() {
     `;
 
     node.querySelector('.slide-viewer-close').addEventListener('click', closeSlideViewer);
+    node.querySelector('.slide-viewer-fullscreen').addEventListener('click', () => {
+        toggleFullscreen();
+    });
     node.querySelector('.slide-viewer-nav-prev').addEventListener('click', () => moveSlide(-1));
     node.querySelector('.slide-viewer-nav-next').addEventListener('click', () => moveSlide(1));
     node.addEventListener('click', (event) => {
@@ -286,8 +357,11 @@ function createOverlay() {
             closeSlideViewer();
         }
     });
+    document.addEventListener('fullscreenchange', updateFullscreenUi);
+    document.addEventListener('webkitfullscreenchange', updateFullscreenUi);
 
     document.body.appendChild(node);
+    updateFullscreenUi();
     return node;
 }
 
@@ -367,6 +441,7 @@ export async function openSlideViewer({ markdownText, title = '', mdBaseUrl, onC
         overlayNode.setAttribute('aria-label', title || meta.title || 'Slides');
         setBodyScrollLock(true);
         updateSlideUi(title || meta.title || '');
+        updateFullscreenUi();
         window.addEventListener('keydown', onKeyDown);
     } catch (err) {
         console.error('[slide-viewer] ERROR:', err);
@@ -375,6 +450,9 @@ export async function openSlideViewer({ markdownText, title = '', mdBaseUrl, onC
 
 export function closeSlideViewer() {
     window.removeEventListener('keydown', onKeyDown);
+    if (isOverlayFullscreen()) {
+        void exitFullscreenMode();
+    }
     setBodyScrollLock(false);
 
     if (overlayNode) {
@@ -392,6 +470,7 @@ export function closeSlideViewer() {
 
     slidesState = [];
     currentSlideIndex = 0;
+    updateFullscreenUi();
 
     if (onCloseCallback) {
         const cb = onCloseCallback;
@@ -465,6 +544,7 @@ export function openRichSlideViewer({ htmlUrl, title = '', onClose = null }) {
         overlayNode.classList.add('visible');
         overlayNode.setAttribute('aria-label', title || 'Rich Slides');
         setBodyScrollLock(true);
+        updateFullscreenUi();
     } catch (err) {
         console.error('[slide-viewer] rich slide ERROR:', err);
     }
