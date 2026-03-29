@@ -24,7 +24,7 @@
 #articles-section {
   position: relative;
   z-index: 5;
-  margin-top: 80vh;
+  margin-top: clamp(4rem, 16vh, 9rem);
 }
 
 #creation-cards-section {
