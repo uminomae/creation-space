@@ -481,7 +481,7 @@ export function createReportsRenderer({
             btnGroup.className = 'd-flex flex-wrap gap-1 mt-auto';
 
             const slideBtn = document.createElement('button');
-            const slideLabel = normalizeLang(state.config.lang) === 'ja' ? 'スライド' : 'Slides';
+            const slideLabel = getReportsStrings(state.config.lang).phase8Themes.slidesButton;
             slideBtn.type = 'button';
             slideBtn.className = 'reports-slide-btn';
             slideBtn.textContent = slideLabel;

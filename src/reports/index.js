@@ -262,7 +262,7 @@ function buildModalOpenerRegistry() {
         const strings = getReportsStrings(lang);
         const synthStrings = strings.synthesis || {};
         modalController.openMarkdownModal({
-            title: synthStrings.reportTitle || 'Cross-Domain Synthesis',
+            title: synthStrings.reportTitle,
             sources: resolveLocalizedSources(SYNTHESIS_REPORT_LINKS, lang),
             modalContext: { type: 'generic', modalKey: 'synthesis', historyMode },
         });
@@ -363,7 +363,8 @@ function buildSlideOpenerRegistry() {
         const sources = resolveLocalizedSources(SYNTHESIS_PRESENTATION_LINKS, lang);
         const source = sources[0];
         if (!source) return;
-        const title = 'Cross-Domain Synthesis';
+        const strings = getReportsStrings(lang);
+        const title = (strings.synthesis || {}).reportTitle;
 
         if (source.htmlUrl) {
             try {

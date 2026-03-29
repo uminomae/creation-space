@@ -65,7 +65,8 @@ function renderTimeline(lang) {
 
     const normalized = normalizeLang(lang);
     _stages = getStages(normalized);
-    _timeline.setAttribute('aria-label', normalized === 'ja' ? '創造の5段階' : 'Five Stages of Creation');
+    const prologueStrings = dict[normalized]?.prologue || dict.ja.prologue;
+    _timeline.setAttribute('aria-label', prologueStrings.timelineAria);
     _nodesRow.innerHTML = '';
 
     _stages.forEach((stage, index) => {
@@ -131,9 +132,11 @@ function activateStage(index) {
         _descArea.innerHTML = '';
         const title = document.createElement('span');
         title.className = 'prologue-desc-title';
-        title.textContent = normalizeLang(getCurrentLang()) === 'ja'
-            ? `${stage.label}（${stage.sub}）`
-            : `${stage.label} (${stage.sub})`;
+        const currentNormalized = normalizeLang(getCurrentLang());
+        const currentPrologueStrings = dict[currentNormalized]?.prologue || dict.ja.prologue;
+        title.textContent = currentPrologueStrings.stageTitleFormat
+            .replace('{label}', stage.label)
+            .replace('{sub}', stage.sub);
         title.style.color = STAGE_COLORS[index];
 
         const text = document.createElement('span');

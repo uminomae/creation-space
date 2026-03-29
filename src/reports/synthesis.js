@@ -87,7 +87,8 @@ export function createSynthesisRenderer({ openMarkdownModal, getLang, wrapSlideO
 
         // Slide button
         const slideBtn = document.createElement('button');
-        const slideLabel = normalizeLang(lang) === 'ja' ? 'スライド' : 'Slides';
+        const l = normalizeLang(lang);
+        const slideLabel = (dict[l]?.reports?.phase8Themes || dict.ja.reports.phase8Themes).slidesButton;
         slideBtn.type = 'button';
         slideBtn.className = 'reports-slide-btn mt-auto align-self-start';
         slideBtn.textContent = slideLabel;

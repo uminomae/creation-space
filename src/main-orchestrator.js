@@ -14,11 +14,11 @@ import { resolveIntentShiftTurnRange } from './intent-timeline.js';
 import { setCameraPosition, setCameraTarget } from './controls.js';
 import { initDevAuxTools, initDevPanelRuntime } from './dev-runtime.js';
 import { normalizeLang } from './i18n.js';
+import { dict } from './i18n/dict.js';
 
 function getSceneFallbackMessage(lang) {
-    return normalizeLang(lang) === 'ja'
-        ? '3D 背景の初期化に失敗したため、コンテンツ表示のみで継続しています。'
-        : 'The 3D background failed to initialize. Content view is still available.';
+    const l = normalizeLang(lang);
+    return (dict[l]?.page || dict.ja.page).sceneFallbackMessage;
 }
 
 export async function runMainOrchestrator({
