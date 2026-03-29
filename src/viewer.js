@@ -56,7 +56,9 @@ function getViewerStrings() {
 function buildSourceFallbackText(label, lang, strings) {
     const safeLabel = String(label || '').trim();
     if (!safeLabel) return strings.openReference;
-    return (strings.openReferenceWithLabel || '').replace('{label}', safeLabel);
+    return strings.openReferenceWithLabel
+        ? strings.openReferenceWithLabel.replace('{label}', safeLabel)
+        : strings.openReference;
 }
 
 function createViewer() {

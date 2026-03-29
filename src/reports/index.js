@@ -362,7 +362,7 @@ function buildSlideOpenerRegistry() {
         const source = sources[0];
         if (!source) return;
         const strings = getReportsStrings(lang);
-        const title = strings.synthesis.reportTitle;
+        const title = (strings.synthesis || {}).reportTitle;
 
         if (source.htmlUrl) {
             try {
