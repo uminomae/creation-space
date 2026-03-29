@@ -33,12 +33,10 @@ body.creation-page {
   color: rgba(210, 225, 250, 0.72);
 }
 
-#hero-spacer {
-  height: 140vh;
-}
-
-#articles-spacer {
-  height: 0;
+.creation-page .creation-main {
+  position: relative;
+  z-index: 5;
+  padding-top: 140vh;
 }
 
 @media (max-width: 768px) {

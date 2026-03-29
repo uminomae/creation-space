@@ -288,20 +288,6 @@ html[lang="en"] #taglines {
   margin-bottom: 0.8rem;
 }
 
-#hero-spacer {
-  position: relative;
-  height: 125vh;
-  z-index: 5;
-  pointer-events: none;
-}
-
-#articles-spacer {
-  position: relative;
-  height: 80vh;
-  z-index: 5;
-  pointer-events: none;
-}
-
 #scroll-hint {
   position: fixed;
   bottom: 16px;

@@ -7,12 +7,10 @@ import { initRevealObserver } from './reveal-observer.js';
 import { initPrologueTimeline } from './prologue-timeline.js';
 import { initAboutModal } from './about-modal.js';
 import { detectLang, initLanguageState } from './i18n.js';
-import { loadComponents } from './component-loader.js';
 
 installStartupErrorHandlers();
 
 async function startMainApp() {
-    await loadComponents();
     initLanguageState(detectLang());
     initScrollCoordinator();
     initFontSizeCtrl();

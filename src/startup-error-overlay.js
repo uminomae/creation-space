@@ -1,3 +1,7 @@
+const STARTUP_ERROR_OVERLAY_ID = 'app-startup-error-overlay';
+const STARTUP_ERROR_HANDLER_FLAG = '__kessonStartupErrorHandlersInstalled';
+const STARTUP_ERROR_RENDERER = '__kessonShowStartupErrorOverlay';
+
 function formatStartupError(errorLike) {
     if (!errorLike) return 'Unknown startup error';
     if (typeof errorLike === 'string') return errorLike;
@@ -11,18 +15,33 @@ function formatStartupError(errorLike) {
     }
 }
 
-export function showStartupErrorOverlay(errorLike) {
-    const doc = window.document;
-    if (!doc) return;
-    const message = formatStartupError(errorLike);
-    let overlay = doc.getElementById('app-startup-error-overlay');
+function ensureStartupErrorOverlay(doc) {
+    let overlay = doc.getElementById(STARTUP_ERROR_OVERLAY_ID);
     if (!overlay) {
         overlay = doc.createElement('pre');
-        overlay.id = 'app-startup-error-overlay';
+        overlay.id = STARTUP_ERROR_OVERLAY_ID;
         const parent = doc.body || doc.documentElement;
         if (parent) parent.appendChild(overlay);
     }
+    return overlay;
+}
+
+function renderStartupError(message) {
+    const sharedRenderer = window[STARTUP_ERROR_RENDERER];
+    if (typeof sharedRenderer === 'function') {
+        sharedRenderer(message);
+        return;
+    }
+
+    const doc = window.document;
+    if (!doc) return;
+    const overlay = ensureStartupErrorOverlay(doc);
+    if (!overlay) return;
     overlay.textContent = `[startup-error]\n${message}`;
+}
+
+export function showStartupErrorOverlay(errorLike) {
+    renderStartupError(formatStartupError(errorLike));
 }
 
 export function showStartupWarningBanner(message) {
@@ -41,8 +60,9 @@ export function showStartupWarningBanner(message) {
 let installed = false;
 
 export function installStartupErrorHandlers() {
-    if (installed) return;
+    if (installed || window[STARTUP_ERROR_HANDLER_FLAG]) return;
     installed = true;
+    window[STARTUP_ERROR_HANDLER_FLAG] = true;
 
     window.addEventListener('error', (event) => {
         const value = event?.error || event?.message || event;

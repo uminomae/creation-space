@@ -1,28 +1,37 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <!-- Early startup diagnostics -->
   <script>
     (function () {
+      var overlayId = 'app-startup-error-overlay';
+      var handlerFlag = '__kessonStartupErrorHandlersInstalled';
+
       function showBootError(message) {
         var doc = window.document;
         if (!doc) return;
         var text = String(message || 'Unknown boot error');
-        var pre = doc.getElementById('boot-error-overlay');
+        var pre = doc.getElementById(overlayId);
         if (!pre) {
           pre = doc.createElement('pre');
-          pre.id = 'boot-error-overlay';
+          pre.id = overlayId;
           var parent = doc.body || doc.documentElement;
           if (parent) parent.appendChild(pre);
         }
-        pre.textContent = '[boot-error]\\n' + text;
+        pre.textContent = '[startup-error]\\n' + text;
       }
+
+      window.__kessonShowStartupErrorOverlay = showBootError;
+      if (window[handlerFlag]) return;
+      window[handlerFlag] = true;
+
       window.addEventListener('error', function (event) {
         var location = event && event.filename
           ? '\\n' + event.filename + ':' + event.lineno + ':' + event.colno
           : '';
         showBootError((event && event.message) || event || 'Script error');
         if (location) {
-          var pre = document.getElementById('boot-error-overlay');
+          var pre = document.getElementById(overlayId);
           if (pre) pre.textContent += location;
         }
       });
@@ -33,19 +42,8 @@
       });
     })();
   </script>
-  <!-- Google Analytics (skip on localhost / dev ports) -->
-  <script>
-    if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) {
-      var s = document.createElement('script');
-      s.async = true;
-      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-X5WQCB3JYT';
-      document.head.appendChild(s);
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-X5WQCB3JYT');
-    }
-  </script>
+
+  <!-- SEO -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>創造とは — pjdhiro</title>
@@ -109,10 +107,27 @@
   }
   </script>
 
+  <!-- Analytics -->
+  <script>
+    if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) {
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-X5WQCB3JYT';
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-X5WQCB3JYT');
+    }
+  </script>
+
+  <!-- Vendor styles -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- App styles -->
   <link rel="stylesheet" href="./src/styles/startup-errors.css">
   <link rel="stylesheet" href="./src/styles/shell.css">
   <link rel="stylesheet" href="./src/styles/topbar.css">
@@ -125,6 +140,7 @@
   <link rel="stylesheet" href="./src/styles/about-modal.css">
   <link rel="stylesheet" href="./src/styles/dev-panel.css">
 
+  <!-- Vendor modules -->
   <script type="importmap">
     {
       "imports": {
@@ -136,6 +152,7 @@
     }
   </script>
 
+  <!-- App bootstrap -->
   <script type="module" src="./src/main.js"></script>
 </head>
 <body class="creation-page">
@@ -216,52 +233,165 @@
     </div>
   </header>
 
-  <nav id="graphic-switcher" role="group" aria-label="背景グラフィック切り替え" data-i18n-attr-aria-label="graphicSwitcherAria">
-    <span class="graphic-switcher-label" data-i18n="graphicSwitcherLabel">背景</span>
-    <button type="button" data-graphic-mode="sinobi" aria-pressed="false" data-i18n="graphicModeSinobi">忍</button>
-    <button type="button" data-graphic-mode="i" class="active" aria-pressed="true" data-i18n="graphicModeIntent">意</button>
-  </nav>
-  <a id="dev-components-link" class="dev-components-link" href="./dev-components.html">Components</a>
-
-  <div id="overlay" role="presentation">
-    <div id="taglines"></div>
-    <h1 id="title-h1" data-i18n="title">創造とは</h1>
-  </div>
-
-  <div id="control-guide">
-    <div class="guide-row guide-desktop">
-      <span class="guide-key" data-i18n="controlGuideDrag">ドラッグ</span>
-      <span class="guide-sep">—</span>
-      <span class="guide-action" data-i18n="controlGuideRotate">回転</span>
+  <main id="main-content" class="creation-main">
+    <div id="graphic-switcher" role="toolbar" aria-label="背景グラフィック切り替え" data-i18n-attr-aria-label="graphicSwitcherAria">
+      <span class="graphic-switcher-label" data-i18n="graphicSwitcherLabel">背景</span>
+      <button type="button" data-graphic-mode="sinobi" aria-pressed="false" data-i18n="graphicModeSinobi">忍</button>
+      <button type="button" data-graphic-mode="i" class="active" aria-pressed="true" data-i18n="graphicModeIntent">意</button>
     </div>
-    <!-- ズームガイドは非表示（ズーム機能は controls.js に残存するが UI ガイドとしては不要） -->
-    <div class="guide-row guide-touch">
-      <span class="guide-key" data-i18n="controlGuideSwipe">横スワイプ</span>
-      <span class="guide-sep">—</span>
-      <span class="guide-action" data-i18n="controlGuideRotate">回転</span>
+    <a id="dev-components-link" class="dev-components-link" href="./dev-components.html">Components</a>
+
+    <div id="overlay" role="presentation">
+      <div id="taglines"></div>
+      <h1 id="title-h1" data-i18n="title">創造とは</h1>
     </div>
-  </div>
 
-  <div id="scroll-hint">
-    <span>scroll</span>
-    <div class="arrow">▾</div>
-  </div>
+    <div id="control-guide">
+      <div class="guide-row guide-desktop">
+        <span class="guide-key" data-i18n="controlGuideDrag">ドラッグ</span>
+        <span class="guide-sep">—</span>
+        <span class="guide-action" data-i18n="controlGuideRotate">回転</span>
+      </div>
+      <!-- ズームガイドは非表示（ズーム機能は controls.js に残存するが UI ガイドとしては不要） -->
+      <div class="guide-row guide-touch">
+        <span class="guide-key" data-i18n="controlGuideSwipe">横スワイプ</span>
+        <span class="guide-sep">—</span>
+        <span class="guide-action" data-i18n="controlGuideRotate">回転</span>
+      </div>
+    </div>
 
-  <div id="scroll-hint-top">
-    <div class="arrow">▴</div>
-    <span>scroll</span>
-  </div>
+    <div id="scroll-hint">
+      <span>scroll</span>
+      <div class="arrow">▾</div>
+    </div>
 
-  <div id="hero-spacer"></div>
-  <div class="container">
-    <p id="reports-ai-notice" class="reports-ai-notice" data-i18n="reportsAiNotice">AIが執筆しているため間違いがある場合があります。</p>
-  </div>
-  <section id="model-section" aria-labelledby="model-section-heading"></section>
-  <div id="reports-spacer"></div>
-  <section id="reports-section" aria-labelledby="reports-section-heading"></section>
-  <section id="reports-cross-analysis-section" aria-labelledby="reports-cross-analysis-heading"></section>
-  <div id="articles-spacer"></div>
-  <section id="articles-section" aria-labelledby="articles-section-heading"></section>
+    <div id="scroll-hint-top">
+      <div class="arrow">▴</div>
+      <span>scroll</span>
+    </div>
+
+    <div class="container">
+      <p id="reports-ai-notice" class="reports-ai-notice" data-i18n="reportsAiNotice">AIが執筆しているため間違いがある場合があります。</p>
+    </div>
+
+    <section id="model-section" aria-labelledby="model-section-heading">
+      <div class="room-narration">
+        <p class="room-narration-text" data-i18n-html="narrations.modelSection">ひとつの問いから始まりました。<br>三十の領域が、同じ方向を指していたのです。</p>
+      </div>
+      <div class="section-content-wrap">
+        <div class="container creation-section-shell">
+          <h2 class="section-heading">
+            <a id="model-section-heading" href="#model-section" class="section-heading-link" aria-label="創造の5段階モデル セクションへジャンプ" data-i18n="modelSectionHeading" data-i18n-attr-aria-label="modelSectionHeadingAria">
+              創造の5段階モデル
+            </a>
+          </h2>
+          <div class="reports-tab-content">
+            <div id="reports-feature-cards" class="row row-cols-1 row-cols-md-3 g-2" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reports-section" aria-labelledby="reports-section-heading">
+      <div class="room-narration">
+        <p class="room-narration-text" data-i18n-html="narrations.reportsSection">ここから先には、三十の個室があります。<br>どれも、違う言語で同じことを語っています。</p>
+      </div>
+      <div class="section-content-wrap">
+        <div class="container creation-section-shell">
+          <h2 class="section-heading">
+            <a id="reports-section-heading" href="#reports-section" class="section-heading-link" aria-label="REPORTS セクションへジャンプ" data-i18n="reportsSectionHeading" data-i18n-attr-aria-label="reportsSectionHeadingAria">
+              REPORTS
+            </a>
+          </h2>
+          <div id="reports-error" class="alert alert-danger py-2 px-3 d-none mb-3" role="alert"></div>
+          <div class="reports-overview mb-3">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-2" id="reports-primary-actions">
+              <button id="reports-open-status-btn" type="button" class="btn btn-outline-light btn-sm reports-status-cta"></button>
+            </div>
+            <div id="reports-metrics" class="row g-2" aria-live="polite"></div>
+          </div>
+          <h3 id="reports-domains-heading" class="section-heading"></h3>
+          <div class="reports-tab-content reports-stack">
+            <section class="reports-stack-section">
+              <p id="reports-scenario-note" class="reports-level-legend mb-2 d-none"></p>
+              <p id="reports-level-legend" class="reports-level-legend mb-2"></p>
+              <div id="reports-table-filters" class="d-none flex-wrap gap-2 mb-2" role="group"></div>
+              <div id="reports-domain-grid" class="reports-domain-grid row row-cols-2 row-cols-md-5 g-2" aria-live="polite">
+                <div class="reports-domain-empty col-12 text-body-secondary"></div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reports-cross-analysis-section" aria-labelledby="reports-cross-analysis-heading">
+      <div class="room-narration">
+        <p class="room-narration-text" data-i18n-html="narrations.reportsCrossAnalysisSection">三十の旅人が別々の道を歩きました。<br>全員が、同じ跡を残していたのです。</p>
+      </div>
+      <div class="section-content-wrap">
+        <div class="container creation-section-shell">
+          <h2 class="section-heading">
+            <a id="reports-cross-analysis-heading" href="#reports-cross-analysis-section" class="section-heading-link" aria-label="CROSS ANALYSIS セクションへジャンプ" data-i18n="crossAnalysisHeading" data-i18n-attr-aria-label="crossAnalysisSectionHeadingAria">
+              CROSS ANALYSIS
+            </a>
+          </h2>
+          <div class="reports-tab-content reports-stack">
+            <div id="reports-synthesis-section" class="mt-2 mb-3">
+              <p id="reports-synthesis-description" class="reports-level-legend mb-2 d-none"></p>
+              <div id="reports-synthesis-grid" class="row row-cols-1 g-2" aria-live="polite">
+              </div>
+            </div>
+            <div class="mt-3">
+              <h4 id="reports-phase8-heading" class="reports-subheading h6 d-none"></h4>
+              <p id="reports-phase8-description" class="reports-level-legend mb-2"></p>
+              <div id="reports-phase8-grid" class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-2" aria-live="polite">
+                <div class="col-12 text-body-secondary"></div>
+              </div>
+            </div>
+            <div class="mt-4">
+              <button class="reports-slide-btn phase9-toggle"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#phase9-collapse"
+                      aria-expanded="false"
+                      aria-controls="phase9-collapse"
+                      data-i18n="phase9Toggle"></button>
+              <div id="phase9-collapse" class="collapse mt-3">
+                <h4 id="reports-theme-verification-heading" class="section-heading"></h4>
+                <p id="reports-theme-verification-description" class="reports-level-legend mb-2"></p>
+                <div id="reports-theme-verification-grid" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2" aria-live="polite">
+                  <div class="col-12 text-body-secondary"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="articles-section" aria-labelledby="articles-section-heading">
+      <div class="room-narration">
+        <p class="room-narration-text" data-i18n-html="narrations.articlesSection">思考の途中が、記事になりました。</p>
+      </div>
+      <div class="section-content-wrap">
+        <div class="container creation-section-shell">
+          <h2 class="section-heading">
+            <a id="articles-section-heading" href="#articles-section" class="section-heading-link" aria-label="ARTICLES セクションへジャンプ" data-i18n="articlesSectionHeading" data-i18n-attr-aria-label="articlesSectionHeadingAria">
+              ARTICLES
+            </a>
+          </h2>
+          <div id="articles-error" class="d-none"></div>
+          <div class="reports-tab-content">
+            <div id="articles-grid" class="row g-3"></div>
+          </div>
+          <div class="next-question" id="next-question">
+            <p class="next-question-text" data-i18n="nextQuestion">あなたの領域では、創造はどのように記述されていますか？</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
   <div class="modal fade" id="reports-md-modal" tabindex="-1" aria-labelledby="reports-md-modal-title">
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
