@@ -428,6 +428,10 @@
   background: rgba(var(--color-accent), .04);
 }
 
+#reports-md-modal {
+  z-index: 100002;
+}
+
 .reports-md-modal-content {
   background: var(--kesson-offcanvas-bg);
   color: rgba(var(--color-heading), .92);
@@ -703,5 +707,303 @@
 
   .tv-meta-chip {
     font-size: 0.64rem;
+  }
+}
+
+/* ==========================================================================
+   Hover-expand grid (techo#53)
+   ========================================================================== */
+
+.hover-grid-container {
+  --col-0: 1fr; --col-1: 1fr; --col-2: 1fr; --col-3: 1fr; --col-4: 1fr;
+  --row-0: 1fr; --row-1: 1fr; --row-2: 1fr; --row-3: 1fr; --row-4: 1fr; --row-5: 1fr;
+  --expanded-ratio: 4;
+  --collapsed-ratio: 0.5;
+
+  display: grid;
+  grid-template-columns: var(--col-0) var(--col-1) var(--col-2) var(--col-3) var(--col-4);
+  grid-template-rows: var(--row-0) var(--row-1) var(--row-2) var(--row-3) var(--row-4) var(--row-5);
+  height: calc(100vh - 8rem);
+  gap: 0;
+  transition: grid-template-columns 0.4s ease-out, grid-template-rows 0.4s ease-out;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.hover-grid-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+  color: rgba(241, 245, 249, 0.85);
+  padding: 1.5rem;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  transition: background 0.3s ease, border-color 0.3s ease;
+  min-width: 0;
+  min-height: 0;
+}
+
+.hover-grid-cell:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Collapsed state */
+.hover-grid-cell.collapsed {
+  padding: 0.5rem;
+  overflow: hidden; /* A2: overflow hidden when collapsed */
+}
+
+.hover-grid-cell.collapsed .hover-grid-cell-name {
+  font-size: clamp(0.5rem, 2vw, 0.7rem);
+  font-weight: 400;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  text-align: center;
+}
+
+.hover-grid-cell.collapsed .hover-grid-cell-id,
+.hover-grid-cell.collapsed .hover-grid-cell-content {
+  display: none;
+}
+
+/* Expanded state */
+.hover-grid-cell.expanded {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  padding: 2rem;
+  align-items: flex-start;
+  justify-content: flex-start;
+  overflow-y: auto;    /* A2: overflow auto when expanded */
+  overflow-x: hidden;
+  overscroll-behavior: contain; /* A1: prevent scroll chaining */
+  border-left: 4px solid;
+}
+
+.hover-grid-cell-id {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 0.35rem 0.6rem;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(241, 245, 249, 0.6);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+}
+
+.hover-grid-cell-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(241, 245, 249, 0.92);
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+
+.hover-grid-cell.expanded .hover-grid-cell-name {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.hover-grid-cell-progress {
+  display: inline-block;
+  font-size: 0.65rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+}
+
+.hover-grid-cell-content {
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.9;
+  color: rgba(255, 255, 255, 0.85);
+  display: none;
+  width: 100%;
+}
+
+.hover-grid-cell.expanded .hover-grid-cell-content {
+  display: block;
+}
+
+/* Palette border-left colors (reuse PoC pattern, modulo 10) */
+.hover-grid-cell.expanded.hg-color-0 { border-left-color: rgb(157, 172, 194); }
+.hover-grid-cell.expanded.hg-color-1 { border-left-color: rgb(241, 190, 82); }
+.hover-grid-cell.expanded.hg-color-2 { border-left-color: rgb(92, 145, 255); }
+.hover-grid-cell.expanded.hg-color-3 { border-left-color: rgb(78, 203, 185); }
+.hover-grid-cell.expanded.hg-color-4 { border-left-color: rgb(255, 126, 92); }
+.hover-grid-cell.expanded.hg-color-5 { border-left-color: rgb(114, 209, 117); }
+.hover-grid-cell.expanded.hg-color-6 { border-left-color: rgb(216, 133, 98); }
+.hover-grid-cell.expanded.hg-color-7 { border-left-color: rgb(255, 111, 181); }
+.hover-grid-cell.expanded.hg-color-8 { border-left-color: rgb(96, 207, 255); }
+.hover-grid-cell.expanded.hg-color-9 { border-left-color: rgb(208, 218, 108); }
+
+/* Custom scrollbar for expanded cells */
+.hover-grid-cell.expanded::-webkit-scrollbar {
+  width: 6px;
+}
+.hover-grid-cell.expanded::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+}
+.hover-grid-cell.expanded::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+}
+.hover-grid-cell.expanded::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+.hover-grid-cell.expanded {
+  scrollbar-color: rgba(255, 255, 255, 0.15) rgba(255, 255, 255, 0.02);
+  scrollbar-width: thin;
+}
+
+/* Markdown content inside expanded cell */
+.hover-grid-cell-content .md-body {
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+.hover-grid-cell-content .md-body h1,
+.hover-grid-cell-content .md-body h2,
+.hover-grid-cell-content .md-body h3 {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Loading spinner inside cell */
+.hover-grid-cell-content .hover-grid-loading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.8rem;
+}
+
+/* ==========================================================================
+   Hover-grid fullscreen modal (techo#53)
+   ========================================================================== */
+
+.hover-grid-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100001;
+  background: rgba(10, 14, 23, 0.95);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.hover-grid-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 1.2rem 1.5rem 0.8rem;
+  flex-shrink: 0;
+}
+
+.hover-grid-modal-header-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.hover-grid-modal-title {
+  margin: 0 0 0.3rem;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: rgba(241, 245, 249, 0.92);
+  font-family: var(--kesson-font-serif-display, 'Noto Serif JP', serif);
+  letter-spacing: 0.04em;
+}
+
+.hover-grid-modal-status {
+  margin: 0;
+  font-size: 0.78rem;
+  color: rgba(241, 245, 249, 0.5);
+  line-height: 1.4;
+}
+
+.hover-grid-modal-close-btn {
+  flex-shrink: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  width: 2.4rem;
+  height: 2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: rgba(241, 245, 249, 0.7);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  margin-left: 1rem;
+}
+
+.hover-grid-modal-close-btn:hover,
+.hover-grid-modal-close-btn:focus-visible {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(241, 245, 249, 0.95);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.hover-grid-modal-close-btn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.4);
+  outline-offset: 2px;
+}
+
+.hover-grid-modal-body {
+  flex: 1 1 auto;
+  overflow: hidden;
+  padding: 0 1.5rem 1.5rem;
+}
+
+/* Button in REPORTS section to open modal */
+#reports-hover-grid-open-btn {
+  font-family: var(--kesson-font-serif-display, 'Noto Serif JP', serif);
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  padding: 0.7rem 2rem;
+  border-color: rgba(255, 255, 255, 0.25);
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+#reports-hover-grid-open-btn:hover,
+#reports-hover-grid-open-btn:focus-visible {
+  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 760px) {
+  .hover-grid-modal-header {
+    padding: 0.8rem 1rem 0.5rem;
+  }
+
+  .hover-grid-modal-title {
+    font-size: 1.1rem;
+  }
+
+  .hover-grid-modal-status {
+    font-size: 0.7rem;
+  }
+
+  .hover-grid-modal-body {
+    padding: 0 0.5rem 0.5rem;
+  }
+
+  .hover-grid-modal-close-btn {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.2rem;
   }
 }
