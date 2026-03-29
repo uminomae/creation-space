@@ -186,7 +186,7 @@ export function createReportsModalController({
                             overlay.appendChild(closeBtn);
                             overlay.appendChild(fullImg);
                             overlay.addEventListener('click', (e) => { if (e.target === overlay) removeOverlay(); });
-                            const onEsc = (e) => { if (e.key === 'Escape') { removeOverlay(); e.stopPropagation(); } };
+                            const onEsc = (e) => { if (e.key === 'Escape') { removeOverlay(); e.stopImmediatePropagation(); } };
                             document.addEventListener('keydown', onEsc, true);
                             document.body.appendChild(overlay);
                             return;
