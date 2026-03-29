@@ -56,10 +56,7 @@ function getViewerStrings() {
 function buildSourceFallbackText(label, lang, strings) {
     const safeLabel = String(label || '').trim();
     if (!safeLabel) return strings.openReference;
-    if (lang === 'en') {
-        return `Open ${safeLabel} reference link`;
-    }
-    return `${safeLabel} の参照リンクを開く`;
+    return (strings.openReferenceWithLabel || '').replace('{label}', safeLabel);
 }
 
 function createViewer() {
