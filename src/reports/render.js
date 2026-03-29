@@ -661,7 +661,7 @@ export function createReportsRenderer({
     function renderReports() {
         applyStaticText();
         renderFeatureCards();
-        renderMetrics();
+        // renderMetrics(); // 調査内容以外のメトリクスカードは不要。安定したら削除する
         renderDomainGrid();
         setReportsError(state.data.loadError ? getReportsStrings(state.config.lang).error : '');
     }
