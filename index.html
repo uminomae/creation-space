@@ -319,6 +319,10 @@
               <div id="reports-domain-grid" class="reports-domain-grid row row-cols-2 row-cols-md-5 g-2" aria-live="polite">
                 <div class="reports-domain-empty col-12 text-body-secondary"></div>
               </div>
+              <!-- Hover-expand grid button (techo#53): shown via ?grid=hover, opens modal -->
+              <div id="reports-hover-grid-btn-wrap" style="display:none" class="mt-3 text-center">
+                <button id="reports-hover-grid-open-btn" type="button" class="btn btn-outline-light btn-lg">30領域調査報告</button>
+              </div>
             </section>
           </div>
         </div>
@@ -411,6 +415,8 @@
     </div>
   </div>
 
+  <!-- Hover-grid modal moved to end of body for z-index stacking -->
+
   <footer id="tech-footer">
     <div class="tech-footer-line">GitHub Pages</div>
     <div class="tech-footer-line">Vanilla JS · ES Modules</div>
@@ -461,5 +467,18 @@
       <p>Related: <a href="https://uminomae.github.io/kesson-space/">Kesson-Driven Thinking</a> | <a href="https://uminomae.github.io/awareness-space/">Awareness Space</a></p>
     </section>
   </noscript>
+  <!-- Hover-grid fullscreen modal (techo#53): last in DOM for z-index stacking -->
+  <div id="hover-grid-modal" class="hover-grid-modal" style="display:none" role="dialog" aria-modal="true" aria-label="30領域調査報告">
+    <div class="hover-grid-modal-header">
+      <div class="hover-grid-modal-header-text">
+        <h2 class="hover-grid-modal-title">30領域調査報告</h2>
+        <p class="hover-grid-modal-status">多段階検証済: 複数AIエンジンによる論拠監査・構造再読・統合検証を実施した（Phase 5-7）</p>
+      </div>
+      <button id="hover-grid-modal-close" type="button" class="hover-grid-modal-close-btn" aria-label="閉じる">&times;</button>
+    </div>
+    <div class="hover-grid-modal-body">
+      <div id="hover-grid-container" class="hover-grid-container" aria-live="polite"></div>
+    </div>
+  </div>
 </body>
 </html>

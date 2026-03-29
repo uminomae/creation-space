@@ -481,7 +481,7 @@ export function createReportsRenderer({
             btnGroup.className = 'd-flex flex-wrap gap-1 mt-auto';
 
             const slideBtn = document.createElement('button');
-            const slideLabel = normalizeLang(state.config.lang) === 'ja' ? 'スライド' : 'Slides';
+            const slideLabel = getReportsStrings(state.config.lang).phase8Themes.slidesButton;
             slideBtn.type = 'button';
             slideBtn.className = 'reports-slide-btn';
             slideBtn.textContent = slideLabel;
@@ -605,6 +605,59 @@ export function createReportsRenderer({
         state.ui.quickLinksBound = true;
     }
 
+    function renderHoverGrid() {
+        const hoverSection = document.getElementById('hover-grid-modal');
+        const hoverContainer = document.getElementById('hover-grid-container');
+        if (!hoverSection || !hoverContainer) return;
+
+        const allReports = state.data.reports;
+        if (!allReports.length) return;
+
+        const useJapanese = normalizeLang(state.config.lang) === 'ja';
+        const paletteMap = buildProgressPaletteMap(getPresentProgressTaxonomy());
+
+        hoverContainer.innerHTML = '';
+        const fragment = document.createDocumentFragment();
+
+        allReports.forEach((report, idx) => {
+            const domainLabel = useJapanese
+                ? (report.nameJa || report.nameEn)
+                : (report.nameEn || report.nameJa);
+            const level = normalizeProgressLevelId(report.progressLevel) || 'not_surveyed';
+            const paletteClass = getProgressPaletteClass(level, paletteMap);
+            const statusText = getProgressLevelLabel(level);
+
+            const cell = document.createElement('div');
+            cell.className = `hover-grid-cell collapsed hg-color-${idx % 10}`;
+            cell.dataset.index = idx;
+            cell.dataset.domainId = report.id;
+
+            const idBadge = document.createElement('div');
+            idBadge.className = 'hover-grid-cell-id';
+            idBadge.textContent = report.id;
+
+            const name = document.createElement('div');
+            name.className = 'hover-grid-cell-name';
+            name.textContent = domainLabel;
+
+            const progress = document.createElement('span');
+            progress.className = `hover-grid-cell-progress badge rounded-pill reports-progress-chip ${paletteClass}`;
+            progress.textContent = statusText;
+            progress.style.display = 'none';
+
+            const contentArea = document.createElement('div');
+            contentArea.className = 'hover-grid-cell-content';
+
+            cell.appendChild(idBadge);
+            cell.appendChild(name);
+            cell.appendChild(progress);
+            cell.appendChild(contentArea);
+            fragment.appendChild(cell);
+        });
+
+        hoverContainer.appendChild(fragment);
+    }
+
     function renderReports() {
         applyStaticText();
         renderFeatureCards();
@@ -617,6 +670,7 @@ export function createReportsRenderer({
         bindUiEvents,
         cacheDom,
         getStrings: getReportsStrings,
+        renderHoverGrid,
         renderReports,
     };
 }

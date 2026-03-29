@@ -29,6 +29,7 @@ import {
 import { createGenericHistoryController } from './generic-history.js';
 import { createSlideHistoryController } from '../slide-history.js';
 import { createReportsModalController } from './modal.js';
+import { initHoverGrid } from './hover-grid.js';
 import { createReportsRenderer, getDomainReportTitle, getReportsStrings } from './render.js';
 import { createPhase8Renderer, loadPhase8Themes } from './phase8.js';
 import { createSynthesisRenderer } from './synthesis.js';
@@ -67,6 +68,7 @@ const state = {
         pendingDomainHistoryMode: '',
         _isHistorySyncing: false,
         historyEventsBound: false,
+        hoverGridEventsBound: false,
         // Generic modal & guide history state
         activeGenericModalKey: '',
         activeGenericHistoryMode: '',
@@ -260,7 +262,7 @@ function buildModalOpenerRegistry() {
         const strings = getReportsStrings(lang);
         const synthStrings = strings.synthesis || {};
         modalController.openMarkdownModal({
-            title: synthStrings.reportTitle || 'Cross-Domain Synthesis',
+            title: synthStrings.reportTitle,
             sources: resolveLocalizedSources(SYNTHESIS_REPORT_LINKS, lang),
             modalContext: { type: 'generic', modalKey: 'synthesis', historyMode },
         });
@@ -361,7 +363,8 @@ function buildSlideOpenerRegistry() {
         const sources = resolveLocalizedSources(SYNTHESIS_PRESENTATION_LINKS, lang);
         const source = sources[0];
         if (!source) return;
-        const title = 'Cross-Domain Synthesis';
+        const strings = getReportsStrings(lang);
+        const title = (strings.synthesis || {}).reportTitle;
 
         if (source.htmlUrl) {
             try {
@@ -473,6 +476,141 @@ openDomainModalByIdImpl = function openDomainModalById(
     return true;
 };
 
+// --- Hover-grid modal helpers (techo#53) ---
+
+let hoverGridInitialised = false;
+
+function openHoverGridModal() {
+    const modal = document.getElementById('hover-grid-modal');
+    if (!modal) return;
+
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+
+    // Initialise grid on first open
+    if (!hoverGridInitialised) {
+        renderer.renderHoverGrid();
+
+        const hoverContainer = document.getElementById('hover-grid-container');
+        if (hoverContainer) {
+            initHoverGrid(hoverContainer, {
+                onExpand: async (cellEl, idx) => {
+                    const contentArea = cellEl.querySelector('.hover-grid-cell-content');
+                    if (!contentArea || contentArea.dataset.loaded === '1') return;
+
+                    const domainId = cellEl.dataset.domainId;
+                    if (!domainId) return;
+
+                    // Show loading indicator
+                    contentArea.innerHTML = '<div class="hover-grid-loading"><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Loading...</div>';
+
+                    // Use openDomainModalById for click-through (tap on expanded cell)
+                    cellEl.addEventListener('click', () => {
+                        openDomainModalByIdImpl(domainId, {
+                            historyMode: 'push',
+                            syncUrl: 'push',
+                        });
+                    }, { once: false });
+
+                    // Fetch markdown content inline (reuse modal fetch pattern)
+                    try {
+                        const report = findReportById(domainId);
+                        if (!report) throw new Error('Report not found');
+
+                        const sources = resolveDomainReportSources(report, {
+                            lang: state.config.lang,
+                            assetBaseUrl: state.config.assetBaseUrl,
+                            assetMdBaseUrl: state.config.assetMdBaseUrl,
+                        });
+                        if (!sources.length) throw new Error('No sources');
+
+                        const { buildMarkdownFetchCandidates, looksLikeHtmlDocument, parseFrontmatter } = await import('./data.js');
+                        let raw = '';
+                        for (const source of sources) {
+                            const candidates = buildMarkdownFetchCandidates(source.mdUrl);
+                            for (const url of candidates) {
+                                try {
+                                    const resp = await fetch(url, { cache: 'no-store' });
+                                    if (!resp.ok) continue;
+                                    const text = await resp.text();
+                                    if (looksLikeHtmlDocument(text)) continue;
+                                    raw = text;
+                                    break;
+                                } catch { /* try next */ }
+                            }
+                            if (raw) break;
+                        }
+
+                        if (!raw) throw new Error('Markdown fetch failed');
+
+                        const { body } = parseFrontmatter(raw);
+                        const { marked } = await import('marked');
+                        marked.setOptions({ breaks: true, gfm: true });
+                        const DOMPurify = (await import('dompurify')).default;
+                        const html = DOMPurify.sanitize(marked.parse(body || raw), { FORBID_TAGS: ['a'] });
+
+                        contentArea.innerHTML = '<div class="md-body">' + html + '</div>';
+                        contentArea.dataset.loaded = '1';
+                    } catch (err) {
+                        console.warn('[hover-grid] content load failed:', domainId, err);
+                        contentArea.innerHTML = '';
+                    }
+                },
+            });
+        }
+        hoverGridInitialised = true;
+    }
+}
+
+function closeHoverGridModal() {
+    const modal = document.getElementById('hover-grid-modal');
+    if (!modal) return;
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+}
+
+function handleHoverGridEsc(modal) {
+    return (e) => {
+        if (e.key !== 'Escape') return;
+        if (modal.style.display === 'none') return;
+        if (document.querySelector('[data-role="img-overlay"]')) return;
+
+        e.stopPropagation();
+
+        const detailModal = document.getElementById('reports-md-modal');
+        if (detailModal && detailModal.classList.contains('show')) {
+            const bsModal = bootstrap.Modal.getInstance(detailModal);
+            if (bsModal) bsModal.hide();
+            return;
+        }
+
+        closeHoverGridModal();
+    };
+}
+
+function bindHoverGridModalEvents() {
+    const modal = document.getElementById('hover-grid-modal');
+    if (!modal || state.modal.hoverGridEventsBound) return;
+    state.modal.hoverGridEventsBound = true;
+
+    // Close button
+    const closeBtn = document.getElementById('hover-grid-modal-close');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeHoverGridModal);
+    }
+
+    // ESC key — capture phase so we intercept before Bootstrap's bubbling handler
+    document.addEventListener('keydown', handleHoverGridEsc(modal), true);
+
+    // Background click (but not grid content)
+    modal.addEventListener('click', (e) => {
+        // Only close if clicking on the modal backdrop itself, not children
+        if (e.target === modal) {
+            closeHoverGridModal();
+        }
+    });
+}
+
 // --- Exported helpers for renderers ---
 
 // --- Init ---
@@ -534,6 +672,25 @@ export async function initReports({
     }
 
     renderer.renderReports();
+
+    // --- Hover grid feature flag: ?grid=hover (techo#53) ---
+    // Modal-based approach: show a button in REPORTS section, open fullscreen modal on click
+    const hoverGridEnabled = new URLSearchParams(window.location.search).get('grid') === 'hover';
+    if (hoverGridEnabled && state.data.reportsReady) {
+        const domainGridEl = document.getElementById('reports-domain-grid');
+        const btnWrap = document.getElementById('reports-hover-grid-btn-wrap');
+        const openBtn = document.getElementById('reports-hover-grid-open-btn');
+
+        if (domainGridEl) domainGridEl.style.display = 'none';
+        if (btnWrap) btnWrap.style.display = '';
+
+        // Bind modal open/close events
+        bindHoverGridModalEvents();
+
+        if (openBtn) {
+            openBtn.addEventListener('click', openHoverGridModal);
+        }
+    }
 
     // Load Phase 8 cross-domain themes
     try {
