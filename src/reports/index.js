@@ -20,8 +20,6 @@ import {
     resolveLocalizedSources,
     resolveDomainReportSources,
     resolveDomainPresentationSources,
-    buildMarkdownFetchCandidates,
-    looksLikeHtmlDocument,
 } from './data.js';
 import {
     createReportsHistoryController,
@@ -35,7 +33,7 @@ import { createReportsRenderer, getDomainReportTitle, getReportsStrings } from '
 import { createPhase8Renderer, loadPhase8Themes } from './phase8.js';
 import { createSynthesisRenderer } from './synthesis.js';
 import { createThemeVerificationRenderer, THEME_DATA, INTEGRATION_REPORT, THEME_VERIFICATION_BASE } from './theme-verification.js';
-import { openRichSlideViewer, openSlideViewer } from '../slide-viewer.js';
+import { openRichSlideViewer } from '../slide-viewer.js';
 
 const state = {
     config: {
@@ -353,18 +351,7 @@ function buildSlideOpenerRegistry() {
                     }
                 } catch { /* fall through */ }
             }
-            if (!source.mdUrl) return;
-            const candidates = buildMarkdownFetchCandidates(source.mdUrl);
-            for (const url of candidates) {
-                try {
-                    const resp = await fetch(url, { cache: 'no-store' });
-                    if (!resp.ok) continue;
-                    const text = await resp.text();
-                    if (looksLikeHtmlDocument(text)) continue;
-                    openSlideViewer({ markdownText: text, title, mdBaseUrl: url.replace(/\/[^/]*$/, '/'), onClose: slideHistoryController.createSlideOnClose() });
-                    return;
-                } catch { continue; }
-            }
+            console.warn('[slide-viewer] rich HTML unavailable for', id);
         });
     });
 
@@ -385,18 +372,7 @@ function buildSlideOpenerRegistry() {
                 }
             } catch { /* fall through */ }
         }
-        if (!source.mdUrl) return;
-        const candidates = buildMarkdownFetchCandidates(source.mdUrl);
-        for (const url of candidates) {
-            try {
-                const resp = await fetch(url, { cache: 'no-store' });
-                if (!resp.ok) continue;
-                const text = await resp.text();
-                if (looksLikeHtmlDocument(text)) continue;
-                openSlideViewer({ markdownText: text, title, mdBaseUrl: url.replace(/\/[^/]*$/, '/'), onClose: slideHistoryController.createSlideOnClose() });
-                return;
-            } catch { continue; }
-        }
+        console.warn('[slide-viewer] rich HTML unavailable for synthesis');
     });
 
     // Phase 8 theme slide openers
@@ -426,12 +402,7 @@ function buildSlideOpenerRegistry() {
                 } catch { /* fall through */ }
             }
 
-            try {
-                const resp = await fetch(mdUrl, { cache: 'no-store' });
-                if (!resp.ok) return;
-                const text = await resp.text();
-                openSlideViewer({ markdownText: text, title, mdBaseUrl: mdUrl.replace(/[^/]*$/, ''), onClose: slideHistoryController.createSlideOnClose() });
-            } catch { /* ignore */ }
+            console.warn('[slide-viewer] rich HTML unavailable for phase8-' + theme.slug);
         });
     });
 }

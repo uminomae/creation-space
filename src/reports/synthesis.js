@@ -6,13 +6,11 @@
 
 import { normalizeLang } from '../i18n.js';
 import { dict } from '../i18n/dict.js';
-import { openSlideViewer, openRichSlideViewer } from '../slide-viewer.js';
+import { openRichSlideViewer } from '../slide-viewer.js';
 import {
     SYNTHESIS_REPORT_LINKS,
     SYNTHESIS_PRESENTATION_LINKS,
     resolveLocalizedSources,
-    buildMarkdownFetchCandidates,
-    looksLikeHtmlDocument,
 } from './data.js';
 
 function getSynthesisStrings(lang = 'ja') {
@@ -116,32 +114,7 @@ export function createSynthesisRenderer({ openMarkdownModal, getLang, wrapSlideO
                 }
             }
 
-            // DEPRECATED fallback — only runs when rich HTML is unavailable
-            // Do NOT extend this path. New slide work uses openRichSlideViewer() above.
-            if (!source.mdUrl) return;
-            const candidates = buildMarkdownFetchCandidates(source.mdUrl);
-            let markdownText = '';
-            let mdBaseUrl = '';
-            for (const url of candidates) {
-                try {
-                    const resp = await fetch(url, { cache: 'no-store' });
-                    if (!resp.ok) continue;
-                    const text = await resp.text();
-                    if (looksLikeHtmlDocument(text)) continue;
-                    markdownText = text;
-                    mdBaseUrl = url.replace(/\/[^/]*$/, '/');
-                    break;
-                } catch {
-                    continue;
-                }
-            }
-            if (!markdownText) return;
-            openSlideViewer({
-                markdownText,
-                title: currentStrings.reportTitle,
-                mdBaseUrl,
-                onClose: slideOnClose,
-            });
+            console.warn('[slide-viewer] rich HTML unavailable for synthesis');
         });
 
         reportBody.appendChild(reportTitle);

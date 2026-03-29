@@ -6,7 +6,7 @@
  */
 
 import { normalizeLang } from '../i18n.js';
-import { openSlideViewer, openRichSlideViewer } from '../slide-viewer.js';
+import { openRichSlideViewer } from '../slide-viewer.js';
 import { dict } from '../i18n/dict.js';
 import {
     PHASE8_THEMES_MANIFEST_URL,
@@ -218,18 +218,7 @@ export function createPhase8Renderer({ openMarkdownModal, getLang, wrapSlideOpen
                         }
                     }
 
-                    // DEPRECATED fallback — only runs when rich HTML is unavailable
-                    // Do NOT extend this path. New slide work uses openRichSlideViewer() above.
-                    fetch(currentUrl)
-                        .then((res) => {
-                            if (!res.ok) throw new Error('HTTP ' + res.status);
-                            return res.text();
-                        })
-                        .then((md) => {
-                            const mdBaseUrl = currentUrl.replace(/[^/]*$/, '');
-                            openSlideViewer({ markdownText: md, title: currentName, mdBaseUrl, onClose: slideOnClose });
-                        })
-                        .catch((err) => console.warn('[phase8] slides load failed:', err));
+                    console.warn('[slide-viewer] rich HTML unavailable for phase8-' + theme.slug);
                 });
                 body.appendChild(slidesBtn);
             }
