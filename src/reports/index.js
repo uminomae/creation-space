@@ -673,10 +673,11 @@ export async function initReports({
 
     renderer.renderReports();
 
-    // --- Hover grid feature flag: ?grid=hover (techo#53) ---
-    // Modal-based approach: show a button in REPORTS section, open fullscreen modal on click
-    const hoverGridEnabled = new URLSearchParams(window.location.search).get('grid') === 'hover';
-    if (hoverGridEnabled && state.data.reportsReady) {
+    // --- Hover grid (techo#53) ---
+    // デフォルト有効。安定したら旧グリッド (reports-domain-grid) を削除する。
+    // ?grid=legacy で旧グリッドにフォールバック可。
+    const hoverGridDisabled = new URLSearchParams(window.location.search).get('grid') === 'legacy';
+    if (!hoverGridDisabled && state.data.reportsReady) {
         const domainGridEl = document.getElementById('reports-domain-grid');
         const btnWrap = document.getElementById('reports-hover-grid-btn-wrap');
         const openBtn = document.getElementById('reports-hover-grid-open-btn');
