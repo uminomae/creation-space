@@ -103,7 +103,7 @@ function createArticleCard(article, lang, useWideLayout) {
     const hasImage = !!safeTeaserUrl;
     const card = document.createElement('div');
     card.className = hasImage
-        ? 'card kesson-card awareness-card awareness-image-card h-100'
+        ? 'card creation-img-card h-100'
         : 'card kesson-card h-100';
 
     if (hasImage) {
@@ -118,13 +118,11 @@ function createArticleCard(article, lang, useWideLayout) {
     }
 
     const body = document.createElement('div');
-    body.className = hasImage
-        ? 'card-body d-flex flex-column gap-2'
-        : 'card-body';
+    body.className = 'card-body';
 
     if (hasImage) {
         const kicker = document.createElement('div');
-        kicker.className = 'awareness-card-kicker';
+        kicker.className = 'card-kicker';
         kicker.textContent = strings.typeLabel[article.type];
         body.appendChild(kicker);
     } else {
@@ -142,9 +140,7 @@ function createArticleCard(article, lang, useWideLayout) {
 
     if (excerptText) {
         const excerpt = document.createElement('p');
-        excerpt.className = hasImage
-            ? 'card-text awareness-image-card-comment mb-0'
-            : 'card-text';
+        excerpt.className = 'card-text mb-0';
         excerpt.textContent = excerptText;
         body.appendChild(excerpt);
     }

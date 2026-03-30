@@ -386,14 +386,30 @@ html[lang="en"] #taglines {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* === 画像付きカード (as 正本クラス techo#58) === */
-.awareness-card {
+/* === creation-img-card (as 正本準拠・自己完結 techo#58) === */
+.creation-img-card {
   --bs-card-bg: rgba(20, 25, 40, 0.78);
+  background-color: rgba(20, 25, 40, 0.78);
   border: 1px solid rgba(var(--color-accent), 0.16);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+  overflow: hidden;
 }
 
-.awareness-card-kicker {
+.creation-img-card .card-img-top {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.creation-img-card > .card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem 1.25rem;
+}
+
+.creation-img-card .card-kicker {
   margin-bottom: 0.55rem;
   color: rgba(var(--color-sub-text), 0.7);
   font-family: var(--kesson-font-mono-ui, 'SF Mono', 'Fira Code', 'Consolas', monospace);
@@ -402,22 +418,27 @@ html[lang="en"] #taglines {
   text-transform: uppercase;
 }
 
-.awareness-card .card-title {
+.creation-img-card .card-title {
+  color: #fff;
+  font-size: var(--kesson-card-title, 1.0rem);
+  font-family: 'Noto Serif JP', Georgia, serif;
   margin-bottom: 0.8rem;
 }
 
-.awareness-card .card-text {
+.creation-img-card .card-text {
+  color: rgba(var(--color-sub-text), 0.82);
+  font-size: 0.875rem;
   line-height: 1.8;
 }
 
-.awareness-image-card .card-img-top {
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  object-position: center;
+.creation-img-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(var(--color-accent), 0.15);
 }
 
-.awareness-image-card-comment {
-  color: rgba(var(--color-sub-text), 0.82);
+.creation-img-card:focus-visible {
+  outline: 2px solid rgba(var(--color-accent), 0.8);
+  outline-offset: 4px;
 }
 
 #surface-btn {
