@@ -386,27 +386,14 @@ html[lang="en"] #taglines {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* === 画像付きカード (as 基準統一スタイル techo#58) === */
-.card.kesson-card.kesson-image-card {
+/* === 画像付きカード (as 正本クラス techo#58) === */
+.awareness-card {
   --bs-card-bg: rgba(20, 25, 40, 0.78);
   border: 1px solid rgba(var(--color-accent), 0.16);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
 }
 
-.kesson-image-card .card-img-top {
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  object-position: center;
-}
-
-.card.kesson-card.kesson-image-card .card-body {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
-}
-
-.kesson-image-card-kicker {
+.awareness-card-kicker {
   margin-bottom: 0.55rem;
   color: rgba(var(--color-sub-text), 0.7);
   font-family: var(--kesson-font-mono-ui, 'SF Mono', 'Fira Code', 'Consolas', monospace);
@@ -415,17 +402,22 @@ html[lang="en"] #taglines {
   text-transform: uppercase;
 }
 
-.card.kesson-image-card .card-title {
-  color: #fff;
-  font-size: var(--kesson-card-title, 1.0rem);
-  font-family: 'Noto Serif JP', Georgia, serif;
+.awareness-card .card-title {
   margin-bottom: 0.8rem;
 }
 
-.card.kesson-image-card .card-text {
-  color: rgba(var(--color-sub-text), 0.82);
-  font-size: 0.875rem;
+.awareness-card .card-text {
   line-height: 1.8;
+}
+
+.awareness-image-card .card-img-top {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: center;
+}
+
+.awareness-image-card-comment {
+  color: rgba(var(--color-sub-text), 0.82);
 }
 
 #surface-btn {
