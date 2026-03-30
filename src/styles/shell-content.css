@@ -386,8 +386,8 @@ html[lang="en"] #taglines {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* === 画像付きカード (as 基準統一スタイル) === */
-.kesson-image-card {
+/* === 画像付きカード (as 基準統一スタイル techo#58) === */
+.card.kesson-card.kesson-image-card {
   --bs-card-bg: rgba(20, 25, 40, 0.78);
   border: 1px solid rgba(var(--color-accent), 0.16);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
@@ -399,10 +399,11 @@ html[lang="en"] #taglines {
   object-position: center;
 }
 
-.kesson-image-card .card-body {
+.card.kesson-card.kesson-image-card .card-body {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
 }
 
 .kesson-image-card-kicker {
@@ -414,13 +415,16 @@ html[lang="en"] #taglines {
   text-transform: uppercase;
 }
 
-.kesson-image-card .card-title {
+.card.kesson-image-card .card-title {
+  color: #fff;
   font-size: var(--kesson-card-title, 1.0rem);
+  font-family: 'Noto Serif JP', Georgia, serif;
   margin-bottom: 0.8rem;
 }
 
-.kesson-image-card .card-text {
+.card.kesson-image-card .card-text {
   color: rgba(var(--color-sub-text), 0.82);
+  font-size: 0.875rem;
   line-height: 1.8;
 }
 
