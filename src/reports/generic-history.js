@@ -4,6 +4,7 @@
  * Manages `?modal=` and `?guide=` query parameters for non-domain modals.
  * Works alongside the domain-specific history in history.js without modifying it.
  */
+import { updateSearchParams } from '../modal-router.js';
 
 export const MODAL_QUERY_PARAM = 'modal';
 export const GUIDE_QUERY_PARAM = 'guide';
@@ -52,22 +53,12 @@ function getHistoryMarker(stateKey, historyState = window.history?.state) {
 }
 
 function updateUrlParam(paramName, value, { method = 'replace', stateKey = '', mode = '' } = {}) {
-    const historyApi = window.history;
-    const writer = method === 'push' ? historyApi?.pushState : historyApi?.replaceState;
-    if (typeof writer !== 'function') return false;
-
-    const url = new URL(window.location.href);
-    if (value) {
-        url.searchParams.set(paramName, value);
-    } else {
-        url.searchParams.delete(paramName);
-    }
-
-    writer.call(
-        historyApi,
-        buildHistoryState(stateKey, value, mode, historyApi.state),
-        '',
-        url.toString(),
+    updateSearchParams(
+        { [paramName]: value || null },
+        {
+            replace: method !== 'push',
+            state: buildHistoryState(stateKey, value, mode, window.history?.state),
+        },
     );
     return true;
 }
