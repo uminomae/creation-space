@@ -100,10 +100,13 @@ function createArticleCard(article, lang, useWideLayout) {
     anchor.className = 'text-decoration-none';
     anchor.setAttribute('aria-label', buildArticleAriaLabel(titleText, normalizedLang));
 
+    const hasImage = !!safeTeaserUrl;
     const card = document.createElement('div');
-    card.className = 'card kesson-card h-100';
+    card.className = hasImage
+        ? 'card kesson-card kesson-image-card h-100'
+        : 'card kesson-card h-100';
 
-    if (safeTeaserUrl) {
+    if (hasImage) {
         const teaserImg = document.createElement('img');
         teaserImg.src = safeTeaserUrl;
         teaserImg.className = 'card-img-top';
@@ -117,9 +120,17 @@ function createArticleCard(article, lang, useWideLayout) {
     const body = document.createElement('div');
     body.className = 'card-body';
 
-    const badge = document.createElement('span');
-    badge.className = 'badge bg-secondary mb-2 badge-article-type';
-    badge.textContent = strings.typeLabel[article.type];
+    if (hasImage) {
+        const kicker = document.createElement('div');
+        kicker.className = 'kesson-image-card-kicker';
+        kicker.textContent = strings.typeLabel[article.type];
+        body.appendChild(kicker);
+    } else {
+        const badge = document.createElement('span');
+        badge.className = 'badge bg-secondary mb-2 badge-article-type';
+        badge.textContent = strings.typeLabel[article.type];
+        body.appendChild(badge);
+    }
 
     const title = document.createElement('h6');
     title.className = 'card-title mb-1';
@@ -128,7 +139,6 @@ function createArticleCard(article, lang, useWideLayout) {
     const date = document.createElement('small');
     date.textContent = dateText;
 
-    body.appendChild(badge);
     body.appendChild(title);
 
     if (excerptText) {
