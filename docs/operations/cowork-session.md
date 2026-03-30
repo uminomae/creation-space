@@ -9,7 +9,7 @@ CLI（Claude Code）とはプロセス・コンテキストが完全に分離さ
 
 | 項目 | 制約 | 対処 |
 |------|------|------|
-| ファイルシステム | VM ルートは揮発性。共有マウントのみ永続 | `.claude/rules/cowork-output.md` に従う |
+| ファイルシステム | VM ルートは揮発性。共有マウントのみ永続 | `docs/operations/cowork-output.md` に従う |
 | git 操作 | `.git/index.lock` が FUSE 制約で削除不能な場合がある | コミットを CLI に委任する |
 | ネットワーク | egress proxy により curl/wget がブロックされる場合がある | GitHub MCP API を代替手段とする |
 | CLI メモリ | `~/.claude/` にアクセス不可 | handoff ファイルで CLI に委任する |
@@ -73,7 +73,7 @@ Cowork から Agent subagent を起動する場合:
 
 - **出力先を明示する**: 共有マウント配下（`.cache/` 等）を Agent プロンプトに含める
 - **VM ルートを使わせない**: `/sessions/{id}/` 直下への出力を禁止する指示を入れる
-- `.claude/rules/cowork-output.md` の「Agent subagent への適用」セクションも参照
+- `docs/operations/cowork-output.md` の「Agent subagent への適用」セクションも参照
 
 ## 命名規約
 
