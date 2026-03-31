@@ -48,6 +48,8 @@ export const dict = {
             surfaceButtonAria: 'ページ上部に戻る',
             langToggleLabel: 'English',
             langToggleAria: '言語を英語に切り替え',
+            hoverGridButton: '30領域調査報告',
+            hoverGridTitle: '30領域調査報告',
         },
         articles: {
             articleLabel: '記事',
@@ -218,6 +220,8 @@ export const dict = {
             surfaceButtonAria: 'Back to top',
             langToggleLabel: '日本語',
             langToggleAria: 'Switch language to Japanese',
+            hoverGridButton: '30 Domain Survey Reports',
+            hoverGridTitle: '30 Domain Survey Reports',
         },
         articles: {
             articleLabel: 'article',
