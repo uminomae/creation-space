@@ -1,7 +1,7 @@
 export const dict = {
     ja: {
         page: {
-            documentTitle: '創造とは',
+            documentTitle: '創造とは — pjdhiro',
             title: '創造とは',
             sceneFallbackMessage: '3D 背景の初期化に失敗したため、コンテンツ表示のみで継続しています。',
             mainMenuAria: 'メインメニュー',
@@ -173,7 +173,7 @@ export const dict = {
     },
     en: {
         page: {
-            documentTitle: 'What Is Creation',
+            documentTitle: 'What Is Creation — pjdhiro',
             title: 'What Is Creation',
             sceneFallbackMessage: 'The 3D background failed to initialize. Content view is still available.',
             mainMenuAria: 'Main menu',
