@@ -37,6 +37,12 @@ body.creation-page {
   position: relative;
   z-index: 5;
   padding-top: 140vh;
+  /* Keep section content interactive while letting empty hero space pass drag events to the canvas. */
+  pointer-events: none;
+}
+
+.creation-page .creation-main > * {
+  pointer-events: auto;
 }
 
 @media (max-width: 768px) {
