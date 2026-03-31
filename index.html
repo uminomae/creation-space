@@ -375,23 +375,21 @@
       </div>
     </section>
 
+    <div class="room-narration">
+      <p class="room-narration-text" data-i18n-html="narrations.articlesSection">思考の途中が、記事になりました。</p>
+    </div>
+
     <section id="articles-section" aria-labelledby="articles-section-heading">
-      <div class="room-narration">
-        <p class="room-narration-text" data-i18n-html="narrations.articlesSection">思考の途中が、記事になりました。</p>
-      </div>
       <div class="section-content-wrap">
-        <div class="container creation-section-shell">
+        <div class="container">
           <h2 class="section-heading">
             <a id="articles-section-heading" href="#articles-section" class="section-heading-link" aria-label="ARTICLES セクションへジャンプ" data-i18n="articlesSectionHeading" data-i18n-attr-aria-label="articlesSectionHeadingAria">
               ARTICLES
             </a>
           </h2>
-          <div id="articles-error" class="d-none"></div>
-          <div class="reports-tab-content">
-            <div id="articles-grid" class="row g-3"></div>
-          </div>
-          <div class="next-question" id="next-question">
-            <p class="next-question-text" data-i18n="nextQuestion">あなたの領域では、創造はどのように記述されていますか？</p>
+          <div class="card-section-container">
+            <div id="articles-error" class="d-none"></div>
+            <div id="articles-grid" class="row row-cols-1 row-cols-md-3 g-3 card-container"></div>
           </div>
         </div>
       </div>
@@ -440,7 +438,7 @@
         <button type="button" class="articles-filter-btn btn btn-outline-light btn-sm" data-type="page" aria-pressed="false"></button>
         <button type="button" class="articles-filter-btn btn btn-outline-light btn-sm" data-type="post" aria-pressed="false"></button>
       </div>
-      <div id="offcanvas-articles-grid" class="row g-3"></div>
+      <div id="offcanvas-articles-grid" class="row row-cols-1 row-cols-md-3 g-3"></div>
     </div>
   </div>
 

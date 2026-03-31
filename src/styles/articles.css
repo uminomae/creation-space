@@ -1,8 +1,35 @@
 #articles-grid {
-  margin-top: var(--kesson-section-grid-margin-top);
+  margin-top: 0;
 }
 
-/* .btn-read-more inherits from .btn-kesson-action (shell.css) */
+.card-section-container {
+  border: 1px solid rgba(var(--color-accent), 0.12);
+  border-radius: 0.5rem;
+  background: rgba(20, 25, 40, 0.6);
+  padding: 0.9rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+
+.card-container {
+  margin-top: 0;
+}
+
+.card-column {
+  display: flex;
+}
+
+.card-column > .img-card,
+.card-column > .img-card-link {
+  width: 100%;
+}
+
+.btn-read-more {
+  display: block;
+  margin: 1rem auto 0;
+  font-size: var(--kesson-font-size-ui-sm, 0.80rem);
+  letter-spacing: var(--kesson-letter-ui-wide);
+  padding: 10px 24px;
+}
 
 .articles-filter-btn.is-active,
 .articles-filter-btn.active,

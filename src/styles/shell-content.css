@@ -386,59 +386,103 @@ html[lang="en"] #taglines {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* === creation-img-card (as 正本準拠・自己完結 techo#58) === */
-.creation-img-card {
-  --bs-card-bg: rgba(20, 25, 40, 0.78);
-  background-color: rgba(20, 25, 40, 0.78);
+/* === shared image card (as 正本準拠・自己完結 techo#58) === */
+.img-card-link {
+  display: flex;
+  width: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.img-card-link:visited,
+.img-card-link:hover,
+.img-card-link:active {
+  color: inherit;
+  text-decoration: none;
+}
+
+.img-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+  background: rgba(20, 25, 40, 0.78);
   border: 1px solid rgba(var(--color-accent), 0.16);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
   overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-.creation-img-card .card-img-top {
+.img-card-link > .img-card {
+  width: 100%;
+}
+
+.img-card-media {
+  display: block;
+  width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
   object-position: center;
-  display: block;
 }
 
-.creation-img-card > .card-body {
+.img-card-body {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   padding: 1rem 1.25rem;
+  min-height: 100%;
 }
 
-.creation-img-card .card-kicker {
-  margin-bottom: 0.55rem;
+.img-card-kicker {
+  margin: 0 0 0.55rem;
   color: rgba(var(--color-sub-text), 0.7);
-  font-family: var(--kesson-font-mono-ui, 'SF Mono', 'Fira Code', 'Consolas', monospace);
-  font-size: var(--kesson-font-size-ui-sm, 0.80rem);
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.8rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
-.creation-img-card .card-title {
+.img-card-title {
+  margin: 0 0 0.8rem;
   color: #fff;
-  font-size: var(--kesson-card-title, 1.0rem);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
   font-family: 'Noto Serif JP', Georgia, serif;
-  margin-bottom: 0.8rem;
 }
 
-.creation-img-card .card-text {
+.img-card-text {
+  margin: 0;
+  flex: 1 1 auto;
   color: rgba(var(--color-sub-text), 0.82);
   font-size: 0.875rem;
   line-height: 1.8;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', 'Noto Sans JP', sans-serif;
 }
 
-.creation-img-card:hover {
+.img-card-meta {
+  margin: 0;
+  padding-top: 0.2rem;
+  color: rgba(var(--color-sub-text), 0.66);
+  font-size: 0.75rem;
+  line-height: 1.6;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', 'Noto Sans JP', sans-serif;
+}
+
+.img-card:hover,
+.img-card-link:hover .img-card {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(var(--color-accent), 0.15);
 }
 
-.creation-img-card:focus-visible {
+.img-card:focus-visible,
+.img-card-link:focus-visible .img-card {
   outline: 2px solid rgba(var(--color-accent), 0.8);
   outline-offset: 4px;
+}
+
+.img-card-link:focus-visible {
+  outline: none;
 }
 
 #surface-btn {
