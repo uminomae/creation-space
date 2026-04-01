@@ -27,27 +27,27 @@
   <!-- Field -->
   <rect x="50" y="90" width="120" height="70" rx="8" fill="#8B8682"/>
   <text x="110" y="122" text-anchor="middle" class="stage-label">場（Field）</text>
-  <text x="110" y="148" text-anchor="middle" class="stage-sub">Field</text>
+  <text x="110" y="148" text-anchor="middle" class="stage-sub">俗なる均質空間</text>
 
   <!-- Wave -->
   <rect x="200" y="90" width="120" height="70" rx="8" fill="#5B8DB8"/>
   <text x="260" y="122" text-anchor="middle" class="stage-label">波（Wave）</text>
-  <text x="260" y="148" text-anchor="middle" class="stage-sub">Wave</text>
+  <text x="260" y="148" text-anchor="middle" class="stage-sub">危機と試練</text>
 
   <!-- Edge -->
   <rect x="350" y="90" width="120" height="70" rx="8" fill="#D4A857"/>
   <text x="410" y="122" text-anchor="middle" class="stage-label">縁（Edge）</text>
-  <text x="410" y="148" text-anchor="middle" class="stage-sub">Edge</text>
+  <text x="410" y="148" text-anchor="middle" class="stage-sub">努力と恩寵の交錯</text>
 
   <!-- Vortex -->
   <rect x="500" y="90" width="120" height="70" rx="8" fill="#C45B4D"/>
   <text x="560" y="122" text-anchor="middle" class="stage-label">渦（Vortex）</text>
-  <text x="560" y="148" text-anchor="middle" class="stage-sub">Vortex</text>
+  <text x="560" y="148" text-anchor="middle" class="stage-sub">空性の直接体験</text>
 
   <!-- Bundle -->
   <rect x="650" y="90" width="120" height="70" rx="8" fill="#5B8B6A"/>
   <text x="710" y="122" text-anchor="middle" class="stage-label">束（Bundle）</text>
-  <text x="710" y="148" text-anchor="middle" class="stage-sub">Bundle</text>
+  <text x="710" y="148" text-anchor="middle" class="stage-sub">霊的結婚・持続</text>
 
   <!-- Arrows between stages -->
   <line x1="170" y1="125" x2="198" y2="125" stroke="#666666" stroke-width="2" marker-end="url(#arrowD24)"/>

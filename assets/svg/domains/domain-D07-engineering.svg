@@ -1,125 +1,139 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
   <defs>
-    <marker id="arrowD07" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <marker id="arrowD07" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
       <polygon points="0 0, 10 3.5, 0 7" fill="#666666"/>
     </marker>
+    <style>
+      .title { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 24px; fill: #2C2C2C; font-weight: bold; }
+      .stage-label { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 14px; fill: #FAFAF8; font-weight: bold; }
+      .stage-sub { font-family: 'Inter', 'Helvetica Neue', sans-serif; font-size: 11px; fill: #FAFAF8; }
+      .concept { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 12px; fill: #2C2C2C; }
+      .ref { font-family: 'Inter', 'Helvetica Neue', sans-serif; font-size: 11px; fill: #666666; }
+      .summary-title { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 14px; fill: #2C2C2C; font-weight: bold; }
+      .summary-text { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 12px; fill: #666666; }
+      .legend { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 11px; fill: #666666; }
+    </style>
   </defs>
 
   <!-- Background -->
-  <rect width="800" height="600" fill="#FAFAF8"/>
-  <rect x="1" y="1" width="798" height="598" fill="none" stroke="#E0DDD8" stroke-width="1" rx="4"/>
+  <rect width="800" height="600" fill="#FAFAF8" rx="8"/>
+  <rect x="20" y="20" width="760" height="560" fill="none" stroke="#E0DDD8" stroke-width="1" rx="6"/>
 
   <!-- Title -->
-  <text x="400" y="52" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="24" font-weight="bold" fill="#2C2C2C">工学 - 5段階モデルとの構造対応図</text>
-  <text x="400" y="76" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#666666">D07: 誤差駆動フィードバックが全領域に共通する構造パターン</text>
+  <text x="400" y="60" text-anchor="middle" class="title">D07 工学・情報科学 — 5段階モデルとの構造対応図</text>
 
   <!-- Stage boxes -->
-  <!-- 1. Field -->
-  <rect x="40" y="110" width="120" height="70" rx="8" fill="#8B8682" opacity="0.9"/>
-  <text x="100" y="140" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF">場</text>
-  <text x="100" y="162" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#FAFAF8">Field</text>
+  <!-- Field -->
+  <rect x="50" y="100" width="120" height="70" rx="8" fill="#8B8682"/>
+  <text x="110" y="128" text-anchor="middle" class="stage-label">場（Field）</text>
+  <text x="110" y="148" text-anchor="middle" class="stage-sub">設計の初期条件</text>
 
-  <!-- 2. Wave -->
-  <rect x="190" y="110" width="120" height="70" rx="8" fill="#5B8DB8" opacity="0.9"/>
-  <text x="250" y="140" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF">波</text>
-  <text x="250" y="162" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#FAFAF8">Wave</text>
+  <!-- Wave -->
+  <rect x="200" y="100" width="120" height="70" rx="8" fill="#5B8DB8"/>
+  <text x="260" y="128" text-anchor="middle" class="stage-label">波（Wave）</text>
+  <text x="260" y="148" text-anchor="middle" class="stage-sub">誤差と偏差の発生</text>
 
-  <!-- 3. Edge -->
-  <rect x="340" y="110" width="120" height="70" rx="8" fill="#D4A857" opacity="0.9"/>
-  <text x="400" y="140" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF">縁</text>
-  <text x="400" y="162" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#FAFAF8">Edge</text>
+  <!-- Edge -->
+  <rect x="350" y="100" width="120" height="70" rx="8" fill="#D4A857"/>
+  <text x="410" y="128" text-anchor="middle" class="stage-label">縁（Edge）</text>
+  <text x="410" y="148" text-anchor="middle" class="stage-sub">制御と探索の界面</text>
 
-  <!-- 4. Vortex -->
-  <rect x="490" y="110" width="120" height="70" rx="8" fill="#C45B4D" opacity="0.9"/>
-  <text x="550" y="140" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF">渦</text>
-  <text x="550" y="162" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#FAFAF8">Vortex</text>
+  <!-- Vortex -->
+  <rect x="500" y="100" width="120" height="70" rx="8" fill="#C45B4D"/>
+  <text x="560" y="128" text-anchor="middle" class="stage-label">渦（Vortex）</text>
+  <text x="560" y="148" text-anchor="middle" class="stage-sub">フィードバックループ</text>
 
-  <!-- 5. Bundle -->
-  <rect x="640" y="110" width="120" height="70" rx="8" fill="#5B8B6A" opacity="0.9"/>
-  <text x="700" y="140" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="18" font-weight="bold" fill="#FFFFFF">束</text>
-  <text x="700" y="162" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#FAFAF8">Bundle</text>
+  <!-- Bundle -->
+  <rect x="650" y="100" width="120" height="70" rx="8" fill="#5B8B6A"/>
+  <text x="710" y="128" text-anchor="middle" class="stage-label">束（Bundle）</text>
+  <text x="710" y="148" text-anchor="middle" class="stage-sub">安定構造の保証</text>
 
   <!-- Arrows between stages -->
-  <line x1="160" y1="145" x2="188" y2="145" stroke="#666666" stroke-width="2" marker-end="url(#arrowD07)"/>
-  <line x1="310" y1="145" x2="338" y2="145" stroke="#666666" stroke-width="2" marker-end="url(#arrowD07)"/>
-  <line x1="460" y1="145" x2="488" y2="145" stroke="#666666" stroke-width="2" marker-end="url(#arrowD07)"/>
-  <line x1="610" y1="145" x2="638" y2="145" stroke="#666666" stroke-width="2" marker-end="url(#arrowD07)"/>
+  <line x1="170" y1="135" x2="198" y2="135" stroke="#666666" stroke-width="2" marker-end="url(#arrowD07)"/>
+  <line x1="320" y1="135" x2="348" y2="135" stroke="#666666" stroke-width="2" marker-end="url(#arrowD07)"/>
+  <line x1="470" y1="135" x2="498" y2="135" stroke="#666666" stroke-width="2" marker-end="url(#arrowD07)"/>
+  <line x1="620" y1="135" x2="648" y2="135" stroke="#666666" stroke-width="2" marker-end="url(#arrowD07)"/>
 
-  <!-- Concept labels under each stage -->
+  <!-- Concepts under each stage -->
   <!-- Field concepts -->
-  <line x1="100" y1="180" x2="100" y2="200" stroke="#8B8682" stroke-width="2"/>
-  <text x="100" y="218" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">設計空間</text>
-  <text x="100" y="238" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">制御対象モデル</text>
-  <text x="100" y="258" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">ネットワーク状態</text>
+  <line x1="110" y1="170" x2="110" y2="195" stroke="#8B8682" stroke-width="2"/>
+  <rect x="45" y="195" width="130" height="90" rx="6" fill="none" stroke="#8B8682" stroke-width="1.5"/>
+  <text x="110" y="215" text-anchor="middle" class="concept">設計空間</text>
+  <text x="110" y="235" text-anchor="middle" class="concept">制御対象モデル</text>
+  <text x="110" y="255" text-anchor="middle" class="concept">ネットワーク状態</text>
 
   <!-- Wave concepts -->
-  <line x1="250" y1="180" x2="250" y2="200" stroke="#5B8DB8" stroke-width="2"/>
-  <text x="250" y="218" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">誤差信号 e(t)</text>
-  <text x="250" y="238" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">損失関数</text>
-  <text x="250" y="258" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">TD誤差 / パケット損失</text>
+  <line x1="260" y1="170" x2="260" y2="195" stroke="#5B8DB8" stroke-width="2"/>
+  <rect x="195" y="195" width="130" height="90" rx="6" fill="none" stroke="#5B8DB8" stroke-width="1.5"/>
+  <text x="260" y="215" text-anchor="middle" class="concept">誤差信号 e(t)</text>
+  <text x="260" y="235" text-anchor="middle" class="concept">損失関数</text>
+  <text x="260" y="255" text-anchor="middle" class="concept">TD誤差 / パケット損失</text>
 
   <!-- Edge concepts -->
-  <line x1="400" y1="180" x2="400" y2="200" stroke="#D4A857" stroke-width="2"/>
-  <text x="400" y="218" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">センサ-制御器界面</text>
-  <text x="400" y="238" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">探索-活用の分岐</text>
-  <text x="400" y="258" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">損失地形の不確定性</text>
+  <line x1="410" y1="170" x2="410" y2="195" stroke="#D4A857" stroke-width="2"/>
+  <rect x="345" y="195" width="130" height="90" rx="6" fill="none" stroke="#D4A857" stroke-width="1.5"/>
+  <text x="410" y="215" text-anchor="middle" class="concept">センサ-制御器界面</text>
+  <text x="410" y="235" text-anchor="middle" class="concept">探索-活用の分岐</text>
+  <text x="410" y="255" text-anchor="middle" class="concept">損失地形の不確定性</text>
 
   <!-- Vortex concepts -->
-  <line x1="550" y1="180" x2="550" y2="200" stroke="#C45B4D" stroke-width="2"/>
-  <text x="550" y="218" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">PID制御ループ</text>
-  <text x="550" y="238" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">SGD反復更新</text>
-  <text x="550" y="258" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">AIMD鋸歯状波</text>
+  <line x1="560" y1="170" x2="560" y2="195" stroke="#C45B4D" stroke-width="2"/>
+  <rect x="495" y="195" width="130" height="90" rx="6" fill="none" stroke="#C45B4D" stroke-width="1.5"/>
+  <text x="560" y="215" text-anchor="middle" class="concept">PID制御ループ</text>
+  <text x="560" y="235" text-anchor="middle" class="concept">SGD反復更新</text>
+  <text x="560" y="255" text-anchor="middle" class="concept">AIMD鋸歯状波</text>
 
   <!-- Bundle concepts -->
-  <line x1="700" y1="180" x2="700" y2="200" stroke="#5B8B6A" stroke-width="2"/>
-  <text x="700" y="218" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">安定性条件</text>
-  <text x="700" y="238" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">Shannon容量</text>
-  <text x="700" y="258" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">公平帯域分配</text>
+  <line x1="710" y1="170" x2="710" y2="195" stroke="#5B8B6A" stroke-width="2"/>
+  <rect x="645" y="195" width="130" height="90" rx="6" fill="none" stroke="#5B8B6A" stroke-width="1.5"/>
+  <text x="710" y="215" text-anchor="middle" class="concept">安定性条件</text>
+  <text x="710" y="235" text-anchor="middle" class="concept">Shannon容量</text>
+  <text x="710" y="255" text-anchor="middle" class="concept">公平帯域分配</text>
 
-  <!-- Correspondence strength indicators -->
-  <text x="400" y="310" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="14" font-weight="bold" fill="#2C2C2C">代表理論の対応強度</text>
-
-  <!-- Row 1: Feedback control - strong -->
-  <rect x="60" y="325" width="680" height="32" rx="4" fill="#FAFAF8" stroke="#E0DDD8" stroke-width="1"/>
-  <text x="75" y="346" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">フィードバック制御系</text>
-  <line x1="280" y1="341" x2="720" y2="341" stroke="#2C2C2C" stroke-width="2"/>
-  <text x="735" y="346" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">強</text>
-
-  <!-- Row 2: Deep learning - strong -->
-  <rect x="60" y="362" width="680" height="32" rx="4" fill="#FAFAF8" stroke="#E0DDD8" stroke-width="1"/>
-  <text x="75" y="383" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">深層学習（誤差逆伝播）</text>
-  <line x1="280" y1="378" x2="720" y2="378" stroke="#2C2C2C" stroke-width="2"/>
-  <text x="735" y="383" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">強</text>
-
-  <!-- Row 3: RL - strong -->
-  <rect x="60" y="399" width="680" height="32" rx="4" fill="#FAFAF8" stroke="#E0DDD8" stroke-width="1"/>
-  <text x="75" y="420" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">強化学習</text>
-  <line x1="280" y1="415" x2="720" y2="415" stroke="#2C2C2C" stroke-width="2"/>
-  <text x="735" y="420" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">強</text>
-
-  <!-- Row 4: TCP - partial -->
-  <rect x="60" y="436" width="680" height="32" rx="4" fill="#FAFAF8" stroke="#E0DDD8" stroke-width="1"/>
-  <text x="75" y="457" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">TCP輻輳制御（AIMD）</text>
-  <line x1="280" y1="452" x2="720" y2="452" stroke="#2C2C2C" stroke-width="2" stroke-dasharray="8,4"/>
-  <text x="735" y="457" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">有力</text>
-
-  <!-- Row 5: Information theory - conditional -->
-  <rect x="60" y="473" width="680" height="32" rx="4" fill="#FAFAF8" stroke="#E0DDD8" stroke-width="1"/>
-  <text x="75" y="494" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">情報理論（Shannon容量）</text>
-  <line x1="280" y1="489" x2="720" y2="489" stroke="#D0D0D0" stroke-width="2" stroke-dasharray="2,4"/>
-  <text x="735" y="494" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">条件付</text>
+  <!-- Correspondence strength section -->
+  <text x="400" y="320" text-anchor="middle" class="summary-title">代表理論の対応強度</text>
 
   <!-- Legend -->
-  <line x1="60" y1="530" x2="100" y2="530" stroke="#2C2C2C" stroke-width="2"/>
-  <text x="108" y="534" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">強い対応</text>
-  <line x1="200" y1="530" x2="240" y2="530" stroke="#2C2C2C" stroke-width="2" stroke-dasharray="8,4"/>
-  <text x="248" y="534" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">部分的対応</text>
-  <line x1="360" y1="530" x2="400" y2="530" stroke="#D0D0D0" stroke-width="2" stroke-dasharray="2,4"/>
-  <text x="408" y="534" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">条件付き対応</text>
+  <line x1="60" y1="340" x2="100" y2="340" stroke="#2C2C2C" stroke-width="2"/>
+  <text x="108" y="344" class="legend">強い対応</text>
+  <line x1="210" y1="340" x2="250" y2="340" stroke="#2C2C2C" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="258" y="344" class="legend">部分的対応</text>
+  <line x1="380" y1="340" x2="420" y2="340" stroke="#D0D0D0" stroke-width="2" stroke-dasharray="2,4"/>
+  <text x="428" y="344" class="legend">条件付き対応</text>
+
+  <!-- Theory rows -->
+  <!-- Row 1: Feedback control - strong -->
+  <rect x="45" y="358" width="710" height="32" rx="4" fill="#FAFAF8" stroke="#E0DDD8" stroke-width="1"/>
+  <text x="60" y="379" class="concept">フィードバック制御系</text>
+  <line x1="280" y1="374" x2="720" y2="374" stroke="#2C2C2C" stroke-width="2"/>
+  <text x="728" y="379" class="legend">強</text>
+
+  <!-- Row 2: Deep learning - strong -->
+  <rect x="45" y="395" width="710" height="32" rx="4" fill="#FAFAF8" stroke="#E0DDD8" stroke-width="1"/>
+  <text x="60" y="416" class="concept">深層学習（誤差逆伝播）</text>
+  <line x1="280" y1="411" x2="720" y2="411" stroke="#2C2C2C" stroke-width="2"/>
+  <text x="728" y="416" class="legend">強</text>
+
+  <!-- Row 3: RL - strong -->
+  <rect x="45" y="432" width="710" height="32" rx="4" fill="#FAFAF8" stroke="#E0DDD8" stroke-width="1"/>
+  <text x="60" y="453" class="concept">強化学習</text>
+  <line x1="280" y1="448" x2="720" y2="448" stroke="#2C2C2C" stroke-width="2"/>
+  <text x="728" y="453" class="legend">強</text>
+
+  <!-- Row 4: TCP - partial -->
+  <rect x="45" y="469" width="710" height="32" rx="4" fill="#FAFAF8" stroke="#E0DDD8" stroke-width="1"/>
+  <text x="60" y="490" class="concept">TCP輻輳制御（AIMD）</text>
+  <line x1="280" y1="485" x2="720" y2="485" stroke="#2C2C2C" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="728" y="490" class="legend">有力</text>
+
+  <!-- Row 5: Information theory - conditional -->
+  <rect x="45" y="506" width="710" height="32" rx="4" fill="#FAFAF8" stroke="#E0DDD8" stroke-width="1"/>
+  <text x="60" y="527" class="concept">情報理論（Shannon容量）</text>
+  <line x1="280" y1="522" x2="720" y2="522" stroke="#D0D0D0" stroke-width="2" stroke-dasharray="2,4"/>
+  <text x="728" y="527" class="legend">条件付</text>
 
   <!-- Summary -->
-  <rect x="40" y="550" width="720" height="40" rx="6" fill="#FAFAF8" stroke="#E0DDD8" stroke-width="1"/>
-  <text x="400" y="570" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">全体評価: 誤差の精密な定量化、フィードバックループの自己維持性、束の定量的保証が特徴</text>
-  <text x="400" y="585" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">留保: 設計者バイアス -- 5段階が設計原理として意図的に組み込まれた可能性</text>
+  <rect x="45" y="550" width="710" height="25" rx="6" fill="#FAFAF8" stroke="#E0DDD8" stroke-width="1"/>
+  <text x="400" y="567" text-anchor="middle" class="summary-text">全体評価: 誤差の精密な定量化、フィードバックループの自己維持性、束の定量的保証が特徴。留保: 設計者バイアス — 5段階が設計原理として意図的に組み込まれた可能性</text>
 </svg>

@@ -26,27 +26,27 @@
   <!-- Field / 場 -->
   <rect x="50" y="100" width="120" height="70" rx="8" fill="#8B8682"/>
   <text x="110" y="128" text-anchor="middle" class="stage-label">場</text>
-  <text x="110" y="148" text-anchor="middle" class="stage-sub">Field</text>
+  <text x="110" y="148" text-anchor="middle" class="stage-sub">安全基地・支援条件</text>
 
   <!-- Wave / 波 -->
   <rect x="200" y="100" width="120" height="70" rx="8" fill="#5B8DB8"/>
   <text x="260" y="128" text-anchor="middle" class="stage-label">波</text>
-  <text x="260" y="148" text-anchor="middle" class="stage-sub">Wave</text>
+  <text x="260" y="148" text-anchor="middle" class="stage-sub">不安定化・葛藤</text>
 
   <!-- Edge / 縁 -->
   <rect x="350" y="100" width="120" height="70" rx="8" fill="#D4A857"/>
   <text x="410" y="128" text-anchor="middle" class="stage-label">縁</text>
-  <text x="410" y="148" text-anchor="middle" class="stage-sub">Edge</text>
+  <text x="410" y="148" text-anchor="middle" class="stage-sub">共同注意・足場かけ</text>
 
   <!-- Vortex / 渦 -->
   <rect x="500" y="100" width="120" height="70" rx="8" fill="#C45B4D"/>
   <text x="560" y="128" text-anchor="middle" class="stage-label">渦</text>
-  <text x="560" y="148" text-anchor="middle" class="stage-sub">Vortex</text>
+  <text x="560" y="148" text-anchor="middle" class="stage-sub">自己基準の成立</text>
 
   <!-- Bundle / 束 -->
   <rect x="650" y="100" width="120" height="70" rx="8" fill="#5B8B6A"/>
   <text x="710" y="128" text-anchor="middle" class="stage-label">束</text>
-  <text x="710" y="148" text-anchor="middle" class="stage-sub">Bundle</text>
+  <text x="710" y="148" text-anchor="middle" class="stage-sub">移送可能な構造</text>
 
   <!-- Arrows between stages -->
   <line x1="170" y1="135" x2="198" y2="135" stroke="#666666" stroke-width="2" marker-end="url(#arrowD23)"/>
