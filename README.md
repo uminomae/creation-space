@@ -112,4 +112,4 @@ Three.js による創造プロセスの視覚表現と、全30領域の調査レ
 
 ## License
 
-This project is licensed under the terms described in the repository.
+[MIT License](LICENSE)
