@@ -335,6 +335,7 @@ export function createScene(container) {
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     _renderer = renderer;
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
     _lastPixelRatio = null;
     syncRendererQuality();
     container.appendChild(renderer.domElement);

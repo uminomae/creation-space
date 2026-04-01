@@ -36,6 +36,7 @@ export function createPostFxBootstrap({
                     EffectComposer,
                     RenderPass,
                     ShaderPass,
+                    OutputPass,
                     DistortionShader,
                     CameraDofShader,
                 } = deps;
@@ -50,6 +51,7 @@ export function createPostFxBootstrap({
 
                 dofPass = new ShaderPass(CameraDofShader);
                 composer.addPass(dofPass);
+                composer.addPass(new OutputPass());
                 composer.setSize(window.innerWidth, window.innerHeight);
                 return true;
             })
