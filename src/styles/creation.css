@@ -86,14 +86,14 @@ body.creation-page {
   font-family: 'Noto Serif JP', Georgia, serif;
   font-size: clamp(0.95rem, 2.8vmin, 1.35rem);
   font-weight: 300;
-  color: rgba(210, 225, 250, var(--text-narration-opacity));
+  color: rgba(210, 225, 250, 0.9);
   letter-spacing: 0.08em;
   line-height: 2.2;
   max-width: 580px;
   margin: 0 auto;
   text-shadow:
-    0 0 var(--text-shadow-blur) rgba(0, 0, 0, var(--text-shadow-opacity)),
-    0 0 var(--text-shadow-blur2) rgba(0, 0, 0, calc(var(--text-shadow-opacity) * 0.67));
+    0 0 10px rgba(0, 0, 0, 1.0),
+    0 0 20px rgba(0, 0, 0, 0.67);
 }
 
 /* ── Grid row stagger reveal (cs#179 Phase A) ── */

@@ -342,7 +342,7 @@ html[lang="en"] #taglines {
 
 /* ── 共通パネル基盤 ── */
 .kesson-panel {
-  background: var(--kesson-surface-2);
+  background: var(--cs-surface-2);
   border: 1px solid var(--kesson-card-border);
   border-radius: var(--kesson-radius-lg);
   box-shadow: var(--kesson-card-shadow-soft);
@@ -354,7 +354,7 @@ html[lang="en"] #taglines {
   background-color: var(--bs-card-bg);
   background-image: none;
   border: 1px solid rgba(var(--color-accent), 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform var(--kesson-transition-snappy), box-shadow var(--kesson-transition-snappy);
   cursor: pointer;
 }
 
@@ -410,7 +410,7 @@ html[lang="en"] #taglines {
   border: 1px solid rgba(var(--color-accent), 0.16);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
   overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: transform var(--kesson-transition-snappy), box-shadow var(--kesson-transition-snappy), border-color var(--kesson-transition-snappy);
 }
 
 .img-card-link > .img-card {
@@ -504,11 +504,7 @@ html[lang="en"] #taglines {
   padding: var(--kesson-section-content-padding);
 }
 
-.creation-section-shell {
-  display: flex;
-  flex-direction: column;
-  margin-top: 0.25rem;
-}
+/* .creation-section-shell removed — techo#76 KS 統一 */
 
 .section-heading {
   font-size: var(--kesson-section-heading, 0.80rem);

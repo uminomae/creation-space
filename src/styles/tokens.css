@@ -10,9 +10,9 @@
 
   --kesson-font-serif-display: "Noto Serif JP", "Yu Mincho", "MS PMincho", serif;
   --kesson-font-serif-ui: 'Georgia', "Noto Serif JP", serif;
-  --kesson-font-sans-ui: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", "Meiryo", system-ui, sans-serif;
+  --cs-font-sans-ui: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", "Meiryo", system-ui, sans-serif;
   --kesson-font-mono-ui: 'SF Mono', 'Fira Code', 'Consolas', monospace;
-  --kesson-font-mono-system: ui-monospace, SFMono-Regular, 'SF Mono', 'Consolas', monospace;
+  --cs-font-mono-system: ui-monospace, SFMono-Regular, 'SF Mono', 'Consolas', monospace;
   --kesson-font-size-ui-xs: 0.85rem;
   --kesson-font-size-ui-sm: 0.88rem;
   --kesson-font-size-ui-arrow: clamp(0.7rem, 3.5vmin, 1.2rem);
@@ -33,9 +33,9 @@
   --kesson-ui-label-color: rgba(var(--color-sub-text), 0.3);
   --kesson-ui-arrow-color: rgba(var(--color-sub-text), 0.25);
   --kesson-ui-label-hover-color: rgba(var(--color-sub-text), 0.6);
-  --kesson-action-bg: var(--kesson-card-bg);
+  --kesson-action-bg: rgba(var(--color-accent), 0.1);
   --kesson-action-border: rgba(var(--color-accent), 0.1);
-  --kesson-action-text: rgba(var(--color-heading), 0.5);
+  --kesson-action-text: rgba(var(--color-sub-text), 0.5);
   --kesson-action-bg-hover: var(--kesson-card-bg);
   --kesson-action-text-hover: rgba(var(--color-heading), 0.7);
   --kesson-card-border: rgba(var(--color-accent), 0.1);
@@ -47,10 +47,10 @@
 
   --kesson-section-content-padding: 1rem 1.5rem 0;
   --kesson-section-grid-margin-top: 1.5rem;
-  --kesson-surface-1: rgba(20, 25, 40, 0.3);
-  --kesson-surface-2: rgba(20, 25, 40, 0.6);
-  --kesson-surface-3: rgba(20, 25, 40, 0.9);
-  --kesson-card-bg: var(--kesson-surface-3);
+  --cs-surface-1: rgba(20, 25, 40, 0.3);
+  --cs-surface-2: rgba(20, 25, 40, 0.6);
+  --cs-surface-3: rgba(20, 25, 40, 0.9);
+  --kesson-card-bg: var(--cs-surface-3);
 
   --kesson-section-heading: 0.88rem;
   --kesson-card-title: 1.0rem;
