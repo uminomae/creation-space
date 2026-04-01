@@ -1,163 +1,133 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" xmlns:xlink="http://www.w3.org/1999/xlink">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
   <defs>
     <marker id="arrowTH" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
       <polygon points="0 0, 8 3, 0 6" fill="#666666"/>
     </marker>
   </defs>
+  <style>
+    .title { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 24px; fill: #2C2C2C; font-weight: bold; }
+    .subtitle { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 14px; fill: #666666; }
+    .stage-label { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 16px; font-weight: bold; }
+    .stage-sub { font-family: 'Inter', 'Helvetica Neue', sans-serif; font-size: 11px; }
+    .threshold-label { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 13px; fill: #C45B4D; font-weight: bold; }
+    .conv-title { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 14px; font-weight: bold; }
+    .conv-desc { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 11px; fill: #666666; }
+    .domain-id { font-family: 'Inter', 'Helvetica Neue', sans-serif; font-size: 11px; fill: #2C2C2C; font-weight: bold; }
+    .domain-desc { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 11px; fill: #666666; }
+    .note { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 12px; }
+    .summary-title { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 14px; fill: #2C2C2C; font-weight: bold; }
+    .summary-text { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 12px; fill: #2C2C2C; }
+    .summary-note { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 12px; fill: #666666; }
+  </style>
 
   <!-- Background -->
   <rect width="800" height="600" fill="#FAFAF8" rx="8"/>
-  <rect x="1" y="1" width="798" height="598" fill="none" stroke="#E0DDD8" stroke-width="1" rx="8"/>
+  <rect x="20" y="20" width="760" height="560" fill="none" stroke="#E0DDD8" stroke-width="1" rx="6"/>
 
   <!-- Title -->
-  <text x="400" y="45" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="24" fill="#2C2C2C" font-weight="bold">T2 閾値構造と縁→渦遷移 — 横断的パターン図</text>
-  <text x="400" y="68" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="14" fill="#666666">縁→渦遷移の条件 (11ドメインが直接主題化、10が渦不到達を記述)</text>
+  <text x="400" y="45" text-anchor="middle" class="title">T2 閾値構造と縁→渦遷移 — 横断的パターン図</text>
+  <text x="400" y="68" text-anchor="middle" class="subtitle">縁→渦遷移の条件 (11ドメインが直接主題化、10が渦不到達を記述)</text>
 
   <!-- Central theme: transition between En and Uzu -->
-  <!-- Original y="195", shifted by +14px to y="209" -->
   <rect x="290" y="209" width="90" height="70" rx="10" fill="#D4A857" opacity="0.15" stroke="#D4A857" stroke-width="2"/>
-  <!-- Original y="228", shifted by +14px to y="242" -->
-  <text x="335" y="242" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="16" fill="#D4A857" font-weight="bold">縁</text>
-  <!-- Original y="248", shifted by +14px to y="262" -->
-  <text x="335" y="262" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#D4A857">Edge</text>
+  <text x="335" y="242" text-anchor="middle" class="stage-label" fill="#D4A857">縁</text>
+  <text x="335" y="262" text-anchor="middle" class="stage-sub" fill="#D4A857">Edge</text>
 
   <!-- Threshold bar -->
-  <!-- Original y="200", shifted by +14px to y="214" -->
   <rect x="395" y="214" width="10" height="60" rx="2" fill="#C45B4D" opacity="0.5"/>
-  <!-- Original y="185", shifted by +14px to y="199" -->
-  <text x="400" y="199" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#C45B4D" font-weight="bold">閾値</text>
+  <text x="400" y="199" text-anchor="middle" class="threshold-label">閾値</text>
 
-  <!-- Original y="195", shifted by +14px to y="209" -->
   <rect x="420" y="209" width="90" height="70" rx="10" fill="#C45B4D" opacity="0.15" stroke="#C45B4D" stroke-width="2"/>
-  <!-- Original y="228", shifted by +14px to y="242" -->
-  <text x="465" y="242" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="16" fill="#C45B4D" font-weight="bold">渦</text>
-  <!-- Original y="248", shifted by +14px to y="262" -->
-  <text x="465" y="262" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#C45B4D">Vortex</text>
+  <text x="465" y="242" text-anchor="middle" class="stage-label" fill="#C45B4D">渦</text>
+  <text x="465" y="262" text-anchor="middle" class="stage-sub" fill="#C45B4D">Vortex</text>
 
   <!-- Arrow across threshold -->
-  <!-- Original y1="230", y2="230", shifted by +14px to y1="244", y2="244" -->
   <line x1="380" y1="244" x2="415" y2="244" stroke="#C45B4D" stroke-width="2.5" marker-end="url(#arrowTH)"/>
 
   <!-- Convergence 1: 閾値的 (top-left) -->
-  <!-- Original y="90", shifted by +14px to y="104" -->
   <rect x="50" y="104" width="200" height="55" rx="8" fill="#C45B4D" opacity="0.1" stroke="#C45B4D" stroke-width="1.5"/>
-  <!-- Original y="112", shifted by +14px to y="126" -->
-  <text x="150" y="126" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="14" fill="#C45B4D" font-weight="bold">連続的でなく閾値的 [P]</text>
-  <!-- Original y="132", shifted by +14px to y="146" -->
-  <text x="150" y="146" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">物理化学的に最も堅い知見</text>
-  <!-- Original y1="118", y2="200", shifted by +14px to y1="132", y2="214" -->
+  <text x="150" y="126" text-anchor="middle" class="conv-title" fill="#C45B4D">連続的でなく閾値的 [P]</text>
+  <text x="150" y="146" text-anchor="middle" class="conv-desc">物理化学的に最も堅い知見</text>
   <line x1="250" y1="132" x2="300" y2="214" stroke="#C45B4D" stroke-width="1.5"/>
 
   <!-- Domain nodes for convergence 1 -->
-  <!-- Original cy="170", r="16". Shifted cy by +14 to "184", r to "20" -->
   <circle cx="70" cy="184" r="20" fill="#C45B4D" opacity="0.15" stroke="#C45B4D" stroke-width="1"/>
-  <!-- Original y="174", font-size="9". Shifted y by +15 to "189", font-size to "11" -->
-  <text x="70" y="189" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#2C2C2C" font-weight="bold">D02</text>
-  <!-- Original y="197", font-size="9". Shifted y by +18 to "215", font-size to "11" -->
-  <text x="70" y="215" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">相転移</text>
+  <text x="70" y="189" text-anchor="middle" class="domain-id">D02</text>
+  <text x="70" y="215" text-anchor="middle" class="domain-desc">相転移</text>
 
   <circle cx="130" cy="184" r="20" fill="#C45B4D" opacity="0.15" stroke="#C45B4D" stroke-width="1"/>
-  <text x="130" y="189" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#2C2C2C" font-weight="bold">D03</text>
-  <text x="130" y="215" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">活性化E</text>
+  <text x="130" y="189" text-anchor="middle" class="domain-id">D03</text>
+  <text x="130" y="215" text-anchor="middle" class="domain-desc">活性化E</text>
 
   <circle cx="190" cy="184" r="20" fill="#C45B4D" opacity="0.15" stroke="#C45B4D" stroke-width="1"/>
-  <text x="190" y="189" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#2C2C2C" font-weight="bold">D05</text>
-  <text x="190" y="215" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">tipping pt</text>
+  <text x="190" y="189" text-anchor="middle" class="domain-id">D05</text>
+  <text x="190" y="215" text-anchor="middle" class="domain-desc">tipping pt</text>
 
   <!-- Convergence 2: 不可逆 (top-right) -->
-  <!-- Original y="90", shifted by +14px to y="104" -->
   <rect x="560" y="104" width="190" height="55" rx="8" fill="#D4A857" opacity="0.1" stroke="#D4A857" stroke-width="1.5"/>
-  <!-- Original y="112", shifted by +14px to y="126" -->
-  <text x="655" y="126" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="14" fill="#D4A857" font-weight="bold">遷移は不可逆的 [P]</text>
-  <!-- Original y="132", shifted by +14px to y="146" -->
-  <text x="655" y="146" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">縁に戻れない(系は循環する)</text>
-  <!-- Original y1="118", y2="200", shifted by +14px to y1="132", y2="214" -->
+  <text x="655" y="126" text-anchor="middle" class="conv-title" fill="#D4A857">遷移は不可逆的 [P]</text>
+  <text x="655" y="146" text-anchor="middle" class="conv-desc">縁に戻れない(系は循環する)</text>
   <line x1="560" y1="132" x2="510" y2="214" stroke="#D4A857" stroke-width="1.5"/>
 
-  <!-- Original cy="170", r="16". Shifted cy by +14 to "184", r to "20" -->
   <circle cx="600" cy="184" r="20" fill="#D4A857" opacity="0.15" stroke="#D4A857" stroke-width="1"/>
-  <!-- Original y="174", font-size="9". Shifted y by +15 to "189", font-size to "11" -->
-  <text x="600" y="189" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#2C2C2C" font-weight="bold">D04</text>
-  <!-- Original y="197", font-size="9". Shifted y by +18 to "215", font-size to "11" -->
-  <text x="600" y="215" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">種分化</text>
+  <text x="600" y="189" text-anchor="middle" class="domain-id">D04</text>
+  <text x="600" y="215" text-anchor="middle" class="domain-desc">種分化</text>
 
   <circle cx="660" cy="184" r="20" fill="#D4A857" opacity="0.15" stroke="#D4A857" stroke-width="1"/>
-  <text x="660" y="189" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#2C2C2C" font-weight="bold">D06</text>
-  <text x="660" y="215" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">重力崩壊</text>
+  <text x="660" y="189" text-anchor="middle" class="domain-id">D06</text>
+  <text x="660" y="215" text-anchor="middle" class="domain-desc">重力崩壊</text>
 
   <circle cx="720" cy="184" r="20" fill="#D4A857" opacity="0.15" stroke="#D4A857" stroke-width="1"/>
-  <text x="720" y="189" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#2C2C2C" font-weight="bold">D29</text>
-  <text x="720" y="215" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">SOC</text>
+  <text x="720" y="189" text-anchor="middle" class="domain-id">D29</text>
+  <text x="720" y="215" text-anchor="middle" class="domain-desc">SOC</text>
 
   <!-- Convergence 3: 制御可能 (bottom-left) -->
-  <!-- Original y="290", shifted by +14px to y="304" -->
   <rect x="50" y="304" width="200" height="55" rx="8" fill="#5B8B6A" opacity="0.1" stroke="#5B8B6A" stroke-width="1.5"/>
-  <!-- Original y="312", shifted by +14px to y="326" -->
-  <text x="150" y="326" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="14" fill="#5B8B6A" font-weight="bold">閾値は制御可能 [M]</text>
-  <!-- Original y="332", shifted by +14px to y="346" -->
-  <text x="150" y="346" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">上げる/下げる操作が存在</text>
-  <!-- Original y1="310", y2="260", shifted by +14px to y1="324", y2="274" -->
+  <text x="150" y="326" text-anchor="middle" class="conv-title" fill="#5B8B6A">閾値は制御可能 [M]</text>
+  <text x="150" y="346" text-anchor="middle" class="conv-desc">上げる/下げる操作が存在</text>
   <line x1="250" y1="324" x2="310" y2="274" stroke="#5B8B6A" stroke-width="1.5"/>
 
-  <!-- Original cy="370", r="16". Shifted cy by +14 to "384", r to "20" -->
   <circle cx="70" cy="384" r="20" fill="#5B8B6A" opacity="0.15" stroke="#5B8B6A" stroke-width="1"/>
-  <!-- Original y="374", font-size="9". Shifted y by +15 to "389", font-size to "11" -->
-  <text x="70" y="389" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#2C2C2C" font-weight="bold">D03</text>
-  <!-- Original y="397", font-size="9". Shifted y by +18 to "415", font-size to "11" -->
-  <text x="70" y="415" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">触媒=閾値低下</text>
+  <text x="70" y="389" text-anchor="middle" class="domain-id">D03</text>
+  <text x="70" y="415" text-anchor="middle" class="domain-desc">触媒=閾値低下</text>
 
   <circle cx="150" cy="384" r="20" fill="#5B8B6A" opacity="0.15" stroke="#5B8B6A" stroke-width="1"/>
-  <text x="150" y="389" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#2C2C2C" font-weight="bold">D27</text>
-  <text x="150" y="415" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">threshold space</text>
+  <text x="150" y="389" text-anchor="middle" class="domain-id">D27</text>
+  <text x="150" y="415" text-anchor="middle" class="domain-desc">threshold space</text>
 
   <circle cx="230" cy="384" r="20" fill="#5B8B6A" opacity="0.15" stroke="#5B8B6A" stroke-width="1"/>
-  <text x="230" y="389" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#2C2C2C" font-weight="bold">D3</text>
-  <text x="230" y="415" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">抱持=閾値上昇</text>
+  <text x="230" y="389" text-anchor="middle" class="domain-id">D3</text>
+  <text x="230" y="415" text-anchor="middle" class="domain-desc">抱持=閾値上昇</text>
 
   <!-- Convergence 4: 渦不到達 (bottom-right) -->
-  <!-- Original y="290", shifted by +14px to y="304" -->
   <rect x="560" y="304" width="190" height="55" rx="8" fill="#8B8682" opacity="0.1" stroke="#8B8682" stroke-width="1.5"/>
-  <!-- Original y="312", shifted by +14px to y="326" -->
-  <text x="655" y="326" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="14" fill="#8B8682" font-weight="bold">渦不到達経路 [P]</text>
-  <!-- Original y="332", shifted by +14px to y="346" -->
-  <text x="655" y="346" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">縁で止まる/場に戻る</text>
-  <!-- Original y1="310", y2="260", shifted by +14px to y1="324", y2="274" -->
+  <text x="655" y="326" text-anchor="middle" class="conv-title" fill="#8B8682">渦不到達経路 [P]</text>
+  <text x="655" y="346" text-anchor="middle" class="conv-desc">縁で止まる/場に戻る</text>
   <line x1="560" y1="324" x2="510" y2="274" stroke="#8B8682" stroke-width="1.5"/>
 
-  <!-- Original cy="370", r="16". Shifted cy by +14 to "384", r to "20" -->
   <circle cx="580" cy="384" r="20" fill="#8B8682" opacity="0.15" stroke="#8B8682" stroke-width="1"/>
-  <!-- Original y="374", font-size="9". Shifted y by +15 to "389", font-size to "11" -->
-  <text x="580" y="389" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#2C2C2C" font-weight="bold">D07</text>
-  <!-- Original y="397", font-size="9". Shifted y by +18 to "415", font-size to "11" -->
-  <text x="580" y="415" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">安定制御</text>
+  <text x="580" y="389" text-anchor="middle" class="domain-id">D07</text>
+  <text x="580" y="415" text-anchor="middle" class="domain-desc">安定制御</text>
 
   <circle cx="650" cy="384" r="20" fill="#8B8682" opacity="0.15" stroke="#8B8682" stroke-width="1"/>
-  <text x="650" y="389" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#2C2C2C" font-weight="bold">D14</text>
-  <text x="650" y="415" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">固着</text>
+  <text x="650" y="389" text-anchor="middle" class="domain-id">D14</text>
+  <text x="650" y="415" text-anchor="middle" class="domain-desc">固着</text>
 
   <circle cx="720" cy="384" r="20" fill="#8B8682" opacity="0.15" stroke="#8B8682" stroke-width="1"/>
-  <text x="720" y="389" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#2C2C2C" font-weight="bold">D25</text>
-  <text x="720" y="415" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">schism</text>
+  <text x="720" y="389" text-anchor="middle" class="domain-id">D25</text>
+  <text x="720" y="415" text-anchor="middle" class="domain-desc">schism</text>
 
   <!-- D3 connection highlight -->
-  <!-- Original y="290", shifted by +14px to y="304" -->
   <rect x="285" y="304" width="230" height="40" rx="6" fill="#D4A857" opacity="0.08" stroke="#D4A857" stroke-width="1" stroke-dasharray="4,3"/>
-  <!-- Original y="315", shifted by +14px to y="329" -->
-  <text x="400" y="329" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="12" fill="#D4A857">触媒=閾値低下 / D3抱持=閾値上昇 (対称性)</text>
+  <text x="400" y="329" text-anchor="middle" class="note" fill="#D4A857">触媒=閾値低下 / D3抱持=閾値上昇 (対称性)</text>
 
   <!-- Summary -->
-  <!-- Original y="440", shifted by +14px to y="454" -->
   <rect x="40" y="454" width="720" height="130" rx="8" fill="#FAFAF8" stroke="#E0DDD8" stroke-width="1"/>
-  <!-- Original y="465", shifted by +14px to y="479" -->
-  <text x="60" y="479" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="14" fill="#2C2C2C" font-weight="bold">収束点と保持論点</text>
-  <!-- Original y="487", shifted by +14px to y="501" -->
-  <text x="60" y="501" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="12" fill="#2C2C2C">1. 縁→渦遷移は連続的でなく閾値的 [P] | 2. 閾値超え遷移は不可逆的 [P]</text>
-  <!-- Original y="505", shifted by +14px to y="519" -->
-  <text x="60" y="519" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="12" fill="#2C2C2C">3. 閾値は制御可能な場合がある [M] | 4. 渦に至らない経路が存在する [P]</text>
-  <!-- Original y="527", shifted by +14px to y="541" -->
-  <text x="60" y="541" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="12" fill="#666666">分岐1: 閾値は量的か質的か (D02物理 vs D24宗教 vs D14心理)</text>
-  <!-- Original y="545", shifted by +14px to y="559" -->
-  <text x="60" y="559" text-anchor="start" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="12" fill="#666666">分岐2: 「帯域」と「閾値」の統合 — 帯域の中に閾値があるのか、端が閾値か</text>
-  <!-- Original y="563", shifted by +14px to y="577" -->
-  <text x="60" y="577" text-anchor="start" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="12" fill="#666666">分岐3: 渦は必ず創造的か — Minsky(D21)の信用崩壊は破壊的渦</text>
+  <text x="60" y="479" class="summary-title">収束点と保持論点</text>
+  <text x="60" y="501" class="summary-text">1. 縁→渦遷移は連続的でなく閾値的 [P] | 2. 閾値超え遷移は不可逆的 [P]</text>
+  <text x="60" y="519" class="summary-text">3. 閾値は制御可能な場合がある [M] | 4. 渦に至らない経路が存在する [P]</text>
+  <text x="60" y="541" class="summary-note">分岐1: 閾値は量的か質的か (D02物理 vs D24宗教 vs D14心理)</text>
+  <text x="60" y="559" text-anchor="start" class="summary-note">分岐2: 「帯域」と「閾値」の統合 — 帯域の中に閾値があるのか、端が閾値か</text>
+  <text x="60" y="577" text-anchor="start" class="summary-note">分岐3: 渦は必ず創造的か — Minsky(D21)の信用崩壊は破壊的渦</text>
 </svg>
