@@ -71,3 +71,39 @@
   color: #f87171;
   font-size: 0.8rem;
 }
+
+/* ks-card-grid — Bootstrap row/col 置換 (techo#76) */
+.ks-card-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--ks-grid-cols, 1), 1fr);
+  gap: var(--ks-grid-gap, 0.75rem);
+}
+@media (min-width: 768px) {
+  .ks-card-grid { --ks-grid-cols: 3; }
+}
+.ks-card-grid--2col {
+  --ks-grid-cols: 1;
+}
+@media (min-width: 768px) {
+  .ks-card-grid--2col { --ks-grid-cols: 2; }
+}
+.ks-card-grid--5col {
+  --ks-grid-cols: 1;
+}
+@media (min-width: 768px) {
+  .ks-card-grid--5col { --ks-grid-cols: 5; }
+}
+.ks-card-grid--2x5col {
+  --ks-grid-cols: 2;
+}
+@media (min-width: 768px) {
+  .ks-card-grid--2x5col { --ks-grid-cols: 5; }
+}
+/* Bootstrap .col override inside ks-card-grid */
+.ks-card-grid > .col,
+.ks-card-grid > [class*="col-"] {
+  width: auto;
+  max-width: none;
+  flex: none;
+  padding: 0;
+}
