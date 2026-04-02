@@ -85,7 +85,12 @@ export async function runMainOrchestrator({
         getCreationLinkTargetMeshes,
     });
 
-    const clock = new THREE.Clock();
+    const clockStart = performance.now();
+    const clock = {
+        getElapsedTime() {
+            return (performance.now() - clockStart) / 1000;
+        },
+    };
 
     // --- intent runtime (inlined from main-intent-runtime.js) ---
     const shiftTurnState = createIntentShiftTurnState({
