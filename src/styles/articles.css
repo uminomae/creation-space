@@ -102,8 +102,9 @@
 /* Bootstrap .col override inside ks-card-grid */
 .ks-card-grid > .col,
 .ks-card-grid > [class*="col-"] {
-  width: auto;
-  max-width: none;
-  flex: none;
-  padding: 0;
+  width: auto !important;
+  max-width: none !important;
+  flex: none !important;
+  padding: 0 !important;
+  min-width: 0;
 }
