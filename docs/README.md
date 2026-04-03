@@ -1,6 +1,6 @@
 # docs/README.md — プロジェクト管理ハブ
 
-**バージョン**: 3.3
+**バージョン**: 3.2
 **更新日**: 2026-04-03
 
 ## 位置づけ
@@ -32,7 +32,6 @@ docs/ に置かないもの:
 | `README.md` | リポジトリ全体の目次 |
 | `CLAUDE.md` | Claude Code CLI 向けの最小運用ルール |
 | `docs/SETUP.md` | ローカルセットアップ、`pjdhiro` 連携、初回確認手順 |
-| `docs/reports-ui.md` | REPORTS UI の表示対象、データソース、操作概要 |
 | `evidence/PROJECT.md` | プロジェクト憲章。目的・5段階モデル・調査状況の正本 |
 | `docs/evidence-metadata-creation.md` | creation 固有 metadata 正本。公開ラベル taxonomy と `generator_model` |
 | `transform/README.md` | 変換 workflow 全体の入口 |
@@ -64,7 +63,6 @@ docs/ に置かないもの:
 |---|---|
 | `CLAUDE.md` | セッション開始・終了、Git 規約、関連 repo の要約 |
 | `docs/SETUP.md` | clone、CDN 依存、`.cache/`、hooks、初回 smoke test の手順 |
-| `docs/reports-ui.md` | REPORTS セクションの仕様概要と運用上の参照先 |
 | `.claude/rules/commit-rules.md` | コミットメッセージと push 前チェック |
 | `docs/operations/project-structure.md` | `src/` 構成、CSS 配置、データフロー概要 |
 | `.claude/rules/docs-navigator.md` | タスク種別に応じた参照ガイド |
@@ -201,4 +199,3 @@ LLMの振る舞いは不確実であり、効率化の最適化がルールの�
 | 2026-03-15 | 3.0 | 設計原則 L1-L7 セクション追加、docs-navigator.md を管理書類一覧に追加 (cs#72) |
 | 2026-03-16 | 3.1 | guardian-matrix.md を管理書類一覧に追加 (cs#67) |
 | 2026-04-03 | 3.2 | `docs/SETUP.md` を追加し、ローカルセットアップ導線を更新 (cs#203) |
-| 2026-04-03 | 3.3 | `docs/reports-ui.md` を追加し、REPORTS UI の参照導線を更新 (cs#204) |

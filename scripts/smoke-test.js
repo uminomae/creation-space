@@ -16,15 +16,6 @@ const DEFAULT_PATH = resolve(SCRIPT_DIR, '..', '..', 'pjdhiro', 'assets', 'creat
 const REQUIRED_TOP_KEYS = ['version', 'generated_at', 'namespace', 'progress_taxonomy', 'reports'];
 const REQUIRED_REPORT_KEYS = ['id', 'name_ja', 'slug', 'status', 'progress_level'];
 
-function resolveHookScriptPath(command = '') {
-  const tokens = String(command).trim().split(/\s+/).filter(Boolean);
-  if (!tokens.length) return '';
-  if (['bash', 'sh', 'zsh'].includes(tokens[0]) && tokens[1]) {
-    return tokens[1];
-  }
-  return tokens[0];
-}
-
 async function main() {
   const filePath = process.argv[2] || DEFAULT_PATH;
   console.log(`smoke-test (cs#107)`);
@@ -116,10 +107,7 @@ async function main() {
       }
     }
     const repoRoot = resolve(SCRIPT_DIR, '..');
-    const missingHooks = [...commands].filter((cmd) => {
-      const scriptPath = resolveHookScriptPath(cmd);
-      return !scriptPath || !existsSync(resolve(repoRoot, scriptPath));
-    });
+    const missingHooks = [...commands].filter(cmd => !existsSync(resolve(repoRoot, cmd)));
     assert('all hooks.json commands reference existing files', missingHooks.length === 0,
       missingHooks.join(', '));
   }
@@ -128,25 +116,25 @@ async function main() {
   // quality_level fields (cs#111)
   const VALID_QUALITY_LEVELS = ['not_generated', 'generated', 'self_tested', 'independent_reviewed', 'pjdhiro_reviewed'];
 
-  const missingQuality = reports.filter(r => typeof r.quality_level !== 'string' || !r.quality_level.trim());
+  const missingQuality = reports.filter(r => typeof r.quality_level \!== 'string' || \!r.quality_level.trim());
   assert('all reports have quality_level', missingQuality.length === 0,
     missingQuality.map(r => r.id).join(', '));
 
-  const invalidQuality = reports.filter(r => r.quality_level && !VALID_QUALITY_LEVELS.includes(r.quality_level));
+  const invalidQuality = reports.filter(r => r.quality_level && \!VALID_QUALITY_LEVELS.includes(r.quality_level));
   assert('all quality_level values are valid', invalidQuality.length === 0,
     invalidQuality.map(r => `${r.id}=${r.quality_level}`).join(', '));
 
   // quality_level + review_engine consistency
   const reviewedNoEngine = reports.filter(r =>
     r.quality_level === 'independent_reviewed' &&
-    (typeof r.review_engine !== 'string' || !r.review_engine.trim())
+    (typeof r.review_engine \!== 'string' || \!r.review_engine.trim())
   );
   assert('independent_reviewed reports have review_engine', reviewedNoEngine.length === 0,
     reviewedNoEngine.map(r => r.id).join(', '));
 
   const reviewedNoResult = reports.filter(r =>
     r.quality_level === 'independent_reviewed' &&
-    (typeof r.review_result !== 'string' || !r.review_result.trim())
+    (typeof r.review_result \!== 'string' || \!r.review_result.trim())
   );
   assert('independent_reviewed reports have review_result', reviewedNoResult.length === 0,
     reviewedNoResult.map(r => r.id).join(', '));
