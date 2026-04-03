@@ -1,7 +1,7 @@
 # docs/README.md — プロジェクト管理ハブ
 
-**バージョン**: 3.2
-**更新日**: 2026-04-03
+**バージョン**: 3.0
+**更新日**: 2026-03-15
 
 ## 位置づけ
 
@@ -31,7 +31,6 @@ docs/ に置かないもの:
 |---|---|
 | `README.md` | リポジトリ全体の目次 |
 | `CLAUDE.md` | Claude Code CLI 向けの最小運用ルール |
-| `docs/SETUP.md` | ローカルセットアップ、`pjdhiro` 連携、初回確認手順 |
 | `evidence/PROJECT.md` | プロジェクト憲章。目的・5段階モデル・調査状況の正本 |
 | `docs/evidence-metadata-creation.md` | creation 固有 metadata 正本。公開ラベル taxonomy と `generator_model` |
 | `transform/README.md` | 変換 workflow 全体の入口 |
@@ -62,7 +61,6 @@ docs/ に置かないもの:
 | パス | 用途 |
 |---|---|
 | `CLAUDE.md` | セッション開始・終了、Git 規約、関連 repo の要約 |
-| `docs/SETUP.md` | clone、CDN 依存、`.cache/`、hooks、初回 smoke test の手順 |
 | `.claude/rules/commit-rules.md` | コミットメッセージと push 前チェック |
 | `docs/operations/project-structure.md` | `src/` 構成、CSS 配置、データフロー概要 |
 | `.claude/rules/docs-navigator.md` | タスク種別に応じた参照ガイド |
@@ -198,4 +196,3 @@ LLMの振る舞いは不確実であり、効率化の最適化がルールの�
 | 2026-03-15 | 2.2 | docs/ スコープルール追加。investigation を `evidence/investigations/` へ移動、`survey-progress-taxonomy.md` 削除 |
 | 2026-03-15 | 3.0 | 設計原則 L1-L7 セクション追加、docs-navigator.md を管理書類一覧に追加 (cs#72) |
 | 2026-03-16 | 3.1 | guardian-matrix.md を管理書類一覧に追加 (cs#67) |
-| 2026-04-03 | 3.2 | `docs/SETUP.md` を追加し、ローカルセットアップ導線を更新 (cs#203) |

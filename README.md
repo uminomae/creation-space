@@ -90,10 +90,6 @@ This project collects and analyzes structural similarity patterns of creative pr
 
 Three.js による創造プロセスの視覚表現と、全30領域の調査レポートを閲覧できる。
 
-## Setup
-
-- 初回セットアップとローカル確認手順: [docs/SETUP.md](docs/SETUP.md)
-
 ## 技術スタック / Tech Stack
 
 - 静的サイト: HTML + ES Modules
