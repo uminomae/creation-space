@@ -8,7 +8,7 @@ This is the research site of pjdhiro exploring **what creation is** — structur
 
 - **Primary Language**: Japanese (日本語), with English summaries
 - **Site URL**: https://uminomae.github.io/creation-space/
-- **Topics**: Creativity, Five-Stage Model, Structural Patterns, Cross-Domain Analysis
+- **Topics**: Creativity, Five-Stage Model, Structural Patterns, Cross-Domain Analysis, Negative Capability
 
 ## Core Concepts
 
