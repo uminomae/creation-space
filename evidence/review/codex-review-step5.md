@@ -243,7 +243,7 @@
 | EV-PA-010 | D14 心理学 | [UNCERTAIN] 縁への明示対応なし | △ | triage=Accept |
 | EV-AE-001 | D15 美学 | 葛藤の保持（抱持） | ○ | triage=Accept |
 | EV-AE-002 | D15 美学 | 保持（秘する・忍ぶ） | ○ | triage=Accept |
-| EV-AE-003 | D15 美学 | 無関心性（F-O停止=抱持） | ○ | triage=CA |
+| EV-AE-003 | D15 美学 | 無関心性（生存-信頼停止=抱持） | ○ | triage=CA |
 | EV-AE-004 | D15 美学 | 闘争の保持 | ○ | triage=CA |
 | EV-HI-001 | D16 歴史学 | 交易・外交・戦争で接続 | ◎ | triage=Accept |
 | EV-HI-002 | D16 歴史学 | 応答主体の編成 | ○ | triage=Accept |

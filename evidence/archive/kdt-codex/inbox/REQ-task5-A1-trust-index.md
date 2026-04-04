@@ -51,7 +51,7 @@
 | ★★ | `base/evidence/evidence-life-sciences.md` | 余力条件（代謝/炎症/睡眠） |
 | ★ | `base/schema/auxiliary/*.md`（他の補助モデル） | 関連言及の可能性 |
 | ★ | `base/concepts/*.md` | 概念ノート内での展開 |
-| ★ | `docs/quality-management.md` | TC-009等でのF-O分解文脈 |
+| ★ | `docs/quality-management.md` | TC-009等での生存-信頼分解文脈 |
 | ★ | `docs/decision-log/` | 過去の検討ログ（特に2026-01以降） |
 
 **検索対象外**:
@@ -65,7 +65,7 @@
 | ファイル | セクション/行 | キーワード | 要約（1行） | タグ | 備考 |
 |---------|-------------|-----------|-----------|------|------|
 | base/voice/pjdhiro-statements-db.md | S23 | 信頼, 片側性 | 片側から始まる信頼（母子/ブランド） | - | T候補？ |
-| base/schema/core-definitions.md | D4 | 信頼, O軸 | 情動構成でのO軸評価 | [M] | - |
+| base/schema/core-definitions.md | D4 | 信頼, 信頼軸 | 情動構成での信頼軸評価 | [M] | - |
 | ... | ... | ... | ... | ... | ... |
 ```
 

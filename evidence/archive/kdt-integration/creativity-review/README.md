@@ -85,7 +85,7 @@ Phase 6「全体統合」における創造性レビューの成果物。以下�
 | Mednick RAT | 縁（遠隔連想）を測る |
 | Geneplore | 生成↔探索（場/波↔縁/渦） |
 | Csikszentmihalyi システム | 個人×領域×場（評価を内蔵） |
-| Amabile 動機づけ | 内発的=O軸優位, 外発的=F軸優位 |
+| Amabile 動機づけ | 内発的=信頼軸優位, 外発的=生存軸優位 |
 | Dual Pathway | 柔軟性/持続性（抱持仮説の足場） |
 | Glăveanu 5A | Audience/環境を含む社会文化的枠 |
 | Boden 計算論 | AI対比（探索/変換） |
