@@ -81,7 +81,7 @@ The investigation follows a multi-phase methodology with AI-assisted survey:
 | pjdhiro | https://uminomae.github.io/pjdhiro/ | Project Design Hub (parent site) |
 | awareness-space | https://uminomae.github.io/awareness-space/ | Consciousness structure through intersubjectivity |
 | kesson-space | https://uminomae.github.io/kesson-space/ | Kesson-Driven Thinking framework |
-| project-design | https://uminomae.github.io/pjdhiro/project-design/ | Project Design Theory |
+| project-design | https://uminomae.github.io/project-design/ | Project Design Theory |
 
 ## Author
 
