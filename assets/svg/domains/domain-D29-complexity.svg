@@ -1,103 +1,119 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" xmlns:xlink="http://www.w3.org/1999/xlink">
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
   <defs>
-    <marker id="arrow29" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+    <marker id="arrowD29" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
       <polygon points="0 0, 10 3.5, 0 7" fill="#666666"/>
     </marker>
+    <style>
+      .title { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 24px; fill: #2C2C2C; font-weight: bold; }
+      .stage-label { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 14px; fill: #FAFAF8; font-weight: bold; }
+      .stage-sub { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 11px; fill: #FAFAF8; }
+      .concept { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 12px; fill: #2C2C2C; }
+      .ref { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 11px; fill: #666666; }
+      .summary-title { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 14px; fill: #2C2C2C; font-weight: bold; }
+      .summary-text { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 12px; fill: #666666; }
+      .legend { font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; font-size: 13px; fill: #2C2C2C; }
+    </style>
   </defs>
 
   <!-- Background -->
   <rect width="800" height="600" fill="#FAFAF8" rx="8"/>
-  <rect x="1" y="1" width="798" height="598" fill="none" stroke="#E0DDD8" stroke-width="1" rx="8"/>
+  <rect x="20" y="20" width="760" height="560" fill="none" stroke="#E0DDD8" stroke-width="1" rx="6"/>
 
   <!-- Title -->
-  <text x="400" y="52" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="24" fill="#2C2C2C" font-weight="bold">D29 複雑系科学 — 5段階モデルとの構造対応図</text>
+  <text x="400" y="60" text-anchor="middle" class="title">D29 複雑系科学 — 5段階モデルとの構造対応図</text>
 
-  <!-- 5 Stages -->
-  <rect x="45" y="90" width="130" height="60" rx="10" fill="#8B8682" opacity="0.15" stroke="#8B8682" stroke-width="2"/>
-  <text x="110" y="118" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="18" fill="#8B8682" font-weight="bold">場</text>
-  <text x="110" y="138" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#8B8682">Field</text>
+  <!-- Stage boxes -->
+  <!-- Field -->
+  <rect x="50" y="90" width="120" height="70" rx="8" fill="#8B8682"/>
+  <text x="110" y="119" text-anchor="middle" class="stage-label">場（Field）</text>
+  <text x="110" y="150" text-anchor="middle" class="stage-sub">初期均一状態</text>
 
-  <rect x="195" y="90" width="130" height="60" rx="10" fill="#5B8DB8" opacity="0.15" stroke="#5B8DB8" stroke-width="2"/>
-  <text x="260" y="118" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="18" fill="#5B8DB8" font-weight="bold">波</text>
-  <text x="260" y="138" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#5B8DB8">Wave</text>
+  <!-- Wave -->
+  <rect x="200" y="90" width="120" height="70" rx="8" fill="#5B8DB8"/>
+  <text x="260" y="119" text-anchor="middle" class="stage-label">波（Wave）</text>
+  <text x="260" y="150" text-anchor="middle" class="stage-sub">揺らぎの増幅</text>
 
-  <rect x="345" y="90" width="130" height="60" rx="10" fill="#D4A857" opacity="0.15" stroke="#D4A857" stroke-width="2"/>
-  <text x="410" y="118" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="18" fill="#D4A857" font-weight="bold">縁</text>
-  <text x="410" y="138" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#D4A857">Edge</text>
+  <!-- Edge -->
+  <rect x="350" y="90" width="120" height="70" rx="8" fill="#D4A857"/>
+  <text x="410" y="119" text-anchor="middle" class="stage-label">縁（Edge）</text>
+  <text x="410" y="150" text-anchor="middle" class="stage-sub">臨界の境界</text>
 
-  <rect x="495" y="90" width="130" height="60" rx="10" fill="#C45B4D" opacity="0.15" stroke="#C45B4D" stroke-width="2"/>
-  <text x="560" y="118" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="18" fill="#C45B4D" font-weight="bold">渦</text>
-  <text x="560" y="138" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#C45B4D">Vortex</text>
+  <!-- Vortex -->
+  <rect x="500" y="90" width="120" height="70" rx="8" fill="#C45B4D"/>
+  <text x="560" y="119" text-anchor="middle" class="stage-label">渦（Vortex）</text>
+  <text x="560" y="150" text-anchor="middle" class="stage-sub">秩序の自発的形成</text>
 
-  <rect x="645" y="90" width="130" height="60" rx="10" fill="#5B8B6A" opacity="0.15" stroke="#5B8B6A" stroke-width="2"/>
-  <text x="710" y="118" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="18" fill="#5B8B6A" font-weight="bold">束</text>
-  <text x="710" y="138" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#5B8B6A">Bundle</text>
+  <!-- Bundle -->
+  <rect x="650" y="90" width="120" height="70" rx="8" fill="#5B8B6A"/>
+  <text x="710" y="119" text-anchor="middle" class="stage-label">束（Bundle）</text>
+  <text x="710" y="150" text-anchor="middle" class="stage-sub">普遍的安定パターン</text>
 
-  <!-- Arrows -->
-  <line x1="175" y1="120" x2="195" y2="120" stroke="#666666" stroke-width="2" marker-end="url(#arrow29)"/>
-  <line x1="325" y1="120" x2="345" y2="120" stroke="#666666" stroke-width="2" marker-end="url(#arrow29)"/>
-  <line x1="475" y1="120" x2="495" y2="120" stroke="#666666" stroke-width="2" marker-end="url(#arrow29)"/>
-  <line x1="625" y1="120" x2="645" y2="120" stroke="#666666" stroke-width="2" marker-end="url(#arrow29)"/>
+  <!-- Arrows between stages -->
+  <line x1="170" y1="125" x2="198" y2="125" stroke="#666666" stroke-width="2" marker-end="url(#arrowD29)"/>
+  <line x1="320" y1="125" x2="348" y2="125" stroke="#666666" stroke-width="2" marker-end="url(#arrowD29)"/>
+  <line x1="470" y1="125" x2="498" y2="125" stroke="#666666" stroke-width="2" marker-end="url(#arrowD29)"/>
+  <line x1="620" y1="125" x2="648" y2="125" stroke="#666666" stroke-width="2" marker-end="url(#arrowD29)"/>
 
-  <!-- Ba concepts -->
-  <line x1="110" y1="150" x2="110" y2="175" stroke="#8B8682" stroke-width="2"/>
-  <rect x="40" y="175" width="140" height="110" rx="6" fill="#FAFAF8" stroke="#8B8682" stroke-width="1.5"/>
-  <text x="110" y="195" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">孤立クラスター散在</text>
-  <text x="110" y="215" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">臨界近傍の背景</text>
-  <text x="110" y="235" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">初期均一状態</text>
-  <text x="110" y="260" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#666666">(原初的/循環的の2種)</text>
+  <!-- Concepts under each stage -->
+  <!-- Field concepts -->
+  <line x1="110" y1="160" x2="110" y2="185" stroke="#8B8682" stroke-width="2"/>
+  <rect x="40" y="185" width="140" height="110" rx="6" fill="none" stroke="#8B8682" stroke-width="1.5"/>
+  <text x="110" y="207" text-anchor="middle" class="concept">孤立クラスター散在</text>
+  <text x="110" y="227" text-anchor="middle" class="concept">臨界近傍の背景</text>
+  <text x="110" y="247" text-anchor="middle" class="concept">初期均一状態</text>
+  <text x="110" y="270" text-anchor="middle" class="ref">(原初的/循環的の2種)</text>
 
-  <!-- Nami concepts -->
-  <line x1="260" y1="150" x2="260" y2="175" stroke="#5B8DB8" stroke-width="2"/>
-  <rect x="190" y="175" width="140" height="110" rx="6" fill="#FAFAF8" stroke="#5B8DB8" stroke-width="1.5"/>
-  <text x="260" y="195" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">揺らぎの増幅</text>
-  <text x="260" y="215" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">秩序パラメータ競合</text>
-  <text x="260" y="235" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">Turingの拡散駆動</text>
-  <text x="260" y="260" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#666666">(Prigogine/Haken)</text>
+  <!-- Wave concepts -->
+  <line x1="260" y1="160" x2="260" y2="185" stroke="#5B8DB8" stroke-width="2"/>
+  <rect x="190" y="185" width="140" height="110" rx="6" fill="none" stroke="#5B8DB8" stroke-width="1.5"/>
+  <text x="260" y="207" text-anchor="middle" class="concept">揺らぎの増幅</text>
+  <text x="260" y="227" text-anchor="middle" class="concept">秩序パラメータ競合</text>
+  <text x="260" y="247" text-anchor="middle" class="concept">Turingの拡散駆動</text>
+  <text x="260" y="270" text-anchor="middle" class="ref">(Prigogine/Haken)</text>
 
-  <!-- En concepts -->
-  <line x1="410" y1="150" x2="410" y2="175" stroke="#D4A857" stroke-width="2"/>
-  <rect x="340" y="175" width="140" height="110" rx="6" fill="#FAFAF8" stroke="#D4A857" stroke-width="2"/>
-  <text x="410" y="195" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">SOC臨界</text>
-  <text x="410" y="215" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">パーコレーション閾値</text>
-  <text x="410" y="235" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">カオスの縁</text>
-  <text x="410" y="260" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#666666">(Bak/Langton/Kauffman)</text>
+  <!-- Edge concepts -->
+  <line x1="410" y1="160" x2="410" y2="185" stroke="#D4A857" stroke-width="2"/>
+  <rect x="340" y="185" width="140" height="110" rx="6" fill="none" stroke="#D4A857" stroke-width="1.5"/>
+  <text x="410" y="207" text-anchor="middle" class="concept">SOC臨界</text>
+  <text x="410" y="227" text-anchor="middle" class="concept">パーコレーション閾値</text>
+  <text x="410" y="247" text-anchor="middle" class="concept">カオスの縁</text>
+  <text x="410" y="270" text-anchor="middle" class="ref">(Bak/Langton/Kauffman)</text>
 
-  <!-- Uzu concepts -->
-  <line x1="560" y1="150" x2="560" y2="175" stroke="#C45B4D" stroke-width="2"/>
-  <rect x="490" y="175" width="140" height="110" rx="6" fill="#FAFAF8" stroke="#C45B4D" stroke-width="1.5"/>
-  <text x="560" y="195" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">散逸構造の形成</text>
-  <text x="560" y="215" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">自己触媒(RAF)</text>
-  <text x="560" y="235" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">オートポイエーシス</text>
-  <text x="560" y="260" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#666666">(Prigogine/Maturana)</text>
+  <!-- Vortex concepts -->
+  <line x1="560" y1="160" x2="560" y2="185" stroke="#C45B4D" stroke-width="2"/>
+  <rect x="490" y="185" width="140" height="110" rx="6" fill="none" stroke="#C45B4D" stroke-width="1.5"/>
+  <text x="560" y="207" text-anchor="middle" class="concept">散逸構造の形成</text>
+  <text x="560" y="227" text-anchor="middle" class="concept">自己触媒(RAF)</text>
+  <text x="560" y="247" text-anchor="middle" class="concept">オートポイエーシス</text>
+  <text x="560" y="270" text-anchor="middle" class="ref">(Prigogine/Maturana)</text>
 
-  <!-- Taba concepts -->
-  <line x1="710" y1="150" x2="710" y2="175" stroke="#5B8B6A" stroke-width="2"/>
-  <rect x="640" y="175" width="140" height="110" rx="6" fill="#FAFAF8" stroke="#5B8B6A" stroke-width="1.5"/>
-  <text x="710" y="195" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">普遍性クラス</text>
-  <text x="710" y="215" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">パワー則分布</text>
-  <text x="710" y="235" text-anchor="middle" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">スケールフリー網</text>
-  <text x="710" y="260" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', sans-serif" font-size="11" fill="#666666">(Wilson/Barabasi)</text>
+  <!-- Bundle concepts -->
+  <line x1="710" y1="160" x2="710" y2="185" stroke="#5B8B6A" stroke-width="2"/>
+  <rect x="640" y="185" width="140" height="110" rx="6" fill="none" stroke="#5B8B6A" stroke-width="1.5"/>
+  <text x="710" y="207" text-anchor="middle" class="concept">普遍性クラス</text>
+  <text x="710" y="227" text-anchor="middle" class="concept">パワー則分布</text>
+  <text x="710" y="247" text-anchor="middle" class="concept">スケールフリー網</text>
+  <text x="710" y="270" text-anchor="middle" class="ref">(Wilson/Barabasi)</text>
 
   <!-- Legend -->
-  <rect x="40" y="310" width="720" height="100" rx="8" fill="#FAFAF8" stroke="#E0DDD8" stroke-width="1"/>
-  <text x="60" y="335" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="14" fill="#2C2C2C" font-weight="bold">対応の強さ</text>
-  <line x1="60" y1="355" x2="100" y2="355" stroke="#2C2C2C" stroke-width="2"/>
-  <text x="110" y="360" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">強い対応</text>
-  <line x1="240" y1="355" x2="280" y2="355" stroke="#2C2C2C" stroke-width="2" stroke-dasharray="6,3"/>
-  <text x="290" y="360" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">部分的対応</text>
-  <line x1="420" y1="355" x2="460" y2="355" stroke="#D0D0D0" stroke-width="2" stroke-dasharray="2,3"/>
-  <text x="470" y="360" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#666666">弱い対応</text>
-
-  <text x="60" y="390" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">強い対応: 9/10理論（散逸構造, SOC, RAF, シナジェティクス, 臨界現象, パーコレーション等）</text>
-  <text x="60" y="400" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="11" fill="#666666">条件付き: カオスの縁（仮説検証困難性、トートロジーのリスク）</text>
+  <rect x="40" y="315" width="720" height="85" rx="6" fill="none" stroke="#E0DDD8" stroke-width="1"/>
+  <text x="60" y="338" class="summary-title">対応の強さ</text>
+  <line x1="60" y1="358" x2="100" y2="358" stroke="#2C2C2C" stroke-width="2"/>
+  <text x="108" y="362" class="legend">強い対応</text>
+  <line x1="240" y1="358" x2="280" y2="358" stroke="#2C2C2C" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="288" y="362" class="legend">部分的対応</text>
+  <line x1="440" y1="358" x2="480" y2="358" stroke="#D0D0D0" stroke-width="2" stroke-dasharray="2,3"/>
+  <text x="488" y="362" class="legend">弱い対応</text>
+  <text x="60" y="385" class="legend">強い対応: 9/10理論（散逸構造, SOC, RAF, シナジェティクス, 臨界現象, パーコレーション等）</text>
+  <text x="60" y="400" class="ref">条件付き: カオスの縁（仮説検証困難性、トートロジーのリスク）</text>
 
   <!-- Summary -->
-  <rect x="40" y="430" width="720" height="140" rx="8" fill="#FAFAF8" stroke="#E0DDD8" stroke-width="1"/>
-  <text x="60" y="455" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="14" fill="#2C2C2C" font-weight="bold">全体評価サマリ</text>
-  <text x="60" y="480" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">10理論中9理論で強い構造対応。全30領域中でも特に強い対応を示す領域。</text>
-  <text x="60" y="500" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">5段階モデルと中心テーマが直接重なる: 「多数要素の相互作用→新秩序の生成」。</text>
-  <text x="60" y="520" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">SOCは循環を理論内蔵する最も厳密な科学的記述。場の2カテゴリ区別を明示。</text>
-  <text x="60" y="540" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">縁の類型: 位相空間型 — 閾値型/競合型/界面型/伝播型/構造型の5座標。</text>
-  <text x="60" y="560" font-family="'Hiragino Sans', 'Noto Sans JP', sans-serif" font-size="13" fill="#2C2C2C">エントロピー増大・カオスへの崩壊は盲点テーマに接続。</text>
+  <rect x="40" y="415" width="720" height="145" rx="6" fill="none" stroke="#E0DDD8" stroke-width="1"/>
+  <text x="60" y="438" class="summary-title">全体評価サマリ</text>
+  <text x="60" y="460" class="summary-text">10理論中9理論で強い構造対応。全30領域中でも特に強い対応を示す領域。</text>
+  <text x="60" y="480" class="summary-text">5段階モデルと中心テーマが直接重なる: 「多数要素の相互作用→新秩序の生成」。</text>
+  <text x="60" y="500" class="summary-text">SOCは循環を理論内蔵する最も厳密な科学的記述。場の2カテゴリ区別を明示。</text>
+  <text x="60" y="520" class="summary-text">縁の類型: 位相空間型 — 閾値型/競合型/界面型/伝播型/構造型の5座標。</text>
+  <text x="60" y="540" class="summary-text">エントロピー増大・カオスへの崩壊は盲点テーマに接続。</text>
 </svg>

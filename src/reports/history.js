@@ -1,4 +1,5 @@
 import { normalizeDomainId } from './data.js';
+import { updateSearchParams } from '../modal-router.js';
 
 export const DOMAIN_QUERY_PARAM = 'domain';
 export const DOMAIN_HISTORY_STATE_KEY = 'reportsDomainModal';
@@ -59,23 +60,13 @@ export function buildDomainHistoryState(domainId = '', mode = '', historyState =
 }
 
 export function updateDomainHistoryEntry(domainId = '', { method = 'replace', mode = '' } = {}) {
-    const historyApi = window.history;
-    const writer = method === 'push' ? historyApi?.pushState : historyApi?.replaceState;
-    if (typeof writer !== 'function') return false;
-
     const normalizedId = normalizeDomainId(domainId);
-    const url = new URL(window.location.href);
-    if (normalizedId) {
-        url.searchParams.set(DOMAIN_QUERY_PARAM, normalizedId);
-    } else {
-        url.searchParams.delete(DOMAIN_QUERY_PARAM);
-    }
-
-    writer.call(
-        historyApi,
-        buildDomainHistoryState(normalizedId, mode, historyApi.state),
-        '',
-        url.toString(),
+    updateSearchParams(
+        { [DOMAIN_QUERY_PARAM]: normalizedId || null },
+        {
+            replace: method !== 'push',
+            state: buildDomainHistoryState(normalizedId, mode, window.history?.state),
+        },
     );
     return true;
 }

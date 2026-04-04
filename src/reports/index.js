@@ -28,6 +28,7 @@ import {
 } from './history.js';
 import { createGenericHistoryController } from './generic-history.js';
 import { createSlideHistoryController } from '../slide-history.js';
+import { createModalRouter } from '../modal-router.js';
 import { createReportsModalController } from './modal.js';
 import { initHoverGrid } from './hover-grid.js';
 import { createReportsRenderer, getDomainReportTitle, getReportsStrings } from './render.js';
@@ -35,6 +36,7 @@ import { createPhase8Renderer, loadPhase8Themes } from './phase8.js';
 import { createSynthesisRenderer } from './synthesis.js';
 import { createThemeVerificationRenderer, THEME_DATA, INTEGRATION_REPORT, THEME_VERIFICATION_BASE } from './theme-verification.js';
 import { openRichSlideViewer } from '../slide-viewer.js';
+import { closeAboutModal, isAboutOpen, openAboutModal } from '../about-modal.js';
 
 const state = {
     config: {
@@ -107,6 +109,7 @@ const state = {
 let historyController;
 let genericHistoryController;
 let slideHistoryController;
+let modalRouter;
 let openDomainModalByIdImpl = () => false;
 
 const modalController = createReportsModalController({
@@ -174,6 +177,14 @@ genericHistoryController = createGenericHistoryController({
 });
 
 slideHistoryController = createSlideHistoryController({ state });
+modalRouter = createModalRouter({
+    historyController,
+    genericHistoryController,
+    slideHistoryController,
+    openAbout: (...args) => openAboutModal(...args),
+    closeAbout: (...args) => closeAboutModal(...args),
+    isAboutOpen: () => isAboutOpen(),
+});
 
 // --- Unified event handlers ---
 
@@ -205,14 +216,7 @@ function handleUnifiedMdModalHidden() {
 }
 
 function handleUnifiedPopState(event) {
-    // Domain history handles its own param
-    historyController.handleDomainPopState(event);
-
-    // Generic modal / guide handles ?modal= and ?guide=
-    genericHistoryController.handlePopState();
-
-    // Slide handles ?slide= independently
-    slideHistoryController.handlePopState();
+    modalRouter.handlePopState(event);
 }
 
 function bindUnifiedHistorySyncEvents() {
@@ -711,29 +715,27 @@ export async function initReports({
     buildModalOpenerRegistry();
     buildSlideOpenerRegistry();
 
-    // --- Page-load URL sync ---
+    modalRouter.hydrateFromLocation({
+        hydrateReports: () => {
+            if (!state.data.loadError) {
+                historyController.syncDomainModalWithUrl({
+                    historyState: window.history?.state,
+                    fallbackHistoryMode: state.modal.pendingDomainHistoryMode,
+                    treatAsInitial: !state.modal.pendingDomainHistoryMode && Boolean(historyController.getDomainIdFromUrl()),
+                });
+            }
 
-    // 1. Domain sync (highest priority)
-    if (!state.data.loadError) {
-        historyController.syncDomainModalWithUrl({
-            historyState: window.history?.state,
-            fallbackHistoryMode: state.modal.pendingDomainHistoryMode,
-            treatAsInitial: !state.modal.pendingDomainHistoryMode && Boolean(historyController.getDomainIdFromUrl()),
-        });
-    }
-
-    // 2. Guide sync (only if no domain modal opened)
-    if (!state.modal.activeDomainId) {
-        const guideOpened = genericHistoryController.syncGuideWithUrl({ treatAsInitial: true });
-
-        // 3. Generic modal sync (only if no guide opened)
-        if (!guideOpened) {
-            genericHistoryController.syncGenericModalWithUrl({ treatAsInitial: true });
-        }
-    }
-
-    // 4. Slide sync (independent of modal, can coexist)
-    slideHistoryController.syncSlideWithUrl({ treatAsInitial: true });
+            if (!state.modal.activeDomainId) {
+                const guideOpened = genericHistoryController.syncGuideWithUrl({ treatAsInitial: true });
+                if (!guideOpened) {
+                    genericHistoryController.syncGenericModalWithUrl({ treatAsInitial: true });
+                }
+            }
+        },
+        hydrateSlides: () => {
+            slideHistoryController.syncSlideWithUrl({ treatAsInitial: true });
+        },
+    });
 }
 
 export function setReportsLanguage(lang) {

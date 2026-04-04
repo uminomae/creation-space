@@ -170,6 +170,33 @@ See `context/design-system.md` for the unified visual design specification.
 - [ ] Dark background present (`#1a1a2e` or gradient to `#111122`)
 - [ ] File size > 1 KB (not truncated)
 - [ ] UTF-8 encoded, Japanese text renders correctly
+- [ ] **SVG属性値に算術式が含まれていないこと** (後述「算術式禁止ルール」参照)
+
+## 算術式禁止ルール (Arithmetic Expression Ban)
+
+**背景**: 2026-04-01 に D07/D12/D17/D21/D24 の overview/theories-map SVG で表示崩れが発覚。原因は Gemini が SVG 属性値に `y="190 + 52*3"` のような算術式を出力し、ブラウザ/PDF レンダラが先頭の数値だけを解釈して全行が y=190 に重なったこと。techo#82 で修正。
+
+**ルール**:
+1. SVG の属性値（x, y, width, height, x1, y1, x2, y2, cx, cy, r, rx, ry, dx, dy 等）には **評価済みの数値のみ** を記述すること。`y="242"` は正、`y="190 + 52*1"` は不正。
+2. Gemini API からの SVG 出力を受け取った後、Phase 1 Step 6 (Validate) で以下の検証を **必ず** 実行する:
+   ```
+   grep -E '(x|y|dx|dy|x1|y1|x2|y2|cx|cy|width|height)="[0-9]+\s*[\+\-\*]' output.svg
+   ```
+   ヒットした場合は **生成失敗** として扱い、算術式を評価済み数値に展開してから保存する。
+3. 修正スクリプト（応急処置）:
+   ```python
+   import re
+   def eval_expr(m):
+       attr, expr = m.group(1), m.group(2)
+       if re.match(r'^[\d\s\+\-\*\.]+$', expr.strip()):
+           return f'{attr}="{int(eval(expr))}"'
+       return m.group(0)
+   content = re.sub(
+       r'((?:x|y|dx|dy|x1|y1|x2|y2|cx|cy|r|rx|ry|width|height))="(\d+[\s]*[\+\-\*][\d\s\+\-\*\.]+)"',
+       eval_expr, content)
+   ```
+4. Gemini プロンプトに以下の制約を明示的に含める:
+   > **CRITICAL**: All SVG attribute values must be pre-computed numeric literals. Never use arithmetic expressions like `y="190 + 52*3"` — SVG does not evaluate math in attributes. Write `y="346"` instead.
 
 ## Scripts
 

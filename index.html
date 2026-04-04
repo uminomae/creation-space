@@ -145,9 +145,9 @@
   <!-- Vendor modules -->
   <script type="importmap">
     {
-      "imports": {
-        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
-        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+        "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.183.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.183.0/examples/jsm/",
         "marked": "https://cdn.jsdelivr.net/npm/marked@15.0.7/lib/marked.esm.js",
         "dompurify": "https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.es.mjs"
       }
@@ -281,7 +281,7 @@
         <p class="room-narration-text" data-i18n-html="narrations.modelSection">ひとつの問いから始まりました。<br>三十の領域が、同じ方向を指していたのです。</p>
       </div>
       <div class="section-content-wrap">
-        <div class="container creation-section-shell">
+        <div class="container">
           <h2 class="section-heading">
             <a id="model-section-heading" href="#model-section" class="section-heading-link" aria-label="創造の5段階モデル セクションへジャンプ" data-i18n="modelSectionHeading" data-i18n-attr-aria-label="modelSectionHeadingAria">
               創造の5段階モデル
@@ -299,7 +299,7 @@
         <p class="room-narration-text" data-i18n-html="narrations.reportsSection">ここから先には、三十の個室があります。<br>どれも、違う言語で同じことを語っています。</p>
       </div>
       <div class="section-content-wrap">
-        <div class="container creation-section-shell">
+        <div class="container">
           <h2 class="section-heading">
             <a id="reports-section-heading" href="#reports-section" class="section-heading-link" aria-label="REPORTS セクションへジャンプ" data-i18n="reportsSectionHeading" data-i18n-attr-aria-label="reportsSectionHeadingAria">
               REPORTS
@@ -323,7 +323,7 @@
               </div>
               <!-- Hover-expand grid button (techo#53): shown via ?grid=hover, opens modal -->
               <div id="reports-hover-grid-btn-wrap" style="display:none" class="mt-3 text-center">
-                <button id="reports-hover-grid-open-btn" type="button" class="btn btn-outline-light btn-lg">30領域調査報告</button>
+                <button id="reports-hover-grid-open-btn" type="button" class="btn btn-outline-light btn-lg" data-i18n="hoverGridButton">30領域調査報告</button>
               </div>
             </section>
           </div>
@@ -336,7 +336,7 @@
         <p class="room-narration-text" data-i18n-html="narrations.reportsCrossAnalysisSection">三十の旅人が別々の道を歩きました。<br>全員が、同じ跡を残していたのです。</p>
       </div>
       <div class="section-content-wrap">
-        <div class="container creation-section-shell">
+        <div class="container">
           <h2 class="section-heading">
             <a id="reports-cross-analysis-heading" href="#reports-cross-analysis-section" class="section-heading-link" aria-label="CROSS ANALYSIS セクションへジャンプ" data-i18n="crossAnalysisHeading" data-i18n-attr-aria-label="crossAnalysisSectionHeadingAria">
               CROSS ANALYSIS
@@ -376,23 +376,21 @@
       </div>
     </section>
 
+    <div class="room-narration">
+      <p class="room-narration-text" data-i18n-html="narrations.articlesSection">思考の途中が、記事になりました。</p>
+    </div>
+
     <section id="articles-section" aria-labelledby="articles-section-heading">
-      <div class="room-narration">
-        <p class="room-narration-text" data-i18n-html="narrations.articlesSection">思考の途中が、記事になりました。</p>
-      </div>
       <div class="section-content-wrap">
-        <div class="container creation-section-shell">
+        <div class="container">
           <h2 class="section-heading">
             <a id="articles-section-heading" href="#articles-section" class="section-heading-link" aria-label="ARTICLES セクションへジャンプ" data-i18n="articlesSectionHeading" data-i18n-attr-aria-label="articlesSectionHeadingAria">
               ARTICLES
             </a>
           </h2>
-          <div id="articles-error" class="d-none"></div>
-          <div class="reports-tab-content">
-            <div id="articles-grid" class="row g-3"></div>
-          </div>
-          <div class="next-question" id="next-question">
-            <p class="next-question-text" data-i18n="nextQuestion">あなたの領域では、創造はどのように記述されていますか？</p>
+          <div class="card-section-container">
+            <div id="articles-error" class="d-none"></div>
+            <div id="articles-grid" class="row row-cols-1 row-cols-md-3 g-3 card-container"></div>
           </div>
         </div>
       </div>
@@ -425,6 +423,7 @@
     <div class="tech-footer-line">Three.js · Bootstrap</div>
     <div class="tech-footer-line">MIT License</div>
     <div id="footer-signature" class="footer-signature" data-i18n="creditSignature">Project Designer: pjdhiro</div>
+    <div class="tech-footer-line">MIT License</div>
     <div class="tech-footer-line"><a id="footer-dev-link" class="footer-dev-link" href="./?dev">dev</a></div>
   </footer>
 
@@ -442,7 +441,7 @@
         <button type="button" class="articles-filter-btn btn btn-outline-light btn-sm" data-type="page" aria-pressed="false"></button>
         <button type="button" class="articles-filter-btn btn btn-outline-light btn-sm" data-type="post" aria-pressed="false"></button>
       </div>
-      <div id="offcanvas-articles-grid" class="row g-3"></div>
+      <div id="offcanvas-articles-grid" class="row row-cols-1 row-cols-md-3 g-3"></div>
     </div>
   </div>
 
@@ -471,10 +470,10 @@
     </section>
   </noscript>
   <!-- Hover-grid fullscreen modal (techo#53): last in DOM for z-index stacking -->
-  <div id="hover-grid-modal" class="hover-grid-modal" style="display:none" role="dialog" aria-modal="true" aria-label="30領域調査報告">
+  <div id="hover-grid-modal" class="hover-grid-modal" style="display:none" role="dialog" aria-modal="true" aria-label="30領域調査報告" data-i18n-attr-aria-label="hoverGridTitle">
     <div class="hover-grid-modal-header">
       <div class="hover-grid-modal-header-text">
-        <h2 class="hover-grid-modal-title">30領域調査報告</h2>
+        <h2 class="hover-grid-modal-title" data-i18n="hoverGridTitle">30領域調査報告</h2>
         <p class="hover-grid-modal-status">多段階検証済: 複数AIエンジンによる論拠監査・構造再読・統合検証を実施した（Phase 5-7）</p>
       </div>
       <button id="hover-grid-modal-close" type="button" class="hover-grid-modal-close-btn" aria-label="閉じる">&times;</button>

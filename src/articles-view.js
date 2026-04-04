@@ -3,8 +3,8 @@ import { formatArticleDate, getLocalizedText, sanitizeHttpUrl } from './articles
 import { dict } from './i18n/dict.js';
 
 const INITIAL_DISPLAY = 3;
-const ARTICLE_COL_CLASS_WIDE = 'col-12 col-md-6 col-xl-4';
-const ARTICLE_COL_CLASS_OFFCANVAS = 'col-12 col-md-6 col-lg-4';
+const ARTICLE_COL_CLASS_WIDE = 'col';
+const ARTICLE_COL_CLASS_OFFCANVAS = 'col';
 
 export function getArticlesStrings(lang = 'ja') {
     return dict[normalizeLang(lang)]?.articles || dict.ja.articles;
@@ -89,24 +89,27 @@ function createArticleCard(article, lang, useWideLayout) {
     const dateText = formatArticleDate(article.raw?.date, normalizedLang);
     const safeUrl = sanitizeHttpUrl(article.url, '#');
     const safeTeaserUrl = sanitizeHttpUrl(article.raw?.teaser, '');
+    const hasImage = !!safeTeaserUrl;
 
     const col = document.createElement('article');
-    col.className = getArticleColumnClass(useWideLayout);
+    col.className = `${getArticleColumnClass(useWideLayout)} card-column`;
 
     const anchor = document.createElement('a');
     anchor.href = safeUrl;
     anchor.target = '_blank';
     anchor.rel = 'noopener';
-    anchor.className = 'text-decoration-none';
+    anchor.className = hasImage ? 'img-card-link' : 'text-decoration-none';
     anchor.setAttribute('aria-label', buildArticleAriaLabel(titleText, normalizedLang));
 
     const card = document.createElement('div');
-    card.className = 'card kesson-card h-100';
+    card.className = hasImage
+        ? 'img-card'
+        : 'card kesson-card h-100';
 
-    if (safeTeaserUrl) {
+    if (hasImage) {
         const teaserImg = document.createElement('img');
         teaserImg.src = safeTeaserUrl;
-        teaserImg.className = 'card-img-top';
+        teaserImg.className = 'img-card-media';
         teaserImg.alt = '';
         teaserImg.addEventListener('error', () => {
             teaserImg.style.display = 'none';
@@ -115,30 +118,39 @@ function createArticleCard(article, lang, useWideLayout) {
     }
 
     const body = document.createElement('div');
-    body.className = 'card-body';
+    body.className = hasImage ? 'img-card-body' : 'card-body';
 
-    const badge = document.createElement('span');
-    badge.className = 'badge bg-secondary mb-2 badge-article-type';
-    badge.textContent = strings.typeLabel[article.type];
+    if (hasImage) {
+        const kicker = document.createElement('div');
+        kicker.className = 'img-card-kicker';
+        kicker.textContent = strings.typeLabel[article.type];
+        body.appendChild(kicker);
+    } else {
+        const badge = document.createElement('span');
+        badge.className = 'badge bg-secondary mb-2 badge-article-type';
+        badge.textContent = strings.typeLabel[article.type];
+        body.appendChild(badge);
+    }
 
-    const title = document.createElement('h6');
-    title.className = 'card-title mb-1';
+    const title = document.createElement('h3');
+    title.className = hasImage ? 'img-card-title' : 'card-title h6';
     title.textContent = titleText;
 
-    const date = document.createElement('small');
-    date.textContent = dateText;
-
-    body.appendChild(badge);
     body.appendChild(title);
 
     if (excerptText) {
         const excerpt = document.createElement('p');
-        excerpt.className = 'card-text';
+        excerpt.className = hasImage ? 'img-card-text' : 'card-text mb-0';
         excerpt.textContent = excerptText;
         body.appendChild(excerpt);
     }
 
-    body.appendChild(date);
+    if (dateText && !hasImage) {
+        const date = document.createElement('small');
+        date.textContent = dateText;
+        body.appendChild(date);
+    }
+
     card.appendChild(body);
     anchor.appendChild(card);
     col.appendChild(anchor);
@@ -150,7 +162,7 @@ function createReadMoreButton(lang, totalCount, visibleCount) {
 
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'card kesson-card btn btn-kesson-action btn-sm d-block mx-auto mt-3';
+    btn.className = 'btn btn-kesson-action btn-sm btn-read-more';
     btn.dataset.role = 'articles-readmore-wrap';
     btn.setAttribute('data-bs-toggle', 'offcanvas');
     btn.setAttribute('data-bs-target', '#articlesOffcanvas');
@@ -168,7 +180,9 @@ function renderMainArticles(mainGrid, articles, lang) {
     if (!mainGrid) return;
     clearNode(mainGrid);
 
-    const searchRoot = mainGrid.closest('.container') || mainGrid.parentNode;
+    const searchRoot = mainGrid.closest('.card-section-container')
+        || mainGrid.closest('.container')
+        || mainGrid.parentNode;
     const existingReadMore = searchRoot
         ? searchRoot.querySelector('[data-role="articles-readmore-wrap"]')
         : null;

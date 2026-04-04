@@ -18,11 +18,13 @@ export function loadPostFxDeps() {
             import('three/addons/postprocessing/EffectComposer.js'),
             import('three/addons/postprocessing/RenderPass.js'),
             import('three/addons/postprocessing/ShaderPass.js'),
+            import('three/addons/postprocessing/OutputPass.js'),
             import('./shaders/distortion-pass.js'),
-        ]).then(([composerModule, renderPassModule, shaderPassModule, distortionModule]) => ({
+        ]).then(([composerModule, renderPassModule, shaderPassModule, outputPassModule, distortionModule]) => ({
             EffectComposer: composerModule.EffectComposer,
             RenderPass: renderPassModule.RenderPass,
             ShaderPass: shaderPassModule.ShaderPass,
+            OutputPass: outputPassModule.OutputPass,
             DistortionShader: distortionModule.DistortionShader,
             CameraDofShader: distortionModule.CameraDofShader,
         }));

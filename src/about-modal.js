@@ -1,5 +1,6 @@
 import { getCurrentLang, normalizeLang } from './i18n.js';
 import { dict } from './i18n/dict.js';
+import { ABOUT_QUERY_PARAM, getSearchParams, updateSearchParams } from './modal-router.js';
 
 let overlayEl = null;
 let titleEl = null;
@@ -28,7 +29,7 @@ function createAboutButton() {
 
   btn.style.marginTop = '0.8rem';
 
-    btn.addEventListener('click', () => openAbout());
+    btn.addEventListener('click', () => openAboutModal());
 
     overlay.appendChild(btn);
     triggerBtnEl = btn;
@@ -65,12 +66,12 @@ function createAboutOverlay() {
   overlayEl = el;
   closeBtnEl = closeBtn;
 
-  closeBtn.addEventListener('click', () => closeAbout());
+  closeBtn.addEventListener('click', () => closeAboutModal());
   el.addEventListener('click', (e) => {
-    if (e.target === el) closeAbout();
+    if (e.target === el) closeAboutModal();
   });
   el.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeAbout();
+    if (e.key === 'Escape') closeAboutModal();
   });
 }
 
@@ -126,6 +127,35 @@ function closeAbout() {
   } else {
     overlayEl.addEventListener('transitionend', onEnd, { once: true });
     setTimeout(onEnd, 600);
+  }
+}
+
+export function isAboutOpen() {
+  return Boolean(overlayEl?.classList.contains('visible'));
+}
+
+export function openAboutModal({ pushHistory = true } = {}) {
+  if (pushHistory && !getSearchParams().has(ABOUT_QUERY_PARAM)) {
+    updateSearchParams(
+      { about: '', domain: null, guide: null, modal: null },
+      { state: { ...(history.state || {}), modal: 'about' } },
+    );
+  }
+  openAbout();
+}
+
+export function closeAboutModal({ updateHistory = true } = {}) {
+  if (!isAboutOpen()) return;
+  closeAbout();
+
+  if (!updateHistory) return;
+
+  if (getSearchParams().has(ABOUT_QUERY_PARAM)) {
+    if (history.state?.modal === 'about') {
+      history.back();
+    } else {
+      updateSearchParams({ about: null }, { replace: true, state: history.state || null });
+    }
   }
 }
 
