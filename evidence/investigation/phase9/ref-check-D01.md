@@ -4,7 +4,9 @@
 
 ## 現在の扱い
 
-- 原典アクセス状態: `not-yet-reviewed`
+- 原典アクセス状態: ref-check 本文としては `not-yet-reviewed`
+- source manifest には D01 first batch 3件を反映済み
+- source 内訳は `raw-confirmed` 1 / `blocked-access` 2 / `citation-only` 0
 - 既存の verified / plausible / overstated 判定は再保証しない
 - 二次資料・要約・書誌情報のみで成立していた判定が混在していないか、原典アクセス状態から再点検する
 
@@ -14,15 +16,15 @@
 - 退避日: 2026-04-07
 - 理由: 原典アクセス可否と本文確認の有無を切り分けて再監査するため
 
-## Trial raw files
+## 2026-04-07 first batch
 
-- [`D01_bott_1988_morse-theory-indomitable.pdf`](../../../knowledge/raw/D01_bott_1988_morse-theory-indomitable.pdf) — `raw-confirmed`
-
-この 1 件は D01 の pilot raw-confirmed であり、Phase 9 の全体再走は pending。
-Carlsson (2009) と Ghrist (2008) は `knowledge/raw/manifest.md` 上で `blocked-access` として追跡する。
+- raw-confirmed:
+  `Bott (1988)` は raw PDF 取得済み
+- blocked-access:
+  `Carlsson (2009)` と `Ghrist (2008)` は AMS 導線があるが Cloudflare challenge で CLI 取得失敗
 
 ## 次の作業
 
-- 当該領域の `knowledge/raw/` 候補原典を列挙する
-- 既存判定の根拠を `raw-confirmed` / `citation-only` / `blocked-access` / `not-yet-reviewed` に振り分ける
+- D01 blocked-access source の manual/browser 余地を再評価する
+- raw-confirmed source を起点に旧 verified 判定を source 単位へ再分解する
 - 新しい ref-check を history 参照つきで再作成する

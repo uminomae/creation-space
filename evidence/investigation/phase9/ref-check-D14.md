@@ -4,7 +4,9 @@
 
 ## 現在の扱い
 
-- 原典アクセス状態: `not-yet-reviewed`
+- 原典アクセス状態: ref-check 本文としては `not-yet-reviewed`
+- source manifest には D14 first batch 2件を反映済み
+- source 内訳は `raw-confirmed` 1 / `blocked-access` 0 / `citation-only` 1
 - 既存の verified / plausible / overstated 判定は再保証しない
 - 二次資料・要約・書誌情報のみで成立していた判定が混在していないか、原典アクセス状態から再点検する
 
@@ -14,14 +16,15 @@
 - 退避日: 2026-04-07
 - 理由: 原典アクセス可否と本文確認の有無を切り分けて再監査するため
 
-## Trial raw files
+## 2026-04-07 first batch
 
-- [`D14_varela_1991_embodied-mind.pdf`](../../../knowledge/raw/D14_varela_1991_embodied-mind.pdf) — `raw-confirmed`
-
-この 1 件は D14 の pilot raw-confirmed であり、Phase 9 の全体再走は pending。
+- raw-confirmed:
+  `Varela, Thompson & Rosch (1991)` は raw PDF 取得済み
+- citation-only:
+  `Clark & Chalmers (1998)` は書誌確認のみ
 
 ## 次の作業
 
-- 当該領域の `knowledge/raw/` 候補原典を列挙する
-- 既存判定の根拠を `raw-confirmed` / `citation-only` / `blocked-access` / `not-yet-reviewed` に振り分ける
+- D14 citation-only source の full-text route を追加で切り分ける
+- raw-confirmed source を起点に旧 verified 判定を source 単位へ再分解する
 - 新しい ref-check を history 参照つきで再作成する

@@ -16,7 +16,9 @@ original_access_status: not-yet-reviewed
 
 ## 現在の扱い
 
-- 原典アクセス状態: `not-yet-reviewed`
+- 原典アクセス状態: evidence 本文としては `not-yet-reviewed`
+- source manifest には D01 first batch 3件を反映済み
+- source 内訳は `raw-confirmed` 1 / `blocked-access` 2 / `citation-only` 0
 - [P] 主張の verified / accepted 判定は現時点では再保証しない
 - `knowledge/raw/` の整備と原典アクセス棚卸しが完了するまで、本文の再構成を優先する
 
@@ -26,15 +28,15 @@ original_access_status: not-yet-reviewed
 - 退避日: 2026-04-07
 - 理由: 原典未入手・本文未確認・LLM 補完混入の可能性を切り分けずに維持しないため
 
-## Trial raw files
+## 2026-04-07 first batch
 
-- [`D01_bott_1988_morse-theory-indomitable.pdf`](../knowledge/raw/D01_bott_1988_morse-theory-indomitable.pdf) — `raw-confirmed`
-
-この 1 件は D01 の pilot raw-confirmed であり、D01 全体の再監査はまだ未完了。
-Carlsson (2009) と Ghrist (2008) は `knowledge/raw/manifest.md` 上で `blocked-access` として追跡する。
+- raw-confirmed:
+  `Bott (1988)` は Numdam OA PDF を `knowledge/raw/` に格納した
+- blocked-access:
+  `Carlsson (2009)` と `Ghrist (2008)` は AMS 導線までは確認できるが、CLI では Cloudflare challenge で止まる
 
 ## 次の作業
 
-- 原典アクセス状態を `raw-confirmed` / `citation-only` / `blocked-access` / `not-yet-reviewed` で棚卸しする
-- `knowledge/raw/README.md` の manifest に候補原典を記録する
+- D01 blocked-access source で manual/browser 余地を再確認する
+- raw-confirmed source を起点に旧 verified 判定を source 単位へ再分解する
 - 再調査後に、このファイルへ history 参照つきで新しい本文を戻す

@@ -16,7 +16,9 @@ original_access_status: not-yet-reviewed
 
 ## 現在の扱い
 
-- 原典アクセス状態: `not-yet-reviewed`
+- 原典アクセス状態: evidence 本文としては `not-yet-reviewed`
+- source manifest には D18 first batch 4件を反映済み
+- source 内訳は `raw-confirmed` 1 / `blocked-access` 2 / `citation-only` 1
 - [P] 主張の verified / accepted 判定は現時点では再保証しない
 - `knowledge/raw/` の整備と原典アクセス棚卸しが完了するまで、本文の再構成を優先する
 
@@ -26,15 +28,17 @@ original_access_status: not-yet-reviewed
 - 退避日: 2026-04-07
 - 理由: 原典未入手・本文未確認・LLM 補完混入の可能性を切り分けずに維持しないため
 
-## Trial raw files
+## 2026-04-07 first batch
 
-- [`D18_durkheim_1893_division-labor.pdf`](../knowledge/raw/D18_durkheim_1893_division-labor.pdf) — `raw-confirmed`
-
-この 1 件は D18 の pilot raw-confirmed であり、D18 全体の再監査はまだ未完了。
-Berger / Luckmann (1966) と Giddens (1984) は `knowledge/raw/manifest.md` 上で `blocked-access` として追跡する。
+- raw-confirmed:
+  `Durkheim (1893)` は raw PDF を `knowledge/raw/` に格納した
+- blocked-access:
+  `Berger & Luckmann (1966)` と `Giddens (1984)` は blocked-access として追跡
+- citation-only:
+  `Granovetter (1973)` は書誌確認のみ
 
 ## 次の作業
 
-- 原典アクセス状態を `raw-confirmed` / `citation-only` / `blocked-access` / `not-yet-reviewed` で棚卸しする
-- `knowledge/raw/README.md` の manifest に候補原典を記録する
+- D18 blocked/citation-only source の route を追加で切り分ける
+- raw-confirmed source を起点に旧 verified 判定を source 単位へ再分解する
 - 再調査後に、このファイルへ history 参照つきで新しい本文を戻す

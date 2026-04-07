@@ -4,7 +4,9 @@
 
 ## 現在の扱い
 
-- 原典アクセス状態: `not-yet-reviewed`
+- 原典アクセス状態: ref-check 本文としては `not-yet-reviewed`
+- source manifest には D10 first batch 4件を反映済み
+- source 内訳は `raw-confirmed` 2 / `blocked-access` 1 / `citation-only` 1
 - 既存の verified / plausible / overstated 判定は再保証しない
 - 二次資料・要約・書誌情報のみで成立していた判定が混在していないか、原典アクセス状態から再点検する
 
@@ -14,15 +16,17 @@
 - 退避日: 2026-04-07
 - 理由: 原典アクセス可否と本文確認の有無を切り分けて再監査するため
 
-## Trial raw files
+## 2026-04-07 first batch
 
-- [`D10_akdis_2014_allergen-immunotherapy.pdf`](../../../knowledge/raw/D10_akdis_2014_allergen-immunotherapy.pdf) — `raw-confirmed`
-- [`D10_rosenblum_2015_autoimmunity.pdf`](../../../knowledge/raw/D10_rosenblum_2015_autoimmunity.pdf) — `raw-confirmed`
-
-この2件は D10 の pilot raw-confirmed であり、Phase 9 の全体再走は pending。
+- raw-confirmed:
+  `Akdis (2014)` と `Rosenblum (2015)` は raw PDF 取得済み
+- blocked-access:
+  `Tonegawa (1983)` は公開本文の安定取得に未達
+- citation-only:
+  `Burnet (1957)` は書誌確認のみ
 
 ## 次の作業
 
-- 当該領域の `knowledge/raw/` 候補原典を列挙する
-- 既存判定の根拠を `raw-confirmed` / `citation-only` / `blocked-access` / `not-yet-reviewed` に振り分ける
+- D10 blocked/citation-only source の route を追加で切り分ける
+- raw-confirmed source を起点に旧 verified 判定を source 単位へ再分解する
 - 新しい ref-check を history 参照つきで再作成する
