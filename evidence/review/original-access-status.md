@@ -35,7 +35,7 @@
 | D22 | 10 | 0 | 0 | 10 |
 | D23 | 10 | 0 | 0 | 10 |
 | D24 | 10 | 1 | 0 | 9 |
-| D25 | 10 | 0 | 0 | 10 |
+| D25 | 10 | 0 | 1 | 9 |
 | D26 | 10 | 0 | 0 | 10 |
 | D27 | 10 | 0 | 0 | 10 |
 | D28 | 10 | 0 | 0 | 10 |
@@ -317,3 +317,10 @@ manifest には D05 の draft source rows 10件を first pass として投入し
 
 補足:
 - Wikimedia Commons / NDL scan の実 PDF を確認
+## D25 blocked-access note
+
+- `van Gennep (1909), Les rites de passage`
+
+補足:
+- Internet Archive download route は 503/HTML error page を返し、raw 取得に失敗
+- manual/browser 再試行余地あり
