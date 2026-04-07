@@ -21,7 +21,7 @@
 | D08 | 11 | 1 | 4 | 6 |
 | D09 | 11 | 0 | 3 | 8 |
 | D10 | 4 | 2 | 1 | 1 |
-| D11 | 11 | 2 | 0 | 9 |
+| D11 | 12 | 3 | 0 | 9 |
 | D12 | 10 | 0 | 0 | 10 |
 | D13 | 10 | 0 | 0 | 10 |
 | D14 | 2 | 1 | 0 | 1 |
@@ -188,8 +188,9 @@ manifest には D05 の draft source rows 10件を first pass として投入し
 
 - `knowledge/raw/D11_ich_2009_q8-r2-guideline.pdf`
 - `knowledge/raw/D11_ich_2008_q10-guideline.pdf`
+- `knowledge/raw/D11_ich_2023_q9-r1-guideline.pdf`
 
-この 2 件を raw-confirmed に格上げした。
+この 3 件を raw-confirmed に格上げした。
 
 補足:
 - ICH official PDF route で HTTP 200 application/pdf を確認
