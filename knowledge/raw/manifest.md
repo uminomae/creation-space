@@ -9,9 +9,9 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 18本
-- `knowledge/raw/` に実格納済み: 18本
-- `citation-only`: 225本
+- 有効な公開 PDF を発見: 19本
+- `knowledge/raw/` に実格納済み: 19本
+- `citation-only`: 224本
 - `blocked-access`: 34本
 
 ## 集計の数え方
@@ -287,7 +287,7 @@
 | D28-S08 | D28 | `citation-only` | Fischer-Lichte, E. (2008). *The Transformative Power of Performance: A New Aesthetics*. London: Routledge (trans. S. I. Jain) | — | `evidence/evidence-D28-performing-arts.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D28-S09 | D28 | `citation-only` | Grotowski, J. (1968). *Towards a Poor Theatre*. Holstebro: Odin Teatrets Forlag | — | `evidence/evidence-D28-performing-arts.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D28-S10 | D28 | `citation-only` | Richards, T. (1995). *At Work with Grotowski on Physical Actions*. London: Routledge | — | `evidence/evidence-D28-performing-arts.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D29-S01 | D29 | `citation-only` | Prigogine, I. (1977). "Time, Structure and Fluctuations." Nobel Lecture. | — | `evidence/evidence-D29-complexity-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D29-S01 | D29 | `raw-confirmed` | Prigogine (1977), Time, Structure and Fluctuations. Nobel Lecture | `knowledge/raw/D29_prigogine_1977_time-structure-fluctuations.pdf` | `evidence/evidence-D29-complexity-science.md` | Nobel Prize official PDF route で実 PDF を保存 |
 | D29-S02 | D29 | `citation-only` | Prigogine, I. & Stengers, I. (1984). *Order Out of Chaos*. Bantam. | — | `evidence/evidence-D29-complexity-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D29-S03 | D29 | `citation-only` | Bak, P., Tang, C. & Wiesenfeld, K. (1987). "Self-Organized Criticality: An Explanation of 1/f Noise." *Phys. Rev. Lett.* 59, 381-384. | — | `evidence/evidence-D29-complexity-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D29-S04 | D29 | `citation-only` | Bak, P., Tang, C. & Wiesenfeld, K. (1988). "Self-organized criticality." *Phys. Rev. A* 38, 364-374. | — | `evidence/evidence-D29-complexity-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |

@@ -39,7 +39,7 @@
 | D26 | 10 | 0 | 0 | 10 |
 | D27 | 10 | 0 | 0 | 10 |
 | D28 | 10 | 0 | 0 | 10 |
-| D29 | 10 | 0 | 0 | 10 |
+| D29 | 10 | 1 | 0 | 9 |
 | D30 | 10 | 2 | 0 | 8 |
 
 ## D01 pilot raw-confirmed
@@ -291,3 +291,11 @@ manifest には D05 の draft source rows 10件を first pass として投入し
 補足:
 - IPBES / CBD の official PDF route で HTTP 200 application/pdf を確認
 - D30 は public institutional documents から second pass の raw 回収を進められる領域であることが分かった
+## D29 second-pass raw upgrade
+
+- `knowledge/raw/D29_prigogine_1977_time-structure-fluctuations.pdf`
+
+この 1 件を raw-confirmed に格上げした。
+
+補足:
+- Nobel Prize official PDF route で実 PDF を確認
