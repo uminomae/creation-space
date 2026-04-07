@@ -22,7 +22,7 @@
 | D09 | 11 | 0 | 3 | 8 |
 | D10 | 4 | 2 | 1 | 1 |
 | D11 | 12 | 3 | 0 | 9 |
-| D12 | 10 | 0 | 0 | 10 |
+| D12 | 10 | 1 | 0 | 9 |
 | D13 | 10 | 0 | 0 | 10 |
 | D14 | 2 | 1 | 0 | 1 |
 | D15 | 10 | 0 | 0 | 10 |
@@ -299,3 +299,11 @@ manifest には D05 の draft source rows 10件を first pass として投入し
 
 補足:
 - Nobel Prize official PDF route で実 PDF を確認
+## D12 second-pass raw upgrade
+
+- `knowledge/raw/D12_maff_2005_ipm-practical-guideline.pdf`
+
+この 1 件を raw-confirmed に格上げした。
+
+補足:
+- 農林水産省 official PDF route で HTTP 200 application/pdf を確認

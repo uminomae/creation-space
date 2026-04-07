@@ -9,9 +9,9 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 19本
-- `knowledge/raw/` に実格納済み: 19本
-- `citation-only`: 224本
+- 有効な公開 PDF を発見: 20本
+- `knowledge/raw/` に実格納済み: 20本
+- `citation-only`: 223本
 - `blocked-access`: 34本
 
 ## 集計の数え方
@@ -136,7 +136,7 @@
 | D12-S04 | D12 | `citation-only` | Robertson, G. P., & Vitousek, P. M. (2009). Nitrogen in Agriculture: Balancing the Cost of an Essential Resource. *Annual Review of Environment and Resources*, 34, 97-125. DOI: 10.1146/annurev.environ.032108.105046 | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D12-S05 | D12 | `citation-only` | Stern, V. M., et al. (1959). *Hilgardia*, 29(2), 81-101. | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D12-S06 | D12 | `citation-only` | Pedigo, L. P., et al. (1986). *Ann. Rev. Entomol.*, 31, 341-368. DOI: 10.1146/annurev.en.31.010186.002013 | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D12-S07 | D12 | `citation-only` | 農林水産省. 総合的病害虫・雑草管理（IPM）実践指針. | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D12-S07 | D12 | `raw-confirmed` | 農林水産省, 総合的病害虫・雑草管理（IPM）実践指針 | `knowledge/raw/D12_maff_2005_ipm-practical-guideline.pdf` | `evidence/evidence-D12-agriculture.md` | MAFF official PDF route で実 PDF を保存 |
 | D12-S08 | D12 | `citation-only` | Scheffer, M., et al. (2001). *Nature*, 413, 591-596. DOI: 10.1038/35098000 | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D12-S09 | D12 | `citation-only` | Scheffer, M., & Carpenter, S. R. (2003). *Trends Ecol. Evol.*, 18(12), 648-656. DOI: 10.1016/j.tree.2003.09.002 | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D12-S10 | D12 | `citation-only` | Carpenter, S. R., & Brock, W. A. (2006). *Ecol. Lett.*, 9(3), 311-318. DOI: 10.1111/j.1461-0248.2005.00877.x | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
