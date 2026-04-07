@@ -32,7 +32,7 @@
 | D19 | 10 | 0 | 0 | 10 |
 | D20 | 10 | 1 | 2 | 7 |
 | D21 | 10 | 0 | 0 | 10 |
-| D22 | 10 | 1 | 0 | 9 |
+| D22 | 10 | 2 | 0 | 8 |
 | D23 | 10 | 0 | 0 | 10 |
 | D24 | 10 | 1 | 0 | 9 |
 | D25 | 10 | 0 | 1 | 9 |
@@ -327,8 +327,9 @@ manifest には D05 の draft source rows 10件を first pass として投入し
 ## D22 second-pass raw upgrade
 
 - `knowledge/raw/D22_stanford_2010_design-thinking-process-guide.pdf`
+- `knowledge/raw/D22_akiike_2021_design-thinking-articles.pdf`
 
-この 1 件を raw-confirmed に格上げした。
+この 2 件を raw-confirmed に格上げした。
 
 補足:
-- Stanford-hosted PDF route で HTTP 200 application/pdf を確認
+- Stanford-hosted PDF route と J-STAGE official PDF route で HTTP 200 application/pdf を確認

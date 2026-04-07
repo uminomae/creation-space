@@ -9,9 +9,9 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 23本
-- `knowledge/raw/` に実格納済み: 23本
-- `citation-only`: 219本
+- 有効な公開 PDF を発見: 24本
+- `knowledge/raw/` に実格納済み: 24本
+- `citation-only`: 218本
 - `blocked-access`: 35本
 
 ## 集計の数え方
@@ -216,7 +216,7 @@
 | D22-S04 | D22 | `citation-only` | Gourlay, S. (2006). Conceptualizing knowledge creation. *Journal of Management Studies*, 43(7), 1415–1436. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D22-S05 | D22 | `raw-confirmed` | Stanford/HPI Design Thinking Process Guide | `knowledge/raw/D22_stanford_2010_design-thinking-process-guide.pdf` | `evidence/evidence-D22-business-management.md` | Stanford-hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D22-S06 | D22 | `citation-only` | Brown, T. (2008). Design Thinking. *Harvard Business Review*, June 2008. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D22-S07 | D22 | `citation-only` | Akiike, A. & Ichikohji, T. (2021). What are the requirements for design thinking articles? *Annals of Business Administrative Science*, 20(6), 197–209. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D22-S07 | D22 | `raw-confirmed` | Akiike & Ichikohji (2021), What are the requirements for design thinking articles? | `knowledge/raw/D22_akiike_2021_design-thinking-articles.pdf` | `evidence/evidence-D22-business-management.md` | J-STAGE official PDF route で実 PDF を保存 |
 | D22-S08 | D22 | `citation-only` | Tuckman, B. W. (1965). Developmental sequence in small groups. *Psychological Bulletin*, 63(6), 384–399. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D22-S09 | D22 | `citation-only` | Tuckman, B. W. & Jensen, M. A. C. (1977). Stages of small-group development revisited. *Group & Organization Studies*, 2(4), 419–427. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D22-S10 | D22 | `citation-only` | Gersick, C. J. G. (1988). Time and transition in work teams. *Academy of Management Journal*, 31(1), 9–41. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
