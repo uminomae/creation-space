@@ -17,6 +17,29 @@
 - `Carlsson (2009)` は `blocked-access`
 - `Ghrist (2008)` は `blocked-access`
 
+## D02 first source batch
+
+- `knowledge/raw/D02_feynman_1948_space-time-approach-nonrelativistic-quantum-mechanics.pdf`
+- `knowledge/raw/D02_abrikosov_1957_magnetic-properties-superconductors-second-group.pdf`
+- `knowledge/raw/D02_rayleigh_1916_problem-thermal-convection-horizontal-layer-fluid-heated-below.pdf`
+- `knowledge/raw/D02_zurek_2003_decoherence-einselection-quantum-origins-classical.pdf`
+
+この 4 件は raw-confirmed。D02 の anchor source 10 件を manifest に登録したが、evidence / ref-check 本文の再構成はまだ pending。
+
+補足:
+- `Ordering, Metastability and Phase Transitions in Two-Dimensional Systems` は `blocked-access`
+  IOP PDF 導線はあるが、CLI では PDF URL が `text/html` の fulltext/download ページに着地した。人手ブラウザで取得できる余地あり
+- `Observation of the Kibble-Zurek scaling law for defect formation in ion crystals` は `blocked-access`
+  Nature PDF URL が `idp.nature.com/authorize` に 303 redirect。PubMed では free article 表示あり
+- `Broken Symmetries and the Masses of Gauge Bosons` は `blocked-access`
+  APS PDF URL が Cloudflare challenge で HTTP 403。CLI / bot 由来失敗の可能性あり
+- `Renormalization Group and Critical Phenomena` は `blocked-access`
+  APS PDF URL が Cloudflare challenge で HTTP 403。CLI / bot 由来失敗として記録
+- `Synergetics: An Introduction` は `blocked-access`
+  Springer book URL が `idp.springer.com/authorize` に 303 redirect
+- `Becker-Doring (1935), nucleation kinetics` は `citation-only`
+  書誌確認のみで、OA / paywalled route の切り分けは未了
+
 ## D10 pilot raw-confirmed
 
 - `knowledge/raw/D10_akdis_2014_allergen-immunotherapy.pdf`

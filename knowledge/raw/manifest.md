@@ -4,15 +4,15 @@
 **起点**: cs#205, cs#207
 
 原典は source 単位で追跡する。**完了条件は D01-D30 の全領域で source 行が実データに置き換わること**。
-2026-04-07 時点では D01 / D10 / D14 / D18 の pilot source を登録し、source 未登録の他領域は pending placeholder で残している。
+2026-04-07 時点では D01 / D02 / D10 / D14 / D18 の pilot source を登録し、source 未登録の他領域は pending placeholder で残している。
 
 ## 集計
 
-- 探索対象として source 単位で管理中: 13本
-- 有効な公開 PDF を発見: 5本
-- `knowledge/raw/` に実格納済み: 5本
-- `citation-only`: 3本
-- `blocked-access`: 5本
+- 探索対象として source 単位で管理中: 23本
+- 有効な公開 PDF を発見: 9本
+- `knowledge/raw/` に実格納済み: 9本
+- `citation-only`: 4本
+- `blocked-access`: 10本
 
 ## 集計の数え方
 
@@ -35,7 +35,16 @@
 | D18-S02 | D18 | `blocked-access` | The Social Construction of Reality | — | `evidence/evidence-D18-sociology.md` | Open Library では Download Options 表示あり。ただし実 PDF URL は 2026-04-07 時点で item unavailable / 401 |
 | D18-S03 | D18 | `blocked-access` | The Constitution of Society | — | `evidence/evidence-D18-sociology.md` | Open Library / IA item から有効 PDF を取得できず |
 | D18-S04 | D18 | `citation-only` | Granovetter (1973), The Strength of Weak Ties | — | `evidence/evidence-D18-sociology.md` | 書誌確認のみ。本文未確認 |
-| D02-PENDING | D02 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D02-physics.md` | 再監査待ち |
+| D02-S01 | D02 | `raw-confirmed` | Space-Time Approach to Non-Relativistic Quantum Mechanics | `knowledge/raw/D02_feynman_1948_space-time-approach-nonrelativistic-quantum-mechanics.pdf` | `evidence/evidence-D02-physics.md` | CaltechAUTHORS OA PDF を保存。CLI 取得成功、実 PDF 判定 |
+| D02-S02 | D02 | `blocked-access` | Ordering, Metastability and Phase Transitions in Two-Dimensional Systems | — | `evidence/evidence-D02-physics.md` | IOP PDF 導線あり。ただし 2026-04-07 時点の CLI では PDF URL が `text/html` の fulltext/download ページに着地し raw PDF 未取得。人手ブラウザで到達できる余地あり |
+| D02-S03 | D02 | `raw-confirmed` | On the Magnetic Properties of Superconductors of the Second Group | `knowledge/raw/D02_abrikosov_1957_magnetic-properties-superconductors-second-group.pdf` | `evidence/evidence-D02-physics.md` | JETP 公式 PDF を保存。CLI 取得成功、実 PDF 判定 |
+| D02-S04 | D02 | `blocked-access` | Observation of the Kibble-Zurek scaling law for defect formation in ion crystals | — | `evidence/evidence-D02-physics.md` | Nature PDF URL が `idp.nature.com/authorize` へ 303 redirect。PubMed では free article 表示あり、人手/機関ログインで取得できる可能性あり |
+| D02-S05 | D02 | `blocked-access` | Broken Symmetries and the Masses of Gauge Bosons | — | `evidence/evidence-D02-physics.md` | APS 公式 PDF URL は Cloudflare challenge で HTTP 403。CLI / bot 由来の失敗で、ブラウザ手動閲覧なら到達余地あり |
+| D02-S06 | D02 | `blocked-access` | Renormalization Group and Critical Phenomena | — | `evidence/evidence-D02-physics.md` | APS 公式 PDF URL は Cloudflare challenge で HTTP 403。CLI / bot 由来の失敗として記録 |
+| D02-S07 | D02 | `blocked-access` | Synergetics: An Introduction | — | `evidence/evidence-D02-physics.md` | Springer book URL が `idp.springer.com/authorize` へ 303 redirect。機関ログインまたは人手ブラウザ確認余地あり |
+| D02-S08 | D02 | `raw-confirmed` | The Problem of Thermal Convection in a Horizontal Layer of Fluid Heated from Below | `knowledge/raw/D02_rayleigh_1916_problem-thermal-convection-horizontal-layer-fluid-heated-below.pdf` | `evidence/evidence-D02-physics.md` | Zenodo OA PDF を保存。CLI 取得成功、実 PDF 判定 |
+| D02-S09 | D02 | `raw-confirmed` | Decoherence, einselection, and the quantum origins of the classical | `knowledge/raw/D02_zurek_2003_decoherence-einselection-quantum-origins-classical.pdf` | `evidence/evidence-D02-physics.md` | arXiv OA PDF を保存。CLI 取得成功、71 pages 確認 |
+| D02-S10 | D02 | `citation-only` | Becker-Doring (1935), nucleation kinetics | — | `evidence/evidence-D02-physics.md` | 2026-04-07 時点では書誌確認のみ。OA / paywalled route の切り分けは未了 |
 | D03-PENDING | D03 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D03-chemistry.md` | 再監査待ち |
 | D04-PENDING | D04 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D04-evolutionary-biology.md` | 再監査待ち |
 | D05-PENDING | D05 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D05-earth-science.md` | 再監査待ち |

@@ -16,9 +16,22 @@ original_access_status: not-yet-reviewed
 
 ## 現在の扱い
 
-- 原典アクセス状態: `not-yet-reviewed`
+- 原典アクセス状態: evidence 本文としては `not-yet-reviewed`
+- source manifest には D02 first batch 10件を反映済み
+- source 内訳は `raw-confirmed` 4 / `blocked-access` 5 / `citation-only` 1
 - [P] 主張の verified / accepted 判定は現時点では再保証しない
 - `knowledge/raw/` の整備と原典アクセス棚卸しが完了するまで、本文の再構成を優先する
+
+## 2026-04-07 first batch
+
+- raw-confirmed:
+  `Feynman 1948`, `Abrikosov 1957`, `Rayleigh 1916`, `Zurek 2003` は実 PDF を `knowledge/raw/` に格納した
+- blocked-access:
+  IOP / Nature / APS / Springer で、HTML 着地、login redirect、Cloudflare challenge を source 単位で記録した
+- citation-only:
+  `Becker-Doring (1935)` は書誌確認のみ。本文 access route は次便で切り分ける
+- manual/browser 余地:
+  APS / IOP / Nature / Springer 系は、CLI や bot 判定で失敗している可能性を notes に残した
 
 ## History
 
@@ -28,6 +41,6 @@ original_access_status: not-yet-reviewed
 
 ## 次の作業
 
-- 原典アクセス状態を `raw-confirmed` / `citation-only` / `blocked-access` / `not-yet-reviewed` で棚卸しする
-- `knowledge/raw/README.md` の manifest に候補原典を記録する
+- D02 の残り source を manifest へ追加し、first batch を全 source 行へ拡張する
+- raw 取得不能理由を source ごとに追記し、手動ブラウザ余地の有無も切り分ける
 - 再調査後に、このファイルへ history 参照つきで新しい本文を戻す
