@@ -1,15 +1,16 @@
-# 30領域統一調査プロトコル（Phase 5-7）
+# 30領域統一調査プロトコル（Phase 0-9）
 
-**バージョン**: 1.0
+**バージョン**: 1.1
 **作成日**: 2026-03-17
-**状態**: 策定済み・試行前
+**状態**: 2026-04-07 rerun gate 適用中
 
 ---
 
 ## 概要
 
 Phase 1-4（幅優先スキャン→本格調査→GPTレビュー→突き合わせ）は30領域で統一済み・完了済み。
-本プロトコルは Phase 4 以降の深掘り調査を統一し、30領域に適用する Phase 5-7 の仕様を定める。
+本プロトコルは Phase 4 以降の深掘り調査を統一し、30領域に適用する Phase 5-9 の仕様を定める。
+ただし `cs#207` 以降は、**原典アクセス状態の棚卸し（Phase 0）を通過するまで既存の verified / accepted を再保証しない**。
 
 旧名称（deepdive, run1, insight1, cross-insight）は内容を表さないため廃止。
 ツール名（codex-parallel, claude-code-agent）もディレクトリ名から排除し、README メタデータに記録する。
@@ -20,10 +21,12 @@ Phase 1-4（幅優先スキャン→本格調査→GPTレビュー→突き合�
 
 | Phase | slug | 日本語名 | 内容 |
 |-------|------|---------|------|
+| Phase 0 | original-access-audit | 原典アクセス監査 | raw の有無・本文確認可否・停止条件を確定する |
 | Phase 5 | evidence-audit | 論拠監査 | 既存エントリの強度分類・ギャップ分析・境界ガード・5段階カバレッジ |
 | Phase 6 | structural-reread | 構造再読 | 各エントリを「正確/怪しい/破綻/未見」の4軸で再読 |
 | Phase 7 | cross-domain-synthesis | 横断統合 | 領域内の横断パターン抽出・段階定義の精緻化・盲点特定 |
 | Phase 8 | cross-domain-exploration | 領域横断探索 | 30領域横断のインサイト探索（3層: 圧縮→テーマ分析→統合） |
+| Phase 9 | ref-check | 原典検証 | [P] 主張の根拠を原典アクセス状態つきで再確認する |
 
 ---
 
@@ -54,6 +57,35 @@ evidence/investigation/
 - 3文以上ドメイン理論を書いたら必ず5段階に接続する
 - 弱い理論を無理に強く見せない
 - Safety valve タグ: `[SPECULATIVE]`, `[WEAK_MAPPING]`, `[SCALE_JUMP]`, `[UNCERTAIN]`
+
+## Phase 0: original-access-audit（原典アクセス監査）
+
+### 目的
+
+- 既存の [P] 主張が、原典本文を直接確認したうえで書かれたものかを切り分ける
+- `knowledge/raw/` に格納できるもの、書誌確認のみのもの、アクセス不能なものを分類する
+- Phase 5-9 を再開してよい領域だけを前に進める
+
+### access status
+
+| status | 意味 | 扱い |
+|---|---|---|
+| `raw-confirmed` | `knowledge/raw/` に原典があり本文確認済み | verified 候補 |
+| `citation-only` | 書誌のみ確認、本文未確認 | 内容断定に使わない |
+| `blocked-access` | 合法経路はあるが本文未入手 | 保留 |
+| `not-yet-reviewed` | 未棚卸し | 保留 |
+
+### 停止条件
+
+- `raw-confirmed` 以外の [P] 主張は verified 扱いしない
+- `citation-only` / `blocked-access` は再調査待ちとして残す
+- archive 化した旧本文は history 参照専用であり、現行根拠としては扱わない
+
+### 出力
+
+- `knowledge/raw/manifest.md`
+- `evidence/review/original-access-status.md`
+- 必要に応じて `knowledge/raw/` への原典ファイル追加
 
 ---
 

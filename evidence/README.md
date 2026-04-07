@@ -6,6 +6,8 @@
 
 **公開向け注記**: `evidence/evidence-D*.md` は創造5段階モデルとの構造類似に特化したクリーン版を保持する。旧プロジェクト固有の内部理論語は #212 で除去済み。
 
+**2026-04-07 再監査注記**: `cs#207` により、現行の `evidence-D*.md` はいったん archive を参照する stub に差し替えた。2026-04-07 時点の本文は `archive/pre-rerun-20260407/` にあり、原典アクセス状態の棚卸しは `review/original-access-status.md` で追跡する。
+
 ## 移動経緯
 
 このディレクトリは 2026-03-10 に旧 private repo から移動した。
@@ -67,6 +69,7 @@ cp evidence/evidence-D{NN}-{slug}.md \
 | `deepdive/` | Level 2 evidence を壊さずに深掘り探索を行う分離領域 |
 | `review/` | 横断分析、計画書、レビュー成果 |
 | `archive/` | Revise 前スナップショットや退避資料 |
+| `archive/pre-rerun-20260407/` | 原典アクセス再監査前の一括スナップショット |
 | `work/` | 作業中の中間ファイル |
 | `INSIGHTS.md` | deepdive・P1横断洞察の索引 |
 
@@ -76,6 +79,8 @@ cp evidence/evidence-D{NN}-{slug}.md \
 - [deepdive/README.md](/Users/uminomae/dev/creation-space/evidence/deepdive/README.md)
 - [202602-deep-research-30domains-gpt/README.md](/Users/uminomae/dev/creation-space/evidence/202602-deep-research-30domains-gpt/README.md)
 - [archive/README.md](/Users/uminomae/dev/creation-space/evidence/archive/README.md)
+- [original-access-status.md](/Users/uminomae/dev/creation-space/evidence/review/original-access-status.md)
+- [original-access-rerun-plan.md](/Users/uminomae/dev/creation-space/evidence/investigation/original-access-rerun-plan.md)
 - [docs/evidence-metadata-creation.md](/Users/uminomae/dev/creation-space/docs/evidence-metadata-creation.md)
 - 旧管理番号 #61
 - 旧管理番号 #62

@@ -3,18 +3,22 @@
 30領域調査で参照する一次データの置き場。
 論文 PDF、プレプリント、公式報告書、著者公開版など、**本文を直接確認できる原典**を格納する。
 
+**最終完了条件**: D01-D30 の全領域で、追跡対象 source が `manifest.md` に登録され、`raw-confirmed` / `citation-only` / `blocked-access` / `not-yet-reviewed` のいずれかで管理されていること。
+
 ## 現在の状態
 
 `cs#205` で受け皿を作成し、`cs#207` に合わせて manifest 先行で運用を始める。
 2026-04-07 時点では、既存調査報告を一度 archive に退避して再監査へ切り替えた。
-そのうえで pilot raw-confirmed として、次の 4 本を格納した。
+そのうえで pilot raw-confirmed として、次の 5 本を格納した。
 
+- `D01_bott_1988_morse-theory-indomitable.pdf`
 - `D10_akdis_2014_allergen-immunotherapy.pdf`
 - `D10_rosenblum_2015_autoimmunity.pdf`
 - `D14_varela_1991_embodied-mind.pdf`
 - `D18_durkheim_1893_division-labor.pdf`
 
-Berger / Luckmann (1966) と Giddens (1984) は公開導線を確認したが、2026-04-07 時点では有効な PDF 実体を取得できず、manifest 上は `blocked-access` として扱う。
+Carlsson (2009) と Ghrist (2008) は公式 AMS 側の PDF 導線を確認したが、2026-04-07 時点では terminal 経由の取得が Cloudflare で遮断されたため、manifest 上は `blocked-access` として扱う。
+Berger / Luckmann (1966) と Giddens (1984) も公開導線を確認したが、2026-04-07 時点では有効な PDF 実体を取得できず、manifest 上は `blocked-access` として扱う。
 
 ## 運用ルール
 

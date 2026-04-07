@@ -1,11 +1,18 @@
-# evidence/investigation/ — 30領域統一調査（Phase 5-7）
+# evidence/investigation/ — 30領域統一調査（Phase 5-9 / 再監査待ち）
 
 **プロトコル**: [PROTOCOL.md](PROTOCOL.md)
-**更新日**: 2026-03-17
+**更新日**: 2026-04-07
+
+> **2026-04-07 rerun note**
+> `cs#207` により、既存の evidence 本体と `phase9/ref-check-*.md` は archive を参照する stub に切り替えた。
+> 下の完了状況テーブルは **履歴情報** であり、現時点の信頼性保証を意味しない。
+> 実際の再調査は [original-access-rerun-plan.md](original-access-rerun-plan.md) と [phase9/README.md](phase9/README.md) を起点に進める。
 
 ---
 
 ## 実施状況
+
+以下は **2026-03-18 時点の実行履歴**。
 
 | D# | 領域 | Phase 5 | Phase 6 | Phase 7 | 備考 |
 |----|------|---------|---------|---------|------|
