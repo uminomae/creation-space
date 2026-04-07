@@ -21,7 +21,7 @@
 | D08 | 11 | 1 | 4 | 6 |
 | D09 | 11 | 0 | 3 | 8 |
 | D10 | 4 | 2 | 1 | 1 |
-| D11 | 10 | 0 | 0 | 10 |
+| D11 | 11 | 2 | 0 | 9 |
 | D12 | 10 | 0 | 0 | 10 |
 | D13 | 10 | 0 | 0 | 10 |
 | D14 | 2 | 1 | 0 | 1 |
@@ -183,6 +183,17 @@ manifest には D05 の draft source rows 10件を first pass として投入し
 補足:
 - `Burnet (1957)` は `citation-only`
 - `Tonegawa (1983)` は `blocked-access`
+
+## D11 second-pass raw upgrade
+
+- `knowledge/raw/D11_ich_2009_q8-r2-guideline.pdf`
+- `knowledge/raw/D11_ich_2008_q10-guideline.pdf`
+
+この 2 件を raw-confirmed に格上げした。
+
+補足:
+- ICH official PDF route で HTTP 200 application/pdf を確認
+- D11 は first-pass `citation-only` 起点から second pass の raw 回収へ進み始めた
 
 ## D14 pilot raw-confirmed
 
