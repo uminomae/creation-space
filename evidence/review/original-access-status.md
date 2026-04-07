@@ -60,6 +60,36 @@
 - `Becker-Doring (1935)` / `Lehn (1995)` / `Lewis-von Elbe (1961)` / `Goldbeter (1996)` は `citation-only`
   archive refs と ref-check では確認できるが、stable primary full-text route は未確認
 
+## D06 first source batch
+
+- `knowledge/raw/D06_planck-collaboration_2016_cosmological-parameters.pdf`
+
+この 1 件は raw-confirmed。残り 9 件を source-level で登録したが、evidence / ref-check 本文の再構成はまだ pending。
+
+補足:
+- `Jeans (1902)` / `Tumlinson et al. (2017)` / `Abbott et al. (2017)` は `blocked-access`
+  Royal Society / Annual Reviews / APS の publisher route はあるが、CLI では Cloudflare challenge で止まる
+- `Charbonneau (2020)` は `blocked-access`
+  Springer PDF が `idp.springer.com/authorize` へ 303 redirect
+- `White & Rees (1978)` / `Balbus & Hawley (1991)` / `Pollack et al. (1996)` / `Blandford & Ostriker (1978)` / `Spitzer (1987)` は `citation-only`
+  archive refs / ref-check では確認できるが、stable official full-text route は未確認
+
+## D07 first source batch
+
+- `knowledge/raw/D07_shannon_1948_mathematical-theory-communication.pdf`
+
+この 1 件は raw-confirmed。残り 9 件を source-level で登録したが、evidence / ref-check 本文の再構成はまだ pending。
+
+補足:
+- `Wiener (1948)` は `blocked-access`
+  MIT Press OA monograph page はあるが、CLI では Cloudflare challenge に着地。手動ブラウザ取得余地あり
+- `ISO 9001:2015` は `blocked-access`
+  landing page は存在するが、full text は purchase/institution barrier
+- `Rumelhart et al. (1986)` は `blocked-access`
+  Nature PDF が `idp.nature.com/authorize` へ 303 redirect
+- `Jacobson (1988)` / `Candes et al. (2006)` / `Schultz et al. (1997)` / `Holland (1975)` / `Fowler (1999)` / `Diffie & Hellman (1976)` は `citation-only`
+  書誌確認はできるが、stable official full-text route は未確認
+
 ## D10 pilot raw-confirmed
 
 - `knowledge/raw/D10_akdis_2014_allergen-immunotherapy.pdf`

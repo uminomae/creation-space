@@ -16,9 +16,20 @@ original_access_status: not-yet-reviewed
 
 ## 現在の扱い
 
-- 原典アクセス状態: `not-yet-reviewed`
+- 原典アクセス状態: evidence 本文としては `not-yet-reviewed`
+- source manifest には D06 first batch 10件を反映済み
+- source 内訳は `raw-confirmed` 1 / `blocked-access` 4 / `citation-only` 5
 - [P] 主張の verified / accepted 判定は現時点では再保証しない
 - `knowledge/raw/` の整備と原典アクセス棚卸しが完了するまで、本文の再構成を優先する
+
+## 2026-04-07 first batch
+
+- raw-confirmed:
+  `Planck Collaboration (2016)` は A&A 公式 PDF を `knowledge/raw/` に格納した
+- blocked-access:
+  Royal Society / Annual Reviews / APS は Cloudflare challenge、Springer は login redirect を確認した
+- citation-only:
+  legacy journal / book anchors は書誌確認先行とした
 
 ## History
 
@@ -28,6 +39,6 @@ original_access_status: not-yet-reviewed
 
 ## 次の作業
 
-- 原典アクセス状態を `raw-confirmed` / `citation-only` / `blocked-access` / `not-yet-reviewed` で棚卸しする
-- `knowledge/raw/README.md` の manifest に候補原典を記録する
+- D06 の manual/browser 余地が高い blocked-access source を再試行し、raw-confirmed を増やす
+- D06 の citation-only source で official full-text route の有無を順に切り分ける
 - 再調査後に、このファイルへ history 参照つきで新しい本文を戻す

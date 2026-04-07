@@ -4,15 +4,15 @@
 **起点**: cs#205, cs#207
 
 原典は source 単位で追跡する。**完了条件は D01-D30 の全領域で source 行が実データに置き換わること**。
-2026-04-07 時点では D01 / D02 / D03 / D10 / D14 / D18 の pilot source を登録し、source 未登録の他領域は pending placeholder で残している。
+2026-04-07 時点では D01 / D02 / D03 / D06 / D07 / D10 / D14 / D18 の pilot source を登録し、source 未登録の他領域は pending placeholder で残している。
 
 ## 集計
 
-- 探索対象として source 単位で管理中: 33本
-- 有効な公開 PDF を発見: 9本
-- `knowledge/raw/` に実格納済み: 9本
-- `citation-only`: 8本
-- `blocked-access`: 16本
+- 探索対象として source 単位で管理中: 53本
+- 有効な公開 PDF を発見: 11本
+- `knowledge/raw/` に実格納済み: 11本
+- `citation-only`: 19本
+- `blocked-access`: 23本
 
 ## 集計の数え方
 
@@ -57,8 +57,26 @@
 | D03-S10 | D03 | `citation-only` | Goldbeter (1996), Biochemical Oscillations and Cellular Rhythms | — | `evidence/evidence-D03-chemistry.md` | archive refs と ref-check で実在確認。2026-04-07 時点では stable primary full-text route 未確認 |
 | D04-PENDING | D04 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D04-evolutionary-biology.md` | 再監査待ち |
 | D05-PENDING | D05 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D05-earth-science.md` | 再監査待ち |
-| D06-PENDING | D06 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D06-astronomy.md` | 再監査待ち |
-| D07-PENDING | D07 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D07-engineering.md` | 再監査待ち |
+| D06-S01 | D06 | `blocked-access` | Jeans (1902), The Stability of a Spherical Nebula | — | `evidence/evidence-D06-astronomy.md` | Royal Society PDF routeは存在するが、CLI では Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |
+| D06-S02 | D06 | `citation-only` | White & Rees (1978), Core condensation in heavy halos | — | `evidence/evidence-D06-astronomy.md` | ADS abstract で書誌確認。2026-04-07 時点では official full-text route 未確認 |
+| D06-S03 | D06 | `blocked-access` | Tumlinson, Peeples & Werk (2017), The Circumgalactic Medium | — | `evidence/evidence-D06-astronomy.md` | Annual Reviews route が Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |
+| D06-S04 | D06 | `citation-only` | Balbus & Hawley (1991), A powerful local shear instability in weakly magnetized disks | — | `evidence/evidence-D06-astronomy.md` | archive refs と ref-check で実在確認。official PDF route は未確認 |
+| D06-S05 | D06 | `citation-only` | Pollack et al. (1996), Formation of the Giant Planets by Concurrent Accretion of Solids and Gas | — | `evidence/evidence-D06-astronomy.md` | archive refs と ref-check で実在確認。official PDF route は未確認 |
+| D06-S06 | D06 | `citation-only` | Blandford & Ostriker (1978), Particle Acceleration by Astrophysical Shocks | — | `evidence/evidence-D06-astronomy.md` | archive refs と ref-check で実在確認。official PDF route は未確認 |
+| D06-S07 | D06 | `blocked-access` | Charbonneau (2020), Dynamo Models of the Solar Cycle | — | `evidence/evidence-D06-astronomy.md` | Springer PDF URL が `idp.springer.com/authorize` へ 303 redirect。機関ログインまたは手動ブラウザ余地あり |
+| D06-S08 | D06 | `raw-confirmed` | Planck Collaboration (2016), Planck 2015 results. XIII. Cosmological parameters | `knowledge/raw/D06_planck-collaboration_2016_cosmological-parameters.pdf` | `evidence/evidence-D06-astronomy.md` | A&A 公式 PDF を保存。CLI 取得成功、実 PDF 判定 |
+| D06-S09 | D06 | `blocked-access` | Abbott et al. (2017), GW170817: Observation of Gravitational Waves from a Binary Neutron Star Inspiral | — | `evidence/evidence-D06-astronomy.md` | APS PDF URL が Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |
+| D06-S10 | D06 | `citation-only` | Spitzer (1987), Dynamical Evolution of Globular Clusters | — | `evidence/evidence-D06-astronomy.md` | 書誌確認のみ。official full-text route は未確認 |
+| D07-S01 | D07 | `blocked-access` | Wiener (1948), Cybernetics: Or Control and Communication in the Animal and the Machine | — | `evidence/evidence-D07-engineering.md` | MIT Press OA monograph page はあるが、CLI では Cloudflare challenge に着地。手動ブラウザ取得余地あり |
+| D07-S02 | D07 | `blocked-access` | ISO 9001:2015 | — | `evidence/evidence-D07-engineering.md` | ISO landing page は HTTP 200 で存在確認。full text は purchase/institution barrier のため raw 未取得 |
+| D07-S03 | D07 | `citation-only` | Jacobson (1988), Congestion Avoidance and Control | — | `evidence/evidence-D07-engineering.md` | archive refs と ref-check で実在確認。official ACM/SIGCOMM route は未確認 |
+| D07-S04 | D07 | `blocked-access` | Rumelhart, Hinton, Williams (1986), Learning representations by back-propagating errors | — | `evidence/evidence-D07-engineering.md` | Nature PDF URL が `idp.nature.com/authorize` へ 303 redirect。機関ログインまたは手動ブラウザ余地あり |
+| D07-S05 | D07 | `raw-confirmed` | Shannon (1948), A Mathematical Theory of Communication | `knowledge/raw/D07_shannon_1948_mathematical-theory-communication.pdf` | `evidence/evidence-D07-engineering.md` | Harvard-hosted PDF を保存。CLI 取得成功、実 PDF 判定 |
+| D07-S06 | D07 | `citation-only` | Candes, Romberg, Tao (2006), Robust uncertainty principles: Exact signal reconstruction from highly incomplete frequency information | — | `evidence/evidence-D07-engineering.md` | archive refs と ref-check で実在確認。official IEEE route は未確認 |
+| D07-S07 | D07 | `citation-only` | Schultz, Dayan, Montague (1997), A neural substrate of prediction and reward | — | `evidence/evidence-D07-engineering.md` | PubMed で書誌確認。official Science full text は未確認 |
+| D07-S08 | D07 | `citation-only` | Holland (1975), Adaptation in Natural and Artificial Systems | — | `evidence/evidence-D07-engineering.md` | 書誌確認のみ。official full-text route は未確認 |
+| D07-S09 | D07 | `citation-only` | Fowler (1999), Refactoring | — | `evidence/evidence-D07-engineering.md` | 書誌確認のみ。official full-text route は未確認 |
+| D07-S10 | D07 | `citation-only` | Diffie & Hellman (1976), New Directions in Cryptography | — | `evidence/evidence-D07-engineering.md` | 書誌確認のみ。official IEEE route は未確認 |
 | D08-PENDING | D08 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D08-neuroscience.md` | 再監査待ち |
 | D09-PENDING | D09 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D09-life-sciences.md` | 再監査待ち |
 | D11-PENDING | D11 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D11-pharmacy.md` | 再監査待ち |
