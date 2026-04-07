@@ -9,9 +9,9 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 20本
-- `knowledge/raw/` に実格納済み: 20本
-- `citation-only`: 223本
+- 有効な公開 PDF を発見: 21本
+- `knowledge/raw/` に実格納済み: 21本
+- `citation-only`: 222本
 - `blocked-access`: 34本
 
 ## 集計の数え方
@@ -246,7 +246,7 @@
 | D24-S07 | D24 | `citation-only` | Santa Teresa de Jesús (1577). *El Castillo Interior o Las Moradas*. | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D24-S08 | D24 | `citation-only` | Kavanaugh, K. & Rodriguez, O. (trans.) (1980). *The Collected Works of St. Teresa of Avila*, Vol. 2. ICS Publications. | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D24-S09 | D24 | `citation-only` | Turner, D. (1995). *The Darkness of God: Negativity in Christian Mysticism*. Cambridge University Press. | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D24-S10 | D24 | `citation-only` | Suzuki, D. T. (1950). *Manual of Zen Buddhism*. Grove Press. (十牛図英訳紹介) | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D24-S10 | D24 | `raw-confirmed` | Suzuki, D. T. (1935/1950), Manual of Zen Buddhism | `knowledge/raw/D24_suzuki_1935_manual-of-zen-buddhism_part1.pdf` | `evidence/evidence-D24-religion.md` | Wikimedia Commons / NDL scan の実 PDF を part1/part2 で保存。part2: `knowledge/raw/D24_suzuki_1935_manual-of-zen-buddhism_part2.pdf` |
 | D25-S01 | D25 | `citation-only` | van Gennep, A. (1909). *Les rites de passage*. Émile Nourry. 英訳: *The Rites of Passage* (1960). University of Chicago Press. | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D25-S02 | D25 | `citation-only` | Turner, V. (1974). *Dramas, Fields, and Metaphors*. Cornell University Press. Turner, V. (1985). *The Anthropology of Performance*. PAJ Publications. | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D25-S03 | D25 | `citation-only` | Turner, V. (1969). *The Ritual Process: Structure and Anti-Structure*. Aldine Publishing. | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |

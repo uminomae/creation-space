@@ -34,7 +34,7 @@
 | D21 | 10 | 0 | 0 | 10 |
 | D22 | 10 | 0 | 0 | 10 |
 | D23 | 10 | 0 | 0 | 10 |
-| D24 | 10 | 0 | 0 | 10 |
+| D24 | 10 | 1 | 0 | 9 |
 | D25 | 10 | 0 | 0 | 10 |
 | D26 | 10 | 0 | 0 | 10 |
 | D27 | 10 | 0 | 0 | 10 |
@@ -307,3 +307,12 @@ manifest には D05 の draft source rows 10件を first pass として投入し
 
 補足:
 - 農林水産省 official PDF route で HTTP 200 application/pdf を確認
+## D24 second-pass raw upgrade
+
+- `knowledge/raw/D24_suzuki_1935_manual-of-zen-buddhism_part1.pdf`
+- `knowledge/raw/D24_suzuki_1935_manual-of-zen-buddhism_part2.pdf`
+
+この 1 source を raw-confirmed に格上げした。
+
+補足:
+- Wikimedia Commons / NDL scan の実 PDF を確認
