@@ -61,12 +61,12 @@ jobs:
       - name: Smoke test - HTTP 200
         run: |
           python3 -m http.server 3002 &
-          PID=$\!
+          PID=$!
           sleep 2
           CODE=$(curl -sS -o /dev/null -w '%{http_code}' http://127.0.0.1:3002/)
           echo "index.html -> $CODE"
           kill $PID
-          if [ "$CODE" \!= "200" ]; then
+          if [ "$CODE" != "200" ]; then
             echo "FAIL: Expected 200 but got $CODE"
             exit 1
           fi
