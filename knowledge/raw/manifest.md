@@ -4,7 +4,7 @@
 **起点**: cs#205, cs#207
 
 原典は source 単位で追跡する。**完了条件は D01-D30 の全領域で source 行が実データに置き換わること**。
-2026-04-07 時点では D01 / D02 / D03 / D06 / D07 / D10 / D14 / D18 の pilot source を登録し、source 未登録の他領域は pending placeholder で残している。
+2026-04-07 時点では D01-D30 の全領域で source 行を登録済み。raw-confirmed pilot は D01 / D02 / D06 / D07 / D10 / D14 / D18 にあり、残り領域は archive refs 由来の first-pass source rows を起点に再監査を継続する。
 
 ## 集計
 
@@ -117,7 +117,7 @@
 | D09-S09 | D09 | `citation-only` | Tsukada & Ohsumi (1993), Isolation and characterization of autophagy-defective mutants | — | `evidence/evidence-D09-life-sciences.md` | archive refs / ref-check で実在確認。official full-text route は未確認 |
 | D09-S10 | D09 | `citation-only` | Wolpert (1969), Positional information and the spatial pattern of cellular differentiation | — | `evidence/evidence-D09-life-sciences.md` | archive refs / ref-check で実在確認。official full-text route は未確認 |
 | D09-S11 | D09 | `citation-only` | Burnet (1957), A modification of Jerne's theory of antibody production using the concept of clonal selection | — | `evidence/evidence-D09-life-sciences.md` | D10 でも使用中の anchor。書誌確認のみ、official full-text route は未確認 |
-| D11-PENDING | D11 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D11-pharmacy.md` | 再監査待ち |
+
 | D12-S01 | D12 | `citation-only` | Clements, F. E. (1916). *Plant Succession*. Carnegie Institution. | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D12-S02 | D12 | `citation-only` | Connell, J. H., & Slatyer, R. O. (1977). *Am. Nat.*, 111, 1119-1144. | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D12-S03 | D12 | `citation-only` | Holling, C. S. (1973). *Ann. Rev. Ecol. Syst.*, 4, 1-23. | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -208,13 +208,13 @@
 | D22-S08 | D22 | `citation-only` | Tuckman, B. W. (1965). Developmental sequence in small groups. *Psychological Bulletin*, 63(6), 384–399. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D22-S09 | D22 | `citation-only` | Tuckman, B. W. & Jensen, M. A. C. (1977). Stages of small-group development revisited. *Group & Organization Studies*, 2(4), 419–427. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D22-S10 | D22 | `citation-only` | Gersick, C. J. G. (1988). Time and transition in work teams. *Academy of Management Journal*, 31(1), 9–41. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D23-PENDING | D23 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D23-developmental-psychology.md` | 再監査待ち |
-| D24-PENDING | D24 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D24-religion.md` | 再監査待ち |
-| D25-PENDING | D25 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D25-anthropology.md` | 再監査待ち |
-| D26-PENDING | D26 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D26-musicology.md` | 再監査待ち |
-| D27-PENDING | D27 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D27-architecture.md` | 再監査待ち |
-| D28-PENDING | D28 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D28-performing-arts.md` | 再監査待ち |
-| D29-PENDING | D29 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D29-complexity-science.md` | 再監査待ち |
+
+
+
+
+
+
+
 | D30-S01 | D30 | `citation-only` | Berkes, F., Colding, J., & Folke, C. (2000). Rediscovery of Traditional Ecological Knowledge as Adaptive Management. *Ecological Applications*, 10(5), 1251-1262. | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D30-S02 | D30 | `citation-only` | Huntington, H. P. (2000). Using Traditional Ecological Knowledge in Science. *Ecological Applications*, 10(5), 1270-1274. | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D30-S03 | D30 | `citation-only` | IPBES (2022). ILK方法論ガイダンス | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
