@@ -9,10 +9,10 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 276本
-- 有効な公開 PDF を発見: 14本
-- `knowledge/raw/` に実格納済み: 14本
-- `citation-only`: 229本
-- `blocked-access`: 32本
+- 有効な公開 PDF を発見: 15本
+- `knowledge/raw/` に実格納済み: 15本
+- `citation-only`: 227本
+- `blocked-access`: 34本
 
 ## 集計の数え方
 
@@ -194,9 +194,9 @@
 | D20-S03 | D20 | `citation-only` | Ostrom, E. (1990). *Governing the Commons*. CUP. | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D20-S04 | D20 | `citation-only` | Sieyès, E. J. (1789). *What Is the Third Estate?* | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D20-S05 | D20 | `citation-only` | Schmitt, C. (1928). *Verfassungslehre*. | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D20-S06 | D20 | `citation-only` | International IDEA (2011). *A Practical Guide to Constitution Building*. | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D20-S07 | D20 | `citation-only` | UNCITRAL (2021). *Mediation Rules*. | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D20-S08 | D20 | `citation-only` | United Nations (2018). *Singapore Convention on Mediation*. | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D20-S06 | D20 | `raw-confirmed` | International IDEA (2011), A Practical Guide to Constitution Building | `knowledge/raw/D20_idea_2011_practical-guide-constitution-building.pdf` | `evidence/evidence-D20-law-politics.md` | International IDEA official PDF route で実 PDF を保存 |
+| D20-S07 | D20 | `blocked-access` | UNCITRAL (2021), Mediation Rules | — | `evidence/evidence-D20-law-politics.md` | UNCITRAL CloudFront PDF route は 403 HTML を返し raw 未取得。手動ブラウザ再試行余地あり |
+| D20-S08 | D20 | `blocked-access` | United Nations (2018), Singapore Convention on Mediation | — | `evidence/evidence-D20-law-politics.md` | UN/UNCITRAL CloudFront PDF route は 403 HTML を返し raw 未取得。手動ブラウザ再試行余地あり |
 | D20-S09 | D20 | `citation-only` | Krasner, S. D. (1982). Structural Causes and Regime Consequences. *IO*, 36(2). | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D20-S10 | D20 | `citation-only` | Keohane, R. O. (1984). *After Hegemony*. Princeton UP. | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D21-S01 | D21 | `citation-only` | Schumpeter, J.A. (1912). *Theorie der wirtschaftlichen Entwicklung*. Duncker & Humblot. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |

@@ -30,7 +30,7 @@
 | D17 | 10 | 0 | 0 | 10 |
 | D18 | 4 | 1 | 2 | 1 |
 | D19 | 10 | 0 | 0 | 10 |
-| D20 | 10 | 0 | 0 | 10 |
+| D20 | 10 | 1 | 2 | 7 |
 | D21 | 10 | 0 | 0 | 10 |
 | D22 | 10 | 0 | 0 | 10 |
 | D23 | 10 | 0 | 0 | 10 |
@@ -272,3 +272,11 @@ manifest には D05 の draft source rows 10件を first pass として投入し
 | D26 | phase9-ref-check | `evidence/investigation/phase9/ref-check-D26.md` | `evidence/archive/pre-rerun-20260407/phase9/ref-check-D26.md` | `not-yet-reviewed` |
 | D28 | phase9-ref-check | `evidence/investigation/phase9/ref-check-D28.md` | `evidence/archive/pre-rerun-20260407/phase9/ref-check-D28.md` | `not-yet-reviewed` |
 | D30 | phase9-ref-check | `evidence/investigation/phase9/ref-check-D30.md` | `evidence/archive/pre-rerun-20260407/phase9/ref-check-D30.md` | `not-yet-reviewed` |
+## D20 second-pass raw upgrade
+
+- `knowledge/raw/D20_idea_2011_practical-guide-constitution-building.pdf`
+
+この 1 件を raw-confirmed に格上げした。
+
+補足:
+- `UNCITRAL (2021), Mediation Rules` と `UN (2018), Singapore Convention on Mediation` は CloudFront 403 HTML のため `blocked-access` に更新
