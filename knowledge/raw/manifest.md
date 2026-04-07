@@ -8,11 +8,11 @@
 
 ## 集計
 
-- 探索対象として source 単位で管理中: 84本
-- 有効な公開 PDF を発見: 11本
+- 探索対象として source 単位で管理中: 195本
+- 有効な公開 PDF を発見: 12本
 - `knowledge/raw/` に実格納済み: 12本
-- `citation-only`: 43本
-- `blocked-access`: 29本
+- `citation-only`: 151本
+- `blocked-access`: 32本
 
 ## 集計の数え方
 
@@ -106,17 +106,108 @@
 | D08-S09 | D08 | `blocked-access` | Markram et al. (1997), Regulation of synaptic efficacy by coincidence of postsynaptic APs and EPSPs | — | `evidence/evidence-D08-neuroscience.md` | Science PDF route が Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |
 | D08-S10 | D08 | `citation-only` | Fries (2005), A mechanism for cognitive dynamics: neuronal communication through neuronal coherence | — | `evidence/evidence-D08-neuroscience.md` | archive refs / ref-check で実在確認。official full-text route は未確認 |
 | D08-S11 | D08 | `blocked-access` | Beggs & Plenz (2003), Neuronal avalanches in neocortical circuits | — | `evidence/evidence-D08-neuroscience.md` | JNeurosci PDF route が Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |
-| D09-PENDING | D09 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D09-life-sciences.md` | 再監査待ち |
+| D09-S01 | D09 | `blocked-access` | Pellerin & Magistretti (1994), Glutamate uptake into astrocytes stimulates aerobic glycolysis | — | `evidence/evidence-D09-life-sciences.md` | PNAS PDF route が Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |
+| D09-S02 | D09 | `citation-only` | Attwell & Laughlin (2001), An energy budget for signaling in the grey matter | — | `evidence/evidence-D09-life-sciences.md` | archive refs / ref-check で実在確認。official full-text route は未確認 |
+| D09-S03 | D09 | `citation-only` | Schafer et al. (2012), Microglia sculpt postnatal neural circuits | — | `evidence/evidence-D09-life-sciences.md` | archive refs / ref-check で実在確認。official full-text route は未確認 |
+| D09-S04 | D09 | `blocked-access` | Fields (2015), A new mechanism of nervous system plasticity | — | `evidence/evidence-D09-life-sciences.md` | Nature Reviews PDF route が `idp.nature.com/authorize` に 303 redirect。手動ブラウザ / 機関ログイン余地あり |
+| D09-S05 | D09 | `citation-only` | McEwen (1998), Protective and damaging effects of stress mediators | — | `evidence/evidence-D09-life-sciences.md` | archive refs / ref-check で実在確認。official full-text route は未確認 |
+| D09-S06 | D09 | `blocked-access` | Iliff et al. (2012), A paravascular pathway facilitates CSF flow through the brain parenchyma | — | `evidence/evidence-D09-life-sciences.md` | Science Translational Medicine PDF route が Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |
+| D09-S07 | D09 | `citation-only` | Schultz, Dayan, Montague (1997), A neural substrate of prediction and reward | — | `evidence/evidence-D09-life-sciences.md` | D07 でも使用中の anchor。PubMed で書誌確認、official full-text route は未確認 |
+| D09-S08 | D09 | `citation-only` | Maynard Smith (1978), The Evolution of Sex | — | `evidence/evidence-D09-life-sciences.md` | book-level anchor。archive refs / ref-check で実在確認、official full-text route は未確認 |
+| D09-S09 | D09 | `citation-only` | Tsukada & Ohsumi (1993), Isolation and characterization of autophagy-defective mutants | — | `evidence/evidence-D09-life-sciences.md` | archive refs / ref-check で実在確認。official full-text route は未確認 |
+| D09-S10 | D09 | `citation-only` | Wolpert (1969), Positional information and the spatial pattern of cellular differentiation | — | `evidence/evidence-D09-life-sciences.md` | archive refs / ref-check で実在確認。official full-text route は未確認 |
+| D09-S11 | D09 | `citation-only` | Burnet (1957), A modification of Jerne's theory of antibody production using the concept of clonal selection | — | `evidence/evidence-D09-life-sciences.md` | D10 でも使用中の anchor。書誌確認のみ、official full-text route は未確認 |
 | D11-PENDING | D11 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D11-pharmacy.md` | 再監査待ち |
-| D12-PENDING | D12 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D12-agriculture.md` | 再監査待ち |
-| D13-PENDING | D13 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D13-philosophy.md` | 再監査待ち |
-| D15-PENDING | D15 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D15-aesthetics.md` | 再監査待ち |
-| D16-PENDING | D16 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D16-history.md` | 再監査待ち |
-| D17-PENDING | D17 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D17-linguistics.md` | 再監査待ち |
-| D19-PENDING | D19 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D19-literary-studies.md` | 再監査待ち |
-| D20-PENDING | D20 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D20-law-politics.md` | 再監査待ち |
-| D21-PENDING | D21 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D21-economics.md` | 再監査待ち |
-| D22-PENDING | D22 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D22-business-management.md` | 再監査待ち |
+| D12-S01 | D12 | `citation-only` | Clements, F. E. (1916). *Plant Succession*. Carnegie Institution. | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D12-S02 | D12 | `citation-only` | Connell, J. H., & Slatyer, R. O. (1977). *Am. Nat.*, 111, 1119-1144. | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D12-S03 | D12 | `citation-only` | Holling, C. S. (1973). *Ann. Rev. Ecol. Syst.*, 4, 1-23. | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D12-S04 | D12 | `citation-only` | Robertson, G. P., & Vitousek, P. M. (2009). Nitrogen in Agriculture: Balancing the Cost of an Essential Resource. *Annual Review of Environment and Resources*, 34, 97-125. DOI: 10.1146/annurev.environ.032108.105046 | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D12-S05 | D12 | `citation-only` | Stern, V. M., et al. (1959). *Hilgardia*, 29(2), 81-101. | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D12-S06 | D12 | `citation-only` | Pedigo, L. P., et al. (1986). *Ann. Rev. Entomol.*, 31, 341-368. DOI: 10.1146/annurev.en.31.010186.002013 | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D12-S07 | D12 | `citation-only` | 農林水産省. 総合的病害虫・雑草管理（IPM）実践指針. | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D12-S08 | D12 | `citation-only` | Scheffer, M., et al. (2001). *Nature*, 413, 591-596. DOI: 10.1038/35098000 | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D12-S09 | D12 | `citation-only` | Scheffer, M., & Carpenter, S. R. (2003). *Trends Ecol. Evol.*, 18(12), 648-656. DOI: 10.1016/j.tree.2003.09.002 | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D12-S10 | D12 | `citation-only` | Carpenter, S. R., & Brock, W. A. (2006). *Ecol. Lett.*, 9(3), 311-318. DOI: 10.1111/j.1461-0248.2005.00877.x | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D13-S01 | D13 | `citation-only` | Simondon, G. (1957/2005). *L'individuation a la lumiere des notions de forme et d'information*. Editions Jerome Millon. | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D13-S02 | D13 | `citation-only` | Simondon, G. (1958). *Du mode d'existence des objets techniques*. Aubier. | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D13-S03 | D13 | `citation-only` | Deleuze, G. (1966/2001). "Review of Gilbert Simondon." *Pli*, 12. | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D13-S04 | D13 | `citation-only` | Combes, M. (1999/2013). *Gilbert Simondon and the Philosophy of the Transindividual*. MIT Press. | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D13-S05 | D13 | `citation-only` | Dewey, J. (1910). *How We Think*. D.C. Heath & Co. ch.6 "The Analysis of a Complete Act of Thought" | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D13-S06 | D13 | `citation-only` | Dewey, J. (1933). *How We Think: A Restatement*. D.C. Heath & Co. (1910年版の改訂) | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D13-S07 | D13 | `citation-only` | Dewey, J. (1938). *Logic: The Theory of Inquiry*. Henry Holt. ch.6 | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D13-S08 | D13 | `citation-only` | Dewey, J. (1929). *The Quest for Certainty*. Minton, Balch. ch.4 | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D13-S09 | D13 | `citation-only` | Dewey, J. (1934). *Art as Experience*. Minton, Balch. | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D13-S10 | D13 | `citation-only` | Whitehead, A. N. (1929). *Process and Reality: An Essay in Cosmology*. Macmillan. (Corrected Edition, ed. Griffin & Sherburne, Free Press, 1978) | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D15-S01 | D15 | `citation-only` | Meltzer, D., & Harris Williams, M. (1988). *The Apprehension of Beauty*. Clunie Press. | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D15-S02 | D15 | `citation-only` | 上田勝久 (2016). 「精神分析的心理療法における美的体験の意義」 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D15-S03 | D15 | `citation-only` | 世阿弥 (15C). 『風姿花伝』 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D15-S04 | D15 | `citation-only` | 本居宣長 (1799). 『源氏物語玉の小櫛』 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D15-S05 | D15 | `citation-only` | 久松真一 (1965). 「侘の茶」 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D15-S06 | D15 | `citation-only` | 能勢朝次 (1940). 『幽玄論』 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D15-S07 | D15 | `citation-only` | Kant, I. (1790). *Kritik der Urteilskraft*. 邦訳: 牧野英二訳『判断力批判』岩波文庫 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D15-S08 | D15 | `citation-only` | Heidegger, M. (1935/36). "Der Ursprung des Kunstwerkes". 邦訳: 関口浩訳『芸術作品の根源』平凡社ライブラリー | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D15-S09 | D15 | `citation-only` | Dewey, J. (1934). *Art as Experience*. Minton, Balch & Company. （特にCh.1 "The Live Creature", Ch.3 "Having an Experience", Ch.5 "The Expressive Object"） | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D15-S10 | D15 | `citation-only` | 邦訳: 河村望訳 (2010). 『経験としての芸術』晃洋書房 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D16-S01 | D16 | `citation-only` | Braudel, F. (1949). *La Méditerranée et le monde méditerranéen à l'époque de Philippe II*. Armand Colin. （三部構成: Part I 環境と人間=長期持続、Part II 集団的運命と全般的動向=景気循環、Part III 出来事の政治と人間=事件史） | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D16-S02 | D16 | `citation-only` | Braudel, F. (1958). Histoire et Sciences sociales: La longue durée. *Annales*, 13(4), 725-753. | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D16-S03 | D16 | `citation-only` | Toynbee, A. J. (1934-1961). *A Study of History*. 12 vols. Oxford University Press. | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D16-S04 | D16 | `citation-only` | 邦訳: 長谷川松治訳『歴史の研究』経済往来社 | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D16-S05 | D16 | `citation-only` | Pierson, P. (2000). Increasing Returns, Path Dependence, and the Study of Politics. *APSR*, 94(2), 251-267. | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D16-S06 | D16 | `citation-only` | Mahoney, J. (2000). Path Dependence in Historical Sociology. *Theory and Society*, 29(4), 507-548. | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D16-S07 | D16 | `citation-only` | North, D. (1990). *Institutions, Institutional Change and Economic Performance*. Cambridge UP. | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D16-S08 | D16 | `citation-only` | Ibn Khaldun (1377). *al-Muqaddimah*. Franz Rosenthal英訳, Bollingen Series, Princeton UP, 1958. （特にCh.2-3: アサビーヤと王朝サイクル。「三世代=120年前後」の記述は Ch.3 §12-15 付近） | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D16-S09 | D16 | `citation-only` | 邦訳: 森本公誠訳『歴史序説』岩波書店 | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D16-S10 | D16 | `citation-only` | Wallerstein, I. (1974). *The Modern World-System I*. Academic Press. | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D17-S01 | D17 | `citation-only` | Hopper, P. J. & Traugott, E. C. (2003). *Grammaticalization*. 2nd ed. CUP. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D17-S02 | D17 | `citation-only` | Heine, B. et al. (1991). *Grammaticalization: A Conceptual Framework*. UChicago Press. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D17-S03 | D17 | `citation-only` | Traugott, E. C. (1989). On the rise of epistemic meanings in English. *Language*, 65(1), 31-55. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D17-S04 | D17 | `citation-only` | Labov, W. (1994). *Principles of Linguistic Change, Vol. 1: Internal Factors*. Blackwell. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D17-S05 | D17 | `citation-only` | Labov, W. (2001). *Principles of Linguistic Change, Vol. 2: Social Factors*. Blackwell. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D17-S06 | D17 | `citation-only` | Thomason, S. G. & Kaufman, T. (1988). *Language Contact, Creolization, and Genetic Linguistics*. UC Press. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D17-S07 | D17 | `citation-only` | Bickerton, D. (1981). *Roots of Language*. Karoma. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D17-S08 | D17 | `citation-only` | Lenneberg, E. H. (1967). *Biological Foundations of Language*. Wiley. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D17-S09 | D17 | `citation-only` | Johnson, J. S. & Newport, E. L. (1989). *Cognitive Psychology*, 21(1), 60-99. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D17-S10 | D17 | `citation-only` | Hartshorne, J. K. et al. (2018). *Cognition*, 177, 263-277. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D19-S01 | D19 | `citation-only` | Propp, V. (1928/1968). *Morphology of the Folktale*. 2nd ed. UT Press. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D19-S02 | D19 | `citation-only` | Bakhtin, M. M. (1981). *The Dialogic Imagination: Four Essays*. UT Press. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D19-S03 | D19 | `citation-only` | Jauss, H. R. (1982). *Toward an Aesthetic of Reception*. U Minnesota Press. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D19-S04 | D19 | `citation-only` | Iser, W. (1974). *The Implied Reader*. Johns Hopkins UP. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D19-S05 | D19 | `citation-only` | Shklovsky, V. (1917/1965). Art as Technique. In Lemon & Reis (Eds.), *Russian Formalist Criticism*. U Nebraska Press. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D19-S06 | D19 | `citation-only` | Todorov, T. (1971). The 2 Principles of Narrative. *Diacritics*, 1(1), 37-44. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D19-S07 | D19 | `citation-only` | Todorov, T. (1977). *The Poetics of Prose*. Cornell UP. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D19-S08 | D19 | `citation-only` | Bourdieu, P. (1971). Le marché des biens symboliques. *L'Année sociologique*, 22, 49-126. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D19-S09 | D19 | `citation-only` | Bourdieu, P. (1992/1996). *The Rules of Art*. Stanford UP. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D19-S10 | D19 | `citation-only` | Barthes, R. (1970). *S/Z*. Seuil. 英訳: Hill & Wang, 1974. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D20-S01 | D20 | `citation-only` | Hart, H. L. A. (1961). *The Concept of Law*. Clarendon Press. 2nd ed. 1994. | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D20-S02 | D20 | `citation-only` | Easton, D. (1965). *A Systems Analysis of Political Life*. Wiley. | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D20-S03 | D20 | `citation-only` | Ostrom, E. (1990). *Governing the Commons*. CUP. | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D20-S04 | D20 | `citation-only` | Sieyès, E. J. (1789). *What Is the Third Estate?* | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D20-S05 | D20 | `citation-only` | Schmitt, C. (1928). *Verfassungslehre*. | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D20-S06 | D20 | `citation-only` | International IDEA (2011). *A Practical Guide to Constitution Building*. | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D20-S07 | D20 | `citation-only` | UNCITRAL (2021). *Mediation Rules*. | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D20-S08 | D20 | `citation-only` | United Nations (2018). *Singapore Convention on Mediation*. | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D20-S09 | D20 | `citation-only` | Krasner, S. D. (1982). Structural Causes and Regime Consequences. *IO*, 36(2). | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D20-S10 | D20 | `citation-only` | Keohane, R. O. (1984). *After Hegemony*. Princeton UP. | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D21-S01 | D21 | `citation-only` | Schumpeter, J.A. (1912). *Theorie der wirtschaftlichen Entwicklung*. Duncker & Humblot. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D21-S02 | D21 | `citation-only` | Schumpeter, J.A. (1939). *Business Cycles*. McGraw-Hill.（イノベーションの群生・波及と循環の議論の主要典拠） | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D21-S03 | D21 | `citation-only` | Schumpeter, J.A. (1942). *Capitalism, Socialism and Democracy*. Harper & Brothers. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D21-S04 | D21 | `citation-only` | Hayek, F.A. (1945). "The Use of Knowledge in Society". *American Economic Review*, 35(4), 519-530. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D21-S05 | D21 | `citation-only` | Hayek, F.A. (1973). *Law, Legislation and Liberty, Vol.1: Rules and Order*. University of Chicago Press. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D21-S06 | D21 | `citation-only` | Hayek, F.A. (2002 [orig. 1968]). "Competition as a Discovery Procedure." *Quarterly Journal of Austrian Economics*, 5(3), 9–23.（「発見手続き」の典拠。独語講演の英訳） | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D21-S07 | D21 | `citation-only` | Keynes, J.M. (1936). *The General Theory of Employment, Interest and Money*. Macmillan. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D21-S08 | D21 | `citation-only` | Keynes, J.M. (1937). "The General Theory of Employment". *Quarterly Journal of Economics*, 51(2), 209-223. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D21-S09 | D21 | `citation-only` | Knight, F.H. (1921). *Risk, Uncertainty, and Profit*. Houghton Mifflin. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D21-S10 | D21 | `citation-only` | Nelson, R.R. & Winter, S.G. (1982). *An Evolutionary Theory of Economic Change*. Harvard University Press. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D22-S01 | D22 | `citation-only` | Nonaka, I. & Takeuchi, H. (1995). *The Knowledge-Creating Company*. Oxford University Press. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D22-S02 | D22 | `citation-only` | Nonaka, I., Umemoto, K., & Senoo, D. (1996). From information processing to knowledge creation. *Technology in Society*, 18(2), 203–218. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D22-S03 | D22 | `citation-only` | Nonaka, I., Toyama, R., & Konno, N. (2000). SECI, Ba and leadership. *Long Range Planning*, 33(1), 5–34. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D22-S04 | D22 | `citation-only` | Gourlay, S. (2006). Conceptualizing knowledge creation. *Journal of Management Studies*, 43(7), 1415–1436. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D22-S05 | D22 | `citation-only` | Hasso Plattner Institute of Design. (n.d./2009頃). *An Introduction to Design Thinking: Process Guide*. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D22-S06 | D22 | `citation-only` | Brown, T. (2008). Design Thinking. *Harvard Business Review*, June 2008. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D22-S07 | D22 | `citation-only` | Akiike, A. & Ichikohji, T. (2021). What are the requirements for design thinking articles? *Annals of Business Administrative Science*, 20(6), 197–209. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D22-S08 | D22 | `citation-only` | Tuckman, B. W. (1965). Developmental sequence in small groups. *Psychological Bulletin*, 63(6), 384–399. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D22-S09 | D22 | `citation-only` | Tuckman, B. W. & Jensen, M. A. C. (1977). Stages of small-group development revisited. *Group & Organization Studies*, 2(4), 419–427. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D22-S10 | D22 | `citation-only` | Gersick, C. J. G. (1988). Time and transition in work teams. *Academy of Management Journal*, 31(1), 9–41. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D23-PENDING | D23 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D23-developmental-psychology.md` | 再監査待ち |
 | D24-PENDING | D24 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D24-religion.md` | 再監査待ち |
 | D25-PENDING | D25 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D25-anthropology.md` | 再監査待ち |
@@ -124,4 +215,13 @@
 | D27-PENDING | D27 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D27-architecture.md` | 再監査待ち |
 | D28-PENDING | D28 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D28-performing-arts.md` | 再監査待ち |
 | D29-PENDING | D29 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D29-complexity-science.md` | 再監査待ち |
-| D30-PENDING | D30 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D30-traditional-knowledge.md` | 再監査待ち |
+| D30-S01 | D30 | `citation-only` | Berkes, F., Colding, J., & Folke, C. (2000). Rediscovery of Traditional Ecological Knowledge as Adaptive Management. *Ecological Applications*, 10(5), 1251-1262. | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D30-S02 | D30 | `citation-only` | Huntington, H. P. (2000). Using Traditional Ecological Knowledge in Science. *Ecological Applications*, 10(5), 1270-1274. | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D30-S03 | D30 | `citation-only` | IPBES (2022). ILK方法論ガイダンス | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D30-S04 | D30 | `citation-only` | 名古屋議定書（2018公定訳） | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D30-S05 | D30 | `citation-only` | Lave, J., & Wenger, E. (1991). *Situated Learning: Legitimate Peripheral Participation*. Cambridge University Press. | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D30-S06 | D30 | `citation-only` | Wenger, E. (1998). *Communities of Practice: Learning, Meaning, and Identity*. Cambridge University Press. | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D30-S07 | D30 | `citation-only` | 世阿弥.『風姿花伝』（一座建立の寿福） | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D30-S08 | D30 | `citation-only` | 山上宗二.『山上宗二記』 | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D30-S09 | D30 | `citation-only` | 茶事における場の共創（J-STAGE会議論文） | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D30-S10 | D30 | `citation-only` | 「武道文化論」守破離の説明 | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |

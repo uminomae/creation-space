@@ -124,6 +124,20 @@ manifest には D05 の draft source rows 10件を first pass として投入し
 - `Barrett (2017)` / `Miller & Cohen (2001)` / `Dehaene & Changeux (2011)` / `Hobson et al. (2000)` / `Porges (2011)` / `Fries (2005)` は `citation-only`
   archive refs / ref-check で確認できるが、stable official full-text route は未確認
 
+## D09 first source batch
+
+この first batch は raw PDF 未取得だが、anchor source 11件を source-level で登録した。
+
+補足:
+- `Pellerin & Magistretti (1994)` は `blocked-access`
+  PNAS PDF route が Cloudflare challenge で HTTP 403
+- `Fields (2015)` は `blocked-access`
+  Nature Reviews PDF route が `idp.nature.com/authorize` に 303 redirect
+- `Iliff et al. (2012)` は `blocked-access`
+  Science Translational Medicine PDF route が Cloudflare challenge で HTTP 403
+- `Attwell & Laughlin (2001)` / `Schafer et al. (2012)` / `McEwen (1998)` / `Schultz et al. (1997)` / `Maynard Smith (1978)` / `Tsukada & Ohsumi (1993)` / `Wolpert (1969)` / `Burnet (1957)` は `citation-only`
+  archive refs / ref-check で確認できるが、stable official full-text route は未確認
+
 ## D10 pilot raw-confirmed
 
 - `knowledge/raw/D10_akdis_2014_allergen-immunotherapy.pdf`
