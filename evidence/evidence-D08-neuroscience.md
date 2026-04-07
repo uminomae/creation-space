@@ -16,9 +16,20 @@ original_access_status: not-yet-reviewed
 
 ## 現在の扱い
 
-- 原典アクセス状態: `not-yet-reviewed`
+- 原典アクセス状態: evidence 本文としては `not-yet-reviewed`
+- source manifest には D08 first batch 11件を反映済み
+- source 内訳は `raw-confirmed` 1 / `blocked-access` 4 / `citation-only` 6
 - [P] 主張の verified / accepted 判定は現時点では再保証しない
 - `knowledge/raw/` の整備と原典アクセス棚卸しが完了するまで、本文の再構成を優先する
+
+## 2026-04-07 first batch
+
+- raw-confirmed:
+  `Varela et al. (1991)` は D14 で確保済み raw を D08 anchor として再利用した
+- blocked-access:
+  Nature / Nature Reviews の login redirect、Science / JNeurosci の Cloudflare challenge を確認した
+- citation-only:
+  残る 6 source は archive refs / ref-check で書誌確認できるが、stable official full-text route は未確認
 
 ## History
 
@@ -28,6 +39,6 @@ original_access_status: not-yet-reviewed
 
 ## 次の作業
 
-- 原典アクセス状態を `raw-confirmed` / `citation-only` / `blocked-access` / `not-yet-reviewed` で棚卸しする
-- `knowledge/raw/README.md` の manifest に候補原典を記録する
+- D08 の blocked-access source の manual/browser 余地を source ごとに詰める
+- D08 の citation-only source で official full-text route の有無を順送りで切り分ける
 - 再調査後に、このファイルへ history 参照つきで新しい本文を戻す

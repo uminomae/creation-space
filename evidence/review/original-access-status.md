@@ -110,6 +110,20 @@ manifest には D05 の draft source rows 10件を first pass として投入し
 - `Jacobson (1988)` / `Candes et al. (2006)` / `Schultz et al. (1997)` / `Holland (1975)` / `Fowler (1999)` / `Diffie & Hellman (1976)` は `citation-only`
   書誌確認はできるが、stable official full-text route は未確認
 
+## D08 first source batch
+
+- `knowledge/raw/D14_varela_1991_embodied-mind.pdf`
+
+この 1 件は raw-confirmed。D08 では D14 と raw を共有する anchor として再利用した。
+
+補足:
+- `Rao & Ballard (1999)` / `Craig (2009)` は `blocked-access`
+  Nature / Nature Reviews の PDF route が `idp.nature.com/authorize` に 303 redirect
+- `Markram et al. (1997)` / `Beggs & Plenz (2003)` は `blocked-access`
+  Science / JNeurosci の PDF route が Cloudflare challenge で HTTP 403
+- `Barrett (2017)` / `Miller & Cohen (2001)` / `Dehaene & Changeux (2011)` / `Hobson et al. (2000)` / `Porges (2011)` / `Fries (2005)` は `citation-only`
+  archive refs / ref-check で確認できるが、stable official full-text route は未確認
+
 ## D10 pilot raw-confirmed
 
 - `knowledge/raw/D10_akdis_2014_allergen-immunotherapy.pdf`

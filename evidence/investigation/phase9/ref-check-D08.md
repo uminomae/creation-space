@@ -4,9 +4,20 @@
 
 ## 現在の扱い
 
-- 原典アクセス状態: `not-yet-reviewed`
+- 原典アクセス状態: ref-check 本文としては `not-yet-reviewed`
+- source manifest には D08 first batch 11件を反映済み
+- source 内訳は `raw-confirmed` 1 / `blocked-access` 4 / `citation-only` 6
 - 既存の verified / plausible / overstated 判定は再保証しない
 - 二次資料・要約・書誌情報のみで成立していた判定が混在していないか、原典アクセス状態から再点検する
+
+## 2026-04-07 first batch
+
+- raw-confirmed:
+  `Varela et al. (1991)` は D14 既存 raw を再利用
+- blocked-access:
+  `Rao & Ballard 1999`, `Craig 2009`, `Markram et al. 1997`, `Beggs & Plenz 2003`
+- citation-only:
+  `Barrett 2017`, `Miller & Cohen 2001`, `Dehaene & Changeux 2011`, `Hobson et al. 2000`, `Porges 2011`, `Fries 2005`
 
 ## History
 

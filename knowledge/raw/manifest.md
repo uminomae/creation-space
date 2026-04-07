@@ -8,11 +8,11 @@
 
 ## 集計
 
-- 探索対象として source 単位で管理中: 73本
+- 探索対象として source 単位で管理中: 84本
 - 有効な公開 PDF を発見: 11本
-- `knowledge/raw/` に実格納済み: 11本
-- `citation-only`: 37本
-- `blocked-access`: 25本
+- `knowledge/raw/` に実格納済み: 12本
+- `citation-only`: 43本
+- `blocked-access`: 29本
 
 ## 集計の数え方
 
@@ -95,7 +95,17 @@
 | D07-S08 | D07 | `citation-only` | Holland (1975), Adaptation in Natural and Artificial Systems | — | `evidence/evidence-D07-engineering.md` | 書誌確認のみ。official full-text route は未確認 |
 | D07-S09 | D07 | `citation-only` | Fowler (1999), Refactoring | — | `evidence/evidence-D07-engineering.md` | 書誌確認のみ。official full-text route は未確認 |
 | D07-S10 | D07 | `citation-only` | Diffie & Hellman (1976), New Directions in Cryptography | — | `evidence/evidence-D07-engineering.md` | 書誌確認のみ。official IEEE route は未確認 |
-| D08-PENDING | D08 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D08-neuroscience.md` | 再監査待ち |
+| D08-S01 | D08 | `blocked-access` | Rao & Ballard (1999), Predictive coding in the visual cortex | — | `evidence/evidence-D08-neuroscience.md` | Nature PDF route が `idp.nature.com/authorize` に 303 redirect。手動ブラウザ / 機関ログイン余地あり |
+| D08-S02 | D08 | `blocked-access` | Craig (2009), How do you feel — now? | — | `evidence/evidence-D08-neuroscience.md` | Nature Reviews PDF route が `idp.nature.com/authorize` に 303 redirect。手動ブラウザ / 機関ログイン余地あり |
+| D08-S03 | D08 | `citation-only` | Barrett (2017), How Emotions Are Made | — | `evidence/evidence-D08-neuroscience.md` | book-level anchor。archive refs / ref-check で実在確認、official full-text route は未確認 |
+| D08-S04 | D08 | `citation-only` | Miller & Cohen (2001), An integrative theory of prefrontal cortex function | — | `evidence/evidence-D08-neuroscience.md` | archive refs / ref-check で実在確認。official full-text route は未確認 |
+| D08-S05 | D08 | `citation-only` | Dehaene & Changeux (2011), Experimental and theoretical approaches to conscious processing | — | `evidence/evidence-D08-neuroscience.md` | archive refs / ref-check で実在確認。official full-text route は未確認 |
+| D08-S06 | D08 | `citation-only` | Hobson et al. (2000), Dreaming and the brain | — | `evidence/evidence-D08-neuroscience.md` | archive refs / ref-check で実在確認。official full-text route は未確認 |
+| D08-S07 | D08 | `citation-only` | Porges (2011), The Polyvagal Theory | — | `evidence/evidence-D08-neuroscience.md` | book-level anchor。archive refs / ref-check で実在確認、official full-text route は未確認 |
+| D08-S08 | D08 | `raw-confirmed` | The Embodied Mind | `knowledge/raw/D14_varela_1991_embodied-mind.pdf` | `evidence/evidence-D08-neuroscience.md` | D14 で確保済み raw を D08 anchor に再利用。Monoskop 公開 PDF |
+| D08-S09 | D08 | `blocked-access` | Markram et al. (1997), Regulation of synaptic efficacy by coincidence of postsynaptic APs and EPSPs | — | `evidence/evidence-D08-neuroscience.md` | Science PDF route が Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |
+| D08-S10 | D08 | `citation-only` | Fries (2005), A mechanism for cognitive dynamics: neuronal communication through neuronal coherence | — | `evidence/evidence-D08-neuroscience.md` | archive refs / ref-check で実在確認。official full-text route は未確認 |
+| D08-S11 | D08 | `blocked-access` | Beggs & Plenz (2003), Neuronal avalanches in neocortical circuits | — | `evidence/evidence-D08-neuroscience.md` | JNeurosci PDF route が Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |
 | D09-PENDING | D09 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D09-life-sciences.md` | 再監査待ち |
 | D11-PENDING | D11 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D11-pharmacy.md` | 再監査待ち |
 | D12-PENDING | D12 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D12-agriculture.md` | 再監査待ち |
