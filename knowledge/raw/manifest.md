@@ -9,9 +9,9 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 16本
-- `knowledge/raw/` に実格納済み: 16本
-- `citation-only`: 227本
+- 有効な公開 PDF を発見: 18本
+- `knowledge/raw/` に実格納済み: 18本
+- `citation-only`: 225本
 - `blocked-access`: 34本
 
 ## 集計の数え方
@@ -299,8 +299,8 @@
 | D29-S10 | D29 | `citation-only` | Hordijk, W., Hein, J. & Steel, M. (2010). "Autocatalytic sets and the origin of life." *Entropy* 12(7), 1733-1742. | — | `evidence/evidence-D29-complexity-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D30-S01 | D30 | `citation-only` | Berkes, F., Colding, J., & Folke, C. (2000). Rediscovery of Traditional Ecological Knowledge as Adaptive Management. *Ecological Applications*, 10(5), 1251-1262. | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D30-S02 | D30 | `citation-only` | Huntington, H. P. (2000). Using Traditional Ecological Knowledge in Science. *Ecological Applications*, 10(5), 1270-1274. | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D30-S03 | D30 | `citation-only` | IPBES (2022). ILK方法論ガイダンス | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D30-S04 | D30 | `citation-only` | 名古屋議定書（2018公定訳） | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D30-S03 | D30 | `raw-confirmed` | IPBES (2019), ILK methodological guidance | `knowledge/raw/D30_ipbes_2019_ilk-methodological-guidance.pdf` | `evidence/evidence-D30-traditional-knowledge.md` | IPBES official PDF route で実 PDF を保存 |
+| D30-S04 | D30 | `raw-confirmed` | Convention on Biological Diversity (2018), Nagoya Protocol | `knowledge/raw/D30_cbd_2018_nagoya-protocol.pdf` | `evidence/evidence-D30-traditional-knowledge.md` | CBD official PDF route で実 PDF を保存 |
 | D30-S05 | D30 | `citation-only` | Lave, J., & Wenger, E. (1991). *Situated Learning: Legitimate Peripheral Participation*. Cambridge University Press. | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D30-S06 | D30 | `citation-only` | Wenger, E. (1998). *Communities of Practice: Learning, Meaning, and Identity*. Cambridge University Press. | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D30-S07 | D30 | `citation-only` | 世阿弥.『風姿花伝』（一座建立の寿福） | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |

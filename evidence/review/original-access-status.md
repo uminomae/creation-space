@@ -40,7 +40,7 @@
 | D27 | 10 | 0 | 0 | 10 |
 | D28 | 10 | 0 | 0 | 10 |
 | D29 | 10 | 0 | 0 | 10 |
-| D30 | 10 | 0 | 0 | 10 |
+| D30 | 10 | 2 | 0 | 8 |
 
 ## D01 pilot raw-confirmed
 
@@ -281,3 +281,13 @@ manifest には D05 の draft source rows 10件を first pass として投入し
 
 補足:
 - `UNCITRAL (2021), Mediation Rules` と `UN (2018), Singapore Convention on Mediation` は CloudFront 403 HTML のため `blocked-access` に更新
+## D30 second-pass raw upgrade
+
+- `knowledge/raw/D30_ipbes_2019_ilk-methodological-guidance.pdf`
+- `knowledge/raw/D30_cbd_2018_nagoya-protocol.pdf`
+
+この 2 件を raw-confirmed に格上げした。
+
+補足:
+- IPBES / CBD の official PDF route で HTTP 200 application/pdf を確認
+- D30 は public institutional documents から second pass の raw 回収を進められる領域であることが分かった
