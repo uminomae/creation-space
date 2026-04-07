@@ -7,6 +7,33 @@
 
 **最終完了条件**: D01-D30 の全領域で、追跡対象 source が `knowledge/raw/manifest.md` に登録され、source 単位の access status が確定していること。
 
+## Source Coverage Snapshot
+
+| domain_id | total_sources | raw_confirmed | blocked_access | citation_only |
+|---|---|---|---|---|
+| D01 | 3 | 1 | 2 | 0 |
+| D02 | 10 | 4 | 5 | 1 |
+| D03 | 10 | 0 | 6 | 4 |
+| D04 | 10 | 0 | 2 | 8 |
+| D05 | 10 | 0 | 0 | 10 |
+| D06 | 10 | 1 | 4 | 5 |
+| D07 | 10 | 1 | 3 | 6 |
+| D08 | 11 | 1 | 4 | 6 |
+| D09 | 11 | 0 | 3 | 8 |
+| D10 | 4 | 2 | 1 | 1 |
+| D12 | 10 | 0 | 0 | 10 |
+| D13 | 10 | 0 | 0 | 10 |
+| D14 | 2 | 1 | 0 | 1 |
+| D15 | 10 | 0 | 0 | 10 |
+| D16 | 10 | 0 | 0 | 10 |
+| D17 | 10 | 0 | 0 | 10 |
+| D18 | 4 | 1 | 2 | 1 |
+| D19 | 10 | 0 | 0 | 10 |
+| D20 | 10 | 0 | 0 | 10 |
+| D21 | 10 | 0 | 0 | 10 |
+| D22 | 10 | 0 | 0 | 10 |
+| D30 | 10 | 0 | 0 | 10 |
+
 ## D01 pilot raw-confirmed
 
 - `knowledge/raw/D01_bott_1988_morse-theory-indomitable.pdf`
