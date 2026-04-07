@@ -12,13 +12,11 @@
 
 ## 2026-04-07 first batch
 
-- blocked-access:
-  `Johnson & Goody 2011`, `Leibler 1980`, `Field-Koros-Noyes 1972`, `Turing 1952`, `Winter & Chambon 1986`, `Miller & Urey 1953` は publisher 側 Cloudflare challenge により CLI 取得失敗
-- citation-only:
-  `Becker-Doring 1935`, `Lehn 1995`, `Lewis-von Elbe 1961`, `Goldbeter 1996` は書誌確認のみ
+- raw-confirmed: 0件
+- blocked-access: 6件。source ごとの理由は `knowledge/raw/manifest.md` の notes を参照
+- citation-only: 4件。archive refs / ref-check 起点の first-pass source rows
 - 注意:
-  D03 は hard paywall よりも challenge/bot gating が支配的で、手動ブラウザ回収余地が比較的大きい
-
+  blocked-access は「本文不存在」ではなく、CLI challenge / login / HTML 着地を含む
 ## History
 
 - スナップショット: [`evidence/archive/pre-rerun-20260407/phase9/ref-check-D03.md`](../../archive/pre-rerun-20260407/phase9/ref-check-D03.md)

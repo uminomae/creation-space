@@ -24,13 +24,11 @@ original_access_status: not-yet-reviewed
 
 ## 2026-04-07 first batch
 
-- blocked-access:
-  ACS / Royal Society / AIP / Science で Cloudflare challenge による HTTP 403 を確認した
-- citation-only:
-  `Becker-Doring 1935`, `Lehn 1995`, `Lewis-von Elbe 1961`, `Goldbeter 1996` は書誌確認のみ
+- raw-confirmed: 0件
+- blocked-access: 6件。source ごとの理由は `knowledge/raw/manifest.md` の notes を参照
+- citation-only: 4件。archive refs / ref-check 起点の first-pass source rows
 - manual/browser 余地:
-  challenge 系ソースは「本文不存在」ではなく、手動ブラウザなら到達できる可能性を notes に残した
-
+  blocked-access source は CLI challenge / login redirect / HTML landing の可能性を残すため、notes を維持する
 ## History
 
 - スナップショット: [`evidence/archive/pre-rerun-20260407/evidence/evidence-D03-chemistry.md`](archive/pre-rerun-20260407/evidence/evidence-D03-chemistry.md)

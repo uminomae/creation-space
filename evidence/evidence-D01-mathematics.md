@@ -22,6 +22,13 @@ original_access_status: not-yet-reviewed
 - [P] 主張の verified / accepted 判定は現時点では再保証しない
 - `knowledge/raw/` の整備と原典アクセス棚卸しが完了するまで、本文の再構成を優先する
 
+## 2026-04-07 first batch
+
+- raw-confirmed: 1件
+- blocked-access: 2件。source ごとの理由は `knowledge/raw/manifest.md` の notes を参照
+- citation-only: 0件。archive refs / ref-check 起点の first-pass source rows
+- manual/browser 余地:
+  blocked-access source は CLI challenge / login redirect / HTML landing の可能性を残すため、notes を維持する
 ## History
 
 - スナップショット: [`evidence/archive/pre-rerun-20260407/evidence/evidence-D01-mathematics.md`](archive/pre-rerun-20260407/evidence/evidence-D01-mathematics.md)

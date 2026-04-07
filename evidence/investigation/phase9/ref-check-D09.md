@@ -12,11 +12,11 @@
 
 ## 2026-04-07 first batch
 
-- blocked-access:
-  `Pellerin & Magistretti 1994`, `Fields 2015`, `Iliff et al. 2012`
-- citation-only:
-  `Attwell & Laughlin 2001`, `Schafer et al. 2012`, `McEwen 1998`, `Schultz et al. 1997`, `Maynard Smith 1978`, `Tsukada & Ohsumi 1993`, `Wolpert 1969`, `Burnet 1957`
-
+- raw-confirmed: 0件
+- blocked-access: 3件。source ごとの理由は `knowledge/raw/manifest.md` の notes を参照
+- citation-only: 8件。archive refs / ref-check 起点の first-pass source rows
+- 注意:
+  blocked-access は「本文不存在」ではなく、CLI challenge / login / HTML 着地を含む
 ## History
 
 - スナップショット: [`evidence/archive/pre-rerun-20260407/phase9/ref-check-D09.md`](../../archive/pre-rerun-20260407/phase9/ref-check-D09.md)

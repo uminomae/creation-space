@@ -8,10 +8,10 @@
 
 ## 集計
 
-- 探索対象として source 単位で管理中: 195本
+- 探索対象として source 単位で管理中: 275本
 - 有効な公開 PDF を発見: 12本
 - `knowledge/raw/` に実格納済み: 12本
-- `citation-only`: 151本
+- `citation-only`: 231本
 - `blocked-access`: 32本
 
 ## 集計の数え方
@@ -118,6 +118,16 @@
 | D09-S10 | D09 | `citation-only` | Wolpert (1969), Positional information and the spatial pattern of cellular differentiation | — | `evidence/evidence-D09-life-sciences.md` | archive refs / ref-check で実在確認。official full-text route は未確認 |
 | D09-S11 | D09 | `citation-only` | Burnet (1957), A modification of Jerne's theory of antibody production using the concept of clonal selection | — | `evidence/evidence-D09-life-sciences.md` | D10 でも使用中の anchor。書誌確認のみ、official full-text route は未確認 |
 
+| D11-S01 | D11 | `citation-only` | Paul, S. M., et al. (2010). *Nat. Rev. Drug Discov.*, 9, 203-214. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D11-S02 | D11 | `citation-only` | Gabrielsson, J., & Weiner, D. (2006). *Pharmacokinetic & Pharmacodynamic Data Analysis*. Swedish Pharmaceutical Press. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D11-S03 | D11 | `citation-only` | Davies, J., & Davies, D. (2010). *MMBR*, 74(3), 417-433. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D11-S04 | D11 | `citation-only` | Higuchi, T. (1963). *J Pharm Sci*, 52, 1145-1149. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D11-S05 | D11 | `citation-only` | Korsmeyer, R.W. et al. (1983). *Int J Pharm*, 15, 25-35. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D11-S06 | D11 | `citation-only` | 厚生省 (1988). 徐放性製剤ガイドライン. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D11-S07 | D11 | `citation-only` | 日本薬学会 (2024). 君臣佐使用語解説. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D11-S08 | D11 | `citation-only` | Wu, L. et al. (2014). *Chin Med*, 9, 24. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D11-S09 | D11 | `citation-only` | Li, X. et al. (2014). *PLOS ONE*, 9(5), e95004. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D11-S10 | D11 | `citation-only` | ICH (2009). Q8(R2). | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D12-S01 | D12 | `citation-only` | Clements, F. E. (1916). *Plant Succession*. Carnegie Institution. | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D12-S02 | D12 | `citation-only` | Connell, J. H., & Slatyer, R. O. (1977). *Am. Nat.*, 111, 1119-1144. | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D12-S03 | D12 | `citation-only` | Holling, C. S. (1973). *Ann. Rev. Ecol. Syst.*, 4, 1-23. | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -215,6 +225,76 @@
 
 
 
+| D23-S01 | D23 | `citation-only` | Kegan, R. (1982). *The Evolving Self: Problem and Process in Human Development*. Harvard University Press. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D23-S02 | D23 | `citation-only` | Kegan, R. (1994). *In Over Our Heads: The Mental Demands of Modern Life*. Harvard University Press. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D23-S03 | D23 | `citation-only` | Lahey, L. et al. (1988). *A Guide to the Subject-Object Interview: Its Administration and Interpretation*. Harvard University, Graduate School of Education. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D23-S04 | D23 | `citation-only` | Rochat, P. (2003). Five levels of self-awareness as they unfold early in life. *Consciousness and Cognition*, 12(4), 717-731. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D23-S05 | D23 | `citation-only` | Rochat, P. (2001). *The Infant's World*. Harvard University Press. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D23-S06 | D23 | `citation-only` | 木下孝司 (2001). 幼児は自己映像を"自分のこと"として見ているか？ *神戸大学発達科学部研究紀要*, 8(2), 91-100. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D23-S07 | D23 | `citation-only` | Luyckx, K., Goossens, L., Soenens, B., & Beyers, W. (2006). Unpacking commitment and exploration: Preliminary validation of an integrative model of late adolescent identity formation. *Journal of Adolescence*, 29(3), 361-378. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D23-S08 | D23 | `citation-only` | Luyckx, K., Schwartz, S. J., Berzonsky, M. D., Soenens, B., Vansteenkiste, M., Smits, I., & Goossens, L. (2008). Capturing ruminative exploration: Extending the four-dimensional model of identity formation in late adolescence. *Journal of Research in Personality*, 42(1), 58-82. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D23-S09 | D23 | `citation-only` | 中間玲子・杉村和美・畑野快・溝上慎一 (2014). 多次元アイデンティティ発達尺度（DIDS）によるアイデンティティ発達の検討とDIDS日本語版の作成. *心理学研究*, 85(6), 549-559. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D23-S10 | D23 | `citation-only` | Thelen, E. & Smith, L. B. (1994). *A Dynamic Systems Approach to the Development of Cognition and Action*. MIT Press. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D24-S01 | D24 | `citation-only` | Rambo, L. R. (1993). *Understanding Religious Conversion*. Yale University Press. | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D24-S02 | D24 | `citation-only` | Di Marzio, R. (2019). "Experiences of Affiliation, Conversion, 'Brainwashing,' and Departure." *The Journal of CESNUR* 3(2). | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D24-S03 | D24 | `citation-only` | Pew Research Center (2025). "Religious switching" reports. | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D24-S04 | D24 | `citation-only` | Turner, V. (1969). *The Ritual Process: Structure and Anti-Structure*. Cornell University Press. | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D24-S05 | D24 | `citation-only` | Van Gennep, A. (1909/1960). *The Rites of Passage*. University of Chicago Press (trans.). | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D24-S06 | D24 | `citation-only` | Turner, V. (1974). *Dramas, Fields, and Metaphors*. Cornell University Press. | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D24-S07 | D24 | `citation-only` | Santa Teresa de Jesús (1577). *El Castillo Interior o Las Moradas*. | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D24-S08 | D24 | `citation-only` | Kavanaugh, K. & Rodriguez, O. (trans.) (1980). *The Collected Works of St. Teresa of Avila*, Vol. 2. ICS Publications. | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D24-S09 | D24 | `citation-only` | Turner, D. (1995). *The Darkness of God: Negativity in Christian Mysticism*. Cambridge University Press. | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D24-S10 | D24 | `citation-only` | Suzuki, D. T. (1950). *Manual of Zen Buddhism*. Grove Press. (十牛図英訳紹介) | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D25-S01 | D25 | `citation-only` | van Gennep, A. (1909). *Les rites de passage*. Émile Nourry. 英訳: *The Rites of Passage* (1960). University of Chicago Press. | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D25-S02 | D25 | `citation-only` | Turner, V. (1974). *Dramas, Fields, and Metaphors*. Cornell University Press. Turner, V. (1985). *The Anthropology of Performance*. PAJ Publications. | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D25-S03 | D25 | `citation-only` | Turner, V. (1969). *The Ritual Process: Structure and Anti-Structure*. Aldine Publishing. | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D25-S04 | D25 | `citation-only` | Douglas, M. (1966). *Purity and Danger: An Analysis of Concepts of Pollution and Taboo*. Routledge. 邦訳: 『汚穢と禁忌』筑摩書房. | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D25-S05 | D25 | `citation-only` | Barth, F. ed. (1969). *Ethnic Groups and Boundaries: The Social Organization of Culture Difference*. Universitetsforlaget | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D25-S06 | D25 | `citation-only` | Waveland Press (reprint). | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D25-S07 | D25 | `citation-only` | Mauss, M. (1925). *Essai sur le don: Forme et raison de l'echange dans les societes archaiques*. 邦訳: 『贈与論 他二篇』岩波文庫 (2014). Levi-Strauss, C. (1950). Introduction to Mauss. Sahlins, M. (1972). *Stone Age Economics*. | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D25-S08 | D25 | `citation-only` | Leroi-Gourhan, A. (1964-65). *Le Geste et la Parole*. 邦訳: 『身ぶりと言葉』筑摩書房. Lemonnier, P. (1986). "The Study of Material Culture Today." *J. of Anthropological Archaeology* 5: 147-186. Lemonnier, P. (1992). *Elements for an Anthropology of Technology*. Anthropological Papers No. 88, Univ. of Michigan. | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D25-S09 | D25 | `citation-only` | Lamont, M. & Molnar, V. (2002). "The Study of Boundaries in the Social Sciences." *Annual Review of Sociology* 28: 167-195. doi:10.1146/annurev.soc.28.110601.141107 | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D25-S10 | D25 | `citation-only` | Pratt, M. L. (1991). "Arts of the Contact Zone." *Profession* 91: 33-40. MLA. | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D26-S01 | D26 | `citation-only` | Pressing, J. (1988). "Improvisation: methods and models." In J. Sloboda (Ed.), *Generative Processes in Music*. Oxford UP. | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D26-S02 | D26 | `citation-only` | Rosen, C. (1988). *Sonata Forms*. Norton. | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D26-S03 | D26 | `citation-only` | Hepokoski, J. & Darcy, W. (2006). *Elements of Sonata Theory*. Oxford UP. | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D26-S04 | D26 | `citation-only` | Meyer, L.B. (1956). *Emotion and Meaning in Music*. University of Chicago Press. | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D26-S05 | D26 | `citation-only` | Egermann, H. et al. (2013). *Cognitive, Affective, & Behavioral Neuroscience*, 13. | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D26-S06 | D26 | `citation-only` | Huron, D. (2006). *Sweet Anticipation*. MIT Press.（Meyerの発展として参照） | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D26-S07 | D26 | `citation-only` | Mehr, S.A. et al. (2019). "Universality and diversity in human song." *Science*, 366(6468). | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D26-S08 | D26 | `citation-only` | Savage, P.E. et al. (2015). "Statistical universals reveal the structures and functions of human music." *PNAS*, 112(29). | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D26-S09 | D26 | `citation-only` | Huron, D. (2006). *Sweet Anticipation: Music and the Psychology of Expectation*. MIT Press. | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D26-S10 | D26 | `citation-only` | Madison, G. (2006). *Music Perception*, 24(2). | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D27-S01 | D27 | `citation-only` | Alexander, C. (2002). *The Nature of Order, Book 1: The Phenomenon of Life*. CES. Alexander, C. (2002). *The Nature of Order, Book 2: The Process of Creating Life*. CES. Alexander, C. (2004). *The Nature of Order, Book 4: The Luminous Ground*. CES. Alexander, C. et al. (1977). *A Pattern Language*. Oxford University Press. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D27-S02 | D27 | `citation-only` | Otto, F. & Rasch, B. (1996). *Finding Form: Towards an Architecture of the Minimal*. Edition Axel Menges. IL Mitteilungen（Stuttgart大学研究報告シリーズ）. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D27-S03 | D27 | `citation-only` | van Eyck, A. Team 10関連出版物。Otterloo会議(1959)。Ligtelijn, V. & Strauven, F. (eds.) (2008). *Aldo van Eyck: Writings*. Sun Publishers. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D27-S04 | D27 | `citation-only` | Hertzberger, H. (1991). *Lessons for Students in Architecture*. 010 Publishers. Hertzberger, H. (2000). *Space and the Architect: Lessons in Architecture 2*. 010 Publishers. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D27-S05 | D27 | `citation-only` | Jacobs, J. (1961). *The Death and Life of Great American Cities*. Random House. 邦訳: 山形浩生訳 (2010). 『アメリカ大都市の死と生』. 鹿島出版会. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D27-S06 | D27 | `citation-only` | 磯崎新キュレーション (1978). 展覧会「MA: Space-Time in Japan」パリ装飾美術館。神代雄一郎 (1999). 『間（ま）・日本建築の意匠』. 鹿島出版会. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D27-S07 | D27 | `citation-only` | Menges, A. (2012). "Material Computation: Higher Integration in Morphogenetic Design." *Architectural Design*, 82(2). Menges, A. & Knippers, J. (2015). "Fibrous Tectonics." *Architectural Design*, 85(5). ICD/ITKE Research Pavilions（Stuttgart大学）. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D27-S08 | D27 | `citation-only` | Aravena, A. & Iacobelli, A. (2012). *ELEMENTAL: Incremental Housing and Participatory Design Manual*. Hatje Cantz. Quinta Monroy Project (2004, Iquique, Chile). | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D27-S09 | D27 | `citation-only` | Pallasmaa, J. (1996/2005). *The Eyes of the Skin: Architecture and the Senses*. 2nd edition, Wiley. Pallasmaa, J. (2011). *The Embodied Image: Imagination and Imagery in Architecture*. Wiley. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D27-S10 | D27 | `citation-only` | Schumacher, P. (2008). "Parametricism as Style — Parametricist Manifesto." Venice Biennale 2008. Schumacher, P. (2011). *The Autopoiesis of Architecture, Vol. I*. Wiley. Schumacher, P. (2012). *The Autopoiesis of Architecture, Vol. II*. Wiley. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D28-S01 | D28 | `citation-only` | 世阿弥. (c.1400-1418). 『風姿花伝』 | — | `evidence/evidence-D28-performing-arts.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D28-S02 | D28 | `citation-only` | 世阿弥. (c.1424). 『花鏡』 | — | `evidence/evidence-D28-performing-arts.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D28-S03 | D28 | `citation-only` | 世阿弥. 『至花道』 | — | `evidence/evidence-D28-performing-arts.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D28-S04 | D28 | `citation-only` | Johnstone, K. (1979). *Impro: Improvisation and the Theatre*. London: Faber | — | `evidence/evidence-D28-performing-arts.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D28-S05 | D28 | `citation-only` | Spolin, V. (1963). *Improvisation for the Theater*. Evanston: Northwestern UP | — | `evidence/evidence-D28-performing-arts.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D28-S06 | D28 | `citation-only` | Nachmanovitch, S. (1990). *Free Play: Improvisation in Life and Art*. New York: Tarcher/Putnam | — | `evidence/evidence-D28-performing-arts.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D28-S07 | D28 | `citation-only` | Fischer-Lichte, E. (2004). *Ästhetik des Performativen*. Frankfurt: Suhrkamp | — | `evidence/evidence-D28-performing-arts.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D28-S08 | D28 | `citation-only` | Fischer-Lichte, E. (2008). *The Transformative Power of Performance: A New Aesthetics*. London: Routledge (trans. S. I. Jain) | — | `evidence/evidence-D28-performing-arts.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D28-S09 | D28 | `citation-only` | Grotowski, J. (1968). *Towards a Poor Theatre*. Holstebro: Odin Teatrets Forlag | — | `evidence/evidence-D28-performing-arts.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D28-S10 | D28 | `citation-only` | Richards, T. (1995). *At Work with Grotowski on Physical Actions*. London: Routledge | — | `evidence/evidence-D28-performing-arts.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D29-S01 | D29 | `citation-only` | Prigogine, I. (1977). "Time, Structure and Fluctuations." Nobel Lecture. | — | `evidence/evidence-D29-complexity-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D29-S02 | D29 | `citation-only` | Prigogine, I. & Stengers, I. (1984). *Order Out of Chaos*. Bantam. | — | `evidence/evidence-D29-complexity-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D29-S03 | D29 | `citation-only` | Bak, P., Tang, C. & Wiesenfeld, K. (1987). "Self-Organized Criticality: An Explanation of 1/f Noise." *Phys. Rev. Lett.* 59, 381-384. | — | `evidence/evidence-D29-complexity-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D29-S04 | D29 | `citation-only` | Bak, P., Tang, C. & Wiesenfeld, K. (1988). "Self-organized criticality." *Phys. Rev. A* 38, 364-374. | — | `evidence/evidence-D29-complexity-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D29-S05 | D29 | `citation-only` | Watkins, N.W. et al. (2016). "25 Years of Self-organized Criticality." *Space Sci. Rev.* 198, 3-44. | — | `evidence/evidence-D29-complexity-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D29-S06 | D29 | `citation-only` | Clauset, A., Shalizi, C.R. & Newman, M.E.J. (2009). "Power-law distributions in empirical data." *SIAM Rev.* 51, 661-703. | — | `evidence/evidence-D29-complexity-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D29-S07 | D29 | `citation-only` | Kauffman, S. (1986). "Autocatalytic sets of proteins." *J. Theor. Biol.* 119, 1-24. | — | `evidence/evidence-D29-complexity-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D29-S08 | D29 | `citation-only` | Kauffman, S. (1993). *The Origins of Order*. Oxford UP. | — | `evidence/evidence-D29-complexity-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D29-S09 | D29 | `citation-only` | Hordijk, W. & Steel, M. (2004). "Detecting autocatalytic, self-sustaining sets in chemical reaction systems." *J. Theor. Biol.* 227(4), 451-461. | — | `evidence/evidence-D29-complexity-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D29-S10 | D29 | `citation-only` | Hordijk, W., Hein, J. & Steel, M. (2010). "Autocatalytic sets and the origin of life." *Entropy* 12(7), 1733-1742. | — | `evidence/evidence-D29-complexity-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D30-S01 | D30 | `citation-only` | Berkes, F., Colding, J., & Folke, C. (2000). Rediscovery of Traditional Ecological Knowledge as Adaptive Management. *Ecological Applications*, 10(5), 1251-1262. | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D30-S02 | D30 | `citation-only` | Huntington, H. P. (2000). Using Traditional Ecological Knowledge in Science. *Ecological Applications*, 10(5), 1270-1274. | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D30-S03 | D30 | `citation-only` | IPBES (2022). ILK方法論ガイダンス | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |

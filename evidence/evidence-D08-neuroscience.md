@@ -24,13 +24,11 @@ original_access_status: not-yet-reviewed
 
 ## 2026-04-07 first batch
 
-- raw-confirmed:
-  `Varela et al. (1991)` は D14 で確保済み raw を D08 anchor として再利用した
-- blocked-access:
-  Nature / Nature Reviews の login redirect、Science / JNeurosci の Cloudflare challenge を確認した
-- citation-only:
-  残る 6 source は archive refs / ref-check で書誌確認できるが、stable official full-text route は未確認
-
+- raw-confirmed: 1件
+- blocked-access: 4件。source ごとの理由は `knowledge/raw/manifest.md` の notes を参照
+- citation-only: 6件。archive refs / ref-check 起点の first-pass source rows
+- manual/browser 余地:
+  blocked-access source は CLI challenge / login redirect / HTML landing の可能性を残すため、notes を維持する
 ## History
 
 - スナップショット: [`evidence/archive/pre-rerun-20260407/evidence/evidence-D08-neuroscience.md`](archive/pre-rerun-20260407/evidence/evidence-D08-neuroscience.md)

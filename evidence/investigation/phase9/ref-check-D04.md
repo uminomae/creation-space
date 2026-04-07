@@ -12,13 +12,11 @@
 
 ## 2026-04-07 first batch
 
-- blocked-access:
-  `Laland et al. 2015`, `Woese 2002` は PMC article page に到達する一方、PDF 直リンクは POW challenge HTML を返した
-- citation-only:
-  `Darwin 1859`, `Eldredge & Gould 1972`, `Odling-Smee et al. 2003`, `Waddington 1953`, `Van Valen 1973`, `Barton & Hewitt 1985`, `Sagan 1967`, `Schluter 2000`
+- raw-confirmed: 0件
+- blocked-access: 2件。source ごとの理由は `knowledge/raw/manifest.md` の notes を参照
+- citation-only: 8件。archive refs / ref-check 起点の first-pass source rows
 - 注意:
-  D04 は source 実在確認は進んでいるが、full-text route はまだ薄い。書誌確認済み source を無理に blocked に倒さない
-
+  blocked-access は「本文不存在」ではなく、CLI challenge / login / HTML 着地を含む
 ## History
 
 - スナップショット: [`evidence/archive/pre-rerun-20260407/phase9/ref-check-D04.md`](../../archive/pre-rerun-20260407/phase9/ref-check-D04.md)

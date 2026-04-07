@@ -24,13 +24,11 @@ original_access_status: not-yet-reviewed
 
 ## 2026-04-07 first batch
 
-- raw-confirmed:
-  `Planck Collaboration (2016)` は A&A 公式 PDF を `knowledge/raw/` に格納した
-- blocked-access:
-  Royal Society / Annual Reviews / APS は Cloudflare challenge、Springer は login redirect を確認した
-- citation-only:
-  legacy journal / book anchors は書誌確認先行とした
-
+- raw-confirmed: 1件
+- blocked-access: 4件。source ごとの理由は `knowledge/raw/manifest.md` の notes を参照
+- citation-only: 5件。archive refs / ref-check 起点の first-pass source rows
+- manual/browser 余地:
+  blocked-access source は CLI challenge / login redirect / HTML landing の可能性を残すため、notes を維持する
 ## History
 
 - スナップショット: [`evidence/archive/pre-rerun-20260407/evidence/evidence-D06-astronomy.md`](archive/pre-rerun-20260407/evidence/evidence-D06-astronomy.md)

@@ -17,18 +17,18 @@ original_access_status: not-yet-reviewed
 ## 現在の扱い
 
 - 原典アクセス状態: evidence 本文としては `not-yet-reviewed`
-- source manifest には D05 draft first batch 10件を反映済み
+- source manifest には D05 first batch 10件を反映済み
 - source 内訳は `raw-confirmed` 0 / `blocked-access` 0 / `citation-only` 10
 - [P] 主張の verified / accepted 判定は現時点では再保証しない
 - `knowledge/raw/` の整備と原典アクセス棚卸しが完了するまで、本文の再構成を優先する
 
-## 2026-04-07 draft first batch
+## 2026-04-07 first batch
 
-- citation-only:
-  manifest には archive refs 由来の draft rows 10件を投入した
-- 注意:
-  これは source-level coverage を先に埋めるための first pass で、full-text route の切り分けは未着手
-
+- raw-confirmed: 0件
+- blocked-access: 0件。source ごとの理由は `knowledge/raw/manifest.md` の notes を参照
+- citation-only: 10件。archive refs / ref-check 起点の first-pass source rows
+- manual/browser 余地:
+  blocked-access source は CLI challenge / login redirect / HTML landing の可能性を残すため、notes を維持する
 ## History
 
 - スナップショット: [`evidence/archive/pre-rerun-20260407/evidence/evidence-D05-earth-science.md`](archive/pre-rerun-20260407/evidence/evidence-D05-earth-science.md)

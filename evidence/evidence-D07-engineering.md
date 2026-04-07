@@ -24,13 +24,11 @@ original_access_status: not-yet-reviewed
 
 ## 2026-04-07 first batch
 
-- raw-confirmed:
-  `Shannon (1948)` は Harvard-hosted PDF を `knowledge/raw/` に格納した
-- blocked-access:
-  MIT Press OA page の Cloudflare challenge、Nature login redirect、ISO purchase/institution barrier を source 単位で記録した
-- citation-only:
-  ACM / IEEE / Science / book anchors は書誌確認先行とした
-
+- raw-confirmed: 1件
+- blocked-access: 3件。source ごとの理由は `knowledge/raw/manifest.md` の notes を参照
+- citation-only: 6件。archive refs / ref-check 起点の first-pass source rows
+- manual/browser 余地:
+  blocked-access source は CLI challenge / login redirect / HTML landing の可能性を残すため、notes を維持する
 ## History
 
 - スナップショット: [`evidence/archive/pre-rerun-20260407/evidence/evidence-D07-engineering.md`](archive/pre-rerun-20260407/evidence/evidence-D07-engineering.md)
