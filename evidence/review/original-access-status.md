@@ -40,6 +40,26 @@
 - `Becker-Doring (1935), nucleation kinetics` は `citation-only`
   書誌確認のみで、OA / paywalled route の切り分けは未了
 
+## D03 first source batch
+
+この first batch は raw PDF 未取得だが、anchor source 10件を source-level で登録した。
+
+補足:
+- `Johnson & Goody (2011)` は `blocked-access`
+  ACS supporting-info PDF URL が Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり
+- `Leibler (1980)` は `blocked-access`
+  ACS PDF URL が Cloudflare challenge で HTTP 403
+- `Field-Koros-Noyes (1972)` は `blocked-access`
+  ACS PDF URL が Cloudflare challenge で HTTP 403
+- `Turing (1952)` は `blocked-access`
+  Royal Society PDF URL が Cloudflare challenge で HTTP 403。OA 記事自体は存在し、手動ブラウザ取得余地あり
+- `Winter & Chambon (1986)` は `blocked-access`
+  AIP/JOR PDF endpoint が Cloudflare challenge で HTTP 403
+- `Miller & Urey (1953)` は `blocked-access`
+  Science PDF URL が Cloudflare challenge で HTTP 403
+- `Becker-Doring (1935)` / `Lehn (1995)` / `Lewis-von Elbe (1961)` / `Goldbeter (1996)` は `citation-only`
+  archive refs と ref-check では確認できるが、stable primary full-text route は未確認
+
 ## D10 pilot raw-confirmed
 
 - `knowledge/raw/D10_akdis_2014_allergen-immunotherapy.pdf`

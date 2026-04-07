@@ -4,15 +4,15 @@
 **起点**: cs#205, cs#207
 
 原典は source 単位で追跡する。**完了条件は D01-D30 の全領域で source 行が実データに置き換わること**。
-2026-04-07 時点では D01 / D02 / D10 / D14 / D18 の pilot source を登録し、source 未登録の他領域は pending placeholder で残している。
+2026-04-07 時点では D01 / D02 / D03 / D10 / D14 / D18 の pilot source を登録し、source 未登録の他領域は pending placeholder で残している。
 
 ## 集計
 
-- 探索対象として source 単位で管理中: 23本
+- 探索対象として source 単位で管理中: 33本
 - 有効な公開 PDF を発見: 9本
 - `knowledge/raw/` に実格納済み: 9本
-- `citation-only`: 4本
-- `blocked-access`: 10本
+- `citation-only`: 8本
+- `blocked-access`: 16本
 
 ## 集計の数え方
 
@@ -45,7 +45,16 @@
 | D02-S08 | D02 | `raw-confirmed` | The Problem of Thermal Convection in a Horizontal Layer of Fluid Heated from Below | `knowledge/raw/D02_rayleigh_1916_problem-thermal-convection-horizontal-layer-fluid-heated-below.pdf` | `evidence/evidence-D02-physics.md` | Zenodo OA PDF を保存。CLI 取得成功、実 PDF 判定 |
 | D02-S09 | D02 | `raw-confirmed` | Decoherence, einselection, and the quantum origins of the classical | `knowledge/raw/D02_zurek_2003_decoherence-einselection-quantum-origins-classical.pdf` | `evidence/evidence-D02-physics.md` | arXiv OA PDF を保存。CLI 取得成功、71 pages 確認 |
 | D02-S10 | D02 | `citation-only` | Becker-Doring (1935), nucleation kinetics | — | `evidence/evidence-D02-physics.md` | 2026-04-07 時点では書誌確認のみ。OA / paywalled route の切り分けは未了 |
-| D03-PENDING | D03 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D03-chemistry.md` | 再監査待ち |
+| D03-S01 | D03 | `citation-only` | Becker-Doring (1935), Kinetische Behandlung der Keimbildung in ubersattigten Dampfen | — | `evidence/evidence-D03-chemistry.md` | archive refs と ref-check で実在確認。2026-04-07 時点では primary full-text route 未確認 |
+| D03-S02 | D03 | `blocked-access` | Johnson & Goody (2011), The Original Michaelis Constant: Translation of the 1913 Michaelis-Menten Paper | — | `evidence/evidence-D03-chemistry.md` | ACS supporting-info PDF URL が Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |
+| D03-S03 | D03 | `blocked-access` | Theory of Microphase Separation in Block Copolymers | — | `evidence/evidence-D03-chemistry.md` | ACS PDF URL が Cloudflare challenge で HTTP 403。bot/CLI 由来失敗の可能性が高い |
+| D03-S04 | D03 | `blocked-access` | Oscillations in Chemical Systems. IV. Limit Cycle Behavior in a Model of a Real Chemical Reaction | — | `evidence/evidence-D03-chemistry.md` | ACS PDF URL が Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |
+| D03-S05 | D03 | `blocked-access` | The Chemical Basis of Morphogenesis | — | `evidence/evidence-D03-chemistry.md` | Royal Society PDF URL が Cloudflare challenge で HTTP 403。OA 記事自体は存在し、手動ブラウザ取得余地あり |
+| D03-S06 | D03 | `citation-only` | Lehn (1995), Supramolecular Chemistry | — | `evidence/evidence-D03-chemistry.md` | archive refs と ref-check で実在確認。Lehn/Whitesides 系のどれを anchor にするかは後続で要統一 |
+| D03-S07 | D03 | `citation-only` | Lewis-von Elbe (1961), Combustion, Flames and Explosions of Gases | — | `evidence/evidence-D03-chemistry.md` | archive refs と ref-check で実在確認。2026-04-07 時点では stable primary full-text route 未確認 |
+| D03-S08 | D03 | `blocked-access` | Winter & Chambon (1986), Analysis of Linear Viscoelasticity of a Crosslinking Polymer at the Gel Point | — | `evidence/evidence-D03-chemistry.md` | AIP/JOR PDF endpoint が Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |
+| D03-S09 | D03 | `blocked-access` | A Production of Amino Acids Under Possible Primitive Earth Conditions | — | `evidence/evidence-D03-chemistry.md` | Science PDF URL が Cloudflare challenge で HTTP 403。publisher/bot gating の可能性が高い |
+| D03-S10 | D03 | `citation-only` | Goldbeter (1996), Biochemical Oscillations and Cellular Rhythms | — | `evidence/evidence-D03-chemistry.md` | archive refs と ref-check で実在確認。2026-04-07 時点では stable primary full-text route 未確認 |
 | D04-PENDING | D04 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D04-evolutionary-biology.md` | 再監査待ち |
 | D05-PENDING | D05 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D05-earth-science.md` | 再監査待ち |
 | D06-PENDING | D06 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D06-astronomy.md` | 再監査待ち |

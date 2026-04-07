@@ -16,9 +16,20 @@ original_access_status: not-yet-reviewed
 
 ## 現在の扱い
 
-- 原典アクセス状態: `not-yet-reviewed`
+- 原典アクセス状態: evidence 本文としては `not-yet-reviewed`
+- source manifest には D03 first batch 10件を反映済み
+- source 内訳は `raw-confirmed` 0 / `blocked-access` 6 / `citation-only` 4
 - [P] 主張の verified / accepted 判定は現時点では再保証しない
 - `knowledge/raw/` の整備と原典アクセス棚卸しが完了するまで、本文の再構成を優先する
+
+## 2026-04-07 first batch
+
+- blocked-access:
+  ACS / Royal Society / AIP / Science で Cloudflare challenge による HTTP 403 を確認した
+- citation-only:
+  `Becker-Doring 1935`, `Lehn 1995`, `Lewis-von Elbe 1961`, `Goldbeter 1996` は書誌確認のみ
+- manual/browser 余地:
+  challenge 系ソースは「本文不存在」ではなく、手動ブラウザなら到達できる可能性を notes に残した
 
 ## History
 
@@ -28,6 +39,6 @@ original_access_status: not-yet-reviewed
 
 ## 次の作業
 
-- 原典アクセス状態を `raw-confirmed` / `citation-only` / `blocked-access` / `not-yet-reviewed` で棚卸しする
-- `knowledge/raw/README.md` の manifest に候補原典を記録する
+- D03 で手動ブラウザ取得余地のある OA / publisher sources を再試行し、raw-confirmed を増やす
+- D03 source granularity を整理し、`Michaelis-Menten 1913` と `Johnson & Goody 2011` の扱いを必要なら分離する
 - 再調査後に、このファイルへ history 参照つきで新しい本文を戻す
