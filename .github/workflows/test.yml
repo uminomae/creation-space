@@ -1,0 +1,73 @@
+name: Validation
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'src/**'
+      - 'index.html'
+      - 'assets/**'
+      - 'sitemap.xml'
+      - '.github/workflows/test.yml'
+  pull_request:
+    branches: [main, develop]
+    paths:
+      - 'src/**'
+      - 'index.html'
+      - 'assets/**'
+      - 'sitemap.xml'
+      - '.github/workflows/test.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate JSON files
+        run: |
+          errors=0
+          for f in $(find assets/ -name '*.json' 2>/dev/null); do
+            if python3 -c "import json; json.load(open('$f'))" 2>/dev/null; then
+              echo "  OK: $f"
+            else
+              echo "FAIL: $f is not valid JSON"
+              errors=$((errors + 1))
+            fi
+          done
+          if [ $errors -gt 0 ]; then
+            echo "FAIL: $errors JSON validation error(s)"
+            exit 1
+          else
+            echo "PASS: All JSON files valid"
+          fi
+
+      - name: Check index.html exists
+        run: test -f index.html && echo "PASS: index.html exists"
+
+      - name: Check for shell escapes in JS
+        run: |
+          if grep -rn '\\\!' src/ --include='*.js' 2>/dev/null; then
+            echo "FAIL: Shell escape \\\! found in JS files"
+            exit 1
+          else
+            echo "PASS: No shell escapes in JS"
+          fi
+
+      - name: Smoke test - HTTP 200
+        run: |
+          python3 -m http.server 3002 &
+          PID=$\!
+          sleep 2
+          CODE=$(curl -sS -o /dev/null -w '%{http_code}' http://127.0.0.1:3002/)
+          echo "index.html -> $CODE"
+          kill $PID
+          if [ "$CODE" \!= "200" ]; then
+            echo "FAIL: Expected 200 but got $CODE"
+            exit 1
+          fi
+          echo "PASS: HTTP 200 OK"
