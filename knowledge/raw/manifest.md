@@ -9,9 +9,9 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 21本
-- `knowledge/raw/` に実格納済み: 21本
-- `citation-only`: 222本
+- 有効な公開 PDF を発見: 22本
+- `knowledge/raw/` に実格納済み: 22本
+- `citation-only`: 221本
 - `blocked-access`: 34本
 
 ## 集計の数え方
@@ -126,7 +126,7 @@
 | D11-S06 | D11 | `citation-only` | 厚生省 (1988). 徐放性製剤ガイドライン. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D11-S07 | D11 | `citation-only` | 日本薬学会 (2024). 君臣佐使用語解説. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D11-S08 | D11 | `citation-only` | Wu, L. et al. (2014). *Chin Med*, 9, 24. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D11-S09 | D11 | `citation-only` | Li, X. et al. (2014). *PLOS ONE*, 9(5), e95004. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D11-S09 | D11 | `raw-confirmed` | Li, X. et al. (2014), A network pharmacology study of Chinese medicine QSYQ | `knowledge/raw/D11_li_2014_network-pharmacology-qishenyiqi.pdf` | `evidence/evidence-D11-pharmacy.md` | PLOS ONE official PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D11-S10 | D11 | `raw-confirmed` | ICH (2009), Q8(R2) Pharmaceutical Development Guideline | `knowledge/raw/D11_ich_2009_q8-r2-guideline.pdf` | `evidence/evidence-D11-pharmacy.md` | ICH official PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D11-S11 | D11 | `raw-confirmed` | ICH (2008), Q10 Pharmaceutical Quality System Guideline | `knowledge/raw/D11_ich_2008_q10-guideline.pdf` | `evidence/evidence-D11-pharmacy.md` | ICH official PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D11-S12 | D11 | `raw-confirmed` | ICH (2023), Q9(R1) Quality Risk Management Guideline | `knowledge/raw/D11_ich_2023_q9-r1-guideline.pdf` | `evidence/evidence-D11-pharmacy.md` | ICH official PDF route で HTTP 200 application/pdf。実 PDF を保存 |

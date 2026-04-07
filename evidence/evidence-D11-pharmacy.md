@@ -18,18 +18,18 @@ original_access_status: not-yet-reviewed
 
 - 原典アクセス状態: evidence 本文としては `not-yet-reviewed`
 - source manifest には D11 first/second batch 12件を反映済み
-- source 内訳は `raw-confirmed` 3 / `blocked-access` 0 / `citation-only` 9
+- source 内訳は `raw-confirmed` 4 / `blocked-access` 0 / `citation-only` 8
 - [P] 主張の verified / accepted 判定は現時点では再保証しない
 - `knowledge/raw/` の整備と原典アクセス棚卸しが完了するまで、本文の再構成を優先する
 
 ## 2026-04-07 first/second batch
 
 - raw-confirmed:
-  `ICH Q8(R2)`, `ICH Q9(R1)`, `ICH Q10` は official PDF を `knowledge/raw/` に格納した
+  `ICH Q8(R2)`, `ICH Q9(R1)`, `ICH Q10`, `Li et al. 2014 (PLOS ONE)` は official PDF を `knowledge/raw/` に格納した
 - blocked-access:
   0件
 - citation-only:
-  残る 9 source は archive refs / ref-check 起点の first-pass source rows
+  残る 8 source は archive refs / ref-check 起点の first-pass source rows
 ## History
 
 - スナップショット: [`evidence/archive/pre-rerun-20260407/evidence/evidence-D11-pharmacy.md`](archive/pre-rerun-20260407/evidence/evidence-D11-pharmacy.md)
