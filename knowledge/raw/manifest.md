@@ -8,11 +8,11 @@
 
 ## 集計
 
-- 探索対象として source 単位で管理中: 53本
+- 探索対象として source 単位で管理中: 73本
 - 有効な公開 PDF を発見: 11本
 - `knowledge/raw/` に実格納済み: 11本
-- `citation-only`: 19本
-- `blocked-access`: 23本
+- `citation-only`: 37本
+- `blocked-access`: 25本
 
 ## 集計の数え方
 
@@ -55,8 +55,26 @@
 | D03-S08 | D03 | `blocked-access` | Winter & Chambon (1986), Analysis of Linear Viscoelasticity of a Crosslinking Polymer at the Gel Point | — | `evidence/evidence-D03-chemistry.md` | AIP/JOR PDF endpoint が Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |
 | D03-S09 | D03 | `blocked-access` | A Production of Amino Acids Under Possible Primitive Earth Conditions | — | `evidence/evidence-D03-chemistry.md` | Science PDF URL が Cloudflare challenge で HTTP 403。publisher/bot gating の可能性が高い |
 | D03-S10 | D03 | `citation-only` | Goldbeter (1996), Biochemical Oscillations and Cellular Rhythms | — | `evidence/evidence-D03-chemistry.md` | archive refs と ref-check で実在確認。2026-04-07 時点では stable primary full-text route 未確認 |
-| D04-PENDING | D04 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D04-evolutionary-biology.md` | 再監査待ち |
-| D05-PENDING | D05 | `not-yet-reviewed` | TBD | — | `evidence/evidence-D05-earth-science.md` | 再監査待ち |
+| D04-S01 | D04 | `citation-only` | Darwin (1859), On the Origin of Species | — | `evidence/evidence-D04-evolutionary-biology.md` | archive refs と ref-check で実在確認。2026-04-07 時点では stable primary full-text route 未確認 |
+| D04-S02 | D04 | `citation-only` | Eldredge & Gould (1972), Punctuated equilibria | — | `evidence/evidence-D04-evolutionary-biology.md` | archive refs と ref-check で実在確認。official full-text route は未確認 |
+| D04-S03 | D04 | `citation-only` | Odling-Smee, Laland & Feldman (2003), Niche Construction | — | `evidence/evidence-D04-evolutionary-biology.md` | archive refs と ref-check で実在確認。book-level anchor のため official full-text route は未確認 |
+| D04-S04 | D04 | `blocked-access` | Laland et al. (2015), The extended evolutionary synthesis: its structure, assumptions and predictions | — | `evidence/evidence-D04-evolutionary-biology.md` | PMC article page は到達するが PDF 直リンクは \"Preparing to download ...\" POW challenge HTML を返し raw PDF 未取得。手動ブラウザ余地あり |
+| D04-S05 | D04 | `citation-only` | Waddington (1953), Genetic assimilation of an acquired character | — | `evidence/evidence-D04-evolutionary-biology.md` | archive refs と ref-check で実在確認。official full-text route は未確認 |
+| D04-S06 | D04 | `citation-only` | Van Valen (1973), A new evolutionary law | — | `evidence/evidence-D04-evolutionary-biology.md` | archive refs と ref-check で実在確認。official full-text route は未確認 |
+| D04-S07 | D04 | `citation-only` | Barton & Hewitt (1985), Analysis of hybrid zones | — | `evidence/evidence-D04-evolutionary-biology.md` | archive refs と ref-check で実在確認。official full-text route は未確認 |
+| D04-S08 | D04 | `citation-only` | Sagan (1967), On the Origin of Mitosing Cells | — | `evidence/evidence-D04-evolutionary-biology.md` | archive refs と ref-check で実在確認。official full-text route は未確認 |
+| D04-S09 | D04 | `blocked-access` | Woese (2002), On the evolution of cells | — | `evidence/evidence-D04-evolutionary-biology.md` | PMC article page は到達するが PDF 直リンクは \"Preparing to download ...\" POW challenge HTML を返し raw PDF 未取得。手動ブラウザ余地あり |
+| D04-S10 | D04 | `citation-only` | Schluter (2000), The Ecology of Adaptive Radiation | — | `evidence/evidence-D04-evolutionary-biology.md` | archive refs と ref-check で実在確認。book-level anchor のため official full-text route は未確認 |
+| D05-S01 | D05 | `citation-only` | Wilson(1966) | — | `evidence/evidence-D05-earth-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D05-S02 | D05 | `citation-only` | Morgan(1968) | — | `evidence/evidence-D05-earth-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D05-S03 | D05 | `citation-only` | Le Pichon(1968) | — | `evidence/evidence-D05-earth-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D05-S04 | D05 | `citation-only` | Dewey & Bird(1970) | — | `evidence/evidence-D05-earth-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D05-S05 | D05 | `citation-only` | Conrad & Lithgow-Bertelloni(2002) | — | `evidence/evidence-D05-earth-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D05-S06 | D05 | `citation-only` | Nance et al.(2014) | — | `evidence/evidence-D05-earth-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D05-S07 | D05 | `citation-only` | Philander(1983) | — | `evidence/evidence-D05-earth-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D05-S08 | D05 | `citation-only` | Cane & Zebiak(1985) | — | `evidence/evidence-D05-earth-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D05-S09 | D05 | `citation-only` | Suarez & Schopf(1988) | — | `evidence/evidence-D05-earth-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D05-S10 | D05 | `citation-only` | Bjerknes(1969) | — | `evidence/evidence-D05-earth-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D06-S01 | D06 | `blocked-access` | Jeans (1902), The Stability of a Spherical Nebula | — | `evidence/evidence-D06-astronomy.md` | Royal Society PDF routeは存在するが、CLI では Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |
 | D06-S02 | D06 | `citation-only` | White & Rees (1978), Core condensation in heavy halos | — | `evidence/evidence-D06-astronomy.md` | ADS abstract で書誌確認。2026-04-07 時点では official full-text route 未確認 |
 | D06-S03 | D06 | `blocked-access` | Tumlinson, Peeples & Werk (2017), The Circumgalactic Medium | — | `evidence/evidence-D06-astronomy.md` | Annual Reviews route が Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |

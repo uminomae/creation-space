@@ -4,9 +4,18 @@
 
 ## 現在の扱い
 
-- 原典アクセス状態: `not-yet-reviewed`
+- 原典アクセス状態: ref-check 本文としては `not-yet-reviewed`
+- source manifest には D05 draft first batch 10件を反映済み
+- source 内訳は `raw-confirmed` 0 / `blocked-access` 0 / `citation-only` 10
 - 既存の verified / plausible / overstated 判定は再保証しない
 - 二次資料・要約・書誌情報のみで成立していた判定が混在していないか、原典アクセス状態から再点検する
+
+## 2026-04-07 draft first batch
+
+- citation-only:
+  `Wilson 1966`, `Morgan 1968`, `Le Pichon 1968`, `Dewey & Bird 1970`, `Conrad & Lithgow-Bertelloni 2002`, `Nance et al. 2014`, `Philander 1983`, `Cane & Zebiak 1985`, `Suarez & Schopf 1988`, `Bjerknes 1969`
+- 注意:
+  これは archive refs 由来の draft で、official full-text route はまだ未確認
 
 ## History
 
@@ -16,6 +25,6 @@
 
 ## 次の作業
 
-- 当該領域の `knowledge/raw/` 候補原典を列挙する
-- 既存判定の根拠を `raw-confirmed` / `citation-only` / `blocked-access` / `not-yet-reviewed` に振り分ける
+- D05 の draft rows を source ごとに精査し、blocked-access / raw-confirmed へ再分類する
+- old verified 判定の anchor が足りない箇所は second batch で補う
 - 新しい ref-check を history 参照つきで再作成する

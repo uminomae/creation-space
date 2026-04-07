@@ -16,9 +16,18 @@ original_access_status: not-yet-reviewed
 
 ## 現在の扱い
 
-- 原典アクセス状態: `not-yet-reviewed`
+- 原典アクセス状態: evidence 本文としては `not-yet-reviewed`
+- source manifest には D05 draft first batch 10件を反映済み
+- source 内訳は `raw-confirmed` 0 / `blocked-access` 0 / `citation-only` 10
 - [P] 主張の verified / accepted 判定は現時点では再保証しない
 - `knowledge/raw/` の整備と原典アクセス棚卸しが完了するまで、本文の再構成を優先する
+
+## 2026-04-07 draft first batch
+
+- citation-only:
+  manifest には archive refs 由来の draft rows 10件を投入した
+- 注意:
+  これは source-level coverage を先に埋めるための first pass で、full-text route の切り分けは未着手
 
 ## History
 
@@ -28,6 +37,6 @@ original_access_status: not-yet-reviewed
 
 ## 次の作業
 
-- 原典アクセス状態を `raw-confirmed` / `citation-only` / `blocked-access` / `not-yet-reviewed` で棚卸しする
-- `knowledge/raw/README.md` の manifest に候補原典を記録する
+- D05 の draft rows を source ごとに精査し、blocked-access / raw-confirmed の判定材料を足す
+- archive refs の偏りがあるため、必要なら one-EV-one-anchor に再整理する
 - 再調査後に、このファイルへ history 参照つきで新しい本文を戻す

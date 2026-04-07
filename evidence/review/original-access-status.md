@@ -60,6 +60,26 @@
 - `Becker-Doring (1935)` / `Lehn (1995)` / `Lewis-von Elbe (1961)` / `Goldbeter (1996)` は `citation-only`
   archive refs と ref-check では確認できるが、stable primary full-text route は未確認
 
+## D04 first source batch
+
+この first batch は raw PDF 未取得だが、anchor source 10件を source-level で登録した。
+
+補足:
+- `Laland et al. (2015)` は `blocked-access`
+  PMC article page には到達するが、PDF 直リンクは POW challenge HTML に着地
+- `Woese (2002)` は `blocked-access`
+  PMC article page には到達するが、PDF 直リンクは POW challenge HTML に着地
+- `Darwin (1859)` / `Eldredge & Gould (1972)` / `Odling-Smee et al. (2003)` / `Waddington (1953)` / `Van Valen (1973)` / `Barton & Hewitt (1985)` / `Sagan (1967)` / `Schluter (2000)` は `citation-only`
+  archive refs と ref-check では確認できるが、stable official full-text route は未確認
+
+## D05 draft first source batch
+
+manifest には D05 の draft source rows 10件を first pass として投入した。現時点では全件 `citation-only`。
+
+補足:
+- `Wilson (1966)` / `Morgan (1968)` / `Le Pichon (1968)` / `Dewey & Bird (1970)` / `Conrad & Lithgow-Bertelloni (2002)` / `Nance et al. (2014)` / `Philander (1983)` / `Cane & Zebiak (1985)` / `Suarez & Schopf (1988)` / `Bjerknes (1969)`
+  archive refs 由来の draft で、2026-04-07 時点では書誌確認のみ
+
 ## D06 first source batch
 
 - `knowledge/raw/D06_planck-collaboration_2016_cosmological-parameters.pdf`
