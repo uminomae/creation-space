@@ -39,7 +39,7 @@
 | D26 | 10 | 0 | 2 | 8 |
 | D27 | 10 | 1 | 2 | 7 |
 | D28 | 10 | 1 | 0 | 9 |
-| D29 | 10 | 1 | 0 | 9 |
+| D29 | 10 | 1 | 1 | 8 |
 | D30 | 10 | 3 | 0 | 7 |
 
 ## D01 pilot raw-confirmed
@@ -311,6 +311,16 @@ manifest には D05 の draft source rows 10件を first pass として投入し
 補足:
 - `松木正恵・沼田千尋 (2021)` は J-STAGE official PDF route で HTTP 200 application/pdf を確認し、実 PDF を保存
 - 残る 7 件は `citation-only`
+
+## D29 second-pass access update
+
+この second pass では raw PDF の追加取得には未達だが、1 件を `blocked-access` に更新した。
+
+補足:
+- `Hordijk et al. (2010)` は `blocked-access`
+  MDPI official PDF route は Akamai 403 HTML
+- `Prigogine (1977)` は既存どおり `raw-confirmed`
+- 残る 8 件は `citation-only`
 
 | domain_id | kind | active_path | archive_snapshot | access_status |
 |---|---|---|---|---|

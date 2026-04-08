@@ -11,8 +11,8 @@
 - 探索対象として source 単位で管理中: 277本
 - 有効な公開 PDF を発見: 35本
 - `knowledge/raw/` に実格納済み: 35本
-- `citation-only`: 201本
-- `blocked-access`: 41本
+- `citation-only`: 200本
+- `blocked-access`: 42本
 
 ## 集計の数え方
 
@@ -296,7 +296,7 @@
 | D29-S07 | D29 | `citation-only` | Kauffman, S. (1986). "Autocatalytic sets of proteins." *J. Theor. Biol.* 119, 1-24. | — | `evidence/evidence-D29-complexity-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D29-S08 | D29 | `citation-only` | Kauffman, S. (1993). *The Origins of Order*. Oxford UP. | — | `evidence/evidence-D29-complexity-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D29-S09 | D29 | `citation-only` | Hordijk, W. & Steel, M. (2004). "Detecting autocatalytic, self-sustaining sets in chemical reaction systems." *J. Theor. Biol.* 227(4), 451-461. | — | `evidence/evidence-D29-complexity-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D29-S10 | D29 | `citation-only` | Hordijk, W., Hein, J. & Steel, M. (2010). "Autocatalytic sets and the origin of life." *Entropy* 12(7), 1733-1742. | — | `evidence/evidence-D29-complexity-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D29-S10 | D29 | `blocked-access` | Hordijk, W., Hein, J. & Steel, M. (2010). "Autocatalytic sets and the origin of life." *Entropy* 12(7), 1733-1742. | — | `evidence/evidence-D29-complexity-science.md` | MDPI official PDF route は 2026-04-08 時点で Akamai 403 HTML。manual/browser 再試行余地あり |
 | D30-S01 | D30 | `citation-only` | Berkes, F., Colding, J., & Folke, C. (2000). Rediscovery of Traditional Ecological Knowledge as Adaptive Management. *Ecological Applications*, 10(5), 1251-1262. | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D30-S02 | D30 | `citation-only` | Huntington, H. P. (2000). Using Traditional Ecological Knowledge in Science. *Ecological Applications*, 10(5), 1270-1274. | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D30-S03 | D30 | `raw-confirmed` | IPBES (2019), ILK methodological guidance | `knowledge/raw/D30_ipbes_2019_ilk-methodological-guidance.pdf` | `evidence/evidence-D30-traditional-knowledge.md` | IPBES official PDF route で実 PDF を保存 |
