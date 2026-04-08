@@ -11,10 +11,10 @@
 - 探索対象として source 単位で管理中: 283本（+6: D25-S01b 追加、計数見直し）
 - 有効な公開 PDF を発見（`raw-confirmed`）: 80本
 - `knowledge/raw/` に実格納済み: 79本（D16_toynbee は .gitignore でローカル保持）
-- OA URL で閲覧確認済み（`url-verified`）: 26本
-- **原典アクセス達成**: 106本（raw-confirmed 80 + url-verified 26）
-- `citation-only`: 152本
-- `blocked-access`: 25本
+- OA URL で閲覧確認済み（`url-verified`）: 38本
+- **原典アクセス達成**: 118本（raw-confirmed 80 + url-verified 38）
+- `citation-only`: 143本
+- `blocked-access`: 22本
 
 ## 集計の数え方
 
@@ -29,7 +29,7 @@
 | D01-S03 | D01 | `url-verified` | Barcodes: The Persistent Topology of Data | — | `evidence/evidence-D01-mathematics.md` | OA: https://www.ams.org/bull/2008-45-01/S0273-0979-07-01191-3/S0273-0979-07-01191-3.pdf |
 | D10-S01 | D10 | `raw-confirmed` | Allergen immunotherapy / WAO JOA review | `knowledge/raw/D10_akdis_2014_allergen-immunotherapy.pdf` | `evidence/evidence-D10-clinical-medicine.md` | 試行格納1件目。D10 pilot raw-confirmed |
 | D10-S02 | D10 | `raw-confirmed` | Mechanisms of human autoimmunity | `knowledge/raw/D10_rosenblum_2015_autoimmunity.pdf` | `evidence/evidence-D10-clinical-medicine.md` | 試行格納2件目。D10 pilot raw-confirmed |
-| D10-S03 | D10 | `citation-only` | Burnet (1957), clonal selection | — | `evidence/evidence-D10-clinical-medicine.md` | 書誌確認のみ。本文未確認 |
+| D10-S03 | D10 | `url-verified` | Burnet (1957), clonal selection | — | `evidence/evidence-D10-clinical-medicine.md` | OA: https://www.biodiversitylibrary.org/itempdf/34425 (BHL, Unpaywall confirmed) |
 | D10-S04 | D10 | `raw-confirmed` | Tonegawa (1983), somatic generation of antibody diversity | `knowledge/raw/D10_tonegawa_1987_nobel-lecture.pdf` | `evidence/evidence-D10-clinical-medicine.md` | ノーベル賞講演 PDF (nobelprize.org)。HTTP 200 application/pdf 確認済み |
 | D14-S01 | D14 | `raw-confirmed` | The Embodied Mind | `knowledge/raw/D14_varela_1991_embodied-mind.pdf` | `evidence/evidence-D14-psychology.md` | Monoskop 公開 PDF。D14 pilot raw-confirmed |
 | D14-S02 | D14 | `citation-only` | Clark & Chalmers (1998), The Extended Mind | — | `evidence/evidence-D14-psychology.md` | 書誌確認のみ。本文未確認 |
@@ -48,7 +48,7 @@
 | D02-S09 | D02 | `raw-confirmed` | Decoherence, einselection, and the quantum origins of the classical | `knowledge/raw/D02_zurek_2003_decoherence-einselection-quantum-origins-classical.pdf` | `evidence/evidence-D02-physics.md` | arXiv OA PDF を保存。CLI 取得成功、71 pages 確認 |
 | D02-S10 | D02 | `citation-only` | Becker-Doring (1935), nucleation kinetics | — | `evidence/evidence-D02-physics.md` | 2026-04-07 時点では書誌確認のみ。OA / paywalled route の切り分けは未了 |
 | D03-S01 | D03 | `raw-confirmed` | Becker-Doring (1935), Kinetische Behandlung der Keimbildung in ubersattigten Dampfen | `knowledge/raw/D03_becker-doring_1935_keimbildung.pdf` | `evidence/evidence-D03-chemistry.md` | UNT Digital Library (NASA technical reports)。DOI: 10.1002/andp.19354160806。HTTP 200 application/pdf 確認済み |
-| D03-S02 | D03 | `blocked-access` | Johnson & Goody (2011), The Original Michaelis Constant: Translation of the 1913 Michaelis-Menten Paper | — | `evidence/evidence-D03-chemistry.md` | ACS supporting-info PDF URL が Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |
+| D03-S02 | D03 | `url-verified` | Johnson & Goody (2011), The Original Michaelis Constant: Translation of the 1913 Michaelis-Menten Paper | — | `evidence/evidence-D03-chemistry.md` | OA: https://europepmc.org/articles/pmc3381512?pdf=render (EuropePMC, PMC3381512) |
 | D03-S03 | D03 | `blocked-access` | Theory of Microphase Separation in Block Copolymers | — | `evidence/evidence-D03-chemistry.md` | ACS PDF URL が Cloudflare challenge で HTTP 403。bot/CLI 由来失敗の可能性が高い |
 | D03-S04 | D03 | `blocked-access` | Oscillations in Chemical Systems. IV. Limit Cycle Behavior in a Model of a Real Chemical Reaction | — | `evidence/evidence-D03-chemistry.md` | ACS PDF URL が Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |
 | D03-S05 | D03 | `blocked-access` | The Chemical Basis of Morphogenesis | — | `evidence/evidence-D03-chemistry.md` | Royal Society PDF URL が Cloudflare challenge で HTTP 403。OA 記事自体は存在し、手動ブラウザ取得余地あり |
@@ -65,7 +65,7 @@
 | D04-S06 | D04 | `citation-only` | Van Valen (1973), A new evolutionary law | — | `evidence/evidence-D04-evolutionary-biology.md` | archive refs と ref-check で実在確認。official full-text route は未確認 |
 | D04-S07 | D04 | `citation-only` | Barton & Hewitt (1985), Analysis of hybrid zones | — | `evidence/evidence-D04-evolutionary-biology.md` | archive refs と ref-check で実在確認。official full-text route は未確認 |
 | D04-S08 | D04 | `raw-confirmed` | Sagan (1967), On the Origin of Mitosing Cells | `knowledge/raw/D04_sagan_1967_origin-mitosing-cells.pdf` | `evidence/evidence-D04-evolutionary-biology.md` | Internet Archive item PDF route で HTTP 200 application/pdf。実 PDF を保存 |
-| D04-S09 | D04 | `blocked-access` | Woese (2002), On the evolution of cells | — | `evidence/evidence-D04-evolutionary-biology.md` | PMC article page は到達するが PDF 直リンクは \"Preparing to download ...\" POW challenge HTML を返し raw PDF 未取得。手動ブラウザ余地あり |
+| D04-S09 | D04 | `url-verified` | Woese (2002), On the evolution of cells | — | `evidence/evidence-D04-evolutionary-biology.md` | OA: https://europepmc.org/articles/pmc124369?pdf=render (EuropePMC, PMC124369) |
 | D04-S10 | D04 | `citation-only` | Schluter (2000), The Ecology of Adaptive Radiation | — | `evidence/evidence-D04-evolutionary-biology.md` | archive refs と ref-check で実在確認。book-level anchor のため official full-text route は未確認 |
 | D05-S01 | D05 | `citation-only` | Wilson(1966) | — | `evidence/evidence-D05-earth-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D05-S02 | D05 | `citation-only` | Morgan(1968) | — | `evidence/evidence-D05-earth-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -78,7 +78,7 @@
 | D05-S09 | D05 | `citation-only` | Suarez & Schopf(1988) | — | `evidence/evidence-D05-earth-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D05-S10 | D05 | `url-verified` | Bjerknes (1969), Atmospheric Teleconnections from the Equatorial Pacific | — | `evidence/evidence-D05-earth-science.md` | OA: https://journals.ametsoc.org/doi/10.1175/1520-0493(1969)097%3C0163:ATFTEP%3E2.3.CO;2 |
 | D06-S01 | D06 | `blocked-access` | Jeans (1902), The Stability of a Spherical Nebula | — | `evidence/evidence-D06-astronomy.md` | Royal Society PDF routeは存在するが、CLI では Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |
-| D06-S02 | D06 | `citation-only` | White & Rees (1978), Core condensation in heavy halos | — | `evidence/evidence-D06-astronomy.md` | ADS abstract で書誌確認。2026-04-07 時点では official full-text route 未確認 |
+| D06-S02 | D06 | `url-verified` | White & Rees (1978), Core condensation in heavy halos | — | `evidence/evidence-D06-astronomy.md` | OA: https://academic.oup.com/mnras/article-pdf/183/3/341/2943374/mnras183-0341.pdf (OUP MNRAS, BRONZE) |
 | D06-S03 | D06 | `url-verified` | Tumlinson, Peeples & Werk (2017), The Circumgalactic Medium | — | `evidence/evidence-D06-astronomy.md` | OA: https://arxiv.org/pdf/1709.09180 |
 | D06-S04 | D06 | `citation-only` | Balbus & Hawley (1991), A powerful local shear instability in weakly magnetized disks | — | `evidence/evidence-D06-astronomy.md` | archive refs と ref-check で実在確認。official PDF route は未確認 |
 | D06-S05 | D06 | `citation-only` | Pollack et al. (1996), Formation of the Giant Planets by Concurrent Accretion of Solids and Gas | — | `evidence/evidence-D06-astronomy.md` | archive refs と ref-check で実在確認。official PDF route は未確認 |
@@ -93,7 +93,7 @@
 | D07-S04 | D07 | `raw-confirmed` | Rumelhart, Hinton, Williams (1986), Learning representations by back-propagating errors | `knowledge/raw/D07_rumelhart-hinton-williams_1986_backpropagation.pdf` | `evidence/evidence-D07-engineering.md` | Hinton 著者コピー cs.toronto.edu。HTTP 200 application/pdf 確認済み |
 | D07-S05 | D07 | `raw-confirmed` | Shannon (1948), A Mathematical Theory of Communication | `knowledge/raw/D07_shannon_1948_mathematical-theory-communication.pdf` | `evidence/evidence-D07-engineering.md` | Harvard-hosted PDF を保存。CLI 取得成功、実 PDF 判定 |
 | D07-S06 | D07 | `raw-confirmed` | Candes, Romberg, Tao (2006), Robust uncertainty principles: Exact signal reconstruction from highly incomplete frequency information | `knowledge/raw/D07_candes-romberg-tao_2006_robust-uncertainty.pdf` | `evidence/evidence-D07-engineering.md` | arXiv preprint math/0409186。HTTP 200 application/pdf 確認済み |
-| D07-S07 | D07 | `citation-only` | Schultz, Dayan, Montague (1997), A neural substrate of prediction and reward | — | `evidence/evidence-D07-engineering.md` | PubMed で書誌確認。official Science full text は未確認 |
+| D07-S07 | D07 | `url-verified` | Schultz, Dayan, Montague (1997), A neural substrate of prediction and reward | — | `evidence/evidence-D07-engineering.md` | OA: http://www.cs.utexas.edu/~dana/Reward.pdf (著者ページ, GREEN) |
 | D07-S08 | D07 | `citation-only` | Holland (1975), Adaptation in Natural and Artificial Systems | — | `evidence/evidence-D07-engineering.md` | 書誌確認のみ。official full-text route は未確認 |
 | D07-S09 | D07 | `citation-only` | Fowler (1999), Refactoring | — | `evidence/evidence-D07-engineering.md` | 書誌確認のみ。official full-text route は未確認 |
 | D07-S10 | D07 | `raw-confirmed` | Diffie & Hellman (1976), New Directions in Cryptography | `knowledge/raw/D07_diffie-hellman_1976_new-directions-cryptography.pdf` | `evidence/evidence-D07-engineering.md` | Stanford Hellman 著者ページ。HTTP 200 application/pdf 確認済み |
@@ -110,11 +110,11 @@
 | D08-S11 | D08 | `url-verified` | Beggs & Plenz (2003), Neuronal avalanches in neocortical circuits | — | `evidence/evidence-D08-neuroscience.md` | OA: https://www.jneurosci.org/content/jneuro/23/35/11167.full.pdf |
 | D09-S01 | D09 | `url-verified` | Pellerin & Magistretti (1994), Glutamate uptake into astrocytes stimulates aerobic glycolysis | — | `evidence/evidence-D09-life-sciences.md` | OA: https://www.pnas.org/doi/pdf/10.1073/pnas.91.22.10625 |
 | D09-S02 | D09 | `url-verified` | Attwell & Laughlin (2001), An energy budget for signaling in the grey matter | — | `evidence/evidence-D09-life-sciences.md` | OA: https://journals.sagepub.com/doi/pdf/10.1097/00004647-200110000-00001 |
-| D09-S03 | D09 | `citation-only` | Schafer et al. (2012), Microglia sculpt postnatal neural circuits | — | `evidence/evidence-D09-life-sciences.md` | archive refs / ref-check で実在確認。official full-text route は未確認 |
+| D09-S03 | D09 | `url-verified` | Schafer et al. (2012), Microglia sculpt postnatal neural circuits | — | `evidence/evidence-D09-life-sciences.md` | OA: http://www.cell.com/article/S0896627312003340/pdf (Cell Press, BRONZE, PMC3528177) |
 | D09-S04 | D09 | `url-verified` | Fields (2015), A new mechanism of nervous system plasticity | — | `evidence/evidence-D09-life-sciences.md` | OA: https://www.ncbi.nlm.nih.gov/pmc/articles/6310485 |
 | D09-S05 | D09 | `citation-only` | McEwen (1998), Protective and damaging effects of stress mediators | — | `evidence/evidence-D09-life-sciences.md` | archive refs / ref-check で実在確認。official full-text route は未確認 |
-| D09-S06 | D09 | `blocked-access` | Iliff et al. (2012), A paravascular pathway facilitates CSF flow through the brain parenchyma | — | `evidence/evidence-D09-life-sciences.md` | Science Translational Medicine PDF route が Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |
-| D09-S07 | D09 | `citation-only` | Schultz, Dayan, Montague (1997), A neural substrate of prediction and reward | — | `evidence/evidence-D09-life-sciences.md` | D07 でも使用中の anchor。PubMed で書誌確認、official full-text route は未確認 |
+| D09-S06 | D09 | `url-verified` | Iliff et al. (2012), A paravascular pathway facilitates CSF flow through the brain parenchyma | — | `evidence/evidence-D09-life-sciences.md` | OA: https://europepmc.org/articles/pmc3551275?pdf=render (EuropePMC, PMC3551275, GREEN) |
+| D09-S07 | D09 | `url-verified` | Schultz, Dayan, Montague (1997), A neural substrate of prediction and reward | — | `evidence/evidence-D09-life-sciences.md` | OA: http://www.cs.utexas.edu/~dana/Reward.pdf (著者ページ, GREEN)。D07-S07 と同一論文 |
 | D09-S08 | D09 | `citation-only` | Maynard Smith (1978), The Evolution of Sex | — | `evidence/evidence-D09-life-sciences.md` | book-level anchor。archive refs / ref-check で実在確認、official full-text route は未確認 |
 | D09-S09 | D09 | `url-verified` | Tsukada & Ohsumi (1993), Isolation and characterization of autophagy-defective mutants | — | `evidence/evidence-D09-life-sciences.md` | OA: https://onlinelibrary.wiley.com/doi/pdfdirect/10.1016/0014-5793%2893%2980398-E |
 | D09-S10 | D09 | `citation-only` | Wolpert (1969), Positional information and the spatial pattern of cellular differentiation | — | `evidence/evidence-D09-life-sciences.md` | archive refs / ref-check で実在確認。official full-text route は未確認 |
@@ -141,7 +141,7 @@
 | D12-S07 | D12 | `raw-confirmed` | 農林水産省, 総合的病害虫・雑草管理（IPM）実践指針 | `knowledge/raw/D12_maff_2005_ipm-practical-guideline.pdf` | `evidence/evidence-D12-agriculture.md` | MAFF official PDF route で実 PDF を保存 |
 | D12-S08 | D12 | `citation-only` | Scheffer, M., et al. (2001). *Nature*, 413, 591-596. DOI: 10.1038/35098000 | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D12-S09 | D12 | `citation-only` | Scheffer, M., & Carpenter, S. R. (2003). *Trends Ecol. Evol.*, 18(12), 648-656. DOI: 10.1016/j.tree.2003.09.002 | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D12-S10 | D12 | `citation-only` | Carpenter, S. R., & Brock, W. A. (2006). *Ecol. Lett.*, 9(3), 311-318. DOI: 10.1111/j.1461-0248.2005.00877.x | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D12-S10 | D12 | `url-verified` | Carpenter, S. R., & Brock, W. A. (2006). *Ecol. Lett.*, 9(3), 311-318. DOI: 10.1111/j.1461-0248.2005.00877.x | — | `evidence/evidence-D12-agriculture.md` | OA: https://figshare.com/articles/journal_contribution/Rising_variance_A_leading_indicator_of_ecological_transition/24743784 (Figshare) |
 | D13-S01 | D13 | `citation-only` | Simondon, G. (1957/2005). *L'individuation a la lumiere des notions de forme et d'information*. Editions Jerome Millon. | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D13-S02 | D13 | `citation-only` | Simondon, G. (1958). *Du mode d'existence des objets techniques*. Aubier. | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D13-S03 | D13 | `citation-only` | Deleuze, G. (1966/2001). "Review of Gilbert Simondon." *Pli*, 12. | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -166,7 +166,7 @@
 | D16-S02 | D16 | `blocked-access` | Braudel, F. (1958). Histoire et Sciences sociales: La longue durée. *Annales*, 13(4), 725-753. | — | `evidence/evidence-D16-history.md` | Persée PDF route は 2026-04-08 時点で HTTP 403 HTML。manual/browser 再試行余地あり |
 | D16-S03 | D16 | `raw-confirmed` | Toynbee, A. J. (1934-1961). *A Study of History*. 12 vols. Oxford University Press. | ローカル保持 (73MB, .gitignore) | `evidence/evidence-D16-history.md` | BG Agent 取得 (2026-04-08)。PDF 73MB。Git管理外、ローカル `knowledge/raw/D16_toynbee_1934_study-of-history-vol1.pdf` に保持 |
 | D16-S04 | D16 | `citation-only` | 邦訳: 長谷川松治訳『歴史の研究』経済往来社 | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D16-S05 | D16 | `citation-only` | Pierson, P. (2000). Increasing Returns, Path Dependence, and the Study of Politics. *APSR*, 94(2), 251-267. | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D16-S05 | D16 | `url-verified` | Pierson, P. (2000). Increasing Returns, Path Dependence, and the Study of Politics. *APSR*, 94(2), 251-267. | — | `evidence/evidence-D16-history.md` | OA: https://cadmus.eui.eu/bitstream/1814/23648/1/1997_EUI%20WP_JeanMonnet_044.pdf (EUI repository) |
 | D16-S06 | D16 | `citation-only` | Mahoney, J. (2000). Path Dependence in Historical Sociology. *Theory and Society*, 29(4), 507-548. | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D16-S07 | D16 | `citation-only` | North, D. (1990). *Institutions, Institutional Change and Economic Performance*. Cambridge UP. | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D16-S08 | D16 | `raw-confirmed` | Ibn Khaldun (1377). *al-Muqaddimah*. Franz Rosenthal英訳, Bollingen Series, Princeton UP, 1958. （特にCh.2-3: アサビーヤと王朝サイクル。「三世代=120年前後」の記述は Ch.3 §12-15 付近） | `knowledge/raw/D16_ibn-khaldun_1377_muqaddimah.pdf` | `evidence/evidence-D16-history.md` | Wikimedia Commons hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
@@ -195,7 +195,7 @@
 | D20-S01 | D20 | `citation-only` | Hart, H. L. A. (1961). *The Concept of Law*. Clarendon Press. 2nd ed. 1994. | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D20-S02 | D20 | `citation-only` | Easton, D. (1965). *A Systems Analysis of Political Life*. Wiley. | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D20-S03 | D20 | `raw-confirmed` | Ostrom, E. (1990). *Governing the Commons*. CUP. | `knowledge/raw/D20_ostrom_1990_governing-the-commons.pdf` | `evidence/evidence-D20-law-politics.md` | Internet Archive open item `Governing_the_Commons.pdf` で HTTP 200 application/pdf。実 PDF を保存 |
-| D20-S04 | D20 | `citation-only` | Sieyès, E. J. (1789). *What Is the Third Estate?* | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D20-S04 | D20 | `url-verified` | Sieyès, E. J. (1789). *What Is the Third Estate?* | — | `evidence/evidence-D20-law-politics.md` | OA: https://archive.org/download/questcequeletie00sieygoog/questcequeletie00sieygoog.pdf (IA, HTTP 200 PDF confirmed) |
 | D20-S05 | D20 | `citation-only` | Schmitt, C. (1928). *Verfassungslehre*. | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D20-S06 | D20 | `raw-confirmed` | International IDEA (2011), A Practical Guide to Constitution Building | `knowledge/raw/D20_idea_2011_practical-guide-constitution-building.pdf` | `evidence/evidence-D20-law-politics.md` | International IDEA official PDF route で実 PDF を保存 |
 | D20-S07 | D20 | `blocked-access` | UNCITRAL (2021), Mediation Rules | — | `evidence/evidence-D20-law-politics.md` | UNCITRAL CloudFront PDF route は 403 HTML を返し raw 未取得。手動ブラウザ再試行余地あり |
@@ -215,7 +215,7 @@
 | D22-S01 | D22 | `citation-only` | Nonaka, I. & Takeuchi, H. (1995). *The Knowledge-Creating Company*. Oxford University Press. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D22-S02 | D22 | `citation-only` | Nonaka, I., Umemoto, K., & Senoo, D. (1996). From information processing to knowledge creation. *Technology in Society*, 18(2), 203–218. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D22-S03 | D22 | `citation-only` | Nonaka, I., Toyama, R., & Konno, N. (2000). SECI, Ba and leadership. *Long Range Planning*, 33(1), 5–34. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D22-S04 | D22 | `citation-only` | Gourlay, S. (2006). Conceptualizing knowledge creation. *Journal of Management Studies*, 43(7), 1415–1436. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D22-S04 | D22 | `url-verified` | Gourlay, S. (2006). Conceptualizing knowledge creation. *Journal of Management Studies*, 43(7), 1415–1436. | — | `evidence/evidence-D22-business-management.md` | OA: https://eprints.kingston.ac.uk/id/eprint/339/1/Gourlay-S-339.pdf (Kingston Univ eprints, GREEN) |
 | D22-S05 | D22 | `raw-confirmed` | Stanford/HPI Design Thinking Process Guide | `knowledge/raw/D22_stanford_2010_design-thinking-process-guide.pdf` | `evidence/evidence-D22-business-management.md` | Stanford-hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D22-S06 | D22 | `citation-only` | Brown, T. (2008). Design Thinking. *Harvard Business Review*, June 2008. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D22-S07 | D22 | `raw-confirmed` | Akiike & Ichikohji (2021), What are the requirements for design thinking articles? | `knowledge/raw/D22_akiike_2021_design-thinking-articles.pdf` | `evidence/evidence-D22-business-management.md` | J-STAGE official PDF route で実 PDF を保存 |
