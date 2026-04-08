@@ -9,9 +9,9 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 50本
-- `knowledge/raw/` に実格納済み: 50本
-- `citation-only`: 185本
+- 有効な公開 PDF を発見: 53本
+- `knowledge/raw/` に実格納済み: 53本
+- `citation-only`: 182本
 - `blocked-access`: 42本
 
 ## 集計の数え方
@@ -155,7 +155,7 @@
 | D15-S03 | D15 | `raw-confirmed` | 世阿弥 (15C). 『風姿花伝』 | `knowledge/raw/D28_zeami_classics_part1.pdf` | `evidence/evidence-D15-aesthetics.md` | 既存の世阿弥古典集 raw（Wikimedia Commons / NDL scan）に風姿花伝を含む。実 PDF を再利用 |
 | D15-S04 | D15 | `raw-confirmed` | 本居宣長 (1799). 『源氏物語玉の小櫛』 | `knowledge/raw/D15_motoori_1799_tama-no-ogushi.pdf` | `evidence/evidence-D15-aesthetics.md` | Wikimedia Commons hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D15-S05 | D15 | `citation-only` | 久松真一 (1965). 「侘の茶」 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D15-S06 | D15 | `citation-only` | 能勢朝次 (1940). 『幽玄論』 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D15-S06 | D15 | `raw-confirmed` | 能勢朝次 (1940). 『幽玄論』 | `knowledge/raw/D15_nose_1944_yugenron_part1.pdf` | `evidence/evidence-D15-aesthetics.md` | Wikimedia Commons hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D15-S07 | D15 | `raw-confirmed` | Kant, I. (1790). *Kritik der Urteilskraft*. 邦訳: 牧野英二訳『判断力批判』岩波文庫 | `knowledge/raw/D15_kant_1790_kritik-der-urteilskraft.pdf` | `evidence/evidence-D15-aesthetics.md` | Wikimedia Commons hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D15-S08 | D15 | `citation-only` | Heidegger, M. (1935/36). "Der Ursprung des Kunstwerkes". 邦訳: 関口浩訳『芸術作品の根源』平凡社ライブラリー | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D15-S09 | D15 | `raw-confirmed` | Dewey, J. (1934). *Art as Experience*. Minton, Balch & Company. （特にCh.1 "The Live Creature", Ch.3 "Having an Experience", Ch.5 "The Expressive Object"） | `knowledge/raw/D13_dewey_1934_art-as-experience.pdf` | `evidence/evidence-D15-aesthetics.md` | 既存の Dewey raw（Internet Archive download route `Art_as_Experience__Dewey.pdf`）を再利用 |
@@ -208,7 +208,7 @@
 | D21-S06 | D21 | `raw-confirmed` | Hayek, F.A. (2002 [orig. 1968]). "Competition as a Discovery Procedure." *Quarterly Journal of Austrian Economics*, 5(3), 9–23.（「発見手続き」の典拠。独語講演の英訳） | `knowledge/raw/D21_hayek_2002_competition-discovery-procedure.pdf` | `evidence/evidence-D21-economics.md` | Mises Institute hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D21-S07 | D21 | `citation-only` | Keynes, J.M. (1936). *The General Theory of Employment, Interest and Money*. Macmillan. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D21-S08 | D21 | `citation-only` | Keynes, J.M. (1937). "The General Theory of Employment". *Quarterly Journal of Economics*, 51(2), 209-223. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D21-S09 | D21 | `citation-only` | Knight, F.H. (1921). *Risk, Uncertainty, and Profit*. Houghton Mifflin. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D21-S09 | D21 | `raw-confirmed` | Knight, F.H. (1921). *Risk, Uncertainty, and Profit*. Houghton Mifflin. | `knowledge/raw/D21_knight_1921_risk-uncertainty-profit.pdf` | `evidence/evidence-D21-economics.md` | Internet Archive open item `apu.jd.338.5.kni.g51686.pdf` で HTTP 200 application/pdf。実 PDF を保存 |
 | D21-S10 | D21 | `citation-only` | Nelson, R.R. & Winter, S.G. (1982). *An Evolutionary Theory of Economic Change*. Harvard University Press. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D22-S01 | D22 | `citation-only` | Nonaka, I. & Takeuchi, H. (1995). *The Knowledge-Creating Company*. Oxford University Press. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D22-S02 | D22 | `citation-only` | Nonaka, I., Umemoto, K., & Senoo, D. (1996). From information processing to knowledge creation. *Technology in Society*, 18(2), 203–218. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -227,7 +227,7 @@
 
 
 
-| D23-S01 | D23 | `citation-only` | Kegan, R. (1982). *The Evolving Self: Problem and Process in Human Development*. Harvard University Press. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D23-S01 | D23 | `raw-confirmed` | Kegan, R. (1982). *The Evolving Self: Problem and Process in Human Development*. Harvard University Press. | `knowledge/raw/D23_kegan_1982_evolving-self.pdf` | `evidence/evidence-D23-developmental-psychology.md` | Internet Archive open item `the-evolving-self-problem-and-process-in-human-development-9780674039414_compress.pdf` で HTTP 200 application/pdf。実 PDF を保存 |
 | D23-S02 | D23 | `citation-only` | Kegan, R. (1994). *In Over Our Heads: The Mental Demands of Modern Life*. Harvard University Press. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D23-S03 | D23 | `citation-only` | Lahey, L. et al. (1988). *A Guide to the Subject-Object Interview: Its Administration and Interpretation*. Harvard University, Graduate School of Education. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D23-S04 | D23 | `citation-only` | Rochat, P. (2003). Five levels of self-awareness as they unfold early in life. *Consciousness and Cognition*, 12(4), 717-731. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |

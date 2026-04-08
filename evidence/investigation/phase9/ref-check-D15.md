@@ -6,7 +6,7 @@
 
 - 原典アクセス状態: ref-check 本文としては `not-yet-reviewed`
 - source manifest には D15 first batch 10件を反映済み
-- source 内訳は `raw-confirmed` 4 / `blocked-access` 0 / `citation-only` 6
+- source 内訳は `raw-confirmed` 5 / `blocked-access` 0 / `citation-only` 5
 - 既存の verified / plausible / overstated 判定は再保証しない
 - 二次資料・要約・書誌情報のみで成立していた判定が混在していないか、原典アクセス状態から再点検する
 
@@ -16,9 +16,10 @@
   `knowledge/raw/D15_motoori_1799_tama-no-ogushi.pdf`
   `knowledge/raw/D28_zeami_classics_part1.pdf`
   `knowledge/raw/D15_kant_1790_kritik-der-urteilskraft.pdf`
+  `knowledge/raw/D15_nose_1944_yugenron_part1.pdf`
   `knowledge/raw/D13_dewey_1934_art-as-experience.pdf`
 - blocked-access: 0件。source ごとの理由は `knowledge/raw/manifest.md` の notes を参照
-- citation-only: 6件。archive refs / ref-check 起点の first-pass source rows
+- citation-only: 5件。archive refs / ref-check 起点の first-pass source rows
 - 注意:
   blocked-access は「本文不存在」ではなく、CLI challenge / login / HTML 着地を含む
 ## History
