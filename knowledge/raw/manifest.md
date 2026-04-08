@@ -9,8 +9,8 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 46本
-- `knowledge/raw/` に実格納済み: 46本
+- 有効な公開 PDF を発見: 47本
+- `knowledge/raw/` に実格納済み: 47本
 - `citation-only`: 188本
 - `blocked-access`: 42本
 
@@ -176,7 +176,7 @@
 | D17-S04 | D17 | `citation-only` | Labov, W. (1994). *Principles of Linguistic Change, Vol. 1: Internal Factors*. Blackwell. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D17-S05 | D17 | `citation-only` | Labov, W. (2001). *Principles of Linguistic Change, Vol. 2: Social Factors*. Blackwell. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D17-S06 | D17 | `citation-only` | Thomason, S. G. & Kaufman, T. (1988). *Language Contact, Creolization, and Genetic Linguistics*. UC Press. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D17-S07 | D17 | `blocked-access` | Bickerton, D. (1981). *Roots of Language*. Karoma. | — | `evidence/evidence-D17-linguistics.md` | Internet Archive download route は 2026-04-08 時点で redirect 後に item unavailable / 401。manual/browser 再試行余地あり |
+| D17-S07 | D17 | `raw-confirmed` | Bickerton, D. (1981). *Roots of Language*. Karoma. | `knowledge/raw/D17_bickerton_1981_roots-of-language.pdf` | `evidence/evidence-D17-linguistics.md` | OAPEN PDF route `603354.pdf` で HTTP 200 application/pdf。open edition raw を保存 |
 | D17-S08 | D17 | `citation-only` | Lenneberg, E. H. (1967). *Biological Foundations of Language*. Wiley. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D17-S09 | D17 | `citation-only` | Johnson, J. S. & Newport, E. L. (1989). *Cognitive Psychology*, 21(1), 60-99. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D17-S10 | D17 | `blocked-access` | Hartshorne, J. K. et al. (2018). *Cognition*, 177, 263-277. | — | `evidence/evidence-D17-linguistics.md` | Harvard Scholar file route は 2026-04-08 時点で 403 HTML。manual/browser 再試行余地あり |

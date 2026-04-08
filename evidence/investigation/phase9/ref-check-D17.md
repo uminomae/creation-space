@@ -6,16 +6,16 @@
 
 - 原典アクセス状態: ref-check 本文としては `not-yet-reviewed`
 - source manifest には D17 first batch 10件を反映済み
-- source 内訳は `raw-confirmed` 0 / `blocked-access` 2 / `citation-only` 8
+- source 内訳は `raw-confirmed` 1 / `blocked-access` 1 / `citation-only` 8
 - 既存の verified / plausible / overstated 判定は再保証しない
 - 二次資料・要約・書誌情報のみで成立していた判定が混在していないか、原典アクセス状態から再点検する
 
 ## 2026-04-08 second/third batch
 
-- raw-confirmed: 0件
+- raw-confirmed:
+  `knowledge/raw/D17_bickerton_1981_roots-of-language.pdf`
 - blocked-access:
   `Hartshorne et al. (2018)` は Harvard Scholar file route が 403 HTML に着地し raw 未取得
-  `Bickerton (1981)` は Internet Archive download route が redirect 後に item unavailable / 401 へ着地し raw 未取得
 - citation-only: 8件。archive refs / ref-check 起点の first-pass source rows
 - 注意:
   blocked-access は「本文不存在」ではなく、CLI challenge / login / HTML 着地を含む
