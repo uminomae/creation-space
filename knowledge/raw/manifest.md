@@ -9,12 +9,12 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見（`raw-confirmed`）: 65本
-- `knowledge/raw/` に実格納済み: 65本
+- 有効な公開 PDF を発見（`raw-confirmed`）: 68本
+- `knowledge/raw/` に実格納済み: 68本
 - OA URL で閲覧確認済み（`url-verified`）: 23本
-- **原典アクセス達成**: 88本（raw-confirmed 65 + url-verified 23）
-- `citation-only`: 155本
-- `blocked-access`: 34本
+- **原典アクセス達成**: 91本（raw-confirmed 68 + url-verified 23）
+- `citation-only`: 154本
+- `blocked-access`: 32本
 
 ## 集計の数え方
 
@@ -132,7 +132,7 @@
 | D11-S10 | D11 | `raw-confirmed` | ICH (2009), Q8(R2) Pharmaceutical Development Guideline | `knowledge/raw/D11_ich_2009_q8-r2-guideline.pdf` | `evidence/evidence-D11-pharmacy.md` | ICH official PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D11-S11 | D11 | `raw-confirmed` | ICH (2008), Q10 Pharmaceutical Quality System Guideline | `knowledge/raw/D11_ich_2008_q10-guideline.pdf` | `evidence/evidence-D11-pharmacy.md` | ICH official PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D11-S12 | D11 | `raw-confirmed` | ICH (2023), Q9(R1) Quality Risk Management Guideline | `knowledge/raw/D11_ich_2023_q9-r1-guideline.pdf` | `evidence/evidence-D11-pharmacy.md` | ICH official PDF route で HTTP 200 application/pdf。実 PDF を保存 |
-| D12-S01 | D12 | `blocked-access` | Clements, F. E. (1916). *Plant Succession*. Carnegie Institution. | — | `evidence/evidence-D12-agriculture.md` | Internet Archive download route は 2026-04-08 時点で 503/HTML error page。manual/browser 再試行余地あり |
+| D12-S01 | D12 | `raw-confirmed` | Clements, F. E. (1916). *Plant Succession*. Carnegie Institution. | `knowledge/raw/D12_clements_1916_plant-succession.pdf` | `evidence/evidence-D12-agriculture.md` | IA item cu31924000531818。HTTP 200 application/pdf 確認済み |
 | D12-S02 | D12 | `citation-only` | Connell, J. H., & Slatyer, R. O. (1977). *Am. Nat.*, 111, 1119-1144. | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D12-S03 | D12 | `raw-confirmed` | Holling, C. S. (1973). *Ann. Rev. Ecol. Syst.*, 4, 1-23. | `knowledge/raw/D12_holling_1973_resilience-stability.pdf` | `evidence/evidence-D12-agriculture.md` | IIASA Pure repository。DOI: 10.1146/annurev.es.04.110173.000245。HTTP 200 application/pdf 確認済み |
 | D12-S04 | D12 | `citation-only` | Robertson, G. P., & Vitousek, P. M. (2009). Nitrogen in Agriculture: Balancing the Cost of an Essential Resource. *Annual Review of Environment and Resources*, 34, 97-125. DOI: 10.1146/annurev.environ.032108.105046 | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -147,7 +147,7 @@
 | D13-S03 | D13 | `citation-only` | Deleuze, G. (1966/2001). "Review of Gilbert Simondon." *Pli*, 12. | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D13-S04 | D13 | `citation-only` | Combes, M. (1999/2013). *Gilbert Simondon and the Philosophy of the Transindividual*. MIT Press. | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D13-S05 | D13 | `raw-confirmed` | Dewey, J. (1910). *How We Think*. D.C. Heath & Co. ch.6 "The Analysis of a Complete Act of Thought" | `knowledge/raw/D13_dewey_1910_how-we-think.pdf` | `evidence/evidence-D13-philosophy.md` | Wikimedia Commons hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
-| D13-S06 | D13 | `blocked-access` | Dewey, J. (1933). *How We Think: A Restatement*. D.C. Heath & Co. (1910年版の改訂) | — | `evidence/evidence-D13-philosophy.md` | Internet Archive download route `howwethinkrestat0000john.pdf` は 2026-04-08 時点で redirect 後に item unavailable / 401。manual/browser 再試行余地あり |
+| D13-S06 | D13 | `raw-confirmed` | Dewey, J. (1933). *How We Think: A Restatement*. D.C. Heath & Co. (1910年版の改訂) | `knowledge/raw/D13_dewey_1933_how-we-think-restatement.pdf` | `evidence/evidence-D13-philosophy.md` | IA item HowWeThink。HTTP 200 application/pdf 確認済み |
 | D13-S07 | D13 | `citation-only` | Dewey, J. (1938). *Logic: The Theory of Inquiry*. Henry Holt. ch.6 | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D13-S08 | D13 | `raw-confirmed` | Dewey, J. (1929). *The Quest for Certainty*. Minton, Balch. ch.4 | `knowledge/raw/D13_dewey_1929_quest-for-certainty.pdf` | `evidence/evidence-D13-philosophy.md` | Internet Archive download route `questforcertaint0000john_n0z8.pdf` で HTTP 200 application/pdf。実 PDF を保存 |
 | D13-S09 | D13 | `raw-confirmed` | Dewey, J. (1934). *Art as Experience*. Minton, Balch. | `knowledge/raw/D13_dewey_1934_art-as-experience.pdf` | `evidence/evidence-D13-philosophy.md` | Internet Archive download route `Art_as_Experience__Dewey.pdf` で HTTP 200 application/pdf。実 PDF を保存 |
@@ -208,7 +208,7 @@
 | D21-S04 | D21 | `raw-confirmed` | Hayek (1945), The Use of Knowledge in Society | `knowledge/raw/D21_hayek_1945_use-of-knowledge-in-society.pdf` | `evidence/evidence-D21-economics.md` | OLL / Liberty Fund hosted PDF で実 PDF を保存 |
 | D21-S05 | D21 | `citation-only` | Hayek, F.A. (1973). *Law, Legislation and Liberty, Vol.1: Rules and Order*. University of Chicago Press. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D21-S06 | D21 | `raw-confirmed` | Hayek, F.A. (2002 [orig. 1968]). "Competition as a Discovery Procedure." *Quarterly Journal of Austrian Economics*, 5(3), 9–23.（「発見手続き」の典拠。独語講演の英訳） | `knowledge/raw/D21_hayek_2002_competition-discovery-procedure.pdf` | `evidence/evidence-D21-economics.md` | Mises Institute hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
-| D21-S07 | D21 | `citation-only` | Keynes, J.M. (1936). *The General Theory of Employment, Interest and Money*. Macmillan. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D21-S07 | D21 | `raw-confirmed` | Keynes, J.M. (1936). *The General Theory of Employment, Interest and Money*. Macmillan. | `knowledge/raw/D21_keynes_1936_general-theory.pdf` | `evidence/evidence-D21-economics.md` | IA item in.ernet.dli.2015.115101。HTTP 200 application/pdf 確認済み |
 | D21-S08 | D21 | `citation-only` | Keynes, J.M. (1937). "The General Theory of Employment". *Quarterly Journal of Economics*, 51(2), 209-223. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D21-S09 | D21 | `raw-confirmed` | Knight, F.H. (1921). *Risk, Uncertainty, and Profit*. Houghton Mifflin. | `knowledge/raw/D21_knight_1921_risk-uncertainty-profit.pdf` | `evidence/evidence-D21-economics.md` | Internet Archive open item `apu.jd.338.5.kni.g51686.pdf` で HTTP 200 application/pdf。実 PDF を保存 |
 | D21-S10 | D21 | `citation-only` | Nelson, R.R. & Winter, S.G. (1982). *An Evolutionary Theory of Economic Change*. Harvard University Press. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
