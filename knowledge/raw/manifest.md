@@ -9,9 +9,9 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 60本
-- `knowledge/raw/` に実格納済み: 60本
-- `citation-only`: 164本
+- 有効な公開 PDF を発見: 62本
+- `knowledge/raw/` に実格納済み: 62本
+- `citation-only`: 162本
 - `blocked-access`: 53本
 
 ## 集計の数え方
@@ -45,7 +45,7 @@
 | D02-S08 | D02 | `raw-confirmed` | The Problem of Thermal Convection in a Horizontal Layer of Fluid Heated from Below | `knowledge/raw/D02_rayleigh_1916_problem-thermal-convection-horizontal-layer-fluid-heated-below.pdf` | `evidence/evidence-D02-physics.md` | Zenodo OA PDF を保存。CLI 取得成功、実 PDF 判定 |
 | D02-S09 | D02 | `raw-confirmed` | Decoherence, einselection, and the quantum origins of the classical | `knowledge/raw/D02_zurek_2003_decoherence-einselection-quantum-origins-classical.pdf` | `evidence/evidence-D02-physics.md` | arXiv OA PDF を保存。CLI 取得成功、71 pages 確認 |
 | D02-S10 | D02 | `citation-only` | Becker-Doring (1935), nucleation kinetics | — | `evidence/evidence-D02-physics.md` | 2026-04-07 時点では書誌確認のみ。OA / paywalled route の切り分けは未了 |
-| D03-S01 | D03 | `citation-only` | Becker-Doring (1935), Kinetische Behandlung der Keimbildung in ubersattigten Dampfen | — | `evidence/evidence-D03-chemistry.md` | archive refs と ref-check で実在確認。2026-04-07 時点では primary full-text route 未確認 |
+| D03-S01 | D03 | `raw-confirmed` | Becker-Doring (1935), Kinetische Behandlung der Keimbildung in ubersattigten Dampfen | `knowledge/raw/D03_becker-doring_1935_keimbildung.pdf` | `evidence/evidence-D03-chemistry.md` | UNT Digital Library (NASA technical reports)。DOI: 10.1002/andp.19354160806。HTTP 200 application/pdf 確認済み |
 | D03-S02 | D03 | `blocked-access` | Johnson & Goody (2011), The Original Michaelis Constant: Translation of the 1913 Michaelis-Menten Paper | — | `evidence/evidence-D03-chemistry.md` | ACS supporting-info PDF URL が Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |
 | D03-S03 | D03 | `blocked-access` | Theory of Microphase Separation in Block Copolymers | — | `evidence/evidence-D03-chemistry.md` | ACS PDF URL が Cloudflare challenge で HTTP 403。bot/CLI 由来失敗の可能性が高い |
 | D03-S04 | D03 | `blocked-access` | Oscillations in Chemical Systems. IV. Limit Cycle Behavior in a Model of a Real Chemical Reaction | — | `evidence/evidence-D03-chemistry.md` | ACS PDF URL が Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |
@@ -132,7 +132,7 @@
 | D11-S12 | D11 | `raw-confirmed` | ICH (2023), Q9(R1) Quality Risk Management Guideline | `knowledge/raw/D11_ich_2023_q9-r1-guideline.pdf` | `evidence/evidence-D11-pharmacy.md` | ICH official PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D12-S01 | D12 | `blocked-access` | Clements, F. E. (1916). *Plant Succession*. Carnegie Institution. | — | `evidence/evidence-D12-agriculture.md` | Internet Archive download route は 2026-04-08 時点で 503/HTML error page。manual/browser 再試行余地あり |
 | D12-S02 | D12 | `citation-only` | Connell, J. H., & Slatyer, R. O. (1977). *Am. Nat.*, 111, 1119-1144. | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D12-S03 | D12 | `citation-only` | Holling, C. S. (1973). *Ann. Rev. Ecol. Syst.*, 4, 1-23. | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D12-S03 | D12 | `raw-confirmed` | Holling, C. S. (1973). *Ann. Rev. Ecol. Syst.*, 4, 1-23. | `knowledge/raw/D12_holling_1973_resilience-stability.pdf` | `evidence/evidence-D12-agriculture.md` | IIASA Pure repository。DOI: 10.1146/annurev.es.04.110173.000245。HTTP 200 application/pdf 確認済み |
 | D12-S04 | D12 | `citation-only` | Robertson, G. P., & Vitousek, P. M. (2009). Nitrogen in Agriculture: Balancing the Cost of an Essential Resource. *Annual Review of Environment and Resources*, 34, 97-125. DOI: 10.1146/annurev.environ.032108.105046 | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D12-S05 | D12 | `raw-confirmed` | Stern, V. M., et al. (1959). *Hilgardia*, 29(2), 81-101. | `knowledge/raw/D12_stern_1959_integrated-control-concept.pdf` | `evidence/evidence-D12-agriculture.md` | UC ANR repository PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D12-S06 | D12 | `citation-only` | Pedigo, L. P., et al. (1986). *Ann. Rev. Entomol.*, 31, 341-368. DOI: 10.1146/annurev.en.31.010186.002013 | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
