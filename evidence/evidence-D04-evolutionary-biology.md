@@ -18,7 +18,7 @@ original_access_status: not-yet-reviewed
 
 - 原典アクセス状態: evidence 本文としては `not-yet-reviewed`
 - source manifest には D04 first batch 10件を反映済み
-- source 内訳は `raw-confirmed` 1 / `blocked-access` 2 / `citation-only` 7
+- source 内訳は `raw-confirmed` 2 / `blocked-access` 2 / `citation-only` 6
 - [P] 主張の verified / accepted 判定は現時点では再保証しない
 - `knowledge/raw/` の整備と原典アクセス棚卸しが完了するまで、本文の再構成を優先する
 
@@ -26,8 +26,9 @@ original_access_status: not-yet-reviewed
 
 - raw-confirmed:
   `knowledge/raw/D04_darwin_1859_origin-of-species.pdf`
+  `knowledge/raw/D04_sagan_1967_origin-mitosing-cells.pdf`
 - blocked-access: 2件。source ごとの理由は `knowledge/raw/manifest.md` の notes を参照
-- citation-only: 7件。archive refs / ref-check 起点の first-pass source rows
+- citation-only: 6件。archive refs / ref-check 起点の first-pass source rows
 - manual/browser 余地:
   blocked-access source は CLI challenge / login redirect / HTML landing の可能性を残すため、notes を維持する
 ## History

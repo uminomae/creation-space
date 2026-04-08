@@ -9,10 +9,10 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 55本
-- `knowledge/raw/` に実格納済み: 55本
-- `citation-only`: 180本
-- `blocked-access`: 42本
+- 有効な公開 PDF を発見: 57本
+- `knowledge/raw/` に実格納済み: 57本
+- `citation-only`: 170本
+- `blocked-access`: 50本
 
 ## 集計の数え方
 
@@ -62,7 +62,7 @@
 | D04-S05 | D04 | `citation-only` | Waddington (1953), Genetic assimilation of an acquired character | — | `evidence/evidence-D04-evolutionary-biology.md` | archive refs と ref-check で実在確認。official full-text route は未確認 |
 | D04-S06 | D04 | `citation-only` | Van Valen (1973), A new evolutionary law | — | `evidence/evidence-D04-evolutionary-biology.md` | archive refs と ref-check で実在確認。official full-text route は未確認 |
 | D04-S07 | D04 | `citation-only` | Barton & Hewitt (1985), Analysis of hybrid zones | — | `evidence/evidence-D04-evolutionary-biology.md` | archive refs と ref-check で実在確認。official full-text route は未確認 |
-| D04-S08 | D04 | `citation-only` | Sagan (1967), On the Origin of Mitosing Cells | — | `evidence/evidence-D04-evolutionary-biology.md` | archive refs と ref-check で実在確認。official full-text route は未確認 |
+| D04-S08 | D04 | `raw-confirmed` | Sagan (1967), On the Origin of Mitosing Cells | `knowledge/raw/D04_sagan_1967_origin-mitosing-cells.pdf` | `evidence/evidence-D04-evolutionary-biology.md` | Internet Archive item PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D04-S09 | D04 | `blocked-access` | Woese (2002), On the evolution of cells | — | `evidence/evidence-D04-evolutionary-biology.md` | PMC article page は到達するが PDF 直リンクは \"Preparing to download ...\" POW challenge HTML を返し raw PDF 未取得。手動ブラウザ余地あり |
 | D04-S10 | D04 | `citation-only` | Schluter (2000), The Ecology of Adaptive Radiation | — | `evidence/evidence-D04-evolutionary-biology.md` | archive refs と ref-check で実在確認。book-level anchor のため official full-text route は未確認 |
 | D05-S01 | D05 | `citation-only` | Wilson(1966) | — | `evidence/evidence-D05-earth-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -200,7 +200,7 @@
 | D20-S08 | D20 | `blocked-access` | United Nations (2018), Singapore Convention on Mediation | — | `evidence/evidence-D20-law-politics.md` | UN/UNCITRAL CloudFront PDF route は 403 HTML を返し raw 未取得。手動ブラウザ再試行余地あり |
 | D20-S09 | D20 | `citation-only` | Krasner, S. D. (1982). Structural Causes and Regime Consequences. *IO*, 36(2). | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D20-S10 | D20 | `citation-only` | Keohane, R. O. (1984). *After Hegemony*. Princeton UP. | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D21-S01 | D21 | `citation-only` | Schumpeter, J.A. (1912). *Theorie der wirtschaftlichen Entwicklung*. Duncker & Humblot. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D21-S01 | D21 | `raw-confirmed` | Schumpeter, J.A. (1912). *Theorie der wirtschaftlichen Entwicklung*. Duncker & Humblot. | `knowledge/raw/D21_schumpeter_1912_theorie-der-wirtschaftlichen-entwicklung.pdf` | `evidence/evidence-D21-economics.md` | Internet Archive open item PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D21-S02 | D21 | `raw-confirmed` | Schumpeter, J.A. (1939). *Business Cycles*. McGraw-Hill.（イノベーションの群生・波及と循環の議論の主要典拠） | `knowledge/raw/D21_schumpeter_1939_business-cycles.pdf` | `evidence/evidence-D21-economics.md` | Internet Archive open item `2015.150123.Business-Cycles-Vol1.pdf` で HTTP 200 application/pdf。実 PDF を保存 |
 | D21-S03 | D21 | `citation-only` | Schumpeter, J.A. (1942). *Capitalism, Socialism and Democracy*. Harper & Brothers. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D21-S04 | D21 | `raw-confirmed` | Hayek (1945), The Use of Knowledge in Society | `knowledge/raw/D21_hayek_1945_use-of-knowledge-in-society.pdf` | `evidence/evidence-D21-economics.md` | OLL / Liberty Fund hosted PDF で実 PDF を保存 |
