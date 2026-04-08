@@ -18,7 +18,7 @@ original_access_status: not-yet-reviewed
 
 - 原典アクセス状態: evidence 本文としては `not-yet-reviewed`
 - source manifest には D13 first batch 10件を反映済み
-- source 内訳は `raw-confirmed` 4 / `blocked-access` 0 / `citation-only` 6
+- source 内訳は `raw-confirmed` 5 / `blocked-access` 0 / `citation-only` 5
 - [P] 主張の verified / accepted 判定は現時点では再保証しない
 - `knowledge/raw/` の整備と原典アクセス棚卸しが完了するまで、本文の再構成を優先する
 
@@ -29,8 +29,9 @@ original_access_status: not-yet-reviewed
   `knowledge/raw/D13_whitehead_1929_process-and-reality.pdf`
   `knowledge/raw/D13_dewey_1916_democracy-and-education.pdf`
   `knowledge/raw/D13_dewey_1934_art-as-experience.pdf`
+  `knowledge/raw/D13_dewey_1929_quest-for-certainty.pdf`
 - blocked-access: 0件。source ごとの理由は `knowledge/raw/manifest.md` の notes を参照
-- citation-only: 6件。archive refs / ref-check 起点の first-pass source rows
+- citation-only: 5件。archive refs / ref-check 起点の first-pass source rows
 - manual/browser 余地:
   blocked-access source は CLI challenge / login redirect / HTML landing の可能性を残すため、notes を維持する
 ## History

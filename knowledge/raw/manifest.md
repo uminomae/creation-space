@@ -9,9 +9,9 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 45本
-- `knowledge/raw/` に実格納済み: 45本
-- `citation-only`: 190本
+- 有効な公開 PDF を発見: 46本
+- `knowledge/raw/` に実格納済み: 46本
+- `citation-only`: 189本
 - `blocked-access`: 42本
 
 ## 集計の数え方
@@ -147,7 +147,7 @@
 | D13-S05 | D13 | `raw-confirmed` | Dewey, J. (1910). *How We Think*. D.C. Heath & Co. ch.6 "The Analysis of a Complete Act of Thought" | `knowledge/raw/D13_dewey_1910_how-we-think.pdf` | `evidence/evidence-D13-philosophy.md` | Wikimedia Commons hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D13-S06 | D13 | `raw-confirmed` | Dewey, J. (1933). *How We Think: A Restatement*. D.C. Heath & Co. (1910年版の改訂) | `knowledge/raw/D13_dewey_1916_democracy-and-education.pdf` | `evidence/evidence-D13-philosophy.md` | Internet Archive download route `democracyandedu07dewegoog.pdf` で HTTP 200 application/pdf。Dewey 公開古典 raw を保存 |
 | D13-S07 | D13 | `citation-only` | Dewey, J. (1938). *Logic: The Theory of Inquiry*. Henry Holt. ch.6 | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D13-S08 | D13 | `citation-only` | Dewey, J. (1929). *The Quest for Certainty*. Minton, Balch. ch.4 | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D13-S08 | D13 | `raw-confirmed` | Dewey, J. (1929). *The Quest for Certainty*. Minton, Balch. ch.4 | `knowledge/raw/D13_dewey_1929_quest-for-certainty.pdf` | `evidence/evidence-D13-philosophy.md` | Internet Archive download route `questforcertaint0000john_n0z8.pdf` で HTTP 200 application/pdf。実 PDF を保存 |
 | D13-S09 | D13 | `raw-confirmed` | Dewey, J. (1934). *Art as Experience*. Minton, Balch. | `knowledge/raw/D13_dewey_1934_art-as-experience.pdf` | `evidence/evidence-D13-philosophy.md` | Internet Archive download route `Art_as_Experience__Dewey.pdf` で HTTP 200 application/pdf。実 PDF を保存 |
 | D13-S10 | D13 | `raw-confirmed` | Whitehead, A. N. (1929). *Process and Reality: An Essay in Cosmology*. Macmillan. (Corrected Edition, ed. Griffin & Sherburne, Free Press, 1978) | `knowledge/raw/D13_whitehead_1929_process-and-reality.pdf` | `evidence/evidence-D13-philosophy.md` | Wikimedia Commons hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D15-S01 | D15 | `citation-only` | Meltzer, D., & Harris Williams, M. (1988). *The Apprehension of Beauty*. Clunie Press. | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
