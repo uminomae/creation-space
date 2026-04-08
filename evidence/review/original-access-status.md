@@ -31,9 +31,9 @@
 | D18 | 4 | 1 | 2 | 1 |
 | D19 | 10 | 1 | 1 | 8 |
 | D20 | 10 | 1 | 2 | 7 |
-| D21 | 10 | 1 | 0 | 9 |
+| D21 | 10 | 2 | 0 | 8 |
 | D22 | 10 | 2 | 0 | 8 |
-| D23 | 10 | 1 | 0 | 9 |
+| D23 | 10 | 2 | 0 | 8 |
 | D24 | 10 | 2 | 0 | 8 |
 | D25 | 10 | 1 | 2 | 7 |
 | D26 | 10 | 0 | 2 | 8 |
@@ -241,6 +241,28 @@ manifest には D05 の draft source rows 10件を first pass として投入し
   SSRN delivery PDF route は Cloudflare challenge 403 HTML
 - `van Gennep (1909)` は既存どおり `blocked-access`
 - 残る 7 件は `citation-only`
+
+## D21 second-pass raw upgrade
+
+- `knowledge/raw/D21_hayek_1945_use-of-knowledge-in-society.pdf`
+- `knowledge/raw/D21_hayek_2002_competition-discovery-procedure.pdf`
+
+この second pass では Hayek 系 2 件を raw-confirmed として扱う。
+
+補足:
+- `Competition as a Discovery Procedure` は Mises Institute hosted PDF route で HTTP 200 application/pdf を確認し、実 PDF を保存
+- 残る 8 件は `citation-only`
+
+## D23 second-pass raw upgrade
+
+- `knowledge/raw/D23_nakama_2014_dids-japanese-version.pdf`
+- `knowledge/raw/D23_kinoshita_2001_self-image.pdf`
+
+この second pass では 2 件を raw-confirmed として扱う。
+
+補足:
+- `木下孝司 (2001)` は Kobe University repository PDF route で HTTP 200 application/pdf を確認し、実 PDF を保存
+- 残る 8 件は `citation-only`
 
 ## D26 second-pass access update
 

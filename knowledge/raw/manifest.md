@@ -9,10 +9,10 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 31本
-- `knowledge/raw/` に実格納済み: 31本
-- `citation-only`: 206本
-- `blocked-access`: 40本
+- 有効な公開 PDF を発見: 33本
+- `knowledge/raw/` に実格納済み: 33本
+- `citation-only`: 203本
+- `blocked-access`: 41本
 
 ## 集計の数え方
 
@@ -205,7 +205,7 @@
 | D21-S03 | D21 | `citation-only` | Schumpeter, J.A. (1942). *Capitalism, Socialism and Democracy*. Harper & Brothers. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D21-S04 | D21 | `raw-confirmed` | Hayek (1945), The Use of Knowledge in Society | `knowledge/raw/D21_hayek_1945_use-of-knowledge-in-society.pdf` | `evidence/evidence-D21-economics.md` | OLL / Liberty Fund hosted PDF で実 PDF を保存 |
 | D21-S05 | D21 | `citation-only` | Hayek, F.A. (1973). *Law, Legislation and Liberty, Vol.1: Rules and Order*. University of Chicago Press. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D21-S06 | D21 | `citation-only` | Hayek, F.A. (2002 [orig. 1968]). "Competition as a Discovery Procedure." *Quarterly Journal of Austrian Economics*, 5(3), 9–23.（「発見手続き」の典拠。独語講演の英訳） | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D21-S06 | D21 | `raw-confirmed` | Hayek, F.A. (2002 [orig. 1968]). "Competition as a Discovery Procedure." *Quarterly Journal of Austrian Economics*, 5(3), 9–23.（「発見手続き」の典拠。独語講演の英訳） | `knowledge/raw/D21_hayek_2002_competition-discovery-procedure.pdf` | `evidence/evidence-D21-economics.md` | Mises Institute hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D21-S07 | D21 | `citation-only` | Keynes, J.M. (1936). *The General Theory of Employment, Interest and Money*. Macmillan. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D21-S08 | D21 | `citation-only` | Keynes, J.M. (1937). "The General Theory of Employment". *Quarterly Journal of Economics*, 51(2), 209-223. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D21-S09 | D21 | `citation-only` | Knight, F.H. (1921). *Risk, Uncertainty, and Profit*. Houghton Mifflin. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -232,7 +232,7 @@
 | D23-S03 | D23 | `citation-only` | Lahey, L. et al. (1988). *A Guide to the Subject-Object Interview: Its Administration and Interpretation*. Harvard University, Graduate School of Education. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D23-S04 | D23 | `citation-only` | Rochat, P. (2003). Five levels of self-awareness as they unfold early in life. *Consciousness and Cognition*, 12(4), 717-731. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D23-S05 | D23 | `citation-only` | Rochat, P. (2001). *The Infant's World*. Harvard University Press. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D23-S06 | D23 | `citation-only` | 木下孝司 (2001). 幼児は自己映像を"自分のこと"として見ているか？ *神戸大学発達科学部研究紀要*, 8(2), 91-100. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D23-S06 | D23 | `raw-confirmed` | 木下孝司 (2001). 幼児は自己映像を"自分のこと"として見ているか？ *神戸大学発達科学部研究紀要*, 8(2), 91-100. | `knowledge/raw/D23_kinoshita_2001_self-image.pdf` | `evidence/evidence-D23-developmental-psychology.md` | Kobe University repository PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D23-S07 | D23 | `citation-only` | Luyckx, K., Goossens, L., Soenens, B., & Beyers, W. (2006). Unpacking commitment and exploration: Preliminary validation of an integrative model of late adolescent identity formation. *Journal of Adolescence*, 29(3), 361-378. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D23-S08 | D23 | `citation-only` | Luyckx, K., Schwartz, S. J., Berzonsky, M. D., Soenens, B., Vansteenkiste, M., Smits, I., & Goossens, L. (2008). Capturing ruminative exploration: Extending the four-dimensional model of identity formation in late adolescence. *Journal of Research in Personality*, 42(1), 58-82. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D23-S09 | D23 | `raw-confirmed` | 中間玲子ほか (2014), 多次元アイデンティティ発達尺度（DIDS）日本語版 | `knowledge/raw/D23_nakama_2014_dids-japanese-version.pdf` | `evidence/evidence-D23-developmental-psychology.md` | J-STAGE official PDF route で実 PDF を保存 |
