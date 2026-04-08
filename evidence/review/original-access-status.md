@@ -38,7 +38,7 @@
 | D25 | 10 | 0 | 1 | 9 |
 | D26 | 10 | 0 | 0 | 10 |
 | D27 | 10 | 0 | 0 | 10 |
-| D28 | 10 | 0 | 0 | 10 |
+| D28 | 10 | 1 | 0 | 9 |
 | D29 | 10 | 1 | 0 | 9 |
 | D30 | 10 | 2 | 0 | 8 |
 
@@ -342,3 +342,12 @@ manifest には D05 の draft source rows 10件を first pass として投入し
 
 補足:
 - OLL / Liberty Fund hosted PDF で実 PDF を確認
+## D28 second-pass raw upgrade
+
+- `knowledge/raw/D28_zeami_classics_part1.pdf`
+- `knowledge/raw/D28_zeami_classics_part2.pdf`
+
+この 1 source を raw-confirmed に格上げした。
+
+補足:
+- Wikimedia Commons / NDL scan の実 PDF を確認

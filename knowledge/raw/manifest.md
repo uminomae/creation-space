@@ -9,9 +9,9 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 26本
-- `knowledge/raw/` に実格納済み: 26本
-- `citation-only`: 216本
+- 有効な公開 PDF を発見: 27本
+- `knowledge/raw/` に実格納済み: 27本
+- `citation-only`: 215本
 - `blocked-access`: 35本
 
 ## 集計の数え方
@@ -277,7 +277,7 @@
 | D27-S08 | D27 | `citation-only` | Aravena, A. & Iacobelli, A. (2012). *ELEMENTAL: Incremental Housing and Participatory Design Manual*. Hatje Cantz. Quinta Monroy Project (2004, Iquique, Chile). | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D27-S09 | D27 | `citation-only` | Pallasmaa, J. (1996/2005). *The Eyes of the Skin: Architecture and the Senses*. 2nd edition, Wiley. Pallasmaa, J. (2011). *The Embodied Image: Imagination and Imagery in Architecture*. Wiley. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D27-S10 | D27 | `citation-only` | Schumacher, P. (2008). "Parametricism as Style — Parametricist Manifesto." Venice Biennale 2008. Schumacher, P. (2011). *The Autopoiesis of Architecture, Vol. I*. Wiley. Schumacher, P. (2012). *The Autopoiesis of Architecture, Vol. II*. Wiley. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D28-S01 | D28 | `citation-only` | 世阿弥. (c.1400-1418). 『風姿花伝』 | — | `evidence/evidence-D28-performing-arts.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D28-S01 | D28 | `raw-confirmed` | 世阿弥古典集（風姿花伝を含む） | `knowledge/raw/D28_zeami_classics_part1.pdf` | `evidence/evidence-D28-performing-arts.md` | Wikimedia Commons / NDL scan の実 PDF を part1/part2 で保存。part2: `knowledge/raw/D28_zeami_classics_part2.pdf` |
 | D28-S02 | D28 | `citation-only` | 世阿弥. (c.1424). 『花鏡』 | — | `evidence/evidence-D28-performing-arts.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D28-S03 | D28 | `citation-only` | 世阿弥. 『至花道』 | — | `evidence/evidence-D28-performing-arts.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D28-S04 | D28 | `citation-only` | Johnstone, K. (1979). *Impro: Improvisation and the Theatre*. London: Faber | — | `evidence/evidence-D28-performing-arts.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
