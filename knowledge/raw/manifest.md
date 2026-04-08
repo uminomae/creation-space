@@ -9,9 +9,9 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 49本
-- `knowledge/raw/` に実格納済み: 49本
-- `citation-only`: 186本
+- 有効な公開 PDF を発見: 50本
+- `knowledge/raw/` に実格納済み: 50本
+- `citation-only`: 185本
 - `blocked-access`: 42本
 
 ## 集計の数え方
@@ -153,7 +153,7 @@
 | D15-S01 | D15 | `citation-only` | Meltzer, D., & Harris Williams, M. (1988). *The Apprehension of Beauty*. Clunie Press. | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D15-S02 | D15 | `citation-only` | 上田勝久 (2016). 「精神分析的心理療法における美的体験の意義」 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D15-S03 | D15 | `raw-confirmed` | 世阿弥 (15C). 『風姿花伝』 | `knowledge/raw/D28_zeami_classics_part1.pdf` | `evidence/evidence-D15-aesthetics.md` | 既存の世阿弥古典集 raw（Wikimedia Commons / NDL scan）に風姿花伝を含む。実 PDF を再利用 |
-| D15-S04 | D15 | `citation-only` | 本居宣長 (1799). 『源氏物語玉の小櫛』 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D15-S04 | D15 | `raw-confirmed` | 本居宣長 (1799). 『源氏物語玉の小櫛』 | `knowledge/raw/D15_motoori_1799_tama-no-ogushi.pdf` | `evidence/evidence-D15-aesthetics.md` | Wikimedia Commons hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D15-S05 | D15 | `citation-only` | 久松真一 (1965). 「侘の茶」 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D15-S06 | D15 | `citation-only` | 能勢朝次 (1940). 『幽玄論』 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D15-S07 | D15 | `raw-confirmed` | Kant, I. (1790). *Kritik der Urteilskraft*. 邦訳: 牧野英二訳『判断力批判』岩波文庫 | `knowledge/raw/D15_kant_1790_kritik-der-urteilskraft.pdf` | `evidence/evidence-D15-aesthetics.md` | Wikimedia Commons hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
