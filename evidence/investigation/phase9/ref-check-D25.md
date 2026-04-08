@@ -6,7 +6,7 @@
 
 - 原典アクセス状態: ref-check 本文としては `not-yet-reviewed`
 - source manifest には D25 first/second batch 10件を反映済み
-- source 内訳は `raw-confirmed` 1 / `blocked-access` 2 / `citation-only` 7
+- source 内訳は `raw-confirmed` 1 / `blocked-access` 3 / `citation-only` 6
 - 既存の verified / plausible / overstated 判定は再保証しない
 - 二次資料・要約・書誌情報のみで成立していた判定が混在していないか、原典アクセス状態から再点検する
 
@@ -17,8 +17,9 @@
 - blocked-access:
   `van Gennep (1909)` は Internet Archive download route が 503/HTML error page を返し raw 未取得
   `Lamont & Molnar (2002)` は SSRN delivery PDF route が Cloudflare challenge 403 HTML に着地し raw 未取得
+  `Leroi-Gourhan / Lemonnier cluster` は Internet Archive download route が redirect 後に item unavailable / 401 へ着地し raw 未取得
 - citation-only:
-  残る 7 source は archive refs / ref-check 起点の first-pass source rows
+  残る 6 source は archive refs / ref-check 起点の first-pass source rows
 ## History
 
 - スナップショット: [`evidence/archive/pre-rerun-20260407/phase9/ref-check-D25.md`](../../archive/pre-rerun-20260407/phase9/ref-check-D25.md)

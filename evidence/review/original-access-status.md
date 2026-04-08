@@ -35,7 +35,7 @@
 | D22 | 10 | 2 | 0 | 8 |
 | D23 | 10 | 2 | 0 | 8 |
 | D24 | 10 | 3 | 0 | 7 |
-| D25 | 10 | 1 | 2 | 7 |
+| D25 | 10 | 1 | 3 | 6 |
 | D26 | 10 | 0 | 2 | 8 |
 | D27 | 10 | 1 | 2 | 7 |
 | D28 | 10 | 1 | 0 | 9 |
@@ -233,14 +233,16 @@ manifest には D05 の draft source rows 10件を first pass として投入し
 
 - `knowledge/raw/D25_pratt_1991_arts-of-the-contact-zone.pdf`
 
-この second pass では 1 件を raw-confirmed に格上げし、1 件を `blocked-access` に更新した。
+この second pass では 1 件を raw-confirmed に格上げし、2 件を `blocked-access` に更新した。
 
 補足:
 - `Pratt (1991)` は Texas State University hosted PDF（Wabash Center resource page 経由）で HTTP 200 application/pdf を確認し、実 PDF を保存
 - `Lamont & Molnar (2002)` は `blocked-access`
   SSRN delivery PDF route は Cloudflare challenge 403 HTML
+- `Leroi-Gourhan / Lemonnier cluster` は `blocked-access`
+  Internet Archive download route は redirect 後に item unavailable / 401
 - `van Gennep (1909)` は既存どおり `blocked-access`
-- 残る 7 件は `citation-only`
+- 残る 6 件は `citation-only`
 
 ## D21 second-pass raw upgrade
 
