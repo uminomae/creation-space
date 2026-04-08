@@ -34,7 +34,7 @@
 | D21 | 10 | 0 | 0 | 10 |
 | D22 | 10 | 2 | 0 | 8 |
 | D23 | 10 | 0 | 0 | 10 |
-| D24 | 10 | 1 | 0 | 9 |
+| D24 | 10 | 2 | 0 | 8 |
 | D25 | 10 | 0 | 1 | 9 |
 | D26 | 10 | 0 | 0 | 10 |
 | D27 | 10 | 0 | 0 | 10 |
@@ -312,11 +312,12 @@ manifest には D05 の draft source rows 10件を first pass として投入し
 
 - `knowledge/raw/D24_suzuki_1935_manual-of-zen-buddhism_part1.pdf`
 - `knowledge/raw/D24_suzuki_1935_manual-of-zen-buddhism_part2.pdf`
+- `knowledge/raw/D24_teresa_1921_interior-castle.pdf`
 
-この 1 source を raw-confirmed に格上げした。
+この 2 source を raw-confirmed に格上げした。
 
 補足:
-- Wikimedia Commons / NDL scan の実 PDF を確認
+- Wikimedia Commons / NDL scan と CCEL-hosted PDF の実物を確認
 ## D25 blocked-access note
 
 - `van Gennep (1909), Les rites de passage`

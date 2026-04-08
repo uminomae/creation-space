@@ -9,9 +9,9 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 24本
-- `knowledge/raw/` に実格納済み: 24本
-- `citation-only`: 218本
+- 有効な公開 PDF を発見: 25本
+- `knowledge/raw/` に実格納済み: 25本
+- `citation-only`: 217本
 - `blocked-access`: 35本
 
 ## 集計の数え方
@@ -243,7 +243,7 @@
 | D24-S04 | D24 | `citation-only` | Turner, V. (1969). *The Ritual Process: Structure and Anti-Structure*. Cornell University Press. | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D24-S05 | D24 | `citation-only` | Van Gennep, A. (1909/1960). *The Rites of Passage*. University of Chicago Press (trans.). | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D24-S06 | D24 | `citation-only` | Turner, V. (1974). *Dramas, Fields, and Metaphors*. Cornell University Press. | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D24-S07 | D24 | `citation-only` | Santa Teresa de Jesús (1577). *El Castillo Interior o Las Moradas*. | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D24-S07 | D24 | `raw-confirmed` | Santa Teresa de Jesús, El Castillo Interior / The Interior Castle | `knowledge/raw/D24_teresa_1921_interior-castle.pdf` | `evidence/evidence-D24-religion.md` | CCEL-hosted PDF route で実 PDF を保存 |
 | D24-S08 | D24 | `citation-only` | Kavanaugh, K. & Rodriguez, O. (trans.) (1980). *The Collected Works of St. Teresa of Avila*, Vol. 2. ICS Publications. | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D24-S09 | D24 | `citation-only` | Turner, D. (1995). *The Darkness of God: Negativity in Christian Mysticism*. Cambridge University Press. | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D24-S10 | D24 | `raw-confirmed` | Suzuki, D. T. (1935/1950), Manual of Zen Buddhism | `knowledge/raw/D24_suzuki_1935_manual-of-zen-buddhism_part1.pdf` | `evidence/evidence-D24-religion.md` | Wikimedia Commons / NDL scan の実 PDF を part1/part2 で保存。part2: `knowledge/raw/D24_suzuki_1935_manual-of-zen-buddhism_part2.pdf` |

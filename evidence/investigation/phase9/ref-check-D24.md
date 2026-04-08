@@ -6,18 +6,18 @@
 
 - 原典アクセス状態: ref-check 本文としては `not-yet-reviewed`
 - source manifest には D24 first/second batch 10件を反映済み
-- source 内訳は `raw-confirmed` 1 / `blocked-access` 0 / `citation-only` 9
+- source 内訳は `raw-confirmed` 2 / `blocked-access` 0 / `citation-only` 8
 - 既存の verified / plausible / overstated 判定は再保証しない
 - 二次資料・要約・書誌情報のみで成立していた判定が混在していないか、原典アクセス状態から再点検する
 
 ## 2026-04-07 first/second batch
 
 - raw-confirmed:
-  `Suzuki, Manual of Zen Buddhism` は Wikimedia Commons / NDL scan の PDF を取得済み
+  `Suzuki, Manual of Zen Buddhism`, `Teresa, Interior Castle` は public PDF を取得済み
 - blocked-access:
   0件
 - citation-only:
-  残る 9 source は archive refs / ref-check 起点の first-pass source rows
+  残る 8 source は archive refs / ref-check 起点の first-pass source rows
 ## History
 
 - スナップショット: [`evidence/archive/pre-rerun-20260407/phase9/ref-check-D24.md`](../../archive/pre-rerun-20260407/phase9/ref-check-D24.md)
