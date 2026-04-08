@@ -9,9 +9,9 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 42本
-- `knowledge/raw/` に実格納済み: 42本
-- `citation-only`: 193本
+- 有効な公開 PDF を発見: 43本
+- `knowledge/raw/` に実格納済み: 43本
+- `citation-only`: 192本
 - `blocked-access`: 42本
 
 ## 集計の数え方
@@ -145,7 +145,7 @@
 | D13-S03 | D13 | `citation-only` | Deleuze, G. (1966/2001). "Review of Gilbert Simondon." *Pli*, 12. | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D13-S04 | D13 | `citation-only` | Combes, M. (1999/2013). *Gilbert Simondon and the Philosophy of the Transindividual*. MIT Press. | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D13-S05 | D13 | `raw-confirmed` | Dewey, J. (1910). *How We Think*. D.C. Heath & Co. ch.6 "The Analysis of a Complete Act of Thought" | `knowledge/raw/D13_dewey_1910_how-we-think.pdf` | `evidence/evidence-D13-philosophy.md` | Wikimedia Commons hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
-| D13-S06 | D13 | `citation-only` | Dewey, J. (1933). *How We Think: A Restatement*. D.C. Heath & Co. (1910年版の改訂) | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D13-S06 | D13 | `raw-confirmed` | Dewey, J. (1933). *How We Think: A Restatement*. D.C. Heath & Co. (1910年版の改訂) | `knowledge/raw/D13_dewey_1916_democracy-and-education.pdf` | `evidence/evidence-D13-philosophy.md` | Internet Archive download route `democracyandedu07dewegoog.pdf` で HTTP 200 application/pdf。Dewey 公開古典 raw を保存 |
 | D13-S07 | D13 | `citation-only` | Dewey, J. (1938). *Logic: The Theory of Inquiry*. Henry Holt. ch.6 | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D13-S08 | D13 | `citation-only` | Dewey, J. (1929). *The Quest for Certainty*. Minton, Balch. ch.4 | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D13-S09 | D13 | `citation-only` | Dewey, J. (1934). *Art as Experience*. Minton, Balch. | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
