@@ -9,11 +9,11 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見（`raw-confirmed`）: 70本
-- `knowledge/raw/` に実格納済み: 70本
+- 有効な公開 PDF を発見（`raw-confirmed`）: 71本
+- `knowledge/raw/` に実格納済み: 71本
 - OA URL で閲覧確認済み（`url-verified`）: 25本
-- **原典アクセス達成**: 95本（raw-confirmed 70 + url-verified 25）
-- `citation-only`: 154本
+- **原典アクセス達成**: 96本（raw-confirmed 71 + url-verified 25）
+- `citation-only`: 153本
 - `blocked-access`: 28本
 
 ## 集計の数え方
@@ -96,7 +96,7 @@
 | D07-S07 | D07 | `citation-only` | Schultz, Dayan, Montague (1997), A neural substrate of prediction and reward | — | `evidence/evidence-D07-engineering.md` | PubMed で書誌確認。official Science full text は未確認 |
 | D07-S08 | D07 | `citation-only` | Holland (1975), Adaptation in Natural and Artificial Systems | — | `evidence/evidence-D07-engineering.md` | 書誌確認のみ。official full-text route は未確認 |
 | D07-S09 | D07 | `citation-only` | Fowler (1999), Refactoring | — | `evidence/evidence-D07-engineering.md` | 書誌確認のみ。official full-text route は未確認 |
-| D07-S10 | D07 | `citation-only` | Diffie & Hellman (1976), New Directions in Cryptography | — | `evidence/evidence-D07-engineering.md` | 書誌確認のみ。official IEEE route は未確認 |
+| D07-S10 | D07 | `raw-confirmed` | Diffie & Hellman (1976), New Directions in Cryptography | `knowledge/raw/D07_diffie-hellman_1976_new-directions-cryptography.pdf` | `evidence/evidence-D07-engineering.md` | Stanford Hellman 著者ページ。HTTP 200 application/pdf 確認済み |
 | D08-S01 | D08 | `blocked-access` | Rao & Ballard (1999), Predictive coding in the visual cortex | — | `evidence/evidence-D08-neuroscience.md` | Nature PDF route が `idp.nature.com/authorize` に 303 redirect。手動ブラウザ / 機関ログイン余地あり |
 | D08-S02 | D08 | `blocked-access` | Craig (2009), How do you feel — now? | — | `evidence/evidence-D08-neuroscience.md` | Nature Reviews PDF route が `idp.nature.com/authorize` に 303 redirect。手動ブラウザ / 機関ログイン余地あり |
 | D08-S03 | D08 | `citation-only` | Barrett (2017), How Emotions Are Made | — | `evidence/evidence-D08-neuroscience.md` | book-level anchor。archive refs / ref-check で実在確認、official full-text route は未確認 |
