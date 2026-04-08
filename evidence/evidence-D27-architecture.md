@@ -18,7 +18,7 @@ original_access_status: not-yet-reviewed
 
 - 原典アクセス状態: evidence 本文としては `not-yet-reviewed`
 - source manifest には D27 first batch 10件を反映済み
-- source 内訳は `raw-confirmed` 0 / `blocked-access` 1 / `citation-only` 9
+- source 内訳は `raw-confirmed` 0 / `blocked-access` 2 / `citation-only` 8
 - [P] 主張の verified / accepted 判定は現時点では再保証しない
 - `knowledge/raw/` の整備と原典アクセス棚卸しが完了するまで、本文の再構成を優先する
 
@@ -26,8 +26,9 @@ original_access_status: not-yet-reviewed
 
 - raw-confirmed: 0件
 - blocked-access:
+  `Menges & Knippers / ICD-ITKE pavilion cluster` は CAD Journal / ScienceDirect PDF route が Cloudflare challenge 403 HTML、Architectural Design DOI route は Wiley landing へ進むが 403 HTML challenge に着地し raw 未取得。manual/browser 再試行余地あり
   `Aravena & Iacobelli (2012)` は ELEMENTAL official PDF route が Vercel 403 text/plain `Forbidden` を返し raw 未取得。manual/browser 再試行余地あり
-- citation-only: 9件。archive refs / ref-check 起点の first-pass source rows
+- citation-only: 8件。archive refs / ref-check 起点の first-pass source rows
 - manual/browser 余地:
   blocked-access source は CLI challenge / login redirect / HTML landing の可能性を残すため、notes を維持する
 ## History

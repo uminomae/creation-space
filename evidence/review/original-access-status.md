@@ -35,9 +35,9 @@
 | D22 | 10 | 2 | 0 | 8 |
 | D23 | 10 | 1 | 0 | 9 |
 | D24 | 10 | 2 | 0 | 8 |
-| D25 | 10 | 0 | 1 | 9 |
-| D26 | 10 | 0 | 1 | 9 |
-| D27 | 10 | 0 | 1 | 9 |
+| D25 | 10 | 1 | 2 | 7 |
+| D26 | 10 | 0 | 2 | 8 |
+| D27 | 10 | 0 | 2 | 8 |
 | D28 | 10 | 1 | 0 | 9 |
 | D29 | 10 | 1 | 0 | 9 |
 | D30 | 10 | 2 | 0 | 8 |
@@ -227,23 +227,40 @@ manifest には D05 の draft source rows 10件を first pass として投入し
 - Monoskop hosted PDF route で HTTP 200 application/pdf を確認し、実 PDF を保存
 - 残る 9 件は `citation-only`
 
-## D26 second-pass access update
+## D25 second-pass raw/access update
 
-この second pass では raw PDF の追加取得には未達だが、1 件を `blocked-access` に更新した。
+- `knowledge/raw/D25_pratt_1991_arts-of-the-contact-zone.pdf`
+
+この second pass では 1 件を raw-confirmed に格上げし、1 件を `blocked-access` に更新した。
 
 補足:
+- `Pratt (1991)` は Texas State University hosted PDF（Wabash Center resource page 経由）で HTTP 200 application/pdf を確認し、実 PDF を保存
+- `Lamont & Molnar (2002)` は `blocked-access`
+  SSRN delivery PDF route は Cloudflare challenge 403 HTML
+- `van Gennep (1909)` は既存どおり `blocked-access`
+- 残る 7 件は `citation-only`
+
+## D26 second-pass access update
+
+この second pass では raw PDF の追加取得には未達だが、1 件を追加で `blocked-access` に更新した。
+
+補足:
+- `Mehr et al. (2019)` は `blocked-access`
+  Science official PDF route は Cloudflare challenge 403 HTML。Harvard Scholar mirror file route も 403 HTML に着地し raw 未取得
 - `Savage et al. (2015)` は `blocked-access`
   PNAS official PDF route は Cloudflare challenge 403 HTML。PMC mirror PDF route も HTML interstitial に着地し raw 未取得
-- 残る 9 件は `citation-only`
+- 残る 8 件は `citation-only`
 
 ## D27 second-pass access update
 
-この second pass では raw PDF の追加取得には未達だが、1 件を `blocked-access` に更新した。
+この second pass では raw PDF の追加取得には未達だが、1 件を追加で `blocked-access` に更新した。
 
 補足:
+- `Menges & Knippers / ICD-ITKE pavilion cluster` は `blocked-access`
+  CAD Journal / ScienceDirect PDF route は Cloudflare challenge 403 HTML。Architectural Design DOI route は Wiley landing へ進むが 403 HTML challenge
 - `Aravena & Iacobelli (2012)` は `blocked-access`
   ELEMENTAL official PDF route は Vercel 403 text/plain `Forbidden` を返し raw 未取得
-- 残る 9 件は `citation-only`
+- 残る 8 件は `citation-only`
 
 | domain_id | kind | active_path | archive_snapshot | access_status |
 |---|---|---|---|---|

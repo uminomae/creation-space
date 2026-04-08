@@ -9,10 +9,10 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 29本
-- `knowledge/raw/` に実格納済み: 29本
-- `citation-only`: 211本
-- `blocked-access`: 37本
+- 有効な公開 PDF を発見: 30本
+- `knowledge/raw/` に実格納済み: 30本
+- `citation-only`: 207本
+- `blocked-access`: 40本
 
 ## 集計の数え方
 
@@ -255,15 +255,15 @@
 | D25-S06 | D25 | `citation-only` | Waveland Press (reprint). | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D25-S07 | D25 | `citation-only` | Mauss, M. (1925). *Essai sur le don: Forme et raison de l'echange dans les societes archaiques*. 邦訳: 『贈与論 他二篇』岩波文庫 (2014). Levi-Strauss, C. (1950). Introduction to Mauss. Sahlins, M. (1972). *Stone Age Economics*. | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D25-S08 | D25 | `citation-only` | Leroi-Gourhan, A. (1964-65). *Le Geste et la Parole*. 邦訳: 『身ぶりと言葉』筑摩書房. Lemonnier, P. (1986). "The Study of Material Culture Today." *J. of Anthropological Archaeology* 5: 147-186. Lemonnier, P. (1992). *Elements for an Anthropology of Technology*. Anthropological Papers No. 88, Univ. of Michigan. | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D25-S09 | D25 | `citation-only` | Lamont, M. & Molnar, V. (2002). "The Study of Boundaries in the Social Sciences." *Annual Review of Sociology* 28: 167-195. doi:10.1146/annurev.soc.28.110601.141107 | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D25-S10 | D25 | `citation-only` | Pratt, M. L. (1991). "Arts of the Contact Zone." *Profession* 91: 33-40. MLA. | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D25-S09 | D25 | `blocked-access` | Lamont, M. & Molnar, V. (2002). "The Study of Boundaries in the Social Sciences." *Annual Review of Sociology* 28: 167-195. doi:10.1146/annurev.soc.28.110601.141107 | — | `evidence/evidence-D25-anthropology.md` | SSRN delivery PDF route は 2026-04-08 時点で Cloudflare challenge 403 HTML。manual/browser 再試行余地あり |
+| D25-S10 | D25 | `raw-confirmed` | Pratt, M. L. (1991). "Arts of the Contact Zone." *Profession* 91: 33-40. MLA. | `knowledge/raw/D25_pratt_1991_arts-of-the-contact-zone.pdf` | `evidence/evidence-D25-anthropology.md` | Texas State University hosted PDF（Wabash Center resource page 経由）で HTTP 200 application/pdf。実 PDF を保存 |
 | D26-S01 | D26 | `citation-only` | Pressing, J. (1988). "Improvisation: methods and models." In J. Sloboda (Ed.), *Generative Processes in Music*. Oxford UP. | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D26-S02 | D26 | `citation-only` | Rosen, C. (1988). *Sonata Forms*. Norton. | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D26-S03 | D26 | `citation-only` | Hepokoski, J. & Darcy, W. (2006). *Elements of Sonata Theory*. Oxford UP. | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D26-S04 | D26 | `citation-only` | Meyer, L.B. (1956). *Emotion and Meaning in Music*. University of Chicago Press. | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D26-S05 | D26 | `citation-only` | Egermann, H. et al. (2013). *Cognitive, Affective, & Behavioral Neuroscience*, 13. | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D26-S06 | D26 | `citation-only` | Huron, D. (2006). *Sweet Anticipation*. MIT Press.（Meyerの発展として参照） | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D26-S07 | D26 | `citation-only` | Mehr, S.A. et al. (2019). "Universality and diversity in human song." *Science*, 366(6468). | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D26-S07 | D26 | `blocked-access` | Mehr, S.A. et al. (2019). "Universality and diversity in human song." *Science*, 366(6468). | — | `evidence/evidence-D26-musicology.md` | Science official PDF route は 2026-04-08 時点で Cloudflare challenge 403 HTML。Harvard Scholar mirror file route も 403 HTML に着地。manual/browser 再試行余地あり |
 | D26-S08 | D26 | `blocked-access` | Savage, P.E. et al. (2015). "Statistical universals reveal the structures and functions of human music." *PNAS*, 112(29). | — | `evidence/evidence-D26-musicology.md` | PNAS official PDF route は 2026-04-08 時点で Cloudflare challenge 403 HTML。PMC mirror PDF route も HTML interstitial に着地し raw 未取得。manual/browser 再試行余地あり |
 | D26-S09 | D26 | `citation-only` | Huron, D. (2006). *Sweet Anticipation: Music and the Psychology of Expectation*. MIT Press. | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D26-S10 | D26 | `citation-only` | Madison, G. (2006). *Music Perception*, 24(2). | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -273,7 +273,7 @@
 | D27-S04 | D27 | `citation-only` | Hertzberger, H. (1991). *Lessons for Students in Architecture*. 010 Publishers. Hertzberger, H. (2000). *Space and the Architect: Lessons in Architecture 2*. 010 Publishers. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D27-S05 | D27 | `citation-only` | Jacobs, J. (1961). *The Death and Life of Great American Cities*. Random House. 邦訳: 山形浩生訳 (2010). 『アメリカ大都市の死と生』. 鹿島出版会. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D27-S06 | D27 | `citation-only` | 磯崎新キュレーション (1978). 展覧会「MA: Space-Time in Japan」パリ装飾美術館。神代雄一郎 (1999). 『間（ま）・日本建築の意匠』. 鹿島出版会. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D27-S07 | D27 | `citation-only` | Menges, A. (2012). "Material Computation: Higher Integration in Morphogenetic Design." *Architectural Design*, 82(2). Menges, A. & Knippers, J. (2015). "Fibrous Tectonics." *Architectural Design*, 85(5). ICD/ITKE Research Pavilions（Stuttgart大学）. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D27-S07 | D27 | `blocked-access` | Menges, A. (2012). "Material Computation: Higher Integration in Morphogenetic Design." *Architectural Design*, 82(2). Menges, A. & Knippers, J. (2015). "Fibrous Tectonics." *Architectural Design*, 85(5). ICD/ITKE Research Pavilions（Stuttgart大学）. | — | `evidence/evidence-D27-architecture.md` | CAD Journal / ScienceDirect PDF route は 2026-04-08 時点で Cloudflare challenge 403 HTML。Architectural Design DOI route は Wiley landing へ進むが 403 HTML challenge。manual/browser 再試行余地あり |
 | D27-S08 | D27 | `blocked-access` | Aravena, A. & Iacobelli, A. (2012). *ELEMENTAL: Incremental Housing and Participatory Design Manual*. Hatje Cantz. Quinta Monroy Project (2004, Iquique, Chile). | — | `evidence/evidence-D27-architecture.md` | ELEMENTAL official PDF route は 2026-04-08 時点で Vercel 403 text/plain `Forbidden`。raw 未取得、manual/browser 再試行余地あり |
 | D27-S09 | D27 | `citation-only` | Pallasmaa, J. (1996/2005). *The Eyes of the Skin: Architecture and the Senses*. 2nd edition, Wiley. Pallasmaa, J. (2011). *The Embodied Image: Imagination and Imagery in Architecture*. Wiley. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D27-S10 | D27 | `citation-only` | Schumacher, P. (2008). "Parametricism as Style — Parametricist Manifesto." Venice Biennale 2008. Schumacher, P. (2011). *The Autopoiesis of Architecture, Vol. I*. Wiley. Schumacher, P. (2012). *The Autopoiesis of Architecture, Vol. II*. Wiley. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
