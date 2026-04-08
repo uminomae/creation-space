@@ -9,9 +9,9 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 30本
-- `knowledge/raw/` に実格納済み: 30本
-- `citation-only`: 207本
+- 有効な公開 PDF を発見: 31本
+- `knowledge/raw/` に実格納済み: 31本
+- `citation-only`: 206本
 - `blocked-access`: 40本
 
 ## 集計の数え方
@@ -267,7 +267,7 @@
 | D26-S08 | D26 | `blocked-access` | Savage, P.E. et al. (2015). "Statistical universals reveal the structures and functions of human music." *PNAS*, 112(29). | — | `evidence/evidence-D26-musicology.md` | PNAS official PDF route は 2026-04-08 時点で Cloudflare challenge 403 HTML。PMC mirror PDF route も HTML interstitial に着地し raw 未取得。manual/browser 再試行余地あり |
 | D26-S09 | D26 | `citation-only` | Huron, D. (2006). *Sweet Anticipation: Music and the Psychology of Expectation*. MIT Press. | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D26-S10 | D26 | `citation-only` | Madison, G. (2006). *Music Perception*, 24(2). | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D27-S01 | D27 | `citation-only` | Alexander, C. (2002). *The Nature of Order, Book 1: The Phenomenon of Life*. CES. Alexander, C. (2002). *The Nature of Order, Book 2: The Process of Creating Life*. CES. Alexander, C. (2004). *The Nature of Order, Book 4: The Luminous Ground*. CES. Alexander, C. et al. (1977). *A Pattern Language*. Oxford University Press. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D27-S01 | D27 | `raw-confirmed` | Alexander, C. (2002). *The Nature of Order, Book 1: The Phenomenon of Life*. CES. Alexander, C. (2002). *The Nature of Order, Book 2: The Process of Creating Life*. CES. Alexander, C. (2004). *The Nature of Order, Book 4: The Luminous Ground*. CES. Alexander, C. et al. (1977). *A Pattern Language*. Oxford University Press. | `knowledge/raw/D27_alexander_1977_pattern-language.pdf` | `evidence/evidence-D27-architecture.md` | Cornell University hosted PDF route で HTTP 200 application/pdf。`A Pattern Language` 実 PDF を保存 |
 | D27-S02 | D27 | `citation-only` | Otto, F. & Rasch, B. (1996). *Finding Form: Towards an Architecture of the Minimal*. Edition Axel Menges. IL Mitteilungen（Stuttgart大学研究報告シリーズ）. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D27-S03 | D27 | `citation-only` | van Eyck, A. Team 10関連出版物。Otterloo会議(1959)。Ligtelijn, V. & Strauven, F. (eds.) (2008). *Aldo van Eyck: Writings*. Sun Publishers. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D27-S04 | D27 | `citation-only` | Hertzberger, H. (1991). *Lessons for Students in Architecture*. 010 Publishers. Hertzberger, H. (2000). *Space and the Architect: Lessons in Architecture 2*. 010 Publishers. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |

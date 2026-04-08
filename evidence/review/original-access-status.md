@@ -37,7 +37,7 @@
 | D24 | 10 | 2 | 0 | 8 |
 | D25 | 10 | 1 | 2 | 7 |
 | D26 | 10 | 0 | 2 | 8 |
-| D27 | 10 | 0 | 2 | 8 |
+| D27 | 10 | 1 | 2 | 7 |
 | D28 | 10 | 1 | 0 | 9 |
 | D29 | 10 | 1 | 0 | 9 |
 | D30 | 10 | 2 | 0 | 8 |
@@ -253,14 +253,16 @@ manifest には D05 の draft source rows 10件を first pass として投入し
 
 ## D27 second-pass access update
 
-この second pass では raw PDF の追加取得には未達だが、1 件を追加で `blocked-access` に更新した。
+この second pass では 1 件を raw-confirmed に格上げし、1 件を追加で `blocked-access` に更新した。
 
 補足:
+- `knowledge/raw/D27_alexander_1977_pattern-language.pdf`
+- `A Pattern Language` は Cornell University hosted PDF route で HTTP 200 application/pdf を確認し、実 PDF を保存
 - `Menges & Knippers / ICD-ITKE pavilion cluster` は `blocked-access`
   CAD Journal / ScienceDirect PDF route は Cloudflare challenge 403 HTML。Architectural Design DOI route は Wiley landing へ進むが 403 HTML challenge
 - `Aravena & Iacobelli (2012)` は `blocked-access`
   ELEMENTAL official PDF route は Vercel 403 text/plain `Forbidden` を返し raw 未取得
-- 残る 8 件は `citation-only`
+- 残る 7 件は `citation-only`
 
 | domain_id | kind | active_path | archive_snapshot | access_status |
 |---|---|---|---|---|
