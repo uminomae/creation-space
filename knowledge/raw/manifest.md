@@ -9,9 +9,9 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 38本
-- `knowledge/raw/` に実格納済み: 38本
-- `citation-only`: 197本
+- 有効な公開 PDF を発見: 40本
+- `knowledge/raw/` に実格納済み: 40本
+- `citation-only`: 195本
 - `blocked-access`: 42本
 
 ## 集計の数え方
@@ -152,7 +152,7 @@
 | D13-S10 | D13 | `raw-confirmed` | Whitehead, A. N. (1929). *Process and Reality: An Essay in Cosmology*. Macmillan. (Corrected Edition, ed. Griffin & Sherburne, Free Press, 1978) | `knowledge/raw/D13_whitehead_1929_process-and-reality.pdf` | `evidence/evidence-D13-philosophy.md` | Wikimedia Commons hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D15-S01 | D15 | `citation-only` | Meltzer, D., & Harris Williams, M. (1988). *The Apprehension of Beauty*. Clunie Press. | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D15-S02 | D15 | `citation-only` | 上田勝久 (2016). 「精神分析的心理療法における美的体験の意義」 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D15-S03 | D15 | `citation-only` | 世阿弥 (15C). 『風姿花伝』 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D15-S03 | D15 | `raw-confirmed` | 世阿弥 (15C). 『風姿花伝』 | `knowledge/raw/D28_zeami_classics_part1.pdf` | `evidence/evidence-D15-aesthetics.md` | 既存の世阿弥古典集 raw（Wikimedia Commons / NDL scan）に風姿花伝を含む。実 PDF を再利用 |
 | D15-S04 | D15 | `citation-only` | 本居宣長 (1799). 『源氏物語玉の小櫛』 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D15-S05 | D15 | `citation-only` | 久松真一 (1965). 「侘の茶」 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D15-S06 | D15 | `citation-only` | 能勢朝次 (1940). 『幽玄論』 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -303,7 +303,7 @@
 | D30-S04 | D30 | `raw-confirmed` | Convention on Biological Diversity (2018), Nagoya Protocol | `knowledge/raw/D30_cbd_2018_nagoya-protocol.pdf` | `evidence/evidence-D30-traditional-knowledge.md` | CBD official PDF route で実 PDF を保存 |
 | D30-S05 | D30 | `citation-only` | Lave, J., & Wenger, E. (1991). *Situated Learning: Legitimate Peripheral Participation*. Cambridge University Press. | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D30-S06 | D30 | `citation-only` | Wenger, E. (1998). *Communities of Practice: Learning, Meaning, and Identity*. Cambridge University Press. | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D30-S07 | D30 | `citation-only` | 世阿弥.『風姿花伝』（一座建立の寿福） | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D30-S07 | D30 | `raw-confirmed` | 世阿弥.『風姿花伝』（一座建立の寿福） | `knowledge/raw/D28_zeami_classics_part1.pdf` | `evidence/evidence-D30-traditional-knowledge.md` | 既存の世阿弥古典集 raw（Wikimedia Commons / NDL scan）に風姿花伝を含む。実 PDF を再利用 |
 | D30-S08 | D30 | `citation-only` | 山上宗二.『山上宗二記』 | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D30-S09 | D30 | `raw-confirmed` | 松木正恵・沼田千尋 (2021). 茶事における場の共創: 「一座建立」の意味空間. SSI2021 論文集. | `knowledge/raw/D30_matsuki_numata_2021_ichiza-konryu.pdf` | `evidence/evidence-D30-traditional-knowledge.md` | J-STAGE official PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D30-S10 | D30 | `citation-only` | 「武道文化論」守破離の説明 | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |

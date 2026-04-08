@@ -6,15 +6,16 @@
 
 - 原典アクセス状態: ref-check 本文としては `not-yet-reviewed`
 - source manifest には D15 first batch 10件を反映済み
-- source 内訳は `raw-confirmed` 0 / `blocked-access` 0 / `citation-only` 10
+- source 内訳は `raw-confirmed` 1 / `blocked-access` 0 / `citation-only` 9
 - 既存の verified / plausible / overstated 判定は再保証しない
 - 二次資料・要約・書誌情報のみで成立していた判定が混在していないか、原典アクセス状態から再点検する
 
-## 2026-04-07 first batch
+## 2026-04-08 second/third batch
 
-- raw-confirmed: 0件
+- raw-confirmed:
+  `knowledge/raw/D28_zeami_classics_part1.pdf`
 - blocked-access: 0件。source ごとの理由は `knowledge/raw/manifest.md` の notes を参照
-- citation-only: 10件。archive refs / ref-check 起点の first-pass source rows
+- citation-only: 9件。archive refs / ref-check 起点の first-pass source rows
 - 注意:
   blocked-access は「本文不存在」ではなく、CLI challenge / login / HTML 着地を含む
 ## History
