@@ -120,7 +120,7 @@
 
 | D11-S01 | D11 | `citation-only` | Paul, S. M., et al. (2010). *Nat. Rev. Drug Discov.*, 9, 203-214. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D11-S02 | D11 | `citation-only` | Gabrielsson, J., & Weiner, D. (2006). *Pharmacokinetic & Pharmacodynamic Data Analysis*. Swedish Pharmaceutical Press. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D11-S03 | D11 | `citation-only` | Davies, J., & Davies, D. (2010). *MMBR*, 74(3), 417-433. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D11-S03 | D11 | `blocked-access` | Davies, J., & Davies, D. (2010). *MMBR*, 74(3), 417-433. | — | `evidence/evidence-D11-pharmacy.md` | PMC mirror PDF route は 2026-04-08 時点で HTML interstitial に着地し raw 未取得。manual/browser 再試行余地あり |
 | D11-S04 | D11 | `citation-only` | Higuchi, T. (1963). *J Pharm Sci*, 52, 1145-1149. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D11-S05 | D11 | `citation-only` | Korsmeyer, R.W. et al. (1983). *Int J Pharm*, 15, 25-35. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D11-S06 | D11 | `citation-only` | 厚生省 (1988). 徐放性製剤ガイドライン. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -130,7 +130,7 @@
 | D11-S10 | D11 | `raw-confirmed` | ICH (2009), Q8(R2) Pharmaceutical Development Guideline | `knowledge/raw/D11_ich_2009_q8-r2-guideline.pdf` | `evidence/evidence-D11-pharmacy.md` | ICH official PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D11-S11 | D11 | `raw-confirmed` | ICH (2008), Q10 Pharmaceutical Quality System Guideline | `knowledge/raw/D11_ich_2008_q10-guideline.pdf` | `evidence/evidence-D11-pharmacy.md` | ICH official PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D11-S12 | D11 | `raw-confirmed` | ICH (2023), Q9(R1) Quality Risk Management Guideline | `knowledge/raw/D11_ich_2023_q9-r1-guideline.pdf` | `evidence/evidence-D11-pharmacy.md` | ICH official PDF route で HTTP 200 application/pdf。実 PDF を保存 |
-| D12-S01 | D12 | `citation-only` | Clements, F. E. (1916). *Plant Succession*. Carnegie Institution. | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D12-S01 | D12 | `blocked-access` | Clements, F. E. (1916). *Plant Succession*. Carnegie Institution. | — | `evidence/evidence-D12-agriculture.md` | Internet Archive download route は 2026-04-08 時点で 503/HTML error page。manual/browser 再試行余地あり |
 | D12-S02 | D12 | `citation-only` | Connell, J. H., & Slatyer, R. O. (1977). *Am. Nat.*, 111, 1119-1144. | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D12-S03 | D12 | `citation-only` | Holling, C. S. (1973). *Ann. Rev. Ecol. Syst.*, 4, 1-23. | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D12-S04 | D12 | `citation-only` | Robertson, G. P., & Vitousek, P. M. (2009). Nitrogen in Agriculture: Balancing the Cost of an Essential Resource. *Annual Review of Environment and Resources*, 34, 97-125. DOI: 10.1146/annurev.environ.032108.105046 | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |

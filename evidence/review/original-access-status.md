@@ -21,8 +21,8 @@
 | D08 | 11 | 1 | 4 | 6 |
 | D09 | 11 | 0 | 3 | 8 |
 | D10 | 4 | 2 | 1 | 1 |
-| D11 | 12 | 4 | 0 | 8 |
-| D12 | 10 | 1 | 0 | 9 |
+| D11 | 12 | 4 | 1 | 7 |
+| D12 | 10 | 1 | 1 | 8 |
 | D13 | 10 | 0 | 0 | 10 |
 | D14 | 2 | 1 | 0 | 1 |
 | D15 | 10 | 0 | 0 | 10 |
@@ -253,6 +253,24 @@ manifest には D05 の draft source rows 10件を first pass として投入し
 
 補足:
 - `Competition as a Discovery Procedure` は Mises Institute hosted PDF route で HTTP 200 application/pdf を確認し、実 PDF を保存
+- 残る 8 件は `citation-only`
+
+## D11 second-pass access update
+
+この second pass では raw PDF の追加取得には未達だが、1 件を `blocked-access` に更新した。
+
+補足:
+- `Davies & Davies (2010)` は `blocked-access`
+  PMC mirror PDF route は HTML interstitial に着地し raw 未取得
+- 残る 7 件は `citation-only`
+
+## D12 second-pass access update
+
+この second pass では raw PDF の追加取得には未達だが、1 件を `blocked-access` に更新した。
+
+補足:
+- `Clements (1916)` は `blocked-access`
+  Internet Archive download route は 503/HTML error page
 - 残る 8 件は `citation-only`
 
 ## D23 second-pass raw upgrade
