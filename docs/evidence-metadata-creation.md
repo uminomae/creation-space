@@ -127,6 +127,32 @@ creation-space/src/reports.js
 2. `reports.js` の taxonomy 表示と badge 対応を同時に確認する
 3. `domains.json` 側の `progress_level` / `label_description_*` / `generator_model` と不一致のまま公開しない
 
+## §2.6.1 原典アクセスステータス（source-level taxonomy）
+
+source 単位の原典アクセス状態。`knowledge/raw/manifest.md` で管理する。
+progress_level（ドメイン単位の調査進捗）とは独立した軸。
+
+| id | label_ja | description | レポート生成時の扱い |
+|---|---|---|---|
+| `raw-confirmed` | PDF 格納済 | 実 PDF を `knowledge/raw/` に格納済み | 原典参照可能 |
+| `url-verified` | OA URL 確認済 | OA URL でブラウザ閲覧が可能であることを確認済み。PDF 未格納 | **原典参照可能**（raw-confirmed と同等） |
+| `blocked-access` | アクセス障壁あり | URL は存在するが CLI/bot では取得不可（Cloudflare, login 等） | 原典参照に制約あり |
+| `citation-only` | 書誌確認のみ | 書誌情報のみ確認。full-text route 未確認 | 原典未参照 |
+
+### レポート生成との関係
+
+- `raw-confirmed` + `url-verified` の合計が、そのドメインの「原典アクセス達成数」
+- レポート生成時、`url-verified` の source は OA URL を通じて原典内容を参照できる。`raw-confirmed` と同等に証拠として引用可能
+- `blocked-access` / `citation-only` の source は、二次文献・要約に基づく記述であることを明示する
+
+### 正本
+
+| 情報 | source of truth |
+|---|---|
+| ステータス定義 | 本セクション |
+| 各 source のステータス | `knowledge/raw/manifest.md` |
+| ドメイン別集計 | `evidence/review/original-access-status.md` |
+
 ## §2.7 旧 progress_level のマイグレーション
 
 以下の旧 level 名は `src/reports/data.js` の `normalizeProgressLevel()` で自動変換される。
