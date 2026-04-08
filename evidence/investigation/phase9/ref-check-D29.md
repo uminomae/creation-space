@@ -6,7 +6,7 @@
 
 - 原典アクセス状態: ref-check 本文としては `not-yet-reviewed`
 - source manifest には D29 first/second batch 10件を反映済み
-- source 内訳は `raw-confirmed` 2 / `blocked-access` 1 / `citation-only` 7
+- source 内訳は `raw-confirmed` 3 / `blocked-access` 1 / `citation-only` 6
 - 既存の verified / plausible / overstated 判定は再保証しない
 - 二次資料・要約・書誌情報のみで成立していた判定が混在していないか、原典アクセス状態から再点検する
 
@@ -14,10 +14,11 @@
 
 - raw-confirmed:
   `knowledge/raw/D29_prigogine_1977_time-structure-fluctuations.pdf`
+  `knowledge/raw/D29_watkins_2016_25-years-self-organized-criticality.pdf`
   `knowledge/raw/D29_clauset_2007_power-law-distributions.pdf`
 - blocked-access:
   `Hordijk et al. (2010)` は MDPI official PDF route が Akamai 403 HTML に着地し raw 未取得
-- citation-only: 7件。archive refs / ref-check 起点の first-pass source rows
+- citation-only: 6件。archive refs / ref-check 起点の first-pass source rows
 - 注意:
   blocked-access は「本文不存在」ではなく、CLI challenge / login / HTML 着地を含む
 

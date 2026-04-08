@@ -9,9 +9,9 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 48本
-- `knowledge/raw/` に実格納済み: 48本
-- `citation-only`: 187本
+- 有効な公開 PDF を発見: 49本
+- `knowledge/raw/` に実格納済み: 49本
+- `citation-only`: 186本
 - `blocked-access`: 42本
 
 ## 集計の数え方
@@ -291,7 +291,7 @@
 | D29-S02 | D29 | `citation-only` | Prigogine, I. & Stengers, I. (1984). *Order Out of Chaos*. Bantam. | — | `evidence/evidence-D29-complexity-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D29-S03 | D29 | `citation-only` | Bak, P., Tang, C. & Wiesenfeld, K. (1987). "Self-Organized Criticality: An Explanation of 1/f Noise." *Phys. Rev. Lett.* 59, 381-384. | — | `evidence/evidence-D29-complexity-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D29-S04 | D29 | `citation-only` | Bak, P., Tang, C. & Wiesenfeld, K. (1988). "Self-organized criticality." *Phys. Rev. A* 38, 364-374. | — | `evidence/evidence-D29-complexity-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D29-S05 | D29 | `citation-only` | Watkins, N.W. et al. (2016). "25 Years of Self-organized Criticality." *Space Sci. Rev.* 198, 3-44. | — | `evidence/evidence-D29-complexity-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D29-S05 | D29 | `raw-confirmed` | Watkins, N.W. et al. (2016). "25 Years of Self-organized Criticality." *Space Sci. Rev.* 198, 3-44. | `knowledge/raw/D29_watkins_2016_25-years-self-organized-criticality.pdf` | `evidence/evidence-D29-complexity-science.md` | Springer OA PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D29-S06 | D29 | `raw-confirmed` | Clauset, A., Shalizi, C.R. & Newman, M.E.J. (2009). "Power-law distributions in empirical data." *SIAM Rev.* 51, 661-703. | `knowledge/raw/D29_clauset_2007_power-law-distributions.pdf` | `evidence/evidence-D29-complexity-science.md` | CMU technical report PDF route `tr853.pdf` で HTTP 200 application/pdf。author version raw を保存 |
 | D29-S07 | D29 | `citation-only` | Kauffman, S. (1986). "Autocatalytic sets of proteins." *J. Theor. Biol.* 119, 1-24. | — | `evidence/evidence-D29-complexity-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D29-S08 | D29 | `citation-only` | Kauffman, S. (1993). *The Origins of Order*. Oxford UP. | — | `evidence/evidence-D29-complexity-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
