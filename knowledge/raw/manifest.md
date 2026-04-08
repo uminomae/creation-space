@@ -1,6 +1,6 @@
 # knowledge/raw manifest
 
-**更新日**: 2026-04-07
+**更新日**: 2026-04-08
 **起点**: cs#205, cs#207
 
 原典は source 単位で追跡する。**完了条件は D01-D30 の全領域で source 行が実データに置き換わること**。
@@ -9,10 +9,10 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 28本
-- `knowledge/raw/` に実格納済み: 28本
-- `citation-only`: 214本
-- `blocked-access`: 35本
+- 有効な公開 PDF を発見: 29本
+- `knowledge/raw/` に実格納済み: 29本
+- `citation-only`: 211本
+- `blocked-access`: 37本
 
 ## 集計の数え方
 
@@ -180,7 +180,7 @@
 | D17-S08 | D17 | `citation-only` | Lenneberg, E. H. (1967). *Biological Foundations of Language*. Wiley. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D17-S09 | D17 | `citation-only` | Johnson, J. S. & Newport, E. L. (1989). *Cognitive Psychology*, 21(1), 60-99. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D17-S10 | D17 | `citation-only` | Hartshorne, J. K. et al. (2018). *Cognition*, 177, 263-277. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D19-S01 | D19 | `citation-only` | Propp, V. (1928/1968). *Morphology of the Folktale*. 2nd ed. UT Press. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D19-S01 | D19 | `raw-confirmed` | Propp, V. (1928/1968). *Morphology of the Folktale*. 2nd ed. UT Press. | `knowledge/raw/D19_propp_1968_morphology-of-the-folktale.pdf` | `evidence/evidence-D19-literary-studies.md` | Monoskop hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D19-S02 | D19 | `citation-only` | Bakhtin, M. M. (1981). *The Dialogic Imagination: Four Essays*. UT Press. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D19-S03 | D19 | `citation-only` | Jauss, H. R. (1982). *Toward an Aesthetic of Reception*. U Minnesota Press. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D19-S04 | D19 | `citation-only` | Iser, W. (1974). *The Implied Reader*. Johns Hopkins UP. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -264,7 +264,7 @@
 | D26-S05 | D26 | `citation-only` | Egermann, H. et al. (2013). *Cognitive, Affective, & Behavioral Neuroscience*, 13. | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D26-S06 | D26 | `citation-only` | Huron, D. (2006). *Sweet Anticipation*. MIT Press.（Meyerの発展として参照） | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D26-S07 | D26 | `citation-only` | Mehr, S.A. et al. (2019). "Universality and diversity in human song." *Science*, 366(6468). | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D26-S08 | D26 | `citation-only` | Savage, P.E. et al. (2015). "Statistical universals reveal the structures and functions of human music." *PNAS*, 112(29). | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D26-S08 | D26 | `blocked-access` | Savage, P.E. et al. (2015). "Statistical universals reveal the structures and functions of human music." *PNAS*, 112(29). | — | `evidence/evidence-D26-musicology.md` | PNAS official PDF route は 2026-04-08 時点で Cloudflare challenge 403 HTML。PMC mirror PDF route も HTML interstitial に着地し raw 未取得。manual/browser 再試行余地あり |
 | D26-S09 | D26 | `citation-only` | Huron, D. (2006). *Sweet Anticipation: Music and the Psychology of Expectation*. MIT Press. | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D26-S10 | D26 | `citation-only` | Madison, G. (2006). *Music Perception*, 24(2). | — | `evidence/evidence-D26-musicology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D27-S01 | D27 | `citation-only` | Alexander, C. (2002). *The Nature of Order, Book 1: The Phenomenon of Life*. CES. Alexander, C. (2002). *The Nature of Order, Book 2: The Process of Creating Life*. CES. Alexander, C. (2004). *The Nature of Order, Book 4: The Luminous Ground*. CES. Alexander, C. et al. (1977). *A Pattern Language*. Oxford University Press. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -274,7 +274,7 @@
 | D27-S05 | D27 | `citation-only` | Jacobs, J. (1961). *The Death and Life of Great American Cities*. Random House. 邦訳: 山形浩生訳 (2010). 『アメリカ大都市の死と生』. 鹿島出版会. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D27-S06 | D27 | `citation-only` | 磯崎新キュレーション (1978). 展覧会「MA: Space-Time in Japan」パリ装飾美術館。神代雄一郎 (1999). 『間（ま）・日本建築の意匠』. 鹿島出版会. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D27-S07 | D27 | `citation-only` | Menges, A. (2012). "Material Computation: Higher Integration in Morphogenetic Design." *Architectural Design*, 82(2). Menges, A. & Knippers, J. (2015). "Fibrous Tectonics." *Architectural Design*, 85(5). ICD/ITKE Research Pavilions（Stuttgart大学）. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D27-S08 | D27 | `citation-only` | Aravena, A. & Iacobelli, A. (2012). *ELEMENTAL: Incremental Housing and Participatory Design Manual*. Hatje Cantz. Quinta Monroy Project (2004, Iquique, Chile). | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D27-S08 | D27 | `blocked-access` | Aravena, A. & Iacobelli, A. (2012). *ELEMENTAL: Incremental Housing and Participatory Design Manual*. Hatje Cantz. Quinta Monroy Project (2004, Iquique, Chile). | — | `evidence/evidence-D27-architecture.md` | ELEMENTAL official PDF route は 2026-04-08 時点で Vercel 403 text/plain `Forbidden`。raw 未取得、manual/browser 再試行余地あり |
 | D27-S09 | D27 | `citation-only` | Pallasmaa, J. (1996/2005). *The Eyes of the Skin: Architecture and the Senses*. 2nd edition, Wiley. Pallasmaa, J. (2011). *The Embodied Image: Imagination and Imagery in Architecture*. Wiley. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D27-S10 | D27 | `citation-only` | Schumacher, P. (2008). "Parametricism as Style — Parametricist Manifesto." Venice Biennale 2008. Schumacher, P. (2011). *The Autopoiesis of Architecture, Vol. I*. Wiley. Schumacher, P. (2012). *The Autopoiesis of Architecture, Vol. II*. Wiley. | — | `evidence/evidence-D27-architecture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D28-S01 | D28 | `raw-confirmed` | 世阿弥古典集（風姿花伝を含む） | `knowledge/raw/D28_zeami_classics_part1.pdf` | `evidence/evidence-D28-performing-arts.md` | Wikimedia Commons / NDL scan の実 PDF を part1/part2 で保存。part2: `knowledge/raw/D28_zeami_classics_part2.pdf` |

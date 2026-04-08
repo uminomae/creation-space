@@ -1,6 +1,6 @@
 # 原典アクセス状態トラッカー
 
-**更新日**: 2026-04-07
+**更新日**: 2026-04-08
 **起点**: cs#205, cs#207
 
 30領域の再監査に向けて、現行成果物を archive へ退避したうえで、原典アクセス状態をこの表で追跡する。
@@ -29,15 +29,15 @@
 | D16 | 10 | 0 | 0 | 10 |
 | D17 | 10 | 0 | 0 | 10 |
 | D18 | 4 | 1 | 2 | 1 |
-| D19 | 10 | 0 | 0 | 10 |
+| D19 | 10 | 1 | 0 | 9 |
 | D20 | 10 | 1 | 2 | 7 |
 | D21 | 10 | 1 | 0 | 9 |
 | D22 | 10 | 2 | 0 | 8 |
 | D23 | 10 | 1 | 0 | 9 |
 | D24 | 10 | 2 | 0 | 8 |
 | D25 | 10 | 0 | 1 | 9 |
-| D26 | 10 | 0 | 0 | 10 |
-| D27 | 10 | 0 | 0 | 10 |
+| D26 | 10 | 0 | 1 | 9 |
+| D27 | 10 | 0 | 1 | 9 |
 | D28 | 10 | 1 | 0 | 9 |
 | D29 | 10 | 1 | 0 | 9 |
 | D30 | 10 | 2 | 0 | 8 |
@@ -216,6 +216,34 @@ manifest には D05 の draft source rows 10件を first pass として投入し
 - `Berger & Luckmann (1966)` は `blocked-access`
 - `Giddens (1984)` は `blocked-access`
 - `Granovetter (1973)` は `citation-only`
+
+## D19 second-pass raw upgrade
+
+- `knowledge/raw/D19_propp_1968_morphology-of-the-folktale.pdf`
+
+この 1 件を raw-confirmed に格上げした。
+
+補足:
+- Monoskop hosted PDF route で HTTP 200 application/pdf を確認し、実 PDF を保存
+- 残る 9 件は `citation-only`
+
+## D26 second-pass access update
+
+この second pass では raw PDF の追加取得には未達だが、1 件を `blocked-access` に更新した。
+
+補足:
+- `Savage et al. (2015)` は `blocked-access`
+  PNAS official PDF route は Cloudflare challenge 403 HTML。PMC mirror PDF route も HTML interstitial に着地し raw 未取得
+- 残る 9 件は `citation-only`
+
+## D27 second-pass access update
+
+この second pass では raw PDF の追加取得には未達だが、1 件を `blocked-access` に更新した。
+
+補足:
+- `Aravena & Iacobelli (2012)` は `blocked-access`
+  ELEMENTAL official PDF route は Vercel 403 text/plain `Forbidden` を返し raw 未取得
+- 残る 9 件は `citation-only`
 
 | domain_id | kind | active_path | archive_snapshot | access_status |
 |---|---|---|---|---|
