@@ -2,7 +2,7 @@
 file_id: EV-D29
 domain: complexity-science
 domain_id: D29
-last_updated: 2026-04-07
+last_updated: 2026-04-08
 entry_count: 0
 origin: "Archived pre-rerun snapshot for cs#207"
 status: "再監査待ち（原典アクセス状態の棚卸し前）"
@@ -18,18 +18,20 @@ original_access_status: not-yet-reviewed
 
 - 原典アクセス状態: evidence 本文としては `not-yet-reviewed`
 - source manifest には D29 first/second batch 10件を反映済み
-- source 内訳は `raw-confirmed` 1 / `blocked-access` 0 / `citation-only` 9
+- source 内訳は `raw-confirmed` 3 / `blocked-access` 1 / `citation-only` 6
 - [P] 主張の verified / accepted 判定は現時点では再保証しない
 - `knowledge/raw/` の整備と原典アクセス棚卸しが完了するまで、本文の再構成を優先する
 
-## 2026-04-07 first/second batch
+## 2026-04-08 second/third batch
 
 - raw-confirmed:
   `Prigogine (1977)` は Nobel Prize official PDF を `knowledge/raw/` に格納した
+  `Watkins et al. (2016)` は Springer OA PDF を `knowledge/raw/` に格納した
+  `Clauset et al. (2009)` は CMU technical report PDF を `knowledge/raw/` に格納した
 - blocked-access:
-  0件
+  `Hordijk et al. (2010)` は MDPI official PDF route が Akamai 403 HTML に着地し raw 未取得。manual/browser 再試行余地あり
 - citation-only:
-  残る 9 source は archive refs / ref-check 起点の first-pass source rows
+  残る 6 source は archive refs / ref-check 起点の first-pass source rows
 ## History
 
 - スナップショット: [`evidence/archive/pre-rerun-20260407/evidence/evidence-D29-complexity-science.md`](archive/pre-rerun-20260407/evidence/evidence-D29-complexity-science.md)

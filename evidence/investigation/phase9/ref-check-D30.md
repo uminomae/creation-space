@@ -6,18 +6,20 @@
 
 - 原典アクセス状態: ref-check 本文としては `not-yet-reviewed`
 - source manifest には D30 first/second batch 10件を反映済み
-- source 内訳は `raw-confirmed` 2 / `blocked-access` 0 / `citation-only` 8
+- source 内訳は `raw-confirmed` 4 / `blocked-access` 0 / `citation-only` 6
 - 既存の verified / plausible / overstated 判定は再保証しない
 - 二次資料・要約・書誌情報のみで成立していた判定が混在していないか、原典アクセス状態から再点検する
 
-## 2026-04-07 first/second batch
+## 2026-04-08 second/third batch
 
 - raw-confirmed:
   `IPBES ILK guidance`, `Nagoya Protocol` は official PDF を取得済み
+  `風姿花伝` は既存の世阿弥古典集 raw を再利用
+  `松木正恵・沼田千尋 (2021)` は J-STAGE official PDF を取得済み
 - blocked-access:
   0件
 - citation-only:
-  残る 8 source は archive refs / ref-check 起点の first-pass source rows
+  残る 6 source は archive refs / ref-check 起点の first-pass source rows
 ## History
 
 - スナップショット: [`evidence/archive/pre-rerun-20260407/phase9/ref-check-D30.md`](../../archive/pre-rerun-20260407/phase9/ref-check-D30.md)

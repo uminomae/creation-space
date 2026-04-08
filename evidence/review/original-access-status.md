@@ -9,38 +9,38 @@
 
 ## Source Coverage Snapshot
 
-| domain_id | total_sources | raw_confirmed | blocked_access | citation_only |
-|---|---|---|---|---|
-| D01 | 3 | 1 | 2 | 0 |
-| D02 | 10 | 4 | 5 | 1 |
-| D03 | 10 | 0 | 6 | 4 |
-| D04 | 10 | 0 | 2 | 8 |
-| D05 | 10 | 0 | 0 | 10 |
-| D06 | 10 | 1 | 4 | 5 |
-| D07 | 10 | 1 | 3 | 6 |
-| D08 | 11 | 1 | 4 | 6 |
-| D09 | 11 | 0 | 3 | 8 |
-| D10 | 4 | 2 | 1 | 1 |
-| D11 | 12 | 4 | 0 | 8 |
-| D12 | 10 | 1 | 0 | 9 |
-| D13 | 10 | 0 | 0 | 10 |
-| D14 | 2 | 1 | 0 | 1 |
-| D15 | 10 | 0 | 0 | 10 |
-| D16 | 10 | 0 | 0 | 10 |
-| D17 | 10 | 0 | 0 | 10 |
-| D18 | 4 | 1 | 2 | 1 |
-| D19 | 10 | 1 | 1 | 8 |
-| D20 | 10 | 1 | 2 | 7 |
-| D21 | 10 | 1 | 0 | 9 |
-| D22 | 10 | 2 | 0 | 8 |
-| D23 | 10 | 1 | 0 | 9 |
-| D24 | 10 | 2 | 0 | 8 |
-| D25 | 10 | 1 | 2 | 7 |
-| D26 | 10 | 0 | 2 | 8 |
-| D27 | 10 | 1 | 2 | 7 |
-| D28 | 10 | 1 | 0 | 9 |
-| D29 | 10 | 1 | 0 | 9 |
-| D30 | 10 | 2 | 0 | 8 |
+| domain_id | total | raw_confirmed | url_verified | blocked_access | citation_only |
+|---|---|---|---|---|---|
+| D01 | 3 | 1 | 1 | 1 | 0 |
+| D02 | 10 | 4 | 2 | 3 | 1 |
+| D03 | 10 | 1 | 0 | 7 | 2 |
+| D04 | 10 | 4 | 1 | 1 | 4 |
+| D05 | 10 | 1 | 3 | 0 | 6 |
+| D06 | 10 | 1 | 1 | 3 | 5 |
+| D07 | 10 | 1 | 1 | 3 | 5 |
+| D08 | 11 | 1 | 3 | 2 | 5 |
+| D09 | 11 | 0 | 4 | 1 | 6 |
+| D10 | 4 | 2 | 0 | 1 | 1 |
+| D11 | 12 | 4 | 1 | 1 | 6 |
+| D12 | 10 | 3 | 0 | 1 | 6 |
+| D13 | 10 | 4 | 0 | 1 | 5 |
+| D14 | 2 | 1 | 0 | 0 | 1 |
+| D15 | 10 | 5 | 0 | 0 | 5 |
+| D16 | 10 | 1 | 0 | 2 | 7 |
+| D17 | 10 | 1 | 1 | 0 | 8 |
+| D18 | 4 | 1 | 0 | 2 | 1 |
+| D19 | 10 | 1 | 0 | 1 | 8 |
+| D20 | 10 | 2 | 0 | 2 | 6 |
+| D21 | 10 | 5 | 0 | 0 | 5 |
+| D22 | 10 | 2 | 0 | 0 | 8 |
+| D23 | 10 | 3 | 1 | 0 | 6 |
+| D24 | 10 | 3 | 0 | 0 | 7 |
+| D25 | 10 | 1 | 1 | 2 | 6 |
+| D26 | 10 | 0 | 2 | 0 | 8 |
+| D27 | 10 | 1 | 0 | 2 | 7 |
+| D28 | 10 | 1 | 0 | 0 | 9 |
+| D29 | 10 | 3 | 1 | 0 | 6 |
+| D30 | 10 | 4 | 0 | 0 | 6 |
 
 ## D01 pilot raw-confirmed
 
@@ -92,7 +92,9 @@
   AIP/JOR PDF endpoint が Cloudflare challenge で HTTP 403
 - `Miller & Urey (1953)` は `blocked-access`
   Science PDF URL が Cloudflare challenge で HTTP 403
-- `Becker-Doring (1935)` / `Lehn (1995)` / `Lewis-von Elbe (1961)` / `Goldbeter (1996)` は `citation-only`
+- `Goldbeter (1996)` は `blocked-access`
+  Open Library / Internet Archive download route は 403 HTML
+- `Becker-Doring (1935)` / `Lehn (1995)` / `Lewis-von Elbe (1961)` は `citation-only`
   archive refs と ref-check では確認できるが、stable primary full-text route は未確認
 
 ## D04 first source batch
@@ -233,13 +235,88 @@ manifest には D05 の draft source rows 10件を first pass として投入し
 
 - `knowledge/raw/D25_pratt_1991_arts-of-the-contact-zone.pdf`
 
-この second pass では 1 件を raw-confirmed に格上げし、1 件を `blocked-access` に更新した。
+この second pass では 1 件を raw-confirmed に格上げし、2 件を `blocked-access` に更新した。
 
 補足:
 - `Pratt (1991)` は Texas State University hosted PDF（Wabash Center resource page 経由）で HTTP 200 application/pdf を確認し、実 PDF を保存
 - `Lamont & Molnar (2002)` は `blocked-access`
   SSRN delivery PDF route は Cloudflare challenge 403 HTML
+- `Leroi-Gourhan / Lemonnier cluster` は `blocked-access`
+  Internet Archive download route は redirect 後に item unavailable / 401
 - `van Gennep (1909)` は既存どおり `blocked-access`
+- 残る 6 件は `citation-only`
+
+## D21 second-pass raw upgrade
+
+- `knowledge/raw/D21_hayek_1945_use-of-knowledge-in-society.pdf`
+- `knowledge/raw/D21_hayek_2002_competition-discovery-procedure.pdf`
+
+この second pass では Hayek 系 2 件を raw-confirmed として扱う。
+
+補足:
+- `Competition as a Discovery Procedure` は Mises Institute hosted PDF route で HTTP 200 application/pdf を確認し、実 PDF を保存
+- 残る 8 件は `citation-only`
+
+## D11 second-pass access update
+
+この second pass では raw PDF の追加取得には未達だが、1 件を `blocked-access` に更新した。
+
+補足:
+- `Davies & Davies (2010)` は `blocked-access`
+  PMC mirror PDF route は HTML interstitial に着地し raw 未取得
+- 残る 7 件は `citation-only`
+
+## D12 second-pass access update
+
+この second pass では raw PDF の追加取得には未達だが、1 件を `blocked-access` に更新した。
+
+補足:
+- `Clements (1916)` は `blocked-access`
+  Internet Archive download route は 503/HTML error page
+- 残る 8 件は `citation-only`
+
+## D13 second-pass raw upgrade
+
+- `knowledge/raw/D13_dewey_1910_how-we-think.pdf`
+- `knowledge/raw/D13_whitehead_1929_process-and-reality.pdf`
+
+この second pass では 2 件を raw-confirmed に格上げした。
+
+補足:
+- `How We Think` と `Process and Reality` は Wikimedia Commons hosted PDF route で HTTP 200 application/pdf を確認し、実 PDF を保存
+- 残る 8 件は `citation-only`
+
+## D16 second-pass raw upgrade
+
+- `knowledge/raw/D16_ibn-khaldun_1377_muqaddimah.pdf`
+
+この second pass では 1 件を raw-confirmed に格上げした。
+
+補足:
+- `al-Muqaddimah` は Wikimedia Commons hosted PDF route で HTTP 200 application/pdf を確認し、実 PDF を保存
+- 残る 9 件は `citation-only`
+
+## D23 second-pass raw upgrade
+
+- `knowledge/raw/D23_nakama_2014_dids-japanese-version.pdf`
+- `knowledge/raw/D23_kinoshita_2001_self-image.pdf`
+
+この second pass では 2 件を raw-confirmed として扱う。
+
+補足:
+- `木下孝司 (2001)` は Kobe University repository PDF route で HTTP 200 application/pdf を確認し、実 PDF を保存
+- 残る 8 件は `citation-only`
+
+## D24 second-pass raw upgrade
+
+- `knowledge/raw/D24_teresa_1921_interior-castle.pdf`
+- `knowledge/raw/D24_suzuki_1935_manual-of-zen-buddhism_part1.pdf`
+- `knowledge/raw/D24_dimarzio_2019_affiliation-conversion-departure.pdf`
+
+この second pass では 3 件を raw-confirmed として扱う。
+
+補足:
+- `Di Marzio (2019)` は CESNUR hosted PDF route で HTTP 200 application/pdf を確認し、実 PDF を保存
 - 残る 7 件は `citation-only`
 
 ## D26 second-pass access update
@@ -265,6 +342,28 @@ manifest には D05 の draft source rows 10件を first pass として投入し
 - `Aravena & Iacobelli (2012)` は `blocked-access`
   ELEMENTAL official PDF route は Vercel 403 text/plain `Forbidden` を返し raw 未取得
 - 残る 7 件は `citation-only`
+
+## D30 second-pass raw upgrade
+
+- `knowledge/raw/D30_ipbes_2019_ilk-methodological-guidance.pdf`
+- `knowledge/raw/D30_cbd_2018_nagoya-protocol.pdf`
+- `knowledge/raw/D30_matsuki_numata_2021_ichiza-konryu.pdf`
+
+この second pass では 3 件を raw-confirmed として扱う。
+
+補足:
+- `松木正恵・沼田千尋 (2021)` は J-STAGE official PDF route で HTTP 200 application/pdf を確認し、実 PDF を保存
+- 残る 7 件は `citation-only`
+
+## D29 second-pass access update
+
+この second pass では raw PDF の追加取得には未達だが、1 件を `blocked-access` に更新した。
+
+補足:
+- `Hordijk et al. (2010)` は `blocked-access`
+  MDPI official PDF route は Akamai 403 HTML
+- `Prigogine (1977)` は既存どおり `raw-confirmed`
+- 残る 8 件は `citation-only`
 
 | domain_id | kind | active_path | archive_snapshot | access_status |
 |---|---|---|---|---|

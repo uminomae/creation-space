@@ -18,7 +18,7 @@ original_access_status: not-yet-reviewed
 
 - 原典アクセス状態: evidence 本文としては `not-yet-reviewed`
 - source manifest には D20 first/second batch 10件を反映済み
-- source 内訳は `raw-confirmed` 1 / `blocked-access` 2 / `citation-only` 7
+- source 内訳は `raw-confirmed` 2 / `blocked-access` 2 / `citation-only` 6
 - [P] 主張の verified / accepted 判定は現時点では再保証しない
 - `knowledge/raw/` の整備と原典アクセス棚卸しが完了するまで、本文の再構成を優先する
 
@@ -26,10 +26,11 @@ original_access_status: not-yet-reviewed
 
 - raw-confirmed:
   `International IDEA (2011)` は official PDF を `knowledge/raw/` に格納した
+  `Ostrom (1990)` は Internet Archive open item を `knowledge/raw/` に格納した
 - blocked-access:
   `UNCITRAL (2021)`, `United Nations (2018)` は CloudFront 403 HTML を返し raw 未取得
 - citation-only:
-  残る 7 source は archive refs / ref-check 起点の first-pass source rows
+  残る 6 source は archive refs / ref-check 起点の first-pass source rows
 ## History
 
 - スナップショット: [`evidence/archive/pre-rerun-20260407/evidence/evidence-D20-law-politics.md`](archive/pre-rerun-20260407/evidence/evidence-D20-law-politics.md)

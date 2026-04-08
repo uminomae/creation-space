@@ -59,6 +59,17 @@
 
 ソースは上記に限定しない。knowledge/ 配下や evidence/ 配下で必要なものがあれば参照する。
 
+### 原典アクセスステータスに基づくソース参照ルール
+
+`knowledge/raw/manifest.md` の access_status に応じて、ソース参照の記述を使い分ける。
+
+| access_status | 扱い |
+|---|---|
+| `raw-confirmed` / `url-verified` | 原典参照可能。「事実として」層の根拠に使える |
+| `blocked-access` / `citation-only` | 二次文献・要約に基づく記述であることを文中で明示する |
+
+定義は `docs/evidence-metadata-creation.md §2.6.1` を参照。
+
 ### AI由来ソースの帰属ルール（NL-013）
 
 evidence の `flags` に `[ai:*]` を持つエントリの内容を本文に反映する際、著者の一人称（「私は〜と考える」「筆者の見解では」等）で記述してはならない。「調査では〜が確認された」「分析の結果〜」等、三人称の報告体で記述すること。

@@ -18,7 +18,7 @@ original_access_status: not-yet-reviewed
 
 - 原典アクセス状態: evidence 本文としては `not-yet-reviewed`
 - source manifest には D25 first/second batch 10件を反映済み
-- source 内訳は `raw-confirmed` 1 / `blocked-access` 2 / `citation-only` 7
+- source 内訳は `raw-confirmed` 1 / `blocked-access` 3 / `citation-only` 6
 - [P] 主張の verified / accepted 判定は現時点では再保証しない
 - `knowledge/raw/` の整備と原典アクセス棚卸しが完了するまで、本文の再構成を優先する
 
@@ -29,8 +29,9 @@ original_access_status: not-yet-reviewed
 - blocked-access:
   `van Gennep (1909)` は Internet Archive download route が 503/HTML error page を返し raw 未取得。manual/browser 再試行余地あり
   `Lamont & Molnar (2002)` は SSRN delivery PDF route が Cloudflare challenge 403 HTML に着地し raw 未取得。manual/browser 再試行余地あり
+  `Leroi-Gourhan / Lemonnier cluster` は Internet Archive download route が redirect 後に item unavailable / 401 へ着地し raw 未取得。manual/browser 再試行余地あり
 - citation-only:
-  残る 7 source は archive refs / ref-check 起点の first-pass source rows
+  残る 6 source は archive refs / ref-check 起点の first-pass source rows
 ## History
 
 - スナップショット: [`evidence/archive/pre-rerun-20260407/evidence/evidence-D25-anthropology.md`](archive/pre-rerun-20260407/evidence/evidence-D25-anthropology.md)
