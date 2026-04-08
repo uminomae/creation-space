@@ -9,12 +9,12 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見（`raw-confirmed`）: 68本
-- `knowledge/raw/` に実格納済み: 68本
-- OA URL で閲覧確認済み（`url-verified`）: 23本
-- **原典アクセス達成**: 91本（raw-confirmed 68 + url-verified 23）
+- 有効な公開 PDF を発見（`raw-confirmed`）: 70本
+- `knowledge/raw/` に実格納済み: 70本
+- OA URL で閲覧確認済み（`url-verified`）: 25本
+- **原典アクセス達成**: 95本（raw-confirmed 70 + url-verified 25）
 - `citation-only`: 154本
-- `blocked-access`: 32本
+- `blocked-access`: 28本
 
 ## 集計の数え方
 
@@ -25,7 +25,7 @@
 | source_id | domain_id | access_status | source_title | local_file | linked_evidence | notes |
 |---|---|---|---|---|---|---|
 | D01-S01 | D01 | `raw-confirmed` | Morse Theory Indomitable | `knowledge/raw/D01_bott_1988_morse-theory-indomitable.pdf` | `evidence/evidence-D01-mathematics.md` | Numdam OA。D01 pilot raw-confirmed |
-| D01-S02 | D01 | `blocked-access` | Topology and Data | — | `evidence/evidence-D01-mathematics.md` | 公式 AMS PDF 導線あり。2026-04-07 時点では Cloudflare で terminal 取得不可 |
+| D01-S02 | D01 | `url-verified` | Topology and Data | — | `evidence/evidence-D01-mathematics.md` | OA: https://www.ams.org/bull/2009-46-02/S0273-0979-09-01249-X/S0273-0979-09-01249-X.pdf (Unpaywall confirmed, CLI 403) |
 | D01-S03 | D01 | `url-verified` | Barcodes: The Persistent Topology of Data | — | `evidence/evidence-D01-mathematics.md` | OA: https://www.ams.org/bull/2008-45-01/S0273-0979-07-01191-3/S0273-0979-07-01191-3.pdf |
 | D10-S01 | D10 | `raw-confirmed` | Allergen immunotherapy / WAO JOA review | `knowledge/raw/D10_akdis_2014_allergen-immunotherapy.pdf` | `evidence/evidence-D10-clinical-medicine.md` | 試行格納1件目。D10 pilot raw-confirmed |
 | D10-S02 | D10 | `raw-confirmed` | Mechanisms of human autoimmunity | `knowledge/raw/D10_rosenblum_2015_autoimmunity.pdf` | `evidence/evidence-D10-clinical-medicine.md` | 試行格納2件目。D10 pilot raw-confirmed |
@@ -42,7 +42,7 @@
 | D02-S03 | D02 | `raw-confirmed` | On the Magnetic Properties of Superconductors of the Second Group | `knowledge/raw/D02_abrikosov_1957_magnetic-properties-superconductors-second-group.pdf` | `evidence/evidence-D02-physics.md` | JETP 公式 PDF を保存。CLI 取得成功、実 PDF 判定 |
 | D02-S04 | D02 | `url-verified` | Observation of the Kibble-Zurek scaling law for defect formation in ion crystals | — | `evidence/evidence-D02-physics.md` | OA: https://www.nature.com/articles/ncomms3290.pdf |
 | D02-S05 | D02 | `url-verified` | Broken Symmetries and the Masses of Gauge Bosons | — | `evidence/evidence-D02-physics.md` | OA: http://link.aps.org/pdf/10.1103/PhysRevLett.13.508 |
-| D02-S06 | D02 | `blocked-access` | Renormalization Group and Critical Phenomena | — | `evidence/evidence-D02-physics.md` | APS 公式 PDF URL は Cloudflare challenge で HTTP 403。CLI / bot 由来の失敗として記録 |
+| D02-S06 | D02 | `url-verified` | Renormalization Group and Critical Phenomena | — | `evidence/evidence-D02-physics.md` | OA: http://link.aps.org/pdf/10.1103/PhysRevLett.39.1201 (Unpaywall confirmed, CLI 403) |
 | D02-S07 | D02 | `blocked-access` | Synergetics: An Introduction | — | `evidence/evidence-D02-physics.md` | Springer book URL が `idp.springer.com/authorize` へ 303 redirect。機関ログインまたは人手ブラウザ確認余地あり |
 | D02-S08 | D02 | `raw-confirmed` | The Problem of Thermal Convection in a Horizontal Layer of Fluid Heated from Below | `knowledge/raw/D02_rayleigh_1916_problem-thermal-convection-horizontal-layer-fluid-heated-below.pdf` | `evidence/evidence-D02-physics.md` | Zenodo OA PDF を保存。CLI 取得成功、実 PDF 判定 |
 | D02-S09 | D02 | `raw-confirmed` | Decoherence, einselection, and the quantum origins of the classical | `knowledge/raw/D02_zurek_2003_decoherence-einselection-quantum-origins-classical.pdf` | `evidence/evidence-D02-physics.md` | arXiv OA PDF を保存。CLI 取得成功、71 pages 確認 |
@@ -83,9 +83,9 @@
 | D06-S04 | D06 | `citation-only` | Balbus & Hawley (1991), A powerful local shear instability in weakly magnetized disks | — | `evidence/evidence-D06-astronomy.md` | archive refs と ref-check で実在確認。official PDF route は未確認 |
 | D06-S05 | D06 | `citation-only` | Pollack et al. (1996), Formation of the Giant Planets by Concurrent Accretion of Solids and Gas | — | `evidence/evidence-D06-astronomy.md` | archive refs と ref-check で実在確認。official PDF route は未確認 |
 | D06-S06 | D06 | `citation-only` | Blandford & Ostriker (1978), Particle Acceleration by Astrophysical Shocks | — | `evidence/evidence-D06-astronomy.md` | archive refs と ref-check で実在確認。official PDF route は未確認 |
-| D06-S07 | D06 | `blocked-access` | Charbonneau (2020), Dynamo Models of the Solar Cycle | — | `evidence/evidence-D06-astronomy.md` | Springer PDF URL が `idp.springer.com/authorize` へ 303 redirect。機関ログインまたは手動ブラウザ余地あり |
+| D06-S07 | D06 | `raw-confirmed` | Charbonneau (2010), Dynamo Models of the Solar Cycle | `knowledge/raw/D06_charbonneau_2010_dynamo-solar-cycle.pdf` | `evidence/evidence-D06-astronomy.md` | Living Reviews in Solar Physics (Springer Open)。HTTP 200 application/pdf 確認済み |
 | D06-S08 | D06 | `raw-confirmed` | Planck Collaboration (2016), Planck 2015 results. XIII. Cosmological parameters | `knowledge/raw/D06_planck-collaboration_2016_cosmological-parameters.pdf` | `evidence/evidence-D06-astronomy.md` | A&A 公式 PDF を保存。CLI 取得成功、実 PDF 判定 |
-| D06-S09 | D06 | `blocked-access` | Abbott et al. (2017), GW170817: Observation of Gravitational Waves from a Binary Neutron Star Inspiral | — | `evidence/evidence-D06-astronomy.md` | APS PDF URL が Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |
+| D06-S09 | D06 | `raw-confirmed` | Abbott et al. (2017), GW170817: Observation of Gravitational Waves from a Binary Neutron Star Inspiral | `knowledge/raw/D06_abbott_2017_gw170817.pdf` | `evidence/evidence-D06-astronomy.md` | arXiv 1710.05832。HTTP 200 application/pdf 確認済み |
 | D06-S10 | D06 | `citation-only` | Spitzer (1987), Dynamical Evolution of Globular Clusters | — | `evidence/evidence-D06-astronomy.md` | 書誌確認のみ。official full-text route は未確認 |
 | D07-S01 | D07 | `blocked-access` | Wiener (1948), Cybernetics: Or Control and Communication in the Animal and the Machine | — | `evidence/evidence-D07-engineering.md` | MIT Press OA monograph page はあるが、CLI では Cloudflare challenge に着地。手動ブラウザ取得余地あり |
 | D07-S02 | D07 | `blocked-access` | ISO 9001:2015 | — | `evidence/evidence-D07-engineering.md` | ISO landing page は HTTP 200 で存在確認。full text は purchase/institution barrier のため raw 未取得 |
