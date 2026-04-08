@@ -9,9 +9,9 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 35本
-- `knowledge/raw/` に実格納済み: 35本
-- `citation-only`: 200本
+- 有効な公開 PDF を発見: 38本
+- `knowledge/raw/` に実格納済み: 38本
+- `citation-only`: 197本
 - `blocked-access`: 42本
 
 ## 集計の数え方
@@ -144,12 +144,12 @@
 | D13-S02 | D13 | `citation-only` | Simondon, G. (1958). *Du mode d'existence des objets techniques*. Aubier. | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D13-S03 | D13 | `citation-only` | Deleuze, G. (1966/2001). "Review of Gilbert Simondon." *Pli*, 12. | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D13-S04 | D13 | `citation-only` | Combes, M. (1999/2013). *Gilbert Simondon and the Philosophy of the Transindividual*. MIT Press. | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D13-S05 | D13 | `citation-only` | Dewey, J. (1910). *How We Think*. D.C. Heath & Co. ch.6 "The Analysis of a Complete Act of Thought" | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D13-S05 | D13 | `raw-confirmed` | Dewey, J. (1910). *How We Think*. D.C. Heath & Co. ch.6 "The Analysis of a Complete Act of Thought" | `knowledge/raw/D13_dewey_1910_how-we-think.pdf` | `evidence/evidence-D13-philosophy.md` | Wikimedia Commons hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D13-S06 | D13 | `citation-only` | Dewey, J. (1933). *How We Think: A Restatement*. D.C. Heath & Co. (1910年版の改訂) | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D13-S07 | D13 | `citation-only` | Dewey, J. (1938). *Logic: The Theory of Inquiry*. Henry Holt. ch.6 | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D13-S08 | D13 | `citation-only` | Dewey, J. (1929). *The Quest for Certainty*. Minton, Balch. ch.4 | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D13-S09 | D13 | `citation-only` | Dewey, J. (1934). *Art as Experience*. Minton, Balch. | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D13-S10 | D13 | `citation-only` | Whitehead, A. N. (1929). *Process and Reality: An Essay in Cosmology*. Macmillan. (Corrected Edition, ed. Griffin & Sherburne, Free Press, 1978) | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D13-S10 | D13 | `raw-confirmed` | Whitehead, A. N. (1929). *Process and Reality: An Essay in Cosmology*. Macmillan. (Corrected Edition, ed. Griffin & Sherburne, Free Press, 1978) | `knowledge/raw/D13_whitehead_1929_process-and-reality.pdf` | `evidence/evidence-D13-philosophy.md` | Wikimedia Commons hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D15-S01 | D15 | `citation-only` | Meltzer, D., & Harris Williams, M. (1988). *The Apprehension of Beauty*. Clunie Press. | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D15-S02 | D15 | `citation-only` | 上田勝久 (2016). 「精神分析的心理療法における美的体験の意義」 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D15-S03 | D15 | `citation-only` | 世阿弥 (15C). 『風姿花伝』 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -167,7 +167,7 @@
 | D16-S05 | D16 | `citation-only` | Pierson, P. (2000). Increasing Returns, Path Dependence, and the Study of Politics. *APSR*, 94(2), 251-267. | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D16-S06 | D16 | `citation-only` | Mahoney, J. (2000). Path Dependence in Historical Sociology. *Theory and Society*, 29(4), 507-548. | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D16-S07 | D16 | `citation-only` | North, D. (1990). *Institutions, Institutional Change and Economic Performance*. Cambridge UP. | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D16-S08 | D16 | `citation-only` | Ibn Khaldun (1377). *al-Muqaddimah*. Franz Rosenthal英訳, Bollingen Series, Princeton UP, 1958. （特にCh.2-3: アサビーヤと王朝サイクル。「三世代=120年前後」の記述は Ch.3 §12-15 付近） | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D16-S08 | D16 | `raw-confirmed` | Ibn Khaldun (1377). *al-Muqaddimah*. Franz Rosenthal英訳, Bollingen Series, Princeton UP, 1958. （特にCh.2-3: アサビーヤと王朝サイクル。「三世代=120年前後」の記述は Ch.3 §12-15 付近） | `knowledge/raw/D16_ibn-khaldun_1377_muqaddimah.pdf` | `evidence/evidence-D16-history.md` | Wikimedia Commons hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D16-S09 | D16 | `citation-only` | 邦訳: 森本公誠訳『歴史序説』岩波書店 | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D16-S10 | D16 | `citation-only` | Wallerstein, I. (1974). *The Modern World-System I*. Academic Press. | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D17-S01 | D17 | `citation-only` | Hopper, P. J. & Traugott, E. C. (2003). *Grammaticalization*. 2nd ed. CUP. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |

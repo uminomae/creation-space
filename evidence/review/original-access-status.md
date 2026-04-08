@@ -23,10 +23,10 @@
 | D10 | 4 | 2 | 1 | 1 |
 | D11 | 12 | 4 | 1 | 7 |
 | D12 | 10 | 1 | 1 | 8 |
-| D13 | 10 | 0 | 0 | 10 |
+| D13 | 10 | 2 | 0 | 8 |
 | D14 | 2 | 1 | 0 | 1 |
 | D15 | 10 | 0 | 0 | 10 |
-| D16 | 10 | 0 | 0 | 10 |
+| D16 | 10 | 1 | 0 | 9 |
 | D17 | 10 | 0 | 0 | 10 |
 | D18 | 4 | 1 | 2 | 1 |
 | D19 | 10 | 1 | 1 | 8 |
@@ -274,6 +274,27 @@ manifest には D05 の draft source rows 10件を first pass として投入し
 - `Clements (1916)` は `blocked-access`
   Internet Archive download route は 503/HTML error page
 - 残る 8 件は `citation-only`
+
+## D13 second-pass raw upgrade
+
+- `knowledge/raw/D13_dewey_1910_how-we-think.pdf`
+- `knowledge/raw/D13_whitehead_1929_process-and-reality.pdf`
+
+この second pass では 2 件を raw-confirmed に格上げした。
+
+補足:
+- `How We Think` と `Process and Reality` は Wikimedia Commons hosted PDF route で HTTP 200 application/pdf を確認し、実 PDF を保存
+- 残る 8 件は `citation-only`
+
+## D16 second-pass raw upgrade
+
+- `knowledge/raw/D16_ibn-khaldun_1377_muqaddimah.pdf`
+
+この second pass では 1 件を raw-confirmed に格上げした。
+
+補足:
+- `al-Muqaddimah` は Wikimedia Commons hosted PDF route で HTTP 200 application/pdf を確認し、実 PDF を保存
+- 残る 9 件は `citation-only`
 
 ## D23 second-pass raw upgrade
 
