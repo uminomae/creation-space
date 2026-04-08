@@ -1,20 +1,20 @@
 # knowledge/raw manifest
 
-**更新日**: 2026-04-08
-**起点**: cs#205, cs#207
+**更新日**: 2026-04-09
+**起点**: cs#205, cs#207, cs#214
 
 原典は source 単位で追跡する。**完了条件は D01-D30 の全領域で source 行が実データに置き換わること**。
 2026-04-07 時点では D01-D30 の全領域で source 行を登録済み。raw-confirmed pilot は D01 / D02 / D06 / D07 / D10 / D14 / D18 にあり、残り領域は archive refs 由来の first-pass source rows を起点に再監査を継続する。
 
 ## 集計
 
-- 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見（`raw-confirmed`）: 74本
-- `knowledge/raw/` に実格納済み: 74本
-- OA URL で閲覧確認済み（`url-verified`）: 25本
-- **原典アクセス達成**: 99本（raw-confirmed 74 + url-verified 25）
-- `citation-only`: 151本
-- `blocked-access`: 27本
+- 探索対象として source 単位で管理中: 283本（+6: D25-S01b 追加、計数見直し）
+- 有効な公開 PDF を発見（`raw-confirmed`）: 80本
+- `knowledge/raw/` に実格納済み: 79本（D16_toynbee は .gitignore でローカル保持）
+- OA URL で閲覧確認済み（`url-verified`）: 26本
+- **原典アクセス達成**: 106本（raw-confirmed 80 + url-verified 26）
+- `citation-only`: 152本
+- `blocked-access`: 25本
 
 ## 集計の数え方
 
@@ -87,7 +87,7 @@
 | D06-S08 | D06 | `raw-confirmed` | Planck Collaboration (2016), Planck 2015 results. XIII. Cosmological parameters | `knowledge/raw/D06_planck-collaboration_2016_cosmological-parameters.pdf` | `evidence/evidence-D06-astronomy.md` | A&A 公式 PDF を保存。CLI 取得成功、実 PDF 判定 |
 | D06-S09 | D06 | `raw-confirmed` | Abbott et al. (2017), GW170817: Observation of Gravitational Waves from a Binary Neutron Star Inspiral | `knowledge/raw/D06_abbott_2017_gw170817.pdf` | `evidence/evidence-D06-astronomy.md` | arXiv 1710.05832。HTTP 200 application/pdf 確認済み |
 | D06-S10 | D06 | `citation-only` | Spitzer (1987), Dynamical Evolution of Globular Clusters | — | `evidence/evidence-D06-astronomy.md` | 書誌確認のみ。official full-text route は未確認 |
-| D07-S01 | D07 | `blocked-access` | Wiener (1948), Cybernetics: Or Control and Communication in the Animal and the Machine | — | `evidence/evidence-D07-engineering.md` | MIT Press OA monograph page はあるが、CLI では Cloudflare challenge に着地。手動ブラウザ取得余地あり |
+| D07-S01 | D07 | `raw-confirmed` | Wiener (1948), Cybernetics: Or Control and Communication in the Animal and the Machine | `knowledge/raw/D07_wiener_1948_cybernetics.pdf` | `evidence/evidence-D07-engineering.md` | BG Agent 取得 (2026-04-08)。PDF 8.4MB 確認済み |
 | D07-S02 | D07 | `blocked-access` | ISO 9001:2015 | — | `evidence/evidence-D07-engineering.md` | ISO landing page は HTTP 200 で存在確認。full text は purchase/institution barrier のため raw 未取得 |
 | D07-S03 | D07 | `url-verified` | Jacobson (1988), Congestion Avoidance and Control | — | `evidence/evidence-D07-engineering.md` | OA: https://dl.acm.org/doi/pdf/10.1145/52324.52356 (ACM OA) |
 | D07-S04 | D07 | `raw-confirmed` | Rumelhart, Hinton, Williams (1986), Learning representations by back-propagating errors | `knowledge/raw/D07_rumelhart-hinton-williams_1986_backpropagation.pdf` | `evidence/evidence-D07-engineering.md` | Hinton 著者コピー cs.toronto.edu。HTTP 200 application/pdf 確認済み |
@@ -97,7 +97,7 @@
 | D07-S08 | D07 | `citation-only` | Holland (1975), Adaptation in Natural and Artificial Systems | — | `evidence/evidence-D07-engineering.md` | 書誌確認のみ。official full-text route は未確認 |
 | D07-S09 | D07 | `citation-only` | Fowler (1999), Refactoring | — | `evidence/evidence-D07-engineering.md` | 書誌確認のみ。official full-text route は未確認 |
 | D07-S10 | D07 | `raw-confirmed` | Diffie & Hellman (1976), New Directions in Cryptography | `knowledge/raw/D07_diffie-hellman_1976_new-directions-cryptography.pdf` | `evidence/evidence-D07-engineering.md` | Stanford Hellman 著者ページ。HTTP 200 application/pdf 確認済み |
-| D08-S01 | D08 | `blocked-access` | Rao & Ballard (1999), Predictive coding in the visual cortex | — | `evidence/evidence-D08-neuroscience.md` | Nature PDF route が `idp.nature.com/authorize` に 303 redirect。手動ブラウザ / 機関ログイン余地あり |
+| D08-S01 | D08 | `raw-confirmed` | Rao & Ballard (1999), Predictive coding in the visual cortex | `knowledge/raw/D08_rao-ballard_1999_predictive-coding-visual-cortex.pdf` | `evidence/evidence-D08-neuroscience.md` | BG Agent 取得 (2026-04-08)。PDF 625KB 9p 確認済み |
 | D08-S02 | D08 | `blocked-access` | Craig (2009), How do you feel — now? | — | `evidence/evidence-D08-neuroscience.md` | Nature Reviews PDF route が `idp.nature.com/authorize` に 303 redirect。手動ブラウザ / 機関ログイン余地あり |
 | D08-S03 | D08 | `citation-only` | Barrett (2017), How Emotions Are Made | — | `evidence/evidence-D08-neuroscience.md` | book-level anchor。archive refs / ref-check で実在確認、official full-text route は未確認 |
 | D08-S04 | D08 | `citation-only` | Miller & Cohen (2001), An integrative theory of prefrontal cortex function | — | `evidence/evidence-D08-neuroscience.md` | archive refs / ref-check で実在確認。official full-text route は未確認 |
@@ -164,7 +164,7 @@
 | D15-S10 | D15 | `citation-only` | 邦訳: 河村望訳 (2010). 『経験としての芸術』晃洋書房 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D16-S01 | D16 | `citation-only` | Braudel, F. (1949). *La Méditerranée et le monde méditerranéen à l'époque de Philippe II*. Armand Colin. （三部構成: Part I 環境と人間=長期持続、Part II 集団的運命と全般的動向=景気循環、Part III 出来事の政治と人間=事件史） | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D16-S02 | D16 | `blocked-access` | Braudel, F. (1958). Histoire et Sciences sociales: La longue durée. *Annales*, 13(4), 725-753. | — | `evidence/evidence-D16-history.md` | Persée PDF route は 2026-04-08 時点で HTTP 403 HTML。manual/browser 再試行余地あり |
-| D16-S03 | D16 | `blocked-access` | Toynbee, A. J. (1934-1961). *A Study of History*. 12 vols. Oxford University Press. | — | `evidence/evidence-D16-history.md` | Internet Archive download route は 2026-04-08 時点で redirect 後に item unavailable / 401。manual/browser 再試行余地あり |
+| D16-S03 | D16 | `raw-confirmed` | Toynbee, A. J. (1934-1961). *A Study of History*. 12 vols. Oxford University Press. | ローカル保持 (73MB, .gitignore) | `evidence/evidence-D16-history.md` | BG Agent 取得 (2026-04-08)。PDF 73MB。Git管理外、ローカル `knowledge/raw/D16_toynbee_1934_study-of-history-vol1.pdf` に保持 |
 | D16-S04 | D16 | `citation-only` | 邦訳: 長谷川松治訳『歴史の研究』経済往来社 | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D16-S05 | D16 | `citation-only` | Pierson, P. (2000). Increasing Returns, Path Dependence, and the Study of Politics. *APSR*, 94(2), 251-267. | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D16-S06 | D16 | `citation-only` | Mahoney, J. (2000). Path Dependence in Historical Sociology. *Theory and Society*, 29(4), 507-548. | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -250,6 +250,7 @@
 | D24-S09 | D24 | `citation-only` | Turner, D. (1995). *The Darkness of God: Negativity in Christian Mysticism*. Cambridge University Press. | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D24-S10 | D24 | `raw-confirmed` | Suzuki, D. T. (1935/1950), Manual of Zen Buddhism | `knowledge/raw/D24_suzuki_1935_manual-of-zen-buddhism_part1.pdf` | `evidence/evidence-D24-religion.md` | Wikimedia Commons / NDL scan の実 PDF を part1/part2 で保存。part2: `knowledge/raw/D24_suzuki_1935_manual-of-zen-buddhism_part2.pdf` |
 | D25-S01 | D25 | `raw-confirmed` | van Gennep, A. (1909). *Les rites de passage*. Émile Nourry. 英訳: *The Rites of Passage* (1960). University of Chicago Press. | `knowledge/raw/D25_van-gennep_1960_rites-of-passage.pdf` | `evidence/evidence-D25-anthropology.md` | IA 英訳版。HTTP 200 application/pdf 確認済み |
+| D25-S01b | D25 | `raw-confirmed` | van Gennep, A. (1909). *Les rites de passage*. Émile Nourry. (フランス語原典) | `knowledge/raw/D25_vangennep_1909_rites-of-passage.pdf` | `evidence/evidence-D25-anthropology.md` | BG Agent 取得 (2026-04-08)。PDF 31MB。1909年フランス語原典 |
 | D25-S02 | D25 | `citation-only` | Turner, V. (1974). *Dramas, Fields, and Metaphors*. Cornell University Press. Turner, V. (1985). *The Anthropology of Performance*. PAJ Publications. | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D25-S03 | D25 | `citation-only` | Turner, V. (1969). *The Ritual Process: Structure and Anti-Structure*. Aldine Publishing. | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D25-S04 | D25 | `citation-only` | Douglas, M. (1966). *Purity and Danger: An Analysis of Concepts of Pollution and Taboo*. Routledge. 邦訳: 『汚穢と禁忌』筑摩書房. | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
