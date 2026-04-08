@@ -18,7 +18,7 @@ original_access_status: not-yet-reviewed
 
 - 原典アクセス状態: evidence 本文としては `not-yet-reviewed`
 - source manifest には D15 first batch 10件を反映済み
-- source 内訳は `raw-confirmed` 2 / `blocked-access` 0 / `citation-only` 8
+- source 内訳は `raw-confirmed` 3 / `blocked-access` 0 / `citation-only` 7
 - [P] 主張の verified / accepted 判定は現時点では再保証しない
 - `knowledge/raw/` の整備と原典アクセス棚卸しが完了するまで、本文の再構成を優先する
 
@@ -27,8 +27,9 @@ original_access_status: not-yet-reviewed
 - raw-confirmed:
   `knowledge/raw/D28_zeami_classics_part1.pdf`
   `knowledge/raw/D15_kant_1790_kritik-der-urteilskraft.pdf`
+  `knowledge/raw/D13_dewey_1934_art-as-experience.pdf`
 - blocked-access: 0件。source ごとの理由は `knowledge/raw/manifest.md` の notes を参照
-- citation-only: 8件。archive refs / ref-check 起点の first-pass source rows
+- citation-only: 7件。archive refs / ref-check 起点の first-pass source rows
 - manual/browser 余地:
   blocked-access source は CLI challenge / login redirect / HTML landing の可能性を残すため、notes を維持する
 ## History

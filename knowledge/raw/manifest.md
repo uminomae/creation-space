@@ -9,9 +9,9 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 43本
-- `knowledge/raw/` に実格納済み: 43本
-- `citation-only`: 192本
+- 有効な公開 PDF を発見: 45本
+- `knowledge/raw/` に実格納済み: 45本
+- `citation-only`: 190本
 - `blocked-access`: 42本
 
 ## 集計の数え方
@@ -148,7 +148,7 @@
 | D13-S06 | D13 | `raw-confirmed` | Dewey, J. (1933). *How We Think: A Restatement*. D.C. Heath & Co. (1910年版の改訂) | `knowledge/raw/D13_dewey_1916_democracy-and-education.pdf` | `evidence/evidence-D13-philosophy.md` | Internet Archive download route `democracyandedu07dewegoog.pdf` で HTTP 200 application/pdf。Dewey 公開古典 raw を保存 |
 | D13-S07 | D13 | `citation-only` | Dewey, J. (1938). *Logic: The Theory of Inquiry*. Henry Holt. ch.6 | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D13-S08 | D13 | `citation-only` | Dewey, J. (1929). *The Quest for Certainty*. Minton, Balch. ch.4 | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D13-S09 | D13 | `citation-only` | Dewey, J. (1934). *Art as Experience*. Minton, Balch. | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D13-S09 | D13 | `raw-confirmed` | Dewey, J. (1934). *Art as Experience*. Minton, Balch. | `knowledge/raw/D13_dewey_1934_art-as-experience.pdf` | `evidence/evidence-D13-philosophy.md` | Internet Archive download route `Art_as_Experience__Dewey.pdf` で HTTP 200 application/pdf。実 PDF を保存 |
 | D13-S10 | D13 | `raw-confirmed` | Whitehead, A. N. (1929). *Process and Reality: An Essay in Cosmology*. Macmillan. (Corrected Edition, ed. Griffin & Sherburne, Free Press, 1978) | `knowledge/raw/D13_whitehead_1929_process-and-reality.pdf` | `evidence/evidence-D13-philosophy.md` | Wikimedia Commons hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D15-S01 | D15 | `citation-only` | Meltzer, D., & Harris Williams, M. (1988). *The Apprehension of Beauty*. Clunie Press. | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D15-S02 | D15 | `citation-only` | 上田勝久 (2016). 「精神分析的心理療法における美的体験の意義」 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -158,7 +158,7 @@
 | D15-S06 | D15 | `citation-only` | 能勢朝次 (1940). 『幽玄論』 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D15-S07 | D15 | `raw-confirmed` | Kant, I. (1790). *Kritik der Urteilskraft*. 邦訳: 牧野英二訳『判断力批判』岩波文庫 | `knowledge/raw/D15_kant_1790_kritik-der-urteilskraft.pdf` | `evidence/evidence-D15-aesthetics.md` | Wikimedia Commons hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D15-S08 | D15 | `citation-only` | Heidegger, M. (1935/36). "Der Ursprung des Kunstwerkes". 邦訳: 関口浩訳『芸術作品の根源』平凡社ライブラリー | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D15-S09 | D15 | `citation-only` | Dewey, J. (1934). *Art as Experience*. Minton, Balch & Company. （特にCh.1 "The Live Creature", Ch.3 "Having an Experience", Ch.5 "The Expressive Object"） | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D15-S09 | D15 | `raw-confirmed` | Dewey, J. (1934). *Art as Experience*. Minton, Balch & Company. （特にCh.1 "The Live Creature", Ch.3 "Having an Experience", Ch.5 "The Expressive Object"） | `knowledge/raw/D13_dewey_1934_art-as-experience.pdf` | `evidence/evidence-D15-aesthetics.md` | 既存の Dewey raw（Internet Archive download route `Art_as_Experience__Dewey.pdf`）を再利用 |
 | D15-S10 | D15 | `citation-only` | 邦訳: 河村望訳 (2010). 『経験としての芸術』晃洋書房 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D16-S01 | D16 | `citation-only` | Braudel, F. (1949). *La Méditerranée et le monde méditerranéen à l'époque de Philippe II*. Armand Colin. （三部構成: Part I 環境と人間=長期持続、Part II 集団的運命と全般的動向=景気循環、Part III 出来事の政治と人間=事件史） | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D16-S02 | D16 | `citation-only` | Braudel, F. (1958). Histoire et Sciences sociales: La longue durée. *Annales*, 13(4), 725-753. | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
