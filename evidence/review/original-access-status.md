@@ -13,7 +13,7 @@
 |---|---|---|---|---|
 | D01 | 3 | 1 | 2 | 0 |
 | D02 | 10 | 4 | 5 | 1 |
-| D03 | 10 | 0 | 6 | 4 |
+| D03 | 10 | 0 | 7 | 3 |
 | D04 | 10 | 0 | 2 | 8 |
 | D05 | 10 | 0 | 0 | 10 |
 | D06 | 10 | 1 | 4 | 5 |
@@ -92,7 +92,9 @@
   AIP/JOR PDF endpoint が Cloudflare challenge で HTTP 403
 - `Miller & Urey (1953)` は `blocked-access`
   Science PDF URL が Cloudflare challenge で HTTP 403
-- `Becker-Doring (1935)` / `Lehn (1995)` / `Lewis-von Elbe (1961)` / `Goldbeter (1996)` は `citation-only`
+- `Goldbeter (1996)` は `blocked-access`
+  Open Library / Internet Archive download route は 403 HTML
+- `Becker-Doring (1935)` / `Lehn (1995)` / `Lewis-von Elbe (1961)` は `citation-only`
   archive refs と ref-check では確認できるが、stable primary full-text route は未確認
 
 ## D04 first source batch
