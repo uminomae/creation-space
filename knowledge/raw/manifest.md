@@ -9,9 +9,9 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 25本
-- `knowledge/raw/` に実格納済み: 25本
-- `citation-only`: 217本
+- 有効な公開 PDF を発見: 26本
+- `knowledge/raw/` に実格納済み: 26本
+- `citation-only`: 216本
 - `blocked-access`: 35本
 
 ## 集計の数え方
@@ -203,7 +203,7 @@
 | D21-S01 | D21 | `citation-only` | Schumpeter, J.A. (1912). *Theorie der wirtschaftlichen Entwicklung*. Duncker & Humblot. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D21-S02 | D21 | `citation-only` | Schumpeter, J.A. (1939). *Business Cycles*. McGraw-Hill.（イノベーションの群生・波及と循環の議論の主要典拠） | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D21-S03 | D21 | `citation-only` | Schumpeter, J.A. (1942). *Capitalism, Socialism and Democracy*. Harper & Brothers. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D21-S04 | D21 | `citation-only` | Hayek, F.A. (1945). "The Use of Knowledge in Society". *American Economic Review*, 35(4), 519-530. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D21-S04 | D21 | `raw-confirmed` | Hayek (1945), The Use of Knowledge in Society | `knowledge/raw/D21_hayek_1945_use-of-knowledge-in-society.pdf` | `evidence/evidence-D21-economics.md` | OLL / Liberty Fund hosted PDF で実 PDF を保存 |
 | D21-S05 | D21 | `citation-only` | Hayek, F.A. (1973). *Law, Legislation and Liberty, Vol.1: Rules and Order*. University of Chicago Press. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D21-S06 | D21 | `citation-only` | Hayek, F.A. (2002 [orig. 1968]). "Competition as a Discovery Procedure." *Quarterly Journal of Austrian Economics*, 5(3), 9–23.（「発見手続き」の典拠。独語講演の英訳） | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D21-S07 | D21 | `citation-only` | Keynes, J.M. (1936). *The General Theory of Employment, Interest and Money*. Macmillan. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |

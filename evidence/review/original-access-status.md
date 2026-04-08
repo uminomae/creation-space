@@ -31,7 +31,7 @@
 | D18 | 4 | 1 | 2 | 1 |
 | D19 | 10 | 0 | 0 | 10 |
 | D20 | 10 | 1 | 2 | 7 |
-| D21 | 10 | 0 | 0 | 10 |
+| D21 | 10 | 1 | 0 | 9 |
 | D22 | 10 | 2 | 0 | 8 |
 | D23 | 10 | 0 | 0 | 10 |
 | D24 | 10 | 2 | 0 | 8 |
@@ -334,3 +334,11 @@ manifest には D05 の draft source rows 10件を first pass として投入し
 
 補足:
 - Stanford-hosted PDF route と J-STAGE official PDF route で HTTP 200 application/pdf を確認
+## D21 second-pass raw upgrade
+
+- `knowledge/raw/D21_hayek_1945_use-of-knowledge-in-society.pdf`
+
+この 1 件を raw-confirmed に格上げした。
+
+補足:
+- OLL / Liberty Fund hosted PDF で実 PDF を確認
