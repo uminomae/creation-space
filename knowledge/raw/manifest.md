@@ -9,8 +9,8 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 46本
-- `knowledge/raw/` に実格納済み: 46本
+- 有効な公開 PDF を発見: 45本
+- `knowledge/raw/` に実格納済み: 45本
 - `citation-only`: 189本
 - `blocked-access`: 42本
 
@@ -145,7 +145,7 @@
 | D13-S03 | D13 | `citation-only` | Deleuze, G. (1966/2001). "Review of Gilbert Simondon." *Pli*, 12. | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D13-S04 | D13 | `citation-only` | Combes, M. (1999/2013). *Gilbert Simondon and the Philosophy of the Transindividual*. MIT Press. | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D13-S05 | D13 | `raw-confirmed` | Dewey, J. (1910). *How We Think*. D.C. Heath & Co. ch.6 "The Analysis of a Complete Act of Thought" | `knowledge/raw/D13_dewey_1910_how-we-think.pdf` | `evidence/evidence-D13-philosophy.md` | Wikimedia Commons hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
-| D13-S06 | D13 | `raw-confirmed` | Dewey, J. (1933). *How We Think: A Restatement*. D.C. Heath & Co. (1910年版の改訂) | `knowledge/raw/D13_dewey_1916_democracy-and-education.pdf` | `evidence/evidence-D13-philosophy.md` | Internet Archive download route `democracyandedu07dewegoog.pdf` で HTTP 200 application/pdf。Dewey 公開古典 raw を保存 |
+| D13-S06 | D13 | `blocked-access` | Dewey, J. (1933). *How We Think: A Restatement*. D.C. Heath & Co. (1910年版の改訂) | — | `evidence/evidence-D13-philosophy.md` | Internet Archive download route `howwethinkrestat0000john.pdf` は 2026-04-08 時点で redirect 後に item unavailable / 401。manual/browser 再試行余地あり |
 | D13-S07 | D13 | `citation-only` | Dewey, J. (1938). *Logic: The Theory of Inquiry*. Henry Holt. ch.6 | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D13-S08 | D13 | `raw-confirmed` | Dewey, J. (1929). *The Quest for Certainty*. Minton, Balch. ch.4 | `knowledge/raw/D13_dewey_1929_quest-for-certainty.pdf` | `evidence/evidence-D13-philosophy.md` | Internet Archive download route `questforcertaint0000john_n0z8.pdf` で HTTP 200 application/pdf。実 PDF を保存 |
 | D13-S09 | D13 | `raw-confirmed` | Dewey, J. (1934). *Art as Experience*. Minton, Balch. | `knowledge/raw/D13_dewey_1934_art-as-experience.pdf` | `evidence/evidence-D13-philosophy.md` | Internet Archive download route `Art_as_Experience__Dewey.pdf` で HTTP 200 application/pdf。実 PDF を保存 |
@@ -162,7 +162,7 @@
 | D15-S10 | D15 | `citation-only` | 邦訳: 河村望訳 (2010). 『経験としての芸術』晃洋書房 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D16-S01 | D16 | `citation-only` | Braudel, F. (1949). *La Méditerranée et le monde méditerranéen à l'époque de Philippe II*. Armand Colin. （三部構成: Part I 環境と人間=長期持続、Part II 集団的運命と全般的動向=景気循環、Part III 出来事の政治と人間=事件史） | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D16-S02 | D16 | `citation-only` | Braudel, F. (1958). Histoire et Sciences sociales: La longue durée. *Annales*, 13(4), 725-753. | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D16-S03 | D16 | `citation-only` | Toynbee, A. J. (1934-1961). *A Study of History*. 12 vols. Oxford University Press. | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D16-S03 | D16 | `blocked-access` | Toynbee, A. J. (1934-1961). *A Study of History*. 12 vols. Oxford University Press. | — | `evidence/evidence-D16-history.md` | Internet Archive download route は 2026-04-08 時点で redirect 後に item unavailable / 401。manual/browser 再試行余地あり |
 | D16-S04 | D16 | `citation-only` | 邦訳: 長谷川松治訳『歴史の研究』経済往来社 | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D16-S05 | D16 | `citation-only` | Pierson, P. (2000). Increasing Returns, Path Dependence, and the Study of Politics. *APSR*, 94(2), 251-267. | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D16-S06 | D16 | `citation-only` | Mahoney, J. (2000). Path Dependence in Historical Sociology. *Theory and Society*, 29(4), 507-548. | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -176,7 +176,7 @@
 | D17-S04 | D17 | `citation-only` | Labov, W. (1994). *Principles of Linguistic Change, Vol. 1: Internal Factors*. Blackwell. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D17-S05 | D17 | `citation-only` | Labov, W. (2001). *Principles of Linguistic Change, Vol. 2: Social Factors*. Blackwell. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D17-S06 | D17 | `citation-only` | Thomason, S. G. & Kaufman, T. (1988). *Language Contact, Creolization, and Genetic Linguistics*. UC Press. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D17-S07 | D17 | `citation-only` | Bickerton, D. (1981). *Roots of Language*. Karoma. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D17-S07 | D17 | `blocked-access` | Bickerton, D. (1981). *Roots of Language*. Karoma. | — | `evidence/evidence-D17-linguistics.md` | Internet Archive download route は 2026-04-08 時点で redirect 後に item unavailable / 401。manual/browser 再試行余地あり |
 | D17-S08 | D17 | `citation-only` | Lenneberg, E. H. (1967). *Biological Foundations of Language*. Wiley. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D17-S09 | D17 | `citation-only` | Johnson, J. S. & Newport, E. L. (1989). *Cognitive Psychology*, 21(1), 60-99. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D17-S10 | D17 | `blocked-access` | Hartshorne, J. K. et al. (2018). *Cognition*, 177, 263-277. | — | `evidence/evidence-D17-linguistics.md` | Harvard Scholar file route は 2026-04-08 時点で 403 HTML。manual/browser 再試行余地あり |
