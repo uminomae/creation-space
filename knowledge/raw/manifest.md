@@ -9,12 +9,12 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見（`raw-confirmed`）: 62本
-- `knowledge/raw/` に実格納済み: 62本
+- 有効な公開 PDF を発見（`raw-confirmed`）: 65本
+- `knowledge/raw/` に実格納済み: 65本
 - OA URL で閲覧確認済み（`url-verified`）: 23本
-- **原典アクセス達成**: 85本（raw-confirmed 62 + url-verified 23）
-- `citation-only`: 156本
-- `blocked-access`: 36本
+- **原典アクセス達成**: 88本（raw-confirmed 65 + url-verified 23）
+- `citation-only`: 155本
+- `blocked-access`: 34本
 
 ## 集計の数え方
 
@@ -30,7 +30,7 @@
 | D10-S01 | D10 | `raw-confirmed` | Allergen immunotherapy / WAO JOA review | `knowledge/raw/D10_akdis_2014_allergen-immunotherapy.pdf` | `evidence/evidence-D10-clinical-medicine.md` | 試行格納1件目。D10 pilot raw-confirmed |
 | D10-S02 | D10 | `raw-confirmed` | Mechanisms of human autoimmunity | `knowledge/raw/D10_rosenblum_2015_autoimmunity.pdf` | `evidence/evidence-D10-clinical-medicine.md` | 試行格納2件目。D10 pilot raw-confirmed |
 | D10-S03 | D10 | `citation-only` | Burnet (1957), clonal selection | — | `evidence/evidence-D10-clinical-medicine.md` | 書誌確認のみ。本文未確認 |
-| D10-S04 | D10 | `blocked-access` | Tonegawa (1983), somatic generation of antibody diversity | — | `evidence/evidence-D10-clinical-medicine.md` | 公開本文の安定取得に未達 |
+| D10-S04 | D10 | `raw-confirmed` | Tonegawa (1983), somatic generation of antibody diversity | `knowledge/raw/D10_tonegawa_1987_nobel-lecture.pdf` | `evidence/evidence-D10-clinical-medicine.md` | ノーベル賞講演 PDF (nobelprize.org)。HTTP 200 application/pdf 確認済み |
 | D14-S01 | D14 | `raw-confirmed` | The Embodied Mind | `knowledge/raw/D14_varela_1991_embodied-mind.pdf` | `evidence/evidence-D14-psychology.md` | Monoskop 公開 PDF。D14 pilot raw-confirmed |
 | D14-S02 | D14 | `citation-only` | Clark & Chalmers (1998), The Extended Mind | — | `evidence/evidence-D14-psychology.md` | 書誌確認のみ。本文未確認 |
 | D18-S01 | D18 | `raw-confirmed` | De la division du travail social | `knowledge/raw/D18_durkheim_1893_division-labor.pdf` | `evidence/evidence-D18-sociology.md` | Open Library / IA 実 PDF を取得。D18 pilot raw-confirmed |
@@ -90,9 +90,9 @@
 | D07-S01 | D07 | `blocked-access` | Wiener (1948), Cybernetics: Or Control and Communication in the Animal and the Machine | — | `evidence/evidence-D07-engineering.md` | MIT Press OA monograph page はあるが、CLI では Cloudflare challenge に着地。手動ブラウザ取得余地あり |
 | D07-S02 | D07 | `blocked-access` | ISO 9001:2015 | — | `evidence/evidence-D07-engineering.md` | ISO landing page は HTTP 200 で存在確認。full text は purchase/institution barrier のため raw 未取得 |
 | D07-S03 | D07 | `url-verified` | Jacobson (1988), Congestion Avoidance and Control | — | `evidence/evidence-D07-engineering.md` | OA: https://dl.acm.org/doi/pdf/10.1145/52324.52356 (ACM OA) |
-| D07-S04 | D07 | `blocked-access` | Rumelhart, Hinton, Williams (1986), Learning representations by back-propagating errors | — | `evidence/evidence-D07-engineering.md` | Nature PDF URL が `idp.nature.com/authorize` へ 303 redirect。機関ログインまたは手動ブラウザ余地あり |
+| D07-S04 | D07 | `raw-confirmed` | Rumelhart, Hinton, Williams (1986), Learning representations by back-propagating errors | `knowledge/raw/D07_rumelhart-hinton-williams_1986_backpropagation.pdf` | `evidence/evidence-D07-engineering.md` | Hinton 著者コピー cs.toronto.edu。HTTP 200 application/pdf 確認済み |
 | D07-S05 | D07 | `raw-confirmed` | Shannon (1948), A Mathematical Theory of Communication | `knowledge/raw/D07_shannon_1948_mathematical-theory-communication.pdf` | `evidence/evidence-D07-engineering.md` | Harvard-hosted PDF を保存。CLI 取得成功、実 PDF 判定 |
-| D07-S06 | D07 | `citation-only` | Candes, Romberg, Tao (2006), Robust uncertainty principles: Exact signal reconstruction from highly incomplete frequency information | — | `evidence/evidence-D07-engineering.md` | archive refs と ref-check で実在確認。official IEEE route は未確認 |
+| D07-S06 | D07 | `raw-confirmed` | Candes, Romberg, Tao (2006), Robust uncertainty principles: Exact signal reconstruction from highly incomplete frequency information | `knowledge/raw/D07_candes-romberg-tao_2006_robust-uncertainty.pdf` | `evidence/evidence-D07-engineering.md` | arXiv preprint math/0409186。HTTP 200 application/pdf 確認済み |
 | D07-S07 | D07 | `citation-only` | Schultz, Dayan, Montague (1997), A neural substrate of prediction and reward | — | `evidence/evidence-D07-engineering.md` | PubMed で書誌確認。official Science full text は未確認 |
 | D07-S08 | D07 | `citation-only` | Holland (1975), Adaptation in Natural and Artificial Systems | — | `evidence/evidence-D07-engineering.md` | 書誌確認のみ。official full-text route は未確認 |
 | D07-S09 | D07 | `citation-only` | Fowler (1999), Refactoring | — | `evidence/evidence-D07-engineering.md` | 書誌確認のみ。official full-text route は未確認 |
