@@ -18,7 +18,7 @@ original_access_status: not-yet-reviewed
 
 - 原典アクセス状態: evidence 本文としては `not-yet-reviewed`
 - source manifest には D12 first/second batch 10件を反映済み
-- source 内訳は `raw-confirmed` 1 / `blocked-access` 1 / `citation-only` 8
+- source 内訳は `raw-confirmed` 2 / `blocked-access` 1 / `citation-only` 7
 - [P] 主張の verified / accepted 判定は現時点では再保証しない
 - `knowledge/raw/` の整備と原典アクセス棚卸しが完了するまで、本文の再構成を優先する
 
@@ -26,10 +26,11 @@ original_access_status: not-yet-reviewed
 
 - raw-confirmed:
   `農林水産省 IPM 実践指針` は official PDF を `knowledge/raw/` に格納した
+  `Stern et al. (1959)` は UC ANR repository PDF を `knowledge/raw/` に格納した
 - blocked-access:
   `Clements (1916)` は Internet Archive download route が 503/HTML error page を返し raw 未取得。manual/browser 再試行余地あり
 - citation-only:
-  残る 8 source は archive refs / ref-check 起点の first-pass source rows
+  残る 7 source は archive refs / ref-check 起点の first-pass source rows
 ## History
 
 - スナップショット: [`evidence/archive/pre-rerun-20260407/evidence/evidence-D12-agriculture.md`](archive/pre-rerun-20260407/evidence/evidence-D12-agriculture.md)

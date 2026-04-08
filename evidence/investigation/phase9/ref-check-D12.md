@@ -6,7 +6,7 @@
 
 - 原典アクセス状態: ref-check 本文としては `not-yet-reviewed`
 - source manifest には D12 first/second batch 10件を反映済み
-- source 内訳は `raw-confirmed` 1 / `blocked-access` 1 / `citation-only` 8
+- source 内訳は `raw-confirmed` 2 / `blocked-access` 1 / `citation-only` 7
 - 既存の verified / plausible / overstated 判定は再保証しない
 - 二次資料・要約・書誌情報のみで成立していた判定が混在していないか、原典アクセス状態から再点検する
 
@@ -14,9 +14,10 @@
 
 - raw-confirmed:
   `knowledge/raw/D12_maff_2005_ipm-practical-guideline.pdf`
+  `knowledge/raw/D12_stern_1959_integrated-control-concept.pdf`
 - blocked-access:
   `Clements (1916)` は Internet Archive download route が 503/HTML error page を返し raw 未取得
-- citation-only: 8件。archive refs / ref-check 起点の first-pass source rows
+- citation-only: 7件。archive refs / ref-check 起点の first-pass source rows
 - 注意:
   blocked-access は「本文不存在」ではなく、CLI challenge / login / HTML 着地を含む
 

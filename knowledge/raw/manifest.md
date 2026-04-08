@@ -9,9 +9,9 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 47本
-- `knowledge/raw/` に実格納済み: 47本
-- `citation-only`: 188本
+- 有効な公開 PDF を発見: 48本
+- `knowledge/raw/` に実格納済み: 48本
+- `citation-only`: 187本
 - `blocked-access`: 42本
 
 ## 集計の数え方
@@ -134,7 +134,7 @@
 | D12-S02 | D12 | `citation-only` | Connell, J. H., & Slatyer, R. O. (1977). *Am. Nat.*, 111, 1119-1144. | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D12-S03 | D12 | `citation-only` | Holling, C. S. (1973). *Ann. Rev. Ecol. Syst.*, 4, 1-23. | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D12-S04 | D12 | `citation-only` | Robertson, G. P., & Vitousek, P. M. (2009). Nitrogen in Agriculture: Balancing the Cost of an Essential Resource. *Annual Review of Environment and Resources*, 34, 97-125. DOI: 10.1146/annurev.environ.032108.105046 | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D12-S05 | D12 | `citation-only` | Stern, V. M., et al. (1959). *Hilgardia*, 29(2), 81-101. | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D12-S05 | D12 | `raw-confirmed` | Stern, V. M., et al. (1959). *Hilgardia*, 29(2), 81-101. | `knowledge/raw/D12_stern_1959_integrated-control-concept.pdf` | `evidence/evidence-D12-agriculture.md` | UC ANR repository PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D12-S06 | D12 | `citation-only` | Pedigo, L. P., et al. (1986). *Ann. Rev. Entomol.*, 31, 341-368. DOI: 10.1146/annurev.en.31.010186.002013 | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D12-S07 | D12 | `raw-confirmed` | 農林水産省, 総合的病害虫・雑草管理（IPM）実践指針 | `knowledge/raw/D12_maff_2005_ipm-practical-guideline.pdf` | `evidence/evidence-D12-agriculture.md` | MAFF official PDF route で実 PDF を保存 |
 | D12-S08 | D12 | `citation-only` | Scheffer, M., et al. (2001). *Nature*, 413, 591-596. DOI: 10.1038/35098000 | — | `evidence/evidence-D12-agriculture.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
