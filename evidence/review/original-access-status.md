@@ -29,7 +29,7 @@
 | D16 | 10 | 0 | 0 | 10 |
 | D17 | 10 | 0 | 0 | 10 |
 | D18 | 4 | 1 | 2 | 1 |
-| D19 | 10 | 1 | 0 | 9 |
+| D19 | 10 | 1 | 1 | 8 |
 | D20 | 10 | 1 | 2 | 7 |
 | D21 | 10 | 1 | 0 | 9 |
 | D22 | 10 | 2 | 0 | 8 |
@@ -221,11 +221,13 @@ manifest には D05 の draft source rows 10件を first pass として投入し
 
 - `knowledge/raw/D19_propp_1968_morphology-of-the-folktale.pdf`
 
-この 1 件を raw-confirmed に格上げした。
+この second pass では 1 件を raw-confirmed に格上げし、1 件を `blocked-access` に更新した。
 
 補足:
 - Monoskop hosted PDF route で HTTP 200 application/pdf を確認し、実 PDF を保存
-- 残る 9 件は `citation-only`
+- `Bourdieu (1971)` は `blocked-access`
+  Persée PDF route は HTTP 403 HTML
+- 残る 8 件は `citation-only`
 
 ## D25 second-pass raw/access update
 

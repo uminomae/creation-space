@@ -187,7 +187,7 @@
 | D19-S05 | D19 | `citation-only` | Shklovsky, V. (1917/1965). Art as Technique. In Lemon & Reis (Eds.), *Russian Formalist Criticism*. U Nebraska Press. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D19-S06 | D19 | `citation-only` | Todorov, T. (1971). The 2 Principles of Narrative. *Diacritics*, 1(1), 37-44. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D19-S07 | D19 | `citation-only` | Todorov, T. (1977). *The Poetics of Prose*. Cornell UP. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D19-S08 | D19 | `citation-only` | Bourdieu, P. (1971). Le marché des biens symboliques. *L'Année sociologique*, 22, 49-126. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D19-S08 | D19 | `blocked-access` | Bourdieu, P. (1971). Le marché des biens symboliques. *L'Année sociologique*, 22, 49-126. | — | `evidence/evidence-D19-literary-studies.md` | Persée PDF route は 2026-04-08 時点で HTTP 403 HTML。manual/browser 再試行余地あり |
 | D19-S09 | D19 | `citation-only` | Bourdieu, P. (1992/1996). *The Rules of Art*. Stanford UP. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D19-S10 | D19 | `citation-only` | Barthes, R. (1970). *S/Z*. Seuil. 英訳: Hill & Wang, 1974. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D20-S01 | D20 | `citation-only` | Hart, H. L. A. (1961). *The Concept of Law*. Clarendon Press. 2nd ed. 1994. | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |

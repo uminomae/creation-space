@@ -6,7 +6,7 @@
 
 - 原典アクセス状態: ref-check 本文としては `not-yet-reviewed`
 - source manifest には D19 first batch 10件を反映済み
-- source 内訳は `raw-confirmed` 0 / `blocked-access` 0 / `citation-only` 10
+- source 内訳は `raw-confirmed` 1 / `blocked-access` 1 / `citation-only` 8
 - 既存の verified / plausible / overstated 判定は再保証しない
 - 二次資料・要約・書誌情報のみで成立していた判定が混在していないか、原典アクセス状態から再点検する
 
@@ -14,8 +14,9 @@
 
 - raw-confirmed: 1件
 - `knowledge/raw/D19_propp_1968_morphology-of-the-folktale.pdf`
-- blocked-access: 0件。source ごとの理由は `knowledge/raw/manifest.md` の notes を参照
-- citation-only: 9件。archive refs / ref-check 起点の first-pass source rows
+- blocked-access:
+  `Bourdieu (1971)` は Persée PDF route が HTTP 403 HTML に着地し raw 未取得
+- citation-only: 8件。archive refs / ref-check 起点の first-pass source rows
 - 注意:
   blocked-access は「本文不存在」ではなく、CLI challenge / login / HTML 着地を含む
 ## History
