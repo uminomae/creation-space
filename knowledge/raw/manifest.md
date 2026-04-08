@@ -9,9 +9,9 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 27本
-- `knowledge/raw/` に実格納済み: 27本
-- `citation-only`: 215本
+- 有効な公開 PDF を発見: 28本
+- `knowledge/raw/` に実格納済み: 28本
+- `citation-only`: 214本
 - `blocked-access`: 35本
 
 ## 集計の数え方
@@ -235,7 +235,7 @@
 | D23-S06 | D23 | `citation-only` | 木下孝司 (2001). 幼児は自己映像を"自分のこと"として見ているか？ *神戸大学発達科学部研究紀要*, 8(2), 91-100. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D23-S07 | D23 | `citation-only` | Luyckx, K., Goossens, L., Soenens, B., & Beyers, W. (2006). Unpacking commitment and exploration: Preliminary validation of an integrative model of late adolescent identity formation. *Journal of Adolescence*, 29(3), 361-378. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D23-S08 | D23 | `citation-only` | Luyckx, K., Schwartz, S. J., Berzonsky, M. D., Soenens, B., Vansteenkiste, M., Smits, I., & Goossens, L. (2008). Capturing ruminative exploration: Extending the four-dimensional model of identity formation in late adolescence. *Journal of Research in Personality*, 42(1), 58-82. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D23-S09 | D23 | `citation-only` | 中間玲子・杉村和美・畑野快・溝上慎一 (2014). 多次元アイデンティティ発達尺度（DIDS）によるアイデンティティ発達の検討とDIDS日本語版の作成. *心理学研究*, 85(6), 549-559. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D23-S09 | D23 | `raw-confirmed` | 中間玲子ほか (2014), 多次元アイデンティティ発達尺度（DIDS）日本語版 | `knowledge/raw/D23_nakama_2014_dids-japanese-version.pdf` | `evidence/evidence-D23-developmental-psychology.md` | J-STAGE official PDF route で実 PDF を保存 |
 | D23-S10 | D23 | `citation-only` | Thelen, E. & Smith, L. B. (1994). *A Dynamic Systems Approach to the Development of Cognition and Action*. MIT Press. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D24-S01 | D24 | `citation-only` | Rambo, L. R. (1993). *Understanding Religious Conversion*. Yale University Press. | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D24-S02 | D24 | `citation-only` | Di Marzio, R. (2019). "Experiences of Affiliation, Conversion, 'Brainwashing,' and Departure." *The Journal of CESNUR* 3(2). | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |

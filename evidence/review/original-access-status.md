@@ -33,7 +33,7 @@
 | D20 | 10 | 1 | 2 | 7 |
 | D21 | 10 | 1 | 0 | 9 |
 | D22 | 10 | 2 | 0 | 8 |
-| D23 | 10 | 0 | 0 | 10 |
+| D23 | 10 | 1 | 0 | 9 |
 | D24 | 10 | 2 | 0 | 8 |
 | D25 | 10 | 0 | 1 | 9 |
 | D26 | 10 | 0 | 0 | 10 |
@@ -351,3 +351,11 @@ manifest には D05 の draft source rows 10件を first pass として投入し
 
 補足:
 - Wikimedia Commons / NDL scan の実 PDF を確認
+## D23 second-pass raw upgrade
+
+- `knowledge/raw/D23_nakama_2014_dids-japanese-version.pdf`
+
+この 1 件を raw-confirmed に格上げした。
+
+補足:
+- J-STAGE official PDF route で実 PDF を確認
