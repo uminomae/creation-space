@@ -9,9 +9,9 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 40本
-- `knowledge/raw/` に実格納済み: 40本
-- `citation-only`: 195本
+- 有効な公開 PDF を発見: 42本
+- `knowledge/raw/` に実格納済み: 42本
+- `citation-only`: 193本
 - `blocked-access`: 42本
 
 ## 集計の数え方
@@ -55,7 +55,7 @@
 | D03-S08 | D03 | `blocked-access` | Winter & Chambon (1986), Analysis of Linear Viscoelasticity of a Crosslinking Polymer at the Gel Point | — | `evidence/evidence-D03-chemistry.md` | AIP/JOR PDF endpoint が Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |
 | D03-S09 | D03 | `blocked-access` | A Production of Amino Acids Under Possible Primitive Earth Conditions | — | `evidence/evidence-D03-chemistry.md` | Science PDF URL が Cloudflare challenge で HTTP 403。publisher/bot gating の可能性が高い |
 | D03-S10 | D03 | `blocked-access` | Goldbeter (1996), Biochemical Oscillations and Cellular Rhythms | — | `evidence/evidence-D03-chemistry.md` | Open Library / Internet Archive download route は 2026-04-08 時点で 403 HTML。manual/browser 再試行余地あり |
-| D04-S01 | D04 | `citation-only` | Darwin (1859), On the Origin of Species | — | `evidence/evidence-D04-evolutionary-biology.md` | archive refs と ref-check で実在確認。2026-04-07 時点では stable primary full-text route 未確認 |
+| D04-S01 | D04 | `raw-confirmed` | Darwin (1859), On the Origin of Species | `knowledge/raw/D04_darwin_1859_origin-of-species.pdf` | `evidence/evidence-D04-evolutionary-biology.md` | Wikimedia Commons hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D04-S02 | D04 | `citation-only` | Eldredge & Gould (1972), Punctuated equilibria | — | `evidence/evidence-D04-evolutionary-biology.md` | archive refs と ref-check で実在確認。official full-text route は未確認 |
 | D04-S03 | D04 | `citation-only` | Odling-Smee, Laland & Feldman (2003), Niche Construction | — | `evidence/evidence-D04-evolutionary-biology.md` | archive refs と ref-check で実在確認。book-level anchor のため official full-text route は未確認 |
 | D04-S04 | D04 | `blocked-access` | Laland et al. (2015), The extended evolutionary synthesis: its structure, assumptions and predictions | — | `evidence/evidence-D04-evolutionary-biology.md` | PMC article page は到達するが PDF 直リンクは \"Preparing to download ...\" POW challenge HTML を返し raw PDF 未取得。手動ブラウザ余地あり |
@@ -156,7 +156,7 @@
 | D15-S04 | D15 | `citation-only` | 本居宣長 (1799). 『源氏物語玉の小櫛』 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D15-S05 | D15 | `citation-only` | 久松真一 (1965). 「侘の茶」 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D15-S06 | D15 | `citation-only` | 能勢朝次 (1940). 『幽玄論』 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D15-S07 | D15 | `citation-only` | Kant, I. (1790). *Kritik der Urteilskraft*. 邦訳: 牧野英二訳『判断力批判』岩波文庫 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D15-S07 | D15 | `raw-confirmed` | Kant, I. (1790). *Kritik der Urteilskraft*. 邦訳: 牧野英二訳『判断力批判』岩波文庫 | `knowledge/raw/D15_kant_1790_kritik-der-urteilskraft.pdf` | `evidence/evidence-D15-aesthetics.md` | Wikimedia Commons hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D15-S08 | D15 | `citation-only` | Heidegger, M. (1935/36). "Der Ursprung des Kunstwerkes". 邦訳: 関口浩訳『芸術作品の根源』平凡社ライブラリー | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D15-S09 | D15 | `citation-only` | Dewey, J. (1934). *Art as Experience*. Minton, Balch & Company. （特にCh.1 "The Live Creature", Ch.3 "Having an Experience", Ch.5 "The Expressive Object"） | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D15-S10 | D15 | `citation-only` | 邦訳: 河村望訳 (2010). 『経験としての芸術』晃洋書房 | — | `evidence/evidence-D15-aesthetics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
