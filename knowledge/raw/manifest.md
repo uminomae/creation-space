@@ -9,11 +9,11 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見（`raw-confirmed`）: 71本
-- `knowledge/raw/` に実格納済み: 71本
+- 有効な公開 PDF を発見（`raw-confirmed`）: 72本
+- `knowledge/raw/` に実格納済み: 72本
 - OA URL で閲覧確認済み（`url-verified`）: 25本
-- **原典アクセス達成**: 96本（raw-confirmed 71 + url-verified 25）
-- `citation-only`: 153本
+- **原典アクセス達成**: 97本（raw-confirmed 72 + url-verified 25）
+- `citation-only`: 152本
 - `blocked-access`: 28本
 
 ## 集計の数え方
@@ -127,7 +127,7 @@
 | D11-S05 | D11 | `citation-only` | Korsmeyer, R.W. et al. (1983). *Int J Pharm*, 15, 25-35. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D11-S06 | D11 | `citation-only` | 厚生省 (1988). 徐放性製剤ガイドライン. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D11-S07 | D11 | `citation-only` | 日本薬学会 (2024). 君臣佐使用語解説. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D11-S08 | D11 | `citation-only` | Wu, L. et al. (2014). *Chin Med*, 9, 24. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D11-S08 | D11 | `raw-confirmed` | Wu, L. et al. (2014). *Chin Med*, 9, 24. | `knowledge/raw/D11_wu_2014_chinese-medicine.pdf` | `evidence/evidence-D11-pharmacy.md` | BMC Chinese Medicine OA。HTTP 200 application/pdf 確認済み |
 | D11-S09 | D11 | `raw-confirmed` | Li, X. et al. (2014), A network pharmacology study of Chinese medicine QSYQ | `knowledge/raw/D11_li_2014_network-pharmacology-qishenyiqi.pdf` | `evidence/evidence-D11-pharmacy.md` | PLOS ONE official PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D11-S10 | D11 | `raw-confirmed` | ICH (2009), Q8(R2) Pharmaceutical Development Guideline | `knowledge/raw/D11_ich_2009_q8-r2-guideline.pdf` | `evidence/evidence-D11-pharmacy.md` | ICH official PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D11-S11 | D11 | `raw-confirmed` | ICH (2008), Q10 Pharmaceutical Quality System Guideline | `knowledge/raw/D11_ich_2008_q10-guideline.pdf` | `evidence/evidence-D11-pharmacy.md` | ICH official PDF route で HTTP 200 application/pdf。実 PDF を保存 |
