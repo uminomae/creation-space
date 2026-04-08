@@ -3,3 +3,9 @@ memo.md
 .claude/worktrees/
 build/
 .build-tmp/
+
+# 50MB超の大型PDF — ローカル保持、manifest.mdにURLを記録
+knowledge/raw/D24_suzuki_1935_manual-of-zen-buddhism_part1.pdf
+knowledge/raw/D24_suzuki_1935_manual-of-zen-buddhism_part2.pdf
+knowledge/raw/D28_zeami_classics_part1.pdf
+knowledge/raw/D28_zeami_classics_part2.pdf
