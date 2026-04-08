@@ -18,15 +18,16 @@ original_access_status: not-yet-reviewed
 
 - 原典アクセス状態: evidence 本文としては `not-yet-reviewed`
 - source manifest には D17 first batch 10件を反映済み
-- source 内訳は `raw-confirmed` 0 / `blocked-access` 0 / `citation-only` 10
+- source 内訳は `raw-confirmed` 0 / `blocked-access` 1 / `citation-only` 9
 - [P] 主張の verified / accepted 判定は現時点では再保証しない
 - `knowledge/raw/` の整備と原典アクセス棚卸しが完了するまで、本文の再構成を優先する
 
-## 2026-04-07 first batch
+## 2026-04-08 second/third batch
 
 - raw-confirmed: 0件
-- blocked-access: 0件。source ごとの理由は `knowledge/raw/manifest.md` の notes を参照
-- citation-only: 10件。archive refs / ref-check 起点の first-pass source rows
+- blocked-access:
+  `Hartshorne et al. (2018)` は Harvard Scholar file route が 403 HTML に着地し raw 未取得。manual/browser 再試行余地あり
+- citation-only: 9件。archive refs / ref-check 起点の first-pass source rows
 - manual/browser 余地:
   blocked-access source は CLI challenge / login redirect / HTML landing の可能性を残すため、notes を維持する
 ## History

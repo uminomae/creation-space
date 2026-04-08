@@ -179,7 +179,7 @@
 | D17-S07 | D17 | `citation-only` | Bickerton, D. (1981). *Roots of Language*. Karoma. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D17-S08 | D17 | `citation-only` | Lenneberg, E. H. (1967). *Biological Foundations of Language*. Wiley. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D17-S09 | D17 | `citation-only` | Johnson, J. S. & Newport, E. L. (1989). *Cognitive Psychology*, 21(1), 60-99. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D17-S10 | D17 | `citation-only` | Hartshorne, J. K. et al. (2018). *Cognition*, 177, 263-277. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D17-S10 | D17 | `blocked-access` | Hartshorne, J. K. et al. (2018). *Cognition*, 177, 263-277. | — | `evidence/evidence-D17-linguistics.md` | Harvard Scholar file route は 2026-04-08 時点で 403 HTML。manual/browser 再試行余地あり |
 | D19-S01 | D19 | `raw-confirmed` | Propp, V. (1928/1968). *Morphology of the Folktale*. 2nd ed. UT Press. | `knowledge/raw/D19_propp_1968_morphology-of-the-folktale.pdf` | `evidence/evidence-D19-literary-studies.md` | Monoskop hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D19-S02 | D19 | `citation-only` | Bakhtin, M. M. (1981). *The Dialogic Imagination: Four Essays*. UT Press. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D19-S03 | D19 | `citation-only` | Jauss, H. R. (1982). *Toward an Aesthetic of Reception*. U Minnesota Press. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
