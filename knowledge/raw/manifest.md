@@ -9,9 +9,9 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 33本
-- `knowledge/raw/` に実格納済み: 33本
-- `citation-only`: 203本
+- 有効な公開 PDF を発見: 35本
+- `knowledge/raw/` に実格納済み: 35本
+- `citation-only`: 201本
 - `blocked-access`: 41本
 
 ## 集計の数え方
@@ -238,7 +238,7 @@
 | D23-S09 | D23 | `raw-confirmed` | 中間玲子ほか (2014), 多次元アイデンティティ発達尺度（DIDS）日本語版 | `knowledge/raw/D23_nakama_2014_dids-japanese-version.pdf` | `evidence/evidence-D23-developmental-psychology.md` | J-STAGE official PDF route で実 PDF を保存 |
 | D23-S10 | D23 | `citation-only` | Thelen, E. & Smith, L. B. (1994). *A Dynamic Systems Approach to the Development of Cognition and Action*. MIT Press. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D24-S01 | D24 | `citation-only` | Rambo, L. R. (1993). *Understanding Religious Conversion*. Yale University Press. | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D24-S02 | D24 | `citation-only` | Di Marzio, R. (2019). "Experiences of Affiliation, Conversion, 'Brainwashing,' and Departure." *The Journal of CESNUR* 3(2). | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D24-S02 | D24 | `raw-confirmed` | Di Marzio, R. (2019). "Experiences of Affiliation, Conversion, 'Brainwashing,' and Departure." *The Journal of CESNUR* 3(2). | `knowledge/raw/D24_dimarzio_2019_affiliation-conversion-departure.pdf` | `evidence/evidence-D24-religion.md` | CESNUR hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D24-S03 | D24 | `citation-only` | Pew Research Center (2025). "Religious switching" reports. | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D24-S04 | D24 | `citation-only` | Turner, V. (1969). *The Ritual Process: Structure and Anti-Structure*. Cornell University Press. | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D24-S05 | D24 | `citation-only` | Van Gennep, A. (1909/1960). *The Rites of Passage*. University of Chicago Press (trans.). | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -305,5 +305,5 @@
 | D30-S06 | D30 | `citation-only` | Wenger, E. (1998). *Communities of Practice: Learning, Meaning, and Identity*. Cambridge University Press. | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D30-S07 | D30 | `citation-only` | 世阿弥.『風姿花伝』（一座建立の寿福） | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D30-S08 | D30 | `citation-only` | 山上宗二.『山上宗二記』 | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D30-S09 | D30 | `citation-only` | 茶事における場の共創（J-STAGE会議論文） | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D30-S09 | D30 | `raw-confirmed` | 松木正恵・沼田千尋 (2021). 茶事における場の共創: 「一座建立」の意味空間. SSI2021 論文集. | `knowledge/raw/D30_matsuki_numata_2021_ichiza-konryu.pdf` | `evidence/evidence-D30-traditional-knowledge.md` | J-STAGE official PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D30-S10 | D30 | `citation-only` | 「武道文化論」守破離の説明 | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |

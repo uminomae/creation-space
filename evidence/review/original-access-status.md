@@ -34,13 +34,13 @@
 | D21 | 10 | 2 | 0 | 8 |
 | D22 | 10 | 2 | 0 | 8 |
 | D23 | 10 | 2 | 0 | 8 |
-| D24 | 10 | 2 | 0 | 8 |
+| D24 | 10 | 3 | 0 | 7 |
 | D25 | 10 | 1 | 2 | 7 |
 | D26 | 10 | 0 | 2 | 8 |
 | D27 | 10 | 1 | 2 | 7 |
 | D28 | 10 | 1 | 0 | 9 |
 | D29 | 10 | 1 | 0 | 9 |
-| D30 | 10 | 2 | 0 | 8 |
+| D30 | 10 | 3 | 0 | 7 |
 
 ## D01 pilot raw-confirmed
 
@@ -264,6 +264,18 @@ manifest には D05 の draft source rows 10件を first pass として投入し
 - `木下孝司 (2001)` は Kobe University repository PDF route で HTTP 200 application/pdf を確認し、実 PDF を保存
 - 残る 8 件は `citation-only`
 
+## D24 second-pass raw upgrade
+
+- `knowledge/raw/D24_teresa_1921_interior-castle.pdf`
+- `knowledge/raw/D24_suzuki_1935_manual-of-zen-buddhism_part1.pdf`
+- `knowledge/raw/D24_dimarzio_2019_affiliation-conversion-departure.pdf`
+
+この second pass では 3 件を raw-confirmed として扱う。
+
+補足:
+- `Di Marzio (2019)` は CESNUR hosted PDF route で HTTP 200 application/pdf を確認し、実 PDF を保存
+- 残る 7 件は `citation-only`
+
 ## D26 second-pass access update
 
 この second pass では raw PDF の追加取得には未達だが、1 件を追加で `blocked-access` に更新した。
@@ -286,6 +298,18 @@ manifest には D05 の draft source rows 10件を first pass として投入し
   CAD Journal / ScienceDirect PDF route は Cloudflare challenge 403 HTML。Architectural Design DOI route は Wiley landing へ進むが 403 HTML challenge
 - `Aravena & Iacobelli (2012)` は `blocked-access`
   ELEMENTAL official PDF route は Vercel 403 text/plain `Forbidden` を返し raw 未取得
+- 残る 7 件は `citation-only`
+
+## D30 second-pass raw upgrade
+
+- `knowledge/raw/D30_ipbes_2019_ilk-methodological-guidance.pdf`
+- `knowledge/raw/D30_cbd_2018_nagoya-protocol.pdf`
+- `knowledge/raw/D30_matsuki_numata_2021_ichiza-konryu.pdf`
+
+この second pass では 3 件を raw-confirmed として扱う。
+
+補足:
+- `松木正恵・沼田千尋 (2021)` は J-STAGE official PDF route で HTTP 200 application/pdf を確認し、実 PDF を保存
 - 残る 7 件は `citation-only`
 
 | domain_id | kind | active_path | archive_snapshot | access_status |
