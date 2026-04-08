@@ -18,20 +18,21 @@ original_access_status: not-yet-reviewed
 
 - 原典アクセス状態: evidence 本文としては `not-yet-reviewed`
 - source manifest には D21 first/second batch 10件を反映済み
-- source 内訳は `raw-confirmed` 3 / `blocked-access` 0 / `citation-only` 7
+- source 内訳は `raw-confirmed` 4 / `blocked-access` 0 / `citation-only` 6
 - [P] 主張の verified / accepted 判定は現時点では再保証しない
 - `knowledge/raw/` の整備と原典アクセス棚卸しが完了するまで、本文の再構成を優先する
 
 ## 2026-04-08 second/third batch
 
 - raw-confirmed:
+  `Schumpeter (1939)` は Internet Archive open item を `knowledge/raw/` に格納した
   `Hayek (1945)` は OLL / Liberty Fund hosted PDF を `knowledge/raw/` に格納した
   `Hayek (2002)` は Mises Institute hosted PDF を `knowledge/raw/` に格納した
   `Knight (1921)` は Internet Archive open item を `knowledge/raw/` に格納した
 - blocked-access:
   0件
 - citation-only:
-  残る 7 source は archive refs / ref-check 起点の first-pass source rows
+  残る 6 source は archive refs / ref-check 起点の first-pass source rows
 ## History
 
 - スナップショット: [`evidence/archive/pre-rerun-20260407/evidence/evidence-D21-economics.md`](archive/pre-rerun-20260407/evidence/evidence-D21-economics.md)

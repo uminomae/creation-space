@@ -9,9 +9,9 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見: 53本
-- `knowledge/raw/` に実格納済み: 53本
-- `citation-only`: 182本
+- 有効な公開 PDF を発見: 55本
+- `knowledge/raw/` に実格納済み: 55本
+- `citation-only`: 180本
 - `blocked-access`: 42本
 
 ## 集計の数え方
@@ -192,7 +192,7 @@
 | D19-S10 | D19 | `citation-only` | Barthes, R. (1970). *S/Z*. Seuil. 英訳: Hill & Wang, 1974. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D20-S01 | D20 | `citation-only` | Hart, H. L. A. (1961). *The Concept of Law*. Clarendon Press. 2nd ed. 1994. | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D20-S02 | D20 | `citation-only` | Easton, D. (1965). *A Systems Analysis of Political Life*. Wiley. | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D20-S03 | D20 | `citation-only` | Ostrom, E. (1990). *Governing the Commons*. CUP. | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D20-S03 | D20 | `raw-confirmed` | Ostrom, E. (1990). *Governing the Commons*. CUP. | `knowledge/raw/D20_ostrom_1990_governing-the-commons.pdf` | `evidence/evidence-D20-law-politics.md` | Internet Archive open item `Governing_the_Commons.pdf` で HTTP 200 application/pdf。実 PDF を保存 |
 | D20-S04 | D20 | `citation-only` | Sieyès, E. J. (1789). *What Is the Third Estate?* | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D20-S05 | D20 | `citation-only` | Schmitt, C. (1928). *Verfassungslehre*. | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D20-S06 | D20 | `raw-confirmed` | International IDEA (2011), A Practical Guide to Constitution Building | `knowledge/raw/D20_idea_2011_practical-guide-constitution-building.pdf` | `evidence/evidence-D20-law-politics.md` | International IDEA official PDF route で実 PDF を保存 |
@@ -201,7 +201,7 @@
 | D20-S09 | D20 | `citation-only` | Krasner, S. D. (1982). Structural Causes and Regime Consequences. *IO*, 36(2). | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D20-S10 | D20 | `citation-only` | Keohane, R. O. (1984). *After Hegemony*. Princeton UP. | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D21-S01 | D21 | `citation-only` | Schumpeter, J.A. (1912). *Theorie der wirtschaftlichen Entwicklung*. Duncker & Humblot. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D21-S02 | D21 | `citation-only` | Schumpeter, J.A. (1939). *Business Cycles*. McGraw-Hill.（イノベーションの群生・波及と循環の議論の主要典拠） | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D21-S02 | D21 | `raw-confirmed` | Schumpeter, J.A. (1939). *Business Cycles*. McGraw-Hill.（イノベーションの群生・波及と循環の議論の主要典拠） | `knowledge/raw/D21_schumpeter_1939_business-cycles.pdf` | `evidence/evidence-D21-economics.md` | Internet Archive open item `2015.150123.Business-Cycles-Vol1.pdf` で HTTP 200 application/pdf。実 PDF を保存 |
 | D21-S03 | D21 | `citation-only` | Schumpeter, J.A. (1942). *Capitalism, Socialism and Democracy*. Harper & Brothers. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D21-S04 | D21 | `raw-confirmed` | Hayek (1945), The Use of Knowledge in Society | `knowledge/raw/D21_hayek_1945_use-of-knowledge-in-society.pdf` | `evidence/evidence-D21-economics.md` | OLL / Liberty Fund hosted PDF で実 PDF を保存 |
 | D21-S05 | D21 | `citation-only` | Hayek, F.A. (1973). *Law, Legislation and Liberty, Vol.1: Rules and Order*. University of Chicago Press. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
