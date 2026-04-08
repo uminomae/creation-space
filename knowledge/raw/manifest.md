@@ -9,12 +9,12 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 277本
-- 有効な公開 PDF を発見（`raw-confirmed`）: 72本
-- `knowledge/raw/` に実格納済み: 72本
+- 有効な公開 PDF を発見（`raw-confirmed`）: 74本
+- `knowledge/raw/` に実格納済み: 74本
 - OA URL で閲覧確認済み（`url-verified`）: 25本
-- **原典アクセス達成**: 97本（raw-confirmed 72 + url-verified 25）
-- `citation-only`: 152本
-- `blocked-access`: 28本
+- **原典アクセス達成**: 99本（raw-confirmed 74 + url-verified 25）
+- `citation-only`: 151本
+- `blocked-access`: 27本
 
 ## 集計の数え方
 
@@ -249,11 +249,11 @@
 | D24-S08 | D24 | `citation-only` | Kavanaugh, K. & Rodriguez, O. (trans.) (1980). *The Collected Works of St. Teresa of Avila*, Vol. 2. ICS Publications. | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D24-S09 | D24 | `citation-only` | Turner, D. (1995). *The Darkness of God: Negativity in Christian Mysticism*. Cambridge University Press. | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D24-S10 | D24 | `raw-confirmed` | Suzuki, D. T. (1935/1950), Manual of Zen Buddhism | `knowledge/raw/D24_suzuki_1935_manual-of-zen-buddhism_part1.pdf` | `evidence/evidence-D24-religion.md` | Wikimedia Commons / NDL scan の実 PDF を part1/part2 で保存。part2: `knowledge/raw/D24_suzuki_1935_manual-of-zen-buddhism_part2.pdf` |
-| D25-S01 | D25 | `blocked-access` | van Gennep, A. (1909). *Les rites de passage*. Émile Nourry. 英訳: *The Rites of Passage* (1960). University of Chicago Press. | — | `evidence/evidence-D25-anthropology.md` | Internet Archive download route は 2026-04-08 時点で 503/HTML error page を返し raw 未取得。manual/browser 再試行余地あり |
+| D25-S01 | D25 | `raw-confirmed` | van Gennep, A. (1909). *Les rites de passage*. Émile Nourry. 英訳: *The Rites of Passage* (1960). University of Chicago Press. | `knowledge/raw/D25_van-gennep_1960_rites-of-passage.pdf` | `evidence/evidence-D25-anthropology.md` | IA 英訳版。HTTP 200 application/pdf 確認済み |
 | D25-S02 | D25 | `citation-only` | Turner, V. (1974). *Dramas, Fields, and Metaphors*. Cornell University Press. Turner, V. (1985). *The Anthropology of Performance*. PAJ Publications. | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D25-S03 | D25 | `citation-only` | Turner, V. (1969). *The Ritual Process: Structure and Anti-Structure*. Aldine Publishing. | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D25-S04 | D25 | `citation-only` | Douglas, M. (1966). *Purity and Danger: An Analysis of Concepts of Pollution and Taboo*. Routledge. 邦訳: 『汚穢と禁忌』筑摩書房. | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D25-S05 | D25 | `citation-only` | Barth, F. ed. (1969). *Ethnic Groups and Boundaries: The Social Organization of Culture Difference*. Universitetsforlaget | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D25-S05 | D25 | `raw-confirmed` | Barth, F. ed. (1969). *Ethnic Groups and Boundaries: The Social Organization of Culture Difference*. Universitetsforlaget | `knowledge/raw/D25_barth_1969_ethnic-groups-intro.pdf` | `evidence/evidence-D25-anthropology.md` | IA item。Introduction chapter PDF (165KB)。HTTP 200 application/pdf |
 | D25-S06 | D25 | `citation-only` | Waveland Press (reprint). | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D25-S07 | D25 | `citation-only` | Mauss, M. (1925). *Essai sur le don: Forme et raison de l'echange dans les societes archaiques*. 邦訳: 『贈与論 他二篇』岩波文庫 (2014). Levi-Strauss, C. (1950). Introduction to Mauss. Sahlins, M. (1972). *Stone Age Economics*. | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D25-S08 | D25 | `blocked-access` | Leroi-Gourhan, A. (1964-65). *Le Geste et la Parole*. 邦訳: 『身ぶりと言葉』筑摩書房. Lemonnier, P. (1986). "The Study of Material Culture Today." *J. of Anthropological Archaeology* 5: 147-186. Lemonnier, P. (1992). *Elements for an Anthropology of Technology*. Anthropological Papers No. 88, Univ. of Michigan. | — | `evidence/evidence-D25-anthropology.md` | Internet Archive download route は 2026-04-08 時点で redirect 後に item unavailable / 401。manual/browser 再試行余地あり |
