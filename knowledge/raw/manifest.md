@@ -8,14 +8,14 @@
 
 ## 集計
 
-- 探索対象として source 単位で管理中: 408本（類似論文 125本含む）
+- 探索対象として source 単位で管理中: 402本（類似論文 120本含む）
 - 有効な公開 PDF を発見（`raw-confirmed`）: 80本
 - `knowledge/raw/` に実格納済み: 79本（D16_toynbee は .gitignore でローカル保持）
-- OA URL で閲覧確認済み（`url-verified`）: 163本
-- **原典アクセス達成**: 243本（raw-confirmed 80 + url-verified 163）
+- OA URL で閲覧確認済み（`url-verified`）: 157本
+- **原典アクセス達成**: 237本（raw-confirmed 80 + url-verified 157）
 - `citation-only`: 144本
 - `blocked-access`: 21本
-- 類似論文（`[similar-papers]` タグ付き）: 125本（VAL検証によりReject 25本を除外, cs#215）
+- 類似論文（`[similar-papers]` タグ付き）: 120本（VAL検証によりReject 31本を除外, cs#215）
 
 ## 集計の数え方
 
@@ -284,7 +284,6 @@
 | D20-S09 | D20 | `citation-only` | Krasner, S. D. (1982). Structural Causes and Regime Consequences. *IO*, 36(2). | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D20-S10 | D20 | `citation-only` | Keohane, R. O. (1984). *After Hegemony*. Princeton UP. | — | `evidence/evidence-D20-law-politics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D20-S11 | D20 | `url-verified` | Ostrom (2008). Polycentric Systems. SSRN. | — | `evidence/evidence-D20-law-politics.md` | [similar-papers] new. Stage 1-5: ポリセントリック・ガバナンス。OA: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1304697 |
-| D20-S12 | D20 | `url-verified` | Ostrom (2010). Beyond Markets and States (Nobel). *AER* 100(3). | — | `evidence/evidence-D20-law-politics.md` | [similar-papers] new. Stage 3-5: 多中心的秩序の創発。OA: https://papers.ssrn.com/sol3/Delivery.cfm?abstractid=2019699 |
 | D20-S13 | D20 | `url-verified` | Holling (1973). Resilience and Stability of Ecological Systems. *Ann. Rev. Ecol. Syst.* 4. | — | `evidence/evidence-D20-law-politics.md` | [similar-papers] new. Stage 1-4: 適応サイクル。OA: http://pure.iiasa.ac.at/id/eprint/26/1/RP-73-003.pdf |
 | D20-S14 | D20 | `url-verified` | Folke et al. (2005). Adaptive Governance of Social-Ecological Systems. *Annu Rev Environ Resour* 30. | — | `evidence/evidence-D20-law-politics.md` | [similar-papers] CA. Stage 2-5 (VAL修正: 1-5→2-5): 適応的ガバナンス。OA: https://www.annualreviews.org/doi/pdf/10.1146/annurev.energy.30.050504.144511 |
 | D21-S01 | D21 | `raw-confirmed` | Schumpeter, J.A. (1912). *Theorie der wirtschaftlichen Entwicklung*. Duncker & Humblot. | `knowledge/raw/D21_schumpeter_1912_theorie-der-wirtschaftlichen-entwicklung.pdf` | `evidence/evidence-D21-economics.md` | Internet Archive open item PDF route で HTTP 200 application/pdf。実 PDF を保存 |
@@ -298,7 +297,6 @@
 | D21-S09 | D21 | `raw-confirmed` | Knight, F.H. (1921). *Risk, Uncertainty, and Profit*. Houghton Mifflin. | `knowledge/raw/D21_knight_1921_risk-uncertainty-profit.pdf` | `evidence/evidence-D21-economics.md` | Internet Archive open item `apu.jd.338.5.kni.g51686.pdf` で HTTP 200 application/pdf。実 PDF を保存 |
 | D21-S10 | D21 | `citation-only` | Nelson, R.R. & Winter, S.G. (1982). *An Evolutionary Theory of Economic Change*. Harvard University Press. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D21-S11 | D21 | `url-verified` | Dickman et al. (2000). Paths to self-organized criticality. *Braz. J. Phys.* 30. | — | `evidence/evidence-D21-economics.md` | [similar-papers] new. Stage 1-4: SOC形成経路。OA: https://www.scielo.br/j/bjp/a/zybV3FQw8gSGCcP6H7hcmGm/?lang=en&format=pdf |
-| D21-S12 | D21 | `url-verified` | Dickman, Vespignani, Zapperi (1998). SOC as absorbing-state transition. *Phys. Rev. E* 57. | — | `evidence/evidence-D21-economics.md` | [similar-papers] new. Stage 2-3: SOCの相転移定式化。OA: http://link.aps.org/pdf/10.1103/PhysRevE.57.5095 |
 | D21-S13 | D21 | `url-verified` | Krugman (1991). Increasing Returns and Economic Geography. *J. Polit. Econ.* 99(3). | — | `evidence/evidence-D21-economics.md` | [similar-papers] new. Stage 2-4: 収穫逓増と経済地理。OA: https://doi.org/10.3386/w3275 |
 | D21-S14 | D21 | `url-verified` | Hidalgo & Hausmann (2009). Building Blocks of Economic Complexity. *PNAS* 106(26). | — | `evidence/evidence-D21-economics.md` | [similar-papers] new. Stage 3-5: 経済複雑性。OA: https://arxiv.org/pdf/0909.3890 |
 | D22-S01 | D22 | `citation-only` | Nonaka, I. & Takeuchi, H. (1995). *The Knowledge-Creating Company*. Oxford University Press. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -313,7 +311,6 @@
 | D22-S10 | D22 | `citation-only` | Gersick, C. J. G. (1988). Time and transition in work teams. *Academy of Management Journal*, 31(1), 9–41. | — | `evidence/evidence-D22-business-management.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D22-S11 | D22 | `url-verified` | Lyon (2014). Dreyfus Model of Skill Acquisition. *JoSoTL* 15(1). | — | `evidence/evidence-D22-business-management.md` | [similar-papers] new. Stage 1-5: 技能習得5段階。OA: https://scholarworks.iu.edu/journals/index.php/josotl/article/download/12866/19744 |
 | D22-S12 | D22 | `url-verified` | Moller et al. (2004). Combining Science and TEK. *Ecol. & Soc.* 9(3). | — | `evidence/evidence-D22-business-management.md` | [similar-papers] new. Stage 3-5: 科学知とTEKの統合。OA: https://doi.org/10.5751/es-00675-090302 |
-| D22-S13 | D22 | `url-verified` | Edmondson (1999). Psychological Safety and Learning. *Admin Sci Q* 44(2). | — | `evidence/evidence-D22-business-management.md` | [similar-papers] new. Stage 1-2: 心理的安全性。OA: http://nrs.harvard.edu/urn-3:HUL.InstRepos:37968728 |
 | D22-S14 | D22 | `url-verified` | Wenger (2010). Communities of Practice and Social Learning Systems. Springer. | — | `evidence/evidence-D22-business-management.md` | [similar-papers] new. Stage 3-5: 実践共同体。OA: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7122803 |
 | D22-S15 | D22 | `url-verified` | Goldstein et al. (2010). *Complexity and the Nexus of Leadership*. Palgrave. | — | `evidence/evidence-D22-business-management.md` | [similar-papers] new. Stage 2-4: 複雑系リーダーシップ。OA: https://link.springer.com/content/pdf/bfm:978-0-230-10771-7/1 |
 | D23-S01 | D23 | `raw-confirmed` | Kegan, R. (1982). *The Evolving Self: Problem and Process in Human Development*. Harvard University Press. | `knowledge/raw/D23_kegan_1982_evolving-self.pdf` | `evidence/evidence-D23-developmental-psychology.md` | Internet Archive open item `the-evolving-self-problem-and-process-in-human-development-9780674039414_compress.pdf` で HTTP 200 application/pdf。実 PDF を保存 |
@@ -327,8 +324,6 @@
 | D23-S09 | D23 | `raw-confirmed` | 中間玲子ほか (2014), 多次元アイデンティティ発達尺度（DIDS）日本語版 | `knowledge/raw/D23_nakama_2014_dids-japanese-version.pdf` | `evidence/evidence-D23-developmental-psychology.md` | J-STAGE official PDF route で実 PDF を保存 |
 | D23-S10 | D23 | `citation-only` | Thelen, E. & Smith, L. B. (1994). *A Dynamic Systems Approach to the Development of Cognition and Action*. MIT Press. | — | `evidence/evidence-D23-developmental-psychology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D23-S11 | D23 | `url-verified` | van Geert (2019). Dynamic Systems, Process and Development. *Human Dev.* 63. | — | `evidence/evidence-D23-developmental-psychology.md` | [similar-papers] new. Stage 1-5: 動的システム発達理論。OA: https://www.karger.com/Article/Pdf/503825 |
-| D23-S12 | D23 | `url-verified` | Gershenson & Fernandez (2012). Measuring Emergence, Self-organization, and Homeostasis. *Complexity* 18(4). | — | `evidence/evidence-D23-developmental-psychology.md` | [similar-papers] new. Stage 1-4: 創発の情報理論的測定。OA: https://arxiv.org/pdf/1205.2026 |
-| D23-S13 | D23 | `url-verified` | Munoz (2018). Criticality and dynamical scaling in living systems. *Rev. Mod. Phys.* 90. | — | `evidence/evidence-D23-developmental-psychology.md` | [similar-papers] new. Stage 2-3: 生命系の臨界性。OA: https://arxiv.org/pdf/1712.04499 |
 | D23-S14 | D23 | `url-verified` | van Geert (1998). Piaget, Vygotsky, and Beyond via DST. *Psychol Rev* 105(4). | — | `evidence/evidence-D23-developmental-psychology.md` | [similar-papers] new. Stage 1-5: ピアジェ-ヴィゴツキー統合。OA: https://research.rug.nl/en/publications/ab03691b-cf40-452c-a8cf-7a5d9d799bbf |
 | D23-S15 | D23 | `url-verified` | van der Maas et al. (2017). Network Models for Cognitive Development. *Preprints*. | — | `evidence/evidence-D23-developmental-psychology.md` | [similar-papers] new. Stage 3-4: 認知発達のネットワークモデル。OA: https://www.preprints.org/manuscript/201701.0107/v1/download |
 | D24-S01 | D24 | `citation-only` | Rambo, L. R. (1993). *Understanding Religious Conversion*. Yale University Press. | — | `evidence/evidence-D24-religion.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -343,7 +338,6 @@
 | D24-S10 | D24 | `raw-confirmed` | Suzuki, D. T. (1935/1950), Manual of Zen Buddhism | `knowledge/raw/D24_suzuki_1935_manual-of-zen-buddhism_part1.pdf` | `evidence/evidence-D24-religion.md` | Wikimedia Commons / NDL scan の実 PDF を part1/part2 で保存。part2: `knowledge/raw/D24_suzuki_1935_manual-of-zen-buddhism_part2.pdf` |
 | D24-S11 | D24 | `url-verified` | James, W. (1902). *The Varieties of Religious Experience*. Longmans, Green. | — | `evidence/evidence-D24-religion.md` | [similar-papers] new. Stage 1-4: 回心の心理学的類型論。OA: https://archive.org/download/varietiesofrelig00jameuoft/varietiesofrelig00jameuoft.pdf |
 | D24-S12 | D24 | `url-verified` | Otto, R. (1917/1923). *The Idea of the Holy*. Trans. Harvey. Oxford UP. | — | `evidence/evidence-D24-religion.md` | [similar-papers] new. Stage 1-2: ヌミノーゼの現象学。OA: https://archive.org/download/in.ernet.dli.2015.262513/2015.262513.The-Idea.pdf |
-| D24-S13 | D24 | `url-verified` | Starbuck, E. D. (1911). *The Psychology of Religion*. 3rd ed. Walter Scott. | — | `evidence/evidence-D24-religion.md` | [similar-papers] new. Stage 2-4: 回心の実証的統計研究。OA: https://archive.org/download/psychologyofreli00star/psychologyofreli00star.pdf |
 | D24-S14 | D24 | `url-verified` | Underhill (1911). *Mysticism*. Methuen. | — | `evidence/evidence-D24-religion.md` | [similar-papers] new. Stage 1-5: 神秘主義5段階。OA: https://archive.org/download/mysticismstudyin1911unde/mysticismstudyin1911unde.pdf |
 | D24-S15 | D24 | `url-verified` | Bucke (1901). *Cosmic Consciousness*. Innes & Sons. | — | `evidence/evidence-D24-religion.md` | [similar-papers] new. Stage 4-5: 宇宙意識。OA: https://archive.org/download/cosmconscious/cosmconscious.pdf |
 | D25-S01 | D25 | `raw-confirmed` | van Gennep, A. (1909). *Les rites de passage*. Émile Nourry. 英訳: *The Rites of Passage* (1960). University of Chicago Press. | `knowledge/raw/D25_van-gennep_1960_rites-of-passage.pdf` | `evidence/evidence-D25-anthropology.md` | IA 英訳版。HTTP 200 application/pdf 確認済み |
