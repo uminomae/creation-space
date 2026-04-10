@@ -20,11 +20,22 @@ LLM の事前知識ではなく、原典の本文に基づいて 5 段階モデ�
 **入力**: manifest.md の source 行 + PDF / URL
 **出力**: `knowledge/wiki/D{NN}/{source_id}_{著者}-{年}.md`
 
+#### 2つの経路と wiki 生成のタイミング
+
+| 経路 | 原典の場所 | wiki 生成 | 備考 |
+|------|-----------|----------|------|
+| **raw-confirmed** | `knowledge/raw/` に PDF 格納済み | cs#213 の hook で自動トリガー（将来）。現在は CLI が直接生成 | 手動 DL（cs#219）→ commit → hook → wiki 生成 |
+| **url-verified** | Web 上の OA URL | CLI が WebFetch で読んでその場で wiki 生成（PDF の DL はしない） | WebFetch は読むだけ。DL しないため hook では検知できず、明示的な wiki 生成指示が必要 |
+
+つまり:
+- **raw-confirmed 経路**: PDF を DL → `knowledge/raw/` に配置 → commit hook で wiki 生成がトリガーされる（hook 実装後）
+- **url-verified 経路**: PDF を DL しない。WebFetch で読むだけなので、wiki 生成には明示的な CLI 指示が必要。現在の D01→D02→... の順次処理はこの指示を行っている
+
 手順:
 1. `knowledge/raw/manifest.md` から対象 source の情報を取得
 2. access_status に応じて原典を読む:
-   - `raw-confirmed`: Read ツールで PDF を読む（大きい場合は pages パラメータで分割）
-   - `url-verified`: WebFetch で URL からテキストを取得
+   - `raw-confirmed`: Read ツールで `knowledge/raw/` の PDF を読む（大きい場合は pages パラメータで分割）
+   - `url-verified`: WebFetch で URL からテキストを取得（読むだけ。DL しない）
 3. `templates/source-reading.md` に従って構造化抽出
 4. 5 段階との対応候補を記入（原文引用必須）
 5. 部分読解の場合、未読セクションを明記
