@@ -8,14 +8,14 @@
 
 ## 集計
 
-- 探索対象として source 単位で管理中: 431本（類似論文 149本含む）
+- 探索対象として source 単位で管理中: 435本（類似論文 153本含む）
 - 有効な公開 PDF を発見（`raw-confirmed`）: 80本
 - `knowledge/raw/` に実格納済み: 79本（D16_toynbee は .gitignore でローカル保持）
-- OA URL で閲覧確認済み（`url-verified`）: 186本
-- **原典アクセス達成**: 266本（raw-confirmed 80 + url-verified 186）
+- OA URL で閲覧確認済み（`url-verified`）: 190本
+- **原典アクセス達成**: 270本（raw-confirmed 80 + url-verified 190）
 - `citation-only`: 144本
 - `blocked-access`: 21本
-- 類似論文（`[similar-papers]` タグ付き）: 149本（VAL検証: R1で31本除外, +33本補充, R2で4本追加除外; cs#215/cs#216）
+- 類似論文（`[similar-papers]` タグ付き）: 153本（VAL検証: R1で31本除外, +33本補充, R2で4本除外+4本補充; cs#215/cs#216）
 
 ## 集計の数え方
 
@@ -211,6 +211,8 @@
 | D12-S11 | D12 | `url-verified` | Walker et al. (2004). Resilience, Adaptability and Transformability. *Ecol. & Soc.* 9(2). | — | `evidence/evidence-D12-agriculture.md` | [similar-papers] new. Stage 1-5: 適応サイクル拡張。OA: https://doi.org/10.5751/es-00650-090205 |
 | D12-S12 | D12 | `url-verified` | Folke et al. (2010). Resilience Thinking. *Ecol. & Soc.* 15(4). | — | `evidence/evidence-D12-agriculture.md` | [similar-papers] new. Stage 3-5: レジリエンス思考統合。OA: https://www.ecologyandsociety.org/vol15/iss4/art20/ES-2010-3610.pdf |
 | D12-S13 | D12 | `url-verified` | Beisner et al. (2003). Alternative Stable States in Ecology. *Front Ecol Environ* 1(7). | — | `evidence/evidence-D12-agriculture.md` | [similar-papers] new. Stage 1-2: 代替安定状態。OA: https://onlinelibrary.wiley.com/doi/pdfdirect/10.1890/1540-9295%282003%29001%5B0376%3AASSIE%5D2.0.CO%3B2 |
+| D12-S14 | D12 | `url-verified` | Córdoba, Triviño & Toro Calderón (2020). Agroecosystem resilience. A conceptual and methodological framework for evaluation. *PLOS ONE* 15(4), e0220349. | — | `evidence/evidence-D12-agriculture.md` | [similar-papers] new (cs#216). Stage 2-5: 不平等→集団的組織化→構造変革→レジリエンス構築。OA: https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0220349 |
+| D12-S15 | D12 | `url-verified` | Medina & Vandermeer (2023). Developing systems theory in soil agroecology: incorporating heterogeneity and dynamic instability. *Front Environ Sci* 11, 1171194. | — | `evidence/evidence-D12-agriculture.md` | [similar-papers] new (cs#216). Stage 1-4: 土壌基底→揺動・振動→臨界遷移点→新レジーム創発。OA: https://www.frontiersin.org/journals/environmental-science/articles/10.3389/fenvs.2023.1171194/full |
 | D13-S01 | D13 | `citation-only` | Simondon, G. (1957/2005). *L'individuation a la lumiere des notions de forme et d'information*. Editions Jerome Millon. | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D13-S02 | D13 | `citation-only` | Simondon, G. (1958). *Du mode d'existence des objets techniques*. Aubier. | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D13-S03 | D13 | `citation-only` | Deleuze, G. (1966/2001). "Review of Gilbert Simondon." *Pli*, 12. | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -255,6 +257,7 @@
 | D16-S15 | D16 | `url-verified` | Scheffer et al. (2012). Anticipating Critical Transitions. *Science* 338. | — | `evidence/evidence-D16-history.md` | [similar-papers] new. Stage 2-3: 臨界遷移早期警告。OA: https://pure.rug.nl/ws/files/6785474/2012ScienceScheffer.pdf |
 | D16-S17 | D16 | `url-verified` | Turchin (2014). Cultural Evolution and Cliodynamics. *Cliodynamics* 5(1). | — | `evidence/evidence-D16-history.md` | [similar-papers] CA (cs#215 VAL修正: 1-5→2-5). Stage 2-5: 文化的変異→制度的複雑化の創発。OA: https://escholarship.org/content/qt63v195gz/qt63v195gz.pdf |
 | D16-S18 | D16 | `url-verified` | Olsson, Folke & Hahn (2004). Social-Ecological Transformation for Ecosystem Management. *Ecol Soc* 9(4), 2. | — | `evidence/evidence-D16-history.md` | [similar-papers] new (cs#215). Stage 1-5: 既存体制→危機→新ガバナンス自己組織化→制度化。OA: https://doi.org/10.5751/es-00683-090402 |
+| D16-S19 | D16 | `url-verified` | Mascareño (2022). Critical Transitions in Ecosystems and Society. *Front Sociol* 6, 763453. | — | `evidence/evidence-D16-history.md` | [similar-papers] new (cs#216). Stage 2-5: 蓄積→閾値→ティッピングポイント→新レジーム→ヒステリシス。OA: https://www.frontiersin.org/journals/sociology/articles/10.3389/fsoc.2021.763453/full |
 | D17-S01 | D17 | `citation-only` | Hopper, P. J. & Traugott, E. C. (2003). *Grammaticalization*. 2nd ed. CUP. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D17-S02 | D17 | `citation-only` | Heine, B. et al. (1991). *Grammaticalization: A Conceptual Framework*. UChicago Press. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D17-S03 | D17 | `citation-only` | Traugott, E. C. (1989). On the rise of epistemic meanings in English. *Language*, 65(1), 31-55. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -452,3 +455,4 @@
 | D30-S15 | D30 | `url-verified` | Olsson, Folke & Hahn (2004). Social-Ecological Transformation. *Ecol Soc* 9(4), 2. | — | `evidence/evidence-D30-traditional-knowledge.md` | [similar-papers] CA (cs#215 VAL修正: 1-5→2-5). Stage 2-5: 危機→適応的共同管理の自己組織化→制度化。領域横断配置 (=D16-S18)。OA: https://doi.org/10.5751/es-00683-090402 |
 | D30-S16 | D30 | `url-verified` | Ostrom (1999). Self-governance and forest resources. *CIFOR Occ Paper* 20. | — | `evidence/evidence-D30-traditional-knowledge.md` | [similar-papers] new (cs#215). Stage 2-5: 共有資源衝突→規範境界設定→自治制度自己組織化→持続的ガバナンス。領域横断配置 (=D20-S15)。OA: https://www.cifor.org/publications/pdf_files/OccPapers/OP-20.pdf |
 | D30-S17 | D30 | `url-verified` | Asmamaw, Mereta & Ambelu (2020). The role of local knowledge in enhancing resilience. *PLOS ONE* 15(9). | — | `evidence/evidence-D30-traditional-knowledge.md` | [similar-papers] new (cs#215). Stage 2-5: 環境変動→地域知識による境界構築→適応的管理の自己組織化→レジリエント統合。OA: https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0238460&type=printable |
+| D30-S18 | D30 | `url-verified` | Gómez-Baggethun, Corbera & Reyes-García (2013). Traditional Ecological Knowledge and Global Environmental Change. *Ecol Soc* 18(4), 72. | — | `evidence/evidence-D30-traditional-knowledge.md` | [similar-papers] new (cs#216). Stage 1-5: TEK蓄積→グローバル化撹乱→混成化→新知識体系創発→伝承維持。OA: https://pmc.ncbi.nlm.nih.gov/articles/PMC4471132/ |
