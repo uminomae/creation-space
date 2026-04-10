@@ -9,12 +9,12 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 435本（類似論文 153本含む）
-- 有効な公開 PDF を発見（`raw-confirmed`）: 80本
+- 有効な公開 PDF を発見（`raw-confirmed`）: 84本
 - `knowledge/raw/` に実格納済み: 79本（D16_toynbee は .gitignore でローカル保持）
 - OA URL で閲覧確認済み（`url-verified`）: 190本
-- **原典アクセス達成**: 270本（raw-confirmed 80 + url-verified 190）
+- **原典アクセス達成**: 274本（raw-confirmed 84 + url-verified 190）
 - `citation-only`: 144本
-- `blocked-access`: 21本
+- `blocked-access`: 17本
 - 類似論文（`[similar-papers]` タグ付き）: 153本（VAL検証: R1で31本除外, +33本補充, R2で4本除外+4本補充; cs#215/cs#216）
 
 ## 集計の数え方
@@ -118,7 +118,7 @@
 | D05-S13 | D05 | `url-verified` | Dyke & Kleidon (2010). Maximum Entropy Production Principle. *Entropy* 12(3). | — | `evidence/evidence-D05-earth-science.md` | [similar-papers] CA. Stage 2-4 (VAL修正: 1-4→2-4): 最大エントロピー生産原理。OA: https://www.mdpi.com/1099-4300/12/3/613/pdf |
 | D05-S14 | D05 | `url-verified` | Bak, Tang & Wiesenfeld (1987). Self-organized criticality. *Phys Rev Lett* 59(4). | — | `evidence/evidence-D05-earth-science.md` | [similar-papers] new (cs#215). Stage 1-4: SOC雪崩的自己組織化。OA: https://arxiv.org/abs/chao-dyn/9612002 (解説版) |
 | D05-S15 | D05 | `url-verified` | Feistel (2024). Origin of Life: A Symmetry-Breaking Physical Phase Transition. *Symmetry* 16(12), 1611. | — | `evidence/evidence-D05-earth-science.md` | [similar-papers] CA (cs#215 VAL修正: 1-5→1-4). Stage 1-4: 対称性破れ→膜境界→自己触媒。OA: https://www.mdpi.com/2073-8994/16/12/1611/pdf |
-| D06-S01 | D06 | `blocked-access` | Jeans (1902), The Stability of a Spherical Nebula | — | `evidence/evidence-D06-astronomy.md` | Royal Society PDF routeは存在するが、CLI では Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |
+| D06-S01 | D06 | `raw-confirmed` | Jeans (1902), The Stability of a Spherical Nebula | `knowledge/raw/D06_jeans_1902_stability-nebula.pdf` | `evidence/evidence-D06-astronomy.md` | 手動ブラウザ DL (2026-04-10)。Royal Society PDF |
 | D06-S02 | D06 | `url-verified` | White & Rees (1978), Core condensation in heavy halos | — | `evidence/evidence-D06-astronomy.md` | OA: https://academic.oup.com/mnras/article-pdf/183/3/341/2943374/mnras183-0341.pdf (OUP MNRAS, BRONZE) |
 | D06-S03 | D06 | `url-verified` | Tumlinson, Peeples & Werk (2017), The Circumgalactic Medium | — | `evidence/evidence-D06-astronomy.md` | OA: https://arxiv.org/pdf/1709.09180 |
 | D06-S04 | D06 | `citation-only` | Balbus & Hawley (1991), A powerful local shear instability in weakly magnetized disks | — | `evidence/evidence-D06-astronomy.md` | archive refs と ref-check で実在確認。official PDF route は未確認 |
@@ -183,7 +183,7 @@
 
 | D11-S01 | D11 | `url-verified` | Paul, S. M., et al. (2010). *Nat. Rev. Drug Discov.*, 9, 203-214. | — | `evidence/evidence-D11-pharmacy.md` | OA: https://www.nature.com/articles/nrd2538.pdf |
 | D11-S02 | D11 | `citation-only` | Gabrielsson, J., & Weiner, D. (2006). *Pharmacokinetic & Pharmacodynamic Data Analysis*. Swedish Pharmaceutical Press. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D11-S03 | D11 | `blocked-access` | Davies, J., & Davies, D. (2010). *MMBR*, 74(3), 417-433. | — | `evidence/evidence-D11-pharmacy.md` | PMC mirror PDF route は 2026-04-08 時点で HTML interstitial に着地し raw 未取得。manual/browser 再試行余地あり |
+| D11-S03 | D11 | `raw-confirmed` | Davies, J., & Davies, D. (2010). *MMBR*, 74(3), 417-433. | `knowledge/raw/D11_davies_2010_antibiotic-resistance.pdf` | `evidence/evidence-D11-pharmacy.md` | 手動ブラウザ DL (2026-04-10)。PMC PDF |
 | D11-S04 | D11 | `citation-only` | Higuchi, T. (1963). *J Pharm Sci*, 52, 1145-1149. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D11-S05 | D11 | `citation-only` | Korsmeyer, R.W. et al. (1983). *Int J Pharm*, 15, 25-35. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D11-S06 | D11 | `citation-only` | 厚生省 (1988). 徐放性製剤ガイドライン. | — | `evidence/evidence-D11-pharmacy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -244,7 +244,7 @@
 | D15-S14 | D15 | `url-verified` | Markovic (2012). Components of Aesthetic Experience. *i-Perception* 3(1). | — | `evidence/evidence-D15-aesthetics.md` | [similar-papers] new. Stage 1-3: 美的体験3成分。OA: https://journals.sagepub.com/doi/pdf/10.1068/i0450aap |
 | D15-S15 | D15 | `url-verified` | Botella, Zenasni & Lubart (2018). What Are the Stages of the Creative Process? *Front Psychol* 9, 2266. | — | `evidence/evidence-D15-aesthetics.md` | [similar-papers] new (cs#215). Stage 1-5: 美術学生の創造プロセス段階的記述。OA: https://www.frontiersin.org/articles/10.3389/fpsyg.2018.02266/pdf |
 | D16-S01 | D16 | `citation-only` | Braudel, F. (1949). *La Méditerranée et le monde méditerranéen à l'époque de Philippe II*. Armand Colin. （三部構成: Part I 環境と人間=長期持続、Part II 集団的運命と全般的動向=景気循環、Part III 出来事の政治と人間=事件史） | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D16-S02 | D16 | `blocked-access` | Braudel, F. (1958). Histoire et Sciences sociales: La longue durée. *Annales*, 13(4), 725-753. | — | `evidence/evidence-D16-history.md` | Persée PDF route は 2026-04-08 時点で HTTP 403 HTML。manual/browser 再試行余地あり |
+| D16-S02 | D16 | `raw-confirmed` | Braudel, F. (1958). Histoire et Sciences sociales: La longue durée. *Annales*, 13(4), 725-753. | `knowledge/raw/D16_braudel_1958_longue-duree.pdf` | `evidence/evidence-D16-history.md` | 手動ブラウザ DL (2026-04-10)。Persée PDF |
 | D16-S03 | D16 | `raw-confirmed` | Toynbee, A. J. (1934-1961). *A Study of History*. 12 vols. Oxford University Press. | ローカル保持 (73MB, .gitignore) | `evidence/evidence-D16-history.md` | BG Agent 取得 (2026-04-08)。PDF 73MB。Git管理外、ローカル `knowledge/raw/D16_toynbee_1934_study-of-history-vol1.pdf` に保持 |
 | D16-S04 | D16 | `citation-only` | 邦訳: 長谷川松治訳『歴史の研究』経済往来社 | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D16-S05 | D16 | `url-verified` | Pierson, P. (2000). Increasing Returns, Path Dependence, and the Study of Politics. *APSR*, 94(2), 251-267. | — | `evidence/evidence-D16-history.md` | OA: https://cadmus.eui.eu/bitstream/1814/23648/1/1997_EUI%20WP_JeanMonnet_044.pdf (EUI repository) |
@@ -280,7 +280,7 @@
 | D19-S05 | D19 | `citation-only` | Shklovsky, V. (1917/1965). Art as Technique. In Lemon & Reis (Eds.), *Russian Formalist Criticism*. U Nebraska Press. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D19-S06 | D19 | `citation-only` | Todorov, T. (1971). The 2 Principles of Narrative. *Diacritics*, 1(1), 37-44. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D19-S07 | D19 | `citation-only` | Todorov, T. (1977). *The Poetics of Prose*. Cornell UP. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D19-S08 | D19 | `blocked-access` | Bourdieu, P. (1971). Le marché des biens symboliques. *L'Année sociologique*, 22, 49-126. | — | `evidence/evidence-D19-literary-studies.md` | Persée PDF route は 2026-04-08 時点で HTTP 403 HTML。manual/browser 再試行余地あり |
+| D19-S08 | D19 | `raw-confirmed` | Bourdieu, P. (1971). Le marché des biens symboliques. *L'Année sociologique*, 22, 49-126. | `knowledge/raw/D19_bourdieu_1971_biens-symboliques.pdf` | `evidence/evidence-D19-literary-studies.md` | 手動ブラウザ DL (2026-04-10)。Persée PDF |
 | D19-S09 | D19 | `citation-only` | Bourdieu, P. (1992/1996). *The Rules of Art*. Stanford UP. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D19-S10 | D19 | `citation-only` | Barthes, R. (1970). *S/Z*. Seuil. 英訳: Hill & Wang, 1974. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D19-S11 | D19 | `url-verified` | Freytag, G. (1863/1895). *Freytag's Technique of the Drama*. Trans. MacEwan. | — | `evidence/evidence-D19-literary-studies.md` | [similar-papers] new. Stage 1-5: 物語の5段階構造。OA: https://archive.org/download/freytagstechniqu0000frey/freytagstechniqu0000frey.pdf |
