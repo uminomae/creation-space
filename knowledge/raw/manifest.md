@@ -9,12 +9,12 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 435本（類似論文 153本含む）
-- 有効な公開 PDF を発見（`raw-confirmed`）: 84本
+- 有効な公開 PDF を発見（`raw-confirmed`）: 83本
 - `knowledge/raw/` に実格納済み: 79本（D16_toynbee は .gitignore でローカル保持）
 - OA URL で閲覧確認済み（`url-verified`）: 190本
-- **原典アクセス達成**: 274本（raw-confirmed 84 + url-verified 190）
+- **原典アクセス達成**: 273本（raw-confirmed 83 + url-verified 190）
 - `citation-only`: 144本
-- `blocked-access`: 17本
+- `blocked-access`: 18本
 - 類似論文（`[similar-papers]` タグ付き）: 153本（VAL検証: R1で31本除外, +33本補充, R2で4本除外+4本補充; cs#215/cs#216）
 
 ## 集計の数え方
@@ -280,7 +280,7 @@
 | D19-S05 | D19 | `citation-only` | Shklovsky, V. (1917/1965). Art as Technique. In Lemon & Reis (Eds.), *Russian Formalist Criticism*. U Nebraska Press. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D19-S06 | D19 | `citation-only` | Todorov, T. (1971). The 2 Principles of Narrative. *Diacritics*, 1(1), 37-44. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D19-S07 | D19 | `citation-only` | Todorov, T. (1977). *The Poetics of Prose*. Cornell UP. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D19-S08 | D19 | `raw-confirmed` | Bourdieu, P. (1971). Le marché des biens symboliques. *L'Année sociologique*, 22, 49-126. | `knowledge/raw/D19_bourdieu_1971_biens-symboliques.pdf` | `evidence/evidence-D19-literary-studies.md` | 手動ブラウザ DL (2026-04-10)。Persée PDF |
+| D19-S08 | D19 | `blocked-access` | Bourdieu, P. (1971). Le marché des biens symboliques. *L'Année sociologique*, 22, 49-126. | — | `evidence/evidence-D19-literary-studies.md` | 2026-04-10 手動DL試行: 取得PDFは Durand 1989 (別論文) だった。正しいBourdieu 1971 は未取得 |
 | D19-S09 | D19 | `citation-only` | Bourdieu, P. (1992/1996). *The Rules of Art*. Stanford UP. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D19-S10 | D19 | `citation-only` | Barthes, R. (1970). *S/Z*. Seuil. 英訳: Hill & Wang, 1974. | — | `evidence/evidence-D19-literary-studies.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D19-S11 | D19 | `url-verified` | Freytag, G. (1863/1895). *Freytag's Technique of the Drama*. Trans. MacEwan. | — | `evidence/evidence-D19-literary-studies.md` | [similar-papers] new. Stage 1-5: 物語の5段階構造。OA: https://archive.org/download/freytagstechniqu0000frey/freytagstechniqu0000frey.pdf |
