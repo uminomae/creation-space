@@ -1,6 +1,6 @@
 # knowledge/raw manifest
 
-**更新日**: 2026-04-10
+**更新日**: 2026-04-11
 **起点**: cs#205, cs#207, cs#214, cs#215
 
 原典は source 単位で追跡する。**完了条件は D01-D30 の全領域で source 行が実データに置き換わること**。
@@ -9,12 +9,12 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 435本（類似論文 153本含む）
-- 有効な公開 PDF を発見（`raw-confirmed`）: 83本
-- `knowledge/raw/` に実格納済み: 79本（D16_toynbee は .gitignore でローカル保持）
-- OA URL で閲覧確認済み（`url-verified`）: 190本
-- **原典アクセス達成**: 273本（raw-confirmed 83 + url-verified 190）
-- `citation-only`: 144本
-- `blocked-access`: 18本
+- 有効な公開 PDF を発見（`raw-confirmed`）: 95本
+- `knowledge/raw/` に実格納済み: 81本（D16_toynbee は .gitignore でローカル保持）
+- OA URL で閲覧確認済み（`url-verified`）: 182本
+- **原典アクセス達成**: 277本（raw-confirmed 95 + url-verified 182）
+- `citation-only`: 134本
+- `blocked-access`: 24本
 - 類似論文（`[similar-papers]` タグ付き）: 153本（VAL検証: R1で31本除外, +33本補充, R2で4本除外+4本補充; cs#215/cs#216）
 
 ## 集計の数え方
@@ -103,31 +103,31 @@
 | D04-S13 | D04 | `url-verified` | Fisher (1930). *The Genetical Theory of Natural Selection*. Clarendon. | — | `evidence/evidence-D04-evolutionary-biology.md` | [similar-papers] CA. Stage 2-3 (VAL修正: 2-5→2-3): 自然選択の数理的基礎。OA: https://archive.org/download/geneticaltheoryo031631mbp/geneticaltheoryo031631mbp.pdf |
 | D04-S14 | D04 | `url-verified` | Goldenfeld & Woese (2007). Biology's next revolution. *Nature* 445. | — | `evidence/evidence-D04-evolutionary-biology.md` | [similar-papers] new. Stage 1-3: 集団進化動力学。OA: https://arxiv.org/pdf/q-bio/0702015 |
 | D04-S15 | D04 | `url-verified` | Lane & Martin (2012). The Origin of Membrane Bioenergetics. *Cell* 151(7). | — | `evidence/evidence-D04-evolutionary-biology.md` | [similar-papers] new. Stage 2-4: 膜バイオエネルギーの起源。OA: http://www.cell.com/article/S0092867412014389/pdf |
-| D05-S01 | D05 | `citation-only` | Wilson(1966) | — | `evidence/evidence-D05-earth-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D05-S02 | D05 | `citation-only` | Morgan(1968) | — | `evidence/evidence-D05-earth-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D05-S01 | D05 | `blocked-access` | Wilson, J.T. (1966). Did the Atlantic Close and then Re-Open? *Nature* 211(5050), 676-681. | — | `evidence/evidence-D05-earth-science.md` | DOI: 10.1038/211676a0。Nature paywall。ウィルソンサイクルの原典 |
+| D05-S02 | D05 | `raw-confirmed` | Morgan, W.J. (1968). Rises, Trenches, Great Faults, and Crustal Blocks. *JGR* 73(6), 1959-1982. | `knowledge/raw/D05_morgan_1968_rises-trenches.pdf` | `evidence/evidence-D05-earth-science.md` | DOI: 10.1029/JB073i006p01959。mantleplumes.org 経由 (手動DL, cs#219) |
 | D05-S03 | D05 | `url-verified` | Le Pichon (1968), Sea-Floor Spreading and Continental Drift | — | `evidence/evidence-D05-earth-science.md` | OA: https://agupubs.onlinelibrary.wiley.com/doi/10.1029/JB073i012p03661 |
 | D05-S04 | D05 | `url-verified` | Dewey & Bird (1970), Mountain Belts and the New Global Tectonics | — | `evidence/evidence-D05-earth-science.md` | OA: https://agupubs.onlinelibrary.wiley.com/doi/10.1029/JB075i014p02625 |
-| D05-S05 | D05 | `citation-only` | Conrad & Lithgow-Bertelloni(2002) | — | `evidence/evidence-D05-earth-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D05-S06 | D05 | `citation-only` | Nance et al.(2014) | — | `evidence/evidence-D05-earth-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
-| D05-S07 | D05 | `citation-only` | Philander(1983) | — | `evidence/evidence-D05-earth-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D05-S05 | D05 | `url-verified` | Conrad, C.P. & Lithgow-Bertelloni, C. (2002). How Mantle Slabs Drive Plate Tectonics. *Science* 298(5591), 207-209. | — | `evidence/evidence-D05-earth-science.md` | DOI: 10.1126/science.1074161。OA: https://ftp.soest.hawaii.edu/engels/Stanley/Textbook_update/Science_298/Conrad-02.pdf |
+| D05-S06 | D05 | `blocked-access` | Nance, R.D., Murphy, J.B. & Santosh, M. (2014). The supercontinent cycle: A retrospective essay. *Gondwana Research* 25, 4-29. | — | `evidence/evidence-D05-earth-science.md` | DOI: 10.1016/j.gr.2012.12.026。Elsevier paywall |
+| D05-S07 | D05 | `blocked-access` | Philander, S.G. (1983). El Nino Southern Oscillation phenomena. *Nature* 302, 295-301. | — | `evidence/evidence-D05-earth-science.md` | DOI: 10.1038/302295a0。Nature paywall |
 | D05-S08 | D05 | `raw-confirmed` | Cane & Zebiak (1985), A Theory for El Nino and the Southern Oscillation | `knowledge/raw/D05_cane-zebiak_1985_enso-theory.pdf` | `evidence/evidence-D05-earth-science.md` | Columbia Academic Commons deposit。HTTP 200 application/pdf 確認済み |
-| D05-S09 | D05 | `citation-only` | Suarez & Schopf(1988) | — | `evidence/evidence-D05-earth-science.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
+| D05-S09 | D05 | `url-verified` | Suarez, M.J. & Schopf, P.S. (1988). A Delayed Action Oscillator for ENSO. *J. Atmos. Sci.* 45(21), 3283-3287. | — | `evidence/evidence-D05-earth-science.md` | OA: https://www.harmonyforearth.org/publications/suarez-schopf1988.pdf (PDF確認済) |
 | D05-S10 | D05 | `url-verified` | Bjerknes (1969), Atmospheric Teleconnections from the Equatorial Pacific | — | `evidence/evidence-D05-earth-science.md` | OA: https://journals.ametsoc.org/doi/10.1175/1520-0493(1969)097%3C0163:ATFTEP%3E2.3.CO;2 |
 | D05-S11 | D05 | `url-verified` | Watson & Lovelock (1983). Daisyworld. *Tellus B* 35(4). | — | `evidence/evidence-D05-earth-science.md` | [similar-papers] new. Stage 3-5: 生物圏-環境相互調節。OA: https://www.tandfonline.com/doi/pdf/10.3402/tellusb.v35i4.14616 |
 | D05-S12 | D05 | `url-verified` | Lenton et al. (2008). Tipping elements in the Earth's climate system. *PNAS* 105(6). | — | `evidence/evidence-D05-earth-science.md` | [similar-papers] new. Stage 2-4: 地球気候の臨界転換。OA: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2538841/ |
 | D05-S13 | D05 | `url-verified` | Dyke & Kleidon (2010). Maximum Entropy Production Principle. *Entropy* 12(3). | — | `evidence/evidence-D05-earth-science.md` | [similar-papers] CA. Stage 2-4 (VAL修正: 1-4→2-4): 最大エントロピー生産原理。OA: https://www.mdpi.com/1099-4300/12/3/613/pdf |
-| D05-S14 | D05 | `blocked-access` | Bak, Tang & Wiesenfeld (1987). Self-organized criticality. *Phys Rev Lett* 59(4). | — | `evidence/evidence-D05-earth-science.md` | [similar-papers] new (cs#215). Stage 1-4: SOC雪崩的自己組織化。旧OA URL (chao-dyn/9612002) は別論文 (Gallavotti-Ruelle 1996) だった。APS paywall。手動DL要 |
+| D05-S14 | D05 | `url-verified` | Bak, P., Tang, C. & Wiesenfeld, K. (1987). Self-organized criticality: An explanation of the 1/f noise. *Phys Rev Lett* 59(4), 381-384. | — | `evidence/evidence-D05-earth-science.md` | [similar-papers] new (cs#215). Stage 1-4: SOC雪崩的自己組織化。DOI: 10.1103/PhysRevLett.59.381。OA: https://psychsafety.com/wp-content/uploads/2025/04/SOC.pdf (PDF確認済) |
 | D05-S15 | D05 | `url-verified` | Feistel (2024). Origin of Life: A Symmetry-Breaking Physical Phase Transition. *Symmetry* 16(12), 1611. | — | `evidence/evidence-D05-earth-science.md` | [similar-papers] CA (cs#215 VAL修正: 1-5→1-4). Stage 1-4: 対称性破れ→膜境界→自己触媒。OA: https://www.mdpi.com/2073-8994/16/12/1611/pdf |
 | D06-S01 | D06 | `raw-confirmed` | Jeans (1902), The Stability of a Spherical Nebula | `knowledge/raw/D06_jeans_1902_stability-nebula.pdf` | `evidence/evidence-D06-astronomy.md` | 手動ブラウザ DL (2026-04-10)。Royal Society PDF |
 | D06-S02 | D06 | `url-verified` | White & Rees (1978), Core condensation in heavy halos | — | `evidence/evidence-D06-astronomy.md` | OA: https://academic.oup.com/mnras/article-pdf/183/3/341/2943374/mnras183-0341.pdf (OUP MNRAS, BRONZE) |
 | D06-S03 | D06 | `url-verified` | Tumlinson, Peeples & Werk (2017), The Circumgalactic Medium | — | `evidence/evidence-D06-astronomy.md` | OA: https://arxiv.org/pdf/1709.09180 |
-| D06-S04 | D06 | `citation-only` | Balbus & Hawley (1991), A powerful local shear instability in weakly magnetized disks | — | `evidence/evidence-D06-astronomy.md` | archive refs と ref-check で実在確認。official PDF route は未確認 |
-| D06-S05 | D06 | `citation-only` | Pollack et al. (1996), Formation of the Giant Planets by Concurrent Accretion of Solids and Gas | — | `evidence/evidence-D06-astronomy.md` | archive refs と ref-check で実在確認。official PDF route は未確認 |
-| D06-S06 | D06 | `citation-only` | Blandford & Ostriker (1978), Particle Acceleration by Astrophysical Shocks | — | `evidence/evidence-D06-astronomy.md` | archive refs と ref-check で実在確認。official PDF route は未確認 |
+| D06-S04 | D06 | `raw-confirmed` | Balbus, S.A. & Hawley, J.F. (1991). A Powerful Local Shear Instability in Weakly Magnetized Disks. I. Linear Analysis. *ApJ* 376, 214-222. | `knowledge/raw/D06_balbus-hawley_1991_shear-instability.pdf` | `evidence/evidence-D06-astronomy.md` | DOI: 10.1086/170270。ADS 全文 (手動DL, cs#219) |
+| D06-S05 | D06 | `blocked-access` | Pollack, J.B. et al. (1996). Formation of the Giant Planets by Concurrent Accretion of Solids and Gas. *Icarus* 124, 62-85. | — | `evidence/evidence-D06-astronomy.md` | DOI: 10.1006/icar.1996.0190。Elsevier paywall。OA 見つからず |
+| D06-S06 | D06 | `url-verified` | Blandford, R.D. & Ostriker, J.P. (1978). Particle Acceleration by Astrophysical Shocks. *ApJ* 221, L29-L32. | — | `evidence/evidence-D06-astronomy.md` | DOI: 10.1086/182658。OA: https://articles.adsabs.harvard.edu/pdf/1978ApJ...221L..29B (ADS 全文PDF確認済) |
 | D06-S07 | D06 | `raw-confirmed` | Charbonneau (2010), Dynamo Models of the Solar Cycle | `knowledge/raw/D06_charbonneau_2010_dynamo-solar-cycle.pdf` | `evidence/evidence-D06-astronomy.md` | Living Reviews in Solar Physics (Springer Open)。HTTP 200 application/pdf 確認済み |
 | D06-S08 | D06 | `raw-confirmed` | Planck Collaboration (2016), Planck 2015 results. XIII. Cosmological parameters | `knowledge/raw/D06_planck-collaboration_2016_cosmological-parameters.pdf` | `evidence/evidence-D06-astronomy.md` | A&A 公式 PDF を保存。CLI 取得成功、実 PDF 判定 |
 | D06-S09 | D06 | `raw-confirmed` | Abbott et al. (2017), GW170817: Observation of Gravitational Waves from a Binary Neutron Star Inspiral | `knowledge/raw/D06_abbott_2017_gw170817.pdf` | `evidence/evidence-D06-astronomy.md` | arXiv 1710.05832。HTTP 200 application/pdf 確認済み |
-| D06-S10 | D06 | `citation-only` | Spitzer (1987), Dynamical Evolution of Globular Clusters | — | `evidence/evidence-D06-astronomy.md` | 書誌確認のみ。official full-text route は未確認 |
+| D06-S10 | D06 | `blocked-access` | Spitzer, L. (1987). *Dynamical Evolution of Globular Clusters*. Princeton UP. | — | `evidence/evidence-D06-astronomy.md` | ISBN: 0691083096。archive.org 貸出制限。書籍のため OA なし |
 | D06-S11 | D06 | `url-verified` | Springel et al. (2005). Millennium Simulation. *Nature* 435. | — | `evidence/evidence-D06-astronomy.md` | [similar-papers] new. Stage 1-5: 宇宙大規模構造形成の数値再現。OA: https://arxiv.org/pdf/astro-ph/0504097 |
 | D06-S12 | D06 | `url-verified` | Frenk & White (2012). Dark matter and cosmic structure. *Ann. Phys.* 524. | — | `evidence/evidence-D06-astronomy.md` | [similar-papers] new. Stage 1-4: 暗黒物質による構造形成レビュー。OA: https://arxiv.org/pdf/1210.0544 |
 | D06-S13 | D06 | `url-verified` | Navarro, Frenk & White (1997). Universal Density Profile. *ApJ* 490(2). | — | `evidence/evidence-D06-astronomy.md` | [similar-papers] CA. Stage 4-5 (VAL修正: 1-5→4-5): NFWプロファイル。OA: https://arxiv.org/pdf/astro-ph/9611107 |
