@@ -2,6 +2,22 @@
   "env": {
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/wiki-gen-notify.sh",
+            "if": "Bash(git commit *)",
+            "timeout": 10,
+            "statusMessage": "wiki-gen notify check..."
+          }
+        ]
+      }
+    ]
+  },
   "permissions": {
     "allow": [
       "Read",
