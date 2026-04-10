@@ -1,6 +1,6 @@
 # knowledge/raw manifest
 
-**更新日**: 2026-04-09
+**更新日**: 2026-04-10
 **起点**: cs#205, cs#207, cs#214, cs#215
 
 原典は source 単位で追跡する。**完了条件は D01-D30 の全領域で source 行が実データに置き換わること**。
@@ -8,14 +8,14 @@
 
 ## 集計
 
-- 探索対象として source 単位で管理中: 435本（類似論文 153本含む）
+- 探索対象として source 単位で管理中: 431本（類似論文 149本含む）
 - 有効な公開 PDF を発見（`raw-confirmed`）: 80本
 - `knowledge/raw/` に実格納済み: 79本（D16_toynbee は .gitignore でローカル保持）
-- OA URL で閲覧確認済み（`url-verified`）: 190本
-- **原典アクセス達成**: 270本（raw-confirmed 80 + url-verified 190）
+- OA URL で閲覧確認済み（`url-verified`）: 186本
+- **原典アクセス達成**: 266本（raw-confirmed 80 + url-verified 186）
 - `citation-only`: 144本
 - `blocked-access`: 21本
-- 類似論文（`[similar-papers]` タグ付き）: 153本（VAL検証によりReject 31本を除外, cs#215 で +33本補充）
+- 類似論文（`[similar-papers]` タグ付き）: 149本（VAL検証: R1で31本除外, +33本補充, R2で4本追加除外; cs#215/cs#216）
 
 ## 集計の数え方
 
@@ -117,7 +117,7 @@
 | D05-S12 | D05 | `url-verified` | Lenton et al. (2008). Tipping elements in the Earth's climate system. *PNAS* 105(6). | — | `evidence/evidence-D05-earth-science.md` | [similar-papers] new. Stage 2-4: 地球気候の臨界転換。OA: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2538841/ |
 | D05-S13 | D05 | `url-verified` | Dyke & Kleidon (2010). Maximum Entropy Production Principle. *Entropy* 12(3). | — | `evidence/evidence-D05-earth-science.md` | [similar-papers] CA. Stage 2-4 (VAL修正: 1-4→2-4): 最大エントロピー生産原理。OA: https://www.mdpi.com/1099-4300/12/3/613/pdf |
 | D05-S14 | D05 | `url-verified` | Bak, Tang & Wiesenfeld (1987). Self-organized criticality. *Phys Rev Lett* 59(4). | — | `evidence/evidence-D05-earth-science.md` | [similar-papers] new (cs#215). Stage 1-4: SOC雪崩的自己組織化。OA: https://arxiv.org/abs/chao-dyn/9612002 (解説版) |
-| D05-S15 | D05 | `url-verified` | Feistel (2024). Origin of Life: A Symmetry-Breaking Physical Phase Transition. *Symmetry* 16(12), 1611. | — | `evidence/evidence-D05-earth-science.md` | [similar-papers] new (cs#215). Stage 1-5: 対称性破れ→膜境界→自己触媒。OA: https://www.mdpi.com/2073-8994/16/12/1611/pdf |
+| D05-S15 | D05 | `url-verified` | Feistel (2024). Origin of Life: A Symmetry-Breaking Physical Phase Transition. *Symmetry* 16(12), 1611. | — | `evidence/evidence-D05-earth-science.md` | [similar-papers] CA (cs#215 VAL修正: 1-5→1-4). Stage 1-4: 対称性破れ→膜境界→自己触媒。OA: https://www.mdpi.com/2073-8994/16/12/1611/pdf |
 | D06-S01 | D06 | `blocked-access` | Jeans (1902), The Stability of a Spherical Nebula | — | `evidence/evidence-D06-astronomy.md` | Royal Society PDF routeは存在するが、CLI では Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |
 | D06-S02 | D06 | `url-verified` | White & Rees (1978), Core condensation in heavy halos | — | `evidence/evidence-D06-astronomy.md` | OA: https://academic.oup.com/mnras/article-pdf/183/3/341/2943374/mnras183-0341.pdf (OUP MNRAS, BRONZE) |
 | D06-S03 | D06 | `url-verified` | Tumlinson, Peeples & Werk (2017), The Circumgalactic Medium | — | `evidence/evidence-D06-astronomy.md` | OA: https://arxiv.org/pdf/1709.09180 |
@@ -131,7 +131,7 @@
 | D06-S11 | D06 | `url-verified` | Springel et al. (2005). Millennium Simulation. *Nature* 435. | — | `evidence/evidence-D06-astronomy.md` | [similar-papers] new. Stage 1-5: 宇宙大規模構造形成の数値再現。OA: https://arxiv.org/pdf/astro-ph/0504097 |
 | D06-S12 | D06 | `url-verified` | Frenk & White (2012). Dark matter and cosmic structure. *Ann. Phys.* 524. | — | `evidence/evidence-D06-astronomy.md` | [similar-papers] new. Stage 1-4: 暗黒物質による構造形成レビュー。OA: https://arxiv.org/pdf/1210.0544 |
 | D06-S13 | D06 | `url-verified` | Navarro, Frenk & White (1997). Universal Density Profile. *ApJ* 490(2). | — | `evidence/evidence-D06-astronomy.md` | [similar-papers] CA. Stage 4-5 (VAL修正: 1-5→4-5): NFWプロファイル。OA: https://arxiv.org/pdf/astro-ph/9611107 |
-| D06-S14 | D06 | `url-verified` | Friston (2012). A Free Energy Principle for Biological Systems. *Entropy* 14(11), 2100. | — | `evidence/evidence-D06-astronomy.md` | [similar-papers] new (cs#215). Stage 1-5: マルコフ毛布境界→変分的自己組織化。OA: https://www.mdpi.com/1099-4300/14/11/2100/pdf |
+| D06-S14 | D06 | `url-verified` | Friston (2012). A Free Energy Principle for Biological Systems. *Entropy* 14(11), 2100. | — | `evidence/evidence-D06-astronomy.md` | [similar-papers] CA (cs#215 VAL修正: 1-5→1-4). Stage 1-4: マルコフ毛布境界→変分的自己組織化。OA: https://www.mdpi.com/1099-4300/14/11/2100/pdf |
 | D06-S15 | D06 | `url-verified` | Nicolis & Nicolis (2016). Stochastic Resonance, Self-Organization and Information Dynamics. *Entropy* 18(5), 172. | — | `evidence/evidence-D06-astronomy.md` | [similar-papers] new (cs#215). Stage 1-4: 確率的共鳴→情報処理的自己組織化。OA: https://www.mdpi.com/1099-4300/18/5/172/pdf |
 | D07-S01 | D07 | `raw-confirmed` | Wiener (1948), Cybernetics: Or Control and Communication in the Animal and the Machine | `knowledge/raw/D07_wiener_1948_cybernetics.pdf` | `evidence/evidence-D07-engineering.md` | BG Agent 取得 (2026-04-08)。PDF 8.4MB 確認済み |
 | D07-S02 | D07 | `blocked-access` | ISO 9001:2015 | — | `evidence/evidence-D07-engineering.md` | ISO landing page は HTTP 200 で存在確認。full text は purchase/institution barrier のため raw 未取得 |
@@ -211,8 +211,6 @@
 | D12-S11 | D12 | `url-verified` | Walker et al. (2004). Resilience, Adaptability and Transformability. *Ecol. & Soc.* 9(2). | — | `evidence/evidence-D12-agriculture.md` | [similar-papers] new. Stage 1-5: 適応サイクル拡張。OA: https://doi.org/10.5751/es-00650-090205 |
 | D12-S12 | D12 | `url-verified` | Folke et al. (2010). Resilience Thinking. *Ecol. & Soc.* 15(4). | — | `evidence/evidence-D12-agriculture.md` | [similar-papers] new. Stage 3-5: レジリエンス思考統合。OA: https://www.ecologyandsociety.org/vol15/iss4/art20/ES-2010-3610.pdf |
 | D12-S13 | D12 | `url-verified` | Beisner et al. (2003). Alternative Stable States in Ecology. *Front Ecol Environ* 1(7). | — | `evidence/evidence-D12-agriculture.md` | [similar-papers] new. Stage 1-2: 代替安定状態。OA: https://onlinelibrary.wiley.com/doi/pdfdirect/10.1890/1540-9295%282003%29001%5B0376%3AASSIE%5D2.0.CO%3B2 |
-| D12-S14 | D12 | `url-verified` | Dakos et al. (2012). Methods for Detecting Early Warnings of Critical Transitions in Time Series. *PLOS ONE* 7(7), e41010. | — | `evidence/evidence-D12-agriculture.md` | [similar-papers] new (cs#215). Stage 2-4: 臨界遷移の早期警告シグナル検出。OA: https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0041010&type=printable |
-| D12-S15 | D12 | `url-verified` | Menegat (2022). From Panarchy to World-Ecology. *Sustainability* 14(22), 14813. | — | `evidence/evidence-D12-agriculture.md` | [similar-papers] new (cs#215). Stage 1-5: パナーキー適応サイクル4相の社会生態系適用。OA: https://www.mdpi.com/2071-1050/14/22/14813/pdf |
 | D13-S01 | D13 | `citation-only` | Simondon, G. (1957/2005). *L'individuation a la lumiere des notions de forme et d'information*. Editions Jerome Millon. | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D13-S02 | D13 | `citation-only` | Simondon, G. (1958). *Du mode d'existence des objets techniques*. Aubier. | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D13-S03 | D13 | `citation-only` | Deleuze, G. (1966/2001). "Review of Gilbert Simondon." *Pli*, 12. | — | `evidence/evidence-D13-philosophy.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -255,8 +253,7 @@
 | D16-S10 | D16 | `citation-only` | Wallerstein, I. (1974). *The Modern World-System I*. Academic Press. | — | `evidence/evidence-D16-history.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D16-S11 | D16 | `url-verified` | Turchin et al. (2013). War, space, and the evolution of Old World complex societies. *PNAS* 110(41). | — | `evidence/evidence-D16-history.md` | [similar-papers] new. Stage 1-5: cliodynamics帝国形成。OA: https://www.pnas.org/content/pnas/110/41/16384.full.pdf |
 | D16-S15 | D16 | `url-verified` | Scheffer et al. (2012). Anticipating Critical Transitions. *Science* 338. | — | `evidence/evidence-D16-history.md` | [similar-papers] new. Stage 2-3: 臨界遷移早期警告。OA: https://pure.rug.nl/ws/files/6785474/2012ScienceScheffer.pdf |
-| D16-S16 | D16 | `url-verified` | Turchin (2005). A Primer on Statistical Analysis of Dynamical Systems in Historical Social Sciences. *Soc Dyn* 1(1). | — | `evidence/evidence-D16-history.md` | [similar-papers] new (cs#215). Stage 2-4: 人口動態secular cycle→王朝サイクル自己組織化。OA: https://escholarship.org/content/qt8qf3r56t/qt8qf3r56t.pdf |
-| D16-S17 | D16 | `url-verified` | Turchin (2014). Cultural Evolution and Cliodynamics. *Cliodynamics* 5(1). | — | `evidence/evidence-D16-history.md` | [similar-papers] new (cs#215). Stage 1-5: 文化的変異→制度的複雑化の創発。OA: https://escholarship.org/content/qt63v195gz/qt63v195gz.pdf |
+| D16-S17 | D16 | `url-verified` | Turchin (2014). Cultural Evolution and Cliodynamics. *Cliodynamics* 5(1). | — | `evidence/evidence-D16-history.md` | [similar-papers] CA (cs#215 VAL修正: 1-5→2-5). Stage 2-5: 文化的変異→制度的複雑化の創発。OA: https://escholarship.org/content/qt63v195gz/qt63v195gz.pdf |
 | D16-S18 | D16 | `url-verified` | Olsson, Folke & Hahn (2004). Social-Ecological Transformation for Ecosystem Management. *Ecol Soc* 9(4), 2. | — | `evidence/evidence-D16-history.md` | [similar-papers] new (cs#215). Stage 1-5: 既存体制→危機→新ガバナンス自己組織化→制度化。OA: https://doi.org/10.5751/es-00683-090402 |
 | D17-S01 | D17 | `citation-only` | Hopper, P. J. & Traugott, E. C. (2003). *Grammaticalization*. 2nd ed. CUP. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D17-S02 | D17 | `citation-only` | Heine, B. et al. (1991). *Grammaticalization: A Conceptual Framework*. UChicago Press. | — | `evidence/evidence-D17-linguistics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -301,8 +298,8 @@
 | D20-S11 | D20 | `url-verified` | Ostrom (2008). Polycentric Systems. SSRN. | — | `evidence/evidence-D20-law-politics.md` | [similar-papers] new. Stage 1-5: ポリセントリック・ガバナンス。OA: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1304697 |
 | D20-S13 | D20 | `url-verified` | Holling (1973). Resilience and Stability of Ecological Systems. *Ann. Rev. Ecol. Syst.* 4. | — | `evidence/evidence-D20-law-politics.md` | [similar-papers] new. Stage 1-4: 適応サイクル。OA: http://pure.iiasa.ac.at/id/eprint/26/1/RP-73-003.pdf |
 | D20-S14 | D20 | `url-verified` | Folke et al. (2005). Adaptive Governance of Social-Ecological Systems. *Annu Rev Environ Resour* 30. | — | `evidence/evidence-D20-law-politics.md` | [similar-papers] CA. Stage 2-5 (VAL修正: 1-5→2-5): 適応的ガバナンス。OA: https://www.annualreviews.org/doi/pdf/10.1146/annurev.energy.30.050504.144511 |
-| D20-S15 | D20 | `url-verified` | Ostrom (1999). Self-governance and forest resources. *CIFOR Occasional Paper* 20. | — | `evidence/evidence-D20-law-politics.md` | [similar-papers] new (cs#215). Stage 2-5: 共有資源→規範的境界設定→自治制度の自己組織化。OA: https://www.cifor.org/publications/pdf_files/OccPapers/OP-20.pdf |
-| D20-S16 | D20 | `url-verified` | Friston (2013). Life as we know it. *J R Soc Interface* 10(86). | — | `evidence/evidence-D20-law-politics.md` | [similar-papers] new (cs#215). Stage 1-5: マルコフ毛布→自由エネルギー最小化→統合自律系。OA: https://royalsocietypublishing.org/doi/pdf/10.1098/rsif.2013.0475 |
+| D20-S15 | D20 | `url-verified` | Ostrom (1999). Self-governance and forest resources. *CIFOR Occasional Paper* 20. | — | `evidence/evidence-D20-law-politics.md` | [similar-papers] CA (cs#215 VAL修正: 2-5→3-5). Stage 3-5: 規範的境界設定→自治制度の自己組織化。OA: https://www.cifor.org/publications/pdf_files/OccPapers/OP-20.pdf |
+| D20-S16 | D20 | `url-verified` | Friston (2013). Life as we know it. *J R Soc Interface* 10(86). | — | `evidence/evidence-D20-law-politics.md` | [similar-papers] CA (cs#215 VAL修正: 1-5→2-5). Stage 2-5: マルコフ毛布→自由エネルギー最小化→統合自律系。OA: https://royalsocietypublishing.org/doi/pdf/10.1098/rsif.2013.0475 |
 | D21-S01 | D21 | `raw-confirmed` | Schumpeter, J.A. (1912). *Theorie der wirtschaftlichen Entwicklung*. Duncker & Humblot. | `knowledge/raw/D21_schumpeter_1912_theorie-der-wirtschaftlichen-entwicklung.pdf` | `evidence/evidence-D21-economics.md` | Internet Archive open item PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D21-S02 | D21 | `raw-confirmed` | Schumpeter, J.A. (1939). *Business Cycles*. McGraw-Hill.（イノベーションの群生・波及と循環の議論の主要典拠） | `knowledge/raw/D21_schumpeter_1939_business-cycles.pdf` | `evidence/evidence-D21-economics.md` | Internet Archive open item `2015.150123.Business-Cycles-Vol1.pdf` で HTTP 200 application/pdf。実 PDF を保存 |
 | D21-S03 | D21 | `citation-only` | Schumpeter, J.A. (1942). *Capitalism, Socialism and Democracy*. Harper & Brothers. | — | `evidence/evidence-D21-economics.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -364,7 +361,7 @@
 | D24-S12 | D24 | `url-verified` | Otto, R. (1917/1923). *The Idea of the Holy*. Trans. Harvey. Oxford UP. | — | `evidence/evidence-D24-religion.md` | [similar-papers] new. Stage 1-2: ヌミノーゼの現象学。OA: https://archive.org/download/in.ernet.dli.2015.262513/2015.262513.The-Idea.pdf |
 | D24-S14 | D24 | `url-verified` | Underhill (1911). *Mysticism*. Methuen. | — | `evidence/evidence-D24-religion.md` | [similar-papers] new. Stage 1-5: 神秘主義5段階。OA: https://archive.org/download/mysticismstudyin1911unde/mysticismstudyin1911unde.pdf |
 | D24-S15 | D24 | `url-verified` | Bucke (1901). *Cosmic Consciousness*. Innes & Sons. | — | `evidence/evidence-D24-religion.md` | [similar-papers] new. Stage 4-5: 宇宙意識。OA: https://archive.org/download/cosmconscious/cosmconscious.pdf |
-| D24-S16 | D24 | `url-verified` | Berkovich-Ohana & Glicksohn (2014). The consciousness state space (CSS). *Front Psychol* 5, 341. | — | `evidence/evidence-D24-religion.md` | [similar-papers] new (cs#215). Stage 1-5: 意識状態空間→瞑想的自己組織化→統一的意識体験。OA: https://www.frontiersin.org/articles/10.3389/fpsyg.2014.00341/pdf |
+| D24-S16 | D24 | `url-verified` | Berkovich-Ohana & Glicksohn (2014). The consciousness state space (CSS). *Front Psychol* 5, 341. | — | `evidence/evidence-D24-religion.md` | [similar-papers] CA (cs#215 VAL修正: 1-5→1-4). Stage 1-4: 意識状態空間→瞑想的自己組織化。OA: https://www.frontiersin.org/articles/10.3389/fpsyg.2014.00341/pdf |
 | D25-S01 | D25 | `raw-confirmed` | van Gennep, A. (1909). *Les rites de passage*. Émile Nourry. 英訳: *The Rites of Passage* (1960). University of Chicago Press. | `knowledge/raw/D25_van-gennep_1960_rites-of-passage.pdf` | `evidence/evidence-D25-anthropology.md` | IA 英訳版。HTTP 200 application/pdf 確認済み |
 | D25-S01b | D25 | `raw-confirmed` | van Gennep, A. (1909). *Les rites de passage*. Émile Nourry. (フランス語原典) | `knowledge/raw/D25_vangennep_1909_rites-of-passage.pdf` | `evidence/evidence-D25-anthropology.md` | BG Agent 取得 (2026-04-08)。PDF 31MB。1909年フランス語原典 |
 | D25-S02 | D25 | `citation-only` | Turner, V. (1974). *Dramas, Fields, and Metaphors*. Cornell University Press. Turner, V. (1985). *The Anthropology of Performance*. PAJ Publications. | — | `evidence/evidence-D25-anthropology.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
@@ -452,7 +449,6 @@
 | D30-S09 | D30 | `raw-confirmed` | 松木正恵・沼田千尋 (2021). 茶事における場の共創: 「一座建立」の意味空間. SSI2021 論文集. | `knowledge/raw/D30_matsuki_numata_2021_ichiza-konryu.pdf` | `evidence/evidence-D30-traditional-knowledge.md` | J-STAGE official PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D30-S10 | D30 | `citation-only` | 「武道文化論」守破離の説明 | — | `evidence/evidence-D30-traditional-knowledge.md` | archive refs 由来の draft。2026-04-07 時点では書誌確認のみ |
 | D30-S13 | D30 | `url-verified` | Holling (1973). Resilience and Stability of Ecological Systems. *Ann. Rev. Ecol. Syst.* 4. | — | `evidence/evidence-D30-traditional-knowledge.md` | [similar-papers] new. Stage 1-4: 適応サイクル理論基盤。OA: http://pure.iiasa.ac.at/id/eprint/26/1/RP-73-003.pdf |
-| D30-S14 | D30 | `url-verified` | Walker et al. (2004). Resilience, Adaptability and Transformability. *Ecol Soc* 9(2), 5. | — | `evidence/evidence-D30-traditional-knowledge.md` | [similar-papers] new (cs#215). Stage 2-5: 撹乱→アイデンティティ境界→適応的自己組織化→変容的統合。領域横断配置 (=D12-S11)。OA: https://doi.org/10.5751/es-00650-090205 |
-| D30-S15 | D30 | `url-verified` | Olsson, Folke & Hahn (2004). Social-Ecological Transformation. *Ecol Soc* 9(4), 2. | — | `evidence/evidence-D30-traditional-knowledge.md` | [similar-papers] new (cs#215). Stage 1-5: 既存体制→危機→適応的共同管理の自己組織化→制度化。領域横断配置 (=D16-S18)。OA: https://doi.org/10.5751/es-00683-090402 |
+| D30-S15 | D30 | `url-verified` | Olsson, Folke & Hahn (2004). Social-Ecological Transformation. *Ecol Soc* 9(4), 2. | — | `evidence/evidence-D30-traditional-knowledge.md` | [similar-papers] CA (cs#215 VAL修正: 1-5→2-5). Stage 2-5: 危機→適応的共同管理の自己組織化→制度化。領域横断配置 (=D16-S18)。OA: https://doi.org/10.5751/es-00683-090402 |
 | D30-S16 | D30 | `url-verified` | Ostrom (1999). Self-governance and forest resources. *CIFOR Occ Paper* 20. | — | `evidence/evidence-D30-traditional-knowledge.md` | [similar-papers] new (cs#215). Stage 2-5: 共有資源衝突→規範境界設定→自治制度自己組織化→持続的ガバナンス。領域横断配置 (=D20-S15)。OA: https://www.cifor.org/publications/pdf_files/OccPapers/OP-20.pdf |
 | D30-S17 | D30 | `url-verified` | Asmamaw, Mereta & Ambelu (2020). The role of local knowledge in enhancing resilience. *PLOS ONE* 15(9). | — | `evidence/evidence-D30-traditional-knowledge.md` | [similar-papers] new (cs#215). Stage 2-5: 環境変動→地域知識による境界構築→適応的管理の自己組織化→レジリエント統合。OA: https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0238460&type=printable |
