@@ -9,12 +9,12 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 435本（類似論文 153本含む）
-- 有効な公開 PDF を発見（`raw-confirmed`）: 98本
+- 有効な公開 PDF を発見（`raw-confirmed`）: 100本
 - `knowledge/raw/` に実格納済み: 81本（D16_toynbee は .gitignore でローカル保持）
 - OA URL で閲覧確認済み（`url-verified`）: 245本
-- **原典アクセス達成**: 343本（raw-confirmed 98 + url-verified 245）
+- **原典アクセス達成**: 345本（raw-confirmed 100 + url-verified 245）
 - `citation-only`: 14本
-- `blocked-access`: 78本
+- `blocked-access`: 76本
 - 類似論文（`[similar-papers]` タグ付き）: 153本（VAL検証: R1で31本除外, +33本補充, R2で4本除外+4本補充; cs#215/cs#216）
 
 ## 集計の数え方
@@ -31,7 +31,7 @@
 | D01-S04 | D01 | `raw-confirmed` | Thurston (1994). On Proof and Progress in Mathematics. *Bull. AMS* 30(2). | `knowledge/raw/D01_thurston_1994_proof-and-progress.pdf` | `evidence/evidence-D01-mathematics.md` | [similar-papers] new. Stage 1-4: 数学的理解の生成過程。[OA-preprint: arxiv] OA: https://arxiv.org/pdf/math/9404236 (CLI取得, cs#219) |
 | D01-S05 | D01 | `raw-confirmed` | Poincare (1908/1914). *Science and Method*. Trans. Maitland. | `knowledge/raw/D01_poincare_1908_science-and-method.pdf` | `evidence/evidence-D01-mathematics.md` | [similar-papers] new. Stage 1-3: 無意識的醸成・美的選択。[public-domain: archive.org] OA: https://archive.org/download/sciencemethod00poinuoft/sciencemethod00poinuoft.pdf (CLI取得, cs#219) |
 | D01-S06 | D01 | `raw-confirmed` | Tao (2007). What is Good Mathematics? *Bull. AMS* 44(4). | `knowledge/raw/D01_tao_2007_good-mathematics.pdf` | `evidence/evidence-D01-mathematics.md` | [similar-papers] CA. Stage 4-5 (VAL修正: 3-5→4-5): 数学の良さの多次元評価。[OA-preprint: arxiv] OA: https://arxiv.org/pdf/math/0702396 (CLI取得, cs#219) |
-| D01-S07 | D01 | `blocked-access` | Hadamard (1945). *Psychology of Invention in the Mathematical Field*. Dover. | — | `evidence/evidence-D01-mathematics.md` | [similar-papers] new. Stage 1-2: 数学的発明の無意識的醸成。archive.org item 404 (2026-04-10確認) |
+| D01-S07 | D01 | `raw-confirmed` | Hadamard, J. (1945). *The Psychology of Invention in the Mathematical Field*. Princeton UP. | `knowledge/raw/D01_hadamard_1945_psychology-invention.pdf` | `evidence/evidence-D01-mathematics.md` | [similar-papers] new. Stage 1-2: 数学的発明の無意識的醸成。worrydream.com 経由 (手動DL) |
 | D01-S08 | D01 | `blocked-access` | Lakatos (1976). *Proofs and Refutations*. Cambridge UP. | — | `evidence/evidence-D01-mathematics.md` | [similar-papers] new (cs#215). Stage 2-4: 数学的発見の弁証法的プロセス。archive.org item removed (2026-04-10確認) |
 | D10-S01 | D10 | `raw-confirmed` | Allergen immunotherapy / WAO JOA review | `knowledge/raw/D10_akdis_2014_allergen-immunotherapy.pdf` | `evidence/evidence-D10-clinical-medicine.md` | 試行格納1件目。D10 pilot raw-confirmed |
 | D10-S02 | D10 | `raw-confirmed` | Mechanisms of human autoimmunity | `knowledge/raw/D10_rosenblum_2015_autoimmunity.pdf` | `evidence/evidence-D10-clinical-medicine.md` | 試行格納2件目。D10 pilot raw-confirmed |
@@ -76,7 +76,7 @@
 | D03-S01 | D03 | `raw-confirmed` | Becker-Doring (1935), Kinetische Behandlung der Keimbildung in ubersattigten Dampfen | `knowledge/raw/D03_becker-doring_1935_keimbildung.pdf` | `evidence/evidence-D03-chemistry.md` | UNT Digital Library (NASA technical reports)。DOI: 10.1002/andp.19354160806。HTTP 200 application/pdf 確認済み |
 | D03-S02 | D03 | `url-verified` | Johnson & Goody (2011), The Original Michaelis Constant: Translation of the 1913 Michaelis-Menten Paper | — | `evidence/evidence-D03-chemistry.md` | OA: https://europepmc.org/articles/pmc3381512?pdf=render (EuropePMC, PMC3381512) |
 | D03-S03 | D03 | `blocked-access` | Theory of Microphase Separation in Block Copolymers | — | `evidence/evidence-D03-chemistry.md` | ACS PDF URL が Cloudflare challenge で HTTP 403。bot/CLI 由来失敗の可能性が高い |
-| D03-S04 | D03 | `blocked-access` | Oscillations in Chemical Systems. IV. Limit Cycle Behavior in a Model of a Real Chemical Reaction | — | `evidence/evidence-D03-chemistry.md` | ACS PDF URL が Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |
+| D03-S04 | D03 | `raw-confirmed` | Field, R.J. & Noyes, R.M. (1974). Oscillations in Chemical Systems. IV. *J. Chem. Phys.* 60(5), 1877-1884. | `knowledge/raw/D03_field-noyes_1974_oscillations.pdf` | `evidence/evidence-D03-chemistry.md` | ポーランド大学教材PDF (手動DL) |
 | D03-S05 | D03 | `url-verified` | The Chemical Basis of Morphogenesis | — | `evidence/evidence-D03-chemistry.md` | OA: https://www.dna.caltech.edu/courses/cs191/paperscs191/turing.pdf (Caltech 教育用ミラー, HTTP 200 PDF) |
 | D03-S06 | D03 | `blocked-access` | Lehn, J.-M. (1995). *Supramolecular Chemistry*. VCH. | — | `evidence/evidence-D03-chemistry.md` | DOI: 10.1002/3527607439。Wiley書籍。OA版なし |
 | D03-S07 | D03 | `blocked-access` | Lewis, B. & von Elbe, G. (1961). *Combustion, Flames and Explosions of Gases*. 2nd ed. Academic Press. | — | `evidence/evidence-D03-chemistry.md` | IA借用制限あり。OA版なし |
