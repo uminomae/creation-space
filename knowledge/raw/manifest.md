@@ -9,12 +9,12 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 435本（類似論文 153本含む）
-- 有効な公開 PDF を発見（`raw-confirmed`）: 97本
+- 有効な公開 PDF を発見（`raw-confirmed`）: 98本
 - `knowledge/raw/` に実格納済み: 81本（D16_toynbee は .gitignore でローカル保持）
 - OA URL で閲覧確認済み（`url-verified`）: 245本
-- **原典アクセス達成**: 342本（raw-confirmed 97 + url-verified 245）
+- **原典アクセス達成**: 343本（raw-confirmed 98 + url-verified 245）
 - `citation-only`: 14本
-- `blocked-access`: 79本
+- `blocked-access`: 78本
 - 類似論文（`[similar-papers]` タグ付き）: 153本（VAL検証: R1で31本除外, +33本補充, R2で4本除外+4本補充; cs#215/cs#216）
 
 ## 集計の数え方
@@ -295,7 +295,7 @@
 | D20-S05 | D20 | `blocked-access` | Schmitt, C. (1928). *Verfassungslehre*. Duncker & Humblot. | — | `evidence/evidence-D20-law-politics.md` | 書籍。OA版なし |
 | D20-S06 | D20 | `raw-confirmed` | International IDEA (2011), A Practical Guide to Constitution Building | `knowledge/raw/D20_idea_2011_practical-guide-constitution-building.pdf` | `evidence/evidence-D20-law-politics.md` | International IDEA official PDF route で実 PDF を保存 |
 | D20-S07 | D20 | `raw-confirmed` | UNCITRAL (2021). Mediation Rules. | `knowledge/raw/D20_uncitral_2021_mediation-rules.pdf` | `evidence/evidence-D20-law-politics.md` | uncitral.un.org 公式 (手動DL) |
-| D20-S08 | D20 | `blocked-access` | United Nations (2018), Singapore Convention on Mediation | — | `evidence/evidence-D20-law-politics.md` | UN/UNCITRAL CloudFront PDF route は 403 HTML を返し raw 未取得。手動ブラウザ再試行余地あり |
+| D20-S08 | D20 | `raw-confirmed` | United Nations (2018). Singapore Convention on Mediation. | `knowledge/raw/D20_singapore-convention_2018_mediation.pdf` | `evidence/evidence-D20-law-politics.md` | uncitral.un.org 公式 (手動DL) |
 | D20-S09 | D20 | `url-verified` | Krasner, S.D. (1982). Structural Causes and Regime Consequences. *IO* 36(2), 185-205. | — | `evidence/evidence-D20-law-politics.md` | DOI: 10.1017/S0020818300018920。OA: https://pos-graduacao.uepb.edu.br/ppgri/files/2016/02/Krasner-Structural-Causes-and-Regime-Consequencies-Regime-as-Intervening-Variables.pdf |
 | D20-S10 | D20 | `url-verified` | Keohane, R.O. (1984). *After Hegemony*. Princeton UP. | — | `evidence/evidence-D20-law-politics.md` | OA: https://archive.org/details/afterhegemonycoo00keoh (IA) |
 | D20-S11 | D20 | `url-verified` | Ostrom (2008). Polycentric Systems. SSRN. | — | `evidence/evidence-D20-law-politics.md` | [similar-papers] new. Stage 1-5: ポリセントリック・ガバナンス。OA: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=1304697 |
