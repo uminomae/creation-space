@@ -9,12 +9,12 @@
 ## 集計
 
 - 探索対象として source 単位で管理中: 435本（類似論文 153本含む）
-- 有効な公開 PDF を発見（`raw-confirmed`）: 95本
+- 有効な公開 PDF を発見（`raw-confirmed`）: 97本
 - `knowledge/raw/` に実格納済み: 81本（D16_toynbee は .gitignore でローカル保持）
 - OA URL で閲覧確認済み（`url-verified`）: 245本
-- **原典アクセス達成**: 340本（raw-confirmed 95 + url-verified 245）
+- **原典アクセス達成**: 342本（raw-confirmed 97 + url-verified 245）
 - `citation-only`: 14本
-- `blocked-access`: 81本
+- `blocked-access`: 79本
 - 類似論文（`[similar-papers]` タグ付き）: 153本（VAL検証: R1で31本除外, +33本補充, R2で4本除外+4本補充; cs#215/cs#216）
 
 ## 集計の数え方
@@ -80,7 +80,7 @@
 | D03-S05 | D03 | `url-verified` | The Chemical Basis of Morphogenesis | — | `evidence/evidence-D03-chemistry.md` | OA: https://www.dna.caltech.edu/courses/cs191/paperscs191/turing.pdf (Caltech 教育用ミラー, HTTP 200 PDF) |
 | D03-S06 | D03 | `blocked-access` | Lehn, J.-M. (1995). *Supramolecular Chemistry*. VCH. | — | `evidence/evidence-D03-chemistry.md` | DOI: 10.1002/3527607439。Wiley書籍。OA版なし |
 | D03-S07 | D03 | `blocked-access` | Lewis, B. & von Elbe, G. (1961). *Combustion, Flames and Explosions of Gases*. 2nd ed. Academic Press. | — | `evidence/evidence-D03-chemistry.md` | IA借用制限あり。OA版なし |
-| D03-S08 | D03 | `blocked-access` | Winter & Chambon (1986), Analysis of Linear Viscoelasticity of a Crosslinking Polymer at the Gel Point | — | `evidence/evidence-D03-chemistry.md` | AIP/JOR PDF endpoint が Cloudflare challenge で HTTP 403。手動ブラウザ取得余地あり |
+| D03-S08 | D03 | `raw-confirmed` | Winter, H.H. & Chambon, F. (1986). Analysis of Linear Viscoelasticity of a Crosslinking Polymer at the Gel Point. *J. Rheol.* 30(2), 367-382. | `knowledge/raw/D03_winter-chambon_1986_gel-point.pdf` | `evidence/evidence-D03-chemistry.md` | DOI: 10.1122/1.549853。rheology.tripod.com 経由 (手動DL) |
 | D03-S09 | D03 | `blocked-access` | A Production of Amino Acids Under Possible Primitive Earth Conditions | — | `evidence/evidence-D03-chemistry.md` | Science PDF URL が Cloudflare challenge で HTTP 403。publisher/bot gating の可能性が高い |
 | D03-S10 | D03 | `blocked-access` | Goldbeter (1996), Biochemical Oscillations and Cellular Rhythms | — | `evidence/evidence-D03-chemistry.md` | Open Library / Internet Archive download route は 2026-04-08 時点で 403 HTML。manual/browser 再試行余地あり |
 | D03-S11 | D03 | `url-verified` | Pearson, J. E. (1993). Complex Patterns in a Simple System. *Science* 261(5118). | — | `evidence/evidence-D03-chemistry.md` | [similar-papers] new. Stage 3-4: Gray-Scott 反応拡散パターン。OA: https://arxiv.org/pdf/patt-sol/9304003 |
@@ -294,7 +294,7 @@
 | D20-S04 | D20 | `url-verified` | Sieyès, E. J. (1789). *What Is the Third Estate?* | — | `evidence/evidence-D20-law-politics.md` | OA: https://archive.org/download/questcequeletie00sieygoog/questcequeletie00sieygoog.pdf (IA, HTTP 200 PDF confirmed) |
 | D20-S05 | D20 | `blocked-access` | Schmitt, C. (1928). *Verfassungslehre*. Duncker & Humblot. | — | `evidence/evidence-D20-law-politics.md` | 書籍。OA版なし |
 | D20-S06 | D20 | `raw-confirmed` | International IDEA (2011), A Practical Guide to Constitution Building | `knowledge/raw/D20_idea_2011_practical-guide-constitution-building.pdf` | `evidence/evidence-D20-law-politics.md` | International IDEA official PDF route で実 PDF を保存 |
-| D20-S07 | D20 | `blocked-access` | UNCITRAL (2021), Mediation Rules | — | `evidence/evidence-D20-law-politics.md` | UNCITRAL CloudFront PDF route は 403 HTML を返し raw 未取得。手動ブラウザ再試行余地あり |
+| D20-S07 | D20 | `raw-confirmed` | UNCITRAL (2021). Mediation Rules. | `knowledge/raw/D20_uncitral_2021_mediation-rules.pdf` | `evidence/evidence-D20-law-politics.md` | uncitral.un.org 公式 (手動DL) |
 | D20-S08 | D20 | `blocked-access` | United Nations (2018), Singapore Convention on Mediation | — | `evidence/evidence-D20-law-politics.md` | UN/UNCITRAL CloudFront PDF route は 403 HTML を返し raw 未取得。手動ブラウザ再試行余地あり |
 | D20-S09 | D20 | `url-verified` | Krasner, S.D. (1982). Structural Causes and Regime Consequences. *IO* 36(2), 185-205. | — | `evidence/evidence-D20-law-politics.md` | DOI: 10.1017/S0020818300018920。OA: https://pos-graduacao.uepb.edu.br/ppgri/files/2016/02/Krasner-Structural-Causes-and-Regime-Consequencies-Regime-as-Intervening-Variables.pdf |
 | D20-S10 | D20 | `url-verified` | Keohane, R.O. (1984). *After Hegemony*. Princeton UP. | — | `evidence/evidence-D20-law-politics.md` | OA: https://archive.org/details/afterhegemonycoo00keoh (IA) |
