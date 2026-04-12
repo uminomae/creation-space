@@ -1,18 +1,19 @@
 # knowledge/raw manifest
 
-**更新日**: 2026-04-11
-**起点**: cs#205, cs#207, cs#214, cs#215
+**更新日**: 2026-04-12
+**起点**: cs#205, cs#207, cs#214, cs#215, cs#220
 
 原典は source 単位で追跡する。**完了条件は D01-D30 の全領域で source 行が実データに置き換わること**。
 2026-04-07 時点では D01-D30 の全領域で source 行を登録済み。raw-confirmed pilot は D01 / D02 / D06 / D07 / D10 / D14 / D18 にあり、残り領域は archive refs 由来の first-pass source rows を起点に再監査を継続する。
+2026-04-12 (cs#220): 全30領域で **原典（similar-papers 除外）5本以上** 達成。D01 / D10 / D14 / D17 / D18 / D26 に計12本を追加（5段階モデルとの構造類似に基づく選定）。
 
 ## 集計
 
-- 探索対象として source 単位で管理中: 435本（類似論文 153本含む）
+- 探索対象として source 単位で管理中: 447本（類似論文 153本含む）
 - 有効な公開 PDF を発見（`raw-confirmed`）: 100本
 - `knowledge/raw/` に実格納済み: 81本（D16_toynbee は .gitignore でローカル保持）
-- OA URL で閲覧確認済み（`url-verified`）: 245本
-- **原典アクセス達成**: 345本（raw-confirmed 100 + url-verified 245）
+- OA URL で閲覧確認済み（`url-verified`）: 257本（cs#220 で +12 本）
+- **原典アクセス達成**: 357本（raw-confirmed 100 + url-verified 257）
 - `citation-only`: 14本
 - `blocked-access`: 76本
 - 類似論文（`[similar-papers]` タグ付き）: 153本（VAL検証: R1で31本除外, +33本補充, R2で4本除外+4本補充; cs#215/cs#216）
@@ -33,6 +34,8 @@
 | D01-S06 | D01 | `raw-confirmed` | Tao (2007). What is Good Mathematics? *Bull. AMS* 44(4). | `knowledge/raw/D01_tao_2007_good-mathematics.pdf` | `evidence/evidence-D01-mathematics.md` | [similar-papers] CA. Stage 4-5 (VAL修正: 3-5→4-5): 数学の良さの多次元評価。[OA-preprint: arxiv] OA: https://arxiv.org/pdf/math/0702396 (CLI取得, cs#219) |
 | D01-S07 | D01 | `raw-confirmed` | Hadamard, J. (1945). *The Psychology of Invention in the Mathematical Field*. Princeton UP. | `knowledge/raw/D01_hadamard_1945_psychology-invention.pdf` | `evidence/evidence-D01-mathematics.md` | [similar-papers] new. Stage 1-2: 数学的発明の無意識的醸成。worrydream.com 経由 (手動DL) |
 | D01-S08 | D01 | `blocked-access` | Lakatos (1976). *Proofs and Refutations*. Cambridge UP. | — | `evidence/evidence-D01-mathematics.md` | [similar-papers] new (cs#215). Stage 2-4: 数学的発見の弁証法的プロセス。archive.org item removed (2026-04-10確認) |
+| D01-S09 | D01 | `url-verified` | Perelman, G. (2002). The entropy formula for the Ricci flow and its geometric applications. arXiv:math/0211159. | — | `evidence/evidence-D01-mathematics.md` | Stage 1-4: リッチフローによる幾何学的変形→特異点形成→手術→幾何化予想の証明。OA: https://arxiv.org/pdf/math/0211159 |
+| D01-S10 | D01 | `url-verified` | Li, T.-Y. & Yorke, J.A. (1975). Period Three Implies Chaos. *Amer. Math. Monthly* 82(10), 985-992. | — | `evidence/evidence-D01-mathematics.md` | Stage 1-4: 単純な連続写像の周期3条件→全周期軌道共存→カオス的非周期軌道の創発。OA: https://www.its.caltech.edu/~matilde/LiYorke.pdf |
 | D10-S01 | D10 | `raw-confirmed` | Allergen immunotherapy / WAO JOA review | `knowledge/raw/D10_akdis_2014_allergen-immunotherapy.pdf` | `evidence/evidence-D10-clinical-medicine.md` | 試行格納1件目。D10 pilot raw-confirmed |
 | D10-S02 | D10 | `raw-confirmed` | Mechanisms of human autoimmunity | `knowledge/raw/D10_rosenblum_2015_autoimmunity.pdf` | `evidence/evidence-D10-clinical-medicine.md` | 試行格納2件目。D10 pilot raw-confirmed |
 | D10-S03 | D10 | `url-verified` | Burnet (1957), clonal selection | — | `evidence/evidence-D10-clinical-medicine.md` | OA: https://www.biodiversitylibrary.org/itempdf/34425 (BHL, Unpaywall confirmed) |
@@ -42,6 +45,7 @@
 | D10-S07 | D10 | `url-verified` | Prochaska, DiClemente, Norcross (1992). TTM行動変容モデル. *Am. Psychol.* 47(9). | — | `evidence/evidence-D10-clinical-medicine.md` | [similar-papers] new. Stage 1-5: 行動変容5段階。OA: https://digitalcommons.uri.edu/psy_facpubs/530 |
 | D10-S08 | D10 | `url-verified` | Gurtner et al. (2008). Wound Repair and Regeneration. *Nature* 453. | — | `evidence/evidence-D10-clinical-medicine.md` | [similar-papers] new. Stage 1-5: 創傷修復再生。OA: http://infoscience.epfl.ch/record/160968 |
 | D10-S09 | D10 | `url-verified` | Serhan (2014). Pro-resolving Lipid Mediators. *Nature* 510. | — | `evidence/evidence-D10-clinical-medicine.md` | [similar-papers] new. Stage 3-4: 炎症収束プログラム。OA: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4263681 |
+| D10-S10 | D10 | `url-verified` | Engel, G.L. (1977). The Need for a New Medical Model: A Challenge for Biomedicine. *Science* 196(4286), 129-136. | — | `evidence/evidence-D10-clinical-medicine.md` | Stage 1-4: 生物医学モデル→パラダイム危機→生物/心理/社会の境界認識→生物心理社会モデルの創発。OA: https://www.urmc.rochester.edu/MediaLibraries/URMCMedia/medical-humanities/documents/Engle-Challenge-to-Biomedicine-Biopsychosicial-Model.pdf |
 | D14-S01 | D14 | `raw-confirmed` | The Embodied Mind | `knowledge/raw/D14_varela_1991_embodied-mind.pdf` | `evidence/evidence-D14-psychology.md` | Monoskop 公開 PDF。D14 pilot raw-confirmed |
 | D14-S02 | D14 | `url-verified` | Clark, A. & Chalmers, D. (1998). The Extended Mind. *Analysis* 58(1), 7-19. | — | `evidence/evidence-D14-psychology.md` | DOI: 10.1093/analys/58.1.7。OA: https://www.alice.id.tue.nl/references/clark-chalmers-1998.pdf |
 | D14-S03 | D14 | `url-verified` | Dewey, J. (1910). *How We Think*. D.C. Heath. | — | `evidence/evidence-D14-psychology.md` | [similar-papers] new. Stage 2-4: 反省的思考5段階モデル。OA: https://archive.org/download/howwethink03dewegoog/howwethink03dewegoog.pdf |
@@ -49,6 +53,9 @@
 | D14-S05 | D14 | `url-verified` | Wallas (1926). *The Art of Thought*. Jonathan Cape. | — | `evidence/evidence-D14-psychology.md` | [similar-papers] CA. Stage 1-4 (VAL修正: 1-5→1-4): 創造的思考4段階モデル。OA: https://archive.org/download/dli.ernet.527136/dli.ernet.527136.pdf |
 | D14-S06 | D14 | `url-verified` | Dietrich (2004). Cognitive neuroscience of creativity. *Psychon Bull Rev* 11(6). | — | `evidence/evidence-D14-psychology.md` | [similar-papers] new. Stage 2-4: 創造的認知の神経基盤。OA: https://link.springer.com/content/pdf/10.3758/BF03196731.pdf |
 | D14-S07 | D14 | `url-verified` | Hesse & Gross (2014). Self-organized criticality as a fundamental property of neural systems. *Front Syst Neurosci* 8, 166. | — | `evidence/evidence-D14-psychology.md` | [similar-papers] new (cs#215). Stage 1-4: 神経系SOC→臨界パターン創発。OA: https://www.frontiersin.org/articles/10.3389/fnsys.2014.00166/pdf |
+| D14-S08 | D14 | `url-verified` | Maslow, A.H. (1943). A Theory of Human Motivation. *Psychological Review* 50(4), 370-396. | — | `evidence/evidence-D14-psychology.md` | Stage 1-5: 生理的欲求→安全→所属→承認→自己実現。欲求階層5段階モデルそのもの。OA: https://psychclassics.yorku.ca/Maslow/motivation.htm (York Classics in the History of Psychology) |
+| D14-S09 | D14 | `url-verified` | Bargh, J.A. & Chartrand, T.L. (1999). The Unbearable Automaticity of Being. *American Psychologist* 54(7), 462-479. | — | `evidence/evidence-D14-psychology.md` | Stage 1-4: 自動処理の基底→環境刺激による知覚-行動連結→意識/無意識の境界→自動化された自己制御の自律系。OA: https://acmelab.yale.edu/sites/default/files/1999_the_unbearable_automaticity_of_being.pdf |
+| D14-S10 | D14 | `url-verified` | Ericsson, K.A., Krampe, R.T. & Tesch-Römer, C. (1993). The Role of Deliberate Practice in the Acquisition of Expert Performance. *Psychological Review* 100(3), 363-406. | — | `evidence/evidence-D14-psychology.md` | Stage 1-5: 初期技能→反復練習のゆらぎ→フィードバックによる境界調整→専門スキルの自律化→多次元エキスパート表現の統合。OA: https://gwern.net/doc/psychology/writing/1993-ericsson.pdf |
 | D18-S01 | D18 | `raw-confirmed` | De la division du travail social | `knowledge/raw/D18_durkheim_1893_division-labor.pdf` | `evidence/evidence-D18-sociology.md` | Open Library / IA 実 PDF を取得。D18 pilot raw-confirmed |
 | D18-S02 | D18 | `blocked-access` | The Social Construction of Reality | — | `evidence/evidence-D18-sociology.md` | Open Library では Download Options 表示あり。ただし実 PDF URL は 2026-04-07 時点で item unavailable / 401 |
 | D18-S03 | D18 | `blocked-access` | The Constitution of Society | — | `evidence/evidence-D18-sociology.md` | Open Library / IA item から有効 PDF を取得できず |
@@ -58,6 +65,9 @@
 | D18-S08 | D18 | `url-verified` | Castellano, Fortunato, Loreto (2009). Statistical physics of social dynamics. *Rev. Mod. Phys.* 81(2). | — | `evidence/evidence-D18-sociology.md` | [similar-papers] new. Stage 1-4: 社会動力学の統計物理。OA: https://arxiv.org/pdf/0710.3256 |
 | D18-S09 | D18 | `url-verified` | Nowak (2006). Five Rules for the Evolution of Cooperation. *Science* 314. | — | `evidence/evidence-D18-sociology.md` | [similar-papers] new. Stage 3-5: 協力の進化5ルール。OA: https://europepmc.org/articles/pmc3279745?pdf=render |
 | D18-S10 | D18 | `url-verified` | Nadell, Foster & Xavier (2010). Emergence of Spatial Structure in Cell Groups and the Evolution of Cooperation. *PLOS Comput Biol* 6(3). | — | `evidence/evidence-D18-sociology.md` | [similar-papers] new (cs#215). Stage 1-4: 均一細胞群→空間的境界創発→協力の自��組織化。OA: https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1000716&type=printable |
+| D18-S11 | D18 | `url-verified` | Coleman, J.S. (1988). Social Capital in the Creation of Human Capital. *Amer. J. Sociology* 94(Suppl), S95-S120. | — | `evidence/evidence-D18-sociology.md` | Stage 1-5: 個人の場→関係性のゆらぎ→信頼/規範/情報の境界形成→社会関係資本の自律化→人的資本創出への統合。OA: https://www.bebr.ufl.edu/sites/default/files/Coleman%20J.%20(1988)%20Social%20Capital%20in%20the%20Cration%20of%20Human%20Capital.pdf |
+| D18-S12 | D18 | `url-verified` | Simmel, G. (1903). The Metropolis and Mental Life. (English transl.) | — | `evidence/evidence-D18-sociology.md` | Stage 1-4: 都市の感覚刺激の連続体→知性化と貨幣経済によるゆらぎ→個と社会の境界(blasé attitude)→都市的個人性の自律的立ち上がり。OA: https://germanhistorydocs.ghi-dc.org/pdf/eng/322_Georg%20Simmel_Metropolis_71.pdf |
+| D18-S13 | D18 | `url-verified` | Weber, M. (1905/1930). *The Protestant Ethic and the Spirit of Capitalism*. Trans. Parsons. Scribner. | — | `evidence/evidence-D18-sociology.md` | Stage 1-5: 中世社会→宗教改革のゆらぎ→プロテスタント倫理と労働観の境界→資本主義精神の自律的立ち上がり→近代資本主義への統合。OA: https://archive.org/details/protestantethics00webe (IA, public domain) |
 | D02-S01 | D02 | `raw-confirmed` | Space-Time Approach to Non-Relativistic Quantum Mechanics | `knowledge/raw/D02_feynman_1948_space-time-approach-nonrelativistic-quantum-mechanics.pdf` | `evidence/evidence-D02-physics.md` | CaltechAUTHORS OA PDF を保存。CLI 取得成功、実 PDF 判定 |
 | D02-S02 | D02 | `raw-confirmed` | Anderson (1972). More Is Different. *Science* 177(4047), 393-396. | `knowledge/raw/D02_anderson_1972_more-is-different.pdf` | `evidence/evidence-D02-physics.md` | [OA-repository: JSTOR] 旧title "Ordering, Metastability..." は誤り→実体は Anderson (1972) More Is Different (手動DL, cs#219) |
 | D02-S03 | D02 | `raw-confirmed` | On the Magnetic Properties of Superconductors of the Second Group | `knowledge/raw/D02_abrikosov_1957_magnetic-properties-superconductors-second-group.pdf` | `evidence/evidence-D02-physics.md` | JETP 公式 PDF を保存。CLI 取得成功、実 PDF 判定 |
@@ -273,6 +283,7 @@
 | D17-S13 | D17 | `url-verified` | Raviv, Meyer, Lev-Ari (2020). The Role of Social Network Structure in the Emergence of Linguistic Structure. *Cogn Sci* 44. | — | `evidence/evidence-D17-linguistics.md` | [similar-papers] new. Stage 3-4: 社会ネットワークと言語構造創発。OA: https://onlinelibrary.wiley.com/doi/pdfdirect/10.1111/cogs.12876 |
 | D17-S14 | D17 | `url-verified` | Senghas, Kita, Ozyurek (2004). Children Creating Core Properties of Language. *Science* 305. | — | `evidence/evidence-D17-linguistics.md` | [similar-papers] new. Stage 1-4: ニカラグア手話の創発。OA: https://pure.mpg.de/pubman/item/item_59126_3/component/file_59127/Senghas_2004_children.pdf |
 | D17-S15 | D17 | `url-verified` | Lupyan & Dale (2010). Language Structure Is Partly Determined by Social Structure. *PLoS ONE* 5(1). | — | `evidence/evidence-D17-linguistics.md` | [similar-papers] new. Stage 3-5: 社会構造→言語構造。OA: https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0008559&type=printable |
+| D17-S16 | D17 | `url-verified` | Jakobson, R. & Halle, M. (1956). *Fundamentals of Language*. Mouton, The Hague. | — | `evidence/evidence-D17-linguistics.md` | Stage 1-4: 音声連続体→弁別特徴の対立→選択軸/結合軸の2極性→音韻体系の自律的構造。OA: https://web.mit.edu/morrishalle/pubworks/papers/1956_Jakobson_Halle_Fundamentals_of_Language.pdf |
 | D19-S01 | D19 | `raw-confirmed` | Propp, V. (1928/1968). *Morphology of the Folktale*. 2nd ed. UT Press. | `knowledge/raw/D19_propp_1968_morphology-of-the-folktale.pdf` | `evidence/evidence-D19-literary-studies.md` | Monoskop hosted PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D19-S02 | D19 | `blocked-access` | Bakhtin, M.M. (1981). *The Dialogic Imagination*. UT Press. | — | `evidence/evidence-D19-literary-studies.md` | 書籍。OA版なし |
 | D19-S03 | D19 | `url-verified` | Jauss, H.R. (1982). *Toward an Aesthetic of Reception*. U Minnesota Press. | — | `evidence/evidence-D19-literary-studies.md` | OA: https://archive.org/details/towardaesthetico0000hans (IA) |
@@ -396,6 +407,8 @@
 | D26-S16 | D26 | `url-verified` | Eerola & Lahdelma (2021). Anatomy of Consonance/Dissonance. *Music & Science* 4. | — | `evidence/evidence-D26-musicology.md` | [similar-papers] new. Stage 2-3: 協和/不協和の解剖。OA: https://journals.sagepub.com/doi/pdf/10.1177/20592043211030471 |
 | D26-S17 | D26 | `url-verified` | Schulkin & Raglan (2014). The evolution of music and human social capability. *Front Neurosci* 8, 292. | — | `evidence/evidence-D26-musicology.md` | [similar-papers] new (cs#215). Stage 1-4: 音楽の進化的基盤→社会的結合→集団同期の創発。OA: https://www.frontiersin.org/articles/10.3389/fnins.2014.00292/pdf |
 | D26-S18 | D26 | `url-verified` | Ellamil et al. (2016). One in the Dance: Musical Correlates of Group Synchrony in a Real-World Club Environment. *PLOS ONE* 11(10). | — | `evidence/evidence-D26-musicology.md` | [similar-papers] new (cs#215). Stage 2-5: 個別運動→リズム的エントレインメント→集団同期の自己組織化→統合的一体感。OA: https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0164783&type=printable |
+| D26-S19 | D26 | `url-verified` | Koelsch, S. & Siebel, W.A. (2005). Towards a neural basis of music perception. *Trends in Cognitive Sciences* 9(12), 578-584. | — | `evidence/evidence-D26-musicology.md` | Stage 1-4: 音響連続体→初期弁別→言語/運動/感情との接続→統合的音楽認知の立ち上がり。OA: https://stefan-koelsch.de/papers/TICS2005_towards-a-neural-basis-of-music-perception.pdf |
+| D26-S20 | D26 | `url-verified` | Zatorre, R.J. & Salimpoor, V.N. (2013). From perception to pleasure: Music and its neural substrates. *PNAS* 110(Suppl 2), 10430-10437. | — | `evidence/evidence-D26-musicology.md` | Stage 1-5: 音パターン→予測生成→皮質-皮質下接続→感情創発→美的統合。OA: https://europepmc.org/articles/pmc3690607?pdf=render |
 | D27-S01 | D27 | `raw-confirmed` | Alexander, C. (2002). *The Nature of Order, Book 1: The Phenomenon of Life*. CES. Alexander, C. (2002). *The Nature of Order, Book 2: The Process of Creating Life*. CES. Alexander, C. (2004). *The Nature of Order, Book 4: The Luminous Ground*. CES. Alexander, C. et al. (1977). *A Pattern Language*. Oxford University Press. | `knowledge/raw/D27_alexander_1977_pattern-language.pdf` | `evidence/evidence-D27-architecture.md` | Cornell University hosted PDF route で HTTP 200 application/pdf。`A Pattern Language` 実 PDF を保存 |
 | D27-S02 | citation-only | `citation-only` | Otto, F. & Rasch, B. (1996). *Finding Form*. Edition Axel Menges. | — | `evidence/evidence-D27-architecture.md` | 書籍。OA版なし |
 | D27-S03 | citation-only | `url-verified` | van Eyck, A. Team 10 writings. | — | `evidence/evidence-D27-architecture.md` | OA: http://www.team10online.org/research/papers/Team%2010.pdf |
