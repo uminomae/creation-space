@@ -104,4 +104,62 @@ knowledge/
 - `evidence/investigation/original-access-rerun-plan.md`
 - cs#205: 本 repo での試行 Issue
 - cs#207: 原典未入手時の再監査 Issue
+- cs#212: blocked-access 出口条件定義
 - techo#97: ポリシー策定元
+
+---
+
+## blocked-access / citation-only 出口条件（cs#212）
+
+### 取得手段の試行フロー
+
+blocked-access / citation-only source に対して、以下の順序で試行する。試行結果は manifest の備考欄に記録。
+
+#### Phase 1: 無料・合法の直接取得
+
+1. OA版・著者最終稿（出版社 Gold OA、accepted manuscript）
+2. プレプリントサーバ（arXiv, bioRxiv, SSRN, PhilPapers）
+3. 機関リポジトリ（大学 DSpace / CRIS）
+4. 著者個人ページ（ResearchGate, Academia.edu, 個人サイト）
+5. OA アグリゲータ（Unpaywall, CORE — DOI 必須）
+6. Google Scholar「全バージョン」
+7. Internet Archive / Open Library（借覧・digitized 版）
+8. HathiTrust / Project Gutenberg（パブリックドメイン）
+
+#### Phase 2: 有料・手続きが必要（pjdhiro 専権）
+
+- 図書館ILL（相互貸借）
+- 書籍購入（中古・電子版含む）
+- 著者への直接連絡（reprint 依頼）
+
+CLI は候補の提示と費用感の調査まで。実行判断は pjdhiro。
+
+#### Phase 3: 代替 source 探索（原典取得不可の場合）
+
+| 優先度 | 代替手段 | 条件 |
+|--------|----------|------|
+| A | 同著者の後継論文・改訂版 | 同じ理論を著者自身が更新・再述 |
+| B | 同著者の別媒体での再述 | 講演録、インタビュー、教科書章 |
+| C | メタ分析・系統的レビュー | 原典の主張を直接引用し検証した査読済み論文 |
+| D | 複数の独立した二次文献の一致 | 3件以上の信頼できる二次文献が同一主張を引用 |
+
+### 代替参照の許容条件
+
+- 代替 source 自体が `raw-confirmed` であること
+- 原典のどの主張を代替 source のどの記述で補完しているか明示すること
+- `[原典未確認・代替参照]` ラベルを付与すること
+- 代替 D ランク（二次文献一致）は理論の骨格主張には使わない（周辺事実の補強のみ）
+
+### source 単位の出口条件
+
+| 状態 | 出口 |
+|------|------|
+| `blocked-access` | Phase 1 全試行済 → pjdhiro が Phase 2 判断 → 不可なら Phase 3 → 代替採用 or 取得断念 |
+| `citation-only` | まず Phase 1 試行 → `raw-confirmed` / `blocked-access` / 代替採用 に遷移 |
+| 代替採用 | 代替 source が `raw-confirmed` + 許容条件充足 → `alt-confirmed` として管理 |
+| 取得断念 | Phase 1-3 すべて不可 → 当該 source に依拠する主張を分析から除外。除外理由を記録 |
+
+### 領域単位の出口条件
+
+- 領域内の全 source が `raw-confirmed` / `alt-confirmed` / `取得断念（除外済み）` のいずれかに到達 → 再調査開始可
+- 再調査は confirmed source のみに基づいて一から書く（既存分析のパッチではない）
