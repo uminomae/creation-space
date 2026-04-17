@@ -81,9 +81,9 @@ OUTFILE="${PD_INBOX}/wiki-gen-${DATE}-$(printf '%02d' $SEQ).md"
     printf '### 変更された cs wiki\n\n'
     printf '%s\n' "$WIKI_LIST"
     printf '### 参照\n\n'
-    printf '- cs manifest: cs/knowledge/raw/manifest.md\n'
-    printf '- pd 出力先: pd/wiki/sources/\n'
-    printf '- 命名規則: pd/.claude/skills/wiki-compile/SKILL.md (Step 3b)\n'
+    printf -- '- cs manifest: cs/knowledge/raw/manifest.md\n'
+    printf -- '- pd 出力先: pd/wiki/sources/\n'
+    printf -- '- 命名規則: pd/.claude/skills/wiki-compile/SKILL.md (Step 3b)\n'
   fi
 } > "$OUTFILE"
 
