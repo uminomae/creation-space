@@ -71,3 +71,12 @@ CSS（`src/styles/` 配下）を変更する前に:
 - `transform/` には変換ルール・テンプレート・スクリプトのみ配置
 - `transform/*/publish/` に MD の実体を置かない
 - UI は pjdhiro の raw URL または GitHub Pages URL を参照する
+
+## 原典と wiki の 1:1 原則 / 不変条件
+
+- cs `knowledge/raw/manifest.md` の `raw-confirmed` / `url-verified` 行には対応する cs wiki (`knowledge/wiki/D{NN}/{source_id}_*.md`) が必須
+- 各領域で cs wiki ≥5 本（FAIL 不変条件、`bash scripts/validate-manifest-sync.sh` Check 6）
+- wiki 改訂時は `D{NN}-summary.md` / evidence / cross-refs を同一コミット内で更新
+- 検知: `.claude/hooks/wiki-gen-check.sh` (SessionStart) / `wiki-gen-notify.sh` (commit)
+
+詳細: `.claude/rules/wiki-invariants.md`

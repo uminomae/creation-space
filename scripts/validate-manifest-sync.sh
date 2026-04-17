@@ -6,10 +6,15 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 CS_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 PJDHIRO_DIR="${CS_DIR}/../pjdhiro"
+PD_DIR="${CS_DIR}/../project-design"
 
 INDEX_JSON="${CS_DIR}/transform/domains/publish/domains/index.json"
 DATA_JS="${CS_DIR}/src/reports/data.js"
 DOMAINS_JSON="${PJDHIRO_DIR}/assets/creation/manifests/domains.json"
+CS_WIKI_ROOT="${CS_DIR}/knowledge/wiki"
+PD_WIKI_ROOT="${PD_DIR}/wiki/sources"
+
+WIKI_MIN=5
 
 errors=0
 warnings=0
@@ -97,6 +102,74 @@ sys.exit(1 if mismatches > 0 else 0)
 else
     echo "  SKIP — ファイルが見つからない (pjdhiro が必要)"
     warnings=$((warnings + 1))
+fi
+
+# --- Check 6: cs wiki >=5 本 / domain (cs#227) ---
+echo ""
+echo "[6] cs wiki 不変条件: 各領域で D{NN}-S{##}_*.md が ${WIKI_MIN} 本以上"
+if [[ -d "$CS_WIKI_ROOT" ]]; then
+    python3 -c "
+import os, re, sys
+root = '${CS_WIKI_ROOT}'
+minimum = ${WIKI_MIN}
+fail = 0
+pat = re.compile(r'^(D\d+)-S\d+_.+\.md$')
+domains = sorted(d for d in os.listdir(root) if re.match(r'^D\d+$', d))
+if not domains:
+    print('  SKIP — D{NN}/ ディレクトリなし')
+    sys.exit(0)
+for d in domains:
+    files = [f for f in os.listdir(os.path.join(root, d)) if pat.match(f)]
+    if len(files) < minimum:
+        print(f'  FAIL {d}: {len(files)} 本 (< {minimum})')
+        fail += 1
+if fail == 0:
+    print(f'  OK — 全 {len(domains)} 領域で {minimum} 本以上')
+sys.exit(1 if fail > 0 else 0)
+" || errors=$((errors + 1))
+else
+    echo "  SKIP — cs/knowledge/wiki/ が見つからない"
+    warnings=$((warnings + 1))
+fi
+
+# --- Check 7: pd wiki >=5 本 / domain (cs#227, WARN only) ---
+echo ""
+echo "[7] pd wiki 不変条件: 各領域で D{NN}_*.md が ${WIKI_MIN} 本以上 (未配備領域は除外)"
+if [[ -d "$PD_WIKI_ROOT" ]]; then
+    set +e
+    python3 -c "
+import os, re, sys
+root = '${PD_WIKI_ROOT}'
+minimum = ${WIKI_MIN}
+pat = re.compile(r'^(D\d+)_.+\.md$')
+counts = {}
+for f in os.listdir(root):
+    m = pat.match(f)
+    if m:
+        counts[m.group(1)] = counts.get(m.group(1), 0) + 1
+if not counts:
+    print('  SKIP — D{NN}_*.md が見つからない')
+    sys.exit(0)
+warn = 0
+for d in sorted(counts):
+    if counts[d] < minimum:
+        print(f'  WARN {d}: {counts[d]} 本 (< {minimum})')
+        warn += 1
+if warn == 0:
+    print(f'  OK — 配備済み {len(counts)} 領域で {minimum} 本以上')
+else:
+    print(f'  WARN — {warn} 領域が不足 (pd 側生成待ち)')
+sys.exit(2 if warn > 0 else 0)
+"
+    rc=$?
+    set -e
+    if [[ $rc -eq 2 ]]; then
+        warnings=$((warnings + 1))
+    elif [[ $rc -ne 0 ]]; then
+        errors=$((errors + 1))
+    fi
+else
+    echo "  SKIP — pd (project-design) が見つからない"
 fi
 
 # --- Summary ---
