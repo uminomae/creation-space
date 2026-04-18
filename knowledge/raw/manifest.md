@@ -15,9 +15,9 @@
 - OA URL で閲覧確認済み（`url-verified`）: 257本（cs#220 で +12 本）
 - **原典アクセス達成**: 357本（raw-confirmed 100 + url-verified 257）
 - `citation-only`: 14本
-- `blocked-access`: 76本
+- `blocked-access`: 74本（cs#219 で D02-S13 Strogatz / D29-S04 Bak 1988 PRA を raw-confirmed に昇格、2026-04-18）
   - うち **書籍・規格書（OA不可確定、`[no-oa]` タグ付与）**: 50本 — Phase 2（購入/ILL）または Phase 3（代替採用）マター、cs#219 scope 外
-  - **論文 paywall（Phase 1 alternate route 試行対象）**: 26本 — cs#219 scope
+  - **論文 paywall（Phase 1 alternate route 試行対象）**: 24本 — cs#219 scope
 - 類似論文（`[similar-papers]` タグ付き）: 153本（VAL検証: R1で31本除外, +33本補充, R2で4本除外+4本補充; cs#215/cs#216）
 
 ## 集計の数え方
@@ -82,7 +82,7 @@
 | D02-S10 | D02 | `blocked-access` | Becker, R. & Döring, W. (1935). Kinetische Behandlung der Keimbildung. *Ann. Phys.* 416(8), 719-752. | — | `evidence/evidence-D02-physics.md` | DOI: 10.1002/andp.19354160806。Wiley paywall |
 | D02-S11 | D02 | `url-verified` | Laughlin & Pines (2000). The Theory of Everything. *PNAS* 97(1). | — | `evidence/evidence-D02-physics.md` | [similar-papers] new. Stage 4-5: 創発的性質の還元不能性。OA: https://www.pnas.org/doi/10.1073/pnas.97.1.28 |
 | D02-S12 | D02 | `raw-confirmed` | Lorenz (1963). Deterministic Nonperiodic Flow. *J. Atmos. Sci.* 20(2). | `knowledge/raw/D02_lorenz_1963_deterministic-nonperiodic-flow.pdf` | `evidence/evidence-D02-physics.md` | [similar-papers] new. Stage 1-2: カオスの発見。[OA-archive: AMS journals] OA: https://journals.ametsoc.org/downloadpdf/journals/atsc/20/2/1520-0469_1963_020_0130_dnf_2_0_co_2.pdf (手動DL, cs#219) |
-| D02-S13 | D02 | `blocked-access` | Strogatz (2001). Exploring complex networks. *Nature* 410. | — | `evidence/evidence-D02-physics.md` | [similar-papers] new. Stage 3-5: 複雑ネットワーク構造。Nature paywall (2026-04-10確認) |
+| D02-S13 | D02 | `raw-confirmed` | Strogatz (2001). Exploring complex networks. *Nature* 410. | `knowledge/raw/D02_strogatz_2001_exploring-complex-networks.pdf` | `evidence/evidence-D02-physics.md` | [similar-papers] new. Stage 3-5: 複雑ネットワーク構造。OA: https://static.squarespace.com/static/5436e695e4b07f1e91b30155/t/5445260be4b0726a1e47c383/1413817867519/exploring-complex-networks.pdf (著者 Strogatz 個人サイト, cs#219) |
 | D02-S14 | D02 | `url-verified` | Friston (2012). A Free Energy Principle for Biological Systems. *Entropy* 14(11). | — | `evidence/evidence-D02-physics.md` | [similar-papers] new. Stage 1-4: 自由エネルギー原理。OA: https://www.mdpi.com/1099-4300/14/11/2100/pdf |
 | D02-S15 | D02 | `url-verified` | Mora & Bialek (2011). Are Biological Systems Poised at Criticality? *J. Stat. Phys.* 144. | — | `evidence/evidence-D02-physics.md` | [similar-papers] new. Stage 2-3: 生物系の臨界性。OA: https://arxiv.org/pdf/1012.2242 |
 | D03-S01 | D03 | `raw-confirmed` | Becker-Doring (1935), Kinetische Behandlung der Keimbildung in ubersattigten Dampfen | `knowledge/raw/D03_becker-doring_1935_keimbildung.pdf` | `evidence/evidence-D03-chemistry.md` | UNT Digital Library (NASA technical reports)。DOI: 10.1002/andp.19354160806。HTTP 200 application/pdf 確認済み |
@@ -444,7 +444,7 @@
 | D29-S01 | D29 | `raw-confirmed` | Prigogine (1977), Time, Structure and Fluctuations. Nobel Lecture | `knowledge/raw/D29_prigogine_1977_time-structure-fluctuations.pdf` | `evidence/evidence-D29-complexity-science.md` | Nobel Prize official PDF route で実 PDF を保存 |
 | D29-S02 | citation-only | `url-verified` | Prigogine, I. & Stengers, I. (1984). *Order Out of Chaos*. Bantam. | — | `evidence/evidence-D29-complexity-science.md` | OA: https://archive.org/details/orderoutofchaosm00prig (IA借覧) |
 | D29-S03 | citation-only | `blocked-access` | Bak, P. et al. (1987). Self-Organized Criticality. *PRL* 59, 381-384. | — | `evidence/evidence-D29-complexity-science.md` | DOI: 10.1103/PhysRevLett.59.381。APS paywall |
-| D29-S04 | citation-only | `blocked-access` | Bak, P. et al. (1988). Self-organized criticality. *Phys Rev A* 38, 364-374. | — | `evidence/evidence-D29-complexity-science.md` | DOI: 10.1103/PhysRevA.38.364。APS paywall |
+| D29-S04 | citation-only | `raw-confirmed` | Bak, P. et al. (1988). Self-organized criticality. *Phys Rev A* 38, 364-374. | `knowledge/raw/D29_bak-tang-wiesenfeld_1988_self-organized-criticality.pdf` | `evidence/evidence-D29-complexity-science.md` | DOI: 10.1103/PhysRevA.38.364。OA: https://psychsafety.com/wp-content/uploads/2025/04/SOC.pdf (cs#219) |
 | D29-S05 | D29 | `raw-confirmed` | Watkins, N.W. et al. (2016). "25 Years of Self-organized Criticality." *Space Sci. Rev.* 198, 3-44. | `knowledge/raw/D29_watkins_2016_25-years-self-organized-criticality.pdf` | `evidence/evidence-D29-complexity-science.md` | Springer OA PDF route で HTTP 200 application/pdf。実 PDF を保存 |
 | D29-S06 | D29 | `raw-confirmed` | Clauset, A., Shalizi, C.R. & Newman, M.E.J. (2009). "Power-law distributions in empirical data." *SIAM Rev.* 51, 661-703. | `knowledge/raw/D29_clauset_2007_power-law-distributions.pdf` | `evidence/evidence-D29-complexity-science.md` | CMU technical report PDF route `tr853.pdf` で HTTP 200 application/pdf。author version raw を保存 |
 | D29-S07 | citation-only | `blocked-access` | Kauffman, S. (1986). Autocatalytic sets. *J. Theor. Biol.* 119, 1-24. | — | `evidence/evidence-D29-complexity-science.md` | DOI: 10.1016/S0022-5193(86)80047-9。Elsevier paywall |
