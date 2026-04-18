@@ -6,10 +6,14 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 CS_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 PJDHIRO_DIR="${CS_DIR}/../pjdhiro"
+PD_DIR="${CS_DIR}/../project-design"
 
 INDEX_JSON="${CS_DIR}/transform/domains/publish/domains/index.json"
 DATA_JS="${CS_DIR}/src/reports/data.js"
 DOMAINS_JSON="${PJDHIRO_DIR}/assets/creation/manifests/domains.json"
+CS_SOURCE_NOTE_ROOT="${CS_DIR}/knowledge/source-notes"
+
+SOURCE_NOTE_MIN=5
 
 errors=0
 warnings=0
@@ -98,6 +102,36 @@ else
     echo "  SKIP — ファイルが見つからない (pjdhiro が必要)"
     warnings=$((warnings + 1))
 fi
+
+# --- Check 6: cs source-note >=5 本 / domain (cs#227, cs#228 で命名変更) ---
+echo ""
+echo "[6] cs source-note 不変条件: 各領域で D{NN}-S{##}_*.md が ${SOURCE_NOTE_MIN} 本以上"
+if [[ -d "$CS_SOURCE_NOTE_ROOT" ]]; then
+    python3 -c "
+import os, re, sys
+root = '${CS_SOURCE_NOTE_ROOT}'
+minimum = ${SOURCE_NOTE_MIN}
+fail = 0
+pat = re.compile(r'^(D\d+)-S\d+_.+\.md$')
+domains = sorted(d for d in os.listdir(root) if re.match(r'^D\d+$', d))
+if not domains:
+    print('  SKIP — D{NN}/ ディレクトリなし')
+    sys.exit(0)
+for d in domains:
+    files = [f for f in os.listdir(os.path.join(root, d)) if pat.match(f)]
+    if len(files) < minimum:
+        print(f'  FAIL {d}: {len(files)} 本 (< {minimum})')
+        fail += 1
+if fail == 0:
+    print(f'  OK — 全 {len(domains)} 領域で {minimum} 本以上')
+sys.exit(1 if fail > 0 else 0)
+" || errors=$((errors + 1))
+else
+    echo "  SKIP — cs/knowledge/source-notes/ が見つからない"
+    warnings=$((warnings + 1))
+fi
+
+# Check 7 は cs#228 で削除。cs は pd の状態を検査しない原則（pd wiki の整合は pd 側の責任）。
 
 # --- Summary ---
 echo ""

@@ -1,6 +1,6 @@
 ---
 name: source-reader
-description: 原典（論文PDF/URL）を精読し、構造化された wiki を生成するエージェント
+description: 原典（論文PDF/URL）を精読し、構造化された source-note を生成するエージェント
 tools:
   - Read
   - Glob
@@ -19,8 +19,8 @@ maxTurns: 30
 
 - manifest.md から対象 source の情報を取得する
 - 原典を Read (PDF) または WebFetch (URL) で読む
-- `knowledge/wiki/templates/source-reading.md` に従って構造化された wiki を生成する
-- wiki ファイルを `knowledge/wiki/D{NN}/` に書き出す
+- `knowledge/source-notes/templates/source-reading.md` に従って構造化された source-note を生成する
+- source-note ファイルを `knowledge/source-notes/D{NN}/` に書き出す
 
 ## 手順
 
@@ -31,7 +31,7 @@ maxTurns: 30
 - **source_title**: 論文タイトル
 - **access_method**: Read (PDF) / WebFetch (URL)
 - **file_or_url**: PDF パスまたは OA URL
-- **output_path**: wiki ファイルの出力先
+- **output_path**: source-note ファイルの出力先
 
 ### Step 2: 原典の読解
 
@@ -39,11 +39,11 @@ maxTurns: 30
 2. 原典を読む:
    - **PDF**: Read ツールで pages パラメータを使い、全体を把握する（まず最初の5ページ、次に主要セクション）
    - **URL**: WebFetch で本文テキストを取得する
-3. 読めなかった場合は、その旨を報告して終了する（空 wiki は作らない）
+3. 読めなかった場合は、その旨を報告して終了する（空 source-note は作らない）
 
 ### Step 3: 構造化抽出
 
-`knowledge/wiki/templates/source-reading.md` のテンプレートに従い:
+`knowledge/source-notes/templates/source-reading.md` のテンプレートに従い:
 
 1. 書誌情報を記入する
 2. 要旨を自分の言葉で書く（**読んだ内容に基づく。事前知識で補完しない**）
@@ -56,7 +56,7 @@ maxTurns: 30
 6. 限界・留意事項を記載する
 7. 部分読解の場合、未読セクションを列挙する
 
-### Step 4: wiki ファイルの書き出し
+### Step 4: source-note ファイルの書き出し
 
 - 指定された output_path に Write ツールで書き出す
 - テンプレートのメタデータ（読解日、読解者、読解方法等）を埋める
@@ -67,10 +67,10 @@ maxTurns: 30
 - **LLM の事前知識で補完しない**。原典に書かれていないことは書かない
 - **対応なしは正直に書く**。全5段階に対応がある場合は逆に疑わしい
 - **部分読解を恐れない**。読めた範囲で正直に書く方が、補完するより価値がある
-- **読めなかった場合は wiki を作らない**。失敗報告のみ返す
+- **読めなかった場合は source-note を作らない**。失敗報告のみ返す
 
 ## 制約
 
-- wiki ファイルの作成のみ行う。他のファイル（manifest.md, evidence 等）は編集しない
+- source-note ファイルの作成のみ行う。他のファイル（manifest.md, evidence 等）は編集しない
 - 1回の起動で 1 論文のみ処理する
 - 原典の著作権を尊重する。原文引用は fair use の範囲（短い抜粋）に留める

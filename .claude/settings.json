@@ -3,16 +3,28 @@
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   },
   "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/source-note-gen-check.sh",
+            "timeout": 15,
+            "statusMessage": "source-note-gen check (cs manifest vs cs source-notes)..."
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
         "matcher": "Bash",
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/wiki-gen-notify.sh",
+            "command": "bash .claude/hooks/source-note-gen-notify.sh",
             "if": "Bash(git commit *)",
             "timeout": 10,
-            "statusMessage": "wiki-gen notify check..."
+            "statusMessage": "source-note-gen notify check..."
           }
         ]
       }
@@ -51,13 +63,19 @@
       "Bash(gh pr *)",
       "Bash(gh api *)",
       "Bash(git push origin develop)",
+      "Bash(git push origin main)",
+      "Bash(git checkout main)",
+      "Bash(git checkout develop)",
+      "Bash(git merge *)",
       "Bash(cd /Users/uminomae/dev/pjdhiro && git push *)",
       "Bash(git worktree *)",
       "Bash(git rm *)"
     ],
     "deny": [
       "Bash(git push --force *)",
-      "Bash(git push origin main *)",
+      "Bash(git push -f *)",
+      "Bash(git push origin main --force*)",
+      "Bash(git push origin main -f*)",
       "Bash(git reset --hard *)",
       "Bash(git checkout -- *)",
       "Bash(git clean *)",

@@ -1,4 +1,4 @@
-# knowledge/wiki/ — 原典精読 wiki
+# knowledge/source-notes/ — 原典精読 wiki
 
 ## 背景とゴール
 
@@ -26,7 +26,7 @@
 ## 構成
 
 ```
-knowledge/wiki/
+knowledge/source-notes/
   README.md                  ← 本ファイル
   READING-PROTOCOL.md        ← 精読パイプライン仕様
   templates/

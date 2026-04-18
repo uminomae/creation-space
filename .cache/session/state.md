@@ -30,11 +30,11 @@ state.md を更新するとき、以下のファイルも同時に整合を取�
 
 | repo | branch | HEAD | dirty | remote |
 |------|--------|------|-------|--------|
-| creation-space | develop | a3fcc27 | clean | synced |
+| creation-space | develop | 75e82a8 | clean | synced |
 
-## CLI 作業中（0件）
+## CLI 作業中（1件）
 
-なし
+- **cs#225 (OPEN, umbrella)**: wiki 生成ルールと自動化の補修。Phase A（診断）完了、Phase B-1（pd hook 拡張 = pd#79）完了。pjdhiro が Issue 本文変更予定
 
 ## 外部エージェント待ち（0件）
 
@@ -44,4 +44,6 @@ state.md を更新するとき、以下のファイルも同時に整合を取�
 
 | # | 内容 | 関連 |
 |---|---|---|
-| 1 | **cs#67 運用基盤移植**: 運用基盤の自己完結化を段階実施中 | cs#67-72 |
+| 1 | **cs#225 umbrella**: cs wiki 201 / pd wiki 98、pd shortage 22/30 領域。pjdhiro が Issue 変更予定 | cs#225 |
+| 2 | **境界ケース 4 件 pjdhiro 説明待ち**: D15 nose-1940/1944, D24 teresa-16c/1921, D25 vangennep 2版, D29 clauset-2009/2007 | cs#225 |
+| 3 | **cs#67 運用基盤移植**: 運用基盤の自己完結化を段階実施中 | cs#67-72 |
