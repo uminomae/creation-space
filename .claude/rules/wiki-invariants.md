@@ -65,8 +65,18 @@ cs wiki を改訂するコミットでは、以下の関連ページのうち該
 | pd wiki 未生成 | pd hook / Check 7 WARN | pd 側 `wiki-compile` skill で生成（pd repo の作業） |
 | wiki 改訂で関連更新漏れ | code review / pd inbox | 追加コミットで補完し、理由を commit message に明記 |
 
-## 5. 関連 Issue
+## 5. pd 側の品質チェック（参照のみ）
+
+pd は cs raw PDF から `wiki/sources/` を独立生成するが、**生成後に cs wiki (`knowledge/wiki/D{NN}/D{NN}-S{##}_*.md`) との内容矛盾検査**を行う（pd#82）。
+
+- 検査スクリプト: `project-design/scripts/wiki-cross-check.mjs`
+- 検査手順: `project-design/.claude/skills/wiki-compile/SKILL.md` Step 3b「生成後チェック」
+- cs 側の義務ではない（cs 側の矛盾起票は pjdhiro 判断で cs Issue に振り分け）
+
+## 6. 関連 Issue
 
 - cs#225 — 乖離診断と原則の確立（closed）
 - cs#226 — cs hook 拡張（wiki-gen-check.sh 新設）
-- cs#227 — 本ルール文書化 + validate Check 6/7 追加
+- cs#227 — 本ルール文書化 + validate Check 6/7 追加（一部 cs#228 で撤回予定）
+- cs#228 — cs/pd 役割分離原則の明文化 + 命名是正（OPEN）
+- pd#82 — wiki 品質チェック: pd wiki ↔ cs wiki 矛盾検査

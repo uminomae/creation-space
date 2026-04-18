@@ -63,13 +63,14 @@ OUTFILE="${PD_INBOX}/wiki-gen-${DATE}-$(printf '%02d' $SEQ).md"
   printf 'creation-space のコミットに基づき、以下の作業を依頼します。\n'
 
   if [ -n "$PDF_LIST" ]; then
-    printf '\n## (A) source-reader: raw PDF -> cs/knowledge/wiki/\n\n'
-    printf 'knowledge/raw/ に新規 raw-confirmed PDF が追加されました。\n'
-    printf 'source-reader エージェントで wiki 生成を実行してください。\n\n'
+    printf '\n## (A) wiki-compile Step 3b: cs raw PDF -> pd/wiki/sources/\n\n'
+    printf 'creation-space の knowledge/raw/ に新規 raw-confirmed PDF が追加されました。\n'
+    printf 'pd/wiki/sources/ の対応ページを生成してください（wiki-compile skill, Step 3b）。\n\n'
     printf '### 対象 PDF\n\n'
     printf '%s\n' "$PDF_LIST"
-    printf '- manifest: cs/knowledge/raw/manifest.md\n'
-    printf '- 出力先: cs/knowledge/wiki/D{NN}/\n'
+    printf -- '- manifest: cs/knowledge/raw/manifest.md\n'
+    printf -- '- pd 出力先: pd/wiki/sources/\n'
+    printf -- '- 命名規則: pd/.claude/skills/wiki-compile/SKILL.md (Step 3b)\n'
   fi
 
   if [ -n "$WIKI_LIST" ]; then
