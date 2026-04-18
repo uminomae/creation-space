@@ -1,8 +1,8 @@
 # investigation-cs219-phase23-triage
 
-**date**: 2026-04-19
-**status**: pjdhiro 判断待ち
-**scope**: cs#219 の `[phase-1-exhausted]` 22 本を Phase 2（購入/ILL）/ Phase 3（OA 代替採用）に振り分ける判定票
+**date**: 2026-04-19（WebFetch verification pass 実施）
+**status**: Phase 2/3 triage + OA 代替検証完了。cs#219 close 可能状態
+**scope**: cs#219 の `[phase-1-exhausted]` 22 本を Phase 2（購入/ILL）/ Phase 3（OA 代替採用）に振り分け + 実在性検証
 **related**: cs#219, cs#212, cs#218
 
 ## 目的
@@ -69,25 +69,69 @@ CLI は Phase 2（購入/ILL）を実行できないため、本判定票は **p
 | **D29-S07** Kauffman (1986). Autocatalytic sets. *J. Theor. Biol.* | EV-CX-003 RAF 原典 | Kauffman 1993 *The Origins of Order*（書籍、archive.org 可）/ Hordijk-Steel 2004 以降の数学的定式化論文群 |
 | **D30-S01** Berkes et al. (2000). TEK Adaptive Management. *Ecol. Appl.* | EV-TK TEK 定義原典 | Berkes 2018 *Sacred Ecology* 4th ed.（書籍）/ Berkes 2009 *J Environ Manag* "Evolution of co-management"（OA 高確率） |
 
-## 集計
+## 集計（初回 triage, 2026-04-19 AM）
 
 - **Phase 2 候補**: 2 本（D05-S01 Wilson 命名源、D03-S10 Goldbeter 書籍 ⚠️ 分類要再確認）
 - **Phase 3 候補**: 20 本
 
-## pjdhiro への確認事項
+## pjdhiro 判断 (2026-04-19 PM)
 
-1. **D03-S10 Goldbeter 1996 の扱い**: 書籍なので `[no-oa]` 側（書籍 50 本）へ分類移動するのが正しいか、または Phase 2 候補として扱うか
-2. **D05-S01 Wilson 1966 の扱い**: Phase 2（購入/ILL）で命名源を確保するか、Phase 3（Dewey-Bird 1970 で代替、命名源欠落注記付き）で済ませるか
-3. **Phase 3 候補 20 本の扱い**:
-   - 一括で `[phase-3-candidate]` タグを採用承認するか
-   - 各本について OA 代替の実在性を WebFetch で検証する second pass を走らせるか
-   - 既に論を支える url-verified / raw-confirmed co-ref がある場合（D05-S07, D08-S02, D29-S03）は代替検証不要で `[phase-3-confirmed]` に昇格するか
+1. **D03-S10 Goldbeter**: `[no-oa]` へ再分類（書籍として書籍 50 本側へ統合） → 実施済み。書籍 51 本、論文 21 本に更新
+2. **D05-S01 Wilson 1966**: Phase 3 採用、Dewey & Bird 1970 (url-verified, D05-S04) で代替 → `[phase-3-confirmed]` に昇格
+3. **Phase 3 候補 20 本**: WebFetch second pass (option B) で実在性検証実施
 
-## 次アクション（pjdhiro 判断後）
+## WebFetch verification 結果（2026-04-19 PM）
 
-- **Phase 2 承認**: 該当行の notes に `[phase-2-candidate]` タグ追加、pjdhiro ILL リストへ
-- **Phase 3 承認**: 該当行の notes に `[phase-3-candidate]` タグ追加、evidence 再構成時に代替採用を明記
-- **分類移動**: D03-S10 は `[phase-1-exhausted]` → `[no-oa]` へ書き換えの可能性
+### [phase-3-confirmed] 18 本
+
+#### co-ref 充足 4 本（同エントリ内 url-verified / raw-confirmed で論成立）
+
+| source | 代替 co-ref |
+|---|---|
+| D05-S01 Wilson 1966 | Dewey-Bird 1970（D05-S04、url-verified） |
+| D05-S07 Philander 1983 | Suarez-Schopf 1988（D05-S09）+ Bjerknes 1969（D05-S10、両方 url-verified） |
+| D08-S02 Craig 2009 | Seth-Friston 2016 + Barrett-Simmons 2015（両方 url-verified） |
+| D29-S03 Bak 1987 PRL | D29-S04 Bak 1988 PRA（raw-confirmed、PRL 拡張完全版） |
+
+#### OA 代替 WebFetch 検証済 14 本
+
+| source | OA 代替 | 検証 |
+|---|---|---|
+| D02-S10 Becker-Döring | Dawoodian 2025 PMC12744345 | ✓ CC-BY |
+| D03-S09 Miller 1953 | Bada-Lazcano 2003 Hawaii FTP PDF | ✓ 200 OK (231KB) |
+| D04-S07 Barton-Hewitt | Moran 2021 eLife PMC8337078 | ✓ CC-BY |
+| D05-S06 Nance 2014 | **Nance 2022** PMC9796656（同著者後継） | ✓ CC-BY |
+| D06-S05 Pollack 1996 | Drążkowska 2023 arXiv:2203.09759 | ✓ OA |
+| D08-S06 Hobson 2000 | Nir-Tononi 2010 PMC2814941 | ✓ NIHPA |
+| D08-S10 Fries 2005 | Fries 2015 PMC4605134 | ✓ NIHPA |
+| D09-S11 Burnet 1957 | Burnet Nobel Lecture 1960 nobelprize.org | ✓ 200 OK (131KB) |
+| D11-S04 Higuchi | OA drug delivery review 2024 PMC12845442 | ✓ CC-BY |
+| D11-S05 Korsmeyer | 同上 PMC12845442 | ✓ CC-BY |
+| D19-S08 Bourdieu 1971 | Bourdieu 1985 英訳 web.mit.edu/allanmc/www/bourdieu2.pdf | ✓ 200 OK (413KB) |
+| D26-S10 Madison | Witek 2014 PLoS ONE | ✓ CC-BY |
+| D27-S07 Menges | Menges SAJ 2013 CUNY OpenLab PDF | ✓ 200 OK (510KB) |
+| D29-S07 Kauffman 1986 | Hordijk-Steel 2015 PMC4428007 | ✓ CC-BY |
+
+### [phase-3-candidate] 3 本（OA 代替 URL 未発見）
+
+| source | 失敗理由 | 教科書参照 |
+|---|---|---|
+| D03-S03 Leibler 1980 | ACS Macromolecules paywall、OA 後続レビュー見つからず | Rubinstein-Colby 2003 / Fredrickson 2006 |
+| D17-S03 Traugott 1989 | JSTOR paywall、Stanford 著者 page 403、archive.org 見つからず | Hopper-Traugott 2003 2nd ed. |
+| D30-S01 Berkes 2000 | Wiley paywall、forestpolicypub.com 403、Semantic Scholar 空 | Berkes 2018 *Sacred Ecology* |
+
+## pjdhiro への確認事項（今回 triage の解決事項）
+
+1. ~~D03-S10 Goldbeter 1996 の扱い~~ → **[no-oa] 再分類済**（2026-04-19 pjdhiro 判断）
+2. ~~D05-S01 Wilson 1966 の扱い~~ → **Phase 3 採用決定**（Dewey-Bird 1970 で代替、命名源欠落注記付き）
+3. ~~Phase 3 候補 20 本の扱い~~ → **WebFetch second pass (option B) で検証完了**：18 本 confirmed、3 本 candidate 残存
+
+## 残存事項（次回以降）
+
+- **`[phase-3-candidate]` 3 本の扱い**（D03-S03 Leibler / D17-S03 Traugott / D30-S01 Berkes）: evidence 再構成時（cs#223/224）に以下のいずれかを選ぶ
+  - (a) 教科書参照で論を支える（Rubinstein-Colby 2003 等、paywall 書籍扱い）
+  - (b) さらに OA 代替探索を続ける（Google Scholar 著者 page 巡回など）
+  - (c) evidence 側で該当 claim を除外するか、引用を緩和する
 
 ## 判定の限界
 
