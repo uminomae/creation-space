@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# wiki-gen-check.sh — cs#226
+# source-note-gen-check.sh — cs#226
 # SessionStart: cs manifest の raw-confirmed / url-verified 源泉と
-# cs knowledge/wiki/ の対応ページの整合を確認する。
+# cs knowledge/source-notes/ の対応ページの整合を確認する。
 # 未生成があれば .cache/inbox/cs-wiki-gen-{date}.md に生成依頼を書き出す。
 #
 # 役割分担:
-# - wiki-gen-check.sh (このファイル): cs 内部の未生成検知 (SessionStart)
-# - wiki-gen-notify.sh               : cs commit -> pd への通知 (PostToolUse)
+# - source-note-gen-check.sh (このファイル): cs 内部の未生成検知 (SessionStart)
+# - source-note-gen-notify.sh               : cs commit -> pd への通知 (PostToolUse)
 
 set -euo pipefail
 
@@ -18,11 +18,11 @@ if [ "$(hook_event_name)" != "SessionStart" ]; then
 fi
 
 MANIFEST="${REPO_ROOT}/knowledge/raw/manifest.md"
-WIKI_ROOT="${REPO_ROOT}/knowledge/wiki"
+WIKI_ROOT="${REPO_ROOT}/knowledge/source-notes"
 INBOX_DIR="${REPO_ROOT}/.cache/inbox"
 
 if [ ! -f "$MANIFEST" ]; then
-  hook_warn "wiki-gen-check: knowledge/raw/manifest.md not found"
+  hook_warn "source-note-gen-check: knowledge/raw/manifest.md not found"
   exit 0
 fi
 
@@ -124,7 +124,7 @@ with open(req_path, "w", encoding="utf-8") as fh:
     fh.write("# cs wiki 未生成源泉の検知 (cs#226)\n\n")
     fh.write(f"generated: {today}\n")
     fh.write("action: manual-review\n")
-    fh.write("scope: cs/knowledge/wiki/\n\n")
+    fh.write("scope: cs/knowledge/source-notes/\n\n")
     fh.write(
         f"## 未生成 {len(missing)} 件 "
         f"(raw-confirmed: {raw_count}, url-verified: {url_count})\n\n"
@@ -143,11 +143,11 @@ with open(req_path, "w", encoding="utf-8") as fh:
     fh.write("\n## 処理手順\n\n")
     fh.write("1. raw-confirmed 行: `local_file` の PDF を `pdftotext` で読み、source-reader agent で wiki 生成\n")
     fh.write("2. url-verified 行: `oa_url` を WebFetch で読み、原典精読ベースで wiki 生成\n")
-    fh.write("3. 出力先: `knowledge/wiki/D{NN}/{source_id}_{slug}.md`\n")
+    fh.write("3. 出力先: `knowledge/source-notes/D{NN}/{source_id}_{slug}.md`\n")
     fh.write("4. 生成後、この依頼ファイルを `archive/` に移動\n")
 
 print(
-    f"wiki-gen-check: {len(missing)} 件の cs wiki が未生成"
+    f"source-note-gen-check: {len(missing)} 件の cs wiki が未生成"
     f" (raw-confirmed: {raw_count}, url-verified: {url_count})"
     f" -> .cache/inbox/cs-wiki-gen-{today}.md",
     file=sys.stderr,

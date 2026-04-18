@@ -18,7 +18,7 @@ LLM の事前知識ではなく、原典の本文に基づいて 5 段階モデ�
 ### Step A: 個別論文の精読 → wiki 生成
 
 **入力**: manifest.md の source 行 + PDF / URL
-**出力**: `knowledge/wiki/D{NN}/{source_id}_{著者}-{年}.md`
+**出力**: `knowledge/source-notes/D{NN}/{source_id}_{著者}-{年}.md`
 
 #### 2つの経路と wiki 生成のタイミング
 
@@ -42,8 +42,8 @@ LLM の事前知識ではなく、原典の本文に基づいて 5 段階モデ�
 
 ### Step B: 領域まとめ wiki の生成
 
-**入力**: `knowledge/wiki/D{NN}/` 配下の全論文 wiki
-**出力**: `knowledge/wiki/D{NN}/D{NN}-summary.md`
+**入力**: `knowledge/source-notes/D{NN}/` 配下の全論文 wiki
+**出力**: `knowledge/source-notes/D{NN}/D{NN}-summary.md`
 **タイミング**: Step A が当該領域の全 readable source で完了した後
 
 ### Step C: 原典ベース構造類似分析
@@ -103,10 +103,10 @@ LLM の事前知識ではなく、原典の本文に基づいて 5 段階モデ�
 ```
 対象: {source_id} - {source_title}
 原典: {local_file or URL}
-テンプレート: knowledge/wiki/templates/source-reading.md
-出力先: knowledge/wiki/D{NN}/{source_id}_{著者}-{年}.md
+テンプレート: knowledge/source-notes/templates/source-reading.md
+出力先: knowledge/source-notes/D{NN}/{source_id}_{著者}-{年}.md
 五段階定義: knowledge/schema/five-stages.md
-品質ルール: knowledge/wiki/READING-PROTOCOL.md §3
+品質ルール: knowledge/source-notes/READING-PROTOCOL.md §3
 ```
 
 ---

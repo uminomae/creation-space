@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# wiki-gen-notify.sh — cs#213 拡張版
+# source-note-gen-notify.sh — cs#213 拡張版
 # PostToolUse (Bash, git commit):
 # - (A) knowledge/raw/ に新規 raw-confirmed PDF がコミット → source-reader 依頼
-# - (B) knowledge/wiki/D*/D*-S*.md が追加・改訂 → wiki-compile Step 3b 依頼
+# - (B) knowledge/source-notes/D*/D*-S*.md が追加・改訂 → wiki-compile Step 3b 依頼
 # 両方まとめて 1 ファイルで pd/.cache/inbox/ に通知する。
 
 set -euo pipefail
@@ -25,10 +25,10 @@ if [ -n "$RAW_CHANGES" ] && [ -f "$MANIFEST" ]; then
 fi
 
 # === (B) wiki 改訂検知（新規） ===
-# knowledge/wiki/D{NN}/D{NN}-S{##}_*.md の追加・変更のみ対象
+# knowledge/source-notes/D{NN}/D{NN}-S{##}_*.md の追加・変更のみ対象
 # （README.md / *-summary.md / templates/ は除外）
 WIKI_LIST=""
-WIKI_CHANGES="$(git -C "$REPO_ROOT" diff --name-only HEAD~1 HEAD -- 'knowledge/wiki/D*/D*-S*_*.md' 2>/dev/null || true)"
+WIKI_CHANGES="$(git -C "$REPO_ROOT" diff --name-only HEAD~1 HEAD -- 'knowledge/source-notes/D*/D*-S*_*.md' 2>/dev/null || true)"
 if [ -n "$WIKI_CHANGES" ]; then
   while IFS= read -r wiki_file; do
     [ -z "$wiki_file" ] && continue
@@ -75,7 +75,7 @@ OUTFILE="${PD_INBOX}/wiki-gen-${DATE}-$(printf '%02d' $SEQ).md"
 
   if [ -n "$WIKI_LIST" ]; then
     printf '\n## (B) wiki-compile Step 3b: cs wiki -> pd/wiki/sources/\n\n'
-    printf 'creation-space の knowledge/wiki/ が改訂されました。\n'
+    printf 'creation-space の knowledge/source-notes/ が改訂されました。\n'
     printf 'pd/wiki/sources/ の対応ページを生成/更新してください（wiki-compile skill, Step 3b）。\n'
     printf 'compile 後、pd の既存 hook (content-compile.sh → generate-wiki-index.mjs) が\n'
     printf 'pd/wiki/index.md を再生成します。\n\n'

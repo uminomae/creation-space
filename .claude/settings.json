@@ -8,9 +8,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/wiki-gen-check.sh",
+            "command": "bash .claude/hooks/source-note-gen-check.sh",
             "timeout": 15,
-            "statusMessage": "wiki-gen check (cs manifest vs cs wiki)..."
+            "statusMessage": "source-note-gen check (cs manifest vs cs source-notes)..."
           }
         ]
       }
@@ -21,10 +21,10 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/wiki-gen-notify.sh",
+            "command": "bash .claude/hooks/source-note-gen-notify.sh",
             "if": "Bash(git commit *)",
             "timeout": 10,
-            "statusMessage": "wiki-gen notify check..."
+            "statusMessage": "source-note-gen notify check..."
           }
         ]
       }

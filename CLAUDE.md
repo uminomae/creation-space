@@ -72,11 +72,18 @@ CSS（`src/styles/` 配下）を変更する前に:
 - `transform/*/publish/` に MD の実体を置かない
 - UI は pjdhiro の raw URL または GitHub Pages URL を参照する
 
-## 原典と wiki の 1:1 原則 / 不変条件
+## cs/pd 役割分離原則（cs#228）
 
-- cs `knowledge/raw/manifest.md` の `raw-confirmed` / `url-verified` 行には対応する cs wiki (`knowledge/wiki/D{NN}/{source_id}_*.md`) が必須
-- 各領域で cs wiki ≥5 本（FAIL 不変条件、`bash scripts/validate-manifest-sync.sh` Check 6）
-- wiki 改訂時は `D{NN}-summary.md` / evidence / cross-refs を同一コミット内で更新
-- 検知: `.claude/hooks/wiki-gen-check.sh` (SessionStart) / `wiki-gen-notify.sh` (commit)
+- **cs**: 30 領域の原典から独立して論を構築する調査。pd wiki に対する出力義務は負わない
+- **pd / obsidian wiki**: cs の調査時に LLM が品質チェック用に**参照する素材**。cs の出力の投影先ではない
+- cs は pd の状態を検査しない（validate-manifest-sync.sh の旧 Check 7 は削除済）
+- pd 側は `wiki-cross-check.mjs` で cs source-note との矛盾検査を行う（pd#82）が、cs に義務は発生しない
 
-詳細: `.claude/rules/wiki-invariants.md`
+## 原典と source-note の 1:1 原則（cs 内部の不変条件）
+
+- cs `knowledge/raw/manifest.md` の `raw-confirmed` / `url-verified` 行には対応する cs source-note (`knowledge/source-notes/D{NN}/{source_id}_*.md`) が必須
+- 各領域で cs source-note ≥5 本（FAIL 不変条件、`bash scripts/validate-manifest-sync.sh` Check 6）
+- source-note 改訂時は `D{NN}-summary.md` / evidence / cross-refs を同一コミット内で更新
+- 検知: `.claude/hooks/source-note-gen-check.sh` (SessionStart) / `source-note-gen-notify.sh` (commit)
+
+詳細: `.claude/rules/source-note-invariants.md`
