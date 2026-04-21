@@ -1,68 +1,75 @@
+/*
+ * pd design-system/tokens.css (--ds-*) を参照。
+ * @import 失敗時は各 token の fallback で従来動作。
+ * 参照: techo#126 / pd#84 / cs#230
+ */
+@import url('../../../project-design/design-system/tokens.css');
+
 :root {
   /* Intentional difference vs awareness-space:
      creation-space keeps a larger UI scale and surface-based action styling. */
-  --color-accent: 100, 150, 255;
-  --color-sub-text: 180, 200, 230;
-  --color-highlight: 220, 230, 245;
-  --color-link: 130, 170, 255;
-  --color-heading: 255, 255, 255;
-  --color-bg-body: #050508;
+  --color-accent: var(--ds-color-accent, 100, 150, 255);
+  --color-sub-text: var(--ds-color-sub-text, 180, 200, 230);
+  --color-highlight: var(--ds-color-highlight, 220, 230, 245);
+  --color-link: var(--ds-color-link, 130, 170, 255);
+  --color-heading: var(--ds-color-heading, 255, 255, 255);
+  --color-bg-body: var(--ds-color-bg-body, #050508);
 
-  --kesson-font-serif-display: "Noto Serif JP", "Yu Mincho", "MS PMincho", serif;
-  --kesson-font-serif-ui: 'Georgia', "Noto Serif JP", serif;
+  --kesson-font-serif-display: var(--ds-font-serif-display, "Noto Serif JP", "Yu Mincho", "MS PMincho", serif);
+  --kesson-font-serif-ui: var(--ds-font-serif-ui, 'Georgia', "Noto Serif JP", serif);
   --cs-font-sans-ui: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", "Meiryo", system-ui, sans-serif;
-  --kesson-font-mono-ui: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  --kesson-font-mono-ui: var(--ds-font-mono-ui, 'SF Mono', 'Fira Code', 'Consolas', monospace);
   --cs-font-mono-system: ui-monospace, SFMono-Regular, 'SF Mono', 'Consolas', monospace;
-  --kesson-font-size-ui-xs: 0.85rem;
-  --kesson-font-size-ui-sm: 0.88rem;
-  --kesson-font-size-ui-arrow: clamp(0.7rem, 3.5vmin, 1.2rem);
+  --kesson-font-size-ui-xs: var(--ds-font-size-ui-xs, 0.85rem);
+  --kesson-font-size-ui-sm: var(--ds-font-size-ui-sm, 0.88rem);
+  --kesson-font-size-ui-arrow: var(--ds-font-size-ui-arrow, clamp(0.7rem, 3.5vmin, 1.2rem));
   --reports-font-step: 0rem;
-  --kesson-letter-ui-tight: 0.03em;
-  --kesson-letter-ui-normal: 0.06em;
-  --kesson-letter-ui-wide: 0.1em;
-  --kesson-letter-ui-heading: 0.15em;
+  --kesson-letter-ui-tight: var(--ds-letter-ui-tight, 0.03em);
+  --kesson-letter-ui-normal: var(--ds-letter-ui-normal, 0.06em);
+  --kesson-letter-ui-wide: var(--ds-letter-ui-wide, 0.1em);
+  --kesson-letter-ui-heading: var(--ds-letter-ui-heading, 0.15em);
 
-  --kesson-radius-sm: 2px;
-  --kesson-radius-md: 3px;
-  --kesson-radius-lg: 4px;
-  --kesson-transition-standard: 0.3s ease;
-  --kesson-transition-snappy: 0.2s ease;
+  --kesson-radius-sm: var(--ds-radius-sm, 2px);
+  --kesson-radius-md: var(--ds-radius-md, 3px);
+  --kesson-radius-lg: var(--ds-radius-lg, 4px);
+  --kesson-transition-standard: var(--ds-transition-standard, 0.3s ease);
+  --kesson-transition-snappy: var(--ds-transition-snappy, 0.2s ease);
 
-  --kesson-focus-ring: rgba(var(--color-accent), 0.86);
-  --kesson-focus-ring-soft: rgba(var(--color-accent), 0.8);
-  --kesson-ui-label-color: rgba(var(--color-sub-text), 0.3);
-  --kesson-ui-arrow-color: rgba(var(--color-sub-text), 0.25);
-  --kesson-ui-label-hover-color: rgba(var(--color-sub-text), 0.6);
+  --kesson-focus-ring: var(--ds-focus-ring, rgba(var(--color-accent), 0.86));
+  --kesson-focus-ring-soft: var(--ds-focus-ring-soft, rgba(var(--color-accent), 0.8));
+  --kesson-ui-label-color: var(--ds-ui-label-color, rgba(var(--color-sub-text), 0.3));
+  --kesson-ui-arrow-color: var(--ds-ui-arrow-color, rgba(var(--color-sub-text), 0.25));
+  --kesson-ui-label-hover-color: var(--ds-ui-label-hover-color, rgba(var(--color-sub-text), 0.6));
   --kesson-action-bg: rgba(var(--color-accent), 0.1);
   --kesson-action-border: rgba(var(--color-accent), 0.1);
   --kesson-action-text: rgba(var(--color-sub-text), 0.5);
   --kesson-action-bg-hover: var(--kesson-card-bg);
   --kesson-action-text-hover: rgba(var(--color-heading), 0.7);
-  --kesson-card-border: rgba(var(--color-accent), 0.1);
-  --kesson-card-border-strong: rgba(var(--color-accent), 0.28);
-  --kesson-card-shadow-soft: 0 4px 12px rgba(var(--color-accent), 0.15);
-  --kesson-card-shadow-rich: 0 8px 24px rgba(0, 0, 0, 0.38), 0 0 12px rgba(var(--color-accent), 0.15);
-  --kesson-error-color: #f87171;
-  --kesson-error-size: 0.8rem;
+  --kesson-card-border: var(--ds-card-border, rgba(var(--color-accent), 0.1));
+  --kesson-card-border-strong: var(--ds-card-border-strong, rgba(var(--color-accent), 0.28));
+  --kesson-card-shadow-soft: var(--ds-card-shadow-soft, 0 4px 12px rgba(var(--color-accent), 0.15));
+  --kesson-card-shadow-rich: var(--ds-card-shadow-rich, 0 8px 24px rgba(0, 0, 0, 0.38), 0 0 12px rgba(var(--color-accent), 0.15));
+  --kesson-error-color: var(--ds-error-color, #f87171);
+  --kesson-error-size: var(--ds-error-size, 0.8rem);
 
-  --kesson-section-content-padding: 1rem 1.5rem 0;
+  --kesson-section-content-padding: var(--ds-section-content-padding, 1rem 1.5rem 0);
   --kesson-section-grid-margin-top: 1.5rem;
   --cs-surface-1: rgba(20, 25, 40, 0.3);
   --cs-surface-2: rgba(20, 25, 40, 0.6);
   --cs-surface-3: rgba(20, 25, 40, 0.9);
   --kesson-card-bg: var(--cs-surface-3);
 
-  --kesson-section-heading: 0.88rem;
-  --kesson-card-title: 1.0rem;
-  --kesson-card-text: 0.92rem;
-  --kesson-card-summary: 0.92rem;
-  --kesson-overlay-tagline: 0.92rem;
-  --kesson-overlay-tagline-en: 0.88rem;
-  --kesson-control-guide: 0.82rem;
-  --kesson-footer-line: 0.82rem;
-  --kesson-surface-btn: 0.88rem;
-  --kesson-footer-signature-size: 0.88rem;
+  --kesson-section-heading: var(--ds-section-heading, 0.88rem);
+  --kesson-card-title: var(--ds-card-title, 1.0rem);
+  --kesson-card-text: var(--ds-card-text, 0.92rem);
+  --kesson-card-summary: var(--ds-card-summary, 0.92rem);
+  --kesson-overlay-tagline: var(--ds-overlay-tagline, 0.92rem);
+  --kesson-overlay-tagline-en: var(--ds-overlay-tagline-en, 0.88rem);
+  --kesson-control-guide: var(--ds-control-guide, 0.82rem);
+  --kesson-footer-line: var(--ds-footer-line, 0.82rem);
+  --kesson-surface-btn: var(--ds-surface-btn, 0.88rem);
+  --kesson-footer-signature-size: var(--ds-footer-signature-size, 0.88rem);
   --kesson-graphic-switcher-label: 0.88rem;
   --kesson-graphic-switcher-btn: 0.88rem;
-  --kesson-h1-size: clamp(1.0rem, 5.5vmin, 2.0rem);
+  --kesson-h1-size: var(--ds-h1-size, clamp(1.0rem, 5.5vmin, 2.0rem));
 }
