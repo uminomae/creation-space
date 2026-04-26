@@ -16,9 +16,9 @@
   --slide-glass-border: rgba(148, 163, 184, 0.14);
   --slide-border-subtle: rgba(148, 163, 184, 0.08);
   --slide-border-medium: rgba(148, 163, 184, 0.18);
-  --slide-font-heading: var(--kesson-font-serif-display);
+  --slide-font-heading: var(--ds-font-serif-display);
   --slide-font-body: "Inter", "Noto Sans JP", system-ui, sans-serif;
-  --slide-font-mono: var(--kesson-font-mono-ui);
+  --slide-font-mono: var(--ds-font-mono-ui);
   --slide-radius: 16px;
   --slide-radius-sm: 8px;
 
@@ -173,7 +173,7 @@
 
 .slide-viewer-close:focus-visible,
 .slide-viewer-fullscreen:focus-visible {
-  outline: 2px solid var(--kesson-focus-ring, rgba(100, 150, 255, 0.86));
+  outline: 2px solid var(--ds-focus-ring, rgba(100, 150, 255, 0.86));
   outline-offset: 2px;
 }
 

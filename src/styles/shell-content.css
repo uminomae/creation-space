@@ -1,24 +1,24 @@
 /* shell-content.css — non-token shell styles */
 
 .btn-kesson-action {
-  --bs-btn-color: var(--kesson-action-text);
-  --bs-btn-bg: var(--kesson-action-bg);
-  --bs-btn-border-color: var(--kesson-action-border);
-  --bs-btn-hover-color: var(--kesson-action-text-hover);
-  --bs-btn-hover-bg: var(--kesson-action-bg-hover);
+  --bs-btn-color: var(--cs-action-text);
+  --bs-btn-bg: var(--cs-action-bg);
+  --bs-btn-border-color: var(--cs-action-border);
+  --bs-btn-hover-color: var(--cs-action-text-hover);
+  --bs-btn-hover-bg: var(--cs-action-bg-hover);
   --bs-btn-hover-border-color: rgba(var(--color-accent), 0.32);
-  --bs-btn-active-color: var(--kesson-action-text-hover);
-  --bs-btn-active-bg: var(--kesson-action-bg-hover);
+  --bs-btn-active-color: var(--cs-action-text-hover);
+  --bs-btn-active-bg: var(--cs-action-bg-hover);
   --bs-btn-active-border-color: rgba(var(--color-accent), 0.36);
   --bs-btn-focus-shadow-rgb: var(--color-accent);
-  font-family: var(--kesson-font-serif-ui);
-  letter-spacing: var(--kesson-letter-ui-wide);
+  font-family: var(--ds-font-serif-ui);
+  letter-spacing: var(--ds-letter-ui-wide);
   text-transform: uppercase;
 }
 
 #graphic-switcher {
   position: fixed;
-  top: calc(var(--kesson-topbar-actual-height, var(--kesson-topbar-height)) + 0.7rem);
+  top: calc(var(--cs-topbar-actual-height, var(--cs-topbar-height)) + 0.7rem);
   left: 1rem;
   z-index: 58;
   display: flex;
@@ -28,8 +28,8 @@
 }
 
 .graphic-switcher-label {
-  font-family: var(--kesson-font-serif-display);
-  font-size: var(--kesson-graphic-switcher-label, 0.68rem);
+  font-family: var(--ds-font-serif-display);
+  font-size: var(--cs-graphic-switcher-label, 0.68rem);
   letter-spacing: 0.08em;
   color: rgba(var(--color-sub-text), 0.45);
   margin-right: 0.4rem;
@@ -44,8 +44,8 @@
   border-bottom: 1.5px solid transparent;
   padding: 0.2rem 0.5rem 0.22rem;
   color: rgba(var(--color-sub-text), 0.42);
-  font-family: var(--kesson-font-serif-display);
-  font-size: var(--kesson-graphic-switcher-btn, 0.88rem);
+  font-family: var(--ds-font-serif-display);
+  font-size: var(--cs-graphic-switcher-btn, 0.88rem);
   letter-spacing: 0.06em;
   cursor: pointer;
   transition: color 0.25s ease, border-color 0.25s ease;
@@ -74,7 +74,7 @@
   border: none;
   padding: 0;
   color: rgba(var(--color-heading), 0.9);
-  font-family: var(--kesson-font-serif-display);
+  font-family: var(--ds-font-serif-display);
   font-size: clamp(0.80rem, 2.8vmin, 1.1rem);
   letter-spacing: clamp(0.05em, 0.4vmin, 0.15em);
   text-shadow: 0 0 12px rgba(var(--color-accent), 0.5), 0 0 4px rgba(0, 0, 0, 0.8);
@@ -91,7 +91,7 @@
 
 .nav-label:focus-visible,
 .nav-label.is-nav-focused {
-  outline: 2px solid var(--kesson-focus-ring);
+  outline: 2px solid var(--ds-focus-ring);
   outline-offset: 4px;
   filter: blur(0px) !important;
   text-shadow: 0 0 18px rgba(110, 160, 255, 0.72), 0 0 6px rgba(0, 0, 0, 0.85);
@@ -147,9 +147,9 @@
 
 h1 {
   color: rgba(var(--color-heading), 0.95);
-  font-family: var(--kesson-font-serif-display);
+  font-family: var(--ds-font-serif-display);
   font-weight: 400;
-  font-size: var(--kesson-h1-size);
+  font-size: var(--ds-h1-size);
   letter-spacing: clamp(0.15em, 1.2vmin, 0.5em);
   line-height: 1.6;
   margin-bottom: 0.6rem;
@@ -166,18 +166,18 @@ h1 {
 }
 
 .tagline {
-  font-size: var(--kesson-overlay-tagline, 0.80rem);
+  font-size: var(--ds-overlay-tagline, 0.80rem);
   color: rgba(var(--color-heading), 0.75);
-  font-family: var(--kesson-font-serif-display);
+  font-family: var(--ds-font-serif-display);
   letter-spacing: 0.05em;
   line-height: 1.8;
   text-shadow: 0 0 30px rgba(var(--color-accent), 0.3);
 }
 
 .tagline-en {
-  font-size: var(--kesson-overlay-tagline-en, 0.80rem);
+  font-size: var(--ds-overlay-tagline-en, 0.80rem);
   color: rgba(var(--color-heading), 0.55);
-  font-family: var(--kesson-font-serif-ui);
+  font-family: var(--ds-font-serif-ui);
   letter-spacing: 0.03em;
   line-height: 1.6;
   text-shadow: 0 0 30px rgba(var(--color-accent), 0.3);
@@ -188,7 +188,7 @@ html[lang="en"] h1 {
   letter-spacing: clamp(0.05em, 0.4vmin, 0.15em);
   line-height: 1.3;
   margin-bottom: 0.4rem;
-  font-family: var(--kesson-font-serif-ui);
+  font-family: var(--ds-font-serif-ui);
 }
 
 html[lang="en"] #taglines {
@@ -218,10 +218,10 @@ html[lang="en"] #taglines {
 #scroll-hint-top span,
 #left-kesson-link span {
   display: block;
-  font-size: var(--kesson-font-size-ui-xs, 0.80rem);
-  color: var(--kesson-ui-label-color);
-  font-family: var(--kesson-font-serif-ui);
-  letter-spacing: var(--kesson-letter-ui-wide);
+  font-size: var(--ds-font-size-ui-xs, 0.80rem);
+  color: var(--ds-ui-label-color);
+  font-family: var(--ds-font-serif-ui);
+  letter-spacing: var(--ds-letter-ui-wide);
 }
 
 #scroll-hint span,
@@ -232,8 +232,8 @@ html[lang="en"] #taglines {
 #scroll-hint .arrow,
 #scroll-hint-top .arrow,
 #left-kesson-link .arrow {
-  font-size: var(--kesson-font-size-ui-arrow, clamp(0.7rem, 3.5vmin, 1.2rem));
-  color: var(--kesson-ui-arrow-color);
+  font-size: var(--ds-font-size-ui-arrow, clamp(0.7rem, 3.5vmin, 1.2rem));
+  color: var(--ds-ui-arrow-color);
 }
 
 #left-kesson-link {
@@ -255,17 +255,17 @@ html[lang="en"] #taglines {
 
 #left-kesson-link:hover span,
 #left-kesson-link:hover .arrow {
-  color: var(--kesson-ui-label-hover-color);
+  color: var(--ds-ui-label-hover-color);
 }
 
 #left-kesson-link:focus-visible {
-  outline: 2px solid var(--kesson-focus-ring-soft);
+  outline: 2px solid var(--ds-focus-ring-soft);
   outline-offset: 3px;
 }
 
 #scroll-hint-top {
   position: fixed;
-  top: calc(var(--kesson-topbar-actual-height, var(--kesson-topbar-height)) + 6px);
+  top: calc(var(--cs-topbar-actual-height, var(--cs-topbar-height)) + 6px);
   left: 50%;
   transform: translateX(-50%);
   z-index: 20;
@@ -290,12 +290,12 @@ html[lang="en"] #taglines {
 
 #scroll-hint-top:hover span,
 #scroll-hint-top:hover .arrow {
-  color: var(--kesson-ui-label-hover-color);
+  color: var(--ds-ui-label-hover-color);
 }
 
 #control-guide {
   position: fixed;
-  top: calc(var(--kesson-topbar-actual-height, var(--kesson-topbar-height)) + 0.7rem);
+  top: calc(var(--cs-topbar-actual-height, var(--cs-topbar-height)) + 0.7rem);
   right: 1rem;
   z-index: 10;
   pointer-events: none;
@@ -312,10 +312,10 @@ html[lang="en"] #taglines {
 }
 
 #control-guide .guide-key {
-  font-size: var(--kesson-control-guide, 0.80rem);
+  font-size: var(--ds-control-guide, 0.80rem);
   color: rgba(var(--color-sub-text), 0.35);
-  font-family: var(--kesson-font-mono-ui);
-  letter-spacing: var(--kesson-letter-ui-tight);
+  font-family: var(--ds-font-mono-ui);
+  letter-spacing: var(--ds-letter-ui-tight);
   white-space: nowrap;
 }
 
@@ -325,10 +325,10 @@ html[lang="en"] #taglines {
 }
 
 #control-guide .guide-action {
-  font-size: var(--kesson-control-guide, 0.80rem);
+  font-size: var(--ds-control-guide, 0.80rem);
   color: rgba(var(--color-sub-text), 0.3);
-  font-family: var(--kesson-font-serif-ui);
-  letter-spacing: var(--kesson-letter-ui-normal);
+  font-family: var(--ds-font-serif-ui);
+  letter-spacing: var(--ds-letter-ui-normal);
   white-space: nowrap;
 }
 
@@ -343,18 +343,18 @@ html[lang="en"] #taglines {
 /* ── 共通パネル基盤 ── */
 .kesson-panel {
   background: var(--cs-surface-2);
-  border: 1px solid var(--kesson-card-border);
-  border-radius: var(--kesson-radius-lg);
-  box-shadow: var(--kesson-card-shadow-soft);
+  border: 1px solid var(--ds-card-border);
+  border-radius: var(--ds-radius-lg);
+  box-shadow: var(--ds-card-shadow-soft);
   color: rgba(var(--color-heading), 0.82);
 }
 
 .card.kesson-card {
-  --bs-card-bg: var(--kesson-card-bg);
+  --bs-card-bg: var(--cs-card-bg);
   background-color: var(--bs-card-bg);
   background-image: none;
   border: 1px solid rgba(var(--color-accent), 0.1);
-  transition: transform var(--kesson-transition-snappy), box-shadow var(--kesson-transition-snappy);
+  transition: transform var(--ds-transition-snappy), box-shadow var(--ds-transition-snappy);
   cursor: pointer;
 }
 
@@ -374,7 +374,7 @@ html[lang="en"] #taglines {
 
 .kesson-card .card-title {
   color: #fff;
-  font-size: var(--kesson-card-title, 1.0rem);
+  font-size: var(--ds-card-title, 1.0rem);
   font-family: 'Noto Serif JP', Georgia, serif;
 }
 
@@ -410,7 +410,7 @@ html[lang="en"] #taglines {
   border: 1px solid rgba(var(--color-accent), 0.16);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
   overflow: hidden;
-  transition: transform var(--kesson-transition-snappy), box-shadow var(--kesson-transition-snappy), border-color var(--kesson-transition-snappy);
+  transition: transform var(--ds-transition-snappy), box-shadow var(--ds-transition-snappy), border-color var(--ds-transition-snappy);
 }
 
 .img-card-link > .img-card {
@@ -490,7 +490,7 @@ html[lang="en"] #taglines {
   bottom: 24px;
   right: 24px;
   z-index: 20;
-  font-size: var(--kesson-surface-btn, 0.80rem);
+  font-size: var(--ds-surface-btn, 0.80rem);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.6s ease, background 0.3s ease, color 0.3s ease;
@@ -501,18 +501,18 @@ html[lang="en"] #taglines {
 .section-content-wrap {
   position: relative;
   z-index: 20;
-  padding: var(--kesson-section-content-padding);
+  padding: var(--ds-section-content-padding);
 }
 
 /* .creation-section-shell removed — techo#76 KS 統一 */
 
 .section-heading {
-  font-size: var(--kesson-section-heading, 0.80rem);
+  font-size: var(--ds-section-heading, 0.80rem);
   font-weight: 400;
   color: rgba(var(--color-sub-text), 0.5);
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  font-family: var(--kesson-font-mono-ui);
+  font-family: var(--ds-font-mono-ui);
   margin: 0 0 0.85rem;
 }
 
@@ -580,18 +580,18 @@ html[lang="en"] #taglines {
 }
 
 .tech-footer-line {
-  font-size: var(--kesson-footer-line, 0.80rem);
+  font-size: var(--ds-footer-line, 0.80rem);
   color: rgba(150, 175, 210, 0.25);
-  font-family: var(--kesson-font-mono-ui);
+  font-family: var(--ds-font-mono-ui);
   letter-spacing: 0.06em;
   line-height: 1.8;
 }
 
 .footer-signature {
   margin-top: 0.55rem;
-  font-size: var(--kesson-footer-signature-size, 0.80rem);
+  font-size: var(--ds-footer-signature-size, 0.80rem);
   color: rgba(195, 214, 241, 0.68);
-  font-family: var(--kesson-font-serif-ui);
+  font-family: var(--ds-font-serif-ui);
   letter-spacing: 0.06em;
   line-height: 1.5;
 }
@@ -638,7 +638,7 @@ html[lang="en"] #taglines {
 
 @media (max-width: 767.98px) {
   #graphic-switcher {
-    top: calc(var(--kesson-topbar-actual-height, var(--kesson-topbar-height)) + 0.5rem);
+    top: calc(var(--cs-topbar-actual-height, var(--cs-topbar-height)) + 0.5rem);
     left: 0.6rem;
   }
 

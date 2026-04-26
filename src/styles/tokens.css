@@ -1,13 +1,15 @@
 /*
  * pd design-system/tokens.css (--ds-*) を参照。
  * @import 失敗時は各 token の fallback で従来動作。
- * 参照: techo#126 / pd#84 / cs#230
+ * 参照: techo#126 / pd#84 / cs#230 / techo#128 (Phase 1b — --kesson-* 全廃)
  */
 @import url('../../../project-design/design-system/tokens.css');
 
 :root {
   /* Intentional difference vs awareness-space:
      creation-space keeps a larger UI scale and surface-based action styling. */
+
+  /* === --color-* (--ds-color-* alias) === */
   --color-accent: var(--ds-color-accent, 100, 150, 255);
   --color-sub-text: var(--ds-color-sub-text, 180, 200, 230);
   --color-highlight: var(--ds-color-highlight, 220, 230, 245);
@@ -15,60 +17,137 @@
   --color-heading: var(--ds-color-heading, 255, 255, 255);
   --color-bg-body: var(--ds-color-bg-body, #050508);
 
-  --kesson-font-serif-display: var(--ds-font-serif-display, "Noto Serif JP", "Yu Mincho", "MS PMincho", serif);
-  --kesson-font-serif-ui: var(--ds-font-serif-ui, 'Georgia', "Noto Serif JP", serif);
+  /* === cs 個性 (typography / surface / report) === */
   --cs-font-sans-ui: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", "Meiryo", system-ui, sans-serif;
-  --kesson-font-mono-ui: var(--ds-font-mono-ui, 'SF Mono', 'Fira Code', 'Consolas', monospace);
   --cs-font-mono-system: ui-monospace, SFMono-Regular, 'SF Mono', 'Consolas', monospace;
-  --kesson-font-size-ui-xs: var(--ds-font-size-ui-xs, 0.85rem);
-  --kesson-font-size-ui-sm: var(--ds-font-size-ui-sm, 0.88rem);
-  --kesson-font-size-ui-arrow: var(--ds-font-size-ui-arrow, clamp(0.7rem, 3.5vmin, 1.2rem));
   --reports-font-step: 0rem;
-  --kesson-letter-ui-tight: var(--ds-letter-ui-tight, 0.03em);
-  --kesson-letter-ui-normal: var(--ds-letter-ui-normal, 0.06em);
-  --kesson-letter-ui-wide: var(--ds-letter-ui-wide, 0.1em);
-  --kesson-letter-ui-heading: var(--ds-letter-ui-heading, 0.15em);
-
-  --kesson-radius-sm: var(--ds-radius-sm, 2px);
-  --kesson-radius-md: var(--ds-radius-md, 3px);
-  --kesson-radius-lg: var(--ds-radius-lg, 4px);
-  --kesson-transition-standard: var(--ds-transition-standard, 0.3s ease);
-  --kesson-transition-snappy: var(--ds-transition-snappy, 0.2s ease);
-
-  --kesson-focus-ring: var(--ds-focus-ring, rgba(var(--color-accent), 0.86));
-  --kesson-focus-ring-soft: var(--ds-focus-ring-soft, rgba(var(--color-accent), 0.8));
-  --kesson-ui-label-color: var(--ds-ui-label-color, rgba(var(--color-sub-text), 0.3));
-  --kesson-ui-arrow-color: var(--ds-ui-arrow-color, rgba(var(--color-sub-text), 0.25));
-  --kesson-ui-label-hover-color: var(--ds-ui-label-hover-color, rgba(var(--color-sub-text), 0.6));
-  --kesson-action-bg: rgba(var(--color-accent), 0.1);
-  --kesson-action-border: rgba(var(--color-accent), 0.1);
-  --kesson-action-text: rgba(var(--color-sub-text), 0.5);
-  --kesson-action-bg-hover: var(--kesson-card-bg);
-  --kesson-action-text-hover: rgba(var(--color-heading), 0.7);
-  --kesson-card-border: var(--ds-card-border, rgba(var(--color-accent), 0.1));
-  --kesson-card-border-strong: var(--ds-card-border-strong, rgba(var(--color-accent), 0.28));
-  --kesson-card-shadow-soft: var(--ds-card-shadow-soft, 0 4px 12px rgba(var(--color-accent), 0.15));
-  --kesson-card-shadow-rich: var(--ds-card-shadow-rich, 0 8px 24px rgba(0, 0, 0, 0.38), 0 0 12px rgba(var(--color-accent), 0.15));
-  --kesson-error-color: var(--ds-error-color, #f87171);
-  --kesson-error-size: var(--ds-error-size, 0.8rem);
-
-  --kesson-section-content-padding: var(--ds-section-content-padding, 1rem 1.5rem 0);
-  --kesson-section-grid-margin-top: 1.5rem;
+  --cs-surface-1: rgba(20, 25, 40, 0.3);
   --cs-surface-2: rgba(20, 25, 40, 0.6);
   --cs-surface-3: rgba(20, 25, 40, 0.9);
-  --kesson-card-bg: var(--cs-surface-3);
 
-  --kesson-section-heading: var(--ds-section-heading, 0.88rem);
-  --kesson-card-title: var(--ds-card-title, 1.0rem);
-  --kesson-card-text: var(--ds-card-text, 0.92rem);
-  --kesson-card-summary: var(--ds-card-summary, 0.92rem);
-  --kesson-overlay-tagline: var(--ds-overlay-tagline, 0.92rem);
-  --kesson-overlay-tagline-en: var(--ds-overlay-tagline-en, 0.88rem);
-  --kesson-control-guide: var(--ds-control-guide, 0.82rem);
-  --kesson-footer-line: var(--ds-footer-line, 0.82rem);
-  --kesson-surface-btn: var(--ds-surface-btn, 0.88rem);
-  --kesson-footer-signature-size: var(--ds-footer-signature-size, 0.88rem);
-  --kesson-graphic-switcher-label: 0.88rem;
-  --kesson-graphic-switcher-btn: 0.88rem;
-  --kesson-h1-size: var(--ds-h1-size, clamp(1.0rem, 5.5vmin, 2.0rem));
+  /* === --cs-* (旧 --kesson-* 取り込み, see techo#128 Phase 1b) === */
+  /* --- action-* --- */
+  --cs-action-bg-hover: var(--cs-card-bg);
+  --cs-action-bg: rgba(var(--color-accent), 0.1);
+  --cs-action-border: rgba(var(--color-accent), 0.1);
+  --cs-action-text-hover: rgba(var(--color-heading), 0.7);
+  --cs-action-text: rgba(var(--color-sub-text), 0.5);
+  /* --- card-* --- */
+  --cs-card-bg: var(--cs-surface-3);
+  /* --- dev-hud-* --- */
+  --cs-dev-hud-bg: rgba(8, 14, 26, 0.84);
+  --cs-dev-hud-border: rgba(120, 164, 235, 0.42);
+  --cs-dev-hud-btn-bg-hover: rgba(116, 165, 244, 0.32);
+  --cs-dev-hud-btn-bg: rgba(100, 152, 246, 0.2);
+  --cs-dev-hud-btn-border: rgba(130, 170, 240, 0.45);
+  --cs-dev-hud-btn-text: rgba(238, 246, 255, 0.96);
+  --cs-dev-hud-font-size: 0.80rem;
+  --cs-dev-hud-input-bg: rgba(10, 18, 32, 0.88);
+  --cs-dev-hud-input-border: rgba(130, 170, 240, 0.35);
+  --cs-dev-hud-input-text: rgba(220, 235, 255, 0.95);
+  --cs-dev-hud-text: rgba(205, 224, 255, 0.92);
+  /* --- dev-panel-* --- */
+  --cs-dev-panel-accordion-active-bg: rgba(46, 72, 116, 0.7);
+  --cs-dev-panel-accordion-bg: rgba(26, 40, 70, 0.5);
+  --cs-dev-panel-accordion-text: rgba(222, 235, 255, 0.92);
+  --cs-dev-panel-bg: rgba(7, 12, 24, 0.96);
+  --cs-dev-panel-body-bg: rgba(11, 20, 38, 0.75);
+  --cs-dev-panel-border: rgba(140, 178, 255, 0.3);
+  --cs-dev-panel-empty-bg: rgba(11, 20, 38, 0.6);
+  --cs-dev-panel-empty-border: rgba(140, 178, 255, 0.25);
+  --cs-dev-panel-empty-text: rgba(201, 221, 255, 0.85);
+  --cs-dev-panel-header-border: rgba(140, 178, 255, 0.25);
+  --cs-dev-panel-help-color: rgba(176, 201, 238, 0.82);
+  --cs-dev-panel-help-sub-color: rgba(162, 188, 228, 0.72);
+  --cs-dev-panel-label-color: rgba(188, 211, 245, 0.95);
+  --cs-dev-panel-status-color: rgba(201, 221, 255, 0.8);
+  --cs-dev-panel-title-color: rgba(223, 236, 255, 0.95);
+  --cs-dev-panel-value-color: rgba(201, 221, 255, 0.86);
+  /* --- dev-toggle-* --- */
+  --cs-dev-toggle-bg-hover: rgba(30, 45, 70, 0.82);
+  --cs-dev-toggle-bg: rgba(20, 30, 50, 0.7);
+  --cs-dev-toggle-border: rgba(var(--color-accent), 0.15);
+  --cs-dev-toggle-text-hover: rgba(210, 225, 255, 0.95);
+  --cs-dev-toggle-text: rgba(180, 200, 255, 0.75);
+  /* --- md-* --- */
+  --cs-md-em: rgba(200, 215, 240, 0.8);
+  --cs-md-h1-strong: rgba(240, 245, 255, 0.95);
+  --cs-md-h1: rgba(240, 245, 255, 0.92);
+  --cs-md-h2: rgba(230, 240, 255, 0.88);
+  --cs-md-h3: rgba(220, 230, 250, 0.85);
+  --cs-md-h4: rgba(210, 225, 245, 0.8);
+  --cs-md-inline-code-bg: rgba(60, 90, 150, 0.12);
+  --cs-md-inline-code: rgba(180, 210, 255, 0.85);
+  --cs-md-link-hover: rgba(160, 195, 255, 1);
+  --cs-md-link: rgba(var(--color-link), 0.85);
+  --cs-md-pdf-link-hover-bg: rgba(60, 90, 150, 0.1);
+  --cs-md-pdf-link-hover: rgba(200, 220, 255, 0.9);
+  --cs-md-pdf-link: rgba(160, 185, 240, 0.7);
+  --cs-md-pre-bg: rgba(8, 12, 24, 0.6);
+  --cs-md-provenance: rgba(140, 160, 200, 0.4);
+  --cs-md-quote: rgba(200, 215, 240, 0.7);
+  --cs-md-strong: rgba(240, 245, 255, 0.95);
+  --cs-md-table-cell-text: rgba(200, 215, 240, 0.75);
+  --cs-md-table-head-bg: rgba(40, 60, 100, 0.2);
+  --cs-md-table-head-text: rgba(220, 230, 250, 0.9);
+  /* --- offcanvas-* --- */
+  --cs-offcanvas-bg: rgba(10, 14, 26, 0.98);
+  --cs-offcanvas-heading: #e2e8f0;
+  --cs-offcanvas-link: #f59e0b;
+  --cs-offcanvas-text: #94a3b8;
+  --cs-offcanvas-width: 85%;
+  /* --- scrollbar-* --- */
+  --cs-scrollbar-thumb: #1e293b;
+  /* --- section-* --- */
+  --cs-section-grid-margin-top: 1.5rem;
+  /* --- topbar-* --- */
+  --cs-topbar-alpha-soft: 0.10;
+  --cs-topbar-alpha-strong: 0.10;
+  --cs-topbar-bg-end: rgba(10, 14, 24, var(--cs-topbar-alpha-soft));
+  --cs-topbar-bg-start: rgba(10, 14, 24, var(--cs-topbar-alpha-strong));
+  --cs-topbar-blur: 14px;
+  --cs-topbar-border-alpha: 0.22;
+  --cs-topbar-border-color: rgba(130, 170, 240, var(--cs-topbar-border-alpha));
+  --cs-topbar-credit-size: 0.84rem;
+  --cs-topbar-divider-color: rgba(170, 192, 228, 0.42);
+  --cs-topbar-height: 3.25rem;
+  --cs-topbar-lang-bg: rgba(70, 102, 160, 0.16);
+  --cs-topbar-lang-border: rgba(130, 170, 240, 0.25);
+  --cs-topbar-lang-color: rgba(218, 232, 255, 0.9);
+  --cs-topbar-link-color: rgba(205, 220, 244, 0.78);
+  --cs-topbar-link-hover-bg: rgba(120, 165, 240, 0.2);
+  --cs-topbar-link-hover-color: rgba(236, 244, 255, 0.98);
+  --cs-topbar-link-size: 0.88rem;
+  --cs-topbar-main-title-size-sm: 0.86rem;
+  --cs-topbar-main-title-size: clamp(0.96rem, 1.85vw, 1.38rem);
+  --cs-topbar-meta-author-color: rgba(184, 203, 234, 0.74);
+  --cs-topbar-meta-author-size: 0.84rem;
+  --cs-topbar-meta-color: rgba(186, 204, 234, 0.72);
+  --cs-topbar-meta-size: 0.86rem;
+  --cs-topbar-nav-bg: rgba(9, 13, 24, 0.82);
+  --cs-topbar-nav-border: rgba(130, 170, 240, 0.2);
+  --cs-topbar-note-color: rgba(165, 214, 255, 0.74);
+  --cs-topbar-note-divider-color: rgba(130, 170, 240, 0.2);
+  --cs-topbar-note-size-sm: var(--cs-topbar-note-size);
+  --cs-topbar-note-size: 0.88rem;
+  --cs-topbar-saturate: 145%;
+  --cs-topbar-shadow-alpha: 0.26;
+  --cs-topbar-subtitle-color: rgba(205, 220, 244, 0.76);
+  --cs-topbar-subtitle-size-md: 0.88rem;
+  --cs-topbar-subtitle-size: var(--cs-topbar-title-size);
+  --cs-topbar-title-color: rgba(228, 238, 255, 0.92);
+  --cs-topbar-title-hover-color: rgba(242, 248, 255, 1);
+  --cs-topbar-title-size: clamp(0.88rem, 1.1vw, 0.96rem);
+  --cs-topbar-toggler-border: rgba(145, 178, 242, 0.55);
+  --cs-topbar-toggler-focus: rgba(140, 180, 252, 0.35);
+  /* --- viewer-* --- */
+  --cs-viewer-glass-bg: rgba(12, 18, 30, 0.88);
+  --cs-viewer-glass-border: rgba(var(--color-accent), 0.06);
+  --cs-viewer-glass-shadow: 0 0 60px rgba(0, 0, 0, 0.4), 0 0 120px rgba(30, 60, 120, 0.1), inset 0 0 60px rgba(20, 40, 80, 0.05);
+  --cs-viewer-overlay-closed: rgba(5, 10, 20, 0);
+  --cs-viewer-overlay-open: rgba(5, 10, 20, 0.5);
+  --cs-viewer-x-handle: rgba(var(--color-embed-handle), 0.7);
+  /* --- graphic-switcher-* --- */
+  --cs-graphic-switcher-btn: 0.88rem;
+  --cs-graphic-switcher-label: 0.88rem;
 }
