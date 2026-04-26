@@ -54,7 +54,6 @@
 
   --kesson-section-content-padding: var(--ds-section-content-padding, 1rem 1.5rem 0);
   --kesson-section-grid-margin-top: 1.5rem;
-  --cs-surface-1: rgba(20, 25, 40, 0.3);
   --cs-surface-2: rgba(20, 25, 40, 0.6);
   --cs-surface-3: rgba(20, 25, 40, 0.9);
   --kesson-card-bg: var(--cs-surface-3);
