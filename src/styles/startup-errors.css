@@ -20,7 +20,7 @@
 
 #app-startup-warning-banner {
   position: fixed;
-  top: calc(var(--kesson-topbar-actual-height, var(--kesson-topbar-height, 3.4rem)) + 0.6rem);
+  top: calc(var(--cs-topbar-actual-height, var(--cs-topbar-height, 3.4rem)) + 0.6rem);
   right: 0.75rem;
   max-width: min(28rem, calc(100vw - 1.5rem));
   padding: 0.7rem 0.9rem;
@@ -29,7 +29,7 @@
   border-radius: 0.45rem;
   background: rgba(57, 40, 12, 0.9);
   color: #ffe7bb;
-  font-family: var(--kesson-font-serif-ui);
+  font-family: var(--ds-font-serif-ui);
   font-size: 0.84rem;
   line-height: 1.5;
   box-shadow: 0 0 18px rgba(0, 0, 0, 0.24);

@@ -26,7 +26,7 @@
 
 ## 変更時に守るべき制約
 
-- 変数名の命名規則: `--kesson-{category}-{name}` または `--color-{name}`
+- 変数名の命名規則: `--cs-{category}-{name}` または `--color-{name}`
 - `rgb()` ではなく `r, g, b` の 3 値で定義する。`rgba()` で透明度を柔軟に変えるため
 - ダークテーマ前提: 背景は暗い。テキストは明るい。コントラストを確保する
 - `shell.css` を変更したら `dev-components.html` も確認・更新する
@@ -38,13 +38,13 @@
 | prefix | 用途 |
 |---|---|
 | `--color-*` | 基本パレット（accent, sub-text, highlight, link, heading, bg-body） |
-| `--kesson-font-*` | タイポグラフィ（serif-display, serif-ui, mono-ui, mono-system） |
-| `--kesson-card-*` | カードコンポーネント |
-| `--kesson-action-*` | ボタン・アクション |
-| `--kesson-offcanvas-*` | オフキャンバスパネル |
-| `--kesson-viewer-*` | MD / 埋め込み viewer |
-| `--kesson-md-*` | MD 内の要素（h1-h4, link, quote, code, table） |
-| `--kesson-ui-*` | UI 部品（ラベル、矢印、補助表示） |
+| `--cs-font-*` | タイポグラフィ（serif-display, serif-ui, mono-ui, mono-system） |
+| `--cs-card-*` | カードコンポーネント |
+| `--cs-action-*` | ボタン・アクション |
+| `--cs-offcanvas-*` | オフキャンバスパネル |
+| `--cs-viewer-*` | MD / 埋め込み viewer |
+| `--cs-md-*` | MD 内の要素（h1-h4, link, quote, code, table） |
+| `--cs-ui-*` | UI 部品（ラベル、矢印、補助表示） |
 | `--reports-*` | Reports 専用の派生変数。root token から組み立てる二次層 |
 
 ## 判断基準

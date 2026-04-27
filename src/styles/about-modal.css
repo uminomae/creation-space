@@ -36,12 +36,12 @@
 }
 
 .about-trigger:focus-visible {
-  outline: 2px solid var(--kesson-focus-ring, rgba(100, 150, 255, 0.86));
+  outline: 2px solid var(--ds-focus-ring, rgba(100, 150, 255, 0.86));
   outline-offset: 2px;
 }
 
 .about-trigger__letter {
-  font-family: var(--kesson-font-serif-display, 'Noto Serif JP', serif);
+  font-family: var(--ds-font-serif-display, 'Noto Serif JP', serif);
   font-size: 1.2rem;
   font-style: italic;
   line-height: 1;
@@ -79,12 +79,12 @@
   max-height: 80vh;
   cursor: default;
   overflow-y: auto;
-  background: var(--kesson-viewer-glass-bg, rgba(12, 18, 30, 0.88));
+  background: var(--cs-viewer-glass-bg, rgba(12, 18, 30, 0.88));
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(100, 150, 255, 0.06);
   border-radius: 3px;
-  box-shadow: var(--kesson-viewer-glass-shadow,
+  box-shadow: var(--cs-viewer-glass-shadow,
     0 0 60px rgba(0, 0, 0, 0.4),
     0 0 120px rgba(30, 60, 120, 0.1),
     inset 0 0 60px rgba(20, 40, 80, 0.05));
@@ -125,13 +125,13 @@
 }
 
 .about-close:focus-visible {
-  outline: 2px solid var(--kesson-focus-ring, rgba(100, 150, 255, 0.86));
+  outline: 2px solid var(--ds-focus-ring, rgba(100, 150, 255, 0.86));
   outline-offset: 2px;
 }
 
 /* ── Title ── */
 .about-title {
-  font-family: var(--kesson-font-serif-display, serif);
+  font-family: var(--ds-font-serif-display, serif);
   font-size: 1.15rem;
   color: rgba(var(--color-heading, 255, 255, 255), 0.92);
   letter-spacing: 0.08em;
@@ -141,7 +141,7 @@
 
 /* ── Body ── */
 .about-body {
-  font-family: var(--kesson-font-serif-display, serif);
+  font-family: var(--ds-font-serif-display, serif);
   font-size: 0.9rem;
   color: rgba(var(--color-highlight, 220, 230, 245), 0.82);
   line-height: 1.9;
@@ -159,7 +159,7 @@
 .about-stages {
   display: block;
   text-align: center;
-  font-family: var(--kesson-font-serif-ui, serif);
+  font-family: var(--ds-font-serif-ui, serif);
   font-size: 0.88rem;
   color: rgba(var(--color-accent, 100, 150, 255), 0.7);
   letter-spacing: 0.12em;
