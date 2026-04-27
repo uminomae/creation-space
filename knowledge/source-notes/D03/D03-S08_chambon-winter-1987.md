@@ -8,19 +8,15 @@
 
 ---
 
-## ⚠️ manifest との齟齬
-
-manifest.md の D03-S08 行は「Winter, H.H. & Chambon, F. (1986). *J. Rheol.* 30(2), 367-382. DOI: 10.1122/1.549853」（balanced stoichiometry の初報）を指すが、`knowledge/raw/D03_winter-chambon_1986_gel-point.pdf` の実体は後続論文 **Chambon & Winter (1987). *J. Rheol.* 31(8), 683-697**（imbalanced stoichiometry の一般化）である。後続論文は前者を ref 1 として引用し、n = 1/2 という balanced 用の特殊指数を 0 < n < 1 の一般指数に拡張する内容。gel point 理論の中核（power law relaxation modulus、gel equation）は両論文に共通で、本 source-note は PDF の実体に基づき 1987 論文を読解する。manifest の書誌情報訂正は pjdhiro 判断要。
-
----
-
 ## 1. 書誌情報
 
 - **著者**: Francois Chambon, H. Henning Winter（University of Massachusetts, Department of Chemical Engineering and Department of Polymer Science and Engineering, Amherst, MA 01003, USA）
 - **タイトル**: Linear Viscoelasticity at the Gel Point of a Crosslinking PDMS with Imbalanced Stoichiometry
 - **出典**: *Journal of Rheology*, Vol. 31, No. 8, pp. 683-697, 1987 (Received November 5, 1986; Accepted May 22, 1987)
+- **DOI**: 10.1122/1.549955
 - **CCC**: 0148-6055/84/080693-15
 - **出版**: © 1987 by The Society of Rheology Inc., Published by John Wiley & Sons
+- **位置付け**: 先行論文 Winter & Chambon (1986) *J. Rheol.* 30(2), 367-382 (DOI: 10.1122/1.549853) の続編。balanced stoichiometry 用の特殊指数 n = 1/2 を、imbalanced 系の一般指数 0 < n < 1 へ拡張する。gel equation の核（power law relaxation modulus, GP の定義）は両論文に共通
 
 ## 2. 要旨（読んだ内容に基づく）
 
