@@ -3,7 +3,7 @@
  * @import 失敗時は各 token の fallback で従来動作。
  * 参照: techo#126 / pd#84 / cs#230 / techo#128 (Phase 1b — --kesson-* 全廃)
  */
-@import url('../../../project-design/design-system/tokens.css');
+@import url('https://cdn.jsdelivr.net/gh/uminomae/project-design@main/design-system/tokens.css');
 
 :root {
   /* Intentional difference vs awareness-space:
