@@ -1,21 +1,68 @@
-/*
- * pd design-system/tokens.css (--ds-*) を参照。
- * @import 失敗時は各 token の fallback で従来動作。
- * 参照: techo#126 / pd#84 / cs#230 / techo#128 (Phase 1b — --kesson-* 全廃)
- */
-@import url('https://cdn.jsdelivr.net/gh/uminomae/project-design@main/design-system/tokens.css');
-
 :root {
   /* Intentional difference vs awareness-space:
      creation-space keeps a larger UI scale and surface-based action styling. */
 
-  /* === --color-* (--ds-color-* alias) === */
-  --color-accent: var(--ds-color-accent, 100, 150, 255);
-  --color-sub-text: var(--ds-color-sub-text, 180, 200, 230);
-  --color-highlight: var(--ds-color-highlight, 220, 230, 245);
-  --color-link: var(--ds-color-link, 130, 170, 255);
-  --color-heading: var(--ds-color-heading, 255, 255, 255);
-  --color-bg-body: var(--ds-color-bg-body, #050508);
+  /* === Design tokens (--ds-*, self-contained for Claude Design ingestion) === */
+  /* Core color */
+  --ds-color-accent: 100, 150, 255;
+  --ds-color-sub-text: 180, 200, 230;
+  --ds-color-highlight: 220, 230, 245;
+  --ds-color-link: 130, 170, 255;
+  --ds-color-heading: 255, 255, 255;
+  --ds-color-bg-body: #050508;
+  /* Typography family */
+  --ds-font-serif-display: "Noto Serif JP", "Yu Mincho", "MS PMincho", serif;
+  --ds-font-serif-ui: 'Georgia', "Noto Serif JP", serif;
+  --ds-font-mono-ui: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  /* Font size UI base */
+  --ds-font-size-ui-xs: 0.85rem;
+  --ds-font-size-ui-sm: 0.88rem;
+  --ds-font-size-ui-arrow: clamp(0.7rem, 3.5vmin, 1.2rem);
+  /* Letter spacing */
+  --ds-letter-ui-tight: 0.03em;
+  --ds-letter-ui-normal: 0.06em;
+  --ds-letter-ui-wide: 0.1em;
+  --ds-letter-ui-heading: 0.15em;
+  /* Radius */
+  --ds-radius-sm: 2px;
+  --ds-radius-md: 3px;
+  --ds-radius-lg: 4px;
+  /* Transition */
+  --ds-transition-standard: 0.3s ease;
+  --ds-transition-snappy: 0.2s ease;
+  /* Surface: focus / label / card */
+  --ds-focus-ring: rgba(var(--ds-color-accent), 0.86);
+  --ds-focus-ring-soft: rgba(var(--ds-color-accent), 0.8);
+  --ds-ui-label-color: rgba(var(--ds-color-sub-text), 0.3);
+  --ds-ui-arrow-color: rgba(var(--ds-color-sub-text), 0.25);
+  --ds-ui-label-hover-color: rgba(var(--ds-color-sub-text), 0.6);
+  --ds-card-border: rgba(var(--ds-color-accent), 0.1);
+  --ds-card-border-strong: rgba(var(--ds-color-accent), 0.28);
+  --ds-card-shadow-soft: 0 4px 12px rgba(var(--ds-color-accent), 0.15);
+  --ds-card-shadow-rich: 0 8px 24px rgba(0, 0, 0, 0.38), 0 0 12px rgba(var(--ds-color-accent), 0.15);
+  --ds-error-color: #f87171;
+  --ds-error-size: 0.8rem;
+  --ds-section-content-padding: 1rem 1.5rem 0;
+  /* Component font sizes */
+  --ds-section-heading: 0.88rem;
+  --ds-card-title: 1.0rem;
+  --ds-card-text: 0.92rem;
+  --ds-card-summary: 0.92rem;
+  --ds-overlay-tagline: 0.92rem;
+  --ds-overlay-tagline-en: 0.88rem;
+  --ds-control-guide: 0.82rem;
+  --ds-footer-line: 0.82rem;
+  --ds-surface-btn: 0.88rem;
+  --ds-footer-signature-size: 0.88rem;
+  --ds-h1-size: clamp(1.0rem, 5.5vmin, 2.0rem);
+
+  /* === --color-* (cs alias for --ds-color-*) === */
+  --color-accent: var(--ds-color-accent);
+  --color-sub-text: var(--ds-color-sub-text);
+  --color-highlight: var(--ds-color-highlight);
+  --color-link: var(--ds-color-link);
+  --color-heading: var(--ds-color-heading);
+  --color-bg-body: var(--ds-color-bg-body);
 
   /* === cs 個性 (typography / surface / report) === */
   --cs-font-sans-ui: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", "Meiryo", system-ui, sans-serif;
