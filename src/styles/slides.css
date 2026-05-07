@@ -24,7 +24,7 @@
 
   position: fixed;
   inset: 0;
-  z-index: 1500;
+  z-index: var(--cs-z-slides);
   display: none;
   background:
     radial-gradient(circle at 20% 20%, rgba(96, 165, 250, 0.08), transparent 28%),
@@ -113,7 +113,7 @@
   position: fixed;
   top: 16px;
   right: 24px;
-  z-index: 1510;
+  z-index: var(--cs-z-slides-top);
   width: 40px;
   height: 40px;
   display: flex;
@@ -139,7 +139,7 @@
   position: fixed;
   right: 24px;
   bottom: 16px;
-  z-index: 1510;
+  z-index: var(--cs-z-slides-top);
   width: 44px;
   height: 44px;
   display: flex;

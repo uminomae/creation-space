@@ -7,7 +7,7 @@
   max-height: 55vh;
   margin: 0;
   padding: 12px 14px;
-  z-index: 100000;
+  z-index: var(--cs-z-startup);
   overflow: auto;
   white-space: pre-wrap;
   font-family: var(--cs-font-mono-system);
@@ -24,7 +24,7 @@
   right: 0.75rem;
   max-width: min(28rem, calc(100vw - 1.5rem));
   padding: 0.7rem 0.9rem;
-  z-index: 99998;
+  z-index: var(--cs-z-startup-mask);
   border: 1px solid rgba(255, 201, 122, 0.35);
   border-radius: 0.45rem;
   background: rgba(57, 40, 12, 0.9);

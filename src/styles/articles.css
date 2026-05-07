@@ -50,13 +50,13 @@
 
 #articles-section {
   position: relative;
-  z-index: 5;
+  z-index: var(--cs-z-raised);
   margin-top: clamp(4rem, 16vh, 9rem);
 }
 
 #creation-cards-section {
   position: relative;
-  z-index: 5;
+  z-index: var(--cs-z-raised);
   padding-bottom: 3.5rem;
 }
 

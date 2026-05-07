@@ -3,7 +3,7 @@
 #articles-section,
 #reports-cross-analysis-section {
   position: relative;
-  z-index: 5;
+  z-index: var(--cs-z-raised);
   --reports-font-mono: var(--ds-font-mono-ui);
   --reports-font-serif: var(--ds-font-serif-ui);
   --reports-font-sans: var(--cs-font-sans-ui);
@@ -59,7 +59,7 @@
 /* AI notice は hero 直後に移動（#model-section 外） */
 #reports-ai-notice {
   position: relative;
-  z-index: 6;
+  z-index: var(--cs-z-raised-2);
   text-align: center;
   margin: 1.5rem 0 1rem;
 }
@@ -251,7 +251,7 @@
   appearance: none;
   -webkit-appearance: none;
   position: relative;
-  z-index: 2;
+  z-index: var(--cs-z-content-2);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -428,7 +428,7 @@
 }
 
 #reports-md-modal {
-  z-index: 100002;
+  z-index: var(--cs-z-modal-top);
 }
 
 .reports-md-modal-content {
@@ -547,7 +547,7 @@
   letter-spacing: .04em;
   padding: .15rem .5rem;
   align-self: flex-start;
-  z-index: 2;
+  z-index: var(--cs-z-content-2);
 }
 
 .reports-domain-pres-btn:focus-visible {
@@ -895,7 +895,7 @@
 .hover-grid-modal {
   position: fixed;
   inset: 0;
-  z-index: 100001;
+  z-index: var(--cs-z-modal);
   background: rgba(10, 14, 23, 0.95);
   display: flex;
   flex-direction: column;

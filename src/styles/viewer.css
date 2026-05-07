@@ -78,7 +78,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 200;
+  z-index: var(--cs-z-viewer-overlay);
   display: none;
   align-items: center;
   justify-content: center;
@@ -133,7 +133,7 @@
   align-items: center;
   justify-content: center;
   transition: color 0.3s;
-  z-index: 10;
+  z-index: var(--cs-z-ui-low);
 }
 
 .viewer-close:hover {

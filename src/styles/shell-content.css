@@ -20,7 +20,7 @@
   position: fixed;
   top: calc(var(--cs-topbar-actual-height, var(--cs-topbar-height)) + 0.7rem);
   left: 1rem;
-  z-index: 58;
+  z-index: var(--cs-z-ui-high);
   display: flex;
   align-items: center;
   gap: 0.35rem;
@@ -67,7 +67,7 @@
 
 .nav-label {
   position: fixed;
-  z-index: 15;
+  z-index: var(--cs-z-ui-mid);
   pointer-events: auto;
   cursor: pointer;
   background: none;
@@ -129,7 +129,7 @@
   position: fixed;
   bottom: 8%;
   left: 5%;
-  z-index: 10;
+  z-index: var(--cs-z-ui-low);
   pointer-events: none;
   text-align: left;
   opacity: 0.4;
@@ -200,7 +200,7 @@ html[lang="en"] #taglines {
   bottom: 16px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 15;
+  z-index: var(--cs-z-ui-mid);
   text-align: center;
   pointer-events: none;
   opacity: 0;
@@ -241,7 +241,7 @@ html[lang="en"] #taglines {
   top: 50%;
   left: 16px;
   transform: translateY(-50%);
-  z-index: 15;
+  z-index: var(--cs-z-ui-mid);
   text-align: center;
   text-decoration: none;
   transition: opacity 0.6s ease, visibility 0.6s ease;
@@ -268,7 +268,7 @@ html[lang="en"] #taglines {
   top: calc(var(--cs-topbar-actual-height, var(--cs-topbar-height)) + 6px);
   left: 50%;
   transform: translateX(-50%);
-  z-index: 20;
+  z-index: var(--cs-z-ui-mid-2);
   text-align: center;
   cursor: pointer;
   opacity: 0;
@@ -297,7 +297,7 @@ html[lang="en"] #taglines {
   position: fixed;
   top: calc(var(--cs-topbar-actual-height, var(--cs-topbar-height)) + 0.7rem);
   right: 1rem;
-  z-index: 10;
+  z-index: var(--cs-z-ui-low);
   pointer-events: none;
   text-align: right;
   transition: opacity 0.6s ease;
@@ -489,7 +489,7 @@ html[lang="en"] #taglines {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  z-index: 20;
+  z-index: var(--cs-z-ui-mid-2);
   font-size: var(--ds-surface-btn, 0.80rem);
   opacity: 0;
   pointer-events: none;
@@ -500,7 +500,7 @@ html[lang="en"] #taglines {
 
 .section-content-wrap {
   position: relative;
-  z-index: 20;
+  z-index: var(--cs-z-ui-mid-2);
   padding: var(--ds-section-content-padding);
 }
 
@@ -573,7 +573,7 @@ html[lang="en"] #taglines {
 
 #tech-footer {
   position: relative;
-  z-index: 5;
+  z-index: var(--cs-z-raised);
   text-align: left;
   padding: 2rem 3% 1.5rem;
   pointer-events: none;

@@ -197,4 +197,27 @@
   /* --- graphic-switcher-* --- */
   --cs-graphic-switcher-btn: 0.88rem;
   --cs-graphic-switcher-label: 0.88rem;
+  /* === --cs-z-* (layer tokens, see cs#233) === */
+  --cs-z-base: 0;
+  --cs-z-content: 1;
+  --cs-z-content-2: 2;
+  --cs-z-raised: 5;
+  --cs-z-raised-2: 6;
+  --cs-z-ui-low: 10;
+  --cs-z-ui-mid: 15;
+  --cs-z-ui-mid-2: 20;
+  --cs-z-ui-mid-3: 21;
+  --cs-z-ui-high: 58;
+  --cs-z-topbar: 60;
+  --cs-z-hud: 100;
+  --cs-z-viewer-overlay: 200;
+  --cs-z-modal-info: 500;
+  --cs-z-dev-overlay: 1001;
+  --cs-z-dev-panel: 1200;
+  --cs-z-slides: 1500;
+  --cs-z-slides-top: 1510;
+  --cs-z-startup-mask: 99998;
+  --cs-z-startup: 100000;
+  --cs-z-modal: 100001;
+  --cs-z-modal-top: 100002;
 }

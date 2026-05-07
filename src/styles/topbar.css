@@ -46,7 +46,7 @@
   left: 0;
   width: 100%;
   min-height: 3.25rem;
-  z-index: 60;
+  z-index: var(--cs-z-topbar);
   background: linear-gradient(
     to bottom,
     var(--cs-topbar-bg-start) 0%,

@@ -3,7 +3,7 @@
   position: fixed;
   top: calc(var(--cs-topbar-actual-height, var(--cs-topbar-height)) + 2.95rem);
   right: 0.95rem;
-  z-index: 58;
+  z-index: var(--cs-z-ui-high);
   padding: 0.2rem 0.48rem;
   border-radius: 999px;
   border: 1px solid var(--cs-dev-hud-border);
@@ -33,14 +33,14 @@
   top: auto !important;
   bottom: 0 !important;
   left: 0 !important;
-  z-index: 100;
+  z-index: var(--cs-z-hud);
 }
 
 #intent-timeline-hud {
   position: fixed;
   top: calc(var(--cs-topbar-actual-height, var(--cs-topbar-height)) + 4.1rem);
   left: 0.95rem;
-  z-index: 58;
+  z-index: var(--cs-z-ui-high);
   width: fit-content;
   min-width: 0;
   max-width: min(90vw, 26rem);
@@ -63,7 +63,7 @@
 
 #intent-timeline-form-panel {
   position: fixed;
-  z-index: 58;
+  z-index: var(--cs-z-ui-high);
   display: none;
   max-width: min(90vw, 26rem);
   padding: 0.5rem;
@@ -144,7 +144,7 @@
   top: 50%;
   right: 0;
   transform: translateY(-50%);
-  z-index: 1001;
+  z-index: var(--cs-z-dev-overlay);
   background: var(--cs-dev-toggle-bg);
   backdrop-filter: blur(8px);
   border: 1px solid var(--cs-dev-toggle-border);
@@ -267,7 +267,7 @@
   top: calc(50% + 95px);
   right: 0;
   transform: translateY(-50%);
-  z-index: 1001;
+  z-index: var(--cs-z-dev-overlay);
   background: var(--cs-dev-toggle-bg);
   backdrop-filter: blur(8px);
   border: 1px solid var(--cs-dev-toggle-border);

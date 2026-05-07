@@ -54,7 +54,7 @@
 #about-overlay {
   position: fixed;
   inset: 0;
-  z-index: 500;
+  z-index: var(--cs-z-modal-info);
   display: none;
   align-items: center;
   justify-content: center;
@@ -116,7 +116,7 @@
   align-items: center;
   justify-content: center;
   transition: color 0.3s;
-  z-index: 10;
+  z-index: var(--cs-z-ui-low);
   padding: 0;
 }
 
