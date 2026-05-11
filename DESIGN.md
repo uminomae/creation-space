@@ -85,6 +85,7 @@ Shadow:
 - ✅ **Do**: `--ds-*` で共通 token を参照 (cs/as/ks 横断対称)
 - ✅ **Do**: cs 固有値は `--cs-*` namespace
 - ✅ **Do**: surface 階層 (`--cs-surface-1/2/3`) で奥行き表現
+- ✅ **Do**: 色は `rgb()` ではなく `r, g, b` の 3 値で定義 (`rgba()` で透明度を柔軟に変えるため)
 - ❌ **Don't**: 生 `rgba(100, 150, 255, ...)` を書かない (token 化必須)
 - ❌ **Don't**: z-index を数値直書きしない (`--cs-z-*` を使用)
 - ❌ **Don't**: CDN / 多重 alias / 外部 design-system 参照 (self-contained 原則)
