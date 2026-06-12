@@ -4,7 +4,7 @@
 # 再現コマンド: bash .claude/skills/nl-debug/scripts/check-dead-refs.sh
 set -euo pipefail
 
-REPO_ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
+REPO_ROOT="$(cd "$(dirname "$0")/../../../.." && pwd)"
 cd "$REPO_ROOT"
 
 echo "=== 死リンク / 絶対パス参照チェック ($(date +%Y-%m-%d)) ==="
@@ -15,17 +15,22 @@ errors=0
 warnings=0
 
 # --- 絶対パス参照の検出 ---
-echo "[1] 絶対パス参照 (/Users/ など)"
+# worktrees（孤児worktree、cs#238整理対象）と .cache（揮発作業領域）は除外
+echo "[1] 絶対パス参照 (/Users/ など) — worktrees/.cache 除外"
 abs_refs=$(grep -rn "/Users/" \
   --include="*.md" --include="*.sh" --include="*.mjs" --include="*.js" \
   --exclude-dir=".git" --exclude-dir="node_modules" \
+  --exclude-dir="worktrees" --exclude-dir=".cache" \
   . 2>/dev/null | grep -v "binary" || true)
 
 if [[ -z "$abs_refs" ]]; then
   echo "  OK — 絶対パス参照なし"
 else
-  echo "  WARNING — 絶対パス参照が見つかりました:"
-  echo "$abs_refs" | head -20 | sed 's/^/    /'
+  total_abs=$(echo "$abs_refs" | grep -c ":" || true)
+  archive_abs=$(echo "$abs_refs" | grep -c "/archive/" || true)
+  active_abs=$((total_abs - archive_abs))
+  echo "  WARNING — 絶対パス参照 $total_abs 件（うち archive $archive_abs 件 / 現役 $active_abs 件）:"
+  echo "$abs_refs" | grep -v "/archive/" | head -20 | sed 's/^/    /'
   warnings=$((warnings + 1))
 fi
 

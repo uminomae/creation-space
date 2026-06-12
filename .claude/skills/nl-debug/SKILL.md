@@ -71,14 +71,16 @@ manifest.md に並存する複数の数字（100/107/134 等）の出所を解�
 bash .claude/skills/nl-debug/scripts/check-dead-refs.sh 2>&1 | tee .cache/research/nl-debug/A-deadrefs.txt
 ```
 
-### A-4: source-note frontmatter 検査
+### A-4: source-note ヘッダ検査
 
-必須フィールド: `source_id`, `title`, `authors`, `year`, `domain_id`, `access_status`
+source-note のヘッダは YAML frontmatter ではなく **Markdown bold 形式**（`**source_id**: D12-S01`）。
+必須3フィールド: `source_id`, `domain_id`, `access_status`
+（著者・タイトル・年は「## 1. 書誌情報」セクション内に `**著者**` `**タイトル**` で記載）
 
 ```bash
 find knowledge/source-notes -name "D*-S*_*.md" | while read f; do
-  for field in source_id title authors year domain_id access_status; do
-    grep -q "^${field}:" "$f" || echo "MISSING $field in $f"
+  for field in source_id domain_id access_status; do
+    grep -q "\*\*${field}\*\*" "$f" || echo "MISSING $field: $f"
   done
 done
 ```
