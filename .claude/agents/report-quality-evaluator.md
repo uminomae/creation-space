@@ -1,13 +1,12 @@
 ---
 name: report-quality-evaluator
 description: 領域レポートの品質を独立評価するエージェント（Generator-Evaluator パターンの Evaluator 側）
-model: haiku
 tools:
   - Read
   - Glob
   - Grep
   - Bash
-maxTurns: 15
+maxTurns: 20
 ---
 
 # Report Quality Evaluator

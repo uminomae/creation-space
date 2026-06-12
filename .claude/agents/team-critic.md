@@ -1,13 +1,12 @@
 ---
 name: team-critic
 description: agent-team-workflow の批判的検証エージェント。REVIEW フェーズで V3-V6 を使い、主張の堅牢性を検査する。
-model: sonnet
 tools:
   - Read
   - Glob
   - Grep
   - Bash
-maxTurns: 15
+maxTurns: 20
 ---
 
 # Team Critic
@@ -55,7 +54,10 @@ agent-team-workflow (cs#188) の批判的検証担当エージェント。
 | **SPLIT** | 一部の主張に重大な問題。追加調査が必要 |
 | **CRITICAL** | 前提レベルの誤り。差し戻しが必要 |
 
-### Step 5: 結果を返す
+### Step 5: 結果を返す（出力契約）
+
+**ツール使用は最大12回まで。残り3ターンの時点で調査を打ち切り、必ず判定を出力すること。**
+判定なしで終了することは禁止。情報不足でも「INFO不足のため SPLIT」として判定を出すこと。
 
 ```yaml
 review:

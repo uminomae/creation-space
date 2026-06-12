@@ -1,7 +1,6 @@
 ---
 name: domain-report-generator
 description: 領域別レポート（domains）の生成を行うエージェント。Evaluator ループ対応。
-model: opus
 tools:
   - Read
   - Glob
@@ -51,12 +50,12 @@ evidence から領域別レポートを生成するエージェント。
 5. FAIL があれば、Evaluator のフィードバックを添えて Generator を再起動
 6. 最大3イテレーションで終了（3回目も FAIL なら人間エスカレーション）
 
-### 終了条件
+### 終了条件（定量ゲート — cs#246）
 
-- FAIL = 0 かつ WARN < 3 → PASS（ループ終了）
-- FAIL > 0 → 再生成（Evaluator のフィードバックをプロンプトに含める）
-- WARN >= 3 かつ FAIL = 0 → 再生成検討（Main が判断）
-- 3イテレーション到達 → 人間エスカレーション（pjdhiro に Issue で報告）
+- **指摘率 ≤ 15%**（指摘数/評価項目数）→ 確定
+- **指摘率 > 15%** → 追加ラウンド（最大2回差し戻し）
+- **N < 7 かつ指摘 ≥ 3件** → 追加ラウンド
+- 2回差し戻し後も指摘率 > 15% → pjdhiro エスカレーション
 
 ## 参照
 - transform/domains/WORKFLOW.md（End-to-End ワークフロー）

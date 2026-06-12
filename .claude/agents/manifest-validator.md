@@ -1,6 +1,9 @@
 ---
 name: manifest-validator
-description: データパイプライン（index.json → domains.json → フロントエンド）の整合性を検証するエージェント
+description: >
+  [DEPRECATED: cs#246] LLM ラッパー不要の決定的処理のため廃止。
+  代替: `bash scripts/validate-manifest-sync.sh` を Main が直接実行する。
+  phase-gate スキルを使うと進行ゲートの手順も含む。
 model: haiku
 tools:
   - Read
@@ -10,22 +13,13 @@ tools:
 maxTurns: 15
 ---
 
-# Manifest Validator
+# Manifest Validator [DEPRECATED]
 
-データパイプラインの整合性を検証するエージェント。
+**cs#246 で廃止。直接スクリプト実行に置き換える:**
 
-## 役割
-- `node scripts/generate-domains-json.mjs --check` を実行
-- `bash scripts/validate-manifest-sync.sh` を実行
-- index.json と domains.json の差分を報告
-- progress_taxonomy の整合チェック
-- data.js の DEFAULT_PROGRESS_TAXONOMY との一致確認
+```bash
+bash scripts/validate-manifest-sync.sh
+node scripts/generate-domains-json.mjs --check
+```
 
-## 制約
-- ファイルの編集は行わない
-- 検証結果を PASS/FAIL/WARN で報告
-- FAIL がある場合は具体的な修正提案を含める
-
-## 参照
-- .claude/rules/evidence-progress.md（Phase 遷移チェックリスト）
-- .claude/rules/breaking-change-checklist.md
+progress_level 遷移チェックは `/phase-gate` スキルを使うこと。
