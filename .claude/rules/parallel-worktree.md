@@ -23,22 +23,30 @@ bash scripts/budget-check.sh --plan {起動予定本数} --reset {リセット�
 - 並列は2本までを既定とする（3本以上は budget-check が OK でも要再考）
 - 較正値 ceiling は `~/.claude/.budget-ceiling`（無ければ既定 4,800,000）
 
-## 3レーン構成
+## 実行パターン（cs#246）
 
-| レーン | 実行方式 | 用途 |
+| パターン | 用途 | ネイティブ機能 |
 |--------|---------|------|
-| **Main** | 本体セッション | 設計決定、優先順位判断、最終検証 |
-| **Agent-BG** | Agent(background) | 調査、検証、Issue 操作、報告生成 |
-| **Agent-WT** | Agent(background, worktree) | ファイル編集を伴う独立タスク |
+| Agent(background) | 調査・検証（read-only） | `run_in_background` + Monitor（イベント駆動監視） |
+| Agent(isolation: worktree) | ファイル編集を伴う独立タスク | 自動クリーンアップ付き |
+| Explore エージェント | 広域コード探索 | 組み込み |
 
-## ワークツリー・ブランチ規約
+> **Opus 4.6 時代の「3レーン構成（Main / Agent-BG / Agent-WT）」は上表に置換**。手動 worktree 管理の大部分は `isolation: worktree` の自動クリーンアップで不要になった。Main は引き続き設計決定・優先順位判断・最終検証・マージを担う。
+
+## read-only タスクの原則（cs#246）
+
+**read-only 検査には worktree を使わない。** Agent(background) + `run_in_background` で足りる。
+worktree は「ファイル編集が必要」かつ「メインブランチと競合する可能性がある」場合のみ。
+read-only の集計・整合検査は LLM サブエージェントより決定的スクリプト（`scripts/`）を優先する（枠ゲート参照）。
+
+## ワークツリー・ブランチ規約（編集タスク時のみ）
 
 ブランチ命名: `wt/{task-slug}`
 
 ライフサイクル:
-1. Agent(worktree) が `.claude/worktrees/` に作成
+1. Agent(isolation: worktree) が `.claude/worktrees/` に作成
 2. worktree 内で編集・コミット
-3. 本体が `develop` にマージ → worktree とブランチを削除
+3. 本体が `develop` にマージ → worktree とブランチを削除（または自動クリーンアップ）
 
 コミットメッセージ: `{type}: {summary} [wt/{slug}]`
 
@@ -59,11 +67,11 @@ Main がタスク振り分け時に対象ファイルを明示し、所有権を
 | `transform/domains/publish/domains/index.json` | Main のみ | progress_level の SoT。pjdhiro 承認必要 |
 | PDF（`pjdhiro/assets/creation/domains/*/pdf/`） | Main のみ | ビルドと配信の一貫性 |
 
-Agent-WT がデータパイプラインの上流を変更する場合は、下流への影響を報告し、Main が生成・配信する。
+Agent(isolation: worktree) がデータパイプラインの上流を変更する場合は、下流への影響を報告し、Main が生成・配信する。
 
-## マージプロトコル（必須）
+## マージプロトコル（編集タスク時・必須）
 
-Agent-WT 完了後、Main は以下を**同一ターンで**すべて実行する:
+Agent(isolation: worktree) 完了後、Main は以下を**同一ターンで**すべて実行する:
 
 1. `git log` / `git diff develop..{branch} --stat` で変更を確認する
 2. `git merge {branch} --no-edit` で develop にマージする
@@ -71,12 +79,12 @@ Agent-WT 完了後、Main は以下を**同一ターンで**すべて実行す�
 4. `git branch -D {branch}` でブランチを削除する
 5. 問題があればマージ前に修正するか、Agent-WT を再起動する
 
-**Agent-WT の起動プロンプトにもこの完了手順を含めること。**
+**worktree エージェントの起動プロンプトにもこの完了手順を含めること。**
 Agent 側がマージ・worktree 削除を行ってはならない。Main の責務。
 
 ## 注意事項
 
-- Agent-WT は push しない。本体がマージと push を行う
-- Agent-BG は検証と報告に集中する
-- 2並行を推奨（3レーン以上はレート制限リスク）
-- Agent-WT 起動時は `max_turns` を設定する
+- worktree エージェントは push しない。本体がマージと push を行う
+- background エージェントは検証と報告に集中する
+- 2並行を推奨（3並行以上はレート制限・枠消費リスク）
+- worktree エージェント起動時は `max_turns` を設定する

@@ -48,7 +48,7 @@ evidence から領域別レポートを生成するエージェント。
 3. Main が report-quality-evaluator を起動（Evaluator）
 4. Evaluator が独立評価し、PASS/WARN/FAIL を返す
 5. FAIL があれば、Evaluator のフィードバックを添えて Generator を再起動
-6. 最大3イテレーションで終了（3回目も FAIL なら人間エスカレーション）
+6. 終了は固定上限ではなく下記「終了条件（定量ゲート）」で判定する（cs#246）
 
 ### 終了条件（定量ゲート — cs#246）
 

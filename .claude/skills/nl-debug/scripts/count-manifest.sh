@@ -59,17 +59,25 @@ ref_count=$(echo "$referenced" | grep -c "\.pdf" || echo 0)
 echo "参照 PDF 数 (unique): $ref_count"
 
 # 欠落チェック
+# gitignore 登録済み PDF は意図的なローカル限定（cs#241/cs#246）。
+# クリーンチェックアウト/worktree では実体が無いのが正常なので「欠落」と区別する。
 echo ""
 echo "=== 欠落 PDF (manifest参照あり、ローカル実体なし) ==="
 missing=0
+ignored=0
 while IFS= read -r pdfpath; do
   [[ -z "$pdfpath" ]] && continue
   if [[ ! -f "$pdfpath" ]]; then
-    echo "  MISSING: $pdfpath"
-    missing=$((missing + 1))
+    if git check-ignore -q "$pdfpath" 2>/dev/null; then
+      echo "  IGNORED (local-only, expected): $pdfpath"
+      ignored=$((ignored + 1))
+    else
+      echo "  MISSING: $pdfpath"
+      missing=$((missing + 1))
+    fi
   fi
 done <<< "$referenced"
-if [[ $missing -eq 0 ]]; then
+if [[ $missing -eq 0 && $ignored -eq 0 ]]; then
   echo "  (なし)"
 fi
 
@@ -90,4 +98,4 @@ fi
 
 echo ""
 echo "=== 完了 ==="
-echo "欠落: $missing 件 / 未参照: $unreferenced 件"
+echo "欠落(真): $missing 件 / gitignore済(正常): $ignored 件 / 未参照: $unreferenced 件"
