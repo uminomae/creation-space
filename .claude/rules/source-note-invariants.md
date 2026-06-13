@@ -62,7 +62,17 @@ pd は cs raw PDF から `wiki/sources/` を**独立生成**する。その生�
 - 検査手順: `project-design/.claude/skills/wiki-compile/SKILL.md` Step 3b「生成後チェック」
 - cs は検査結果を受け取らない。矛盾が見つかった場合、pjdhiro が cs 側修正の要否を判断し、必要に応じて cs Issue に振り分ける
 
-## 6. 関連 Issue
+## 7. クロス領域 anchor の扱い（cs#245）
+
+一部の原典は本質的に複数領域に跨り、**同一 PDF を複数領域の anchor として再利用**している（例: Varela『Embodied Mind』= D14心理学+D08神経科学、世阿弥『風姿花伝』= D28+D15+D30）。
+
+- **`knowledge/raw/` の PDF ファイル名の D番号は「最初に raw 確保した領域」を示すだけ**。原典が属する唯一の領域ではない。
+- したがって「source_id の D番号 ≠ PDF ファイル名の D番号」は**齟齬ではない**。検査スクリプト（`bib-crosscheck.sh` / `count-manifest.sh` 等）でこのパターンを検出しても、`knowledge/source-notes/cross-domain-anchors.md` に記載があれば正規。
+- 同一原典を複数領域で読む場合、**領域ごとに別の source-note** を書く（異なる観点で読解）。これは重複ではない。
+- 新規にクロス領域 anchor を追加するときは、`cross-domain-anchors.md` に追記し、manifest 注記列に再利用元を明記する。
+- 正本一覧: **`knowledge/source-notes/cross-domain-anchors.md`**（4原典・9 source-note を記録）
+
+## 8. 関連 Issue
 
 - cs#225 — 乖離診断と原則の確立（closed）
 - cs#226 — cs hook 新設（旧 `wiki-gen-check.sh` → `source-note-gen-check.sh` rename 済, closed）
