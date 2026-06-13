@@ -26,14 +26,14 @@ track2_count=0
 checked=0
 
 while IFS= read -r line; do
-  sid=$(echo "$line" | grep -oE '^\| (D[0-9]+-S[0-9]+)' | sed 's/| //')
+  sid=$(echo "$line" | grep -oE '^\| (D[0-9]+-S[0-9]+)' | sed 's/| //' || true)
   [[ -z "$sid" ]] && continue
   echo "$sid" | grep -qE "^${RANGE}-" || continue
-  pdf=$(echo "$line" | grep -oE 'knowledge/raw/[A-Za-z0-9_./-]+\.pdf' | head -1)
+  pdf=$(echo "$line" | grep -oE 'knowledge/raw/[A-Za-z0-9_./-]+\.pdf' | head -1 || true)
   [[ -z "$pdf" ]] && continue
 
   base=$(basename "$pdf" .pdf)
-  fn_year=$(echo "$base" | grep -oE '_(1[6-9][0-9]{2}|20[0-9]{2})_' | head -1 | tr -d '_')
+  fn_year=$(echo "$base" | grep -oE '_(1[6-9][0-9]{2}|20[0-9]{2})_' | head -1 | tr -d '_' || true)
   author_slug=$(echo "$base" | sed -E 's/^D[0-9]+_([a-zA-Z-]+)_.*/\1/' | tr 'A-Z' 'a-z' | tr -d '-')
 
   dnn=$(echo "$sid" | grep -oE '^D[0-9]+')
