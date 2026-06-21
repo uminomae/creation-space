@@ -28,12 +28,21 @@
   - `\${` → `${` と書く（テンプレートリテラル内の式展開）
 - これらは全て SyntaxError になる。LLM がシェル向けエスケープを JS に混入する既知の問題であり、繰り返し発生しているため厳守すること。
 
-## CSS変更時のルール
+## Design system
 
 CSS（`src/styles/` 配下）を変更する前に:
-1. `docs/design-system.md` を読む
-2. `dev-components.html` のソースを読み、変更対象の影響範囲を確認する
-3. CSS変更後、`dev-components.html` の該当コンポーネントも更新する
+1. `DESIGN.md` (root) を読む — design system 全体像 (Stitch DESIGN.md format, Claude Design 互換)
+2. `src/styles/tokens.css` を読む — source of truth (CSS custom properties)
+3. `dev-components.html` のソースを読み、変更対象の影響範囲を確認する
+4. CSS変更後、`dev-components.html` の該当コンポーネントも更新する
+
+並走ファイル: `src/styles/tokens.json` — W3C Design Tokens 形式 (機械可読補助)
+
+変更時の制約:
+- `--ds-*` token は cs/as/ks 横断で同型 (値同一)、cs 固有は `--cs-*` namespace
+- 色は `rgb()` ではなく `r, g, b` の 3 値で定義 (`rgba()` で透明度を柔軟に変えるため)
+- z-index は数値直書き禁止、`--cs-z-*` semantic tokens を使う
+- 生 `rgba(100, 150, 255, ...)` を書かない (token 化必須)
 
 ### Bootstrap 優先原則
 

@@ -35,7 +35,7 @@ body.creation-page {
 
 .creation-page .creation-main {
   position: relative;
-  z-index: 5;
+  z-index: var(--cs-z-raised);
   padding-top: 140vh;
   /* Keep section content interactive while letting empty hero space pass drag events to the canvas. */
   pointer-events: none;
@@ -56,12 +56,12 @@ body.creation-page {
 .card.kesson-card.btn {
   color: rgba(var(--color-heading), 0.5);
   border-radius: 0.5rem;
-  box-shadow: var(--kesson-card-shadow-soft);
+  box-shadow: var(--ds-card-shadow-soft);
 }
 
 .card.kesson-card.btn:hover {
   color: rgba(var(--color-heading), 0.7);
-  box-shadow: var(--kesson-card-shadow-rich);
+  box-shadow: var(--ds-card-shadow-rich);
 }
 
 /* ── Section headings — high contrast + shadow ── */
@@ -77,7 +77,7 @@ body.creation-page {
 
 .room-narration {
   position: relative;
-  z-index: 21;
+  z-index: var(--cs-z-ui-mid-3);
   padding: 8rem 1.5rem 1.5rem;
   text-align: center;
 }
@@ -134,7 +134,7 @@ body.creation-page {
   gap: 0.4rem;
   flex: 1;
   cursor: pointer;
-  z-index: 1;
+  z-index: var(--cs-z-content);
   padding: 0.5rem 0.25rem;
   transition: transform 0.3s ease;
 }
@@ -209,7 +209,7 @@ body.creation-page {
     rgba(100, 150, 255, 0.5) var(--progress, 20%),
     rgba(210, 225, 250, 0.1) var(--progress, 20%)
   );
-  z-index: 0;
+  z-index: var(--cs-z-base);
   transition: background 0.4s ease;
   pointer-events: none;
 }
@@ -227,7 +227,7 @@ body.creation-page {
 }
 
 .prologue-desc-title {
-  font-family: var(--kesson-font-serif-ui);
+  font-family: var(--ds-font-serif-ui);
   font-size: clamp(1rem, 2.5vmin, 1.15rem);
   font-weight: 400;
   letter-spacing: 0.05em;
@@ -237,7 +237,7 @@ body.creation-page {
 }
 
 .prologue-desc-text {
-  font-family: var(--kesson-font-serif-ui);
+  font-family: var(--ds-font-serif-ui);
   font-size: clamp(0.82rem, 2vmin, 0.95rem);
   font-weight: 300;
   color: rgba(210, 225, 250, var(--text-timeline-desc-opacity));
@@ -256,7 +256,7 @@ body.creation-page {
 }
 
 .next-question-text {
-  font-family: var(--kesson-font-serif-ui);
+  font-family: var(--ds-font-serif-ui);
   font-size: clamp(0.9rem, 2.5vmin, 1.1rem);
   font-weight: 300;
   color: rgba(210, 225, 250, var(--text-question-opacity));

@@ -31,11 +31,15 @@ LLM の事前知識ではなく、原典の本文に基づいて 5 段階モデ�
 - **raw-confirmed 経路**: PDF を DL → `knowledge/raw/` に配置 → commit hook で wiki 生成がトリガーされる（hook 実装後）
 - **url-verified 経路**: PDF を DL しない。WebFetch で読むだけなので、wiki 生成には明示的な CLI 指示が必要。現在の D01→D02→... の順次処理はこの指示を行っている
 
+> ⚠️ **取得を始める前に必ず読む**: `docs/knowledge-raw-policy.md`「原典取得・検証の追加規律」（cs#250 / 教訓 CL-008）。
+> `url-verified` は「取得できる」を意味しない（cs#221）。取得後は **書誌クロスチェック必須**（取得 PDF が manifest の論文と同一か。cs#240, D03-S08, D23-S08）。
+
 手順:
 1. `knowledge/raw/manifest.md` から対象 source の情報を取得
 2. access_status に応じて原典を読む:
    - `raw-confirmed`: Read ツールで `knowledge/raw/` の PDF を読む（大きい場合は pages パラメータで分割）
-   - `url-verified`: WebFetch で URL からテキストを取得（読むだけ。DL しない）
+   - `url-verified`: WebFetch / curl で取得を**試みる**（取得できない publisher・スキャン PDF が多い。取得経路の現実は knowledge-raw-policy.md 規律1の表を参照）
+2.5. **書誌クロスチェック**: 取得 PDF の著者・年・タイトル（可能なら DOI）を `pdftotext`/`pdfinfo` で抽出し manifest 行と照合。不一致なら生成停止＋ `.cache/inbox/` に manifest 誤りとして起票
 3. `templates/source-reading.md` に従って構造化抽出
 4. 5 段階との対応候補を記入（原文引用必須）
 5. 部分読解の場合、未読セクションを明記

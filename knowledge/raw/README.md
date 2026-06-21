@@ -8,15 +8,24 @@
 
 D01-D30 の全領域で、追跡対象 source の原典を取得し、精読可能な状態にする。
 
-### 現在地（2026-04-10）
+### 大きな地図（調査パイプライン）
 
-- 435本追跡中（`manifest.md` で管理）
-- raw-confirmed（PDF 格納済み）: 80本
-- url-verified（OA URL 閲覧確認済み）: 190本
-- citation-only（書誌のみ）: 144本
-- blocked-access（取得不可）: 21本
-- **次のステップ**: raw-confirmed / url-verified の原典を精読→wiki 化（パイプライン第2-3段階）
-- 追跡 Issue: cs#217
+```
+manifest.md（取得状況の正本）
+  → 取得（raw-confirmed / url-verified）
+    → source-note 精読（knowledge/source-notes/、READING-PROTOCOL.md）
+      ├→ cs evidence rebuild（cs#224）
+      └→ pd wiki cross-check（pd#112、pd 側の整合性監査）
+```
+
+### 現在地（2026-06-21）
+
+- 追跡 447本（類似論文 153 含む）。raw-confirmed 100 / url-verified 257 / citation-only 14 / blocked-access 73（manifest 集計 2026-04-12 基準）
+- **いま作業中の段階 = source-note backfill（cs#249）**: pd wiki に対応する cs source-note を補完し cross-check 網羅性を上げる。url-verified 71本が対象、2026-06-21 時点で **13/71 完了**、残り ~57。
+  - 残りの大半は publisher の bot ブロック・スキャン PDF・URL 不整合 → LLM 単独取得は困難。並列エージェント経路 or 手動DL に回す（理由は下記）。
+- **取得の落とし穴は正本化済み**: `docs/knowledge-raw-policy.md`「原典取得・検証の追加規律」（cs#250 / 教訓 CL-008）。`url-verified` ≠ 取得可、取得後は書誌クロスチェック必須。
+- 追跡 Issue: cs#249（backfill 実務）/ cs#250（取得・検証の正本統合）/ cs#240（書誌クロスチェック自動化）
+- **視覚ダッシュボード**: リポジトリ root の `dashboard.html`（GitHub issue をライブ取得して現在地・phase を表示）。ロードマップは cs#251
 
 ---
 

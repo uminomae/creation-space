@@ -31,6 +31,12 @@ original_access_status: not-yet-reviewed
 - citation-only: 8件。archive refs / ref-check 起点の first-pass source rows
 - manual/browser 余地:
   blocked-access source は CLI challenge / login redirect / HTML landing の可能性を残すため、notes を維持する
+## 2026-06-13 理論系ギャップ是正（cs#245 follow-up）
+
+- cs#245 C-1 網羅性分析は D26 を「全空白(CRITICAL)」と記載したが、これは測定バグ（`raw-confirmed=0` を「全件空白」と誤認）。実測は url-verified 10件・source-note 8本で、神経科学・実証系のカバレッジは十分。
+- 真のギャップは **理論・美学系の薄さ**（Meyer 1956 / Huron 2006 は citation-only/blocked、Lerdahl & Jackendoff 1983 / Hanslick は不在）。
+- 是正: **Hanslick『The Beautiful in Music』(1854/1891 Cohen 英訳)** を public domain OA で取得し `url-verified` 登録、source-note `D26-S21_hanslick-1891.md` を生成。音楽美学の自律的形式論（tönend bewegte Formen = 創造的精神の直接的産物）を Stage 2-4 アンカーとして追加。
+
 ## History
 
 - スナップショット: [`evidence/archive/pre-rerun-20260407/evidence/evidence-D26-musicology.md`](archive/pre-rerun-20260407/evidence/evidence-D26-musicology.md)

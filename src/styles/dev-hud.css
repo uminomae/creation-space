@@ -1,18 +1,18 @@
 .dev-components-link {
   display: none;
   position: fixed;
-  top: calc(var(--kesson-topbar-actual-height, var(--kesson-topbar-height)) + 2.95rem);
+  top: calc(var(--cs-topbar-actual-height, var(--cs-topbar-height)) + 2.95rem);
   right: 0.95rem;
-  z-index: 58;
+  z-index: var(--cs-z-ui-high);
   padding: 0.2rem 0.48rem;
   border-radius: 999px;
-  border: 1px solid var(--kesson-dev-hud-border);
-  background: var(--kesson-dev-hud-bg);
-  color: var(--kesson-dev-hud-text);
-  font-size: var(--kesson-dev-hud-font-size, 0.80rem);
+  border: 1px solid var(--cs-dev-hud-border);
+  background: var(--cs-dev-hud-bg);
+  color: var(--cs-dev-hud-text);
+  font-size: var(--cs-dev-hud-font-size, 0.80rem);
   letter-spacing: 0.04em;
   line-height: 1;
-  font-family: var(--kesson-font-mono-ui);
+  font-family: var(--ds-font-mono-ui);
   white-space: nowrap;
   text-decoration: none;
   pointer-events: auto;
@@ -33,24 +33,24 @@
   top: auto !important;
   bottom: 0 !important;
   left: 0 !important;
-  z-index: 100;
+  z-index: var(--cs-z-hud);
 }
 
 #intent-timeline-hud {
   position: fixed;
-  top: calc(var(--kesson-topbar-actual-height, var(--kesson-topbar-height)) + 4.1rem);
+  top: calc(var(--cs-topbar-actual-height, var(--cs-topbar-height)) + 4.1rem);
   left: 0.95rem;
-  z-index: 58;
+  z-index: var(--cs-z-ui-high);
   width: fit-content;
   min-width: 0;
   max-width: min(90vw, 26rem);
   padding: 0.5rem;
   border-radius: 0.5rem;
-  border: 1px solid var(--kesson-dev-hud-border);
-  background: var(--kesson-dev-hud-bg);
-  color: var(--kesson-dev-hud-text);
-  font-family: var(--kesson-font-mono-ui);
-  font-size: var(--kesson-dev-hud-font-size, 0.80rem);
+  border: 1px solid var(--cs-dev-hud-border);
+  background: var(--cs-dev-hud-bg);
+  color: var(--cs-dev-hud-text);
+  font-family: var(--ds-font-mono-ui);
+  font-size: var(--cs-dev-hud-font-size, 0.80rem);
   line-height: 1.45;
   display: none;
   backdrop-filter: blur(8px);
@@ -63,16 +63,16 @@
 
 #intent-timeline-form-panel {
   position: fixed;
-  z-index: 58;
+  z-index: var(--cs-z-ui-high);
   display: none;
   max-width: min(90vw, 26rem);
   padding: 0.5rem;
   border-radius: 0.5rem;
-  border: 1px solid var(--kesson-dev-hud-border);
-  background: var(--kesson-dev-hud-bg);
-  color: var(--kesson-dev-hud-text);
-  font-family: var(--kesson-font-mono-ui);
-  font-size: var(--kesson-dev-hud-font-size, 0.80rem);
+  border: 1px solid var(--cs-dev-hud-border);
+  background: var(--cs-dev-hud-bg);
+  color: var(--cs-dev-hud-text);
+  font-family: var(--ds-font-mono-ui);
+  font-size: var(--cs-dev-hud-font-size, 0.80rem);
   line-height: 1.45;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -85,7 +85,7 @@
 .intent-timeline-hud-readout {
   margin: 0;
   white-space: pre;
-  color: var(--kesson-dev-hud-text);
+  color: var(--cs-dev-hud-text);
 }
 
 .intent-timeline-hud-controls {
@@ -95,7 +95,7 @@
 }
 
 .intent-timeline-hud-controls label {
-  color: var(--kesson-dev-panel-help-color);
+  color: var(--cs-dev-panel-help-color);
   letter-spacing: 0.05em;
 }
 
@@ -103,13 +103,13 @@
 #intent-timeline-start-utime-input,
 #intent-timeline-shift-sec-input {
   width: 100%;
-  border: 1px solid var(--kesson-dev-hud-input-border);
+  border: 1px solid var(--cs-dev-hud-input-border);
   border-radius: 0.32rem;
-  background: var(--kesson-dev-hud-input-bg);
-  color: var(--kesson-dev-hud-input-text);
+  background: var(--cs-dev-hud-input-bg);
+  color: var(--cs-dev-hud-input-text);
   padding: 0.22rem 0.38rem;
   font-family: inherit;
-  font-size: var(--kesson-dev-hud-font-size, 0.80rem);
+  font-size: var(--cs-dev-hud-font-size, 0.80rem);
   line-height: 1.2;
 }
 
@@ -124,19 +124,19 @@
 }
 
 .intent-timeline-hud-actions button {
-  border: 1px solid var(--kesson-dev-hud-btn-border);
+  border: 1px solid var(--cs-dev-hud-btn-border);
   border-radius: 0.32rem;
-  background: var(--kesson-dev-hud-btn-bg);
-  color: var(--kesson-dev-hud-btn-text);
+  background: var(--cs-dev-hud-btn-bg);
+  color: var(--cs-dev-hud-btn-text);
   padding: 0.22rem 0.32rem;
   font-family: inherit;
-  font-size: var(--kesson-dev-hud-font-size, 0.80rem);
+  font-size: var(--cs-dev-hud-font-size, 0.80rem);
   line-height: 1.2;
   cursor: pointer;
 }
 
 .intent-timeline-hud-actions button:hover {
-  background: var(--kesson-dev-hud-btn-bg-hover);
+  background: var(--cs-dev-hud-btn-bg-hover);
 }
 
 #dev-toggle {
@@ -144,15 +144,15 @@
   top: 50%;
   right: 0;
   transform: translateY(-50%);
-  z-index: 1001;
-  background: var(--kesson-dev-toggle-bg);
+  z-index: var(--cs-z-dev-overlay);
+  background: var(--cs-dev-toggle-bg);
   backdrop-filter: blur(8px);
-  border: 1px solid var(--kesson-dev-toggle-border);
+  border: 1px solid var(--cs-dev-toggle-border);
   border-right: none;
   border-radius: 4px 0 0 4px;
-  color: var(--kesson-dev-toggle-text);
-  font-size: var(--kesson-dev-hud-font-size, 0.80rem);
-  font-family: var(--kesson-font-mono-ui);
+  color: var(--cs-dev-toggle-text);
+  font-size: var(--cs-dev-hud-font-size, 0.80rem);
+  font-family: var(--ds-font-mono-ui);
   padding: 8px 5px;
   cursor: pointer;
   writing-mode: vertical-rl;
@@ -161,8 +161,8 @@
 }
 
 #dev-toggle:hover {
-  color: var(--kesson-dev-toggle-text-hover);
-  background: var(--kesson-dev-toggle-bg-hover);
+  color: var(--cs-dev-toggle-text-hover);
+  background: var(--cs-dev-toggle-bg-hover);
 }
 
 #dev-toggle.open {
@@ -202,7 +202,7 @@
 
 #dev-panel .form-check-label {
   font-size: 0.80rem;
-  font-family: var(--kesson-font-mono-ui);
+  font-family: var(--ds-font-mono-ui);
   color: rgba(var(--color-sub-text), 0.7);
   order: -1;
   padding-left: 0;
@@ -233,8 +233,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: var(--kesson-dev-hud-font-size, 0.80rem);
-  font-family: var(--kesson-font-mono-ui);
+  font-size: var(--cs-dev-hud-font-size, 0.80rem);
+  font-family: var(--ds-font-mono-ui);
   color: rgba(var(--color-sub-text), 0.6);
   margin-bottom: 0.15rem;
 }
@@ -246,7 +246,7 @@
 }
 
 #dev-export-result {
-  font-size: var(--kesson-dev-hud-font-size, 0.80rem);
+  font-size: var(--cs-dev-hud-font-size, 0.80rem);
   max-height: 180px;
   overflow-y: auto;
   display: none;
@@ -254,7 +254,7 @@
 }
 
 .dev-panel-header-text {
-  font-family: var(--kesson-font-mono-ui);
+  font-family: var(--ds-font-mono-ui);
   letter-spacing: 0.1em;
 }
 
@@ -267,15 +267,15 @@
   top: calc(50% + 95px);
   right: 0;
   transform: translateY(-50%);
-  z-index: 1001;
-  background: var(--kesson-dev-toggle-bg);
+  z-index: var(--cs-z-dev-overlay);
+  background: var(--cs-dev-toggle-bg);
   backdrop-filter: blur(8px);
-  border: 1px solid var(--kesson-dev-toggle-border);
+  border: 1px solid var(--cs-dev-toggle-border);
   border-right: none;
   border-radius: 4px 0 0 4px;
-  color: var(--kesson-dev-toggle-text);
-  font-size: var(--kesson-dev-hud-font-size, 0.80rem);
-  font-family: var(--kesson-font-mono-ui);
+  color: var(--cs-dev-toggle-text);
+  font-size: var(--cs-dev-hud-font-size, 0.80rem);
+  font-family: var(--ds-font-mono-ui);
   padding: 8px 5px;
   cursor: pointer;
   writing-mode: vertical-rl;
@@ -284,8 +284,8 @@
 }
 
 #dev-links-toggle:hover {
-  color: var(--kesson-dev-toggle-text-hover);
-  background: var(--kesson-dev-toggle-bg-hover);
+  color: var(--cs-dev-toggle-text-hover);
+  background: var(--cs-dev-toggle-bg-hover);
 }
 
 .offcanvas-links {
@@ -317,7 +317,7 @@
 .dev-links-key {
   font-size: 0.80rem;
   color: rgba(170, 190, 220, 0.7);
-  font-family: var(--kesson-font-mono-ui);
+  font-family: var(--ds-font-mono-ui);
   letter-spacing: 0.05em;
 }
 
@@ -342,7 +342,7 @@
 
 @media (max-width: 767.98px) {
   #intent-timeline-hud {
-    top: calc(var(--kesson-topbar-actual-height, var(--kesson-topbar-height)) + 3.8rem);
+    top: calc(var(--cs-topbar-actual-height, var(--cs-topbar-height)) + 3.8rem);
     left: 0.6rem;
     width: fit-content;
     min-width: 0;

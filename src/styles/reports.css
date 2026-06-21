@@ -3,15 +3,15 @@
 #articles-section,
 #reports-cross-analysis-section {
   position: relative;
-  z-index: 5;
-  --reports-font-mono: var(--kesson-font-mono-ui);
-  --reports-font-serif: var(--kesson-font-serif-ui);
+  z-index: var(--cs-z-raised);
+  --reports-font-mono: var(--ds-font-mono-ui);
+  --reports-font-serif: var(--ds-font-serif-ui);
   --reports-font-sans: var(--cs-font-sans-ui);
   --reports-panel-radius: .5rem;
   --reports-panel-padding: .9rem;
   --reports-stack-gap: .9rem;
-  --reports-panel-shadow: var(--kesson-card-shadow-soft);
-  --reports-panel-shadow-hover: var(--kesson-card-shadow-rich);
+  --reports-panel-shadow: var(--ds-card-shadow-soft);
+  --reports-panel-shadow-hover: var(--ds-card-shadow-rich);
   --reports-border-soft: rgba(var(--color-accent), .12);
   --reports-border-base: rgba(var(--color-accent), .2);
   --reports-border-strong: rgba(var(--color-accent), .35);
@@ -23,7 +23,7 @@
   --reports-card-bg: rgba(var(--color-accent), .06);
   --reports-card-border: rgba(var(--color-accent), .14);
   --reports-control-font-size: calc(.8rem + var(--reports-font-step));
-  --reports-control-letter-spacing: var(--kesson-letter-ui-normal);
+  --reports-control-letter-spacing: var(--ds-letter-ui-normal);
   --reports-palette-1-rgb: 157, 172, 194;
   --reports-palette-2-rgb: 241, 190, 82;
   --reports-palette-3-rgb: 92, 145, 255;
@@ -59,7 +59,7 @@
 /* AI notice は hero 直後に移動（#model-section 外） */
 #reports-ai-notice {
   position: relative;
-  z-index: 6;
+  z-index: var(--cs-z-raised-2);
   text-align: center;
   margin: 1.5rem 0 1rem;
 }
@@ -76,12 +76,12 @@
   --bs-btn-active-bg: var(--reports-bg-active);
   --bs-btn-active-border-color: rgba(var(--color-accent), .45);
   --bs-btn-focus-shadow-rgb: var(--color-accent);
-  --bs-btn-border-radius: var(--kesson-radius-sm);
+  --bs-btn-border-radius: var(--ds-radius-sm);
   font-family: var(--reports-font-serif);
   font-size: var(--reports-control-font-size);
-  letter-spacing: var(--kesson-letter-ui-tight);
+  letter-spacing: var(--ds-letter-ui-tight);
   text-transform: none;
-  transition: border-color var(--kesson-transition-standard), background var(--kesson-transition-standard), color var(--kesson-transition-standard), box-shadow var(--kesson-transition-standard);
+  transition: border-color var(--ds-transition-standard), background var(--ds-transition-standard), color var(--ds-transition-standard), box-shadow var(--ds-transition-standard);
 }
 
 #reports-section .is-palette-1 {
@@ -174,9 +174,9 @@
 .reports-subheading {
   margin: 0 0 .65rem;
   color: rgba(var(--color-heading), .82);
-  font-size: var(--kesson-card-title, 1.0rem);
-  letter-spacing: var(--kesson-letter-ui-heading);
-  font-family: var(--kesson-font-serif-display);
+  font-size: var(--ds-card-title, 1.0rem);
+  letter-spacing: var(--ds-letter-ui-heading);
+  font-family: var(--ds-font-serif-display);
   font-weight: 400;
   text-transform: none;
 }
@@ -184,7 +184,7 @@
 .reports-ai-notice {
   margin: 0 0 .85rem;
   color: rgba(var(--color-sub-text), .78);
-  font-size: var(--kesson-card-text, 0.92rem);
+  font-size: var(--ds-card-text, 0.92rem);
   line-height: 1.6;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
@@ -192,7 +192,7 @@
 .reports-level-legend {
   margin: 0 0 .65rem;
   color: rgba(var(--color-sub-text), .7);
-  font-size: var(--kesson-card-text, 0.92rem);
+  font-size: var(--ds-card-text, 0.92rem);
   line-height: 1.6;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   white-space: normal;
@@ -227,12 +227,12 @@
   padding: .72rem 1rem;
   border-color: var(--reports-border-strong);
   border-width: 1px;
-  border-radius: var(--kesson-radius-md);
+  border-radius: var(--ds-radius-md);
   background: rgba(var(--color-accent), .2);
   color: rgba(var(--color-highlight), .92);
   font-family: var(--reports-font-serif);
   font-size: clamp(calc(.79rem + var(--reports-font-step)), calc(2.35vmin + var(--reports-font-step)), calc(.94rem + var(--reports-font-step)));
-  letter-spacing: var(--kesson-letter-ui-tight);
+  letter-spacing: var(--ds-letter-ui-tight);
   box-shadow: 0 0 .8rem rgba(var(--color-accent), .12);
 }
 
@@ -251,7 +251,7 @@
   appearance: none;
   -webkit-appearance: none;
   position: relative;
-  z-index: 2;
+  z-index: var(--cs-z-content-2);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -275,7 +275,7 @@
   text-shadow: 0 0 10px rgba(var(--reports-slide-btn-rgb), .1);
   cursor: pointer;
   touch-action: manipulation;
-  transition: border-color var(--kesson-transition-standard), background var(--kesson-transition-standard), color var(--kesson-transition-standard), box-shadow var(--kesson-transition-standard), transform var(--kesson-transition-snappy);
+  transition: border-color var(--ds-transition-standard), background var(--ds-transition-standard), color var(--ds-transition-standard), box-shadow var(--ds-transition-standard), transform var(--ds-transition-snappy);
 }
 
 .reports-slide-btn:hover,
@@ -316,9 +316,9 @@
 }
 
 .report-metric-card {
-  background: var(--kesson-card-bg);
-  border: 1px solid var(--kesson-card-border);
-  border-radius: var(--kesson-radius-lg);
+  background: var(--cs-card-bg);
+  border: 1px solid var(--ds-card-border);
+  border-radius: var(--ds-radius-lg);
   box-shadow: var(--reports-panel-shadow);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
@@ -327,7 +327,7 @@
 .report-metric-label {
   color: rgba(var(--color-heading), .5);
   font-size: calc(.8rem + var(--reports-font-step));
-  letter-spacing: var(--kesson-letter-ui-tight);
+  letter-spacing: var(--ds-letter-ui-tight);
   font-family: var(--reports-font-serif);
 }
 
@@ -357,7 +357,7 @@
 }
 
 .reports-domain-item {
-  --bs-card-border-radius: var(--kesson-radius-lg);
+  --bs-card-border-radius: var(--ds-radius-lg);
   min-height: 3.45rem;
   padding: 0;
   border: 1px solid rgba(var(--reports-palette-rgb), .28);
@@ -367,7 +367,7 @@
   font-family: var(--reports-font-serif);
   font-size: var(--reports-control-font-size);
   letter-spacing: var(--reports-control-letter-spacing);
-  transition: border-color var(--kesson-transition-snappy), background-color var(--kesson-transition-snappy), box-shadow var(--kesson-transition-snappy), transform var(--kesson-transition-snappy), opacity var(--kesson-transition-snappy);
+  transition: border-color var(--ds-transition-snappy), background-color var(--ds-transition-snappy), box-shadow var(--ds-transition-snappy), transform var(--ds-transition-snappy), opacity var(--ds-transition-snappy);
 }
 
 .reports-domain-item:hover {
@@ -410,7 +410,7 @@
 .reports-domain-item-name {
   color: rgba(var(--color-heading), .82);
   font-size: calc(.8rem + var(--reports-font-step));
-  font-family: var(--kesson-font-serif-display);
+  font-family: var(--ds-font-serif-display);
   line-height: 1.2;
   letter-spacing: .03em;
   display: -webkit-box;
@@ -428,11 +428,11 @@
 }
 
 #reports-md-modal {
-  z-index: 100002;
+  z-index: var(--cs-z-modal-top);
 }
 
 .reports-md-modal-content {
-  background: var(--kesson-offcanvas-bg);
+  background: var(--cs-offcanvas-bg);
   color: rgba(var(--color-heading), .92);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -500,7 +500,7 @@
 
 .reports-phase8-card {
   cursor: pointer;
-  transition: border-color var(--kesson-transition-snappy), background-color var(--kesson-transition-snappy), box-shadow var(--kesson-transition-snappy), transform var(--kesson-transition-snappy);
+  transition: border-color var(--ds-transition-snappy), background-color var(--ds-transition-snappy), box-shadow var(--ds-transition-snappy), transform var(--ds-transition-snappy);
 }
 
 .reports-phase8-card:hover {
@@ -520,9 +520,9 @@
   object-fit: cover;
   object-position: top;
   border-bottom: 1px solid rgba(var(--reports-palette-rgb), .18);
-  border-radius: var(--kesson-radius-lg) var(--kesson-radius-lg) 0 0;
+  border-radius: var(--ds-radius-lg) var(--ds-radius-lg) 0 0;
   opacity: .85;
-  transition: opacity var(--kesson-transition-snappy);
+  transition: opacity var(--ds-transition-snappy);
 }
 
 .reports-domain-item:hover .reports-domain-item-thumbnail {
@@ -547,7 +547,7 @@
   letter-spacing: .04em;
   padding: .15rem .5rem;
   align-self: flex-start;
-  z-index: 2;
+  z-index: var(--cs-z-content-2);
 }
 
 .reports-domain-pres-btn:focus-visible {
@@ -802,7 +802,7 @@
 .hover-grid-cell-name {
   font-size: 0.85rem;
   font-weight: 400;
-  font-family: var(--kesson-font-serif-display);
+  font-family: var(--ds-font-serif-display);
   letter-spacing: 0.06em;
   color: rgba(241, 245, 249, 0.92);
   margin-bottom: 0.75rem;
@@ -824,7 +824,7 @@
 }
 
 .hover-grid-cell-content {
-  font-size: var(--kesson-card-text, 0.92rem);
+  font-size: var(--ds-card-text, 0.92rem);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.85);
@@ -895,7 +895,7 @@
 .hover-grid-modal {
   position: fixed;
   inset: 0;
-  z-index: 100001;
+  z-index: var(--cs-z-modal);
   background: rgba(10, 14, 23, 0.95);
   display: flex;
   flex-direction: column;
@@ -920,8 +920,8 @@
   font-size: 1.4rem;
   font-weight: 400;
   color: rgba(241, 245, 249, 0.92);
-  font-family: var(--kesson-font-serif-display, 'Noto Serif JP', serif);
-  letter-spacing: var(--kesson-letter-ui-heading);
+  font-family: var(--ds-font-serif-display, 'Noto Serif JP', serif);
+  letter-spacing: var(--ds-letter-ui-heading);
 }
 
 .hover-grid-modal-status {
@@ -972,7 +972,7 @@
 
 /* Button in REPORTS section to open modal */
 #reports-hover-grid-open-btn {
-  font-family: var(--kesson-font-serif-display, 'Noto Serif JP', serif);
+  font-family: var(--ds-font-serif-display, 'Noto Serif JP', serif);
   font-size: 1rem;
   letter-spacing: 0.06em;
   padding: 0.7rem 2rem;

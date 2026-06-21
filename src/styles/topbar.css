@@ -1,43 +1,43 @@
 :root {
-  --kesson-topbar-main-title-size: clamp(0.96rem, 1.85vw, 1.38rem);
-  --kesson-topbar-main-title-size-sm: 0.86rem;
-  --kesson-topbar-title-size: clamp(0.88rem, 1.1vw, 0.96rem);
-  --kesson-topbar-subtitle-size: var(--kesson-topbar-title-size);
-  --kesson-topbar-subtitle-size-md: 0.88rem;
-  --kesson-topbar-link-size: 0.88rem;
-  --kesson-topbar-note-size: 0.88rem;
-  --kesson-topbar-note-size-sm: var(--kesson-topbar-note-size);
-  --kesson-topbar-credit-size: 0.84rem;
-  --kesson-topbar-meta-size: 0.86rem;
-  --kesson-topbar-meta-author-size: 0.84rem;
-  --kesson-topbar-bg-start: rgba(10, 14, 24, var(--kesson-topbar-alpha-strong));
-  --kesson-topbar-bg-end: rgba(10, 14, 24, var(--kesson-topbar-alpha-soft));
-  --kesson-topbar-border-color: rgba(130, 170, 240, var(--kesson-topbar-border-alpha));
-  --kesson-topbar-divider-color: rgba(170, 192, 228, 0.42);
-  --kesson-topbar-title-color: rgba(228, 238, 255, 0.92);
-  --kesson-topbar-title-hover-color: rgba(242, 248, 255, 1);
-  --kesson-topbar-subtitle-color: rgba(205, 220, 244, 0.76);
-  --kesson-topbar-meta-color: rgba(186, 204, 234, 0.72);
-  --kesson-topbar-meta-author-color: rgba(184, 203, 234, 0.74);
-  --kesson-topbar-link-color: rgba(205, 220, 244, 0.78);
-  --kesson-topbar-link-hover-color: rgba(236, 244, 255, 0.98);
-  --kesson-topbar-link-hover-bg: rgba(120, 165, 240, 0.2);
-  --kesson-topbar-note-divider-color: rgba(130, 170, 240, 0.2);
-  --kesson-topbar-note-color: rgba(165, 214, 255, 0.74);
-  --kesson-topbar-lang-color: rgba(218, 232, 255, 0.9);
-  --kesson-topbar-lang-border: rgba(130, 170, 240, 0.25);
-  --kesson-topbar-lang-bg: rgba(70, 102, 160, 0.16);
-  --kesson-topbar-nav-bg: rgba(9, 13, 24, 0.82);
-  --kesson-topbar-nav-border: rgba(130, 170, 240, 0.2);
-  --kesson-topbar-toggler-border: rgba(145, 178, 242, 0.55);
-  --kesson-topbar-toggler-focus: rgba(140, 180, 252, 0.35);
-  --kesson-topbar-height: 3.25rem;
-  --kesson-topbar-alpha-strong: 0.10;
-  --kesson-topbar-alpha-soft: 0.10;
-  --kesson-topbar-border-alpha: 0.22;
-  --kesson-topbar-shadow-alpha: 0.26;
-  --kesson-topbar-blur: 14px;
-  --kesson-topbar-saturate: 145%;
+  --cs-topbar-main-title-size: clamp(0.96rem, 1.85vw, 1.38rem);
+  --cs-topbar-main-title-size-sm: 0.86rem;
+  --cs-topbar-title-size: clamp(0.88rem, 1.1vw, 0.96rem);
+  --cs-topbar-subtitle-size: var(--cs-topbar-title-size);
+  --cs-topbar-subtitle-size-md: 0.88rem;
+  --cs-topbar-link-size: 0.88rem;
+  --cs-topbar-note-size: 0.88rem;
+  --cs-topbar-note-size-sm: var(--cs-topbar-note-size);
+  --cs-topbar-credit-size: 0.84rem;
+  --cs-topbar-meta-size: 0.86rem;
+  --cs-topbar-meta-author-size: 0.84rem;
+  --cs-topbar-bg-start: rgba(10, 14, 24, var(--cs-topbar-alpha-strong));
+  --cs-topbar-bg-end: rgba(10, 14, 24, var(--cs-topbar-alpha-soft));
+  --cs-topbar-border-color: rgba(130, 170, 240, var(--cs-topbar-border-alpha));
+  --cs-topbar-divider-color: rgba(170, 192, 228, 0.42);
+  --cs-topbar-title-color: rgba(228, 238, 255, 0.92);
+  --cs-topbar-title-hover-color: rgba(242, 248, 255, 1);
+  --cs-topbar-subtitle-color: rgba(205, 220, 244, 0.76);
+  --cs-topbar-meta-color: rgba(186, 204, 234, 0.72);
+  --cs-topbar-meta-author-color: rgba(184, 203, 234, 0.74);
+  --cs-topbar-link-color: rgba(205, 220, 244, 0.78);
+  --cs-topbar-link-hover-color: rgba(236, 244, 255, 0.98);
+  --cs-topbar-link-hover-bg: rgba(120, 165, 240, 0.2);
+  --cs-topbar-note-divider-color: rgba(130, 170, 240, 0.2);
+  --cs-topbar-note-color: rgba(165, 214, 255, 0.74);
+  --cs-topbar-lang-color: rgba(218, 232, 255, 0.9);
+  --cs-topbar-lang-border: rgba(130, 170, 240, 0.25);
+  --cs-topbar-lang-bg: rgba(70, 102, 160, 0.16);
+  --cs-topbar-nav-bg: rgba(9, 13, 24, 0.82);
+  --cs-topbar-nav-border: rgba(130, 170, 240, 0.2);
+  --cs-topbar-toggler-border: rgba(145, 178, 242, 0.55);
+  --cs-topbar-toggler-focus: rgba(140, 180, 252, 0.35);
+  --cs-topbar-height: 3.25rem;
+  --cs-topbar-alpha-strong: 0.10;
+  --cs-topbar-alpha-soft: 0.10;
+  --cs-topbar-border-alpha: 0.22;
+  --cs-topbar-shadow-alpha: 0.26;
+  --cs-topbar-blur: 14px;
+  --cs-topbar-saturate: 145%;
 }
 
 #kesson-topbar {
@@ -46,16 +46,16 @@
   left: 0;
   width: 100%;
   min-height: 3.25rem;
-  z-index: 60;
+  z-index: var(--cs-z-topbar);
   background: linear-gradient(
     to bottom,
-    var(--kesson-topbar-bg-start) 0%,
-    var(--kesson-topbar-bg-end) 100%
+    var(--cs-topbar-bg-start) 0%,
+    var(--cs-topbar-bg-end) 100%
   );
-  border-bottom: 1px solid var(--kesson-topbar-border-color);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, var(--kesson-topbar-shadow-alpha));
-  backdrop-filter: blur(var(--kesson-topbar-blur)) saturate(var(--kesson-topbar-saturate));
-  -webkit-backdrop-filter: blur(var(--kesson-topbar-blur)) saturate(var(--kesson-topbar-saturate));
+  border-bottom: 1px solid var(--cs-topbar-border-color);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, var(--cs-topbar-shadow-alpha));
+  backdrop-filter: blur(var(--cs-topbar-blur)) saturate(var(--cs-topbar-saturate));
+  -webkit-backdrop-filter: blur(var(--cs-topbar-blur)) saturate(var(--cs-topbar-saturate));
   padding-top: 0;
   padding-bottom: 0;
 }
@@ -76,9 +76,9 @@
 }
 
 #kesson-topbar .topbar-main-title {
-  color: var(--kesson-topbar-title-color);
-  font-family: var(--kesson-font-serif-display);
-  font-size: var(--kesson-topbar-main-title-size);
+  color: var(--cs-topbar-title-color);
+  font-family: var(--ds-font-serif-display);
+  font-size: var(--cs-topbar-main-title-size);
   letter-spacing: 0.04em;
   line-height: 1;
   text-transform: none;
@@ -90,12 +90,12 @@
 
 #kesson-topbar .topbar-main-title:hover,
 #kesson-topbar .topbar-main-title:focus-visible {
-  color: var(--kesson-topbar-title-hover-color);
+  color: var(--cs-topbar-title-hover-color);
 }
 
 #kesson-topbar .topbar-status-badge {
-  font-family: var(--kesson-font-mono-ui);
-  font-size: var(--kesson-topbar-credit-size);
+  font-family: var(--ds-font-mono-ui);
+  font-size: var(--cs-topbar-credit-size);
   letter-spacing: 0.08em;
   padding: 0.2rem 0.5rem;
   line-height: 1.1;
@@ -103,9 +103,9 @@
 }
 
 #kesson-topbar .topbar-subtitle {
-  font-size: var(--kesson-topbar-subtitle-size);
-  color: var(--kesson-topbar-subtitle-color);
-  letter-spacing: var(--kesson-letter-ui-wide);
+  font-size: var(--cs-topbar-subtitle-size);
+  color: var(--cs-topbar-subtitle-color);
+  letter-spacing: var(--ds-letter-ui-wide);
   line-height: 1;
   text-transform: none;
   flex: 0 0 auto;
@@ -115,7 +115,7 @@
 #kesson-topbar .topbar-subtitle::before,
 #kesson-topbar .topbar-meta::before {
   content: '·';
-  color: var(--kesson-topbar-divider-color);
+  color: var(--cs-topbar-divider-color);
   margin-right: 0.45rem;
 }
 
@@ -123,23 +123,23 @@
   display: block;
   flex: 0 0 auto;
   padding: 0;
-  font-size: var(--kesson-topbar-meta-size);
+  font-size: var(--cs-topbar-meta-size);
   line-height: 1;
   letter-spacing: 0.05em;
-  color: var(--kesson-topbar-meta-color);
-  font-family: var(--kesson-font-serif-ui);
+  color: var(--cs-topbar-meta-color);
+  font-family: var(--ds-font-serif-ui);
   pointer-events: none;
 }
 
 #kesson-topbar .topbar-meta--author {
-  font-size: var(--kesson-topbar-meta-author-size);
-  color: var(--kesson-topbar-meta-author-color);
+  font-size: var(--cs-topbar-meta-author-size);
+  color: var(--cs-topbar-meta-author-color);
 }
 
 #kesson-topbar .topbar-link {
-  color: var(--kesson-topbar-link-color);
-  font-family: var(--kesson-font-mono-ui);
-  font-size: var(--kesson-topbar-link-size);
+  color: var(--cs-topbar-link-color);
+  font-family: var(--ds-font-mono-ui);
+  font-size: var(--cs-topbar-link-size);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   padding: 0.4rem 0.72rem;
@@ -149,8 +149,8 @@
 
 #kesson-topbar .topbar-link:hover,
 #kesson-topbar .topbar-link:focus-visible {
-  color: var(--kesson-topbar-link-hover-color);
-  background: var(--kesson-topbar-link-hover-bg);
+  color: var(--cs-topbar-link-hover-color);
+  background: var(--cs-topbar-link-hover-bg);
 }
 
 #kesson-topbar .topbar-link-btn {
@@ -162,28 +162,28 @@
 }
 
 #kesson-topbar .topbar-lang-btn {
-  color: var(--kesson-topbar-lang-color);
-  border: 1px solid var(--kesson-topbar-lang-border);
-  background: var(--kesson-topbar-lang-bg);
+  color: var(--cs-topbar-lang-color);
+  border: 1px solid var(--cs-topbar-lang-border);
+  background: var(--cs-topbar-lang-bg);
 }
 
 #kesson-topbar .topbar-collab-item {
   margin-left: 0.45rem;
   padding-left: 0.55rem;
-  border-left: 1px solid var(--kesson-topbar-note-divider-color);
+  border-left: 1px solid var(--cs-topbar-note-divider-color);
 }
 
 #kesson-topbar .topbar-collab-note {
   display: inline-block;
-  font-family: var(--kesson-font-serif-ui);
-  font-size: var(--kesson-topbar-note-size);
+  font-family: var(--ds-font-serif-ui);
+  font-size: var(--cs-topbar-note-size);
   line-height: 1;
-  letter-spacing: var(--kesson-letter-ui-normal);
-  color: var(--kesson-topbar-note-color);
+  letter-spacing: var(--ds-letter-ui-normal);
+  color: var(--cs-topbar-note-color);
   white-space: nowrap;
   margin-left: 0.5rem;
   padding-left: 0.56rem;
-  border-left: 1px solid var(--kesson-topbar-note-divider-color);
+  border-left: 1px solid var(--cs-topbar-note-divider-color);
   min-width: 0;
   max-width: min(42vw, 18rem);
   overflow: hidden;
@@ -197,19 +197,19 @@
 }
 
 .topbar-font-btn {
-  font-family: var(--kesson-font-mono-ui);
-  font-size: var(--kesson-topbar-credit-size, 0.80rem);
+  font-family: var(--ds-font-mono-ui);
+  font-size: var(--cs-topbar-credit-size, 0.80rem);
   letter-spacing: 0.08em;
   padding: 0.2rem 0.5rem;
   background: transparent;
-  border: 1px solid var(--kesson-topbar-nav-border);
-  color: var(--kesson-topbar-link-color);
+  border: 1px solid var(--cs-topbar-nav-border);
+  color: var(--cs-topbar-link-color);
   line-height: 1.4;
 }
 
 .topbar-font-btn:hover:not(:disabled) {
-  background: var(--kesson-topbar-link-hover-bg);
-  color: var(--kesson-topbar-link-hover-color);
+  background: var(--cs-topbar-link-hover-bg);
+  color: var(--cs-topbar-link-hover-color);
 }
 
 .topbar-font-btn:disabled {
@@ -218,20 +218,20 @@
 }
 
 #kesson-topbar .topbar-toggler {
-  border-color: var(--kesson-topbar-toggler-border);
+  border-color: var(--cs-topbar-toggler-border);
   padding: 0.18rem 0.44rem;
 }
 
 #kesson-topbar .topbar-toggler:focus {
-  box-shadow: 0 0 0 0.14rem var(--kesson-topbar-toggler-focus);
+  box-shadow: 0 0 0 0.14rem var(--cs-topbar-toggler-focus);
 }
 
 #kessonTopbarNav {
   margin-top: 0.35rem;
   padding: 0.35rem 0.2rem 0.5rem;
   border-radius: 0.6rem;
-  background: var(--kesson-topbar-nav-bg);
-  border: 1px solid var(--kesson-topbar-nav-border);
+  background: var(--cs-topbar-nav-bg);
+  border: 1px solid var(--cs-topbar-nav-border);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -262,7 +262,7 @@
   }
 
   #kesson-topbar .topbar-subtitle {
-    font-size: var(--kesson-topbar-subtitle-size-md);
+    font-size: var(--cs-topbar-subtitle-size-md);
   }
 }
 
@@ -272,11 +272,11 @@
   }
 
   #kesson-topbar .topbar-main-title {
-    font-size: var(--kesson-topbar-main-title-size-sm);
+    font-size: var(--cs-topbar-main-title-size-sm);
   }
 
   #kesson-topbar .topbar-collab-note {
-    font-size: var(--kesson-topbar-credit-size);
+    font-size: var(--cs-topbar-credit-size);
     letter-spacing: 0.05em;
     margin-left: 0.36rem;
     padding-left: 0.36rem;

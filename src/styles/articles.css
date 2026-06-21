@@ -26,8 +26,8 @@
 .btn-read-more {
   display: block;
   margin: 1rem auto 0;
-  font-size: var(--kesson-font-size-ui-sm, 0.80rem);
-  letter-spacing: var(--kesson-letter-ui-wide);
+  font-size: var(--ds-font-size-ui-sm, 0.80rem);
+  letter-spacing: var(--ds-letter-ui-wide);
   padding: 10px 24px;
 }
 
@@ -50,18 +50,18 @@
 
 #articles-section {
   position: relative;
-  z-index: 5;
+  z-index: var(--cs-z-raised);
   margin-top: clamp(4rem, 16vh, 9rem);
 }
 
 #creation-cards-section {
   position: relative;
-  z-index: 5;
+  z-index: var(--cs-z-raised);
   padding-bottom: 3.5rem;
 }
 
 #creation-cards-container {
-  margin-top: var(--kesson-section-grid-margin-top);
+  margin-top: var(--cs-section-grid-margin-top);
 }
 
 .creation-card-placeholder {
@@ -83,7 +83,7 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(224, 236, 255, 0.86);
-  font-family: var(--kesson-font-mono-ui);
+  font-family: var(--ds-font-mono-ui);
 }
 
 .creation-card-placeholder p {

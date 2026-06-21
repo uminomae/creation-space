@@ -1,36 +1,36 @@
 :root {
-  --kesson-dev-toggle-bg: rgba(20, 30, 50, 0.7);
-  --kesson-dev-toggle-bg-hover: rgba(30, 45, 70, 0.82);
-  --kesson-dev-toggle-border: rgba(var(--color-accent), 0.15);
-  --kesson-dev-toggle-text: rgba(180, 200, 255, 0.75);
-  --kesson-dev-toggle-text-hover: rgba(210, 225, 255, 0.95);
-  --kesson-dev-panel-bg: rgba(7, 12, 24, 0.96);
-  --kesson-dev-panel-border: rgba(140, 178, 255, 0.3);
-  --kesson-dev-panel-header-border: rgba(140, 178, 255, 0.25);
-  --kesson-dev-panel-title-color: rgba(223, 236, 255, 0.95);
-  --kesson-dev-panel-accordion-bg: rgba(26, 40, 70, 0.5);
-  --kesson-dev-panel-accordion-text: rgba(222, 235, 255, 0.92);
-  --kesson-dev-panel-accordion-active-bg: rgba(46, 72, 116, 0.7);
-  --kesson-dev-panel-body-bg: rgba(11, 20, 38, 0.75);
-  --kesson-dev-panel-label-color: rgba(188, 211, 245, 0.95);
-  --kesson-dev-panel-help-color: rgba(176, 201, 238, 0.82);
-  --kesson-dev-panel-help-sub-color: rgba(162, 188, 228, 0.72);
-  --kesson-dev-panel-value-color: rgba(201, 221, 255, 0.86);
-  --kesson-dev-panel-status-color: rgba(201, 221, 255, 0.8);
-  --kesson-dev-panel-empty-bg: rgba(11, 20, 38, 0.6);
-  --kesson-dev-panel-empty-border: rgba(140, 178, 255, 0.25);
-  --kesson-dev-panel-empty-text: rgba(201, 221, 255, 0.85);
-  --kesson-dev-hud-border: rgba(120, 164, 235, 0.42);
-  --kesson-dev-hud-bg: rgba(8, 14, 26, 0.84);
-  --kesson-dev-hud-text: rgba(205, 224, 255, 0.92);
-  --kesson-dev-hud-btn-border: rgba(130, 170, 240, 0.45);
-  --kesson-dev-hud-btn-bg: rgba(100, 152, 246, 0.2);
-  --kesson-dev-hud-btn-text: rgba(238, 246, 255, 0.96);
-  --kesson-dev-hud-btn-bg-hover: rgba(116, 165, 244, 0.32);
-  --kesson-dev-hud-input-border: rgba(130, 170, 240, 0.35);
-  --kesson-dev-hud-input-bg: rgba(10, 18, 32, 0.88);
-  --kesson-dev-hud-input-text: rgba(220, 235, 255, 0.95);
-  --kesson-dev-hud-font-size: 0.80rem;
+  --cs-dev-toggle-bg: rgba(20, 30, 50, 0.7);
+  --cs-dev-toggle-bg-hover: rgba(30, 45, 70, 0.82);
+  --cs-dev-toggle-border: rgba(var(--color-accent), 0.15);
+  --cs-dev-toggle-text: rgba(180, 200, 255, 0.75);
+  --cs-dev-toggle-text-hover: rgba(210, 225, 255, 0.95);
+  --cs-dev-panel-bg: rgba(7, 12, 24, 0.96);
+  --cs-dev-panel-border: rgba(140, 178, 255, 0.3);
+  --cs-dev-panel-header-border: rgba(140, 178, 255, 0.25);
+  --cs-dev-panel-title-color: rgba(223, 236, 255, 0.95);
+  --cs-dev-panel-accordion-bg: rgba(26, 40, 70, 0.5);
+  --cs-dev-panel-accordion-text: rgba(222, 235, 255, 0.92);
+  --cs-dev-panel-accordion-active-bg: rgba(46, 72, 116, 0.7);
+  --cs-dev-panel-body-bg: rgba(11, 20, 38, 0.75);
+  --cs-dev-panel-label-color: rgba(188, 211, 245, 0.95);
+  --cs-dev-panel-help-color: rgba(176, 201, 238, 0.82);
+  --cs-dev-panel-help-sub-color: rgba(162, 188, 228, 0.72);
+  --cs-dev-panel-value-color: rgba(201, 221, 255, 0.86);
+  --cs-dev-panel-status-color: rgba(201, 221, 255, 0.8);
+  --cs-dev-panel-empty-bg: rgba(11, 20, 38, 0.6);
+  --cs-dev-panel-empty-border: rgba(140, 178, 255, 0.25);
+  --cs-dev-panel-empty-text: rgba(201, 221, 255, 0.85);
+  --cs-dev-hud-border: rgba(120, 164, 235, 0.42);
+  --cs-dev-hud-bg: rgba(8, 14, 26, 0.84);
+  --cs-dev-hud-text: rgba(205, 224, 255, 0.92);
+  --cs-dev-hud-btn-border: rgba(130, 170, 240, 0.45);
+  --cs-dev-hud-btn-bg: rgba(100, 152, 246, 0.2);
+  --cs-dev-hud-btn-text: rgba(238, 246, 255, 0.96);
+  --cs-dev-hud-btn-bg-hover: rgba(116, 165, 244, 0.32);
+  --cs-dev-hud-input-border: rgba(130, 170, 240, 0.35);
+  --cs-dev-hud-input-bg: rgba(10, 18, 32, 0.88);
+  --cs-dev-hud-input-text: rgba(220, 235, 255, 0.95);
+  --cs-dev-hud-font-size: 0.80rem;
 }
 
 #dev-panel-toggle {
@@ -40,15 +40,15 @@
   left: auto;
   transform: translateY(-50%);
   /* Match LINKS toggle layering: hidden behind offcanvas/backdrop when opened. */
-  z-index: 1001;
-  background: var(--kesson-dev-toggle-bg);
+  z-index: var(--cs-z-dev-overlay);
+  background: var(--cs-dev-toggle-bg);
   backdrop-filter: blur(8px);
-  border: 1px solid var(--kesson-dev-toggle-border);
+  border: 1px solid var(--cs-dev-toggle-border);
   border-right: none;
   border-radius: 4px 0 0 4px;
-  color: var(--kesson-dev-toggle-text);
-  font-size: var(--kesson-dev-hud-font-size, 0.80rem);
-  font-family: var(--kesson-font-mono-ui);
+  color: var(--cs-dev-toggle-text);
+  font-size: var(--cs-dev-hud-font-size, 0.80rem);
+  font-family: var(--ds-font-mono-ui);
   padding: 8px 5px;
   cursor: pointer;
   writing-mode: vertical-rl;
@@ -62,8 +62,8 @@
 }
 
 #dev-panel-toggle:hover {
-  color: var(--kesson-dev-toggle-text-hover);
-  background: var(--kesson-dev-toggle-bg-hover);
+  color: var(--cs-dev-toggle-text-hover);
+  background: var(--cs-dev-toggle-bg-hover);
 }
 
 #dev-panel {
@@ -72,10 +72,10 @@
   right: 0;
   width: min(92vw, 420px);
   height: 100vh;
-  z-index: 1200;
+  z-index: var(--cs-z-dev-panel);
   color: #d9e5ff;
-  background: var(--kesson-dev-panel-bg);
-  border-left: 1px solid var(--kesson-dev-panel-border);
+  background: var(--cs-dev-panel-bg);
+  border-left: 1px solid var(--cs-dev-panel-border);
   transform: translateX(100%);
   transition: transform 0.25s ease;
   overflow: hidden;
@@ -91,14 +91,14 @@
   align-items: center;
   justify-content: space-between;
   padding: 12px 14px;
-  border-bottom: 1px solid var(--kesson-dev-panel-header-border);
+  border-bottom: 1px solid var(--cs-dev-panel-header-border);
 }
 
 #dev-panel .dev-panel-title {
   margin: 0;
   font-size: 0.85rem;
   letter-spacing: 0.08em;
-  color: var(--kesson-dev-panel-title-color);
+  color: var(--cs-dev-panel-title-color);
 }
 
 #dev-panel .dev-panel-body {
@@ -108,12 +108,12 @@
 }
 
 #dev-panel .accordion-button {
-  background: var(--kesson-dev-panel-accordion-bg);
-  color: var(--kesson-dev-panel-accordion-text);
+  background: var(--cs-dev-panel-accordion-bg);
+  color: var(--cs-dev-panel-accordion-text);
 }
 
 #dev-panel .accordion-button:not(.collapsed) {
-  background: var(--kesson-dev-panel-accordion-active-bg);
+  background: var(--cs-dev-panel-accordion-active-bg);
   color: #fff;
 }
 
@@ -122,13 +122,13 @@
 }
 
 #dev-panel .accordion-body {
-  background: var(--kesson-dev-panel-body-bg);
+  background: var(--cs-dev-panel-body-bg);
 }
 
 #dev-panel .form-label {
   font-size: 0.72rem;
   margin-bottom: 0.25rem;
-  color: var(--kesson-dev-panel-label-color);
+  color: var(--cs-dev-panel-label-color);
 }
 
 #dev-panel .form-range {
@@ -143,14 +143,14 @@
   margin: 0 0 0.75rem;
   font-size: 0.80rem;
   line-height: 1.45;
-  color: var(--kesson-dev-panel-help-color);
+  color: var(--cs-dev-panel-help-color);
 }
 
 #dev-panel .dev-row-help {
   margin-top: 0.2rem;
   font-size: 0.80rem;
   line-height: 1.35;
-  color: var(--kesson-dev-panel-help-sub-color);
+  color: var(--cs-dev-panel-help-sub-color);
 }
 
 #dev-panel .dev-row-meta {
@@ -162,7 +162,7 @@
 
 #dev-panel .dev-value {
   font-size: 0.72rem;
-  color: var(--kesson-dev-panel-value-color);
+  color: var(--cs-dev-panel-value-color);
   min-width: 58px;
   text-align: right;
 }
@@ -175,17 +175,17 @@
 
 #dev-panel .dev-json-status {
   font-size: 0.72rem;
-  color: var(--kesson-dev-panel-status-color);
+  color: var(--cs-dev-panel-status-color);
   margin-top: 6px;
   min-height: 1.2em;
 }
 
 #dev-panel .dev-panel-empty {
   padding: 12px;
-  border: 1px solid var(--kesson-dev-panel-empty-border);
+  border: 1px solid var(--cs-dev-panel-empty-border);
   border-radius: 8px;
-  color: var(--kesson-dev-panel-empty-text);
-  background: var(--kesson-dev-panel-empty-bg);
+  color: var(--cs-dev-panel-empty-text);
+  background: var(--cs-dev-panel-empty-bg);
   font-size: 0.72rem;
 }
 
