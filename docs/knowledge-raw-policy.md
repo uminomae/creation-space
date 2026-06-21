@@ -42,9 +42,15 @@ cs の raw/ には以下を格納する。
 | status | 意味 | 調査報告での扱い |
 |---|---|---|
 | `raw-confirmed` | 原典ファイルを `knowledge/raw/` に格納し、本文を直接確認済み | [P] 主張の verified 候補になれる |
+| `url-verified` | OA URL でページ・PDF の存在を確認済み（多くは**人間がブラウザで確認**） | **本文抽出の保証ではない**。下記「原典取得・検証の追加規律」を必ず参照 |
 | `citation-only` | 書誌情報や出版社ページ等は確認済みだが、本文は未確認 | 書誌存在の確認まで。内容要約の根拠には使わない |
 | `blocked-access` | 合法的な入手経路はあるが、現時点で本文にアクセスできない | 保留。verified 扱いしない |
 | `not-yet-reviewed` | まだ棚卸し前 | 保留。verified 扱いしない |
+
+> ⚠️ **`url-verified` の落とし穴**: この状態は「URL が存在し閲覧できた」までしか保証しない。
+> その URL を **LLM が WebFetch/curl で取得し、原文を抽出できるか**は別問題（→ cs#221）。
+> また、取得した PDF が **manifest の論文と同一か**も別問題（→ cs#240, D03-S08, D23-S08）。
+> source-note 生成前に「原典取得・検証の追加規律」（本ファイル末尾）を必ず適用すること。
 
 ### 停止条件
 
@@ -163,3 +169,62 @@ CLI は候補の提示と費用感の調査まで。実行判断は pjdhiro。
 
 - 領域内の全 source が `raw-confirmed` / `alt-confirmed` / `取得断念（除外済み）` のいずれかに到達 → 再調査開始可
 - 再調査は confirmed source のみに基づいて一から書く（既存分析のパッチではない）
+
+---
+
+## 原典取得・検証の追加規律（cs#250 / 教訓 cs#221・cs#240）
+
+> **この節は source-note / wiki 生成の取得作業を始める前に必ず読むこと。**
+> 過去に同じ失敗（取得をわかったつもりで間違える）を cs#221・cs#240 で文書化したが、
+> 正本に統合されず CLOSED され、毎回ゼロから再発見していた。その再発防止のための正本。
+
+### 規律 1: `url-verified` は「取得可能」を意味しない（検証主体と読解主体のズレ, cs#221）
+
+`url-verified` の検証は多くが **人間（ブラウザ）** によるもので、**あらゆるホスト・anti-bot を突破できる**。
+一方、source-note / wiki を生成する **LLM（WebFetch / curl / sandbox）は取得能力が大きく制限される**。
+したがって `url-verified` を見て「取得できる」と判断してはならない。**実際に取得・抽出できて初めて使える。**
+
+LLM 取得経路の現実（2026-06-21 cs#249 実測。経路が変われば更新する）:
+
+| 経路 | 結果 | 例 |
+|---|---|---|
+| `link.springer.com` の content/pdf | ✅ curl で実 PDF | Anzola 2016, Dietrich 2004 |
+| 小規模 edu / 機関リポジトリ / 著者サイトの born-digital PDF | ✅ WebFetch がローカル保存 → `pdftotext` | wisc.edu, ulisboa, ucf, msu, iu.edu, plijournal, pbworks |
+| **大手 publisher（MDPI / Nature / PNAS / Wiley / SAGE / Cell / Frontiers / figshare）** | ❌ Akamai/Atypon の 403/402 | mdpi.com, nature.com, pnas.org |
+| **JSTOR / philpapers / ecologyandsociety / karger** | ❌ 403 / JS challenge | — |
+| **スキャン PDF（archive.org 書籍 / 一部 .edu）** | ⚠️ `pdftotext` 不可 → **OCR 必要**（Read の PDF ビジョン or 手動） | Connell(columbia), Mahoney(ethz), Suarez |
+| **認証 / cert エラー** | ❌ login redirect / cert 不正 | wiu, kingston, warwick, uba.ar |
+
+→ ❌ のホストは **LLM 単独では取得不可**。手動DL→`raw-confirmed`（規律 3）か並列エージェント経路に回す。
+**ブロック先を同じ方法で何度も叩かない**（歩留まりゼロ。これが「わかったつもり」の典型）。
+
+### 規律 2: 書誌クロスチェック必須（取得物の同定, cs#240 / D03-S08）
+
+取得した PDF から source-note を生成する**前に**、必ず以下を照合する:
+
+1. `pdftotext <pdf> - | head` または `pdfinfo <pdf>` で **タイトル・著者・年**（可能なら DOI）を抽出
+2. manifest 行（`source_title` / 著者 / 年 / DOI）と照合
+3. **不一致なら生成を停止**し、`.cache/inbox/` に manifest 誤りとして起票（cs#248 後続として扱う）
+
+過去の実害:
+- **D03-S08**: 著者順・年・巻号・頁・DOI が manifest と全部違い、11日間未検出（cs#240）
+- **D23-S08**（2026-06-21）: OA URL `repository.uantwerpen.be/.../d:irua:19968` が **別論文（Luyckx 2023）** を返した。誤論文からの生成を回避し記録
+
+> 自動化（`validate-manifest-sync.sh` への Check 追加 / hook 化）は **cs#240** で継続。本節は手順の正本。
+
+### 規律 3: エスカレーション経路（取得不可・スキャン時）
+
+| 状況 | 対応 |
+|---|---|
+| publisher bot ブロック（規律1の ❌） | **手動DL → `knowledge/raw/` 配置 → `raw-confirmed` 昇格**（Phase 2、pjdhiro 専権。cs#219 と同フロー） |
+| スキャン PDF（`pdftotext` 不可） | **OCR**: Read ツールの PDF ビジョン読解、または手動 OCR。原文引用は OCR 由来の崩れを復元し注記 |
+| OA URL が別論文 / 404 / 消失 | 規律2に従い manifest 誤りとして起票。正しい OA を再特定（cs#248 後続） |
+| すべて不可 | blocked-access 出口条件（本ファイル上節）へ |
+
+### この規律の infuse 先（再発防止）
+
+| 反映先 | 内容 |
+|---|---|
+| 本ファイル（knowledge-raw-policy.md） | 取得・検証規律の正本 |
+| `docs/lessons/CL-008` | 教訓登録 |
+| `knowledge/source-notes/READING-PROTOCOL.md` | §2 手順から本節を参照（取得段階の入口） |
