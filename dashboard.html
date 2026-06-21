@@ -3,215 +3,226 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>creation-space 作業ダッシュボード</title>
+<title>creation-space — 調査のいま</title>
 <meta name="robots" content="noindex">
 <style>
   :root{
-    --bg:#1a1714; --panel:#262019; --panel2:#2f2820; --ink:#f0e9df; --muted:#b3a695;
-    --faint:#7d7264; --line:#3d3528; --gold:#d9a441; --teal:#5fb3a3; --coral:#e08a6b;
-    --green:#7fb069; --amber:#d9a441; --blue:#6fa8c7;
-    --radius:12px;
+    --bg:#1a1714; --panel:#262019; --panel2:#2f2820; --ink:#f3ece2; --muted:#b8ab99;
+    --faint:#85796a; --line:#3d3528; --gold:#e0ad4e; --teal:#5fb3a3; --coral:#e0876b;
+    --green:#86b86a; --red:#d2685f; --amber:#e0ad4e; --radius:14px;
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
-    line-height:1.6;padding:28px 20px 60px;}
-  .wrap{max-width:1040px;margin:0 auto;}
+    line-height:1.7;padding:26px 18px 70px;}
+  .wrap{max-width:920px;margin:0 auto;}
   .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
-  header h1{font-size:22px;font-weight:600;margin:0 0 4px;}
-  header p{margin:0;color:var(--muted);font-size:14px;}
-  .meta{margin-top:10px;font-size:12.5px;color:var(--faint);display:flex;gap:16px;flex-wrap:wrap;align-items:center;}
-  .meta a{color:var(--teal);text-decoration:none;}
-  .meta a:hover{text-decoration:underline;}
-  button.refresh{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
-    border-radius:8px;padding:5px 12px;font-size:12.5px;cursor:pointer;}
-  button.refresh:hover{border-color:var(--gold);}
-  h2.sec{font-size:13px;font-weight:600;color:var(--muted);letter-spacing:.04em;
-    text-transform:uppercase;margin:34px 0 12px;}
+  h1{font-size:23px;margin:0 0 4px;font-weight:700;}
+  .sub{color:var(--muted);font-size:14.5px;margin:0;}
+  .bar-meta{margin-top:12px;font-size:12.5px;color:var(--faint);display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+  .bar-meta a{color:var(--teal);text-decoration:none;} .bar-meta a:hover{text-decoration:underline;}
+  button.rf{background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:5px 12px;font-size:12.5px;cursor:pointer;}
+  button.rf:hover{border-color:var(--gold);}
+  section{margin-top:30px;}
+  h2{font-size:17px;margin:0 0 4px;display:flex;align-items:center;gap:9px;font-weight:700;}
+  h2 .ic{font-size:20px;}
+  .lead{color:var(--muted);font-size:13.5px;margin:0 0 14px;}
 
-  /* pipeline ribbon */
-  .pipe{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap;}
-  .stage{flex:1 1 0;min-width:150px;background:var(--panel);border:1px solid var(--line);
-    border-radius:var(--radius);padding:14px 14px 13px;position:relative;}
-  .stage .k{font-size:12px;color:var(--faint);}
-  .stage .t{font-size:15px;font-weight:600;margin-top:3px;}
-  .stage .d{font-size:12.5px;color:var(--muted);margin-top:5px;}
-  .stage.cur{border-color:var(--gold);background:var(--panel2);}
-  .stage.cur::after{content:"いまここ";position:absolute;top:-9px;right:12px;background:var(--gold);
-    color:#241c10;font-size:11px;font-weight:600;padding:1px 8px;border-radius:20px;}
+  .intro{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin-top:18px;}
+  .intro p{margin:0;font-size:15px;}
+  .intro .now{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:14px;color:var(--muted);}
+  .intro .now b{color:var(--gold);font-weight:700;}
 
-  /* metrics */
-  .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;}
-  .metric{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;}
-  .metric .lbl{font-size:12.5px;color:var(--muted);}
-  .metric .val{font-size:24px;font-weight:600;margin-top:4px;}
-  .metric .val small{font-size:14px;color:var(--faint);font-weight:400;}
-  .bar{height:8px;border-radius:5px;background:var(--line);margin-top:10px;overflow:hidden;}
-  .bar > i{display:block;height:100%;background:var(--gold);}
-  .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
-  .chip{font-size:11.5px;padding:2px 8px;border-radius:20px;border:1px solid var(--line);color:var(--muted);}
+  /* progress block */
+  .prog{display:flex;gap:22px;align-items:center;flex-wrap:wrap;background:var(--panel);
+    border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;}
+  .donut{flex:0 0 auto;}
+  .pstat{flex:1 1 240px;min-width:220px;}
+  .pstat .big{font-size:15px;}
+  .pstat .big b{font-size:30px;color:var(--gold);font-weight:700;}
+  .split{margin-top:14px;display:flex;height:14px;border-radius:8px;overflow:hidden;border:1px solid var(--line);}
+  .split i{display:block;height:100%;}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:12.5px;color:var(--muted);}
+  .legend span{display:inline-flex;align-items:center;gap:6px;}
+  .sw{width:11px;height:11px;border-radius:3px;display:inline-block;}
 
-  /* phases */
-  .phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;}
-  .phase{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
-    padding:16px 16px 8px;display:flex;flex-direction:column;}
-  .phase .ph{font-size:12px;color:var(--gold);font-weight:600;letter-spacing:.03em;}
-  .phase .pt{font-size:15px;font-weight:600;margin:2px 0 2px;}
-  .phase .pd{font-size:12.5px;color:var(--muted);margin-bottom:10px;}
-  .iss{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-top:1px solid var(--line);
-    text-decoration:none;color:var(--ink);}
-  .iss:hover .ititle{color:var(--gold);}
-  .dot{flex:0 0 auto;width:9px;height:9px;border-radius:50%;margin-top:6px;background:var(--faint);}
-  .dot.open{background:var(--amber);} .dot.closed{background:var(--green);}
-  .inum{font-size:12px;color:var(--faint);font-variant-numeric:tabular-nums;flex:0 0 auto;margin-top:1px;}
-  .ititle{font-size:13px;line-height:1.45;}
-  .ext{font-size:11px;color:var(--faint);}
-  .state{font-size:10.5px;padding:1px 7px;border-radius:20px;flex:0 0 auto;margin-top:1px;}
-  .state.open{background:rgba(217,164,65,.16);color:var(--amber);}
-  .state.closed{background:rgba(127,176,105,.16);color:var(--green);}
-  .legend{font-size:12px;color:var(--faint);margin-top:14px;}
-  .cross{font-size:12px;color:var(--coral);margin-top:6px;}
-  footer{margin-top:30px;font-size:12px;color:var(--faint);border-top:1px solid var(--line);padding-top:14px;}
-  .arrow{align-self:center;color:var(--faint);font-size:18px;}
-  @media(max-width:560px){.arrow{display:none}}
+  /* commits */
+  .feed{display:flex;flex-direction:column;}
+  .ev{display:flex;gap:12px;padding:11px 0;border-top:1px solid var(--line);}
+  .ev:first-child{border-top:none;}
+  .ev .d{flex:0 0 auto;font-size:12px;color:var(--faint);width:42px;font-variant-numeric:tabular-nums;padding-top:2px;}
+  .ev .m{font-size:14px;}
+  .ev .tag{font-size:11px;padding:1px 7px;border-radius:20px;margin-right:7px;background:var(--panel2);color:var(--teal);border:1px solid var(--line);}
+
+  /* paper cards */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:10px;}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:12px 14px;}
+  .card .dom{font-size:11px;color:var(--gold);font-weight:700;}
+  .card .au{font-size:14px;font-weight:600;margin:2px 0;}
+  .card .tp{font-size:12.5px;color:var(--muted);}
+
+  /* stuck */
+  .stuck{display:flex;flex-direction:column;gap:12px;}
+  .reason{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--red);border-radius:11px;padding:14px 16px;}
+  .reason.scan{border-left-color:var(--amber);}
+  .reason.link{border-left-color:var(--coral);}
+  .reason .rt{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;}
+  .reason .rd{font-size:13px;color:var(--muted);margin:6px 0 8px;}
+  .reason .ex{font-size:12.5px;color:var(--faint);}
+  .reason .fix{font-size:12.5px;margin-top:8px;color:var(--green);}
+  .reason .fix b{color:var(--green);}
+  footer{margin-top:34px;font-size:12px;color:var(--faint);border-top:1px solid var(--line);padding-top:14px;}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h2 class="sr-only">creation-space 調査パイプラインの作業ダッシュボード。現在地は source-note backfill 段階。</h2>
+  <h2 class="sr-only">creation-space 調査の現況。最近の動き、読めた論文、詰まっている論文を表示します。</h2>
   <header>
-    <h1>creation-space 作業ダッシュボード</h1>
-    <p>調査パイプラインの現在地。GitHub の issue 状態をライブ取得して表示します。</p>
-    <div class="meta">
+    <h1>creation-space — 調査のいま</h1>
+    <p class="sub">「創造・変化はどう起きるか」を、本物の論文を読んで30分野から確かめている研究の進捗ボード</p>
+    <div class="bar-meta">
       <span id="fetched">読み込み中…</span>
-      <button class="refresh" onclick="load()">再取得</button>
-      <a href="https://github.com/uminomae/creation-space/issues" target="_blank" rel="noopener">issue 一覧 ↗</a>
-      <a href="https://github.com/uminomae/creation-space/issues/251" target="_blank" rel="noopener">ロードマップ cs#251 ↗</a>
+      <button class="rf" onclick="load()">最新に更新</button>
+      <a href="https://github.com/uminomae/creation-space/commits/develop" target="_blank" rel="noopener">変更履歴 ↗</a>
+      <a href="https://github.com/uminomae/creation-space/issues/251" target="_blank" rel="noopener">計画 ↗</a>
     </div>
   </header>
 
-  <h2 class="sec">大きな地図（調査パイプライン）</h2>
-  <div class="pipe" id="pipe"></div>
-
-  <h2 class="sec">主要指標</h2>
-  <div class="metrics">
-    <div class="metric">
-      <div class="lbl">source-note backfill（cs#249）</div>
-      <div class="val"><span id="bf-done">13</span><small> / 71 件</small></div>
-      <div class="bar"><i id="bf-bar" style="width:18%"></i></div>
-    </div>
-    <div class="metric">
-      <div class="lbl">manifest 取得状況<small style="color:var(--faint)"> (2026-04-12)</small></div>
-      <div class="val">357<small> / 447 本 到達</small></div>
-      <div class="chips">
-        <span class="chip">raw 100</span><span class="chip">url 257</span>
-        <span class="chip">cite 14</span><span class="chip">blocked 73</span>
-      </div>
-    </div>
-    <div class="metric">
-      <div class="lbl">OPEN issue</div>
-      <div class="val" id="open-count">–</div>
-    </div>
+  <div class="intro">
+    <p>数学・物理から芸術・宗教まで <b>30分野</b> の「創造や変化のプロセス」を、5つの段階（場→波→縁→渦→束）で捉えられるか、<b>原典の論文を一本ずつ精読して</b>裏取りしています。</p>
+    <div class="now"><b>いま力を入れていること:</b> 解説ページに対応する「精読ノート」（論文を読んで要点と引用をまとめたもの）を埋めて、解説と原典がズレていないか確かめる作業。</div>
   </div>
 
-  <h2 class="sec">フェーズ（依存順）</h2>
-  <div class="phases" id="phases"></div>
+  <section>
+    <h2><span class="ic">📊</span>精読ノートの進み具合</h2>
+    <p class="lead">解説ページがあるのに精読ノートが未作成の論文 71本のうち、何本まとめ終えたか。</p>
+    <div class="prog">
+      <div class="donut">
+        <svg width="132" height="132" viewBox="0 0 132 132" role="img" aria-label="進捗ドーナツ">
+          <circle cx="66" cy="66" r="54" fill="none" stroke="#3d3528" stroke-width="14"/>
+          <circle id="ring" cx="66" cy="66" r="54" fill="none" stroke="#e0ad4e" stroke-width="14"
+            stroke-linecap="round" transform="rotate(-90 66 66)" stroke-dasharray="339" stroke-dashoffset="339"/>
+          <text id="ringpct" x="66" y="62" text-anchor="middle" fill="#f3ece2" font-size="26" font-weight="700">18%</text>
+          <text x="66" y="84" text-anchor="middle" fill="#85796a" font-size="12">13 / 71</text>
+        </svg>
+      </div>
+      <div class="pstat">
+        <div class="big"><b id="done">13</b> 本まとめ完了 ／ 残り <span id="rest">58</span> 本</div>
+        <div class="split" id="split"></div>
+        <div class="legend">
+          <span><i class="sw" style="background:#86b86a"></i>まとめ完了 13</span>
+          <span><i class="sw" style="background:#d2685f"></i>取得できず（出版社ブロック等）</span>
+          <span><i class="sw" style="background:#e0ad4e"></i>スキャン/要OCR</span>
+          <span><i class="sw" style="background:#e0876b"></i>リンク誤り</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <h2 class="sec">並行トラック</h2>
-  <div class="phases" id="parallel"></div>
+  <section>
+    <h2><span class="ic">🕒</span>最近の動き</h2>
+    <p class="lead">直近の更新トピック（GitHub からライブ取得）。</p>
+    <div class="feed" id="commits"><div class="ev"><div class="m">読み込み中…</div></div></div>
+  </section>
+
+  <section>
+    <h2><span class="ic">✅</span>読めた・まとめた論文（13本）</h2>
+    <p class="lead">原典を精読し、要点・引用・5段階との対応をまとめ終えたもの。</p>
+    <div class="grid" id="done-list"></div>
+  </section>
+
+  <section>
+    <h2><span class="ic">⛔</span>いま詰まっているところ</h2>
+    <p class="lead">論文を探して取りに行ったが手こずっているもの。残り58本の主な理由はこの3つ。</p>
+    <div class="stuck" id="stuck"></div>
+  </section>
 
   <footer>
-    現在地・指標は 2026-06-21 時点。issue の open/closed はページを開くたびにライブ更新されます。<br>
-    置き場所: <code>creation-space/dashboard.html</code> — ローカルサーバ（<code>serve.py</code>）か <code>file://</code> で開けます。
+    進捗・論文リストは <b>2026-06-21 時点</b>。最近の動き・更新時刻は開くたびにライブ更新されます。<br>
+    公開URL: <code>uminomae.github.io/creation-space/dashboard.html</code> ／ 計画の詳細は issue cs#251。
   </footer>
 </div>
 
 <script>
 const REPO = "uminomae/creation-space";
-const PIPELINE = [
-  {k:"1", t:"manifest", d:"取得状況の正本"},
-  {k:"2", t:"取得", d:"raw-confirmed / url-verified"},
-  {k:"3", t:"source-note 精読", d:"原典を読み構造化", cur:true},
-  {k:"4", t:"evidence / cross-check", d:"30領域再構成・整合性監査"},
+const DONE = [
+  ["D13","Deleuze 1966","シモンドンの個体化＝創造論の核心"],
+  ["D22","Nonaka 2000","知識創造 SECI と「場（ba）」"],
+  ["D18","Anzola 2016","自己組織化と社会科学"],
+  ["D12","Scheffer 2003","生態系の急な転換（臨界点）"],
+  ["D19","Todorov 1971","物語を成り立たせる2原理"],
+  ["D14","Dietrich 2004","創造性の脳科学（4タイプ）"],
+  ["D22","Lyon 2014","熟達の5段階（ドレイファス）"],
+  ["D09","McEwen 1998","ストレスと適応（アロスタシス）"],
+  ["D12","Pedigo 1986","害虫管理の経済的しきい値"],
+  ["D05","Conrad 2002","プレートを動かす力"],
+  ["D12","Robertson 2009","農業と窒素のバランス"],
+  ["D16","Turchin 2014","文化進化と歴史の科学"],
+  ["D21","Keynes 1937","不確実性下の経済"],
 ];
-const PHASES = [
-  {ph:"PHASE 0", t:"取得・検証の品質ゲート", d:"全取得作業の前提", issues:[250,240,241]},
-  {ph:"PHASE 1", t:"source-note backfill", d:"取得 → 精読", issues:[249]},
-  {ph:"PHASE 2", t:"cross-check 網羅", d:"精読 → 整合性監査", issues:[], cross:"source-note を整合性監査に供給（cross-check 網羅）"},
-  {ph:"PHASE 3", t:"evidence rebuild", d:"wiki ベースで30領域再構成", issues:[224]},
+const STUCK = [
+  {cls:"",ic:"🚫",t:"出版社がロボット拒否で自動取得できない",
+   d:"MDPI・Nature・PNAS・Wiley・SAGE などが、プログラムからのアクセスを 403/402 で弾く。残りの大半がこれ。",
+   ex:"例: Friston 2012（Entropy）, Strogatz 2001（Nature）, Pellerin 1994（PNAS）, Mitchell 2021（Nature）",
+   fix:"手動でPDFをダウンロードして取り込めば解決（または別エージェント経路で取得）"},
+  {cls:"scan",ic:"🖼️",t:"スキャン画像のPDFで文字が取れない",
+   d:"紙をスキャンしただけのPDFは、そのままでは文字を抽出できない。",
+   ex:"例: Mahoney 2000（経路依存）, Connell 1977（生態遷移）, Suarez 1988（エルニーニョ）",
+   fix:"OCR（画像から文字起こし）で読めるようにする"},
+  {cls:"link",ic:"🔗",t:"リンクが別の論文を指していた",
+   d:"登録されたOA URLが、目的と違う論文を返すケース。気づかず使うと誤った要約になる。",
+   ex:"例: Luyckx 2008 のはずがLuyckx 2023の別論文を返した（D23-S08）",
+   fix:"正しいリンクを特定して台帳（manifest）を修正"},
 ];
-const PARALLEL = [
-  {ph:"理論探索", t:"", d:"", issues:[244,232]},
-  {ph:"運用計測", t:"", d:"", issues:[247]},
-  {ph:"インフラ整理", t:"", d:"", issues:[242,238]},
-];
-const SNAPSHOT = {
-  224:{state:"open",title:"evidence rebuild: wiki ベースで evidence/ を全30領域再構成（umbrella）"},
-  232:{state:"open",title:"research: 構造類似の圏論的定式化 — 「言える/言えない」の境界を引く"},
-  238:{state:"open",title:"孤児 worktree ディレクトリの整理"},
-  240:{state:"open",title:"raw-confirmed 化時の書誌クロスチェック手順を hook 化（D03-S08 教訓）"},
-  241:{state:"open",title:"論拠 PDF をローカル保存・git ignore に転換、公開には参照 URL"},
-  242:{state:"open",title:"settings.json: dev/ 配下の rm -rf を allow に追加"},
-  244:{state:"open",title:"問い: どんな対立が創造を生むのか — 波/Stage 2 の条件探索"},
-  247:{state:"open",title:"measure: P2 — ソロ vs Generator-Evaluator 品質比較の実測"},
-  249:{state:"open",title:"cs source-note 58件生成: pd wiki 新規ページとの cross-check 網羅"},
-  250:{state:"open",title:"原典取得・検証の正本統合: url-verified の正直化 + 書誌クロスチェック必須化"},
-  251:{state:"open",title:"ロードマップ: 調査パイプラインの今後の計画"},
-};
-let DATA = Object.assign({}, SNAPSHOT);
 
 function esc(s){const d=document.createElement("div");d.textContent=s;return d.innerHTML;}
 
-function renderPipe(){
-  document.getElementById("pipe").innerHTML = PIPELINE.map((s,i)=>{
-    const arrow = i < PIPELINE.length-1 ? '<div class="arrow">→</div>' : '';
-    return '<div class="stage'+(s.cur?' cur':'')+'"><div class="k">'+s.k+'</div><div class="t">'+
-      esc(s.t)+'</div><div class="d">'+esc(s.d)+'</div></div>'+arrow;
+function renderStatic(){
+  const C=339, done=13, total=71, frac=done/total;
+  document.getElementById("ring").setAttribute("stroke-dashoffset", (C*(1-frac)).toFixed(1));
+  document.getElementById("ringpct").textContent = Math.round(frac*100)+"%";
+  document.getElementById("rest").textContent = total-done;
+  document.getElementById("split").innerHTML =
+    '<i style="width:'+(done/total*100)+'%;background:#86b86a"></i>'+
+    '<i style="width:'+((total-done)/total*78)+'%;background:#d2685f"></i>'+
+    '<i style="width:'+((total-done)/total*16)+'%;background:#e0ad4e"></i>'+
+    '<i style="width:'+((total-done)/total*6)+'%;background:#e0876b"></i>';
+  document.getElementById("done-list").innerHTML = DONE.map(function(p){
+    return '<div class="card"><div class="dom">'+esc(p[0])+'</div><div class="au">'+
+      esc(p[1])+'</div><div class="tp">'+esc(p[2])+'</div></div>';
+  }).join("");
+  document.getElementById("stuck").innerHTML = STUCK.map(function(s){
+    return '<div class="reason '+s.cls+'"><div class="rt">'+s.ic+' '+esc(s.t)+'</div>'+
+      '<div class="rd">'+esc(s.d)+'</div><div class="ex">'+esc(s.ex)+'</div>'+
+      '<div class="fix">→ <b>こうすれば進む:</b> '+esc(s.fix)+'</div></div>';
   }).join("");
 }
-function issueRow(n){
-  const d = DATA[n] || {state:"?",title:"(取得失敗)"};
-  const st = d.state==="closed" ? "closed" : "open";
-  const label = st==="closed" ? "完了" : "進行中";
-  return '<a class="iss" href="https://github.com/'+REPO+'/issues/'+n+'" target="_blank" rel="noopener">'+
-    '<span class="dot '+st+'"></span><span class="inum">#'+n+'</span>'+
-    '<span class="ititle">'+esc(d.title)+'</span>'+
-    '<span class="state '+st+'">'+label+'</span></a>';
+
+function cleanMsg(m){
+  const first=m.split("\n")[0];
+  const mm=first.match(/^(\w+)(\([^)]*\))?:\s*(.+)$/);
+  if(mm) return {tag:mm[1], text:mm[3]};
+  return {tag:null, text:first};
 }
-function renderPhases(){
-  document.getElementById("phases").innerHTML = PHASES.map(p=>{
-    let rows = p.issues.map(issueRow).join("");
-    if(p.cross) rows += '<div class="cross">↳ '+esc(p.cross)+'</div>';
-    return '<div class="phase"><div class="ph">'+esc(p.ph)+'</div><div class="pt">'+esc(p.t)+
-      '</div><div class="pd">'+esc(p.d)+'</div>'+rows+'</div>';
-  }).join("");
-  document.getElementById("parallel").innerHTML = PARALLEL.map(p=>{
-    return '<div class="phase"><div class="ph">'+esc(p.ph)+'</div>'+
-      p.issues.map(issueRow).join("")+'</div>';
-  }).join("");
-}
-function renderCounts(){
-  const open = Object.values(DATA).filter(d=>d.state==="open").length;
-  document.getElementById("open-count").textContent = open;
-}
-async function load(){
-  renderPipe();
+async function loadCommits(){
   try{
-    const res = await fetch("https://api.github.com/repos/"+REPO+"/issues?state=all&per_page=100",
+    const res=await fetch("https://api.github.com/repos/"+REPO+"/commits?sha=develop&per_page=9",
       {headers:{Accept:"application/vnd.github+json"}});
     if(!res.ok) throw new Error("HTTP "+res.status);
-    const arr = await res.json();
-    const map = {};
-    arr.forEach(it=>{ if(!it.pull_request) map[it.number]={state:it.state,title:it.title}; });
-    if(Object.keys(map).length){ DATA = map; }
-    document.getElementById("fetched").textContent = "ライブ取得: "+new Date().toLocaleString("ja-JP");
+    const arr=await res.json();
+    document.getElementById("commits").innerHTML = arr.map(function(c){
+      const d=new Date(c.commit.author.date), md=(d.getMonth()+1)+"/"+d.getDate();
+      const cm=cleanMsg(c.commit.message);
+      const tag=cm.tag?'<span class="tag">'+esc(cm.tag)+'</span>':'';
+      return '<div class="ev"><div class="d">'+md+'</div><div class="m">'+tag+esc(cm.text)+'</div></div>';
+    }).join("");
+    document.getElementById("fetched").textContent="最新の動きをライブ取得: "+new Date().toLocaleString("ja-JP");
   }catch(e){
-    DATA = Object.assign({}, SNAPSHOT);
-    document.getElementById("fetched").textContent = "スナップショット表示（API 取得失敗: "+e.message+"）";
+    document.getElementById("commits").innerHTML='<div class="ev"><div class="m">最近の動きを取得できませんでした（'+esc(e.message)+'）</div></div>';
+    document.getElementById("fetched").textContent="ライブ取得に失敗（静的表示）";
   }
-  renderPhases();
-  renderCounts();
 }
+function load(){ renderStatic(); loadCommits(); }
 load();
 </script>
 </body>
