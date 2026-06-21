@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>creation-space — 原典リスト</title>
+<meta name="robots" content="noindex">
+<style>
+  :root{--bg:#1a1714;--panel:#262019;--panel2:#2f2820;--ink:#f3ece2;--muted:#b8ab99;
+    --faint:#85796a;--line:#3d3528;--gold:#e0ad4e;--teal:#5fb3a3;--green:#86b86a;--red:#d2685f;--amber:#e0ad4e;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;line-height:1.6;padding:26px 18px 70px;}
+  .wrap{max-width:920px;margin:0 auto;}
+  a{color:var(--teal);} h1{font-size:22px;margin:0 0 4px;}
+  .sub{color:var(--muted);font-size:14px;margin:0 0 14px;}
+  .back{font-size:13px;}
+  .counts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:16px 0 6px;}
+  .cc{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:12px 14px;}
+  .cc .n{font-size:24px;font-weight:700;} .cc .l{font-size:12.5px;color:var(--muted);}
+  .cc.read .n{color:var(--green);} .cc.link .n{color:var(--teal);} .cc.no .n{color:var(--faint);}
+  .gloss{font-size:12.5px;color:var(--faint);background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin:12px 0;}
+  .tools{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 8px;align-items:center;}
+  input,select{background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px 10px;font-size:13px;}
+  input{flex:1 1 220px;}
+  h2{font-size:16px;margin:22px 0 6px;display:flex;gap:8px;align-items:center;}
+  .grp{border-left:4px solid var(--line);padding-left:12px;}
+  .grp.gpdf{border-left-color:var(--green);} .grp.glink{border-left-color:var(--teal);} .grp.gno{border-left-color:var(--faint);}
+  .row{display:flex;gap:10px;padding:7px 0;border-top:1px solid var(--line);font-size:13.5px;align-items:baseline;}
+  .row:first-child{border-top:none;}
+  .dom{flex:0 0 auto;font-size:11px;color:var(--gold);font-weight:700;width:38px;}
+  .ti{flex:1 1 auto;} .ti .src{color:var(--faint);font-size:11.5px;}
+  .lk{flex:0 0 auto;font-size:12px;}
+  .muted{color:var(--faint);} .hint{color:var(--faint);font-size:12px;margin:4px 0 0;}
+  #status{color:var(--muted);font-size:13px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="back"><a href="dashboard.html">← ダッシュボードへ戻る</a></p>
+  <h1>原典リスト（材料の論文）</h1>
+  <p class="sub">調査の材料にしている論文の台帳（manifest）をライブ表示。リンクで原文（リポジトリ内PDF または 公開URL）に飛べます。</p>
+
+  <div class="counts" id="counts"></div>
+  <div class="gloss" id="gloss">読み込み中…</div>
+
+  <div class="tools">
+    <input id="q" placeholder="著者・タイトルで絞り込み" oninput="render()">
+    <select id="dom" onchange="render()"><option value="">全分野</option></select>
+    <span id="status"></span>
+  </div>
+
+  <div id="list"></div>
+</div>
+
+<script>
+const OWNER="uminomae", REPO="creation-space", BRANCH="main";
+const RAWBASE="https://github.com/"+OWNER+"/"+REPO+"/blob/"+BRANCH+"/";
+let ROWS=[];
+
+function b64utf8(b64){return new TextDecoder().decode(Uint8Array.from(atob(b64.replace(/\s/g,"")),function(c){return c.charCodeAt(0);}));}
+function esc(s){const d=document.createElement("div");d.textContent=s;return d.innerHTML;}
+function firstUrl(s){const m=s.match(/https?:\/\/[^\s)|]+/);return m?m[0]:null;}
+function cleanTitle(t){return t.replace(/\*\*/g,"").replace(/\*/g,"").replace(/`/g,"").trim();}
+
+function parseManifest(md){
+  const rows=[];
+  md.split("\n").forEach(function(line){
+    if(!/^\|\s*D\d+-S\d+\s*\|/.test(line)) return;
+    const c=line.split("|").map(function(x){return x.trim();});
+    const id=c[1], dom=c[2], access=(c[3]||"").replace(/`/g,"");
+    const title=cleanTitle(c[4]||""), local=(c[5]||"").replace(/`/g,""), notes=c.slice(7).join(" | ");
+    let url=null, kind=null;
+    if(access==="raw-confirmed"){
+      const m=local.match(/knowledge\/raw\/[^\s`|]+\.pdf/);
+      if(m){url=RAWBASE+m[0]; kind="pdf";} else {url=firstUrl(notes); kind=url?"link":"local";}
+    } else if(access==="url-verified"){
+      url=firstUrl(notes); kind="link";
+    }
+    rows.push({id:id,dom:dom,access:access,title:title,url:url,kind:kind});
+  });
+  return rows;
+}
+
+function render(){
+  const q=document.getElementById("q").value.trim().toLowerCase();
+  const df=document.getElementById("dom").value;
+  const groups=[
+    {key:"pdf",cls:"gpdf",ic:"📄",label:"リポジトリ保存（PDF）",test:function(r){return r.access==="raw-confirmed";},
+     note:"PDFが repo 内 (knowledge/raw/) にあり本文確認済み。リンクで GitHub のPDFへ。"},
+    {key:"link",cls:"glink",ic:"🔗",label:"リンクで閲覧（Web上）",test:function(r){return r.access==="url-verified";},
+     note:"repo には保存せず、公開URLの原文を読んで確認。リンクで原文サイトへ。"},
+    {key:"no",cls:"gno",ic:"⛔",label:"未取得（本文を読めていない）",test:function(r){return r.access==="blocked-access"||r.access==="citation-only";},
+     note:"blocked=取得を試みたが現状ブロック ／ citation-only=目録のみ。どちらも本文は未読。"},
+  ];
+  let html="", shown=0;
+  groups.forEach(function(g){
+    let items=ROWS.filter(g.test).filter(function(r){
+      if(df && r.dom!==df) return false;
+      if(q && (r.title.toLowerCase().indexOf(q)<0 && r.id.toLowerCase().indexOf(q)<0)) return false;
+      return true;
+    });
+    shown+=items.length;
+    html+='<h2>'+g.ic+' '+g.label+' <span class="muted">('+items.length+')</span></h2>';
+    html+='<p class="hint">'+g.note+'</p>';
+    html+='<div class="grp '+g.cls+'">';
+    if(!items.length) html+='<p class="muted" style="padding:7px 0">該当なし</p>';
+    items.forEach(function(r){
+      const lk = r.url ? '<a class="lk" href="'+esc(r.url)+'" target="_blank" rel="noopener">'+(r.kind==="pdf"?"PDF↗":"原文↗")+'</a>'
+                       : '<span class="lk muted">'+(r.access==="citation-only"?"目録のみ":"取得不可")+'</span>';
+      html+='<div class="row"><span class="dom">'+esc(r.dom)+'</span><span class="ti">'+esc(r.title)+
+            ' <span class="src">'+esc(r.id)+'</span></span>'+lk+'</div>';
+    });
+    html+='</div>';
+  });
+  document.getElementById("list").innerHTML=html;
+  document.getElementById("status").textContent=shown+" 件表示";
+}
+
+function renderCounts(){
+  const by={};["raw-confirmed","url-verified","blocked-access","citation-only"].forEach(function(k){by[k]=ROWS.filter(function(r){return r.access===k;}).length;});
+  const read=by["raw-confirmed"]+by["url-verified"], no=by["blocked-access"]+by["citation-only"];
+  document.getElementById("counts").innerHTML=
+    '<div class="cc"><div class="n">'+ROWS.length+'</div><div class="l">登録 合計</div></div>'+
+    '<div class="cc read"><div class="n">'+read+'</div><div class="l">本文を読めた</div></div>'+
+    '<div class="cc"><div class="n">'+by["raw-confirmed"]+'</div><div class="l">📄 repo保存(PDF)</div></div>'+
+    '<div class="cc link"><div class="n">'+by["url-verified"]+'</div><div class="l">🔗 リンク閲覧</div></div>'+
+    '<div class="cc no"><div class="n">'+no+'</div><div class="l">⛔ 未取得</div></div>';
+  document.getElementById("gloss").innerHTML=
+    '<b>用語:</b> <b style="color:var(--green)">repo保存(PDF) '+by["raw-confirmed"]+'</b>=PDFが <a href="'+RAWBASE+
+    'knowledge/raw" target="_blank" rel="noopener">knowledge/raw/</a> にあり本文確認済（大容量5本のみローカル）。 '+
+    '<b style="color:var(--teal)">リンク閲覧 '+by["url-verified"]+'</b>=repoには無く公開URLで閲覧。 '+
+    '<b>未取得 '+no+'</b>=取得ブロック '+by["blocked-access"]+' ＋ 目録のみ '+by["citation-only"]+
+    '（本文未読）。 精読ノートは <a href="'+RAWBASE+'knowledge/source-notes" target="_blank" rel="noopener">knowledge/source-notes/</a>。';
+}
+
+async function load(){
+  try{
+    const res=await fetch("https://api.github.com/repos/"+OWNER+"/"+REPO+"/contents/knowledge/raw/manifest.md?ref="+BRANCH,
+      {headers:{Accept:"application/vnd.github+json"}});
+    if(!res.ok) throw new Error("HTTP "+res.status);
+    const j=await res.json();
+    const md=b64utf8(j.content);
+    ROWS=parseManifest(md);
+    const sel=document.getElementById("dom");
+    Array.from(new Set(ROWS.map(function(r){return r.dom;}))).sort().forEach(function(d){
+      const o=document.createElement("option");o.value=d;o.textContent=d;sel.appendChild(o);});
+    renderCounts(); render();
+  }catch(e){
+    document.getElementById("gloss").textContent="台帳を取得できませんでした（"+e.message+"）。GitHub の knowledge/raw/manifest.md を直接ご覧ください。";
+  }
+}
+load();
+</script>
+</body>
+</html>
