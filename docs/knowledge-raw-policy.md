@@ -210,7 +210,13 @@ LLM 取得経路の現実（2026-06-21 cs#249 実測。経路が変われば更�
 - **D03-S08**: 著者順・年・巻号・頁・DOI が manifest と全部違い、11日間未検出（cs#240）
 - **D23-S08**（2026-06-21）: OA URL `repository.uantwerpen.be/.../d:irua:19968` が **別論文（Luyckx 2023）** を返した。誤論文からの生成を回避し記録
 
-> 自動化（`validate-manifest-sync.sh` への Check 追加 / hook 化）は **cs#240** で継続。本節は手順の正本。
+**半自動化（cs#240, 2026-06-22 着手分）**: `bash scripts/validate-manifest-sync.sh` の **Check 8** が以下を機械検査する。本節（手動照合）は依然 raw-confirmed 昇格時の正本だが、回帰検知は Check 8 に委ねる:
+
+- **存在性 [FAIL]**: `raw-confirmed` 行の `local_file` 実体が無く、かつ `.gitignore` 外なら FAIL（壊れたパス）。gitignore 済み大著（Zeami/Suzuki/Toynbee）は local-only として info
+- **年整合 [WARN]**: ファイル名の年 ≠ `source_title` の年なら WARN（D03-S08 クラスを捕捉。preprint/published 差・講演年差等は人手レビュー）
+- **`--deep` [info]**: `bash scripts/validate-manifest-sync.sh --deep` で PDF 本文1-2頁の年照合も実行（scanned PDF でノイズが出るため合否には影響させず info 出力。raw-confirmed 昇格レビュー時の補助）
+
+> 著者・DOI・巻号の照合は manifest `source_title` の表記揺れ（paper title のみ／和名漢字）が大きく自動 fuzzy match の誤検知が高いため、Check 8 は機械的に堅牢な「存在性 + 年」に限定する。著者順・DOI は規律2の手動照合で担保する。
 
 ### 規律 3: エスカレーション経路（取得不可・スキャン時）
 
