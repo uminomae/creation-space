@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>creation-space 作業ダッシュボード</title>
+<meta name="robots" content="noindex">
+<style>
+  :root{
+    --bg:#1a1714; --panel:#262019; --panel2:#2f2820; --ink:#f0e9df; --muted:#b3a695;
+    --faint:#7d7264; --line:#3d3528; --gold:#d9a441; --teal:#5fb3a3; --coral:#e08a6b;
+    --green:#7fb069; --amber:#d9a441; --blue:#6fa8c7;
+    --radius:12px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
+    line-height:1.6;padding:28px 20px 60px;}
+  .wrap{max-width:1040px;margin:0 auto;}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
+  header h1{font-size:22px;font-weight:600;margin:0 0 4px;}
+  header p{margin:0;color:var(--muted);font-size:14px;}
+  .meta{margin-top:10px;font-size:12.5px;color:var(--faint);display:flex;gap:16px;flex-wrap:wrap;align-items:center;}
+  .meta a{color:var(--teal);text-decoration:none;}
+  .meta a:hover{text-decoration:underline;}
+  button.refresh{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:8px;padding:5px 12px;font-size:12.5px;cursor:pointer;}
+  button.refresh:hover{border-color:var(--gold);}
+  h2.sec{font-size:13px;font-weight:600;color:var(--muted);letter-spacing:.04em;
+    text-transform:uppercase;margin:34px 0 12px;}
+
+  /* pipeline ribbon */
+  .pipe{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap;}
+  .stage{flex:1 1 0;min-width:150px;background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);padding:14px 14px 13px;position:relative;}
+  .stage .k{font-size:12px;color:var(--faint);}
+  .stage .t{font-size:15px;font-weight:600;margin-top:3px;}
+  .stage .d{font-size:12.5px;color:var(--muted);margin-top:5px;}
+  .stage.cur{border-color:var(--gold);background:var(--panel2);}
+  .stage.cur::after{content:"いまここ";position:absolute;top:-9px;right:12px;background:var(--gold);
+    color:#241c10;font-size:11px;font-weight:600;padding:1px 8px;border-radius:20px;}
+
+  /* metrics */
+  .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;}
+  .metric{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;}
+  .metric .lbl{font-size:12.5px;color:var(--muted);}
+  .metric .val{font-size:24px;font-weight:600;margin-top:4px;}
+  .metric .val small{font-size:14px;color:var(--faint);font-weight:400;}
+  .bar{height:8px;border-radius:5px;background:var(--line);margin-top:10px;overflow:hidden;}
+  .bar > i{display:block;height:100%;background:var(--gold);}
+  .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
+  .chip{font-size:11.5px;padding:2px 8px;border-radius:20px;border:1px solid var(--line);color:var(--muted);}
+
+  /* phases */
+  .phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;}
+  .phase{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:16px 16px 8px;display:flex;flex-direction:column;}
+  .phase .ph{font-size:12px;color:var(--gold);font-weight:600;letter-spacing:.03em;}
+  .phase .pt{font-size:15px;font-weight:600;margin:2px 0 2px;}
+  .phase .pd{font-size:12.5px;color:var(--muted);margin-bottom:10px;}
+  .iss{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-top:1px solid var(--line);
+    text-decoration:none;color:var(--ink);}
+  .iss:hover .ititle{color:var(--gold);}
+  .dot{flex:0 0 auto;width:9px;height:9px;border-radius:50%;margin-top:6px;background:var(--faint);}
+  .dot.open{background:var(--amber);} .dot.closed{background:var(--green);}
+  .inum{font-size:12px;color:var(--faint);font-variant-numeric:tabular-nums;flex:0 0 auto;margin-top:1px;}
+  .ititle{font-size:13px;line-height:1.45;}
+  .ext{font-size:11px;color:var(--faint);}
+  .state{font-size:10.5px;padding:1px 7px;border-radius:20px;flex:0 0 auto;margin-top:1px;}
+  .state.open{background:rgba(217,164,65,.16);color:var(--amber);}
+  .state.closed{background:rgba(127,176,105,.16);color:var(--green);}
+  .legend{font-size:12px;color:var(--faint);margin-top:14px;}
+  .cross{font-size:12px;color:var(--coral);margin-top:6px;}
+  footer{margin-top:30px;font-size:12px;color:var(--faint);border-top:1px solid var(--line);padding-top:14px;}
+  .arrow{align-self:center;color:var(--faint);font-size:18px;}
+  @media(max-width:560px){.arrow{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h2 class="sr-only">creation-space 調査パイプラインの作業ダッシュボード。現在地は source-note backfill 段階。</h2>
+  <header>
+    <h1>creation-space 作業ダッシュボード</h1>
+    <p>調査パイプラインの現在地。GitHub の issue 状態をライブ取得して表示します。</p>
+    <div class="meta">
+      <span id="fetched">読み込み中…</span>
+      <button class="refresh" onclick="load()">再取得</button>
+      <a href="https://github.com/uminomae/creation-space/issues" target="_blank" rel="noopener">issue 一覧 ↗</a>
+      <a href="https://github.com/uminomae/creation-space/issues/251" target="_blank" rel="noopener">ロードマップ cs#251 ↗</a>
+    </div>
+  </header>
+
+  <h2 class="sec">大きな地図（調査パイプライン）</h2>
+  <div class="pipe" id="pipe"></div>
+
+  <h2 class="sec">主要指標</h2>
+  <div class="metrics">
+    <div class="metric">
+      <div class="lbl">source-note backfill（cs#249）</div>
+      <div class="val"><span id="bf-done">13</span><small> / 71 件</small></div>
+      <div class="bar"><i id="bf-bar" style="width:18%"></i></div>
+    </div>
+    <div class="metric">
+      <div class="lbl">manifest 取得状況<small style="color:var(--faint)"> (2026-04-12)</small></div>
+      <div class="val">357<small> / 447 本 到達</small></div>
+      <div class="chips">
+        <span class="chip">raw 100</span><span class="chip">url 257</span>
+        <span class="chip">cite 14</span><span class="chip">blocked 73</span>
+      </div>
+    </div>
+    <div class="metric">
+      <div class="lbl">OPEN issue</div>
+      <div class="val" id="open-count">–</div>
+    </div>
+  </div>
+
+  <h2 class="sec">フェーズ（依存順）</h2>
+  <div class="phases" id="phases"></div>
+
+  <h2 class="sec">並行トラック</h2>
+  <div class="phases" id="parallel"></div>
+
+  <footer>
+    現在地・指標は 2026-06-21 時点。issue の open/closed はページを開くたびにライブ更新されます。<br>
+    置き場所: <code>creation-space/dashboard.html</code> — ローカルサーバ（<code>serve.py</code>）か <code>file://</code> で開けます。
+  </footer>
+</div>
+
+<script>
+const REPO = "uminomae/creation-space";
+const PIPELINE = [
+  {k:"1", t:"manifest", d:"取得状況の正本"},
+  {k:"2", t:"取得", d:"raw-confirmed / url-verified"},
+  {k:"3", t:"source-note 精読", d:"原典を読み構造化", cur:true},
+  {k:"4", t:"evidence / cross-check", d:"30領域再構成・整合性監査"},
+];
+const PHASES = [
+  {ph:"PHASE 0", t:"取得・検証の品質ゲート", d:"全取得作業の前提", issues:[250,240,241]},
+  {ph:"PHASE 1", t:"source-note backfill", d:"取得 → 精読", issues:[249]},
+  {ph:"PHASE 2", t:"cross-check 網羅", d:"精読 → 整合性監査", issues:[], cross:"source-note を整合性監査に供給（cross-check 網羅）"},
+  {ph:"PHASE 3", t:"evidence rebuild", d:"wiki ベースで30領域再構成", issues:[224]},
+];
+const PARALLEL = [
+  {ph:"理論探索", t:"", d:"", issues:[244,232]},
+  {ph:"運用計測", t:"", d:"", issues:[247]},
+  {ph:"インフラ整理", t:"", d:"", issues:[242,238]},
+];
+const SNAPSHOT = {
+  224:{state:"open",title:"evidence rebuild: wiki ベースで evidence/ を全30領域再構成（umbrella）"},
+  232:{state:"open",title:"research: 構造類似の圏論的定式化 — 「言える/言えない」の境界を引く"},
+  238:{state:"open",title:"孤児 worktree ディレクトリの整理"},
+  240:{state:"open",title:"raw-confirmed 化時の書誌クロスチェック手順を hook 化（D03-S08 教訓）"},
+  241:{state:"open",title:"論拠 PDF をローカル保存・git ignore に転換、公開には参照 URL"},
+  242:{state:"open",title:"settings.json: dev/ 配下の rm -rf を allow に追加"},
+  244:{state:"open",title:"問い: どんな対立が創造を生むのか — 波/Stage 2 の条件探索"},
+  247:{state:"open",title:"measure: P2 — ソロ vs Generator-Evaluator 品質比較の実測"},
+  249:{state:"open",title:"cs source-note 58件生成: pd wiki 新規ページとの cross-check 網羅"},
+  250:{state:"open",title:"原典取得・検証の正本統合: url-verified の正直化 + 書誌クロスチェック必須化"},
+  251:{state:"open",title:"ロードマップ: 調査パイプラインの今後の計画"},
+};
+let DATA = Object.assign({}, SNAPSHOT);
+
+function esc(s){const d=document.createElement("div");d.textContent=s;return d.innerHTML;}
+
+function renderPipe(){
+  document.getElementById("pipe").innerHTML = PIPELINE.map((s,i)=>{
+    const arrow = i < PIPELINE.length-1 ? '<div class="arrow">→</div>' : '';
+    return '<div class="stage'+(s.cur?' cur':'')+'"><div class="k">'+s.k+'</div><div class="t">'+
+      esc(s.t)+'</div><div class="d">'+esc(s.d)+'</div></div>'+arrow;
+  }).join("");
+}
+function issueRow(n){
+  const d = DATA[n] || {state:"?",title:"(取得失敗)"};
+  const st = d.state==="closed" ? "closed" : "open";
+  const label = st==="closed" ? "完了" : "進行中";
+  return '<a class="iss" href="https://github.com/'+REPO+'/issues/'+n+'" target="_blank" rel="noopener">'+
+    '<span class="dot '+st+'"></span><span class="inum">#'+n+'</span>'+
+    '<span class="ititle">'+esc(d.title)+'</span>'+
+    '<span class="state '+st+'">'+label+'</span></a>';
+}
+function renderPhases(){
+  document.getElementById("phases").innerHTML = PHASES.map(p=>{
+    let rows = p.issues.map(issueRow).join("");
+    if(p.cross) rows += '<div class="cross">↳ '+esc(p.cross)+'</div>';
+    return '<div class="phase"><div class="ph">'+esc(p.ph)+'</div><div class="pt">'+esc(p.t)+
+      '</div><div class="pd">'+esc(p.d)+'</div>'+rows+'</div>';
+  }).join("");
+  document.getElementById("parallel").innerHTML = PARALLEL.map(p=>{
+    return '<div class="phase"><div class="ph">'+esc(p.ph)+'</div>'+
+      p.issues.map(issueRow).join("")+'</div>';
+  }).join("");
+}
+function renderCounts(){
+  const open = Object.values(DATA).filter(d=>d.state==="open").length;
+  document.getElementById("open-count").textContent = open;
+}
+async function load(){
+  renderPipe();
+  try{
+    const res = await fetch("https://api.github.com/repos/"+REPO+"/issues?state=all&per_page=100",
+      {headers:{Accept:"application/vnd.github+json"}});
+    if(!res.ok) throw new Error("HTTP "+res.status);
+    const arr = await res.json();
+    const map = {};
+    arr.forEach(it=>{ if(!it.pull_request) map[it.number]={state:it.state,title:it.title}; });
+    if(Object.keys(map).length){ DATA = map; }
+    document.getElementById("fetched").textContent = "ライブ取得: "+new Date().toLocaleString("ja-JP");
+  }catch(e){
+    DATA = Object.assign({}, SNAPSHOT);
+    document.getElementById("fetched").textContent = "スナップショット表示（API 取得失敗: "+e.message+"）";
+  }
+  renderPhases();
+  renderCounts();
+}
+load();
+</script>
+</body>
+</html>
