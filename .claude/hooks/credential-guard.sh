@@ -1,0 +1,1 @@
+../../../project-design/.claude/hooks/credential-guard.sh

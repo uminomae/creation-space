@@ -1,0 +1,157 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/session-start-guard.sh"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Read|Glob|Grep|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/read-path-guard.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Read|Glob|Grep|LS|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/credential-guard.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/exfil-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/destructive-command-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/quality-level-guard.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|MultiEdit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/quality-level-guard.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/instruction-prereq-guard.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|MultiEdit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/progress-level-guard.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/read-path-guard.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/issue-sync-guard.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/instruction-lint.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|MultiEdit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/design-system-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/quality-level-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/backslash-bang-guard.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|MultiEdit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/progress-level-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/domains-json-sync-guard.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/issue-sync-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/domains-json-sync-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": "bash scripts/validate-manifest-sync.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

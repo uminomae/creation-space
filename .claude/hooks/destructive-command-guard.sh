@@ -1,0 +1,1 @@
+../../../project-design/.claude/hooks/destructive-command-guard.sh

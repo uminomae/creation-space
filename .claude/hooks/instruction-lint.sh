@@ -1,0 +1,1 @@
+../../../project-design/.claude/hooks/instruction-lint.sh

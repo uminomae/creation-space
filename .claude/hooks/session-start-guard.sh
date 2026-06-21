@@ -1,0 +1,1 @@
+../../../project-design/.claude/hooks/session-start-guard.sh
