@@ -137,7 +137,7 @@ const PIPELINE = [
 const PHASES = [
   {ph:"PHASE 0", t:"取得・検証の品質ゲート", d:"全取得作業の前提", issues:[250,240,241]},
   {ph:"PHASE 1", t:"source-note backfill", d:"取得 → 精読", issues:[249]},
-  {ph:"PHASE 2", t:"cross-check 網羅", d:"精読 → 整合性監査", issues:[], cross:"pd#112（別repo）+ wiki-conflict の pjdhiro 判断"},
+  {ph:"PHASE 2", t:"cross-check 網羅", d:"精読 → 整合性監査", issues:[], cross:"source-note を整合性監査に供給（cross-check 網羅）"},
   {ph:"PHASE 3", t:"evidence rebuild", d:"wiki ベースで30領域再構成", issues:[224]},
 ];
 const PARALLEL = [
