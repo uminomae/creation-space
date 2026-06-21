@@ -1,1 +1,0 @@
-../../../project-design/.claude/hooks/exfil-guard.sh
