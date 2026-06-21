@@ -25,6 +25,7 @@ manifest.md（取得状況の正本）
   - 残りの大半は publisher の bot ブロック・スキャン PDF・URL 不整合 → LLM 単独取得は困難。並列エージェント経路 or 手動DL に回す（理由は下記）。
 - **取得の落とし穴は正本化済み**: `docs/knowledge-raw-policy.md`「原典取得・検証の追加規律」（cs#250 / 教訓 CL-008）。`url-verified` ≠ 取得可、取得後は書誌クロスチェック必須。
 - 追跡 Issue: cs#249（backfill 実務）/ cs#250（取得・検証の正本統合）/ cs#240（書誌クロスチェック自動化）
+- **視覚ダッシュボード**: リポジトリ root の `dashboard.html`（GitHub issue をライブ取得して現在地・phase を表示）。ロードマップは cs#251
 
 ---
 
