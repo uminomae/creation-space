@@ -15,7 +15,7 @@
   body{margin:0;background:var(--bg);color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
     line-height:1.7;padding:26px 18px 70px;}
-  .wrap{max-width:920px;margin:0 auto;}
+  .wrap{max-width:960px;margin:0 auto;}
   .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
   h1{font-size:23px;margin:0 0 4px;font-weight:700;}
   .sub{color:var(--muted);font-size:14.5px;margin:0;}
@@ -28,21 +28,37 @@
   h2 .ic{font-size:20px;}
   .lead{color:var(--muted);font-size:13.5px;margin:0 0 14px;}
 
-  .intro{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin-top:18px;}
-  .intro p{margin:0;font-size:15px;}
-  .intro .now{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);font-size:14px;color:var(--muted);}
-  .intro .now b{color:var(--gold);font-weight:700;}
+  .intro{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px 20px;margin-top:18px;}
+  .intro p{margin:0;font-size:14.5px;}
 
-  /* progress block */
+  /* MAP */
+  .map{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap;}
+  .col{flex:1 1 210px;min-width:200px;display:flex;flex-direction:column;gap:10px;}
+  .arrow{align-self:center;color:var(--faint);font-size:24px;flex:0 0 auto;}
+  .stage{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 15px;flex:1;}
+  .stage.cur{border-color:var(--gold);background:var(--panel2);}
+  .stage.pub{border-left:4px solid var(--teal);}
+  .badge{font-size:11px;font-weight:700;padding:1px 8px;border-radius:20px;}
+  .b-back{background:#3a332a;color:var(--faint);}
+  .b-view{background:rgba(95,179,163,.18);color:var(--teal);}
+  .b-here{background:var(--gold);color:#241c10;margin-left:6px;}
+  .stage .mt{font-size:15.5px;font-weight:700;margin:7px 0 2px;}
+  .stage .mnum{font-size:27px;font-weight:700;color:var(--gold);line-height:1.1;}
+  .stage .mnum small{font-size:13px;color:var(--muted);font-weight:400;}
+  .stage.pub .mnum{color:var(--teal);}
+  .stage .mdesc{font-size:12px;color:var(--muted);margin-top:6px;}
+  .stage .mdesc a{color:var(--teal);text-decoration:none;} .stage .mdesc a:hover{text-decoration:underline;}
+  .maplegend{margin-top:12px;font-size:12.5px;color:var(--faint);}
+  .maplegend b{color:var(--ink);}
+
+  /* progress */
   .prog{display:flex;gap:22px;align-items:center;flex-wrap:wrap;background:var(--panel);
-    border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;}
-  .donut{flex:0 0 auto;}
+    border:1px solid var(--line);border-radius:var(--radius);padding:18px 22px;}
   .pstat{flex:1 1 240px;min-width:220px;}
-  .pstat .big{font-size:15px;}
-  .pstat .big b{font-size:30px;color:var(--gold);font-weight:700;}
-  .split{margin-top:14px;display:flex;height:14px;border-radius:8px;overflow:hidden;border:1px solid var(--line);}
+  .pstat .big{font-size:15px;} .pstat .big b{font-size:28px;color:var(--gold);font-weight:700;}
+  .split{margin-top:13px;display:flex;height:13px;border-radius:8px;overflow:hidden;border:1px solid var(--line);}
   .split i{display:block;height:100%;}
-  .legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px;font-size:12.5px;color:var(--muted);}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:12px;color:var(--muted);}
   .legend span{display:inline-flex;align-items:center;gap:6px;}
   .sw{width:11px;height:11px;border-radius:3px;display:inline-block;}
 
@@ -54,19 +70,16 @@
   .ev .m{font-size:14px;}
   .ev .tag{font-size:11px;padding:1px 7px;border-radius:20px;margin-right:7px;background:var(--panel2);color:var(--teal);border:1px solid var(--line);}
 
-  /* paper cards */
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:10px;}
   .card{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:12px 14px;}
   .card .dom{font-size:11px;color:var(--gold);font-weight:700;}
   .card .au{font-size:14px;font-weight:600;margin:2px 0;}
   .card .tp{font-size:12.5px;color:var(--muted);}
 
-  /* stuck */
   .stuck{display:flex;flex-direction:column;gap:12px;}
   .reason{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--red);border-radius:11px;padding:14px 16px;}
-  .reason.scan{border-left-color:var(--amber);}
-  .reason.link{border-left-color:var(--coral);}
-  .reason .rt{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;}
+  .reason.scan{border-left-color:var(--amber);} .reason.link{border-left-color:var(--coral);}
+  .reason .rt{font-size:15px;font-weight:700;}
   .reason .rd{font-size:13px;color:var(--muted);margin:6px 0 8px;}
   .reason .ex{font-size:12.5px;color:var(--faint);}
   .reason .fix{font-size:12.5px;margin-top:8px;color:var(--green);}
@@ -76,7 +89,7 @@
 </head>
 <body>
 <div class="wrap">
-  <h2 class="sr-only">creation-space 調査の現況。最近の動き、読めた論文、詰まっている論文を表示します。</h2>
+  <h2 class="sr-only">creation-space 調査の全体地図と現況。</h2>
   <header>
     <h1>creation-space — 調査のいま</h1>
     <p class="sub">「創造・変化はどう起きるか」を、本物の論文を読んで30分野から確かめている研究の進捗ボード</p>
@@ -89,16 +102,55 @@
   </header>
 
   <div class="intro">
-    <p>数学・物理から芸術・宗教まで <b>30分野</b> の「創造や変化のプロセス」を、5つの段階（場→波→縁→渦→束）で捉えられるか、<b>原典の論文を一本ずつ精読して</b>裏取りしています。</p>
-    <div class="now"><b>いま力を入れていること:</b> 解説ページに対応する「精読ノート」（論文を読んで要点と引用をまとめたもの）を埋めて、解説と原典がズレていないか確かめる作業。</div>
+    <p>数学・物理から芸術・宗教まで <b>30分野</b> の「創造や変化のプロセス」を、原典の論文を読んで裏取りし、<b>2つの公開サイト</b>（下の地図の右側）として読者に届けています。</p>
   </div>
 
   <section>
-    <h2><span class="ic">📊</span>精読ノートの進み具合</h2>
-    <p class="lead">解説ページがあるのに精読ノートが未作成の論文 71本のうち、何本まとめ終えたか。</p>
+    <h2><span class="ic">🗺️</span>全体地図 — 材料から公開まで</h2>
+    <p class="lead">左の「原典・精読ノート」は<b>裏方の材料</b>。読者が実際に目にするのは<b>右の2つ</b>（cs Webサイトと pd wiki）です。</p>
+    <div class="map">
+      <div class="col">
+        <div class="stage">
+          <span class="badge b-back">🔧 裏方・材料</span>
+          <div class="mt">原典リソース</div>
+          <div class="mnum">342<small> 本 取得済</small></div>
+          <div class="mdesc">論文PDFと台帳(manifest)。全442本登録／取得不可 75・書誌のみ 33。読める内訳 = 保存済 129 + リンク確認 213</div>
+        </div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="col">
+        <div class="stage cur">
+          <span class="badge b-back">🔧 中間</span><span class="badge b-here">いまここ</span>
+          <div class="mt">精読ノート（cs）</div>
+          <div class="mnum">265<small> 本 作成</small></div>
+          <div class="mdesc">原典を読み要点・引用・5段階対応をまとめたもの。いまは pd 解説に対応する分を補完中（13/71）</div>
+        </div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="col">
+        <div class="stage pub">
+          <span class="badge b-view">👁 読者が見る</span>
+          <div class="mt">cs Webサイト</div>
+          <div class="mnum">30<small> /30 分野</small></div>
+          <div class="mdesc">30分野の調査レポート。<a href="https://uminomae.github.io/creation-space/" target="_blank" rel="noopener">creation-space ↗</a>。※原典ベースの再構成は 0/30（これから）</div>
+        </div>
+        <div class="stage pub">
+          <span class="badge b-view">👁 読者が見る</span>
+          <div class="mt">pd wiki（解説）</div>
+          <div class="mnum">344<small> 解説ページ</small></div>
+          <div class="mdesc">用語・原典の解説ページ。<a href="https://uminomae.github.io/project-design/" target="_blank" rel="noopener">project-design ↗</a>。精読ノートと内容を照合中</div>
+        </div>
+      </div>
+    </div>
+    <div class="maplegend"><b>👁 読者が見る</b> = 公開サイトのページ ／ <b>🔧 裏方</b> = その材料（中間生成物）。「いまここ」＝現在おもに作業している工程。</div>
+  </section>
+
+  <section>
+    <h2><span class="ic">📊</span>いま埋めている工程：精読ノート</h2>
+    <p class="lead">pd の解説ページがあるのに精読ノートが未作成の論文 71本のうち、何本まとめ終えたか。</p>
     <div class="prog">
       <div class="donut">
-        <svg width="132" height="132" viewBox="0 0 132 132" role="img" aria-label="進捗ドーナツ">
+        <svg width="128" height="128" viewBox="0 0 132 132" role="img" aria-label="進捗ドーナツ">
           <circle cx="66" cy="66" r="54" fill="none" stroke="#3d3528" stroke-width="14"/>
           <circle id="ring" cx="66" cy="66" r="54" fill="none" stroke="#e0ad4e" stroke-width="14"
             stroke-linecap="round" transform="rotate(-90 66 66)" stroke-dasharray="339" stroke-dashoffset="339"/>
@@ -110,8 +162,8 @@
         <div class="big"><b id="done">13</b> 本まとめ完了 ／ 残り <span id="rest">58</span> 本</div>
         <div class="split" id="split"></div>
         <div class="legend">
-          <span><i class="sw" style="background:#86b86a"></i>まとめ完了 13</span>
-          <span><i class="sw" style="background:#d2685f"></i>取得できず（出版社ブロック等）</span>
+          <span><i class="sw" style="background:#86b86a"></i>完了 13</span>
+          <span><i class="sw" style="background:#d2685f"></i>出版社ブロック</span>
           <span><i class="sw" style="background:#e0ad4e"></i>スキャン/要OCR</span>
           <span><i class="sw" style="background:#e0876b"></i>リンク誤り</span>
         </div>
@@ -126,19 +178,19 @@
   </section>
 
   <section>
-    <h2><span class="ic">✅</span>読めた・まとめた論文（13本）</h2>
+    <h2><span class="ic">✅</span>最近まとめた精読ノート（13本）</h2>
     <p class="lead">原典を精読し、要点・引用・5段階との対応をまとめ終えたもの。</p>
     <div class="grid" id="done-list"></div>
   </section>
 
   <section>
     <h2><span class="ic">⛔</span>いま詰まっているところ</h2>
-    <p class="lead">論文を探して取りに行ったが手こずっているもの。残り58本の主な理由はこの3つ。</p>
+    <p class="lead">論文を取りに行ったが手こずっているもの。残り58本の主な理由はこの3つ。</p>
     <div class="stuck" id="stuck"></div>
   </section>
 
   <footer>
-    進捗・論文リストは <b>2026-06-21 時点</b>。最近の動き・更新時刻は開くたびにライブ更新されます。<br>
+    地図の件数・進捗・論文リストは <b>2026-06-21 時点</b>の手集計。「最近の動き」と更新時刻は開くたびにライブ更新されます。<br>
     公開URL: <code>uminomae.github.io/creation-space/dashboard.html</code> ／ 計画の詳細は issue cs#251。
   </footer>
 </div>
@@ -170,8 +222,8 @@ const STUCK = [
    ex:"例: Mahoney 2000（経路依存）, Connell 1977（生態遷移）, Suarez 1988（エルニーニョ）",
    fix:"OCR（画像から文字起こし）で読めるようにする"},
   {cls:"link",ic:"🔗",t:"リンクが別の論文を指していた",
-   d:"登録されたOA URLが、目的と違う論文を返すケース。気づかず使うと誤った要約になる。",
-   ex:"例: Luyckx 2008 のはずがLuyckx 2023の別論文を返した（D23-S08）",
+   d:"登録されたリンクが、目的と違う論文を返すケース。気づかず使うと誤った要約になる。",
+   ex:"例: Luyckx 2008 のはずが Luyckx 2023 の別論文を返した（D23-S08）",
    fix:"正しいリンクを特定して台帳（manifest）を修正"},
 ];
 
@@ -179,30 +231,27 @@ function esc(s){const d=document.createElement("div");d.textContent=s;return d.i
 
 function renderStatic(){
   const C=339, done=13, total=71, frac=done/total;
-  document.getElementById("ring").setAttribute("stroke-dashoffset", (C*(1-frac)).toFixed(1));
-  document.getElementById("ringpct").textContent = Math.round(frac*100)+"%";
-  document.getElementById("rest").textContent = total-done;
-  document.getElementById("split").innerHTML =
+  document.getElementById("ring").setAttribute("stroke-dashoffset",(C*(1-frac)).toFixed(1));
+  document.getElementById("ringpct").textContent=Math.round(frac*100)+"%";
+  document.getElementById("rest").textContent=total-done;
+  const rem=total-done;
+  document.getElementById("split").innerHTML=
     '<i style="width:'+(done/total*100)+'%;background:#86b86a"></i>'+
-    '<i style="width:'+((total-done)/total*78)+'%;background:#d2685f"></i>'+
-    '<i style="width:'+((total-done)/total*16)+'%;background:#e0ad4e"></i>'+
-    '<i style="width:'+((total-done)/total*6)+'%;background:#e0876b"></i>';
-  document.getElementById("done-list").innerHTML = DONE.map(function(p){
+    '<i style="width:'+(rem/total*78)+'%;background:#d2685f"></i>'+
+    '<i style="width:'+(rem/total*16)+'%;background:#e0ad4e"></i>'+
+    '<i style="width:'+(rem/total*6)+'%;background:#e0876b"></i>';
+  document.getElementById("done-list").innerHTML=DONE.map(function(p){
     return '<div class="card"><div class="dom">'+esc(p[0])+'</div><div class="au">'+
-      esc(p[1])+'</div><div class="tp">'+esc(p[2])+'</div></div>';
-  }).join("");
-  document.getElementById("stuck").innerHTML = STUCK.map(function(s){
+      esc(p[1])+'</div><div class="tp">'+esc(p[2])+'</div></div>';}).join("");
+  document.getElementById("stuck").innerHTML=STUCK.map(function(s){
     return '<div class="reason '+s.cls+'"><div class="rt">'+s.ic+' '+esc(s.t)+'</div>'+
       '<div class="rd">'+esc(s.d)+'</div><div class="ex">'+esc(s.ex)+'</div>'+
-      '<div class="fix">→ <b>こうすれば進む:</b> '+esc(s.fix)+'</div></div>';
-  }).join("");
+      '<div class="fix">→ <b>こうすれば進む:</b> '+esc(s.fix)+'</div></div>';}).join("");
 }
-
 function cleanMsg(m){
   const first=m.split("\n")[0];
   const mm=first.match(/^(\w+)(\([^)]*\))?:\s*(.+)$/);
-  if(mm) return {tag:mm[1], text:mm[3]};
-  return {tag:null, text:first};
+  return mm?{tag:mm[1],text:mm[3]}:{tag:null,text:first};
 }
 async function loadCommits(){
   try{
@@ -210,19 +259,18 @@ async function loadCommits(){
       {headers:{Accept:"application/vnd.github+json"}});
     if(!res.ok) throw new Error("HTTP "+res.status);
     const arr=await res.json();
-    document.getElementById("commits").innerHTML = arr.map(function(c){
-      const d=new Date(c.commit.author.date), md=(d.getMonth()+1)+"/"+d.getDate();
+    document.getElementById("commits").innerHTML=arr.map(function(c){
+      const d=new Date(c.commit.author.date),md=(d.getMonth()+1)+"/"+d.getDate();
       const cm=cleanMsg(c.commit.message);
       const tag=cm.tag?'<span class="tag">'+esc(cm.tag)+'</span>':'';
-      return '<div class="ev"><div class="d">'+md+'</div><div class="m">'+tag+esc(cm.text)+'</div></div>';
-    }).join("");
-    document.getElementById("fetched").textContent="最新の動きをライブ取得: "+new Date().toLocaleString("ja-JP");
+      return '<div class="ev"><div class="d">'+md+'</div><div class="m">'+tag+esc(cm.text)+'</div></div>';}).join("");
+    document.getElementById("fetched").textContent="最近の動きをライブ取得: "+new Date().toLocaleString("ja-JP");
   }catch(e){
     document.getElementById("commits").innerHTML='<div class="ev"><div class="m">最近の動きを取得できませんでした（'+esc(e.message)+'）</div></div>';
     document.getElementById("fetched").textContent="ライブ取得に失敗（静的表示）";
   }
 }
-function load(){ renderStatic(); loadCommits(); }
+function load(){renderStatic();loadCommits();}
 load();
 </script>
 </body>
