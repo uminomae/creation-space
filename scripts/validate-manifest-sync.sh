@@ -241,6 +241,83 @@ else
     warnings=$((warnings + 1))
 fi
 
+# --- Check 10: 同一領域内の原典重複検知 (cs#249) ---
+# 背景: D15-S09/D15-S10 (Dewey 1934) と D26-S06/D26-S09 (Huron 2006) のように、
+#   同一原典・同一領域の manifest 行が複数存在する重複ミスが放置されていた。
+#   重複は「原典→source-note 1:1 原則」(.claude/rules/source-note-invariants.md §1) に反する。
+#   クロス領域 anchor (同一原典を *異なる領域* で再利用) は領域が異なるため本検査に掛からない（正規）。
+#   版違い等でレビュー済みの既知例外のみ REVIEWED_DUP_EXCEPTIONS に列挙して通す。
+echo ""
+echo "[10] 原典重複検知: 同一領域内に同一原典(著者姓+年+書名)が複数行ないか (cs#249)"
+if [[ -f "$MANIFEST" ]]; then
+    python3 - "$MANIFEST" <<'PY' || errors=$((errors + 1))
+import re, sys
+manifest = sys.argv[1]
+
+# レビュー済み既知例外: 同一領域重複だが意図的に残す source_id（重複側）。
+# 形式: "重複と判定された側の source_id": "理由"
+REVIEWED_DUP_EXCEPTIONS = {
+    "D25-S01b": "cs#221: van Gennep 1960英訳の raw 重複。物理PDF削除を伴うため pjdhiro 判断待ち（manifest注記参照）",
+}
+
+def norm_title(cit):
+    m = re.search(r'\*([^*]+)\*', cit)              # markdown italic の書名
+    if not m:
+        m = re.search(r'\)\.\s*([^.]+)\.', cit)     # "(year). Title." 形式
+    title = m.group(1) if m else cit
+    return re.sub(r'[^a-z0-9぀-ヿ一-鿿]', '', title.lower())[:40]
+
+groups = {}
+for line in open(manifest, encoding='utf-8'):
+    if not re.match(r'\|\s*D\d+-S', line):
+        continue
+    cells = [c.strip() for c in line.strip().strip('|').split('|')]
+    if len(cells) < 4:
+        continue
+    sid, dom, _acc, cit = cells[0], cells[1], cells[2], cells[3]
+    if dom == 'citation-only':
+        # citation-only は領域不明のため、書名+年+著者のみで判定する
+        dom_key = 'citation-only'
+    else:
+        dom_key = dom
+    year = (re.search(r'(1[6-9]\d\d|20\d\d)', cit) or [None]) and re.search(r'(1[6-9]\d\d|20\d\d)', cit)
+    year = year.group(1) if year else '????'
+    auth = (re.match(r'([A-Za-zÀ-ſ][\wÀ-ſ\'-]*)', cit) or None)
+    auth = auth.group(1).lower() if auth else '?'
+    t = norm_title(cit)
+    if not t:
+        continue
+    key = (dom_key, auth, year, t)
+    groups.setdefault(key, []).append((sid, cit))
+
+violations = 0
+for key, items in sorted(groups.items()):
+    if len(items) < 2:
+        continue
+    # 先頭を正本、残りを重複候補とみなす
+    extras = items[1:]
+    unreviewed = [(sid, cit) for sid, cit in extras if sid not in REVIEWED_DUP_EXCEPTIONS]
+    if unreviewed:
+        violations += 1
+        dom, auth, year, _t = key
+        print(f"  FAIL 重複: [{dom}] {auth} {year}")
+        for sid, cit in items:
+            tag = " (正本)" if (sid, cit) == items[0] else (" (重複・要除外)" if sid not in REVIEWED_DUP_EXCEPTIONS else " (例外:レビュー済)")
+            print(f"        {sid}: {cit[:80]}{tag}")
+    else:
+        dom, auth, year, _t = key
+        print(f"  OK(例外) 重複だがレビュー済: [{dom}] {auth} {year} -> {[s for s,_ in extras]}")
+
+if violations:
+    print(f"  → 重複 {violations} 群。重複行を manifest から除外するか、レビュー後 REVIEWED_DUP_EXCEPTIONS に追記すること")
+    sys.exit(1)
+print("  OK — 同一領域内の未レビュー重複なし")
+PY
+else
+    echo "  SKIP — knowledge/raw/manifest.md が見つからない"
+    warnings=$((warnings + 1))
+fi
+
 # --- Summary ---
 echo ""
 echo "=== 結果: errors=${errors}, warnings=${warnings} ==="

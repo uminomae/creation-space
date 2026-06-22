@@ -3,12 +3,12 @@
   "source": "scripts/generate-dashboard-stats.mjs",
   "manifest": {
     "raw_confirmed": 126,
-    "url_verified": 212,
-    "blocked_access": 74,
+    "url_verified": 211,
+    "blocked_access": 73,
     "citation_only": 31,
-    "total": 443,
-    "readable": 338,
-    "unread": 105
+    "total": 441,
+    "readable": 337,
+    "unread": 104
   },
   "source_notes": 289,
   "cs_domains": 30
