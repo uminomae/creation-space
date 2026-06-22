@@ -226,6 +226,21 @@ else
     warnings=$((warnings + 1))
 fi
 
+# --- Check 9: dashboard-stats.json が最新か (ドリフト検知) ---
+echo ""
+echo "[9] dashboard-stats.json 鮮度: scripts/generate-dashboard-stats.mjs --check"
+if [[ -f "${CS_DIR}/assets/dashboard-stats.json" ]]; then
+    if node "${SCRIPT_DIR}/generate-dashboard-stats.mjs" --check >/dev/null 2>&1; then
+        echo "  OK — dashboard-stats.json は manifest/source-note/領域数と整合"
+    else
+        echo "  WARN — dashboard-stats.json が古い。'node scripts/generate-dashboard-stats.mjs' で再生成すること"
+        warnings=$((warnings + 1))
+    fi
+else
+    echo "  SKIP — assets/dashboard-stats.json が見つからない"
+    warnings=$((warnings + 1))
+fi
+
 # --- Summary ---
 echo ""
 echo "=== 結果: errors=${errors}, warnings=${warnings} ==="

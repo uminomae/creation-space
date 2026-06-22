@@ -114,8 +114,8 @@
         <div class="stage">
           <span class="badge b-back">🔧 裏方・材料</span>
           <div class="mt">原典リソース</div>
-          <div class="mnum">337<small> /442 本 本文確認済</small></div>
-          <div class="mdesc">📄 repo保存PDF <b>125</b> ＋ 🔗 リンク閲覧 <b>212</b> ＝ 読めた 337。未取得 105（取得ブロック74・目録のみ31＝本文未読）。<br><a href="sources.html">原典リスト（リンク付き）↗</a></div>
+          <div class="mnum"><span id="m-readable">338</span><small> /<span id="m-total">443</span> 本 本文確認済</small></div>
+          <div class="mdesc">📄 repo保存PDF <b id="m-raw">126</b> ＋ 🔗 リンク閲覧 <b id="m-url">212</b> ＝ 読めた <span id="m-readable2">338</span>。未取得 <span id="m-unread">105</span>（取得ブロック<span id="m-blocked">74</span>・目録のみ<span id="m-cite">31</span>＝本文未読）。<br><a href="sources.html">原典リスト（リンク付き）↗</a></div>
         </div>
       </div>
       <div class="arrow">→</div>
@@ -123,7 +123,7 @@
         <div class="stage cur">
           <span class="badge b-back">🔧 中間</span><span class="badge b-here">いまここ</span>
           <div class="mt">精読ノート（cs）</div>
-          <div class="mnum">265<small> 本 作成</small></div>
+          <div class="mnum"><span id="m-notes">267</span><small> 本 作成</small></div>
           <div class="mdesc">原典を読み要点・引用・5段階対応をまとめたもの（<a href="https://github.com/uminomae/creation-space/tree/main/knowledge/source-notes" target="_blank" rel="noopener">一覧↗</a>）。いま pd 解説に対応する分を補完中（13/71）</div>
         </div>
       </div>
@@ -132,7 +132,7 @@
         <div class="stage pub">
           <span class="badge b-view">👁 読者が見る</span>
           <div class="mt">cs Webサイト</div>
-          <div class="mnum">30<small> /30 分野</small></div>
+          <div class="mnum"><span id="m-domains">30</span><small> /30 分野</small></div>
           <div class="mdesc">30分野の調査レポート。<a href="https://uminomae.github.io/creation-space/" target="_blank" rel="noopener">creation-space ↗</a>。※原典ベースの再構成は 0/30（これから）</div>
         </div>
         <div class="stage pub">
@@ -191,7 +191,7 @@
   </section>
 
   <footer>
-    地図の件数・進捗・論文リストは <b>2026-06-21 時点</b>の手集計。「最近の動き」と更新時刻は開くたびにライブ更新されます。<br>
+    地図の<b>原典・精読ノート・分野数</b>は <code>assets/dashboard-stats.json</code>（cs台帳から自動生成）を開くたびにライブ反映。pd wiki 件数・補完進捗（13/71）・論文リストは編集時点の手集計です。「最近の動き」と更新時刻もライブ更新されます。<br>
     公開URL: <code>uminomae.github.io/creation-space/dashboard.html</code> ／ 計画の詳細は issue cs#251。
   </footer>
 </div>
@@ -249,6 +249,20 @@ function renderStatic(){
       '<div class="rd">'+esc(s.d)+'</div><div class="ex">'+esc(s.ex)+'</div>'+
       '<div class="fix">→ <b>こうすれば進む:</b> '+esc(s.fix)+'</div></div>';}).join("");
 }
+async function loadStats(){
+  // assets/dashboard-stats.json は scripts/generate-dashboard-stats.mjs が cs SoT から生成。
+  // 取得できれば地図の件数をライブ反映。失敗時は HTML 埋め込みの静的値にフォールバック。
+  try{
+    const res=await fetch("assets/dashboard-stats.json",{cache:"no-store"});
+    if(!res.ok) throw new Error("HTTP "+res.status);
+    const s=await res.json(),m=s.manifest||{};
+    const set=function(id,v){const el=document.getElementById(id);if(el&&v!=null)el.textContent=v;};
+    set("m-readable",m.readable); set("m-readable2",m.readable); set("m-total",m.total);
+    set("m-raw",m.raw_confirmed); set("m-url",m.url_verified); set("m-unread",m.unread);
+    set("m-blocked",m.blocked_access); set("m-cite",m.citation_only);
+    set("m-notes",s.source_notes); set("m-domains",s.cs_domains);
+  }catch(e){/* 静的値のまま */}
+}
 function cleanMsg(m){
   const first=m.split("\n")[0];
   const mm=first.match(/^(\w+)(\([^)]*\))?:\s*(.+)$/);
@@ -271,7 +285,7 @@ async function loadCommits(){
     document.getElementById("fetched").textContent="ライブ取得に失敗（静的表示）";
   }
 }
-function load(){renderStatic();loadCommits();}
+function load(){renderStatic();loadStats();loadCommits();}
 load();
 </script>
 </body>
