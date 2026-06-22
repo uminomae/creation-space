@@ -15,7 +15,7 @@
   `bib-crosscheck.sh` / `count-manifest.sh` 等でこのパターンを検出しても、本ドキュメントに記載のものは正規。
 - 同様に、版違いファイル（例: van Gennep 1909仏語原著 と 1960英訳）が未参照として残るのも別事象（重複ではない）。
 
-## 一覧（4原典・9 source-note）
+## 一覧（5原典・11 source-note）
 
 ### 1. Varela, Thompson & Rosch (1991) *The Embodied Mind*
 - **PDF**: `knowledge/raw/D14_varela_1991_embodied-mind.pdf`（D14 で初確保）
@@ -54,6 +54,15 @@
 | **D12-S03** (原典側) | 農学生態 | 生態系のレジリエンスと安定性 |
 | **D20-S13** (再利用) | 法学・政治学 | adaptive governance / polycentric 制度設計の源流（Stage 1-4、D20視点で 1場・5束 強） |
 
+### 5. Olsson, Folke & Hahn (2004) *Social-Ecological Transformation for Ecosystem Management*
+- **URL**: https://www.ecologyandsociety.org/vol9/iss4/art2/print.pdf（OA、ES 誌上論文）
+- **なぜ複数領域か**: スウェーデン湿地管理の事例が、(1) 既存体制→危機→新ガバナンス制度化という「制度変化」の歴史的過程（D16）と、(2) 在来知（農業慣行・博物学的知識）の動員・統合・組織化（D30）の両面を同時に記述している。
+
+| source_id | 領域 | 読解の重点 |
+|---|---|---|
+| **D16-S18** (原典側) | 歴史・制度変化 | 制度変化の3段階（準備→政策の窓→新体制のレジリエンス構築）・Kingdon 政策の窓理論・政策起業家的行動 |
+| **D30-S15** (再利用) | 伝統知 | 在来知（農業実践・博物学的観察）の蓄積・統合・動員プロセス・「水の国」という共通概念による知識の縁結び |
+
 ## 不変条件
 
 - 本一覧の原典の source-note を改訂するときは、**同一原典を共有する全 source-note**（上表の同一行グループ）への影響を確認する。
@@ -63,5 +72,6 @@
 ## 関連
 
 - cs#245 — 自然言語デバッグ（本一覧の発見元。Phase B 書誌照合で `bib-crosscheck.sh` が D番号不一致を検出）
+- cs#249 — Olsson et al. (2004) クロス領域 anchor 追加（D16-S18 / D30-S15）
 - `.claude/rules/source-note-invariants.md` §7 — クロス領域 anchor の扱い
 - `transform/domains/cross-domain-reference.md` — 領域間の知見配置ルール（別事象）
