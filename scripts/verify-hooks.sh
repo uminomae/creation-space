@@ -56,18 +56,43 @@ for event_hooks in data.get('hooks', {}).values():
 
 while IFS= read -r script; do
   [ -z "$script" ] && continue
-  full_path="${REPO_ROOT}/${script}"
+  # command は "bash path/to/script.sh" のようにインタプリタ前置の場合がある。
+  # その場合は実スクリプトパスを取り出して存在検査する（executable 権限は
+  # インタプリタ実行では不要なので bare path のときだけ検査する）。
+  script_path="$script"
+  interp=""
+  case "$script" in
+    bash\ *|sh\ *|python3\ *|python\ *|node\ *)
+      interp="${script%% *}"
+      script_path="${script#* }"
+      ;;
+  esac
+  full_path="${REPO_ROOT}/${script_path}"
   assert "  ${script} exists" "[ -f '${full_path}' ]"
-  assert "  ${script} is executable" "[ -x '${full_path}' ]"
+  if [ -z "$interp" ]; then
+    assert "  ${script} is executable" "[ -x '${full_path}' ]"
+  fi
 done <<< "$hook_scripts"
 
 # 5. 全 hook スクリプトが _common を source しているか
+# 既知例外: payload 解析を自前で行う自己完結型 hook は _common を必要としない。
+# _common は補助関数群（hook_payload_get 等）であり kill-switch ではないため、
+# 自己完結 hook の非依存は機能上の欠陥ではない。
 echo ""
 echo "  Checking _common dependency:"
+SELF_CONTAINED_HOOKS="backslash-bang-guard.sh design-system-guard.sh"
 for script_file in "${HOOKS_DIR}"/*.sh; do
   [ -f "$script_file" ] || continue
   name="$(basename "$script_file")"
-  assert "  ${name} sources _common" "grep -q 'source.*_common' '${script_file}'"
+  case " ${SELF_CONTAINED_HOOKS} " in
+    *" ${name} "*)
+      echo "  PASS:  ${name} は自己完結型（_common 不要・既知例外）"
+      ((passed++)) || true
+      ;;
+    *)
+      assert "  ${name} sources _common" "grep -q 'source.*_common' '${script_file}'"
+      ;;
+  esac
 done
 
 # 6. 新規 hooks (progress-level-guard, domains-json-sync-guard) の存在確認
