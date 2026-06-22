@@ -44,7 +44,7 @@ cs 側の 30 領域すべてで、`D{NN}-S{##}_*.md` 形式の source-note ペ�
 - **検知ロジック**: manifest 各行を `(領域, 著者姓, 年, 正規化書名)` でグルーピングし、同一キーが 2 行以上あれば重複候補。先頭を正本、残りを「要除外」として FAIL。
 - **正規パターン（重複ではない・FAIL しない）**:
   - **クロス領域 anchor**（§7）: 同一原典を *異なる領域* で再利用。領域が異なるためキーが衝突せず、本検査に掛からない。正本は `cross-domain-anchors.md`。
-  - **レビュー済み例外**: 版違い等で意図的に残す場合のみ、`validate-manifest-sync.sh` の `REVIEWED_DUP_EXCEPTIONS` に source_id と理由を明記して通す（例: `D25-S01b` van Gennep 1960英訳 raw 重複、pjdhiro 判断待ち）。
+  - **レビュー済み例外**: 版違い等で意図的に残す場合のみ、`validate-manifest-sync.sh` の `REVIEWED_DUP_EXCEPTIONS` に source_id と理由を明記して通す。現在 登録例外は 0 件（`D25-S01b` van Gennep 1960英訳 raw 重複は 2026-06-22 に物理PDF・manifest行とも除外済み、pjdhiro 承認）。
 - **運用ルール（再発防止）**:
   1. manifest に行を追加する前に、必ず `grep` で同一著者・年・書名の既存行を確認する。
   2. **重複に気づいたら「重複」と注記して放置してはならない。その場で重複行を除外する**。

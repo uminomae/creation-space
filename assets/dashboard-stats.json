@@ -2,12 +2,12 @@
   "generated": "2026-06-22",
   "source": "scripts/generate-dashboard-stats.mjs",
   "manifest": {
-    "raw_confirmed": 126,
+    "raw_confirmed": 125,
     "url_verified": 211,
     "blocked_access": 73,
     "citation_only": 31,
-    "total": 441,
-    "readable": 337,
+    "total": 440,
+    "readable": 336,
     "unread": 104
   },
   "source_notes": 289,

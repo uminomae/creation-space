@@ -257,7 +257,8 @@ manifest = sys.argv[1]
 # レビュー済み既知例外: 同一領域重複だが意図的に残す source_id（重複側）。
 # 形式: "重複と判定された側の source_id": "理由"
 REVIEWED_DUP_EXCEPTIONS = {
-    "D25-S01b": "cs#221: van Gennep 1960英訳の raw 重複。物理PDF削除を伴うため pjdhiro 判断待ち（manifest注記参照）",
+    # D25-S01b（van Gennep 1960英訳 raw 重複）は 2026-06-22 に物理PDF・manifest行とも除外済み（pjdhiro 承認, cs#249）。
+    # 版違い等で意図的に残す重複が出た場合のみ、ここに "重複側 source_id": "理由" を追記する。
 }
 
 def norm_title(cit):
