@@ -108,7 +108,7 @@
 
   <section>
     <h2><span class="ic">🗺️</span>全体地図 — 材料から公開まで</h2>
-    <p class="lead">左の「原典・精読ノート」は<b>裏方の材料</b>。読者が実際に目にするのは<b>右の2つ</b>（cs Webサイトと pd wiki）です。</p>
+    <p class="lead">左の「原典・精読ノート」は<b>裏方の材料</b>。読者が実際に目にするのは<b>右の2つ</b>（creation-space〔創造とは〕のサイトと project-design の wiki）です。</p>
     <div class="map">
       <div class="col">
         <div class="stage">
@@ -122,22 +122,22 @@
       <div class="col">
         <div class="stage cur">
           <span class="badge b-back">🔧 中間</span><span class="badge b-here">いまここ</span>
-          <div class="mt">精読ノート（cs）</div>
+          <div class="mt">精読ノート（creation-space）</div>
           <div class="mnum"><span id="m-notes">267</span><small> 本 作成</small></div>
-          <div class="mdesc">原典を読み要点・引用・5段階対応をまとめたもの（<a href="https://github.com/uminomae/creation-space/tree/main/knowledge/source-notes" target="_blank" rel="noopener">一覧↗</a>）。いま pd 解説に対応する分を補完中（13/71）</div>
+          <div class="mdesc">原典を読み要点・引用・5段階対応をまとめたもの（<a href="https://github.com/uminomae/creation-space/tree/main/knowledge/source-notes" target="_blank" rel="noopener">一覧↗</a>）。いま project-design の解説に対応する分を補完中（13/71）</div>
         </div>
       </div>
       <div class="arrow">→</div>
       <div class="col">
         <div class="stage pub">
           <span class="badge b-view">👁 読者が見る</span>
-          <div class="mt">cs Webサイト</div>
+          <div class="mt">creation-space（創造とは）サイト</div>
           <div class="mnum"><span id="m-domains">30</span><small> /30 分野</small></div>
           <div class="mdesc">30分野の調査レポート。<a href="https://uminomae.github.io/creation-space/" target="_blank" rel="noopener">creation-space ↗</a>。※原典ベースの再構成は 0/30（これから）</div>
         </div>
         <div class="stage pub">
           <span class="badge b-view">👁 読者が見る</span>
-          <div class="mt">pd wiki（解説）</div>
+          <div class="mt">project-design wiki（解説）</div>
           <div class="mnum">344<small> 解説ページ</small></div>
           <div class="mdesc">用語・原典の解説ページ。<a href="https://uminomae.github.io/project-design/wiki/" target="_blank" rel="noopener">Project Design Wiki ↗</a>（<a href="https://uminomae.github.io/project-design/wiki/sources/" target="_blank" rel="noopener">原典解説↗</a>）。精読ノートと内容を照合中</div>
         </div>
@@ -148,7 +148,7 @@
 
   <section>
     <h2><span class="ic">📊</span>いま埋めている工程：精読ノート</h2>
-    <p class="lead">pd の解説ページがあるのに精読ノートが未作成の論文 71本のうち、何本まとめ終えたか。</p>
+    <p class="lead">project-design の解説ページがあるのに精読ノートが未作成の論文 71本のうち、何本まとめ終えたか。</p>
     <div class="prog">
       <div class="donut">
         <svg width="128" height="128" viewBox="0 0 132 132" role="img" aria-label="進捗ドーナツ">
@@ -191,8 +191,8 @@
   </section>
 
   <footer>
-    地図の<b>原典・精読ノート・分野数</b>は <code>assets/dashboard-stats.json</code>（cs台帳から自動生成）を開くたびにライブ反映。pd wiki 件数・補完進捗（13/71）・論文リストは編集時点の手集計です。「最近の動き」と更新時刻もライブ更新されます。<br>
-    公開URL: <code>uminomae.github.io/creation-space/dashboard.html</code> ／ 計画の詳細は issue cs#251。
+    地図の<b>原典・精読ノート・分野数</b>は <code>assets/dashboard-stats.json</code>（creation-space の台帳から自動生成）を開くたびにライブ反映。project-design wiki の件数・補完進捗（13/71）・論文リストは編集時点の手集計です。「最近の動き」と更新時刻もライブ更新されます。<br>
+    公開URL: <code>uminomae.github.io/creation-space/dashboard.html</code> ／ 計画の詳細は creation-space の issue #251。
   </footer>
 </div>
 
@@ -250,7 +250,7 @@ function renderStatic(){
       '<div class="fix">→ <b>こうすれば進む:</b> '+esc(s.fix)+'</div></div>';}).join("");
 }
 async function loadStats(){
-  // assets/dashboard-stats.json は scripts/generate-dashboard-stats.mjs が cs SoT から生成。
+  // assets/dashboard-stats.json は scripts/generate-dashboard-stats.mjs が creation-space の台帳から生成。
   // 取得できれば地図の件数をライブ反映。失敗時は HTML 埋め込みの静的値にフォールバック。
   try{
     const res=await fetch("assets/dashboard-stats.json",{cache:"no-store"});
