@@ -12,3 +12,4 @@
 | CL-006 | 2026-03-15 | 場当たり的修正の連鎖は最初の変更の影響分析不足が原因 | `.claude/rules/breaking-change-checklist.md` | infused |
 | CL-007 | 2026-03-15 | Agent プロンプトに「影響範囲の検証」を明示しなければ Agent は自発的にやらない | `.claude/rules/agent-completion.md` | infused |
 | CL-008 | 2026-06-21 | 原典取得は「わかったつもり」で間違える。url-verified は取得可・同定済を意味しない（cs#221/#240 の正本未統合が真因） | `docs/knowledge-raw-policy.md`, `knowledge/source-notes/READING-PROTOCOL.md`, `knowledge/raw/README.md` | infused |
+| CL-009 | 2026-06-22 | 同一原典の同一領域重複が「重複と注記しながら放置」されていた。ワークフローに対応する自動テストが無いと欠陥がすり抜ける。テストの無いワークフローを作らない | `.claude/rules/source-note-invariants.md`(§2.5), `scripts/validate-manifest-sync.sh`(C10), `docs/quality-management.md`(§7-§9), `scripts/qc-all.sh` | infused |

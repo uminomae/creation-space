@@ -67,7 +67,8 @@ docs/ に置かないもの:
 | `evidence/investigations/investigation-cs23-categorize.md` | REPORTS の進捗カテゴリ設計調査 |
 | `evidence/investigations/investigation-cs43-modal-deeplink.md` | モーダル deep link 設計調査 |
 | `docs/evidence-metadata-creation.md` | creation 固有 metadata 正本 |
-| `docs/quality-management.md` | 品質チェック・テキスト基準・レビュー基準 |
+| `docs/quality-management.md` | **品質管理 正本**: 品質チェック・自動テストカタログ(§7)・ワークフロー×品質書類対応表(§8)・定期網羅ランブック(§9) |
+| `scripts/qc-all.sh` | 決定的 QC テスト 網羅ランナー（定期/backfill後に実行） |
 | `docs/guardian-matrix.md` | ルール × 守護者マトリクス（CS-001〜 採番） |
 | `evidence/CLAUDE.md` | `evidence/` 配下での補助ルール |
 
