@@ -47,7 +47,7 @@ jobs:
           fi
 
       - name: Check index.html exists
-        run: test -f index.html && echo "PASS: index.html exists"
+        run: 'test -f index.html && echo "PASS: index.html exists"'
 
       - name: Check for shell escapes in JS
         run: |
