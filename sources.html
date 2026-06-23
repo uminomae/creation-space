@@ -77,6 +77,8 @@ function b64utf8(b64){return new TextDecoder().decode(Uint8Array.from(atob(b64.r
 function esc(s){const d=document.createElement("div");d.textContent=s;return d.innerHTML;}
 function firstUrl(s){const m=s.match(/https?:\/\/[^\s)|]+/);return m?m[0]:null;}
 function cleanTitle(t){return t.replace(/\*\*/g,"").replace(/\*/g,"").replace(/`/g,"").trim();}
+function idKey(id){const m=(id||"").match(/D(\d+)-S(\d+)/);return m?[parseInt(m[1],10),parseInt(m[2],10),id]:[1e9,1e9,id];}
+function byId(a,b){const ka=idKey(a.id),kb=idKey(b.id);return ka[0]-kb[0]||ka[1]-kb[1]||(ka[2]<kb[2]?-1:ka[2]>kb[2]?1:0);}
 
 function parseManifest(md){
   const rows=[];
@@ -114,7 +116,7 @@ function render(){
       if(df && r.dom!==df) return false;
       if(q && (r.title.toLowerCase().indexOf(q)<0 && r.id.toLowerCase().indexOf(q)<0)) return false;
       return true;
-    });
+    }).sort(byId);
     shown+=items.length;
     html+='<h2>'+g.ic+' '+g.label+' <span class="muted">('+items.length+')</span></h2>';
     html+='<p class="hint">'+g.note+'</p>';
