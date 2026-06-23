@@ -38,14 +38,18 @@ cs 側の 30 領域すべてで、`D{NN}-S{##}_*.md` 形式の source-note ペ�
 
 ## 2.5. 🚫 「原典重複禁止」不変条件（cs 内部・FAIL, cs#249）
 
-**同一書名（タイトル）の原典を同一領域の manifest 行に複数登録してはならない。** これは §1「原典 → source-note 1:1 原則」の裏返しであり、重複は 1:1 を壊す。
+**同一原典を同一領域の manifest 行に複数登録してはならない。** これは §1「原典 → source-note 1:1 原則」の裏返しであり、重複は 1:1 を壊す。
 
-- **判定方針（cs#249, pjdhiro 指示）**: **同一領域内で書名（タイトル）が一致したら即重複**。年・版・著者表記のゆれに依存しない。これは旧方式 `(領域, 著者姓, 年, 書名)` が D16-S03「1934-1961」vs D16-S04 年欄空 の Toynbee 同一原典を年差ですり抜けた反省による（年・版違い注記によるすり抜けを構造的に排除する）。
+- **判定方針（cs#249, pjdhiro 指示 = 実務標準の書誌重複ルールを採用）**: systematic review の dedup / Zotero・EndNote 等の参照管理 / Crossref・PubMed に倣う。
+  1. **work-identity = (領域, 著者姓, 正規化書名)** で重複候補をグルーピング（年・版の表記ゆれに依存しない。旧方式 `(領域,著者姓,年,書名)` は D16-S03「1934-1961」vs D16-S04 年欄空 の Toynbee を年差ですり抜けた）。
+  2. **DOI が主キー**: 候補ペアの両方が DOI を持ち、それが**異なれば別 publication** として自動除外（速報 letter 版 vs 拡張 full article 版、版違い等。例: Bak SOC D29-S03/S04 は別 DOI で自動判定され例外登録不要）。
+  3. DOI で切り分けられない同一 work-identity ペアのうち、登録簿の例外を除いた残りを重複として FAIL。
 - **FAIL 判定**: `bash scripts/validate-manifest-sync.sh` の **Check 10** で FAIL。
-- **検知ロジック**: manifest 各行を `(領域, 正規化書名)` でグルーピングし、同一キーが 2 行以上あれば重複候補。先頭を正本、残りを「要除外」として FAIL。書名抽出は論文/書籍の**実タイトル**を採る（論文 `Author (year). Title. *Journal*` はイタリックが雑誌名なので、年括弧後・最初のイタリック手前のテキストを採用。書籍はイタリックがタイトル）。
+- **書名抽出**: 論文/書籍の**実タイトル**を採る。論文 `Author (year). Title. *Journal*` はイタリックが雑誌名なので年括弧後・最初のイタリック手前のテキストを、書籍 `Author (year). *Title*.` / `Author. *Title*.`(年括弧なし) はイタリックをタイトルとする。
 - **正規パターン（重複ではない・FAIL しない）**:
-  - **クロス領域 anchor**（§7）: 同一原典を *異なる領域* で再利用。領域が異なるためキーが衝突せず、本検査に掛からない。正本は `cross-domain-anchors.md`。
-  - **レビュー済み例外**: 同名だが別 publication（レター版 vs 拡張版 等）/ 版違い等で意図的に残す場合のみ、`validate-manifest-sync.sh` の `REVIEWED_DUP_EXCEPTIONS` に source_id と理由を明記して通す。現在 登録例外は 1 件（`D29-S04` Bak SOC: D29-S03=1987 PRL レター / D29-S04=1988 Phys Rev A 拡張完全版、後者を前者の代替として意図併存, cs#219/#249）。`D25-S01b` van Gennep 1960英訳 raw 重複は 2026-06-22 に物理PDF・manifest行とも除外済み（pjdhiro 承認）。
+  - **DOI 相違**: 同一 work-identity でも DOI が異なれば別 publication（自動判定・登録不要）。
+  - **クロス領域 anchor**（§7）: 同一原典を *異なる領域* で再利用。領域が異なるためキーが衝突せず掛からない。正本は `cross-domain-anchors.md`。
+  - **レビュー済み例外（誤検知でない理由つき）**: DOI で切り分けられない同名別物（翻訳版 vs 原著、同名異著 等）は、登録簿 **`knowledge/raw/duplicate-exceptions.md`** に `| source_id A | source_id B | カテゴリ | 誤検知でない理由・論拠 |` 形式で人間がレビューして登録する。Check 10 が同ファイルを読んで除外する。現在 有効登録は 0 件（Bak は DOI 相違で自動判定）。`D25-S01b` van Gennep 1960英訳 raw 重複は 2026-06-22 に物理PDF・manifest行とも除外済み（pjdhiro 承認）。
 - **運用ルール（再発防止）**:
   1. manifest に行を追加する前に、必ず `grep` で同一書名の既存行を確認する。
   2. **重複に気づいたら「重複」と注記して放置してはならない。その場で重複行を除外する**。
@@ -68,7 +72,7 @@ cs source-note を改訂するコミットでは、以下の関連ページの�
 |---|---|---|
 | cs source-note 未生成（raw-confirmed / url-verified） | cs hook `source-note-gen-check.sh` SessionStart で inbox 起票 | inbox の依頼順に生成。`knowledge/source-notes/D{NN}/{source_id}_*.md` を作成してコミット |
 | 領域 source-note <5 本 | `validate-manifest-sync.sh` Check 6 FAIL | 原典を追加して source-note を生成する（manifest に url-verified or raw-confirmed を追加→hook が検知→source-note 生成） |
-| **同一領域に原典重複行** | `validate-manifest-sync.sh` **Check 10** FAIL | 重複行を manifest から除外する。版違い等で残すなら `REVIEWED_DUP_EXCEPTIONS` に理由付きで追記。raw 重複は孤立 PDF を pjdhiro 確認 |
+| **同一領域に原典重複行** | `validate-manifest-sync.sh` **Check 10** FAIL | 重複行を manifest から除外する。DOI で切り分け不可な同名別物なら `knowledge/raw/duplicate-exceptions.md` に理由・論拠つきで登録。raw 重複は孤立 PDF を pjdhiro 確認 |
 | source-note 改訂で関連更新漏れ | code review | 追加コミットで補完し、理由を commit message に明記 |
 
 ## 5. pd 側の品質チェック（参照のみ、cs には義務なし）

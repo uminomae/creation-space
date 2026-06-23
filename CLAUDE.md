@@ -92,7 +92,7 @@ CSS（`src/styles/` 配下）を変更する前に:
 
 - cs `knowledge/raw/manifest.md` の `raw-confirmed` / `url-verified` 行には対応する cs source-note (`knowledge/source-notes/D{NN}/{source_id}_*.md`) が必須
 - 各領域で cs source-note ≥5 本（FAIL 不変条件、`bash scripts/validate-manifest-sync.sh` Check 6）
-- **🚫 原典重複禁止（FAIL 不変条件・Check 10, cs#249）**: **同一書名（タイトル）の原典を同一領域に複数行登録してはならない**（年・版・著者表記のゆれに依存せず、書名一致で即重複判定。pjdhiro 指示）。重複は 1:1 原則違反。manifest に行を追加する前に必ず `grep` で同一書名の既存行を確認すること。版違い・クロス領域 anchor は §1/§7 の正規パターン（領域が異なる、またはレビュー済例外のみ許可）。**重複と気づいたら注記して放置せず、その場で重複行を除外する**（D15-S10/D26-S09 は「重複」注記しながら放置されていた = 再発させてはならない QC 欠陥）
+- **🚫 原典重複禁止（FAIL 不変条件・Check 10, cs#249）**: **同一原典を同一領域に複数行登録してはならない**。判定は実務標準の書誌重複ルール（pjdhiro 指示）= work-identity `(領域,著者姓,書名)` でグルーピングし、**DOI が異なれば別 publication として自動除外**、DOI で切り分け不可な同名別物のみ `knowledge/raw/duplicate-exceptions.md` に理由・論拠つきで登録。manifest に行を追加する前に必ず `grep` で同一書名の既存行を確認すること。クロス領域 anchor は §7 の正規パターン（領域が異なる）。**重複と気づいたら注記して放置せず、その場で重複行を除外する**（D15-S10/D26-S09 は「重複」注記しながら放置されていた = 再発させてはならない QC 欠陥）
 - source-note 改訂時は `D{NN}-summary.md` / evidence / cross-refs を同一コミット内で更新
 - 検知: `.claude/hooks/source-note-gen-check.sh` (SessionStart) / `source-note-gen-notify.sh` (commit) / `validate-manifest-sync.sh` Check 10 (重複)
 

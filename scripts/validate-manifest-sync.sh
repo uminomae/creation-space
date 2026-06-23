@@ -242,40 +242,43 @@ else
 fi
 
 # --- Check 10: 同一領域内の原典重複検知 (cs#249) ---
-# 背景: D15-S09/D15-S10 (Dewey 1934) と D26-S06/D26-S09 (Huron 2006)、
+# 背景: D15-S09/D15-S10 (Dewey 1934) / D26-S06/D26-S09 (Huron 2006) /
 #   D16-S03/D16-S04 (Toynbee A Study of History) のように、同一原典・同一領域の
 #   manifest 行が複数存在する重複ミスが放置されていた。
 #   重複は「原典→source-note 1:1 原則」(.claude/rules/source-note-invariants.md §1) に反する。
-# 判定方針 (cs#249, pjdhiro 指示): 同一領域内で *書名(タイトル)が一致したら即重複*。
-#   年・版・著者表記のゆれに依存しない（年欄差や版違い注記によるすり抜けを構造的に排除）。
-#   クロス領域 anchor (同一原典を *異なる領域* で再利用) は領域が異なるため本検査に掛からない（正規）。
-#   版違い等でレビュー済みの既知例外のみ REVIEWED_DUP_EXCEPTIONS に列挙して通す。
+# 判定方針 (cs#249, pjdhiro 指示=実務標準の書誌重複ルールを採用):
+#   1. 候補グルーピング: (領域, 正規化書名)。同一領域で書名一致＝重複候補。
+#   2. DOI 主キー: ペアの両方が DOI を持ち、それが *異なれば別 publication* として除外
+#      （速報 letter 版 vs 拡張 full article 版、版違い等。例: Bak SOC は別 DOI で自動判定）。
+#   3. DOI で切り分けられない同一書名ペアのうち、レビュー済み例外
+#      (knowledge/raw/duplicate-exceptions.md) に登録されたものを除外し、残りを FAIL。
+#   クロス領域 anchor (同一原典を *異なる領域* で再利用) は領域が異なるため掛からない（正規）。
+DUP_EXC="$(dirname "$MANIFEST")/duplicate-exceptions.md"
 echo ""
-echo "[10] 原典重複検知: 同一領域内に同一書名(タイトル)が複数行ないか (cs#249)"
+echo "[10] 原典重複検知: 同一領域・同一書名 (DOI 相違は別publicationとして自動除外, cs#249)"
 if [[ -f "$MANIFEST" ]]; then
-    python3 - "$MANIFEST" <<'PY' || errors=$((errors + 1))
+    python3 - "$MANIFEST" "$DUP_EXC" <<'PY' || errors=$((errors + 1))
 import re, sys
+from itertools import combinations
 manifest = sys.argv[1]
-
-# レビュー済み既知例外: 同一領域・同一書名だが意図的に残す source_id（重複側）。
-# 形式: "重複と判定された側の source_id": "理由"
-REVIEWED_DUP_EXCEPTIONS = {
-    # D25-S01b（van Gennep 1960英訳 raw 重複）は 2026-06-22 に物理PDF・manifest行とも除外済み（pjdhiro 承認, cs#249）。
-    # 版違い等で意図的に残す重複が出た場合のみ、ここに "重複側 source_id": "理由" を追記する。
-    "D29-S04": "Bak SOC 同名2論文: D29-S03=1987 PRL レター(paywall) / D29-S04=1988 Phys Rev A 拡張完全版(raw)。後者を前者の代替として意図併存 (cs#219/#249)。",
-}
+exc_file = sys.argv[2] if len(sys.argv) > 2 else ''
 
 def norm_title(cit):
     """論文/書籍の実タイトルを抽出して正規化する。
     論文 "Author (year). Title. *Journal* vol" はイタリックが雑誌名なので、
     年括弧の後・最初のイタリック手前のテキストをタイトルとする。
-    書籍 "Author (year). *Title*. Publisher" はイタリックがタイトル。"""
+    書籍 "Author (year). *Title*. Publisher" / "Author. *Title*. Pub"(年括弧なし) は
+    イタリックがタイトル。"""
     s = cit.strip()
     m = re.search(r'\)\.\s*(.*)', s)                 # 年括弧 "(year)." の後ろ
-    rest = (m.group(1) if m else s).strip()
+    if m:
+        rest = m.group(1).strip()
+    else:                                            # 年括弧なし: 著者プレフィックスを捨て最初のイタリック以降
+        mi = re.search(r'(\*.*)', s)
+        rest = mi.group(1).strip() if mi else s.strip()
     if rest.startswith('*'):                          # 書籍: *Title*. publisher
-        mi = re.match(r'\*([^*]+)\*', rest)
-        title = mi.group(1) if mi else rest
+        mt = re.match(r'\*([^*]+)\*', rest)
+        title = mt.group(1) if mt else rest
     else:                                            # 論文: Title. *Journal* vol
         cut = rest.find(' *')                         # 最初のイタリック(雑誌)の手前で切る
         seg = rest[:cut] if cut >= 0 else rest
@@ -283,40 +286,73 @@ def norm_title(cit):
     title = title.replace('*', '')
     return re.sub(r'[^a-z0-9぀-ヿ一-鿿]', '', title.lower())[:60]
 
+def surname(cit):
+    a = re.match(r'([A-Za-zÀ-ſ][\wÀ-ſ\'’-]*)', cit.strip())
+    return a.group(1).lower() if a else '?'
+
+def extract_doi(line):
+    m = re.search(r'\b10\.\d{4,9}/[^\s。、,)）]+', line)
+    return m.group(0).rstrip('.').lower() if m else None
+
+# レビュー済み例外 (誤検知でない理由つき) を登録簿から読む。
+# 形式: | source_id A | source_id B | カテゴリ | 理由 |  の行 (A/B が source_id のもの)
+reviewed_pairs = {}   # frozenset({A,B}) -> 理由
+if exc_file:
+    try:
+        for ln in open(exc_file, encoding='utf-8'):
+            if not ln.lstrip().startswith('|'):
+                continue
+            c = [x.strip() for x in ln.strip().strip('|').split('|')]
+            if len(c) >= 4 and re.fullmatch(r'D\d+-S\w+', c[0]) and re.fullmatch(r'D\d+-S\w+', c[1]):
+                reviewed_pairs[frozenset((c[0], c[1]))] = c[3]
+    except FileNotFoundError:
+        pass
+
 groups = {}
 for line in open(manifest, encoding='utf-8'):
     if not re.match(r'\|\s*D\d+-S', line):
         continue
-    cells = [c.strip() for c in line.strip().strip('|').split('|')]
+    cells = [x.strip() for x in line.strip().strip('|').split('|')]
     if len(cells) < 4:
         continue
     sid, dom, _acc, cit = cells[0], cells[1], cells[2], cells[3]
-    # citation-only は領域不明のため独立クラスタとして扱う
     dom_key = 'citation-only' if dom == 'citation-only' else dom
     t = norm_title(cit)
     if not t:
         continue
-    key = (dom_key, t)  # 同一領域 × 同一書名 = 即重複 (年・著者非依存)
-    groups.setdefault(key, []).append((sid, cit))
+    # work-identity = (領域, 著者姓, 書名)。標準的な no-DOI 重複判定。
+    # 著者姓を含めることで、同一誌の別論文(別著者)を誤検知せず、真の重複(著者一致)を捕捉する。
+    groups.setdefault((dom_key, surname(cit), t), []).append((sid, cit, extract_doi(line)))
 
 violations = 0
-for (dom, t), items in sorted(groups.items()):
+for (dom, _au, t), items in sorted(groups.items()):
     if len(items) < 2:
         continue
-    # 先頭を正本、残りを重複候補とみなす
-    extras = items[1:]
-    unreviewed = [(sid, cit) for sid, cit in extras if sid not in REVIEWED_DUP_EXCEPTIONS]
-    if unreviewed:
+    dup_pairs, reviewed, doi_split = [], [], []
+    for (s1, c1, d1), (s2, c2, d2) in combinations(items, 2):
+        if d1 and d2 and d1 != d2:
+            doi_split.append((s1, s2))          # 別 DOI = 別 publication (標準)
+        elif frozenset((s1, s2)) in reviewed_pairs:
+            reviewed.append((s1, s2))           # 登録簿でレビュー済み
+        else:
+            dup_pairs.append((s1, c1, s2, c2))
+    if dup_pairs:
         violations += 1
-        print(f"  FAIL 重複: [{dom}] «{t[:32]}» 同一領域に同一書名")
-        for sid, cit in items:
-            tag = " (正本)" if (sid, cit) == items[0] else (" (重複・要除外)" if sid not in REVIEWED_DUP_EXCEPTIONS else " (例外:レビュー済)")
-            print(f"        {sid}: {cit[:80]}{tag}")
-    else:
-        print(f"  OK(例外) 重複だがレビュー済: [{dom}] «{t[:32]}» -> {[s for s,_ in extras]}")
+        print(f"  FAIL 重複: [{dom}] «{t[:32]}» 同一領域に同一書名・DOI で切り分け不可")
+        seen = set()
+        for s1, c1, s2, c2 in dup_pairs:
+            for sid, cit in ((s1, c1), (s2, c2)):
+                if sid not in seen:
+                    seen.add(sid)
+                    print(f"        {sid}: {cit[:78]}")
+    elif reviewed:
+        print(f"  OK(例外) 同名だがレビュー済(別publication): [{dom}] «{t[:28]}» {[list(p) for p in reviewed]}")
+    elif doi_split:
+        print(f"  OK(DOI相違) 同名だが別DOI=別publication: [{dom}] «{t[:28]}» {doi_split}")
 
 if violations:
-    print(f"  → 重複 {violations} 群。重複行を manifest から除外するか、レビュー後 REVIEWED_DUP_EXCEPTIONS に追記すること")
+    print(f"  → 重複 {violations} 群。重複行を manifest から除外するか、DOI で切り分け不可な別publicationなら")
+    print(f"     knowledge/raw/duplicate-exceptions.md に「誤検知でない理由・論拠」を添えて登録すること")
     sys.exit(1)
 print("  OK — 同一領域内の未レビュー重複なし")
 PY
