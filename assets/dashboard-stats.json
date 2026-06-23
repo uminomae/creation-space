@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-22",
+  "generated": "2026-06-23",
   "source": "scripts/generate-dashboard-stats.mjs",
   "manifest": {
     "raw_confirmed": 125,
@@ -10,6 +10,6 @@
     "readable": 330,
     "unread": 110
   },
-  "source_notes": 285,
+  "source_notes": 286,
   "cs_domains": 30
 }
