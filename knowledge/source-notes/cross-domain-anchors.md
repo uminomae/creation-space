@@ -15,7 +15,7 @@
   `bib-crosscheck.sh` / `count-manifest.sh` 等でこのパターンを検出しても、本ドキュメントに記載のものは正規。
 - 同様に、版違いファイル（例: van Gennep 1909仏語原著 と 1960英訳）が未参照として残るのも別事象（重複ではない）。
 
-## 一覧（5原典・11 source-note）
+## 一覧（6原典・13 source-note）
 
 ### 1. Varela, Thompson & Rosch (1991) *The Embodied Mind*
 - **PDF**: `knowledge/raw/D14_varela_1991_embodied-mind.pdf`（D14 で初確保）
@@ -62,6 +62,15 @@
 |---|---|---|
 | **D16-S18** (原典側) | 歴史・制度変化 | 制度変化の3段階（準備→政策の窓→新体制のレジリエンス構築）・Kingdon 政策の窓理論・政策起業家的行動 |
 | **D30-S15** (再利用) | 伝統知 | 在来知（農業実践・博物学的観察）の蓄積・統合・動員プロセス・「水の国」という共通概念による知識の縁結び |
+
+### 6. James, W. (1890) *The Principles of Psychology, Vol. 1*
+- **URL**: https://archive.org/details/theprinciplesofp01jameuoft（OA スキャン、public。local raw PDF なし＝両 source-note とも url-verified）
+- **なぜ複数領域か**: 『心理学原理』は心理学（自然科学としての心）と心の哲学（自己論・過程哲学）の双方の源流であり、章ごとに異なる領域観点で読める。意識の流れ・習慣は心理学、自己論（the I/the me・Pure Ego）・関係の感覚（fringe）は哲学。
+
+| source_id | 領域 | 読解の重点 |
+|---|---|---|
+| **D14-S04** (原典側) | 心理学 | Ch.IV「Habit」(神経可塑性・行動連鎖) と Ch.IX「Stream of Thought」の意識流れ五特性（連続性・選択性・個人性）。場・渦を強対応 |
+| **D13-S12** (再利用) | 哲学 | Ch.X「Consciousness of Self」(the I/the me・Pure Ego 三理論・人格同一性=passing Thought の appropriation) と Ch.IX の "feelings of relation"/"fringe" の過程哲学的含意・mind-stuff 批判。縁・渦を強対応（引用は D14-S04 と完全非重複） |
 
 ## 不変条件
 
