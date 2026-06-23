@@ -311,6 +311,34 @@ for key, items in sorted(groups.items()):
 
 if violations:
     print(f"  → 重複 {violations} 群。重複行を manifest から除外するか、レビュー後 REVIEWED_DUP_EXCEPTIONS に追記すること")
+
+# --- cs#249 follow-up: 年欄不明による重複すり抜け対策 ---
+# 片方の行で年が欠落 ('????') していると上の exact-key 検査をすり抜ける
+# （例: D16-S03 "1934-1961" vs D16-S04 年欄なし の Toynbee 同一原典）。
+# (領域, 著者姓, 書名) でも再グルーピングし、明示年と '????' が混在する群を
+# 重複候補として FAIL させる。明示年同士の差 (版違い) はここでは対象外。
+title_groups = {}
+for (dom_key, auth, year, t), items in groups.items():
+    title_groups.setdefault((dom_key, auth, t), []).append((year, items))
+
+year_ambiguous = 0
+for (dom_key, auth, t), entries in sorted(title_groups.items()):
+    years = {y for y, _ in entries}
+    if len(entries) < 2 or '????' not in years or len(years) < 2:
+        continue  # 単独 / 全て明示年(版違い) / 全て不明(primary が捕捉) はスキップ
+    flat = [(sid, cit, y) for y, its in entries for sid, cit in its]
+    if len({s for s, _, _ in flat}) < 2:
+        continue
+    unreviewed = [s for s, _, _ in flat if s not in REVIEWED_DUP_EXCEPTIONS]
+    if unreviewed:
+        year_ambiguous += 1
+        print(f"  FAIL 重複(年欄不明ですり抜け): [{dom_key}] {auth} «{t[:24]}»")
+        for sid, cit, y in sorted(flat):
+            print(f"        {sid} [year={y}]: {cit[:70]}")
+
+if violations or year_ambiguous:
+    if year_ambiguous:
+        print(f"  → 年欄不明の重複候補 {year_ambiguous} 群。年欄を補完して exact-key 判定に乗せるか、重複行を除外すること")
     sys.exit(1)
 print("  OK — 同一領域内の未レビュー重複なし")
 PY
