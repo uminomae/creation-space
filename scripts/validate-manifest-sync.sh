@@ -242,31 +242,46 @@ else
 fi
 
 # --- Check 10: 同一領域内の原典重複検知 (cs#249) ---
-# 背景: D15-S09/D15-S10 (Dewey 1934) と D26-S06/D26-S09 (Huron 2006) のように、
-#   同一原典・同一領域の manifest 行が複数存在する重複ミスが放置されていた。
+# 背景: D15-S09/D15-S10 (Dewey 1934) と D26-S06/D26-S09 (Huron 2006)、
+#   D16-S03/D16-S04 (Toynbee A Study of History) のように、同一原典・同一領域の
+#   manifest 行が複数存在する重複ミスが放置されていた。
 #   重複は「原典→source-note 1:1 原則」(.claude/rules/source-note-invariants.md §1) に反する。
+# 判定方針 (cs#249, pjdhiro 指示): 同一領域内で *書名(タイトル)が一致したら即重複*。
+#   年・版・著者表記のゆれに依存しない（年欄差や版違い注記によるすり抜けを構造的に排除）。
 #   クロス領域 anchor (同一原典を *異なる領域* で再利用) は領域が異なるため本検査に掛からない（正規）。
 #   版違い等でレビュー済みの既知例外のみ REVIEWED_DUP_EXCEPTIONS に列挙して通す。
 echo ""
-echo "[10] 原典重複検知: 同一領域内に同一原典(著者姓+年+書名)が複数行ないか (cs#249)"
+echo "[10] 原典重複検知: 同一領域内に同一書名(タイトル)が複数行ないか (cs#249)"
 if [[ -f "$MANIFEST" ]]; then
     python3 - "$MANIFEST" <<'PY' || errors=$((errors + 1))
 import re, sys
 manifest = sys.argv[1]
 
-# レビュー済み既知例外: 同一領域重複だが意図的に残す source_id（重複側）。
+# レビュー済み既知例外: 同一領域・同一書名だが意図的に残す source_id（重複側）。
 # 形式: "重複と判定された側の source_id": "理由"
 REVIEWED_DUP_EXCEPTIONS = {
     # D25-S01b（van Gennep 1960英訳 raw 重複）は 2026-06-22 に物理PDF・manifest行とも除外済み（pjdhiro 承認, cs#249）。
     # 版違い等で意図的に残す重複が出た場合のみ、ここに "重複側 source_id": "理由" を追記する。
+    "D29-S04": "Bak SOC 同名2論文: D29-S03=1987 PRL レター(paywall) / D29-S04=1988 Phys Rev A 拡張完全版(raw)。後者を前者の代替として意図併存 (cs#219/#249)。",
 }
 
 def norm_title(cit):
-    m = re.search(r'\*([^*]+)\*', cit)              # markdown italic の書名
-    if not m:
-        m = re.search(r'\)\.\s*([^.]+)\.', cit)     # "(year). Title." 形式
-    title = m.group(1) if m else cit
-    return re.sub(r'[^a-z0-9぀-ヿ一-鿿]', '', title.lower())[:40]
+    """論文/書籍の実タイトルを抽出して正規化する。
+    論文 "Author (year). Title. *Journal* vol" はイタリックが雑誌名なので、
+    年括弧の後・最初のイタリック手前のテキストをタイトルとする。
+    書籍 "Author (year). *Title*. Publisher" はイタリックがタイトル。"""
+    s = cit.strip()
+    m = re.search(r'\)\.\s*(.*)', s)                 # 年括弧 "(year)." の後ろ
+    rest = (m.group(1) if m else s).strip()
+    if rest.startswith('*'):                          # 書籍: *Title*. publisher
+        mi = re.match(r'\*([^*]+)\*', rest)
+        title = mi.group(1) if mi else rest
+    else:                                            # 論文: Title. *Journal* vol
+        cut = rest.find(' *')                         # 最初のイタリック(雑誌)の手前で切る
+        seg = rest[:cut] if cut >= 0 else rest
+        title = re.split(r'[.?]', seg)[0]            # タイトル末尾の "." / "?" まで
+    title = title.replace('*', '')
+    return re.sub(r'[^a-z0-9぀-ヿ一-鿿]', '', title.lower())[:60]
 
 groups = {}
 for line in open(manifest, encoding='utf-8'):
@@ -276,23 +291,16 @@ for line in open(manifest, encoding='utf-8'):
     if len(cells) < 4:
         continue
     sid, dom, _acc, cit = cells[0], cells[1], cells[2], cells[3]
-    if dom == 'citation-only':
-        # citation-only は領域不明のため、書名+年+著者のみで判定する
-        dom_key = 'citation-only'
-    else:
-        dom_key = dom
-    year = (re.search(r'(1[6-9]\d\d|20\d\d)', cit) or [None]) and re.search(r'(1[6-9]\d\d|20\d\d)', cit)
-    year = year.group(1) if year else '????'
-    auth = (re.match(r'([A-Za-zÀ-ſ][\wÀ-ſ\'-]*)', cit) or None)
-    auth = auth.group(1).lower() if auth else '?'
+    # citation-only は領域不明のため独立クラスタとして扱う
+    dom_key = 'citation-only' if dom == 'citation-only' else dom
     t = norm_title(cit)
     if not t:
         continue
-    key = (dom_key, auth, year, t)
+    key = (dom_key, t)  # 同一領域 × 同一書名 = 即重複 (年・著者非依存)
     groups.setdefault(key, []).append((sid, cit))
 
 violations = 0
-for key, items in sorted(groups.items()):
+for (dom, t), items in sorted(groups.items()):
     if len(items) < 2:
         continue
     # 先頭を正本、残りを重複候補とみなす
@@ -300,45 +308,15 @@ for key, items in sorted(groups.items()):
     unreviewed = [(sid, cit) for sid, cit in extras if sid not in REVIEWED_DUP_EXCEPTIONS]
     if unreviewed:
         violations += 1
-        dom, auth, year, _t = key
-        print(f"  FAIL 重複: [{dom}] {auth} {year}")
+        print(f"  FAIL 重複: [{dom}] «{t[:32]}» 同一領域に同一書名")
         for sid, cit in items:
             tag = " (正本)" if (sid, cit) == items[0] else (" (重複・要除外)" if sid not in REVIEWED_DUP_EXCEPTIONS else " (例外:レビュー済)")
             print(f"        {sid}: {cit[:80]}{tag}")
     else:
-        dom, auth, year, _t = key
-        print(f"  OK(例外) 重複だがレビュー済: [{dom}] {auth} {year} -> {[s for s,_ in extras]}")
+        print(f"  OK(例外) 重複だがレビュー済: [{dom}] «{t[:32]}» -> {[s for s,_ in extras]}")
 
 if violations:
     print(f"  → 重複 {violations} 群。重複行を manifest から除外するか、レビュー後 REVIEWED_DUP_EXCEPTIONS に追記すること")
-
-# --- cs#249 follow-up: 年欄不明による重複すり抜け対策 ---
-# 片方の行で年が欠落 ('????') していると上の exact-key 検査をすり抜ける
-# （例: D16-S03 "1934-1961" vs D16-S04 年欄なし の Toynbee 同一原典）。
-# (領域, 著者姓, 書名) でも再グルーピングし、明示年と '????' が混在する群を
-# 重複候補として FAIL させる。明示年同士の差 (版違い) はここでは対象外。
-title_groups = {}
-for (dom_key, auth, year, t), items in groups.items():
-    title_groups.setdefault((dom_key, auth, t), []).append((year, items))
-
-year_ambiguous = 0
-for (dom_key, auth, t), entries in sorted(title_groups.items()):
-    years = {y for y, _ in entries}
-    if len(entries) < 2 or '????' not in years or len(years) < 2:
-        continue  # 単独 / 全て明示年(版違い) / 全て不明(primary が捕捉) はスキップ
-    flat = [(sid, cit, y) for y, its in entries for sid, cit in its]
-    if len({s for s, _, _ in flat}) < 2:
-        continue
-    unreviewed = [s for s, _, _ in flat if s not in REVIEWED_DUP_EXCEPTIONS]
-    if unreviewed:
-        year_ambiguous += 1
-        print(f"  FAIL 重複(年欄不明ですり抜け): [{dom_key}] {auth} «{t[:24]}»")
-        for sid, cit, y in sorted(flat):
-            print(f"        {sid} [year={y}]: {cit[:70]}")
-
-if violations or year_ambiguous:
-    if year_ambiguous:
-        print(f"  → 年欄不明の重複候補 {year_ambiguous} 群。年欄を補完して exact-key 判定に乗せるか、重複行を除外すること")
     sys.exit(1)
 print("  OK — 同一領域内の未レビュー重複なし")
 PY
