@@ -1,1 +1,171 @@
-../../../project-design/.claude/hooks/_common
+#!/usr/bin/env bash
+# _common — hook utilities for creation-space
+#
+# Web/remote session compatible wrapper:
+#   - LOCAL session (project-design cloned as sibling): delegates to shared _common
+#   - WEB/remote session (project-design not available): uses standalone fallback below
+#
+# Usage: source "$(dirname "$0")/_common"
+
+_HOOKS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+_PD_COMMON_CANDIDATE="${_HOOKS_DIR}/../../../project-design/.claude/hooks/_common"
+
+if [ -f "$_PD_COMMON_CANDIDATE" ]; then
+  # Local session: project-design is available — use shared implementation to stay in sync
+  # shellcheck source=/dev/null
+  source "$_PD_COMMON_CANDIDATE"
+  return 0 2>/dev/null || true
+fi
+
+# ── Standalone fallback for web/remote sessions ─────────────────────────────
+
+__HOOK_PAYLOAD_FILE=""
+
+__ensure_payload() {
+  if [ -z "$__HOOK_PAYLOAD_FILE" ]; then
+    __HOOK_PAYLOAD_FILE="$(mktemp /tmp/hook-payload-XXXXXX.json)"
+    cat > "$__HOOK_PAYLOAD_FILE"
+    # shellcheck disable=SC2064
+    trap "rm -f '$__HOOK_PAYLOAD_FILE'" EXIT
+  fi
+}
+
+hook_init() {
+  __ensure_payload
+  REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+  export REPO_ROOT
+
+  HOOK_SESSION_ID="$(python3 -c "
+import json
+with open('$__HOOK_PAYLOAD_FILE') as f:
+    d = json.load(f)
+print(d.get('session_id', ''))
+" 2>/dev/null || echo "")"
+  export HOOK_SESSION_ID
+
+  HOOK_CACHE_DIR="${REPO_ROOT}/.cache/hooks"
+  mkdir -p "$HOOK_CACHE_DIR"
+  export HOOK_CACHE_DIR
+}
+
+hook_event_name() {
+  python3 -c "
+import json
+with open('$__HOOK_PAYLOAD_FILE') as f:
+    d = json.load(f)
+print(d.get('hook_event_name', d.get('event_name', '')))
+" 2>/dev/null || echo ""
+}
+
+hook_tool_name() {
+  python3 -c "
+import json
+with open('$__HOOK_PAYLOAD_FILE') as f:
+    d = json.load(f)
+print(d.get('tool_name', d.get('tool', '')))
+" 2>/dev/null || echo ""
+}
+
+hook_tool_input_field() {
+  local field="${1}"
+  python3 - "$field" "$__HOOK_PAYLOAD_FILE" <<'PY'
+import json, sys
+field, path = sys.argv[1], sys.argv[2]
+with open(path) as f:
+    d = json.load(f)
+inp = d.get('tool_input', d.get('input', {})) or {}
+val = inp.get(field, '')
+print(val if isinstance(val, str) else json.dumps(val, ensure_ascii=False))
+PY
+}
+
+hook_cwd() {
+  python3 -c "
+import json
+with open('$__HOOK_PAYLOAD_FILE') as f:
+    d = json.load(f)
+print(d.get('cwd', ''))
+" 2>/dev/null || pwd
+}
+
+hook_block() {
+  local reason="${1}"
+  python3 - "$reason" <<'PY'
+import json, sys
+print(json.dumps({"decision": "block", "reason": sys.argv[1]}))
+PY
+  exit 2
+}
+
+hook_warn() {
+  local msg="${1}"
+  python3 - "$msg" <<'PY'
+import json, sys
+print(json.dumps({"systemMessage": sys.argv[1]}))
+PY
+}
+
+hook_normalize_path() {
+  python3 -c "
+import os, sys
+p = sys.argv[1]
+if p.startswith('~'):
+    p = os.path.expanduser(p)
+if not os.path.isabs(p):
+    p = os.path.join(os.getcwd(), p)
+print(os.path.normpath(p))
+" "${1}" 2>/dev/null || echo "${1}"
+}
+
+hook_repo_rel() {
+  local abs_path="${1}"
+  local root="${REPO_ROOT%/}"
+  if [ -n "$root" ] && [ "${abs_path:0:${#root}}" = "$root" ]; then
+    echo "${abs_path:$((${#root}+1))}"
+  else
+    echo "$abs_path"
+  fi
+}
+
+hook_collect_paths() {
+  python3 - "$__HOOK_PAYLOAD_FILE" <<'PY'
+import json, sys
+
+with open(sys.argv[1]) as f:
+    d = json.load(f)
+
+inp = d.get('tool_input', d.get('input', {})) or {}
+paths = []
+
+for key in ('file_path', 'path', 'notebook_path'):
+    v = inp.get(key)
+    if v and isinstance(v, str):
+        paths.append(v)
+
+for edit in inp.get('edits', []):
+    if isinstance(edit, dict):
+        fp = edit.get('file_path')
+        if fp:
+            paths.append(fp)
+
+for p in paths:
+    print(p)
+PY
+}
+
+hook_transcript_contains() {
+  local pattern="${1}"
+  local transcript_path
+  transcript_path="$(python3 -c "
+import json
+with open('$__HOOK_PAYLOAD_FILE') as f:
+    d = json.load(f)
+print(d.get('transcript_path', ''))
+" 2>/dev/null || echo "")"
+
+  if [ -n "$transcript_path" ] && [ -f "$transcript_path" ]; then
+    grep -q "$pattern" "$transcript_path" 2>/dev/null
+    return $?
+  fi
+  return 1
+}

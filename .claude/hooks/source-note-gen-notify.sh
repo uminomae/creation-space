@@ -42,7 +42,14 @@ if [ -z "$PDF_LIST" ] && [ -z "$WIKI_LIST" ]; then
 fi
 
 # === 出力先決定 ===
-PD_INBOX="/Users/uminomae/dev/project-design/.cache/inbox"
+# LOCAL: project-design が cs の兄弟リポジトリとして存在する場合のみ通知
+# WEB/remote: project-design が存在しないのでスキップ
+PD_ROOT="${REPO_ROOT}/../project-design"
+if [ ! -d "${PD_ROOT}/.git" ]; then
+  printf '{"systemMessage": "wiki-gen notify skipped: project-design not found locally (web/remote session)"}\n'
+  exit 0
+fi
+PD_INBOX="${PD_ROOT}/.cache/inbox"
 mkdir -p "$PD_INBOX"
 DATE="$(date +%Y%m%d)"
 SEQ=1
