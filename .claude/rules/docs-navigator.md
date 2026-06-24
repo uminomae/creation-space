@@ -21,6 +21,7 @@ CLI は docs/ を自動読み込みしない。以下の対応表に従い、タ
 | Cowork セッション作業 | `docs/operations/cowork-session.md`, `docs/operations/cowork-output.md` | VM 制約と出力先ルール |
 | エージェント運用 | `docs/operations/agents.md` | 標準エージェント・中立性原則・敵対パターン |
 | メモリ管理 | `docs/operations/memory-policy.md` | CLI メモリと .cache/ の棲み分け |
+| pd wiki との突合せ・cross-check | `.claude/rules/pd-wiki-reference.md` | アクセス方法・いつ参照するか・不一致の扱い |
 
 ## 読み方の原則
 
