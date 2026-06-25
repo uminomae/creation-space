@@ -72,7 +72,15 @@ cs 側の 30 領域すべてで、`D{NN}-S{##}_*.md` 形式の source-note ペ�
 - **「OA だが当環境ブロック」は取得不能ではない**: 別 egress で誰でも読めるため鎖を満たしうる。削除せず source-reader 精読 → source-note 生成の対象（cs#252 B群）。
 - **pd 側の対**（cs#228 によりここでは検査しない）: pd `wiki/sources/` も取得不能原典のページを持ってはならない。pd 側の standing チェックは pd repo の wiki-lint（pd#114）が担う。
 
-> **未機械化の残件**: 「読む」が abstract のみ（全文未読）で生成された source-note の検出は `read_depth` 等のマーカーが無く現状未機械化。当面は生成時に全文精読を徹底する運用で担保（cs#249 で abstract-only 6本を破棄済）。
+### 「読む」の機械化（Check 12, cs#252）
+
+鎖の「読む」段階も執行する。source-note frontmatter の既存フィールド **「読解ページ範囲」**（実際に読んだ範囲）が abstract / 要旨 / メタデータ「**のみ**」を示すものは、全文未読＝「読む」を欠くため **FAIL**（`validate-manifest-sync.sh` Check 12）。
+
+- **新規 source-note の鉄則**: 原典を**全文（または主要部の精読）**した上で書く。`読解方法` / `読解ページ範囲` に実読範囲を正直に記す。失敗した取得経路を `読解方法` に書く場合でも、`読解ページ範囲` には**最終的に読んだ範囲**を書く（Check 12 は範囲フィールドを最優先で見る）。
+- **abstract のみで書いてしまった場合の処置**（cs#249/cs#252 で確立）:
+  - 原典が**真に取得不能**（OA 全文なし） → source-note を破棄し、manifest を blocked-access/citation-only へ降格して read-list 化（例: D11-S01 Paul 2010 = Nature paywall）。
+  - 原典が **OA だが当環境未取得**（B群型・例: D28-S15 = OA 誌 *Junctions*） → 破棄せず `knowledge/raw/read-depth-exceptions.md` に**精読義務**として登録（Check 12 は除外）。budget 回復後に全文精読 → 再生成 → 登録除去。
+- **登録簿は「放置」ではない**: read-depth-exceptions は OA 全文がある（＝読める）もの限定の追跡された TODO。真に取得不能なものは登録不可（降格する）。
 
 ## 3. 「source-note 改訂 → 関連ページ同時更新」（cs 内部）
 
@@ -93,6 +101,7 @@ cs source-note を改訂するコミットでは、以下の関連ページの�
 | **同一領域に原典重複行** | `validate-manifest-sync.sh` **Check 10** FAIL | 重複行を manifest から除外する。DOI で切り分け不可な同名別物なら `knowledge/raw/duplicate-exceptions.md` に理由・論拠つきで登録。raw 重複は孤立 PDF を pjdhiro 確認 |
 | **取得不能原典に source-note がある** | `validate-manifest-sync.sh` **Check 11a** FAIL | 公開解釈を撤去し read-list 化（書誌＋読みたい理由のみ） |
 | **取得不能原典が取得不能な代替で確定主張** | `validate-manifest-sync.sh` **Check 11b** FAIL | 固定代替を撤回し探索継続へ。撤回履歴は取り消し線 `~~...~~` で残してよい |
+| **abstract/メタデータのみの source-note** | `validate-manifest-sync.sh` **Check 12** FAIL | 全文精読で再生成。真に取得不能なら破棄＋降格(read-list)。OA だが未取得なら `read-depth-exceptions.md` に精読義務として登録 |
 | source-note 改訂で関連更新漏れ | code review | 追加コミットで補完し、理由を commit message に明記 |
 
 ## 5. pd 側の品質チェック（参照のみ、cs には義務なし）

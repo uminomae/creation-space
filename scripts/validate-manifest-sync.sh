@@ -428,6 +428,55 @@ else
     warnings=$((warnings + 1))
 fi
 
+# --- Check 12: 鎖の「読む」— abstract/メタデータのみの source-note を禁止 (cs#252) ---
+# source-note は原典を全文読んだ上で書く。読解ページ範囲が abstract/要旨/メタデータ「のみ」を
+# 示すものは「読む」を欠くため FAIL。OA だが当環境未取得の read-obligation は登録簿で除外。
+READ_EXC="${CS_DIR}/knowledge/raw/read-depth-exceptions.md"
+echo ""
+echo "[12] 鎖の「読む」: abstract/メタデータのみの source-note 禁止 (cs#252)"
+if [[ -d "$CS_SOURCE_NOTE_ROOT" ]]; then
+    python3 - "$CS_SOURCE_NOTE_ROOT" "$READ_EXC" <<'PY' || errors=$((errors + 1))
+import os, re, sys
+root, exc_file = sys.argv[1], sys.argv[2]
+
+# 登録簿(read-obligation: OA だが当環境未取得)の source_id を除外
+exempt = set()
+if os.path.isfile(exc_file):
+    for ln in open(exc_file, encoding='utf-8'):
+        if ln.lstrip().startswith('|'):
+            c = [x.strip() for x in ln.strip().strip('|').split('|')]
+            if c and re.fullmatch(r'D\d+-S\d+[a-z]?', c[0]):
+                exempt.add(c[0])
+
+# 読解ページ範囲(実際に読んだ範囲)が abstract/メタデータ「のみ」= 全文未読の署名
+only_pat = re.compile(r'(abstract|要旨|メタデータ|アブストラクト)[^。\n]{0,12}(のみ|only)|(のみ取得|要旨のみ|メタデータ・要旨のみ)')
+viol = []
+for dp, _, fs in os.walk(root):
+    for f in fs:
+        m = re.match(r'(D\d+-S\d+[a-z]?)_.*\.md$', f)
+        if not m:
+            continue
+        sid = m.group(1)
+        if sid in exempt:
+            continue
+        head = '\n'.join(open(os.path.join(dp, f), encoding='utf-8').read().split('\n')[:12])
+        rng = re.search(r'読解ページ範囲\*\*?:\s*(.+)', head)   # 実読範囲を最優先
+        target = rng.group(1) if rng else ''
+        if only_pat.search(target):
+            viol.append((sid, target[:64]))
+
+if viol:
+    print(f"  FAIL — abstract/メタデータのみで書かれた source-note ({len(viol)}件): 全文精読で再生成するか、真に取得不能なら破棄し降格(read-list化)")
+    for sid, t in sorted(viol):
+        print(f"        {sid}: 読解範囲「{t}」")
+    sys.exit(1)
+print(f"  OK — 全 source-note が全文(部分精読含む)ベース (read-obligation 登録 {len(exempt)}件は除外)")
+PY
+else
+    echo "  SKIP — cs/knowledge/source-notes/ が見つからない"
+    warnings=$((warnings + 1))
+fi
+
 # --- Summary ---
 echo ""
 echo "=== 結果: errors=${errors}, warnings=${warnings} ==="
