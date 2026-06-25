@@ -2,8 +2,8 @@
   "generated": "2026-06-25",
   "source": "scripts/generate-dashboard-stats.mjs",
   "manifest": {
-    "raw_confirmed": 125,
-    "url_verified": 197,
+    "raw_confirmed": 126,
+    "url_verified": 196,
     "blocked_access": 84,
     "citation_only": 33,
     "total": 439,

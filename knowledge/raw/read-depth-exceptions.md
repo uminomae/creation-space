@@ -16,4 +16,12 @@ source-note（公開「解釈／まとめ」）は原典を**全文読んだ**�
 
 | source_id | OA 根拠 | 登録日 | 精読予定 |
 |---|---|---|---|
-| D28-S15 | *Junctions* 3(1) は Utrecht 大学の OA 大学院誌（本文 PDF は OA だが当環境で未取得） | 2026-06-25 | budget 回復後に source-reader（別 egress）で全文精読 → 全文ベースで source-note 再生成 → 本登録から除去（cs#252 B群と同枠） |
+| （現在 有効登録なし） | — | — | — |
+
+## 解消ログ
+
+> ⚠️ Check 12 は「先頭セルが `D\d+-S\d+` の行」を exempt として読む。解消済みは exempt から外すため、**source_id を先頭セルに置かない**（解消日を先頭にする）。
+
+| 解消日 | source | 登録日 | 解消方法 |
+|---|---|---|---|
+| 2026-06-25 | D28-S15 | 2026-06-25 | Junctions OA galley PDF を取得（小規模 OA 誌のため LLM egress で取得可）→ 全文精読 → source-note を全文ベースで再生成 → manifest を raw-confirmed 昇格。read-obligation 解消（cs#252） |
