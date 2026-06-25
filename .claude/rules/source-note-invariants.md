@@ -56,6 +56,24 @@ cs 側の 30 領域すべてで、`D{NN}-S{##}_*.md` 形式の source-note ペ�
      - 教訓 (cs#249): `D15-S10`(Dewey 1934) / `D26-S09`(Huron 2006) は「=重複」と注記されながら manifest に残置されていた。注記＝放置の温床。除外まで完了させること。
   3. raw-confirmed の重複（物理 PDF を伴う）を除外する場合は、孤立 PDF の扱いを pjdhiro に確認する（破壊的操作のため）。
 
+## 2.6. 🔗 「鎖の不変条件」— 取得不能原典の上に公開解釈/確定論拠を置かない（cs 内部・FAIL, cs#252）
+
+**原則（公開出力の正当性の鎖）**: あらゆる公開・論拠化された解釈／要約は、その根拠原典が次の鎖をすべて満たさねばならない。
+
+> **持つ（誰の目にも明らかに＝OA で誰でも検証可に入手できる）→ 読む（全文）→ 解釈 → まとめる → 公開**
+
+§1 の「1:1（raw-confirmed/url-verified → source-note 必須）」の**裏側**として、取得不能（`citation-only` / `blocked-access` ＝誰でも検証可に入手できない）な原典の上には、公開「解釈／まとめ」を置いてはならない。取得不能原典に残せるのは **read-list（書誌＋読みたい理由）のログのみ**。
+
+- **FAIL 判定**: `bash scripts/validate-manifest-sync.sh` の **Check 11**。
+- **11a（FAIL）取得不能 → source-note 禁止**: `citation-only` / `blocked-access` の行に対応する cs source-note (`knowledge/source-notes/D{NN}/{source_id}_*.md`) が**存在してはならない**。検証不能な根拠の上の公開解釈は撤去し read-list 化する。
+- **11b（FAIL）取得不能を取得不能で確定するな**: 取得不能原典が `[phase-3-confirmed]` / 「代替確定」等の**確定ステータス**を主張し、その**代替もまた取得不能な cs 原典**である場合 FAIL。鎖は「検証可能な代替経由」でしか成立しない（代替が OA 検証済なら可）。
+  - **取り消し線 `~~...~~` で撤回済みの記述は live ではない**ので対象外（撤回の履歴は残してよい）。
+  - 教訓 (cs#252): D05-S01 Wilson の `[phase-3-confirmed]` は、代替 D05-S04 Dewey&Bird が citation-only（取得不能）に降格した後も固定代替として残り、鎖が切れていた。固定代替を立てず探索継続へ戻す（investigation-cs219 冒頭バナー参照）。
+- **「OA だが当環境ブロック」は取得不能ではない**: 別 egress で誰でも読めるため鎖を満たしうる。削除せず source-reader 精読 → source-note 生成の対象（cs#252 B群）。
+- **pd 側の対**（cs#228 によりここでは検査しない）: pd `wiki/sources/` も取得不能原典のページを持ってはならない。pd 側の standing チェックは pd repo の wiki-lint（pd#114）が担う。
+
+> **未機械化の残件**: 「読む」が abstract のみ（全文未読）で生成された source-note の検出は `read_depth` 等のマーカーが無く現状未機械化。当面は生成時に全文精読を徹底する運用で担保（cs#249 で abstract-only 6本を破棄済）。
+
 ## 3. 「source-note 改訂 → 関連ページ同時更新」（cs 内部）
 
 cs source-note を改訂するコミットでは、以下の関連ページのうち該当するものを**同一コミット内で**更新する。
@@ -73,6 +91,8 @@ cs source-note を改訂するコミットでは、以下の関連ページの�
 | cs source-note 未生成（raw-confirmed / url-verified） | cs hook `source-note-gen-check.sh` SessionStart で inbox 起票 | inbox の依頼順に生成。`knowledge/source-notes/D{NN}/{source_id}_*.md` を作成してコミット |
 | 領域 source-note <5 本 | `validate-manifest-sync.sh` Check 6 FAIL | 原典を追加して source-note を生成する（manifest に url-verified or raw-confirmed を追加→hook が検知→source-note 生成） |
 | **同一領域に原典重複行** | `validate-manifest-sync.sh` **Check 10** FAIL | 重複行を manifest から除外する。DOI で切り分け不可な同名別物なら `knowledge/raw/duplicate-exceptions.md` に理由・論拠つきで登録。raw 重複は孤立 PDF を pjdhiro 確認 |
+| **取得不能原典に source-note がある** | `validate-manifest-sync.sh` **Check 11a** FAIL | 公開解釈を撤去し read-list 化（書誌＋読みたい理由のみ） |
+| **取得不能原典が取得不能な代替で確定主張** | `validate-manifest-sync.sh` **Check 11b** FAIL | 固定代替を撤回し探索継続へ。撤回履歴は取り消し線 `~~...~~` で残してよい |
 | source-note 改訂で関連更新漏れ | code review | 追加コミットで補完し、理由を commit message に明記 |
 
 ## 5. pd 側の品質チェック（参照のみ、cs には義務なし）
@@ -101,3 +121,4 @@ pd は cs raw PDF から `wiki/sources/` を**独立生成**する。その生�
 - cs#228 — cs/pd 役割分離原則の明文化 + `knowledge/wiki/` → `knowledge/source-notes/` rename（本コミットで実装）
 - pd#82 — pd wiki ↔ cs source-note 矛盾検査
 - cs#249 — source-note backfill 中に原典重複（D15-S10/D26-S09）を発見。§2.5「原典重複禁止」不変条件 + Check 10 を新設
+- cs#252 — 取得不能原典を wiki/source-note/論拠から除去し read-list 化。§2.6「鎖の不変条件」+ Check 11(a/b) を新設。pd 側は pd#114

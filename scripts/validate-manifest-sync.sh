@@ -361,6 +361,73 @@ else
     warnings=$((warnings + 1))
 fi
 
+# --- Check 11: 鎖の不変条件 — 取得不能原典の上に公開解釈/論拠を置かない (cs#252) ---
+# 原則「持つ(誰でも検証可)→読む→解釈→まとめる→公開」の逆方向検査。
+# §1 の 1:1(raw-confirmed/url-verified → source-note 必須) の裏側として、
+# citation-only/blocked-access(=誰でも検証可に入手できない) には公開解釈を置いてはならない。
+echo ""
+echo "[11] 鎖の不変条件: 取得不能原典に公開解釈/確定論拠を置かない (cs#252)"
+if [[ -f "$MANIFEST" ]]; then
+    python3 - "$MANIFEST" "$CS_SOURCE_NOTE_ROOT" <<'PY' || errors=$((errors + 1))
+import os, re, sys
+manifest, note_root = sys.argv[1], sys.argv[2]
+
+access = {}   # source_id -> access_status (全行)
+notes = {}    # source_id -> notes 列テキスト
+for line in open(manifest, encoding='utf-8'):
+    m = re.match(r'\|\s*(D\d+-S\d+[a-z]?)\s*\|\s*D\d+\s*\|\s*`([a-z-]+)`\s*\|(.*)', line)
+    if m:
+        access[m.group(1)] = m.group(2)
+        notes[m.group(1)] = m.group(3)
+inaccessible = [s for s, a in access.items() if a in ('citation-only', 'blocked-access')]
+
+# 11a: 取得不能なのに source-note が存在する = 検証不能な根拠の上の公開「解釈/まとめ」(FAIL)
+note_violations = []
+for sid in inaccessible:
+    d = os.path.join(note_root, sid.split('-')[0])
+    if os.path.isdir(d):
+        hits = [f for f in os.listdir(d) if f.startswith(sid + '_') or f.startswith(sid + '.')]
+        if hits:
+            note_violations.append((sid, access[sid], hits[0]))
+
+# 11b: 取得不能原典が「確定」ステータス([phase-3-confirmed]/代替確定)を主張し、
+#      その代替もまた取得不能な cs 原典である = 鎖が代替経由でも切れている (FAIL)。
+#      取り消し線 ~~...~~ で撤回済みの記述は live ではないので除外する。
+def strip_withdrawn(t):
+    return re.sub(r'~~.*?~~', '', t)
+chain_violations = []
+for sid in inaccessible:
+    live = strip_withdrawn(notes[sid])
+    if '[phase-3-confirmed]' in live or '代替確定' in live or '採用確定' in live:
+        refs = [r for r in re.findall(r'D\d+-S\d+[a-z]?', live) if r != sid]
+        bad = sorted(set(r for r in refs if access.get(r) in ('citation-only', 'blocked-access')))
+        if bad:
+            chain_violations.append((sid, access[sid], bad))
+
+rc = 0
+if note_violations:
+    print(f"  FAIL(11a) 取得不能原典に source-note が存在 ({len(note_violations)}件): 公開解釈を撤去し read-list 化すること")
+    for sid, acc, f in note_violations:
+        print(f"        {sid} ({acc}) -> {f}")
+    rc = 1
+else:
+    print(f"  OK(11a) — 取得不能 {len(inaccessible)} 本に source-note なし")
+
+if chain_violations:
+    print(f"  FAIL(11b) 取得不能原典が取得不能な代替で確定主張 ({len(chain_violations)}件): 固定代替を撤回し探索継続へ")
+    for sid, acc, bad in chain_violations:
+        print(f"        {sid} ({acc}) の確定代替 {bad} も取得不能")
+    rc = 1
+else:
+    print(f"  OK(11b) — 確定ステータスの代替に取得不能原典なし (取消線=撤回済は除外)")
+
+sys.exit(rc)
+PY
+else
+    echo "  SKIP — knowledge/raw/manifest.md が見つからない"
+    warnings=$((warnings + 1))
+fi
+
 # --- Summary ---
 echo ""
 echo "=== 結果: errors=${errors}, warnings=${warnings} ==="
