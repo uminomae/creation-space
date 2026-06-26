@@ -44,7 +44,7 @@ pjdhiro がブラウザ（別 egress）で B群を手動DL。配置された PDF
 | D09-S02 Attwell-Laughlin 2001 | ✅ **完了** | 全文精読→`D09-S02_attwell-laughlin-2001.md` 生成 |
 | D09-S09 Tsukada-Ohsumi 1993 | ⛔ **blocked-access 降格** | Wiley 実質paywall（Unpaywall bronze は stale）。OA代替なし→read-list 化 |
 | D11-S16 Moffat 2017 | ⛔ **blocked-access 降格** | Nature 実質paywall。OA代替・repo copy なし→read-list 化 |
-| D12-S13 Beisner 2003 | 🟡 raw-confirmed・**source-note 保留** | PDF DL済(238KB)。次ラウンド精読 |
+| D12-S13 Beisner 2003 | ✅ **完了** (2026-06-26) | 全文精読(pp.376-382)→`D12-S13_beisner-2003.md` 生成。alternative stable states/resilience/hysteresis。D12-S03 Holling 1973 を補完 |
 | D23-S07 Luyckx 2006 | ⛔ **blocked-access 降格** | Wiley 実質paywall。OA代替なし→read-list 化 |
 | D23-S14 van Geert 1998 | ✅ **完了** | 全文精読(pp.634-672)→`D23-S14_van-geert-1998.md` 生成 |
 | D23-S15 van der Maas 2017 | 🟡 raw-confirmed・**source-note 保留** | 2026-06-26 再DL済(MDPI *J.Intelligence* 5(2):16, 3.4MB)。初回は別論文取り違えで `.cache/quarantine/` 退避。次ラウンド精読 |
