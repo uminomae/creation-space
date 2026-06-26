@@ -49,11 +49,14 @@ pjdhiro がブラウザ（別 egress）で B群を手動DL。配置された PDF
 | D23-S14 van Geert 1998 | ✅ **完了** | 全文精読(pp.634-672)→`D23-S14_van-geert-1998.md` 生成 |
 | D23-S15 van der Maas 2017 | ✅ **完了** (2026-06-26) | 全文精読(17pp, J.Intell 5,16)→`D23-S15_van-der-maas-2017.md` 生成。中身=正しい van der Maas et al. 確認済。相利共生ネットワーク知能モデル＋Ising≡IRT＋カスプ破局。D23-S14 van Geert 補完 |
 
-### 次ラウンドの残務（budget 回復後）
-1. **source-note 保留 5本**（D05-S15/D06-S15/D07-S15/D12-S13/D23-S15）= raw-confirmed 済・PDF あり → source-reader で全文精読して生成するだけ。
-2. **D07-S13** = `cross-domain-anchors.md` に Strogatz 2001（D02↔D07）を追記し、D02版PDFを共用する source-note を D07 用に作成。
+### 残務（2026-06-26 #02 時点）
+1. **D05-S15 Feistel 1611** = 取り違え是正済・**再DL待ち**（MDPI env-block のため pjdhiro 手動DL）。再DL後に raw-confirmed 昇格→全文精読→source-note 生成。
+2. **D13-S02 Simondon**（仏語スキャン 182pp）= budget/context 重。OA はあるため取得不能ではない。budget 回復後に分割精読。
+
+> source-note 保留5本（D05/D06/D07/D12/D23-S15）と D07-S13 anchor は **2026-06-26 #02 で全て完了**（D05-S15 のみ取り違えで再DL待ちに差し戻し）。
 
 ## 更新履歴
 
 - 2026-06-25 #06: 初版。12本の gap を決定的トリアージし B群11 / スキャン1 に分類。PMID 3本の PMC 不在を確定。
-- 2026-06-26: pjdhiro 手動DL 実施。完了2本(D09-S02/D23-S14)、降格3本(D09-S09/D11-S16/D23-S07=実質paywall)、source-note保留4本、要再DL1本(D23-S15取り違え)、DL不要1本(D07-S13)。budget MAIN_ONLY で打ち切り。
+- 2026-06-26 #01: pjdhiro 手動DL 実施。完了2本(D09-S02/D23-S14)、降格3本(D09-S09/D11-S16/D23-S07=実質paywall)、source-note保留4本、要再DL1本(D23-S15取り違え)、DL不要1本(D07-S13)。budget MAIN_ONLY で打ち切り。
+- 2026-06-26 #02: Main 直読(MAIN_ONLY)で保留5本＋anchor を消化。**完了4本**(D07-S15/D12-S13/D06-S15/D23-S15)＋**anchor1本**(D07-S13)。**D05-S15 は精読中に取り違え検出**→誤PDF quarantine + url-verified 降格 + 再DL待ちに差し戻し(pjdhiro承認)。source-notes 296→301。
