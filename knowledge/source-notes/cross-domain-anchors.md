@@ -94,3 +94,4 @@
 - cs#249 — Strogatz (2001) クロス領域 anchor 追加（D02-S13 / D07-S13）。D02 既読 PDF を D07 工学/情報視点で再読、引用非重複
 - `.claude/rules/source-note-invariants.md` §7 — クロス領域 anchor の扱い
 - `transform/domains/cross-domain-reference.md` — 領域間の知見配置ルール（別事象）
+- `knowledge/source-notes/cross-domain-resonances.md` — 別々の原典が同型の構造モチーフを示す「クロス領域共鳴」レジストリ（本ファイル=同一原典再利用 とは別事象。保留中 Filing 候補の正本）
