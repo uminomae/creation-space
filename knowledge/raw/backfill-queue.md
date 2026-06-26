@@ -31,6 +31,30 @@ manifest の `raw-confirmed` / `url-verified` 行のうち、対応する source
 
 > いずれも Check 6（領域 ≥5）は満たしており FAIL ではない。本キューは品質向上のための backfill debt であって不変条件違反ではない。
 
+## 2026-06-26 進捗（pjdhiro 手動DL → backfill 実行）
+
+pjdhiro がブラウザ（別 egress）で B群を手動DL。配置された PDF を raw-confirmed 昇格 → source-reader で全文精読 → source-note 生成。
+
+| source_id | 状態 (2026-06-26) | 備考 |
+|---|---|---|
+| D05-S15 Feistel 2024 | 🟡 raw-confirmed・**source-note 保留** | PDF DL済(2.4MB/10pp)。budget MAIN_ONLY のため次ラウンド精読 |
+| D06-S15 Nicolis 2016 | 🟡 raw-confirmed・**source-note 保留** | PDF DL済(409KB)。次ラウンド精読 |
+| D07-S13 Strogatz 2001 | ✅ **DL不要** | `D02_strogatz_2001_*.pdf` 既存＝クロス領域 anchor。cross-domain-anchors.md 追記で処理 |
+| D07-S15 Heylighen 2025 | 🟡 raw-confirmed・**source-note 保留** | PDF DL済(443KB/6pp)。次ラウンド精読 |
+| D09-S02 Attwell-Laughlin 2001 | ✅ **完了** | 全文精読→`D09-S02_attwell-laughlin-2001.md` 生成 |
+| D09-S09 Tsukada-Ohsumi 1993 | ⛔ **blocked-access 降格** | Wiley 実質paywall（Unpaywall bronze は stale）。OA代替なし→read-list 化 |
+| D11-S16 Moffat 2017 | ⛔ **blocked-access 降格** | Nature 実質paywall。OA代替・repo copy なし→read-list 化 |
+| D12-S13 Beisner 2003 | 🟡 raw-confirmed・**source-note 保留** | PDF DL済(238KB)。次ラウンド精読 |
+| D23-S07 Luyckx 2006 | ⛔ **blocked-access 降格** | Wiley 実質paywall。OA代替なし→read-list 化 |
+| D23-S14 van Geert 1998 | ✅ **完了** | 全文精読(pp.634-672)→`D23-S14_van-geert-1998.md` 生成 |
+| D23-S15 van der Maas 2017 | 🔴 **要再DL** | 手動DL PDFが**別論文の取り違え**(Windapo建設業者論文/preprints201707.0091)。`.cache/quarantine/` へ退避。正本=MDPI *J.Intelligence* 5(2):16 → https://www.mdpi.com/2079-3200/5/2/16/pdf を再DL要 |
+
+### 次ラウンドの残務（budget 回復後）
+1. **source-note 保留 4本**（D05-S15/D06-S15/D07-S15/D12-S13）= raw-confirmed 済・PDF あり → source-reader で全文精読して生成するだけ。
+2. **D23-S15** = MDPI J.Intelligence 版 PDF を再DL → raw-confirmed 昇格 → 精読。
+3. **D07-S13** = `cross-domain-anchors.md` に Strogatz 2001（D02↔D07）を追記し、D02版PDFを共用する source-note を D07 用に作成。
+
 ## 更新履歴
 
 - 2026-06-25 #06: 初版。12本の gap を決定的トリアージし B群11 / スキャン1 に分類。PMID 3本の PMC 不在を確定。
+- 2026-06-26: pjdhiro 手動DL 実施。完了2本(D09-S02/D23-S14)、降格3本(D09-S09/D11-S16/D23-S07=実質paywall)、source-note保留4本、要再DL1本(D23-S15取り違え)、DL不要1本(D07-S13)。budget MAIN_ONLY で打ち切り。
