@@ -5,7 +5,7 @@
 **読解日**: 2026-06-26 | **読解者**: claude-opus-4-8
 **読解方法**: curl で Monoskop の OA スキャン PDF（18MB・182面・テキスト層なし・仏語）を取得 → Read (PDF, image mode) で精読。テキスト層が無い（pdftotext 抽出 0 文字）ため全面を画像として読解し、仏語原文を画像から書き起こして引用。
 **原典ページ数**: 約 256（本文 pp.9-256。1989 Aubier 増補版は序文 John Hart・後書 Yves Deforge を含み全 182 スキャン面＝書籍約 333 頁）。スキャンは 2-up（1 面＝見開き 2 頁）。
-**読解ページ範囲**: **精読 約 100 頁**＝Introduction（pp.12-16）＋ 第1部 第1章「具体化のプロセス」§I-§II（pp.18-27）＋ 第1部 第2章「技術的実在の進化：要素・個体・集合」§I-§IV（pp.50-67、連合環境・発明・relaxation の法則）＋ 第2部 第1章「人間の技術への二様式」§I-§III（pp.85-99、多数派/少数派・子供/成人の技術・encyclopédisme）＋ 第3部 第1章「技術性の発生」全（pp.158-173）＋ 第3部 第2章 §I「技術思考と美的思考」（pp.174-191）＋ Conclusion 全（pp.240-256）＋ 図版 Planche 1-15 概観。概観＝目次・John Hart 序文（pp.I-IX）。**未精読**＝第1部Ch.I §III-IV / 第1部Ch.II §IV後半-§V / 第2部Ch.I §IV・Ch.II（自動機械・情報・文化の規制機能）/ 第3部Ch.II §II・Ch.III（哲学思考）。
+**読解ページ範囲**: **全章踏破・精読 約 160 頁**＝Introduction（pp.12-16）＋ 第1部 第1章「具体化のプロセス」§I-§II（pp.18-27）＋ 第1部 第2章「技術的実在の進化：要素・個体・集合」§I-§IV（pp.50-67、連合環境・発明・relaxation の法則）＋ 第2部 第1章「人間の技術への二様式」§I-§III（pp.85-99、多数派/少数派・子供/成人の技術・encyclopédisme）＋ **第2部 第2章「機械学・文化の規制機能」§I-§IV（pp.118-152、人間-機械の対等結合・記憶論・自動機械と不確定性の余白 marge d'indétermination・熱力学時代/情報時代・technocratisme 批判・mécanologue・Wiener 批判）**＋ 第3部 第1章「技術性の発生」全（pp.158-173）＋ 第3部 第2章 §I「技術思考と美的思考」（pp.174-191）＋ **§II「技術思考・理論思考・実践思考」（pp.201-213、二次的脱位相 dédoublement・virtualité/optatif・帰納/演繹・réalité/optimum d'action）**＋ **第3部 第3章「技術思考と哲学思考」全（pp.214-240、人間界の技術と政治思考・réseau/points-clefs・sacré technique・œcuménisme・concept/idée/intuition 認識論・発生論的方法）**＋ Conclusion 全（pp.240-256）＋ 図版 Planche 1-15 概観。概観＝目次・John Hart 序文（pp.I-IX）。**残る軽微未精読**＝第1部Ch.I §III-IV（技術進歩のリズム・系譜の絶対的起源 pp.37-49）／第1部Ch.II §V（pp.68-83、relaxation の技術史的展開）／第2部Ch.I §IV（進歩概念の諸様態 pp.100-112）。核心論題（具体化・脱位相・発明・relaxation・超個体・機械の不確定性余白・情報/サイバネティクス批判・思考種の発生的布置・intuition 認識論・労働批判）はすべて精読済み。
 
 ---
 
@@ -29,6 +29,8 @@ Simondon は、技術対象を「使用目的」や「既製の個体」から�
 **(C) 位相としての技術性（la technicité comme phase）**: 技術性は人間-世界という全体の存在様式の二基本位相の一。「位相」は時間的継起でなく、存在の**脱位相（déphasage）＝二重化（dédoublement）**から生じ別位相と対立する相。技術性は主客未分の**原初的呪術的統一（unité magique primitive）**——世界を特権的点鍵（points-clés）の網（réticulation）に構造化した状態——が脱位相し、**技術（客観的位相）と宗教（主観的位相）**へ分裂して生じる。両者の中性点に**美的思考（pensée esthétique＝思考のエキュメニズム）**が現れる。運動因は弁証法でなく Gestalt の figure/fond と**準安定平衡（métastable）・過飽和（sursaturation）**。
 
 **(D) 超個体性・技術性＞労働（transindividuel / technicité > travail）**: 技術対象＝情報の担い手は、構成済み個体性でなく**前個体的実在の荷（charge de réalité pré-individuelle＝人間の中の「自然」ἄπειρον）**を介して個人を結ぶ**超個体的（transindividuel）**関係を創設する。Conclusion は **「労働は技術性の一位相であり、技術性が労働の一位相ではない」** と転回し、hylomorphic 図式を「労働に由来する不十分な範型」として批判、技術操作を哲学的反省の **terrain・paradigm** に据える。
+
+**(E) 機械・情報・認識論（marge d'indétermination / information / intuition）**: 第2部 Ch.II は機械を論じ、**真の完成＝自動性でなく「不確定性の余白 marge d'indétermination」**（完全な自動機械は矛盾概念）、**情報＝「形態の変動性」**（純粋偶然と絶対的規則性の中間の第三項）、**人間＝機械間の媒介者・証人 témoin**、生＝**変調するもの ce qui module**（transduction の一般化）を導く。第3部 Ch.II-III は思考種の発生的布置を完成させ、魔術的統一の一次脱位相（技術／宗教）に続く**二次的脱位相**で各々が理論的／実践的様態へ分裂（理論＝技術 fond の帰納＋宗教 figure の演繹／実践＝技術 figure の optatif＋宗教 fond の義務）、技術アンサンブル＝**réseau（網）**として自然界に根を張り**強制的な集合的規範性**を持つことを論じる。認識論的には **concept（技術）／idée（宗教）／intuition（哲学）**の三項を発生から導き、**intuition＝figure-fond の相関（生成）を把握する哲学的認識**と規定する。
 
 哲学（D13）の観点で本書は、「創造＝既存秩序の段階的具体化／前個体的準安定統一の脱位相による分化／未来による現在の条件づけとしての発明」を一貫して論じる、cs 5 段階モデルと構造的に強く共鳴する技術哲学の正準テクストである。
 
@@ -120,9 +122,55 @@ Gestalt 心理学は形態（forme）に力を帰したが、実際に系を担�
 
 技術対象は人間に**二様式**で結ばれる：**少数派（minorité）**＝幼少期に出会う日常使用対象・暗黙的慣習知（職人）、**多数派（majorité）**＝成人の反省的・科学的知（技師）。職人＝対象に支配され、技師＝対象を支配する。両者の対立がアダムスミス的な文化と技術の乖離を生む。Simondon は両者を統合し「特権なき平等な関係」を要請する。encyclopédisme（Diderot の *Encyclopédie*）はこの統合の歴史的試み＝「技術の連邦祭 Fête de la Fédération des techniques」(p.94) として読まれる。
 
+### 主張 14: 完全な自動機械＝矛盾概念。真の完成＝「不確定性の余白 marge d'indétermination」（第2部 Ch.II）
+
+> « le véritable perfectionnement des machines [...] correspond non pas à un accroissement d'automatisme, mais au contraire au fait que le fonctionnement d'une machine recèle une certaine marge d'indétermination. » (Introduction, repris p.139) ／ « l'automate serait une machine si parfaite que la marge d'indétermination de son fonctionnement serait nulle, mais qui pourtant pourrait recevoir, interpréter ou émettre de l'information. Or, si la marge d'indétermination du fonctionnement est nulle, il n'y a plus de variation possible [...] cette itération n'a pas de signification. » (pp.139-140)
+
+機械の真の完成は自動性の増大ではなく、作動が**一定の「不確定性の余白」**を含むこと。完全な自動機械（automate parfait）＝余白ゼロ＝変動不能＝情報を受信・解釈・発信できない＝**極限への移行で得た矛盾概念**。情報を受けうる機械＝**不確定性を感受的瞬間（instants sensibles, riches en possibilités）に時間的に局在化**する機械であり、その構造は**決定（décision）と継電器（relais）の構造**と同型。Bergson 的な「開いた機械 / 閉じた機械」の区別は実在する（調整 régulation を持つ機械は臨界期・臨界点を局在化する限りで「開いて」いる）。
+
+### 主張 15: 三項（純粋偶然 / 形態 / 情報）。発明＝思考を機械作動として機能させる。人間＝機械間の媒介者・証人（第2部 Ch.II）
+
+> « La forme [...] n'est pas une information mais une condition d'information ; elle est ce qui accueille l'information, l'a priori qui reçoit l'information. [...] Mais l'information n'est pas une forme, ni un ensemble de formes, elle est la variabilité des formes, l'apport d'une variation par rapport à une forme. [...] Nous serions donc amenés à distinguer trois termes : le hasard pur, la forme, et l'information. » (p.137)
+
+> « Inventer, c'est faire fonctionner sa pensée comme pourra fonctionner une machine, ni selon la causalité, trop fragmentaire, ni selon la finalité, trop unitaire, mais selon le dynamisme du fonctionnement vécu, saisi parce que produit, accompagné dans sa genèse. » (p.139)
+
+情報は**形態（forme）**ではない——形態は絶対的規則性＝**情報の条件・受け入れる a priori・選択性の機能**であり、情報は**「形態の変動性 variabilité des formes」**＝偶然と絶対的規則性の中間にある第三項。**生は情報を形態に変換し a posteriori を a priori にする**。機械は逆に既定の図式で作動する。ゆえに**人間＝機械に堆積した形態を情報に変換する媒介者**であり、複数機械を相互に表象する**証人（témoin）**として機械に責任を負う（« l'homme est témoin des machines et responsable de leur relation », p.145）。**発明＝思考を機械の作動として機能させること**（因果でも目的でもなく、生きられた作動の dynamisme による）——人間の心的作動と機械の物理的作動の真の類比は身体機能ではなく**発明**にある（サイバネティクス文学は偽の類比 « à faux une apparence d'analogie » を利用する、p.138）。
+
+### 主張 16: transduction の一般化。生＝変調するもの。virtuel の現勢への反作用＝機械が持たない「時間の意味」（第2部 Ch.II）
+
+> « le transducteur [...] est véritablement le médiateur entre ces deux domaines [...] il est la marge d'indétermination entre ces deux domaines, ce qui conduit l'énergie potentielle à son actualisation. C'est au cours de ce passage du potentiel à l'actuel qu'intervient l'information ; l'information est condition d'actualisation. » (p.143) ／ « le vivant est ce qui module, ce en quoi il y a modulation, et non réservoir d'énergie ou effecteur. » (pp.143-144)
+
+> « la récurrence de l'avenir sur le présent, du virtuel sur l'actuel [...] la faculté que possède le vivant de se modifier en fonction du virtuel est le sens du temps que la machine n'a pas. » (pp.144-145)
+
+**情報＝潜在エネルギーの現勢化（actualisation）の条件**。transducer（変換器）＝潜在領域と現勢領域の**間の不確定性の余白**＝潜在を現勢へ導くもの。生（le vivant）はこの transduction を本質とし、**エネルギーの貯蔵庫でも効果器でもなく「変調するもの ce qui module」**。機械には真の virtuel がなく、各瞬間に現勢の中にある（Ashby のホメオスタットも問題を「解く」のでなく相互条件づけにある）。**問題を解く＝それを跨ぐ enjamber＝問題の所与を作り直す**こと——これは**virtuel の現勢への再帰（récurrence de l'avenir sur le présent）**を要し、それこそ**機械が持たない「時間の意味 le sens du temps」**である。技術アンサンブル＝各対象の不確定性余白の水準で結ばれる関係であり、計算の対象たりえず、**生ける者によって・生ける者のために思考されねばならない**。
+
+### 主張 17: 二次的脱位相。技術の échec が figure（行為図式）/ fond（φύσις）を分離。理論＝帰納＋演繹／実践＝optatif＋義務（第3部 Ch.II §II）
+
+> « Mais l'échec du geste technique déphase l'acte technique en deux réalités opposées : une réalité figurale [...] des schèmes d'action [...] et une réalité de fond, les qualités, les dimensions, les pouvoirs du monde auquel s'applique le geste technique. [...] C'est la nature comme réserve de potentiels, la φύσις qui révèle sa nature quand elle fait défaut. » (pp.202-203)
+
+> « La pensée théorique recueille le contenu de fond des techniques et le contenu figural des religions [...] la pensée pratique recueille le contenu figural des techniques et le contenu de fond des religions, ce qui lui fournit normes hypothétiques et normes catégoriques, pluralisme et monisme. » (pp.210-211)
+
+魔術的統一の一次脱位相（技術／宗教）に続く**二次的脱位相**：技術と宗教が各々 sursaturation により**理論的様態／実践的様態に dédouble** する。**技術行為の失敗（échec）が技術行為を figure（学習された行為図式＝手段）と fond（世界の質・力＝潜在力の貯蔵庫としての φύσις、欠けるとき露呈する）に分離**。virtualité＝理論的・客観的様態／**optatif（願望法）＝主観的様態＝virtuel の figure**。ポンプの 10.33m ＝世界の**「停止力 pouvoir d'arrêt」**＝技術公理を過飽和させ、思考に水準変更を強い**概念（concept）＝science**を生む（« c'est le concept qui sort des techniques », p.206）。**理論的思考＝技術の fond（帰納的・複数主義）＋宗教の figure（演繹的・一元論）／実践的思考＝技術の figure（optatif）＋宗教の fond（categorical 義務）**。中間範疇＝**réalité（理論）／optimum d'action（実践）**。
+
+### 主張 18: réseau（網）・points-clefs・sacré technique。文化が技術アンサンブルを統合せよ（第3部 Ch.III）
+
+> « les ensembles techniques sont de véritables réseaux concrètement rattachés au monde naturel [...] le réseau domine et enserre l'action de l'être individuel [...] D'où une forme de participation au monde naturel et au monde humain qui donne une normativité collective incoercible à l'activité technique. » (pp.219-221)
+
+> « La culture doit rester au-dessus de toute technique, mais elle doit incorporer à son contenu la connaissance et l'intuition des schèmes véritables des techniques. [...] Le tout, l'interconnexion de ces hauts lieux fait des univers polytechniques à la fois naturels et humains. » (pp.220, 227)
+
+技術の第二段階は**人間界**に向かう（人間を citoyen/travailleur に複数化）→ 対応する totalité 思考＝**世界規模の政治運動＝宗教の機能的類比**。pure technology / technologie générale は分離した技術対象を超え、**figure-fond 関係を一般技術の中で回復**し、技術対象を**連合環境に従って発明**する。道具は自由・移送可能だが**技術アンサンブル＝自然界（hauts lieux）に根を張る網（réseau）**であり、個体を支配し**接続（se raccorder）のみ許す＝強制的な集合的規範性**を持つ。Observatory の時計が乱されると**「sacré technique の冒涜」**として共鳴する——網の **points-clefs**（点鍵）が utility を超えた価値を担うため。**文化は技術を「道具・効用」に還元する stereotype を超え、技術アンサンブルの schemes を取り込め**。技術アンサンブルは概念でなく**mise en situation の intuition**でのみ把握可。3大政治ドクトリン（国家社会主義／米民主主義／マルクス主義）が各々統合技術を価値化し、技術変化＝「政治的星座」の変化（石炭→石油）を生む。
+
+### 主張 19: 認識論への波及 — concept / idée / intuition。intuition＝figure-fond の相関（生成）の哲学的把握（第3部 Ch.III 末）
+
+> « La connaissance philosophique, fonction de convergence, doit faire appel à un mode médiat et supérieur de connaissance, réunissant en son unité concepts et idée. [...] l'intuition n'est pas seulement, comme le concept, une saisie des réalités figurales, ni, comme l'idée, une référence à un fond du réel pris en son unité ; [...] elle est la connaissance des processus génétiques. » (pp.235-236)
+
+> « il existe trois types d'intuition [...] : l'intuition magique, l'intuition esthétique et l'intuition philosophique. » (p.238)
+
+技術操作と宗教観想は後続の全認識に**暗黙の公理系**を供する。**pensée technique＝concept**（操作的・帰納的・a posteriori・nominalist：対象を諸要素の組合せとして構成、real は操作に後続）／**pensée religieuse＝idée**（演繹的・観想的・realist：εἶδος＝思考に先立つ être の構造、認識＝être の不完全な模倣・上昇）。両者は魔術的統一の脱位相に由来する2軸。**哲学的認識（収束機能）は両者を統一する媒介的・上位の様態＝intuition を要する**。intuition は a priori でも a posteriori でもなく être と**同時的**で、**figure-fond の相関（構造の生成）を把握**＝生成過程の認識。3種の intuition（magique／esthétique／philosophique）。**美的 intuition は脱位相と同時的で真の総合をなさず（限定領域で allusif に成就）／哲学的 intuition は分岐する生成に沿って生まれ、技術と宗教を再収束させ文化を構築**。哲学＝技術構築と宗教的試練を「経た後」、両者を分かつ間隔における intuition 能力として自己を定義する（« la philosophie vient après la construction technique et l'épreuve religieuse », p.237）。
+
 ## 4. 方法論
 
-哲学的論考（思弁＋技術史的事例分析）。Simondon の博士副論文。方法は (1) 技術史の具体例（蒸気機関〜内燃機関の冷却フィン・点火方式、Guimbal タービン、電子管・triode の進化、電話、Gramme 機械等＝巻末 Planche 1-15 の写真資料）を「抽象→具体」発生分析に供する事例研究、(2) 個体化論（主論文 *L'individuation*）由来の準安定・前個体・disparation 概念の技術領域への応用、(3) Gestalt 理論（figure/fond）と物理学の相（phase）概念の発生運動論への一般化、(4) サイバネティクス（Wiener）・情報理論の批判的取込み（技術性＝情報・負エントロピー）、(5) 人類学的・宗教史的考察（呪術／宗教／技術／美学／科学／倫理／哲学の発生的布置）。実証データや数理モデルは伴わない（哲学的構築）。
+哲学的論考（思弁＋技術史的事例分析）。Simondon の博士副論文。方法は (1) 技術史の具体例（蒸気機関〜内燃機関の冷却フィン・点火方式、Guimbal タービン、電子管・triode の進化、電話、Gramme 機械等＝巻末 Planche 1-15 の写真資料）を「抽象→具体」発生分析に供する事例研究、(2) 個体化論（主論文 *L'individuation*）由来の準安定・前個体・disparation 概念の技術領域への応用、(3) Gestalt 理論（figure/fond）と物理学の相（phase）概念の発生運動論への一般化、(4) サイバネティクス（Wiener）・情報理論の批判的取込みと**乗り越え**——技術性＝情報・負エントロピーを認めつつ、Wiener が情報・homeostasis を「対象」として扱う点、社会を無条件 homeostasis の領域とみなす postulat、cybernetics を「機械という単一範型」に同一化する点を批判し、**情報＝形態の変動性**として再定義、Ducrocq の technicisme を「現象学にとどまり作動の本性を深めない」と退ける（pp.148-152）、(5) 人類学的・宗教史的考察（呪術／宗教／技術／美学／科学／倫理／哲学の発生的布置）と、(6) 認識論の改作（concept／idée／intuition の三項を技術／宗教／哲学の発生から導く、pp.233-238）。実証データや数理モデルは伴わない（哲学的構築）。
 
 ## 5. 5段階との対応候補（D13 哲学・技術発生論の角度）
 
@@ -148,12 +196,14 @@ Gestalt 心理学は形態（forme）に力を帰したが、実際に系を担�
 - **5 段階対応は解釈**: Simondon の位相図式（呪術→技術／宗教→科学／倫理→哲学）は人間-世界関係の発生論であり、cs 5 段階（創造プロセスの相）への写像は構造的同型に基づく評価者解釈である。
 - **版**: 1989 増補版。本文ページ番号は初版（1958）と共通。引用ページは本文（書籍）頁番号。
 
-## 7. 未読解セクション
+## 7. 読解範囲と残る軽微未精読
 
-精読は核心 7 章（要旨 A-D に対応：具体化・連合環境/発明/relaxation・位相としての技術性・美的思考・Conclusion の超個体/労働批判、＋第2部 Ch.I の二様式）に集中した。以下は今回未精読で、budget 回復後の追補候補：
+序論＋全3部（各章の主要節）＋結論を**全章踏破**で精読した（約 160 頁、主張 1-19 に対応）。第1部（具体化・連合環境・発明・relaxation）、第2部（技術への二様式・機械学・自動機械の不確定性余白・情報/サイバネティクス批判・文化の規制機能）、第3部（技術性の発生・美的思考・技術/理論/実践思考の二次的脱位相・réseau・concept/idée/intuition 認識論・発生論的方法）、結論（技術性＞労働・hylomorphic 批判）を網羅。創造論の骨格（発生＝具体化・脱位相／発明＝連合環境・未来による条件づけ・fond/forme／継承＝relaxation・超個体／機械＝不確定性の余白／思考種の発生的布置／intuition）の全論点を精読済みで、5 段階全段階強対応の論拠を厚く確保した。
 
-- 第1部 第1章 §III「技術的進歩のリズム」・§IV「技術系譜の絶対的起源」（pp.37-49）— 創造論的に重要（系譜の起源）。
-- 第1部 第2章 §IV 後半・§V「技術性と技術の進化」（pp.68-83）— relaxation 法則の技術史的展開（18世紀エネルギー源→蒸気機関）。
-- 第2部 第1章 §IV（pp.100-112）・第2章「文化の規制機能」全（pp.113-155）— 進歩概念の諸様態、熱力学的進歩観の批判、**情報概念の限界と automatisme（自動機械の不確定性の余白）**、技術的実在の文化への統合。情報・サイバネティクス論として重要。
-- 第3部 第2章 §II「技術思考・理論思考・実践思考」（pp.192-213）・第3章「技術思考と哲学思考」（pp.214-240）— 思考種の発生的布置の完成。
-- いずれも OA で取得可能（同一 Monoskop PDF）。今回は発生（具体化・脱位相）・発明（連合環境・未来による条件づけ・fond/forme）・継承（relaxation・超個体）・労働批判という創造論の骨格を全章にわたり精読し、5 段階対応の論拠を厚く確保することを優先した。
+残る軽微未精読（核心論題には影響せず、いずれも同一 Monoskop OA PDF で取得可能）：
+
+- 第1部 第1章 §III「技術的進歩のリズム」・§IV「技術系譜の絶対的起源」（pp.37-49）— 系譜の絶対的起源（§I-II の具体化論で骨格は捕捉済み）。
+- 第1部 第2章 §V「技術性と技術の進化」（pp.68-83）— relaxation 法則の技術史的展開（18世紀エネルギー源→蒸気機関。法則自体は §I-IV で精読済み）。
+- 第2部 第1章 §IV（pp.100-112）— 進歩概念の諸様態（二様式論の延長）。
+
+これらは創造論の論点を新たに追加するものではなく、既読の主題の歴史的例証・補足にとどまる。
