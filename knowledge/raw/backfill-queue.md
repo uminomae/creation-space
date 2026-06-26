@@ -37,7 +37,7 @@ pjdhiro がブラウザ（別 egress）で B群を手動DL。配置された PDF
 
 | source_id | 状態 (2026-06-26) | 備考 |
 |---|---|---|
-| D05-S15 Feistel 2024 | 🟡 raw-confirmed・**source-note 保留** | PDF DL済(2.4MB/10pp)。budget MAIN_ONLY のため次ラウンド精読 |
+| D05-S15 Feistel 2024 | ⛔ **取り違え検出 (2026-06-26)** | DL PDF の中身が **別論文**: Ziaeepour「SU(∞) Quantum Gravity and Cosmology」*Symmetry* 16(12),**1672** だった。manifest 期待は Feistel「Origin of Life: A Symmetry-Breaking Physical Phase Transition」*Symmetry* 16(12),**1611**。同vol同issueの別article番号で取り違え。source-note 未生成。**pjdhiro 判断待ち**: (a) 記事1611 Feistel を再DL / (b) 誤DL の Ziaeepour 1672 を quarantine / (c) Ziaeepour を別領域(D06宇宙論等)で採録するか |
 | D06-S15 Nicolis 2016 | ✅ **完了** (2026-06-26) | 全文精読(13pp, Entropy 18,172)→`D06-S15_nicolis-2016.md` 生成。確率共鳴＋情報力学の多安定系理論。D06=周期強制下多安定遷移(氷期サイクル正準モデル)として接続 |
 | D07-S13 Strogatz 2001 | ✅ **完了** (2026-06-26) | `D02_strogatz_2001_*.pdf` を D07 工学/情報視点で全文精読→`D07-S13_strogatz-2001.md` 生成。cross-domain-anchors.md #7 登録。manifest raw-confirmed 昇格。引用は D02-S13 と非重複 |
 | D07-S15 Heylighen 2025 | ✅ **完了** (2026-06-26) | 全文精読(17pp, 本文§1-§12)→`D07-S15_heylighen-2025.md` 生成。5段階 全段階強対応。出版年は実際 2026(Complexities 2026,2,6)と source-note に明記 |
@@ -47,7 +47,7 @@ pjdhiro がブラウザ（別 egress）で B群を手動DL。配置された PDF
 | D12-S13 Beisner 2003 | ✅ **完了** (2026-06-26) | 全文精読(pp.376-382)→`D12-S13_beisner-2003.md` 生成。alternative stable states/resilience/hysteresis。D12-S03 Holling 1973 を補完 |
 | D23-S07 Luyckx 2006 | ⛔ **blocked-access 降格** | Wiley 実質paywall。OA代替なし→read-list 化 |
 | D23-S14 van Geert 1998 | ✅ **完了** | 全文精読(pp.634-672)→`D23-S14_van-geert-1998.md` 生成 |
-| D23-S15 van der Maas 2017 | 🟡 raw-confirmed・**source-note 保留** | 2026-06-26 再DL済(MDPI *J.Intelligence* 5(2):16, 3.4MB)。初回は別論文取り違えで `.cache/quarantine/` 退避。次ラウンド精読 |
+| D23-S15 van der Maas 2017 | ✅ **完了** (2026-06-26) | 全文精読(17pp, J.Intell 5,16)→`D23-S15_van-der-maas-2017.md` 生成。中身=正しい van der Maas et al. 確認済。相利共生ネットワーク知能モデル＋Ising≡IRT＋カスプ破局。D23-S14 van Geert 補完 |
 
 ### 次ラウンドの残務（budget 回復後）
 1. **source-note 保留 5本**（D05-S15/D06-S15/D07-S15/D12-S13/D23-S15）= raw-confirmed 済・PDF あり → source-reader で全文精読して生成するだけ。
