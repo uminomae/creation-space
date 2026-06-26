@@ -47,12 +47,11 @@ pjdhiro がブラウザ（別 egress）で B群を手動DL。配置された PDF
 | D12-S13 Beisner 2003 | 🟡 raw-confirmed・**source-note 保留** | PDF DL済(238KB)。次ラウンド精読 |
 | D23-S07 Luyckx 2006 | ⛔ **blocked-access 降格** | Wiley 実質paywall。OA代替なし→read-list 化 |
 | D23-S14 van Geert 1998 | ✅ **完了** | 全文精読(pp.634-672)→`D23-S14_van-geert-1998.md` 生成 |
-| D23-S15 van der Maas 2017 | 🔴 **要再DL** | 手動DL PDFが**別論文の取り違え**(Windapo建設業者論文/preprints201707.0091)。`.cache/quarantine/` へ退避。正本=MDPI *J.Intelligence* 5(2):16 → https://www.mdpi.com/2079-3200/5/2/16/pdf を再DL要 |
+| D23-S15 van der Maas 2017 | 🟡 raw-confirmed・**source-note 保留** | 2026-06-26 再DL済(MDPI *J.Intelligence* 5(2):16, 3.4MB)。初回は別論文取り違えで `.cache/quarantine/` 退避。次ラウンド精読 |
 
 ### 次ラウンドの残務（budget 回復後）
-1. **source-note 保留 4本**（D05-S15/D06-S15/D07-S15/D12-S13）= raw-confirmed 済・PDF あり → source-reader で全文精読して生成するだけ。
-2. **D23-S15** = MDPI J.Intelligence 版 PDF を再DL → raw-confirmed 昇格 → 精読。
-3. **D07-S13** = `cross-domain-anchors.md` に Strogatz 2001（D02↔D07）を追記し、D02版PDFを共用する source-note を D07 用に作成。
+1. **source-note 保留 5本**（D05-S15/D06-S15/D07-S15/D12-S13/D23-S15）= raw-confirmed 済・PDF あり → source-reader で全文精読して生成するだけ。
+2. **D07-S13** = `cross-domain-anchors.md` に Strogatz 2001（D02↔D07）を追記し、D02版PDFを共用する source-note を D07 用に作成。
 
 ## 更新履歴
 
