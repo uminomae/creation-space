@@ -48,7 +48,7 @@ pjdhiro がブラウザ（別 egress）で B群を手動DL。配置された PDF
 | D23-S07 Luyckx 2006 | ⛔ **blocked-access 降格** | Wiley 実質paywall。OA代替なし→read-list 化 |
 | D23-S14 van Geert 1998 | ✅ **完了** | 全文精読(pp.634-672)→`D23-S14_van-geert-1998.md` 生成 |
 | D23-S15 van der Maas 2017 | ✅ **完了** (2026-06-26) | 全文精読(17pp, J.Intell 5,16)→`D23-S15_van-der-maas-2017.md` 生成。中身=正しい van der Maas et al. 確認済。相利共生ネットワーク知能モデル＋Ising≡IRT＋カスプ破局。D23-S14 van Geert 補完 |
-| D13-S02 Simondon 1958 | ✅ **完了** (2026-06-26 #03) | Monoskop OA スキャン(18MB/182面/テキスト層なし/仏語)を curl 取得→Read image mode で核心精読(Introduction pp.9-16＋第1部Ch.I pp.19-27＋第3部Ch.I pp.158-173, 約55頁)→`D13-S02_simondon-1958.md` 生成。具体化(concrétisation)＋位相としての技術性(脱位相 déphasage)。準安定/過飽和/内的共鳴で 5段階 全段階強対応。url-verified 据置(PDF 非コミット・OA URL でアクセス証明)。D13-S03 Deleuze(個体化論)と接続 |
+| D13-S02 Simondon 1958 | ✅ **完了** (2026-06-26 #03) | Monoskop OA スキャン(18MB/182面/テキスト層なし/仏語)を curl 取得→Read image mode で **7章・約100頁** 精読(Introduction＋第1部Ch.I 具体化＋第1部Ch.II 連合環境/発明/relaxation＋第2部Ch.I 多数派/少数派＋第3部Ch.I 位相としての技術性＋第3部Ch.II§I 美的思考＋Conclusion 全)→`D13-S02_simondon-1958.md` 生成。具体化／連合環境 milieu associé／発明=未来による現在の条件づけ／fond-forme／relaxation 鋸歯状循環／脱位相 déphasage／超個体 transindividuel／技術性>労働。準安定/過飽和で 5段階 全段階強対応。url-verified 据置(PDF 非コミット・OA URL でアクセス証明)。D13-S03 Deleuze(個体化論)・cross-domain-resonances と接続 |
 
 ### 残務（2026-06-26 #03 時点）
 - **取得可能分（当環境 Main egress で到達可）は全完了**。D05-S15 Feistel 1611（再DL後完了, develop 898582e）・D13-S02 Simondon（本ラウンド完了）をもって、本キューの「△到達可／スキャン」分は消化済み。
@@ -61,4 +61,4 @@ pjdhiro がブラウザ（別 egress）で B群を手動DL。配置された PDF
 - 2026-06-25 #06: 初版。12本の gap を決定的トリアージし B群11 / スキャン1 に分類。PMID 3本の PMC 不在を確定。
 - 2026-06-26 #01: pjdhiro 手動DL 実施。完了2本(D09-S02/D23-S14)、降格3本(D09-S09/D11-S16/D23-S07=実質paywall)、source-note保留4本、要再DL1本(D23-S15取り違え)、DL不要1本(D07-S13)。budget MAIN_ONLY で打ち切り。
 - 2026-06-26 #02: Main 直読(MAIN_ONLY)で保留5本＋anchor を消化。**完了4本**(D07-S15/D12-S13/D06-S15/D23-S15)＋**anchor1本**(D07-S13)。**D05-S15 は精読中に取り違え検出**→誤PDF quarantine + url-verified 降格 + 再DL待ちに差し戻し(pjdhiro承認)。source-notes 296→301。
-- 2026-06-26 #03: **D13-S02 Simondon** を Monoskop OA スキャン PDF から Main 直読(image mode)で核心精読し `D13-S02_simondon-1958.md` 生成(url-verified 据置)。これで「△到達可／スキャン」分は全消化。残 B群11本は別 egress 待ち。source-notes 302→303。
+- 2026-06-26 #03: **D13-S02 Simondon** を Monoskop OA スキャン PDF から Main 直読(image mode)で **7章・約100頁** 精読し `D13-S02_simondon-1958.md` 生成(url-verified 据置)。これで「△到達可／スキャン」分は全消化。残 B群11本は別 egress 待ち。source-notes 302→303。
