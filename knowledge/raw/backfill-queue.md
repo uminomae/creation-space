@@ -37,7 +37,7 @@ pjdhiro がブラウザ（別 egress）で B群を手動DL。配置された PDF
 
 | source_id | 状態 (2026-06-26) | 備考 |
 |---|---|---|
-| D05-S15 Feistel 2024 | 🟡 **取り違え是正済→再DL待ち (2026-06-26)** | DL PDF の中身が別論文(Ziaeepour「SU(∞) Quantum Gravity」*Symmetry* 16,**1672**)だった。pjdhiro承認で: 誤PDF→`.cache/quarantine/WRONGFILE_ziaeepour_*` 退避、manifest D05-S15 を raw-confirmed→**url-verified 降格**。記事**1611** Feistel「Origin of Life」の**再DL待ち**(MDPI env-block のため pjdhiro 手動DL)。再DL後に raw-confirmed 昇格→全文精読→source-note 生成 |
+| D05-S15 Feistel 2024 | ✅ **完了 (2026-06-26)** | 取り違え是正後、pjdhiro が正しい記事**1611**を再DL→1頁書誌照合(Feistel/Origin of Life/sym16121611, 取り違えなし)→raw-confirmed 昇格→全文精読(20pp)→`D05-S15_feistel-2024.md` 生成。生命起源=対称性破れの運動論的相転移、ritualisation、5段階 全段階強対応。D07-S15/Strogatz とクロス共鳴 |
 | D06-S15 Nicolis 2016 | ✅ **完了** (2026-06-26) | 全文精読(13pp, Entropy 18,172)→`D06-S15_nicolis-2016.md` 生成。確率共鳴＋情報力学の多安定系理論。D06=周期強制下多安定遷移(氷期サイクル正準モデル)として接続 |
 | D07-S13 Strogatz 2001 | ✅ **完了** (2026-06-26) | `D02_strogatz_2001_*.pdf` を D07 工学/情報視点で全文精読→`D07-S13_strogatz-2001.md` 生成。cross-domain-anchors.md #7 登録。manifest raw-confirmed 昇格。引用は D02-S13 と非重複 |
 | D07-S15 Heylighen 2025 | ✅ **完了** (2026-06-26) | 全文精読(17pp, 本文§1-§12)→`D07-S15_heylighen-2025.md` 生成。5段階 全段階強対応。出版年は実際 2026(Complexities 2026,2,6)と source-note に明記 |
