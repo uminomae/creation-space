@@ -12,7 +12,7 @@ agent: "CLI"
 
 # agent-team-workflow スキル
 
-**正本**: `~/dev/project-design/skills/agent-team-workflow/SKILL.md`
+**正本**: `~/dev/project-design/.claude/skills/agent-team-workflow/SKILL.md`
 
 本スキルの定義・Agent 定義・ワークフロー手順は全て project-design リポジトリに置く。
 このファイルは参照ポインタのみ。

@@ -49,9 +49,13 @@ Agent(source-reader):
 # 1. ファイルが作成されたか
 ls knowledge/source-notes/D{NN}/{source_id}_*.md
 
-# 2. frontmatter 必須フィールドの確認
-for field in source_id title authors year domain_id access_status; do
-  grep -q "^${field}:" knowledge/source-notes/D{NN}/{source_id}_*.md || echo "MISSING: $field"
+# 2. 必須フィールドの確認
+# source-note のヘッダは YAML frontmatter ではなく Markdown bold 形式（`**source_id**: D12-S01`）。
+# nl-debug A-4 と同じ検査方式に揃える。必須3フィールド: source_id / domain_id / access_status
+for f in knowledge/source-notes/D{NN}/{source_id}_*.md; do
+  for field in source_id domain_id access_status; do
+    grep -q "\*\*${field}\*\*" "$f" || echo "MISSING $field: $f"
+  done
 done
 
 # 3. 領域の source-note 数が ≥5 か

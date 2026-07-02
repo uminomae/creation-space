@@ -1,16 +1,25 @@
 ---
 name: commit-review-with-log
 description: |
-  コミット単位の変更影響をレビューし、参照切れ・パス不整合・副作用を検出する。
-  同期レビューと別 CLI による非同期レビューの両モードに対応する。
+  [RETIRED / 廃止] コミット単位の変更影響レビュー。旧正本。
+  後継: codex-review（非同期 Codex レビュー）+ periodic-review（定期レビュー）。
+  新規に本スキルを起動しないこと。履歴参照用に残置。
 triggers: |
-  「コミット影響レビュー」「変更の副作用を見たい」「コミット前に確認したい」
-  ファイル移動・削除・リネームや cross-repo 変更を含むコミットの前後。
+  （廃止済み。トリガーしない。コミット影響レビューは codex-review / periodic-review を使う）
 applyTo: ".cache/outbox/, .cache/session/"
 agent: "both"
 ---
 
-# skills/commit-review-with-log/SKILL.md — コミット影響レビュー
+> **⚠️ このスキルは廃止（RETIRED）されました。**
+>
+> pd `periodic-review` が本スキルを retired asset として指定しています（PR-3 canonical reference drift）。
+> 後継の正本:
+> - コミット後の非同期レビュー → `codex-review`（project-design `.claude/skills/codex-review/`）
+> - 定期レビュー → `periodic-review`（project-design `.claude/skills/periodic-review/`）
+>
+> 以下は履歴参照用。**新規に本スキルを起動しないこと。**
+
+# skills/commit-review-with-log/SKILL.md — コミット影響レビュー（廃止）
 
 **目的**: コミットごとに変更の影響を広範囲にレビューし、参照切れ・パス不整合・副作用を検出する。
 
