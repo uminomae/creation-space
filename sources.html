@@ -20,25 +20,45 @@
   }
 </script>
 
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./src/styles/tokens.css">
+
 <style>
-  :root{--bg:#1a1714;--panel:#262019;--panel2:#2f2820;--ink:#f3ece2;--muted:#b8ab99;
-    --faint:#85796a;--line:#3d3528;--gold:#e0ad4e;--teal:#5fb3a3;--green:#86b86a;--red:#d2685f;--amber:#e0ad4e;}
+  /* creation-space design-system aligned palette (cosmic blue).
+     Local var names are kept; only values are remapped onto design-system
+     tokens so the page matches the main site (shared with dashboard.html). */
+  :root{
+    --bg:var(--ds-color-bg-body);
+    --panel:var(--cs-surface-2); --panel2:var(--cs-surface-3);
+    --ink:rgb(var(--ds-color-highlight)); --muted:rgb(var(--ds-color-sub-text));
+    --faint:rgba(var(--ds-color-sub-text),.55); --line:rgba(var(--ds-color-accent),.14);
+    --gold:rgb(var(--ds-color-accent)); --teal:rgb(var(--ds-color-link));
+    --green:#5cc2a3; --red:var(--ds-error-color); --amber:#e0ad4e;
+    --radius:var(--ds-radius-lg);
+  }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;line-height:1.6;padding:26px 18px 70px;}
+  body{margin:0;color:var(--ink);
+    font-family:var(--cs-font-sans-ui);line-height:1.6;padding:26px 18px 70px;
+    /* cosmic ambient (DESIGN.md §1): faint indigo spreading over deep dark. */
+    background:
+      radial-gradient(1100px 760px at 18% -8%, rgba(var(--ds-color-accent),.10), transparent 60%),
+      radial-gradient(1000px 720px at 100% 4%, rgba(var(--ds-color-accent),.07), transparent 55%),
+      var(--bg);
+    background-attachment:fixed;}
   .wrap{max-width:920px;margin:0 auto;}
-  a{color:var(--teal);} h1{font-size:22px;margin:0 0 4px;}
+  a{color:var(--teal);} h1{font-family:var(--ds-font-serif-display);font-size:22px;font-weight:500;margin:0 0 4px;letter-spacing:var(--ds-letter-ui-tight);}
   .sub{color:var(--muted);font-size:14px;margin:0 0 14px;}
   .back{font-size:13px;}
   .counts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:16px 0 6px;}
-  .cc{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:12px 14px;}
-  .cc .n{font-size:24px;font-weight:700;} .cc .l{font-size:12.5px;color:var(--muted);}
+  .cc{background:var(--cs-card-bg);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;}
+  .cc .n{font-size:24px;font-weight:700;color:var(--gold);} .cc .l{font-size:12.5px;color:var(--muted);}
   .cc.read .n{color:var(--green);} .cc.link .n{color:var(--teal);} .cc.no .n{color:var(--faint);}
-  .gloss{font-size:12.5px;color:var(--faint);background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:12px 14px;margin:12px 0;}
+  .gloss{font-size:12.5px;color:var(--faint);background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;margin:12px 0;}
   .tools{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 8px;align-items:center;}
-  input,select{background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px 10px;font-size:13px;}
+  input,select{background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:var(--radius);padding:7px 10px;font-size:13px;}
+  input:focus,select:focus{outline:none;border-color:var(--ds-focus-ring-soft);}
   input{flex:1 1 220px;}
-  h2{font-size:16px;margin:22px 0 6px;display:flex;gap:8px;align-items:center;}
+  h2{font-size:16px;margin:22px 0 6px;display:flex;gap:8px;align-items:center;color:var(--ink);}
   .grp{border-left:4px solid var(--line);padding-left:12px;}
   .grp.gpdf{border-left-color:var(--green);} .grp.glink{border-left-color:var(--teal);} .grp.gno{border-left-color:var(--faint);}
   .row{display:flex;gap:10px;padding:7px 0;border-top:1px solid var(--line);font-size:13.5px;align-items:baseline;}

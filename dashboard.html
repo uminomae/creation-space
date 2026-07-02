@@ -20,24 +20,46 @@
   }
 </script>
 
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./src/styles/tokens.css">
+
 <style>
+  /* creation-space design-system aligned palette (cosmic blue).
+     Local var names are kept; only values are remapped onto design-system
+     tokens so the page inherits the same atmosphere as the main site. */
   :root{
-    --bg:#1a1714; --panel:#262019; --panel2:#2f2820; --ink:#f3ece2; --muted:#b8ab99;
-    --faint:#85796a; --line:#3d3528; --gold:#e0ad4e; --teal:#5fb3a3; --coral:#e0876b;
-    --green:#86b86a; --red:#d2685f; --amber:#e0ad4e; --radius:14px;
+    --bg:var(--ds-color-bg-body);                 /* #050508 深い暗背景 */
+    --panel:var(--cs-surface-2);                  /* rgba(20,25,40,.6) */
+    --panel2:var(--cs-surface-3);                 /* rgba(20,25,40,.9) 一段手前 */
+    --ink:rgb(var(--ds-color-highlight));         /* 220,230,245 */
+    --muted:rgb(var(--ds-color-sub-text));        /* 180,200,230 */
+    --faint:rgba(var(--ds-color-sub-text),.55);
+    --line:rgba(var(--ds-color-accent),.14);
+    --gold:rgb(var(--ds-color-accent));           /* primary accent → 藍 #6496ff */
+    --teal:rgb(var(--ds-color-link));             /* links → 130,170,255 */
+    /* page-local semantic status (cool-harmonized) */
+    --coral:#e8956b; --green:#5cc2a3; --red:var(--ds-error-color); --amber:#e0ad4e;
+    --radius:var(--ds-radius-lg);                 /* 4px sharp */
   }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);
-    font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;
-    line-height:1.7;padding:26px 18px 70px;}
+  body{margin:0;color:var(--ink);
+    font-family:var(--cs-font-sans-ui);
+    line-height:1.7;padding:26px 18px 70px;
+    /* cosmic ambient (DESIGN.md §1): faint indigo spreading over deep dark,
+       standing in for the main site's 3D canvas so surfaces lift on flat bg. */
+    background:
+      radial-gradient(1100px 760px at 18% -8%, rgba(var(--ds-color-accent),.10), transparent 60%),
+      radial-gradient(1000px 720px at 100% 4%, rgba(var(--ds-color-accent),.07), transparent 55%),
+      var(--bg);
+    background-attachment:fixed;}
   .wrap{max-width:960px;margin:0 auto;}
   .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
-  h1{font-size:23px;margin:0 0 4px;font-weight:700;}
+  h1{font-family:var(--ds-font-serif-display);font-size:23px;margin:0 0 4px;font-weight:500;letter-spacing:var(--ds-letter-ui-tight);}
   .sub{color:var(--muted);font-size:14.5px;margin:0;}
   .bar-meta{margin-top:12px;font-size:12.5px;color:var(--faint);display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
   .bar-meta a{color:var(--teal);text-decoration:none;} .bar-meta a:hover{text-decoration:underline;}
-  button.rf{background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:5px 12px;font-size:12.5px;cursor:pointer;}
-  button.rf:hover{border-color:var(--gold);}
+  button.rf{background:var(--cs-action-bg);color:var(--ink);border:1px solid var(--line);border-radius:var(--radius);padding:5px 12px;font-size:12.5px;cursor:pointer;transition:border-color var(--ds-transition-snappy),background var(--ds-transition-snappy);}
+  button.rf:hover{border-color:var(--gold);background:var(--cs-action-bg-hover);}
   section{margin-top:30px;}
   h2{font-size:17px;margin:0 0 4px;display:flex;align-items:center;gap:9px;font-weight:700;}
   h2 .ic{font-size:20px;}
@@ -50,13 +72,13 @@
   .map{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap;}
   .col{flex:1 1 210px;min-width:200px;display:flex;flex-direction:column;gap:10px;}
   .arrow{align-self:center;color:var(--faint);font-size:24px;flex:0 0 auto;}
-  .stage{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 15px;flex:1;}
+  .stage{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:14px 15px;flex:1;}
   .stage.cur{border-color:var(--gold);background:var(--panel2);}
   .stage.pub{border-left:4px solid var(--teal);}
   .badge{font-size:11px;font-weight:700;padding:1px 8px;border-radius:20px;}
-  .b-back{background:#3a332a;color:var(--faint);}
-  .b-view{background:rgba(95,179,163,.18);color:var(--teal);}
-  .b-here{background:var(--gold);color:#241c10;margin-left:6px;}
+  .b-back{background:rgba(var(--ds-color-sub-text),.12);color:var(--faint);}
+  .b-view{background:rgba(var(--ds-color-link),.18);color:var(--teal);}
+  .b-here{background:var(--gold);color:#050508;margin-left:6px;}
   .stage .mt{font-size:15.5px;font-weight:700;margin:7px 0 2px;}
   .stage .mnum{font-size:27px;font-weight:700;color:var(--gold);line-height:1.1;}
   .stage .mnum small{font-size:13px;color:var(--muted);font-weight:400;}
@@ -86,13 +108,14 @@
   .ev .tag{font-size:11px;padding:1px 7px;border-radius:20px;margin-right:7px;background:var(--panel2);color:var(--teal);border:1px solid var(--line);}
 
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:10px;}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:12px 14px;}
+  .card{background:var(--cs-card-bg);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;transition:border-color var(--ds-transition-snappy);}
+  .card:hover{border-color:var(--ds-card-border-strong);}
   .card .dom{font-size:11px;color:var(--gold);font-weight:700;}
   .card .au{font-size:14px;font-weight:600;margin:2px 0;}
   .card .tp{font-size:12.5px;color:var(--muted);}
 
   .stuck{display:flex;flex-direction:column;gap:12px;}
-  .reason{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--red);border-radius:11px;padding:14px 16px;}
+  .reason{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--red);border-radius:var(--radius);padding:14px 16px;}
   .reason.scan{border-left-color:var(--amber);} .reason.link{border-left-color:var(--coral);}
   .reason .rt{font-size:15px;font-weight:700;}
   .reason .rd{font-size:13px;color:var(--muted);margin:6px 0 8px;}
@@ -167,21 +190,21 @@
     <div class="prog">
       <div class="donut">
         <svg width="128" height="128" viewBox="0 0 132 132" role="img" aria-label="進捗ドーナツ">
-          <circle cx="66" cy="66" r="54" fill="none" stroke="#3d3528" stroke-width="14"/>
-          <circle id="ring" cx="66" cy="66" r="54" fill="none" stroke="#e0ad4e" stroke-width="14"
+          <circle cx="66" cy="66" r="54" fill="none" style="stroke:var(--line)" stroke-width="14"/>
+          <circle id="ring" cx="66" cy="66" r="54" fill="none" style="stroke:var(--gold)" stroke-width="14"
             stroke-linecap="round" transform="rotate(-90 66 66)" stroke-dasharray="339" stroke-dashoffset="339"/>
-          <text id="ringpct" x="66" y="62" text-anchor="middle" fill="#f3ece2" font-size="26" font-weight="700">18%</text>
-          <text x="66" y="84" text-anchor="middle" fill="#85796a" font-size="12">13 / 71</text>
+          <text id="ringpct" x="66" y="62" text-anchor="middle" style="fill:var(--ink)" font-size="26" font-weight="700">18%</text>
+          <text x="66" y="84" text-anchor="middle" style="fill:var(--faint)" font-size="12">13 / 71</text>
         </svg>
       </div>
       <div class="pstat">
         <div class="big"><b id="done">13</b> 本まとめ完了 ／ 残り <span id="rest">58</span> 本</div>
         <div class="split" id="split"></div>
         <div class="legend">
-          <span><i class="sw" style="background:#86b86a"></i>完了 13</span>
-          <span><i class="sw" style="background:#d2685f"></i>出版社ブロック</span>
-          <span><i class="sw" style="background:#e0ad4e"></i>スキャン/要OCR</span>
-          <span><i class="sw" style="background:#e0876b"></i>リンク誤り</span>
+          <span><i class="sw" style="background:var(--green)"></i>完了 13</span>
+          <span><i class="sw" style="background:var(--red)"></i>出版社ブロック</span>
+          <span><i class="sw" style="background:var(--amber)"></i>スキャン/要OCR</span>
+          <span><i class="sw" style="background:var(--coral)"></i>リンク誤り</span>
         </div>
       </div>
     </div>
@@ -252,10 +275,10 @@ function renderStatic(){
   document.getElementById("rest").textContent=total-done;
   const rem=total-done;
   document.getElementById("split").innerHTML=
-    '<i style="width:'+(done/total*100)+'%;background:#86b86a"></i>'+
-    '<i style="width:'+(rem/total*78)+'%;background:#d2685f"></i>'+
-    '<i style="width:'+(rem/total*16)+'%;background:#e0ad4e"></i>'+
-    '<i style="width:'+(rem/total*6)+'%;background:#e0876b"></i>';
+    '<i style="width:'+(done/total*100)+'%;background:var(--green)"></i>'+
+    '<i style="width:'+(rem/total*78)+'%;background:var(--red)"></i>'+
+    '<i style="width:'+(rem/total*16)+'%;background:var(--amber)"></i>'+
+    '<i style="width:'+(rem/total*6)+'%;background:var(--coral)"></i>';
   document.getElementById("done-list").innerHTML=DONE.map(function(p){
     return '<div class="card"><div class="dom">'+esc(p[0])+'</div><div class="au">'+
       esc(p[1])+'</div><div class="tp">'+esc(p[2])+'</div></div>';}).join("");
