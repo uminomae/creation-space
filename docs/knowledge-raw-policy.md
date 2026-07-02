@@ -184,19 +184,29 @@ CLI は候補の提示と費用感の調査まで。実行判断は pjdhiro。
 一方、source-note / wiki を生成する **LLM（WebFetch / curl / sandbox）は取得能力が大きく制限される**。
 したがって `url-verified` を見て「取得できる」と判断してはならない。**実際に取得・抽出できて初めて使える。**
 
-LLM 取得経路の現実（2026-06-21 cs#249 実測。経路が変われば更新する）:
+LLM 取得経路の現実（2026-06-21 cs#249 実測、2026-07-02 cs#253 追補。経路が変われば更新する）:
 
 | 経路 | 結果 | 例 |
 |---|---|---|
 | `link.springer.com` の content/pdf | ✅ curl で実 PDF | Anzola 2016, Dietrich 2004 |
 | 小規模 edu / 機関リポジトリ / 著者サイトの born-digital PDF | ✅ WebFetch がローカル保存 → `pdftotext` | wisc.edu, ulisboa, ucf, msu, iu.edu, plijournal, pbworks |
+| **PMC（pmc.ncbi.nlm.nih.gov）** | ✅ publisher 直リンクが 403 でも PMC 版は通ることが多い。**pmcid は検索でなく DOI から引く**: `europepmc REST ?query=DOI:{doi}` | Savage 2015（PNAS 403 → PMC4517223） |
+| **archive.org（全公開 item）** | ✅ `archive.org/download/{id}/{id}.pdf` が `%PDF` を返す | cosmicconsciousn01buck |
+| **archive.org（貸出専用 item）** | ❌ 同じ download URL 形式でも **302→HTML**（encrypted のみ）。metadata API で files を確認 | cosmicconsciousn00buck |
 | **大手 publisher（MDPI / Nature / PNAS / Wiley / SAGE / Cell / Frontiers / figshare）** | ❌ Akamai/Atypon の 403/402 | mdpi.com, nature.com, pnas.org |
-| **JSTOR / philpapers / ecologyandsociety / karger** | ❌ 403 / JS challenge | — |
+| **JSTOR / philpapers / ecologyandsociety / karger / academia.edu / ResearchGate / Scribd** | ❌ 403 / JS challenge | — |
 | **スキャン PDF（archive.org 書籍 / 一部 .edu）** | ⚠️ `pdftotext` 不可 → **OCR 必要**（Read の PDF ビジョン or 手動） | Connell(columbia), Mahoney(ethz), Suarez |
 | **認証 / cert エラー** | ❌ login redirect / cert 不正 | wiu, kingston, warwick, uba.ar |
 
 → ❌ のホストは **LLM 単独では取得不可**。手動DL→`raw-confirmed`（規律 3）か並列エージェント経路に回す。
 **ブロック先を同じ方法で何度も叩かない**（歩留まりゼロ。これが「わかったつもり」の典型）。
+
+**取得成功の判定はステータスコードでなく中身で行う**（2026-07-02 cs#253 教訓）:
+
+1. HTTP 200 は本文取得を意味しない（貸出ページ・landing・HTML を返すことがある）
+2. **マジックバイト確認**を必須にする: `curl -sL {url} | head -c 8` が `%PDF` で始まるか
+3. 著者サイトの 404 は URL 再編の可能性を先に疑う（例: wp-content/uploads/2013/03→2025/06）。上位の publications ページを取得して現行パスを探す
+4. manifest に書く URL は上記で実体確認したものだけ。確認不能なら「リンク切れ・要人手」と明記して残す（黙って据え置かない）
 
 ### 規律 2: 書誌クロスチェック必須（取得物の同定, cs#240 / D03-S08）
 

@@ -29,11 +29,13 @@ chmod +x .claude/skills/nl-debug/scripts/*.sh
 bash .claude/skills/nl-debug/scripts/count-manifest.sh
 ```
 
-期待値（2026-06-11 実測）:
-- raw-confirmed: 107
-- ローカル PDF: 101
-- 欠落 PDF: 5
-- 未参照 PDF: 1
+期待値（2026-07-02 実測）:
+- raw-confirmed: 135
+- ローカル PDF: 125
+- 欠落 PDF: 0
+- 未参照 PDF: 0
+
+（旧ベースライン 2026-06-11: raw-confirmed 107 / ローカル PDF 101 / 欠落 5 / 未参照 1）
 
 実測値と乖離がある場合はレポートに記録し、原因を解明してから次フェーズへ進む。
 

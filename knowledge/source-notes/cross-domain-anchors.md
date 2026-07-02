@@ -15,7 +15,7 @@
   `bib-crosscheck.sh` / `count-manifest.sh` 等でこのパターンを検出しても、本ドキュメントに記載のものは正規。
 - 同様に、版違いファイル（例: van Gennep 1909仏語原著 と 1960英訳）が未参照として残るのも別事象（重複ではない）。
 
-## 一覧（6原典・13 source-note）
+## 一覧（7原典・15 source-note）
 
 ### 1. Varela, Thompson & Rosch (1991) *The Embodied Mind*
 - **PDF**: `knowledge/raw/D14_varela_1991_embodied-mind.pdf`（D14 で初確保）
@@ -72,6 +72,15 @@
 | **D14-S04** (原典側) | 心理学 | Ch.IV「Habit」(神経可塑性・行動連鎖) と Ch.IX「Stream of Thought」の意識流れ五特性（連続性・選択性・個人性）。場・渦を強対応 |
 | **D13-S12** (再利用) | 哲学 | Ch.X「Consciousness of Self」(the I/the me・Pure Ego 三理論・人格同一性=passing Thought の appropriation) と Ch.IX の "feelings of relation"/"fringe" の過程哲学的含意・mind-stuff 批判。縁・渦を強対応（引用は D14-S04 と完全非重複） |
 
+### 7. Strogatz, S. H. (2001) *Exploring complex networks*. *Nature* 410.
+- **PDF**: `knowledge/raw/D02_strogatz_2001_exploring-complex-networks.pdf`（D02 で初確保、著者個人サイト OA）
+- **なぜ複数領域か**: 複雑ネットワーク科学のレビューだが、(1) 同期相転移・small-world・scale-free の数理構造（複雑系物理 D02）と、(2) 工学インフラの故障伝播・制御目標としての同期・自己修復ネットワーク設計・探索アルゴリズム複雑性（工学/情報科学 D07）の双方の基盤となる。冒頭の動機（送電網カスケード故障・Love Bug ワーム）と結語（自己修復ネットワーク設計）は工学的、本体の数理モデルは物理的。
+
+| source_id | 領域 | 読解の重点 |
+|---|---|---|
+| **D02-S13** (原典側) | 複雑系物理 | 6複雑性・Winfree/Kuramoto 同期相転移（Kc 閾値）・Watts-Strogatz small-world 構造・scale-free 次数分布（pk~k^-3）・ランダム故障耐性。Stage 3-5 強 |
+| **D07-S13** (再利用) | 工学・情報科学 | カスケード故障/ワーム伝播・「構造が機能を決める」命題・レーザアレイ出力最大化（N²）としての同期目標・信号伝播/計算/探索の性能・自己修復ネットワーク設計。Stage 2 波が強（引用は D02-S13 と完全非重複） |
+
 ## 不変条件
 
 - 本一覧の原典の source-note を改訂するときは、**同一原典を共有する全 source-note**（上表の同一行グループ）への影響を確認する。
@@ -82,5 +91,7 @@
 
 - cs#245 — 自然言語デバッグ（本一覧の発見元。Phase B 書誌照合で `bib-crosscheck.sh` が D番号不一致を検出）
 - cs#249 — Olsson et al. (2004) クロス領域 anchor 追加（D16-S18 / D30-S15）
+- cs#249 — Strogatz (2001) クロス領域 anchor 追加（D02-S13 / D07-S13）。D02 既読 PDF を D07 工学/情報視点で再読、引用非重複
 - `.claude/rules/source-note-invariants.md` §7 — クロス領域 anchor の扱い
 - `transform/domains/cross-domain-reference.md` — 領域間の知見配置ルール（別事象）
+- `knowledge/source-notes/cross-domain-resonances.md` — 別々の原典が同型の構造モチーフを示す「クロス領域共鳴」レジストリ（本ファイル=同一原典再利用 とは別事象。保留中 Filing 候補の正本）
