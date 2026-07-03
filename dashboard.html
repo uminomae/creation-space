@@ -162,7 +162,7 @@
           <span class="badge b-back">🔧 中間</span><span class="badge b-here">いまここ</span>
           <div class="mt">精読ノート（creation-space）</div>
           <div class="mnum"><span id="m-notes">267</span><small> 本 作成</small></div>
-          <div class="mdesc">原典を読み要点・引用・5段階対応をまとめたもの（<a href="https://github.com/uminomae/creation-space/tree/main/knowledge/source-notes" target="_blank" rel="noopener">一覧↗</a>）。いま project-design の解説に対応する分を補完中（13/71）</div>
+          <div class="mdesc">原典を読み要点・引用・5段階対応をまとめたもの（<a href="https://github.com/uminomae/creation-space/tree/main/knowledge/source-notes" target="_blank" rel="noopener">一覧↗</a>）。project-design の解説に対応する分を補完（52/71：取得可能分は完了、17本は取得不能で read-list 化、2本は重複除去）</div>
         </div>
       </div>
       <div class="arrow">→</div>
@@ -185,26 +185,25 @@
   </section>
 
   <section>
-    <h2><span class="ic">📊</span>いま埋めている工程：精読ノート</h2>
-    <p class="lead">project-design の解説ページがあるのに精読ノートが未作成の論文 71本のうち、何本まとめ終えたか。</p>
+    <h2><span class="ic">📊</span>精読ノート補完の到達点</h2>
+    <p class="lead">project-design の解説ページに対応する精読ノートが未作成だった論文 71本の消化状況。取得できた分は精読ノート化を終え、残りは取得不能と確定して read-list（書誌のみ保持）に回した。</p>
     <div class="prog">
       <div class="donut">
         <svg width="128" height="128" viewBox="0 0 132 132" role="img" aria-label="進捗ドーナツ">
           <circle cx="66" cy="66" r="54" fill="none" style="stroke:var(--line)" stroke-width="14"/>
           <circle id="ring" cx="66" cy="66" r="54" fill="none" style="stroke:var(--gold)" stroke-width="14"
             stroke-linecap="round" transform="rotate(-90 66 66)" stroke-dasharray="339" stroke-dashoffset="339"/>
-          <text id="ringpct" x="66" y="62" text-anchor="middle" style="fill:var(--ink)" font-size="26" font-weight="700">18%</text>
-          <text x="66" y="84" text-anchor="middle" style="fill:var(--faint)" font-size="12">13 / 71</text>
+          <text id="ringpct" x="66" y="62" text-anchor="middle" style="fill:var(--ink)" font-size="26" font-weight="700">73%</text>
+          <text x="66" y="84" text-anchor="middle" style="fill:var(--faint)" font-size="12">52 / 71</text>
         </svg>
       </div>
       <div class="pstat">
-        <div class="big"><b id="done">13</b> 本まとめ完了 ／ 残り <span id="rest">58</span> 本</div>
+        <div class="big"><b id="done">52</b> 本 精読ノート化 ／ 取得不能で read-list <span id="rest">17</span> 本 ／ 重複除去 2 本</div>
         <div class="split" id="split"></div>
         <div class="legend">
-          <span><i class="sw" style="background:var(--green)"></i>完了 13</span>
-          <span><i class="sw" style="background:var(--red)"></i>出版社ブロック</span>
-          <span><i class="sw" style="background:var(--amber)"></i>スキャン/要OCR</span>
-          <span><i class="sw" style="background:var(--coral)"></i>リンク誤り</span>
+          <span><i class="sw" style="background:var(--green)"></i>精読ノート化 52</span>
+          <span><i class="sw" style="background:var(--red)"></i>取得不能＝read-list 17</span>
+          <span><i class="sw" style="background:var(--faint)"></i>重複除去 2</span>
         </div>
       </div>
     </div>
@@ -217,19 +216,19 @@
   </section>
 
   <section>
-    <h2><span class="ic">✅</span>最近まとめた精読ノート（13本）</h2>
-    <p class="lead">原典を精読し、要点・引用・5段階との対応をまとめ終えたもの。</p>
+    <h2><span class="ic">✅</span>まとめ終えた精読ノート（52本・主な例）</h2>
+    <p class="lead">原典を精読し、要点・引用・5段階との対応をまとめ終えたもの。下は代表例。</p>
     <div class="grid" id="done-list"></div>
   </section>
 
   <section>
-    <h2><span class="ic">⛔</span>いま詰まっているところ</h2>
-    <p class="lead">論文を取りに行ったが手こずっているもの。残り58本の主な理由はこの3つ。</p>
+    <h2><span class="ic">📇</span>取得不能と確定した原典（read-list 17本）</h2>
+    <p class="lead">取りに行ったが正規の全文にたどり着けず、取得不能と確定した17本。裏取りできない要約は載せない方針のため、精読ノートは作らず「書誌＋読みたい理由」だけを残している（read-list 化）。</p>
     <div class="stuck" id="stuck"></div>
   </section>
 
   <footer>
-    地図の<b>原典・精読ノート・分野数</b>は <code>assets/dashboard-stats.json</code>（creation-space の台帳から自動生成）を開くたびにライブ反映。project-design wiki の件数・補完進捗（13/71）・論文リストは編集時点の手集計です。「最近の動き」と更新時刻もライブ更新されます。<br>
+    地図の<b>原典・精読ノート・分野数</b>は <code>assets/dashboard-stats.json</code>（creation-space の台帳から自動生成）を開くたびにライブ反映。project-design wiki の件数・補完進捗（52/71）・論文リストは編集時点の手集計です（2026-07-03 に精読ノート実在で検算）。「最近の動き」と更新時刻もライブ更新されます。<br>
     公開URL: <code>uminomae.github.io/creation-space/dashboard.html</code> ／ 計画の詳細は creation-space の issue #251。
   </footer>
 </div>
@@ -252,40 +251,40 @@ const DONE = [
   ["D21","Keynes 1937","不確実性下の経済"],
 ];
 const STUCK = [
-  {cls:"",ic:"🚫",t:"出版社がロボット拒否で自動取得できない",
-   d:"MDPI・Nature・PNAS・Wiley・SAGE などが、プログラムからのアクセスを 403/402 で弾く。残りの大半がこれ。",
-   ex:"例: Friston 2012（Entropy）, Strogatz 2001（Nature）, Pellerin 1994（PNAS）, Mitchell 2021（Nature）",
-   fix:"手動でPDFをダウンロードして取り込めば解決（または別エージェント経路で取得）"},
-  {cls:"scan",ic:"🖼️",t:"スキャン画像のPDFで文字が取れない",
-   d:"紙をスキャンしただけのPDFは、そのままでは文字を抽出できない。",
-   ex:"例: Mahoney 2000（経路依存）, Connell 1977（生態遷移）, Suarez 1988（エルニーニョ）",
-   fix:"OCR（画像から文字起こし）で読めるようにする"},
-  {cls:"link",ic:"🔗",t:"リンクが別の論文を指していた",
-   d:"登録されたリンクが、目的と違う論文を返すケース。気づかず使うと誤った要約になる。",
-   ex:"例: Luyckx 2008 のはずが Luyckx 2023 の別論文を返した（D23-S08）",
-   fix:"正しいリンクを特定して台帳（manifest）を修正"},
+  {cls:"",ic:"🚫",t:"出版社・リポジトリが全文を出さず、正規OA版も無い（15本）",
+   d:"MDPI・Nature・Wiley・SAGE・大学リポジトリなどが全文にたどり着けず、別経路のOA版も見つからなかったもの。取得不能の大半がこれ。",
+   ex:"例: Braudel 1949（地中海）, North 1990（制度変化）, Jauss 1982 / Iser 1974 / Shklovsky（受容理論・異化）, Maturana & Varela 1974（オートポイエーシス）, Markram 1997（STDP）",
+   fix:"別経路のOA版が見つかれば精読ノート化。それまでは書誌＋読みたい理由のみ保持"},
+  {cls:"scan",ic:"📇",t:"目録のみ・全文の所在が未確定（2本）",
+   d:"書誌情報はあるが、検証可能な全文の置き場所を確認できていないもの。",
+   ex:"例: Dewey & Bird 1970（プレートテクトニクス）, Goldstein et al. 2010（リーダーシップと複雑性）",
+   fix:"全文の所在を特定できれば取得して精読ノート化"},
+  {cls:"link",ic:"🔗",t:"「リンク誤り」は決着済み",
+   d:"以前ここに挙げていた Luyckx 2008（D23-S08）は、リンクが別論文（Luyckx 2023）を指していたことを特定し、正規OAが存在しないと確定した。",
+   ex:"Antwerp リポジトリURLが別論文を返していた（cs#248）",
+   fix:"取得不能と確定し read-list 化済み（未解決ではない）"},
 ];
 
 function esc(s){const d=document.createElement("div");d.textContent=s;return d.innerHTML;}
 
 function renderStatic(){
-  const C=339, done=13, total=71, frac=done/total;
+  // 71本の内訳（2026-07-03 実データ照合: source-note 実在で検算）:
+  //   52 精読ノート化 / 17 取得不能=read-list(blocked-access 15 + citation-only 2) / 2 重複除去
+  const C=339, done=52, total=71, readlist=17, dup=2, frac=done/total;
   document.getElementById("ring").setAttribute("stroke-dashoffset",(C*(1-frac)).toFixed(1));
   document.getElementById("ringpct").textContent=Math.round(frac*100)+"%";
-  document.getElementById("rest").textContent=total-done;
-  const rem=total-done;
+  document.getElementById("rest").textContent=readlist;
   document.getElementById("split").innerHTML=
     '<i style="width:'+(done/total*100)+'%;background:var(--green)"></i>'+
-    '<i style="width:'+(rem/total*78)+'%;background:var(--red)"></i>'+
-    '<i style="width:'+(rem/total*16)+'%;background:var(--amber)"></i>'+
-    '<i style="width:'+(rem/total*6)+'%;background:var(--coral)"></i>';
+    '<i style="width:'+(readlist/total*100)+'%;background:var(--red)"></i>'+
+    '<i style="width:'+(dup/total*100)+'%;background:var(--faint)"></i>';
   document.getElementById("done-list").innerHTML=DONE.map(function(p){
     return '<div class="card"><div class="dom">'+esc(p[0])+'</div><div class="au">'+
       esc(p[1])+'</div><div class="tp">'+esc(p[2])+'</div></div>';}).join("");
   document.getElementById("stuck").innerHTML=STUCK.map(function(s){
     return '<div class="reason '+s.cls+'"><div class="rt">'+s.ic+' '+esc(s.t)+'</div>'+
       '<div class="rd">'+esc(s.d)+'</div><div class="ex">'+esc(s.ex)+'</div>'+
-      '<div class="fix">→ <b>こうすれば進む:</b> '+esc(s.fix)+'</div></div>';}).join("");
+      '<div class="fix">→ <b>今後:</b> '+esc(s.fix)+'</div></div>';}).join("");
 }
 async function loadStats(){
   // assets/dashboard-stats.json は scripts/generate-dashboard-stats.mjs が creation-space の台帳から生成。
