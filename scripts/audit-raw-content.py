@@ -51,7 +51,6 @@ KNOWN_OK = {
     "D23-S06": "木下孝司 幼児自己映像。日本語タイトルが p1 に完全一致（神戸大リポジトリ）",
     "D30-S09": "松木孝和・沼田秀穂 一座建立。日本語（cs#255 で書誌是正済）",
     # manifest 書誌がタイトルを省略/略記（中身は正しい）
-    "D12-S05": "Stern 1959。manifest 書誌が雑誌名のみで論文タイトル欠。中身=integrated control concept",
     "D22-S05": "Stanford d.school Design Thinking Process Guide。p1 に完全一致（(d.school) を年括弧と誤パース）",
     "D30-S03": "IPBES 2019 ILK guidance。IPBES/7/INF/8 の正式文書（略記タイトル）",
 }
