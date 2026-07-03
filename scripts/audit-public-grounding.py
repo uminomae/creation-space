@@ -34,6 +34,16 @@ ANCHOR_RE = re.compile(r'§\s*[0-9IVXivx][0-9IVXivx.\-]*|pp?\.\s*[0-9]+(?:\s*[-�
 AUTHYEAR_RE = re.compile(r'([A-Z][A-Za-zÀ-ɏ\-]{2,})\s*\((?:18|19|20)[0-9]{2}')
 # 「精読済み」自己宣言
 READ_DECL_RE = re.compile(r'精読済|読解済|全章精読|全文精読')
+# 接地注記（cs#254 の標準化マーカー）: 「原典精読による検証ではない＝背景説明」の明示。
+# CL-010 の偽の精密さは、精読を主張しないことを明示した時点で解消する。セクション単位で有効。
+DISCLAIM_RE = re.compile(
+    r'原典の精読による検証を主張するものではありません'
+    r'|原典精読による確認ではない'
+    r'|直接精読していない'
+    r'|verification by close reading'
+)
+# 見出し行（セクション境界）
+HEADING_RE = re.compile(r'^\s{0,3}#{1,6}\s')
 
 
 def load_tier():
@@ -81,8 +91,25 @@ def main():
         dom = m.group(1)
         lang = 'ja' if '/ja/' in path else ('en' if '/en/' in path else '?')
         authors = by_dom.get(dom, [])
-        for i, raw in enumerate(open(path), 1):
-            line = raw.rstrip('\n')
+        lines = open(path).read().split('\n')
+        # セクション（見出し境界）ごとに接地注記の有無を先に判定する。
+        # cs#254 の接地注記はブロック（P2=節末・P3=表直前の blockquote）に置かれ、
+        # FLAG 候補行と同一節に共存する。行ローカル判定では拾えないため節単位で被覆する。
+        sec_disclaimed = [False] * (len(lines) + 1)
+        cur = []
+        has_disc = False
+        for idx, ln in enumerate(lines, 1):
+            if HEADING_RE.match(ln):
+                for j in cur:
+                    sec_disclaimed[j] = has_disc
+                cur, has_disc = [], False
+            cur.append(idx)
+            if DISCLAIM_RE.search(ln):
+                has_disc = True
+        for j in cur:
+            sec_disclaimed[j] = has_disc
+        for i, raw in enumerate(lines, 1):
+            line = raw
             anchors = ANCHOR_RE.findall(line)
             ay = AUTHYEAR_RE.findall(line)
             if not anchors and not ay:
@@ -107,6 +134,9 @@ def main():
                 if any(t == 'T1_READ' for t in tiers.values()):
                     verdict = 'OK'
                     note = f'T1 一致: {tiers}'
+                elif sec_disclaimed[i]:
+                    verdict = 'GROUNDED'
+                    note = f'接地注記により背景説明と明示（cs#254 処置済）: {tiers}'
                 else:
                     verdict = 'FLAG'
                     note = f'非T1 帰属: {tiers}'
@@ -134,17 +164,25 @@ def main():
         counts[r['verdict']] = counts.get(r['verdict'], 0) + 1
     flags = [r for r in rows if r['verdict'] == 'FLAG']
     reviews = [r for r in rows if r['verdict'] == 'REVIEW']
+    grounded = [r for r in rows if r['verdict'] == 'GROUNDED']
 
     md = []
     md.append('# 公開ページ主張接地監査 (cs#254, 機械抽出 v1)\n')
     md.append(f'対象: `pjdhiro/assets/creation/domains/{{ja,en}}/md/` の公開レポート\n')
-    md.append(f'判定: OK={counts.get("OK",0)} / **FLAG={counts.get("FLAG",0)}** / REVIEW={counts.get("REVIEW",0)}\n')
-    md.append('> FLAG=非T1原典への精密帰属（偽の精密さ候補）。REVIEW=著者を manifest に機械照合できない精密アンカー。\n')
+    md.append(f'判定: OK={counts.get("OK",0)} / **FLAG={counts.get("FLAG",0)}** / '
+              f'GROUNDED={counts.get("GROUNDED",0)} / REVIEW={counts.get("REVIEW",0)}\n')
+    md.append('> FLAG=非T1原典への精密帰属（偽の精密さ候補・未処置）。'
+              'GROUNDED=同一節に cs#254 接地注記があり背景説明と明示済（処置済）。'
+              'REVIEW=著者を manifest に機械照合できない精密アンカー。\n')
     md.append('> prose は id 引用でないため本 v1 は候補抽出（人手/LLM 確認前提）。決定的 FAIL ゲートではない。\n')
     if flags:
-        md.append('\n## FLAG — 非T1原典への精密帰属\n')
+        md.append('\n## FLAG — 非T1原典への精密帰属（未処置）\n')
         for r in flags:
             md.append(f'- **{r["domain"]}/{r["lang"]}:{r["line"]}** {r["note"]}\n  - `{r["text"]}`')
+    if grounded:
+        md.append('\n## GROUNDED — cs#254 接地注記で処置済\n')
+        for r in grounded:
+            md.append(f'- {r["domain"]}/{r["lang"]}:{r["line"]} {r["note"]}\n  - `{r["text"]}`')
     if reviews:
         md.append('\n## REVIEW — 精密アンカー・著者照合不可（人手確認）\n')
         for r in reviews:
@@ -153,7 +191,8 @@ def main():
         f.write('\n'.join(md) + '\n')
 
     print(f'[public-grounding] reports scanned, rows={len(rows)} '
-          f'OK={counts.get("OK",0)} FLAG={counts.get("FLAG",0)} REVIEW={counts.get("REVIEW",0)}')
+          f'OK={counts.get("OK",0)} FLAG={counts.get("FLAG",0)} '
+          f'GROUNDED={counts.get("GROUNDED",0)} REVIEW={counts.get("REVIEW",0)}')
     print(f'  -> {os.path.join(AUD, "public-grounding.md")}')
 
 
