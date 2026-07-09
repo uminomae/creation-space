@@ -1,6 +1,7 @@
 # TH-001 wave-vortex-ontology — ブリーフィング兼実行メタデータ
 
 **テーマ**: 「創造は波間の渦のよう」（pjdhiro）の物理・思想的接地
+**追跡 Issue**: cs#258（継続調査）
 **作成日**: 2026-07-09
 **orchestrator**: Claude Fable 5（pd セッション、agent-team-workflow full）
 **実行 agents**: researcher ×3（sonnet ×2 / opus ×1）、critic（opus）、worker（opus）

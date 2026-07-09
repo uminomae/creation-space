@@ -31,4 +31,4 @@
 
 | ID | テーマ | 状態 |
 |---|---|---|
-| TH-001 | wave-vortex-ontology — 「創造は波間の渦」の物理・思想的接地 | Phase 1-7 完了（2026-07-09、CONSENSUS-3、保持論点5件） |
+| TH-001 | wave-vortex-ontology — 「創造は波間の渦」の物理・思想的接地 | 継続調査（cs#258）。初回 Phase 1-7 完了（2026-07-09、CONSENSUS-3、保持論点5件） |
