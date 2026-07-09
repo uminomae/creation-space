@@ -52,7 +52,9 @@ Steinhauer らの BEC 音響ブラックホール系列は、この分野が一�
 - **Berezhiani-Khoury（arXiv:1507.01019v2 全文確認）— 整合（構造的回避）**: 基礎理論はローレンツ不変な複素スカラー場（付録 "A Relativistic Completion": L = −|∂Φ|² − m²|Φ|² − λ|Φ|⁶、大域 U(1) 対称）で、超流体は U(1) を**自発的に破る状態**である。法則レベルの LIV 演算子がラグランジアンに存在しないため、輻射補正で浸透するものが**そもそも無い**。媒質による優先系の出現は CMB 静止系と同種の「状態の性質」であり、LIV 精密測定（10⁻¹⁷/10⁻³³ GeV）が標的とする基本法則の破れではない。論文中に "Lorentz" への言及が皆無（grep 0 件）なのは欠落ではなく、標準的 EFT の範疇に収まっている証左である [P]。**ただしこの回避は「時空＝超流体」を主張しないことで達成されている**——時空は通常の GR のまま、超流体は時空「内」のダークマター内容物である。TH-001 の観点では、これは spacetime-as-medium ではなく medium-in-spacetime に分類される [M]。
 - **Zloshchastiev（arXiv:2011.12565 全文確認）— 未決（浸透問題に未対応）**: 「フォノン的低運動量極限でローレンツ対称性が創発し、LI は近似的、高運動量では分散関係が変形する」と明示する（自身の vacuum Cherenkov 効果論文 PLA 2011 を制約チャネルとして参照）。しかし naturalness / fine-tuning / 輻射補正 / 浸透 / 保護機構への言及は**皆無**（grep 0 件）で、議論は古典・運動学レベルに留まる（excitations の back-reaction を無視する近似だと論文自身が認める）。これは Liberati §5 が「深刻な fine-tuning なしには成立しない」とした**素朴な創発的ローレンツ対称性戦略そのもの**であり、custodial 型保護の実装は示されていない [P]（論文にない事の確認）。浸透問題への応答が示されるまで、log-BEC SVT の LIV 整合性は未決である [M]。
 
-**W3 総括**: 「超流体」系のうち LIV 関門を明示的に通過しているのは、時空＝超流体を**主張しない**方（Berezhiani-Khoury）だけである。時空＝超流体を主張する方（Zloshchastiev）は関門への応答を示していない。本調査範囲では、spacetime-as-medium 主張で浸透問題を明示的に回避した理論は確認できていない（multi-BEC 型 custodial 保護の一般論はあるが、個別理論への実装例は未確認）[M]。また「重力＝電磁の二次効果」型に対しては、Scientific Reports 14, 19427 (2024) の精密 null 実験が強い反証となる（本文未読、要約ベース）[P]。
+**W3 総括**: 「超流体」系のうち LIV 関門を明示的に通過しているのは、時空＝超流体を**主張しない**方（Berezhiani-Khoury）だけである。時空＝超流体を主張する方（Zloshchastiev）は関門への応答を示していない。本調査範囲では、spacetime-as-medium 主張で浸透問題を明示的に回避した理論は確認できていない（multi-BEC 型 custodial 保護の一般論はあるが、個別理論への実装例は未確認）[M]。
+
+**W3b（2026-07-10）— 関門に最も正面から向き合う実在論的プログラムの特定**: 「時空＝媒質を主張しつつ LIV 関門に明示的に応答する査読文献」のピンポイント探索を実施した。最有力は **Volovik の Fermi-point シナリオ**（"Emergent physics: Fermi-point scenario", Phil. Trans. R. Soc. A 366, 2935 (2008) = arXiv:0801.0724、**全文確認済み**。PoS 版 arXiv:0709.1258 も同内容）である。§2(a) の教科書（2003）はシミュレーション的位置づけに留まるが、この系列では一歩踏み込む——「我々の真空に Fermi point が存在することは実験事実」（クォーク・レプトンがカイラル Weyl フェルミオンであること）とし、重力・物質・ローレンツ不変性がフェルミオン的量子真空（³He-A と同じ普遍性クラス）から共創発する実在論的シナリオを提示する。関門への応答は3点: (i) フェルミオンの質量ゼロ性は運動量空間トポロジーで保護され fine-tuning 不要、(ii) LI は Fermi point に近づくほど「良くなる」（線形展開の帰結としての IR 改善）、(iii) UHECR 制約（modified-Maxwell < 10⁻¹⁸, Klinkhamer-Risse 2008）から **E_Lorentz > 10⁹ E_P** という経験的スケール分離を推論し、これを「創発シナリオの最も重大なテスト（the most crucial test）」と自ら明示する [P]。**ただし限界も明確である**: (a) Collins et al 型の輻射浸透（種依存の限界速度への量子補正）への言及は皆無（naturalness 議論は G・Higgs 質量・Λ のみ。grep 確認）。(b) 自身の "Reentrant violation of special relativity"（hep-ph/0101286、全文確認済み）は、現実の ³He-A では LI が**低エネルギー側でも再侵入的に破れる**ことを示しており、(ii) の IR 改善が無条件でないことを自ら実証している。**W3b 判定**: 関門を「最重要テスト」として正面受容する spacetime-as-medium 実在論は存在する（Volovik）が、浸透問題の正面突破は依然未発見。W3 総括は維持され、次の精密化を得る——「未発見」は無自覚の回避ではなく、当該分野で最も真剣なプログラムですら部分応答に留まる、という水準の記述である [M]。また「重力＝電磁の二次効果」型に対しては、Scientific Reports 14, 19427 (2024) の精密 null 実験が強い反証となる（本文未読、要約ベース）[P]。
 
 ---
 
@@ -148,6 +150,9 @@ critic が挙げた5件を、解かずに保持する。
 
 **仮説層（R2）**
 - Volovik『The Universe in a Helium Droplet』（OUP 2003）— 書誌確認（内容は二次・arXiv ベース）
+- Volovik, "Emergent physics: Fermi-point scenario", Phil. Trans. R. Soc. A 366, 2935 (2008)（arXiv:0801.0724）— **本文確認済み**（W3b 全文精読 2026-07-10。PoS 版 arXiv:0709.1258 も全文確認）
+- Volovik, "Reentrant violation of special relativity in the low-energy corner"（arXiv:hep-ph/0101286, 2001）— **本文確認済み**（W3b 2026-07-10）
+- Klinkhamer & Risse, Phys. Rev. D 77, 016002 (2008)（arXiv:0709.2502、UHECR による modified-Maxwell 制約）— citation-only（Volovik 経由）
 - Zloshchastiev, Universe 6, 180 (2020)（arXiv:2011.12565）— **本文確認済み**（W3 残余で全文精読 2026-07-10。LIV 関連記述の網羅 grep 含む）
 - Berezhiani & Khoury, Phys. Rev. D 92, 103510 (2015)（arXiv:1507.01019v2）— **本文確認済み**（W3 残余で全文精読 2026-07-10。付録 "A Relativistic Completion" 含む）; Phys. Rev. D 107, 123010 (2023) — 書誌確認（要約ベース）
 - LIV 制約（Wikipedia "Tests of special relativity" 他）— citation-only
