@@ -143,6 +143,18 @@
     color:var(--cs-md-quote);font-size:.97em;}
   blockquote.reader-callout p:last-child{margin-bottom:0;}
 
+  /* アコーディオン補足（「くわしく」畳み。本文=本筋 / 畳み=深掘り の3レベル分離） */
+  details.reader-fold{background:var(--cs-surface-1);border:1px solid var(--line);
+    border-radius:var(--radius);margin:0 0 1.3em;padding:0;}
+  details.reader-fold summary{cursor:pointer;padding:10px 16px;
+    font-size:.93em;font-weight:700;color:var(--link);
+    list-style-position:inside;}
+  details.reader-fold summary:hover{color:var(--ink);}
+  details.reader-fold[open] summary{border-bottom:1px solid var(--line);}
+  details.reader-fold .fold-body{padding:12px 18px 4px;font-size:.95em;color:var(--muted);}
+  details.reader-fold .fold-body p{margin:0 0 .9em;}
+  details.reader-fold .fold-body strong{color:var(--ink);}
+
   /* 目次 */
   .reader-toc{padding:14px 20px;margin:1.6em 0;}
   .reader-toc-title{font-weight:700;font-size:.92em;color:var(--muted);
