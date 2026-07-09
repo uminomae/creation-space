@@ -27,7 +27,9 @@
 
 アナログ重力の起点は Unruh 1981 である。BLV の総合レビュー "Analogue Gravity"（arXiv:gr-qc/0505065v4, 2024-11 改訂・本文確認済み）は、Unruh 論文を「ホーキング放射が一般相対性理論そのものに固有ではなく、有効幾何・地平線・その上の量子場理論さえあれば生じる一般現象であることを初めて示した」と位置づける（§3.2.1）[P]。
 
-Steinhauer らの BEC 音響ブラックホール系列は、この分野が一度の測定で確定せず、反証と改良を経て確立することを示す好例である。2016 年の自発ホーキング放射報告（Nature Physics）は Leonhardt の再解析で統計的アーティファクトの可能性を指摘された（arXiv:1609.03803）。チームは 21 回の改良を重ね、2019 年（Nature）に熱的スペクトル、2021 年（Nature Physics）に放射の定常性を報告し、Leonhardt は評価を転じた。ただし 2019/2021 の本文は本調査では未取得で、記述は abstract・二次報道による（citation-only）[P] medium/low。
+Steinhauer らの BEC 音響ブラックホール系列は、この分野が一度の測定で確定せず、反証と改良を経て確立することを示す好例である。2016 年の自発ホーキング放射報告（Nature Physics）は Leonhardt の再解析で統計的アーティファクトの可能性を指摘された（arXiv:1609.03803）。チームは装置に「多数の改良」（低ノイズ磁場環境・光学系の再設計・参照画像法等。本文の表現は "many improvements"）を加え、2019 年（Muñoz de Nova et al., Nature 569, 688 = arXiv:1809.00913、**本文確認済み**）で実験 7,400 回の反復から予測ホーキング温度 0.35 nK（0.12 mc²_out）と熱的スペクトルの一致を報告、放射がブラックホール内側では負エネルギーパートナーのみで構成されアナログファイアウォールが無いことも示した。2021 年（Kolobov et al., Nature Physics 17, 362 = arXiv:1910.09363 CC-BY、**本文確認済み**）は実験 97,000 回＝連続 124 日分の測定により、自発放射の**定常性**を 6 時点で確認し、内側地平線形成後の刺激放射が black-hole lasing でなく Bogoliubov-Cherenkov-Landau 刺激で説明されることを示した [P]。Leonhardt は 2019 年の結果について「これは私が信じ始めてもよい最初のものだ」と公に評価を転じた（Physics World 2019 の直接引用による。二次報道 [M]）。
+
+> **訂正（W2, 2026-07-09）**: 旧稿の「チームは 21 回の改良を重ね」という数字は 2019 年論文本文に存在しない（本文は "many improvements" とのみ記す）。survey 由来の未検証数字だったため撤回する。
 
 Švančara et al. 2024（Nature 628, 66-70、PMC 本文確認済み）は、超流動ヘリウム4中に約 10^4 個の循環量子を単一コアに閉じ込めた定常巨大量子渦を安定化した。共回転モード（m=+8）で4つの離散ボウンドステートを測定し、反回転モード（m=-8）では論文が「ブラックホールのリングダウンモードの初の証拠」と呼ぶ励起を記録した。ここは一組で運ぶ必要がある。すなわち「論文が命名した励起を観測した」ことは実データ [P] だが、同時に論文自身が「エルゴ領域の直接観測は未達成」と明記しており、「リングダウン」という命名と実カー計量の準固有モードとの数理的対応の厳密さは本文主文からは判定しきれず保留（Methods 未確認）である。したがってこの言明を「カー計量が実在した」へ格上げすることはできない [M寄りP]。
 
@@ -96,10 +98,11 @@ critic が挙げた5件を、解かずに保持する。
 **実証層（R1）**
 - Barceló, Liberati, Visser, "Analogue Gravity"（Living Reviews in Relativity, arXiv:gr-qc/0505065v4, 2024-11 改訂）— 本文確認済み（raw-confirmed 相当）
 - Švančara et al. 2024, Nature 628, 66-70（PMC10990935）— 本文確認済み
-- Unruh 1981, Phys. Rev. Lett. 46, 1351 — citation-only（BLV レビュー経由）
+- Unruh 1981, Phys. Rev. Lett. 46, 1351 — citation-only（unpaywall で OA なしを確認 2026-07-09。内容は BLV レビュー（raw 確認済）経由で担保）
 - Steinhauer 2016, Nature Physics 12, 959 — citation-only
-- Muñoz de Nova et al. 2019, Nature 569, 688 — citation-only
-- Kolobov et al. 2021, Nature Physics 17, 362 — citation-only
+- Muñoz de Nova et al. 2019, Nature 569, 688 — **本文確認済み**（arXiv:1809.00913, GREEN OA。W2 で全文精読 2026-07-09）
+- Kolobov et al. 2021, Nature Physics 17, 362 — **本文確認済み**（arXiv:1910.09363, CC-BY。W2 で全文精読 2026-07-09）
+- Leonhardt 評価転換の引用 — Physics World "Thermal spectrum of analogue black hole puts Hawking radiation in a new light" (2019) — url-verified（二次報道）
 - Leonhardt（arXiv:1609.03803）— citation-only
 - Onsager 1949 / Feynman 1955（循環量子化）— citation-only（二次情報のみ）
 
