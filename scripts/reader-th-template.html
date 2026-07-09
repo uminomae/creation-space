@@ -78,11 +78,17 @@
       var(--bg);
     background-attachment:fixed;}
 
-  /* Three.js 背景（index.html #canvas-container と同役） */
-  #canvas-container{position:fixed;inset:0;z-index:var(--cs-z-base);pointer-events:none;}
+  /* Three.js 背景（index.html #canvas-container と同役）。
+     長文読書ページなので減光して背景に退かせる。 */
+  #canvas-container{position:fixed;inset:0;z-index:var(--cs-z-base);pointer-events:none;opacity:.5;}
   #canvas-container canvas{display:block;width:100%;height:100%;}
 
-  .wrap{max-width:860px;margin:0 auto;position:relative;z-index:var(--cs-z-content);}
+  /* 読書カラム: シーンの上に敷くガラス面（可読性のためのスクリム） */
+  .wrap{max-width:860px;margin:0 auto;position:relative;z-index:var(--cs-z-content);
+    background:var(--cs-surface-2);
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:28px clamp(16px,4vw,36px) 40px;
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}
 
   /* 草稿バナー */
   .draft-banner{background:rgba(var(--ds-color-accent),.08);
