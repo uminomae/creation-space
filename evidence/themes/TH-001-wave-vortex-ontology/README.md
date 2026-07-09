@@ -47,11 +47,13 @@ scope: 査読文献優先。周縁仮説は周縁と明記。五段階モデル�
 ```
 TH-001-wave-vortex-ontology/
   README.md                      ← 本ファイル
+  PLAN.md                        ← 継続調査計画（cs#259。ラウンド W0-W4/M1/X1-X2 と READER 駆動サイクル）
   survey-R1-analog-gravity.md    ← R1 handoff 整形
   survey-R2-superfluid-vacuum.md ← R2 handoff 整形
   survey-R3-lineage-ontology.md  ← R3 handoff 整形
   output.md                      ← 統合成果物（本テーマの正本）
   review.md                      ← critic レビュー記録（Phase 2/6）
+  READER-wave-vortex.md          ← 万人向け解説の正本（output.md の投影。HTML は reader/ に生成）
 ```
 
 ## スコープガード
