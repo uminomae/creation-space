@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<!--
+  ⚠️ このファイルはテンプレート。生成物 reader/wave-vortex.html を直接編集しないでください。
+  正本:   evidence/themes/TH-001-wave-vortex-ontology/READER-wave-vortex.md
+  再生成: python3 scripts/build-reader-th.py
+  手順:   reader/README.md
+
+  デザイン制約:
+  - cs の VI を継承する（dashboard.html 方式: tokens.css + cosmic ambient 背景。WebGL なし）
+  - カラーは src/styles/tokens.css の CSS 変数経由。生 rgba(数値) 直書き禁止
+  - ページ固有 semantic 色（--green/--amber）は dashboard.html の page-local palette を踏襲
+-->
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>波間の渦 — 宇宙は「モノ」ではなく「パターンの持続」でできているか（調査中の草稿） | creation-space</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="「宇宙は海の渦のような現象でできている」という直観を、物理学と思想史のどこまでが支えるのかを接地する調査中の草稿。実証・解釈・推測を混ぜずに刻む。">
+
+<!-- Analytics (dashboard.html と同一の localhost ガード付きスニペット) -->
+<script>
+  if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) {
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-X5WQCB3JYT';
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-X5WQCB3JYT');
+  }
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/tokens.css">
+
+<style>
+  /* creation-space design-system aligned palette (cosmic blue).
+     dashboard.html と同じく、page-local var を design-system token に
+     remap してメインサイトの雰囲気を継承する。 */
+  :root{
+    --bg:var(--ds-color-bg-body);                 /* #050508 深い暗背景 */
+    --panel:var(--cs-surface-2);                  /* card/panel 面 */
+    --panel2:var(--cs-surface-3);                 /* 一段手前の面 */
+    --ink:rgb(var(--ds-color-highlight));
+    --muted:rgb(var(--ds-color-sub-text));
+    --faint:rgba(var(--ds-color-sub-text),.55);
+    --line:rgba(var(--ds-color-accent),.14);
+    --accent:rgb(var(--ds-color-accent));
+    --link:rgb(var(--ds-color-link));
+    /* page-local semantic status (dashboard.html の cool-harmonized palette を踏襲) */
+    --green:#5cc2a3; --amber:#e0ad4e;
+    --radius:var(--ds-radius-lg);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;color:var(--ink);
+    font-family:var(--cs-font-sans-ui);
+    line-height:1.85;padding:26px 18px 70px;
+    /* cosmic ambient (DESIGN.md §1): dashboard.html と同じ radial-gradient で
+       メインサイトの 3D canvas の代役を務める。WebGL は使わない。 */
+    background:
+      radial-gradient(1100px 760px at 18% -8%, rgba(var(--ds-color-accent),.10), transparent 60%),
+      radial-gradient(1000px 720px at 100% 4%, rgba(var(--ds-color-accent),.07), transparent 55%),
+      var(--bg);
+    background-attachment:fixed;}
+  .wrap{max-width:860px;margin:0 auto;}
+
+  /* 草稿バナー */
+  .draft-banner{background:rgba(var(--ds-color-accent),.08);
+    border:1px solid var(--line);border-left:4px solid var(--amber);
+    border-radius:var(--radius);padding:12px 16px;margin:0 0 26px;
+    font-size:13.5px;color:var(--muted);}
+  .draft-banner b{color:var(--ink);}
+
+  /* hero */
+  .reader-hero h1{font-family:var(--ds-font-serif-display);font-size:clamp(1.4rem,4vw,2rem);
+    margin:0 0 8px;font-weight:500;letter-spacing:var(--ds-letter-ui-tight);color:rgb(var(--ds-color-heading));}
+  .reader-subtitle{color:var(--muted);font-size:15px;margin:0 0 10px;}
+  .reader-meta{font-size:12.5px;color:var(--faint);margin:0 0 8px;}
+  .reader-meta a{color:var(--link);text-decoration:none;}
+  .reader-meta a:hover{text-decoration:underline;}
+
+  /* 信頼度バッジ（実証済み [P] / 解釈 [M] / 推測 [S]） */
+  .badge-p,.badge-m,.badge-s{font-size:.82em;font-weight:700;
+    padding:1px 8px;border-radius:20px;white-space:nowrap;}
+  .badge-p{background:rgba(var(--ds-color-accent),.0);color:var(--green);border:1px solid var(--green);}
+  .badge-m{background:rgba(var(--ds-color-link),.18);color:var(--link);border:1px solid rgba(var(--ds-color-link),.35);}
+  .badge-s{background:rgba(var(--ds-color-accent),.0);color:var(--amber);border:1px solid var(--amber);}
+
+  /* article body */
+  .reader-article{margin-top:30px;font-size:15.5px;}
+  .reader-article p{margin:0 0 1.1em;}
+  .reader-heading{font-family:var(--ds-font-serif-display);font-weight:500;
+    color:rgb(var(--ds-color-heading));letter-spacing:var(--ds-letter-ui-tight);
+    border-bottom:1px solid var(--line);padding-bottom:.3em;}
+  h2.reader-heading{font-size:1.35rem;margin:2.2em 0 .8em;}
+  h3.reader-heading{font-size:1.1rem;margin:1.8em 0 .6em;border-bottom:none;}
+  .reader-article a{color:var(--link);}
+  .reader-article code{font-family:var(--cs-font-mono-system);font-size:.9em;
+    background:var(--cs-md-inline-code-bg);color:var(--cs-md-inline-code);
+    padding:.1em .35em;border-radius:var(--ds-radius-sm);}
+  .reader-article strong{color:var(--cs-md-strong);}
+  .reader-article em{color:var(--cs-md-em);}
+  .reader-article hr{border:none;border-top:1px solid var(--line);margin:2em 0;}
+
+  /* card panel（表・引用を面に載せる） */
+  .reader-card{background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);}
+  .reader-table{padding:6px 14px;margin:0 0 1.3em;overflow-x:auto;}
+  .reader-table table{border-collapse:collapse;width:100%;font-size:.94em;}
+  .reader-table th{color:var(--cs-md-table-head-text);background:var(--cs-md-table-head-bg);
+    text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);}
+  .reader-table td{color:var(--cs-md-table-cell-text);padding:8px 10px;
+    border-bottom:1px solid var(--line);}
+  .reader-table tr:last-child td{border-bottom:none;}
+  blockquote.reader-callout{margin:0 0 1.3em;padding:12px 18px;
+    border-left:4px solid rgba(var(--ds-color-accent),.45);
+    color:var(--cs-md-quote);font-size:.97em;}
+  blockquote.reader-callout p:last-child{margin-bottom:0;}
+
+  /* 目次 */
+  .reader-toc{padding:14px 20px;margin:1.6em 0;}
+  .reader-toc-title{font-weight:700;font-size:.92em;color:var(--muted);
+    letter-spacing:var(--ds-letter-ui-wide);margin:0 0 6px;}
+  .reader-toc ol{margin:0;padding-left:1.3em;font-size:.94em;}
+  .reader-toc li{margin:.25em 0;}
+  .reader-toc a{color:var(--link);text-decoration:none;}
+  .reader-toc a:hover{text-decoration:underline;}
+
+  footer{margin-top:44px;font-size:12px;color:var(--faint);
+    border-top:1px solid var(--line);padding-top:14px;}
+  footer a{color:var(--link);text-decoration:none;}
+  footer a:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="draft-banner">
+    ⚠️ <b>調査中・更新中の草稿</b>です。内容は原典調査の進行に合わせて随時書き換わります。
+    確定した結論ではありません（検索エンジンには載せていません）。
+  </div>
+
+  <header class="reader-hero">
+    <h1>波間の渦 — 宇宙は「モノ」ではなく「パターンの持続」でできているか</h1>
+    <p class="reader-subtitle">「創造とは波間の渦のよう」という直観を、物理学と思想史で接地する読み物（TH-001）</p>
+    <p class="reader-meta">
+      信頼度バッジ:
+      <span class="badge-p">実証済み [P]</span>
+      <span class="badge-m">解釈 [M]</span>
+      <span class="badge-s">推測 [S]</span><br>
+      最終更新: 2026-07-09 ／
+      <a href="https://github.com/uminomae/creation-space/blob/develop/evidence/themes/TH-001-wave-vortex-ontology/READER-wave-vortex.md">正本 (GitHub)</a> ・
+      <a href="https://github.com/uminomae/creation-space/issues/258">追跡 Issue cs#258</a> ・
+      <a href="../index.html">creation-space（創造とは）</a>
+    </p>
+  </header>
+
+  <article class="reader-article">
+<blockquote class="reader-card reader-callout">
+<p>「宇宙が海の渦のような現象でできている」「創造とは波間の渦のよう」——この直観（pjdhiro）を、物理学と思想史のどこまでが支え、どこからは支えないのか。実証の厚みを正直に刻みながら接地していく、<strong>調査中・更新中の草稿</strong>です。</p>
+</blockquote>
+<p><strong>このページが何であるか</strong>: 上の直観は、検証対象の科学仮説ではなく、<strong>接地対象の比喩</strong>です。比喩としての価値は、物理理論の当否とは独立に成り立ちます。このページの仕事は、比喩のどの部分に実験の裏付けがあり、どの部分が査読済みでも少数派の仮説で、どの部分が思想の系譜なのかを、<strong>混ぜずに</strong>見せることです。</p>
+<p><strong>信頼度バッジの読み方</strong>: 本文の主張には三段階のバッジを付けます。</p>
+<div class="reader-card reader-table"><table>
+<thead>
+<tr>
+<th>バッジ</th>
+<th>意味</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><span class="badge-p">実証済み [P]</span></strong></td>
+<td>査読論文・一次資料で確認できた事実</td>
+</tr>
+<tr>
+<td><strong><span class="badge-m">解釈 [M]</span></strong></td>
+<td>事実に基づくが、まとめ方に解釈が入っているもの</td>
+</tr>
+<tr>
+<td><strong><span class="badge-s">推測 [S]</span></strong></td>
+<td>構造の類似から導いた推測。反証されうる</td>
+</tr>
+</tbody>
+</table></div>
+<nav class="reader-toc reader-card" aria-label="目次"><p class="reader-toc-title">目次</p><ol><li><a href="#防波堤--アナロジーは同一性ではない">防波堤 — 「アナロジーは同一性ではない」</a></li><li><a href="#実験室のブラックホール--実証されたこと">実験室のブラックホール — 実証されたこと</a></li><li><a href="#時空は超流体か--仮説の現在地">時空は超流体か — 仮説の現在地</a></li><li><a href="#渦で宇宙を考えた人たち--思想の系譜">渦で宇宙を考えた人たち — 思想の系譜</a></li><li><a href="#五段階モデルへの接地">五段階モデルへの接地</a></li><li><a href="#調査のいま">調査のいま</a></li></ol></nav>
+<h2 class="reader-heading" id="防波堤--アナロジーは同一性ではない">防波堤 — 「アナロジーは同一性ではない」</h2>
+<p>先に、このページ全体に効く読み方の注意を一つ。</p>
+<p>アナログ重力という分野の代表的レビュー（Barceló, Liberati &amp; Visser。以下 BLV）は、はっきりこう書いています——<strong>analogy is not identity（アナロジーは同一性ではない）</strong>。実験室の流体がブラックホールと同じ方程式に従うことと、宇宙が実際に流体であることは、別の主張です。彼らは「時空の計量を操作すれば実際の重力場が変化する」といった主張を「単純に成立しない」と明確に退けています。<span class="badge-p">実証済み [P]</span></p>
+<p>ただしこの否定は「計量操作＝実重力変化」という具体的な主張に向けられたもので、時空を媒質とみなす理論群すべてを否定したものではありません。「主流物理はこの発想を否定している」とまでは言えない——ここも正直に留めます。<span class="badge-m">解釈 [M]</span></p>
+<p>以下のすべての節は、この防波堤の内側で読んでください。</p>
+<h2 class="reader-heading" id="実験室のブラックホール--実証されたこと">実験室のブラックホール — 実証されたこと</h2>
+<p><strong>この層の信頼度</strong>: 中核は<span class="badge-p">実証済み [P]</span>。ただし一部の実験は本調査でまだ全文未読で、その旨を明記します。</p>
+<p>出発点は 1981 年、Unruh の発見です。ブラックホールが放つとされるホーキング放射は、実は一般相対性理論そのものに固有の現象ではない——「流れが音速を超える場所（音の地平線）」がありさえすれば、水流や超流動体の中でも同じ数学に従う放射が生じる。BLV のレビューはこの論文を、地平線に付随する現象の<strong>普遍性</strong>を初めて示したものと位置づけています。<span class="badge-p">実証済み [P]</span></p>
+<p>その後の歩みは、科学が一度の測定では確定しないことの好例です。Steinhauer らは極低温原子気体（BEC）で「音のブラックホール」を作り、2016 年に自発的なホーキング放射の観測を報告しました。しかし Leonhardt らは統計的な見かけの効果ではないかと再解析で指摘。チームは装置と解析を 21 回改良し、2019 年に放射の熱的スペクトルを、2021 年にその定常性を報告し、批判者も評価を転じました。——ただしこの 2019/2021 の論文本文は本調査ではまだ未取得で、この記述は要旨と二次報道に基づきます。調査ラウンド W2 で全文確認を予定しています。<span class="badge-m">解釈 [M]</span>（全文確認まで）</p>
+<p>最新の到達点が Švančara ら 2024 年の実験（Nature、本文確認済み）です。超流動ヘリウム 4 の中に、約 1 万個の循環量子を単一の芯に束ねた<strong>巨大量子渦</strong>を安定して作り出し、その周りを伝わる波のふるまいを測定しました。回転する渦のまわりで波が示した離散的なモードを測定し、逆回転のモードでは、論文自身が「ブラックホールのリングダウン（合体直後の鳴り響き）の初の証拠」と呼ぶ励起を記録しています。<span class="badge-p">実証済み [P]</span></p>
+<p>ここは一組で運ぶ必要があります。「論文がそう命名した励起を観測した」ことは事実ですが、論文自身が「エルゴ領域の直接観測は未達成」と明記しており、この命名が実際のブラックホール（カー時空）の数理とどこまで厳密に対応するかは、本文の主文からは判定しきれません。<strong>「回る時空がヘリウムの中に実在した」への格上げはできない</strong>。<span class="badge-m">解釈 [M]</span></p>
+<blockquote class="reader-card reader-callout">
+<p><strong>この層で言えること・言えないこと</strong> 言えること: 音波が「曲がった時空」の方程式に従うという<strong>数学的対応</strong>は、実験で実証されている。 言えないこと: 「時空が実際に流体である」。主流物理はここへ踏み込まない。BLV 自身、この分野の意義を「時空の正体の解明」ではなく「地平線に付随する現象の普遍性の実証」に置いています。<span class="badge-p">実証済み [P]</span></p>
+</blockquote>
+<h2 class="reader-heading" id="時空は超流体か--仮説の現在地">時空は超流体か — 仮説の現在地</h2>
+<p><strong>この層の信頼度</strong>: 査読済みか、宇宙論の合意があるか、で大きく分かれます。三段に分けます。</p>
+<p><strong>足場のある応用</strong>。Volovik『The Universe in a Helium Droplet』(2003) は、超流動ヘリウム 3 の中の欠陥から、素粒子（ワイル粒子）やゲージ場や有効的な時空計量が<strong>創発する</strong>様子を体系化しました。基盤の論文群は主流誌に載っており、凝縮系物理の応用として確かな居場所があります。<span class="badge-p">実証済み [P]</span>。ただしこれは「時空は本当に超流体だ」という主張ではなく、「凝縮系は時空のシミュレーターとして働く」という位置づけです。</p>
+<p><strong>査読済みだが少数派</strong>。真空を対数型 BEC として扱い一般相対論を低エネルギーで再現する Zloshchastiev のモデル、銀河スケールでは超流体・銀河団スケールでは粒子として振る舞う Berezhiani &amp; Khoury の超流体ダークマター。いずれも査読誌に掲載され続けており「周縁」ではありませんが、標準宇宙論（ΛCDM）に対しては<strong>少数派</strong>に留まります。<span class="badge-m">解釈 [M]</span></p>
+<p><strong>書誌未確定の周縁群</strong>。「時空＝超流体媒質」という発想を自己公開プレプリントで展開する一群があり、複数の著者が独立に類似の方向を向いています。この群に属するとみられる文献のうち書誌が確定できていないものについて、このページでは<strong>内容を要約しません</strong>（未確定の情報を流通させないため。調査ラウンド X1）。</p>
+<blockquote class="reader-card reader-callout">
+<p><strong>関門 — ローレンツ不変性</strong> 時空を媒質とみなす理論には、強い実験制約があります。光速の方向依存性は 10⁻¹⁷ の精度で、時計の異方性はさらに厳しく制約されており、「媒質」が引き起こすはずのズレは観測されていません。媒質系理論の生存戦略は「対称性の破れはプランクスケール近傍のみ」という創発的ローレンツ対称性ですが、個々の理論と観測制約の<strong>定量的な</strong>照合はこの調査ではまだ行えていません（調査ラウンド W3、<span class="badge-s">推測 [S]</span> のまま保持中）。</p>
+</blockquote>
+<h2 class="reader-heading" id="渦で宇宙を考えた人たち--思想の系譜">渦で宇宙を考えた人たち — 思想の系譜</h2>
+<p><strong>この層の信頼度</strong>: 系譜そのものは複数の独立資料が一致し<span class="badge-p">実証済み [P]</span>。ただし一次文献の頁単位の確認は未実施のものが多い。</p>
+<p>渦で宇宙を捉える見方には、はっきりした系譜があります。デカルトは 17 世紀、川の乱流との類比から惑星の運動を「渦動 (tourbillon)」で説明しようとしました。19 世紀、ヘルムホルツが渦の保存則を数学的に確立すると、ケルビンは煙の輪の実演に触発されて「原子はエーテル中の渦輪である」という<strong>渦原子論</strong>を提唱します。結び目の違いが元素の違いに対応する、という美しい仮説でした。<span class="badge-p">実証済み [P]</span></p>
+<p>渦原子論は慣性や重力を説明できず、1880 年代に破綻します。しかし結び目を分類する作業そのものは<strong>結び目理論</strong>という数学分野として生き残りました。<span class="badge-p">実証済み [P]</span>——ここで一つ注意。「棄却された渦が、数学という遺産を残した」という物語は魅力的ですが、後述の五段階モデルを裏書きする方向に事実を整形してしまう危険があります。触発関係までが事実、物語化は<span class="badge-m">解釈 [M]</span> です。</p>
+<p><strong>この層でいちばん堅い土台</strong>は、系譜の物語ではなく、次の収束です。「モノではなく、パターンの持続こそが実在の単位だ」という見方が、互いに独立な三つの分野で別々に定式化されている——</p>
+<ol type="1">
+<li><strong>散逸構造</strong>（プリゴジン、1977 年ノーベル化学賞）: エネルギーの流れが続く間だけ秩序が持続し、流れを止めると消える。<span class="badge-p">実証済み [P]</span></li>
+<li><strong>場の量子論の標準的な存在論</strong>: 粒子は場の励起であって、一次的な実体ではない。<span class="badge-p">実証済み [P]</span></li>
+<li><strong>オートポイエーシス</strong>（生物学）: 生きものとは、継続的な物質の流入の下で構造が保たれる過程である。<span class="badge-p">実証済み [P]</span></li>
+</ol>
+<p>分野も方法も独立な三つが、同じ「<strong>形は過程である</strong>」という描像に収束している。この事実は、層をまたがずに<span class="badge-p">実証済み [P]</span> で立つ、数少ない土台です。</p>
+<p>pjdhiro の直観に系譜的に最も近い先行思想は、物理学者 David Bohm の<strong>川の渦</strong>の像です——渦は相対的に一定の形を保つが、川の流れと切り離せず、どこまでが渦なのかを決められない。過程が一次で、形は二次である。ただしこの記述は現状二次情報のみに基づいており、原著での頁と文脈の確認を調査ラウンド W1 で予定しています。<span class="badge-m">解釈 [M]</span></p>
+<h2 class="reader-heading" id="五段階モデルへの接地">五段階モデルへの接地</h2>
+<p>creation-space の五段階モデル（<strong>場→波→縁→渦→束</strong>）に対して、この調査で見つかった対応候補を、信頼度バッジ付きのまま示します。これらは「同じ月を指す別の指」であり、新規の発見ではなく既存の対応（guide 記載）の系譜的補強です。</p>
+<div class="reader-card reader-table"><table>
+<thead>
+<tr>
+<th>系譜・概念</th>
+<th>対応段階</th>
+<th>対応の中身</th>
+<th>バッジ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bohm の川の渦</td>
+<td>波→渦</td>
+<td>流れから相対的に安定な渦が立ち上がる。過程が一次・形が二次</td>
+<td><span class="badge-m">解釈 [M]</span></td>
+</tr>
+<tr>
+<td>プリゴジンの散逸構造</td>
+<td>渦→束</td>
+<td>エネルギー流の下で秩序が維持される（維持構造型の束と構造類似）</td>
+<td><span class="badge-m">解釈 [M]</span></td>
+</tr>
+<tr>
+<td>シモンドンの個体化</td>
+<td>縁→渦</td>
+<td>準安定な場から個が立ち上がる（ただし彼の代表例は結晶で、渦ではない）</td>
+<td><span class="badge-m">解釈 [M]</span></td>
+</tr>
+<tr>
+<td>ケルビン渦原子＋結び目理論</td>
+<td>渦→束</td>
+<td>渦が結び目＝束として編み合わさり、分類可能な構造として残る</td>
+<td><span class="badge-s">推測 [S]</span>・弱い対応</td>
+</tr>
+<tr>
+<td>ホワイトヘッドの actual occasion</td>
+<td>波→渦→束</td>
+<td>契機の生成消滅と、客体化による持続</td>
+<td><span class="badge-s">推測 [S]</span>・弱い対応</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote class="reader-card reader-callout">
+<p><strong>正直な注記 — この表は「発見」か「当てはめ」か</strong> 特に 4 行目は、「渦原子論が結び目という束を残した」という系譜の物語と「渦→束」の対応が<strong>相互に支え合う</strong>関係にあり、循環のおそれがあります。対応が事実の発見なのか、モデルに合わせた事後的な整形なのかを切り分ける方法論は、調査ラウンド W4 の主題です。それまでこの表の下二行は「歴史的類比」の域を出ないものとして扱います。</p>
+</blockquote>
+<h2 class="reader-heading" id="調査のいま">調査のいま</h2>
+<p>このページは調査の進捗とともに更新されます。現在のラウンド状態（詳細は <code>PLAN.md</code>）:</p>
+<div class="reader-card reader-table"><table>
+<thead>
+<tr>
+<th>ラウンド</th>
+<th>内容</th>
+<th>状態</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>W0</td>
+<td>READER v1 立ち上げ（このページ）</td>
+<td><strong>完了（2026-07-09）</strong></td>
+</tr>
+<tr>
+<td>W1</td>
+<td>Bohm の川の渦、原著頁の一次確認</td>
+<td>未着手</td>
+</tr>
+<tr>
+<td>W2</td>
+<td>実証層の未読論文（Steinhauer 2019 / Kolobov 2021 / Unruh 1981）の全文到達</td>
+<td>未着手</td>
+</tr>
+<tr>
+<td>W3</td>
+<td>超流体理論とローレンツ不変性制約の定量照合</td>
+<td>未着手</td>
+</tr>
+<tr>
+<td>W4</td>
+<td>「発見か当てはめか」を切り分ける方法論</td>
+<td>未着手</td>
+</tr>
+<tr>
+<td>M1</td>
+<td>Švančara 2024 の独立追試の監視</td>
+<td>監視中</td>
+</tr>
+<tr>
+<td>X1</td>
+<td>書誌未確定文献（Kandyba 2025）の確定</td>
+<td>手動確認待ち</td>
+</tr>
+<tr>
+<td>X2</td>
+<td>五段階モデル本体（guide / glossary）への反映可否</td>
+<td>承認待ち</td>
+</tr>
+</tbody>
+</table></div>
+<h3 class="reader-heading" id="更新履歴">更新履歴</h3>
+<ul>
+<li><strong>2026-07-09</strong>: W0 — 初版公開（ローカル）。TH-001 初回調査（agent-team-workflow、CONSENSUS-3）の統合成果物 output.md を万人向けに投影</li>
+</ul>
+<hr />
+<p><em>文責: Claude (Fable 5)。pjdhiro の直観は引用として扱っています。出典の一次資料・アクセス状態の全リストは <code>output.md</code> §6 を参照。</em></p>
+
+  </article>
+
+  <footer>
+    この草稿は TH-001 wave-vortex-ontology 調査（cs#258 / cs#259）の進行に合わせて更新されます。<br>
+    <a href="../index.html">creation-space（創造とは）</a> ・
+    <a href="../dashboard.html">調査のいま（ダッシュボード）</a> ・
+    <a href="https://github.com/uminomae/creation-space">GitHub</a>
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<!--
+  ⚠️ このファイルはテンプレート。生成物 reader/wave-vortex.html を直接編集しないでください。
+  正本:   evidence/themes/TH-001-wave-vortex-ontology/READER-wave-vortex.md
+  再生成: python3 scripts/build-reader-th.py
+  手順:   reader/README.md
+
+  デザイン制約:
+  - cs の VI を継承する（dashboard.html 方式: tokens.css + cosmic ambient 背景。WebGL なし）
+  - カラーは src/styles/tokens.css の CSS 変数経由。生 rgba(数値) 直書き禁止
+  - ページ固有 semantic 色（--green/--amber）は dashboard.html の page-local palette を踏襲
+-->
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>波間の渦 — 宇宙は「モノ」ではなく「パターンの持続」でできているか（調査中の草稿） | creation-space</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="「宇宙は海の渦のような現象でできている」という直観を、物理学と思想史のどこまでが支えるのかを接地する調査中の草稿。実証・解釈・推測を混ぜずに刻む。">
+
+<!-- Analytics (dashboard.html と同一の localhost ガード付きスニペット) -->
+<script>
+  if (!/^(localhost|127\.0\.0\.1)$/.test(location.hostname)) {
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-X5WQCB3JYT';
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-X5WQCB3JYT');
+  }
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../src/styles/tokens.css">
+
+<style>
+  /* creation-space design-system aligned palette (cosmic blue).
+     dashboard.html と同じく、page-local var を design-system token に
+     remap してメインサイトの雰囲気を継承する。 */
+  :root{
+    --bg:var(--ds-color-bg-body);                 /* #050508 深い暗背景 */
+    --panel:var(--cs-surface-2);                  /* card/panel 面 */
+    --panel2:var(--cs-surface-3);                 /* 一段手前の面 */
+    --ink:rgb(var(--ds-color-highlight));
+    --muted:rgb(var(--ds-color-sub-text));
+    --faint:rgba(var(--ds-color-sub-text),.55);
+    --line:rgba(var(--ds-color-accent),.14);
+    --accent:rgb(var(--ds-color-accent));
+    --link:rgb(var(--ds-color-link));
+    /* page-local semantic status (dashboard.html の cool-harmonized palette を踏襲) */
+    --green:#5cc2a3; --amber:#e0ad4e;
+    --radius:var(--ds-radius-lg);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;color:var(--ink);
+    font-family:var(--cs-font-sans-ui);
+    line-height:1.85;padding:26px 18px 70px;
+    /* cosmic ambient (DESIGN.md §1): dashboard.html と同じ radial-gradient で
+       メインサイトの 3D canvas の代役を務める。WebGL は使わない。 */
+    background:
+      radial-gradient(1100px 760px at 18% -8%, rgba(var(--ds-color-accent),.10), transparent 60%),
+      radial-gradient(1000px 720px at 100% 4%, rgba(var(--ds-color-accent),.07), transparent 55%),
+      var(--bg);
+    background-attachment:fixed;}
+  .wrap{max-width:860px;margin:0 auto;}
+
+  /* 草稿バナー */
+  .draft-banner{background:rgba(var(--ds-color-accent),.08);
+    border:1px solid var(--line);border-left:4px solid var(--amber);
+    border-radius:var(--radius);padding:12px 16px;margin:0 0 26px;
+    font-size:13.5px;color:var(--muted);}
+  .draft-banner b{color:var(--ink);}
+
+  /* hero */
+  .reader-hero h1{font-family:var(--ds-font-serif-display);font-size:clamp(1.4rem,4vw,2rem);
+    margin:0 0 8px;font-weight:500;letter-spacing:var(--ds-letter-ui-tight);color:rgb(var(--ds-color-heading));}
+  .reader-subtitle{color:var(--muted);font-size:15px;margin:0 0 10px;}
+  .reader-meta{font-size:12.5px;color:var(--faint);margin:0 0 8px;}
+  .reader-meta a{color:var(--link);text-decoration:none;}
+  .reader-meta a:hover{text-decoration:underline;}
+
+  /* 信頼度バッジ（実証済み [P] / 解釈 [M] / 推測 [S]） */
+  .badge-p,.badge-m,.badge-s{font-size:.82em;font-weight:700;
+    padding:1px 8px;border-radius:20px;white-space:nowrap;}
+  .badge-p{background:rgba(var(--ds-color-accent),.0);color:var(--green);border:1px solid var(--green);}
+  .badge-m{background:rgba(var(--ds-color-link),.18);color:var(--link);border:1px solid rgba(var(--ds-color-link),.35);}
+  .badge-s{background:rgba(var(--ds-color-accent),.0);color:var(--amber);border:1px solid var(--amber);}
+
+  /* article body */
+  .reader-article{margin-top:30px;font-size:15.5px;}
+  .reader-article p{margin:0 0 1.1em;}
+  .reader-heading{font-family:var(--ds-font-serif-display);font-weight:500;
+    color:rgb(var(--ds-color-heading));letter-spacing:var(--ds-letter-ui-tight);
+    border-bottom:1px solid var(--line);padding-bottom:.3em;}
+  h2.reader-heading{font-size:1.35rem;margin:2.2em 0 .8em;}
+  h3.reader-heading{font-size:1.1rem;margin:1.8em 0 .6em;border-bottom:none;}
+  .reader-article a{color:var(--link);}
+  .reader-article code{font-family:var(--cs-font-mono-system);font-size:.9em;
+    background:var(--cs-md-inline-code-bg);color:var(--cs-md-inline-code);
+    padding:.1em .35em;border-radius:var(--ds-radius-sm);}
+  .reader-article strong{color:var(--cs-md-strong);}
+  .reader-article em{color:var(--cs-md-em);}
+  .reader-article hr{border:none;border-top:1px solid var(--line);margin:2em 0;}
+
+  /* card panel（表・引用を面に載せる） */
+  .reader-card{background:var(--panel);border:1px solid var(--line);
+    border-radius:var(--radius);}
+  .reader-table{padding:6px 14px;margin:0 0 1.3em;overflow-x:auto;}
+  .reader-table table{border-collapse:collapse;width:100%;font-size:.94em;}
+  .reader-table th{color:var(--cs-md-table-head-text);background:var(--cs-md-table-head-bg);
+    text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);}
+  .reader-table td{color:var(--cs-md-table-cell-text);padding:8px 10px;
+    border-bottom:1px solid var(--line);}
+  .reader-table tr:last-child td{border-bottom:none;}
+  blockquote.reader-callout{margin:0 0 1.3em;padding:12px 18px;
+    border-left:4px solid rgba(var(--ds-color-accent),.45);
+    color:var(--cs-md-quote);font-size:.97em;}
+  blockquote.reader-callout p:last-child{margin-bottom:0;}
+
+  /* 目次 */
+  .reader-toc{padding:14px 20px;margin:1.6em 0;}
+  .reader-toc-title{font-weight:700;font-size:.92em;color:var(--muted);
+    letter-spacing:var(--ds-letter-ui-wide);margin:0 0 6px;}
+  .reader-toc ol{margin:0;padding-left:1.3em;font-size:.94em;}
+  .reader-toc li{margin:.25em 0;}
+  .reader-toc a{color:var(--link);text-decoration:none;}
+  .reader-toc a:hover{text-decoration:underline;}
+
+  footer{margin-top:44px;font-size:12px;color:var(--faint);
+    border-top:1px solid var(--line);padding-top:14px;}
+  footer a{color:var(--link);text-decoration:none;}
+  footer a:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="draft-banner">
+    ⚠️ <b>調査中・更新中の草稿</b>です。内容は原典調査の進行に合わせて随時書き換わります。
+    確定した結論ではありません（検索エンジンには載せていません）。
+  </div>
+
+  <header class="reader-hero">
+    <h1>波間の渦 — 宇宙は「モノ」ではなく「パターンの持続」でできているか</h1>
+    <p class="reader-subtitle">「創造とは波間の渦のよう」という直観を、物理学と思想史で接地する読み物（TH-001）</p>
+    <p class="reader-meta">
+      信頼度バッジ:
+      <span class="badge-p">実証済み [P]</span>
+      <span class="badge-m">解釈 [M]</span>
+      <span class="badge-s">推測 [S]</span><br>
+      最終更新: <!--UPDATED--> ／
+      <a href="https://github.com/uminomae/creation-space/blob/develop/evidence/themes/TH-001-wave-vortex-ontology/READER-wave-vortex.md">正本 (GitHub)</a> ・
+      <a href="https://github.com/uminomae/creation-space/issues/258">追跡 Issue cs#258</a> ・
+      <a href="../index.html">creation-space（創造とは）</a>
+    </p>
+  </header>
+
+  <article class="reader-article">
+<!--BODY-->
+  </article>
+
+  <footer>
+    この草稿は TH-001 wave-vortex-ontology 調査（cs#258 / cs#259）の進行に合わせて更新されます。<br>
+    <a href="../index.html">creation-space（創造とは）</a> ・
+    <a href="../dashboard.html">調査のいま（ダッシュボード）</a> ・
+    <a href="https://github.com/uminomae/creation-space">GitHub</a>
+  </footer>
+</div>
+</body>
+</html>
