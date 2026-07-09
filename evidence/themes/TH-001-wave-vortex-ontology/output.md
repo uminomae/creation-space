@@ -123,7 +123,7 @@ R3 の接地候補を、タグ付きのまま収載する。これらは新規�
 
 critic が挙げた5件を、解かずに保持する。
 
-1. **Kandyba 書誌確定と内容評価**: academia.edu 403 壁により未確定。pjdhiro 手動確認（ログインアクセス／Google Scholar キャッシュ）待ち。未確定のまま内容を流通させない。
+1. **Kandyba 書誌確定と内容評価**: → **断念で確定（X1, 2026-07-10）**。pjdhiro がログイン済み academia.edu でタイトル検索「Pavel Kandyba 2025」を手動実施した結果、ヒット10件は**すべて別人**（Pavel Florenskij 伊訳関連 4件、Cătălin Pavel の書評等）で、該当著者・該当文書は発見できなかった。全文検索側 24 件は未展開だが、タイトル・著者一致が皆無である以上「Pavel Kandyba 2025 超流体時空」という書誌は**確認不能のまま閉じる**。内容を流通させない方針を恒久化（§2(c) の周縁群の記述は「書誌未確定の言及があった」という記録として維持し、これ以上の探索は行わない）。
 2. **Bohm 川の渦比喩の一次確認**: → **解決（W1, 2026-07-09）**。原著（Routledge 1980）pp.12-13, 24, 38 で一次確認。§3 参照。
 3. **「発見」か「事後的当てはめ」か**: → **解決（W4+W4b, 2026-07-10）**。5テスト・三値判定の枠組みを §4.1 に明文化し接地候補5件へ適用、盲検再導出テスト（§4.2）で外部確認済み（最終判定: 発見寄り1・補強2・当てはめ2。ケルビン＝当てはめは盲検で独立再現、コントロール棄却で識別力も確認）。候補4の循環は「モデル独立の史実／追加された読み」の2層分解で解消。
 4. **Švančara 2024 の独立追試状況**: 監視継続（M1 確認 2026-07-09: 被引用 50+ 件。同一グループの発展研究 "Black-hole spectroscopy from a giant quantum vortex"（arXiv:2502.11209, 2025）と理論系フォロー（PRD 準固有モード解析等）は活発だが、**独立グループによる実験的追試は未確認**）。
@@ -153,7 +153,7 @@ critic が挙げた5件を、解かずに保持する。
 - LIV 制約（Wikipedia "Tests of special relativity" 他）— citation-only
 - Liberati, "Tests of Lorentz invariance: a 2013 update"（CQG 30, 133001 = arXiv:1304.5795）— **本文確認済み**（W3 で全文取得・§1/§5 精読 2026-07-09）
 - Scientific Reports 14, 19427 (2024), DOI: 10.1038/s41598-024-70286-w — citation-only（本文未読、要約ベース）
-- 「Pavel Kandyba 2025」超流体時空仮説 — **未確定（citation-only 未満）**。academia.edu ID 33870747 / 165768305 / 68319087 は全て 403。viXra:2403.0142 は Albers 著（別内容・反証済）、RG 396903025 は Thangamani 著（別内容・反証済）。書誌確定は pjdhiro 手動確認を要する（§5 保持論点1）
+- 「Pavel Kandyba 2025」超流体時空仮説 — **確認不能で確定（2026-07-10 断念）**。academia.edu ID 33870747 / 165768305 / 68319087 は全て 403。viXra:2403.0142 は Albers 著（別内容・反証済）、RG 396903025 は Thangamani 著（別内容・反証済）。pjdhiro のログイン済み手動タイトル検索（2026-07-10）でもヒット10件すべて別人（Florenskij 伊訳関連・Cătălin Pavel 等）で該当なし。書誌は確認不能のまま閉じ、内容は流通させない（§5 保持論点1）
 
 **思想・系譜層（R3）**
 - Springer『History of Knot Theory from Gauss to Jones』, 『Theorems of Helmholtz and Kelvin』— citation-only
