@@ -96,7 +96,7 @@ cs#258 の保持論点6件を、依存と実行可能性で並べ替えた実行
 
 | ラウンド | 内容 | 状態 |
 |---|---|---|
-| **W5** | 「パターンの持続」三方面収束の原典一次化（散逸構造/QFT存在論/オートポイエーシス。§3 の中心土台が citation-only である非対称の解消） | pending |
+| **W5** | 「パターンの持続」三方面収束の原典一次化（散逸構造/QFT存在論/オートポイエーシス。§3 の中心土台が citation-only である非対称の解消） | **完了（2026-07-10）**: Prigogine Nobel Lecture 1977／Hobson 2013 (arXiv:1204.4616)／Varela-Maturana-Uribe 1974 (Monoskop) を全文確認、原文引用で [P] 昇格 |
 | **W6** | Volovik Fermi-point プログラム深掘り（Klinkhamer-Volovik 系列・reentrant の含意・書籍該当章） | pending |
 | **W7** | 渦の数理系譜の一次確認（Helmholtz 1858 / Kelvin 1867、パブリックドメイン） | pending |
 | **W8** | **adversarial-review 初回試行**（cs#260 兼務）: 係争的主張「三方面収束は真に独立か」の敵対的パネル裁定。手順正本 = pd adversarial-review スキル | pending |

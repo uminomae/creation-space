@@ -64,7 +64,13 @@ Steinhauer らの BEC 音響ブラックホール系列は、この分野が一�
 
 **概念史（触発関係として）**: 渦で宇宙を捉える見方はデカルトの渦動論（tourbillon, 1637/1644）に遡り、川の乱流との類比から来ている [P]。ヘルムホルツが 1858 年に渦定理（渦度保存）を確立し、渦動論が数学的に復活した [P]。これに依拠し、ケルビンは 1867 年、Tait の煙の輪の実演に触発されて『On Vortex Atoms』を発表——原子はエーテル中の渦輪で、結び目の違いが元素の違いに対応する、という仮説である。Tait は交差数 10 までの結び目を分類し、これが結び目理論を創始した。渦原子論は慣性・重力を説明できず 1883 年頃に破綻したが、その分類作業から結び目理論という数学が派生した [P]。ここは触発関係に留める。「棄却された渦が数学という束を残した」という因果的物語化は、五段階モデルを裏書きする方向に事実を整形する危険があり、かつ後述の接地候補4の根拠にもなって循環する（§5 保持論点3）。因果は弱め、[M] として扱う。
 
-**接地の中心 — モノでなくパターンの持続**: 本層で最も堅い接地は、「モノではなくパターンの持続」が三方面で独立に定式化されている事実である。層をまたがずに [P] で立つ、数少ない土台である。(a) プリゴジンの散逸構造（1960年代提唱、1977 ノーベル化学賞）——平衡から遠い開放系で、エネルギー流が続く間だけ秩序が持続し、止めると消える [P]。(b) 場の量子論の標準存在論——粒子は場の励起であって一次的実体ではない [P]。(c) オートポイエーシス——継続的入力下で構造が保たれる [P]。三つは分野も方法も独立でありながら、同じ「形は過程である」という描像に収束している。
+**接地の中心 — モノでなくパターンの持続**: 本層で最も堅い接地は、「モノではなくパターンの持続」が三方面で独立に定式化されている事実である。層をまたがずに [P] で立つ、数少ない土台である。**W5（2026-07-10）で三方面すべての代表原典を一次確認し、citation-only から昇格した**:
+
+- (a) **プリゴジンの散逸構造**（Nobel Lecture "Time, Structure and Fluctuations", 1977-12-08、**全文確認済み**）。ベナール対流を論じて「新しい超分子的秩序が現れる。それは基本的に**外界とのエネルギー交換によって安定化された巨大なゆらぎ**に対応する。これが『散逸構造』として現れる秩序である」と明記（p.4 相当）。さらに「非平衡が秩序の源になりうる（non-equilibrium may be a source of order）」と定式化。エネルギー流が続く間だけ秩序が持続する、が原典の言葉で確認された [P]。
+- (b) **場の量子論の標準存在論**（Hobson, "There are no particles, there are only fields", Am. J. Phys. 81, 211 (2013) = arXiv:1204.4616、**全文確認済み**）。「粒子は場から生じる随伴現象（epiphenomena arising from fields）」「電子の場が電子そのものであり、各電子は二重スリットの両方に広がる」「量子は空間充填的な場の**拡がった擾乱**（extended disturbances in space-filling fields）」——粒子が一次的実体でなく場の励起であることを、査読論文が明示的主張として確認 [P]。
+- (c) **オートポイエーシス**（Varela, Maturana & Uribe, "Autopoiesis: The organization of living systems", BioSystems 5, 187 (1974)、**全文確認済み**、Monoskop スキャン公開）。細胞は物理的単位として「この組織が**物質の恒常的な入れ替わり（permanent turnover of matter）のもとで連続的に実現され続ける限りにおいてのみ**、その形態の変化や構成する化学反応の特定性に**かかわらず**、そのものとして留まる」（p.188）。材料は入れ替わるが組織（パターン）が続く、という中核が原典で確認された [P]。
+
+三つは分野も方法も独立でありながら、同じ「形は過程である」という描像に収束している。**この三方面収束が「真に独立か」（系譜的交差の疑い＝サイバネティクス/システム論経由）は W8 の敵対的パネルで裁定する**。
 
 **過程哲学と近縁思想**: ホワイトヘッドの過程哲学は actual occasion を実在の最終単位とし、実体形而上学を過程の形而上学に置換した [P]。ただし「渦」を明示的比喩に使った記述は今回のソースでは確認できなかった。pjdhiro の直観に系譜的に最も近い先行思想は David Bohm の川の渦の像である——**W1（2026-07-09）で原著『Wholeness and the Implicate Order』（Routledge 1980、archive.org 公開全文）を一次確認した** [P]。(a) pp.12-13（Figure 1.2）: 波形を「流れる川の中の渦構造」とみなし、渦は「流体の流れの安定パターン」であり「抽象」、「鋭い区分はなく」「別々に独立して存在する実体とみなしてはならない」。(b) p.24: 川の流れが「渦構造の全体を作り、維持し、最終的に溶かし消す」のであり、渦は流れの形成活動と不可分。(c) p.38: 「静的で独立に存在するように見えるものは、続く運動の比較的不変な状態とみなされる（渦の例を思い出せ）」——過程が一次、形が二次であることを明言。比喩の存在と内容は一次確認済み [P] に昇格。ただし Bohm は本層の中心には置かない。系譜がホーリズム／ニューエイジ隣接系に集中するためで、「pjdhiro の直観に最も近い」という位置づけ自体は解釈 [M] のままである。Bohm・Capra・Peter Reason はあくまで「pjdhiro の直観に系譜的に最も近い先行思想」の近縁枠として位置づける。シモンドンの個体化理論も準安定場からの transduction を描くが、代表例は結晶で渦ではない [P]。
 
@@ -168,7 +174,10 @@ critic が挙げた5件を、解かずに保持する。
 - SEP / IEP "Process Philosophy" — citation-only
 - Bohm『Wholeness and the Implicate Order』(Routledge 1980) — **本文確認済み**（archive.org 公開アイテム `bohm-wholeness-and-the-implicate-order` 全文テキスト。W1 2026-07-09。渦の比喩 pp.12-13, 24, 38）
 - Essentia Foundation "Whirlpools in Universal Consciousness"; Infinite Potential (Bohm) — citation-only（W1 で原著一次確認済みのため補助扱いに降格）
-- NobelPrize.org 1977 Chemistry press release（プリゴジン）— citation-only
+- Prigogine, "Time, Structure and Fluctuations", Nobel Lecture 1977-12-08 — **本文確認済み**（W5 全文精読 2026-07-10。散逸構造＝「外界とのエネルギー交換で安定化された巨大ゆらぎ」）
+- Hobson, "There are no particles, there are only fields", Am. J. Phys. 81, 211 (2013)（arXiv:1204.4616）— **本文確認済み**（W5 全文精読 2026-07-10。粒子＝場の随伴現象）
+- Varela, Maturana & Uribe, "Autopoiesis: The organization of living systems", BioSystems 5, 187 (1974) — **本文確認済み**（W5 精読 2026-07-10、Monoskop スキャン公開。物質の恒常的入れ替わりのもとで組織が持続）
+- NobelPrize.org 1977 Chemistry press release（プリゴジン）— citation-only（W5 で原典一次確認済みのため補助扱いに降格）
 - ScienceDirect "Are field quanta real objects?" — citation-only
 - Epoché Magazine / Technophany（Simondon）— citation-only
 - cs リポジトリ `knowledge/five-stages-guide.md`（Stage4 渦・Stage5 束の対応概念）— cs 内部正本
