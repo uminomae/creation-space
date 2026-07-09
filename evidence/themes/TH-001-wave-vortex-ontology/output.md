@@ -59,7 +59,7 @@ Steinhauer らの BEC 音響ブラックホール系列は、この分野が一�
 
 **接地の中心 — モノでなくパターンの持続**: 本層で最も堅い接地は、「モノではなくパターンの持続」が三方面で独立に定式化されている事実である。層をまたがずに [P] で立つ、数少ない土台である。(a) プリゴジンの散逸構造（1960年代提唱、1977 ノーベル化学賞）——平衡から遠い開放系で、エネルギー流が続く間だけ秩序が持続し、止めると消える [P]。(b) 場の量子論の標準存在論——粒子は場の励起であって一次的実体ではない [P]。(c) オートポイエーシス——継続的入力下で構造が保たれる [P]。三つは分野も方法も独立でありながら、同じ「形は過程である」という描像に収束している。
 
-**過程哲学と近縁思想**: ホワイトヘッドの過程哲学は actual occasion を実在の最終単位とし、実体形而上学を過程の形而上学に置換した [P]。ただし「渦」を明示的比喩に使った記述は今回のソースでは確認できなかった。pjdhiro の直観に系譜的に最も近い先行思想は David Bohm の川の渦の像である——渦は相対的に一定の形を保つが川の流れと切り離せず、どこまでが渦かを決められない（過程が一次、形が二次）[M]。ただし Bohm は本層の中心には置かない。原著頁は未確認（二次のみ、confidence medium）で、系譜はホーリズム／ニューエイジ隣接系に集中するためである。Bohm・Capra・Peter Reason はあくまで「pjdhiro の直観に系譜的に最も近い先行思想」の近縁枠として位置づける。シモンドンの個体化理論も準安定場からの transduction を描くが、代表例は結晶で渦ではない [P]。
+**過程哲学と近縁思想**: ホワイトヘッドの過程哲学は actual occasion を実在の最終単位とし、実体形而上学を過程の形而上学に置換した [P]。ただし「渦」を明示的比喩に使った記述は今回のソースでは確認できなかった。pjdhiro の直観に系譜的に最も近い先行思想は David Bohm の川の渦の像である——**W1（2026-07-09）で原著『Wholeness and the Implicate Order』（Routledge 1980、archive.org 公開全文）を一次確認した** [P]。(a) pp.12-13（Figure 1.2）: 波形を「流れる川の中の渦構造」とみなし、渦は「流体の流れの安定パターン」であり「抽象」、「鋭い区分はなく」「別々に独立して存在する実体とみなしてはならない」。(b) p.24: 川の流れが「渦構造の全体を作り、維持し、最終的に溶かし消す」のであり、渦は流れの形成活動と不可分。(c) p.38: 「静的で独立に存在するように見えるものは、続く運動の比較的不変な状態とみなされる（渦の例を思い出せ）」——過程が一次、形が二次であることを明言。比喩の存在と内容は一次確認済み [P] に昇格。ただし Bohm は本層の中心には置かない。系譜がホーリズム／ニューエイジ隣接系に集中するためで、「pjdhiro の直観に最も近い」という位置づけ自体は解釈 [M] のままである。Bohm・Capra・Peter Reason はあくまで「pjdhiro の直観に系譜的に最も近い先行思想」の近縁枠として位置づける。シモンドンの個体化理論も準安定場からの transduction を描くが、代表例は結晶で渦ではない [P]。
 
 ---
 
@@ -84,7 +84,7 @@ R3 の接地候補を、タグ付きのまま収載する。これらは新規�
 critic が挙げた5件を、解かずに保持する。
 
 1. **Kandyba 書誌確定と内容評価**: academia.edu 403 壁により未確定。pjdhiro 手動確認（ログインアクセス／Google Scholar キャッシュ）待ち。未確定のまま内容を流通させない。
-2. **Bohm 川の渦比喩の一次確認**: 原著（『Wholeness and the Implicate Order』等）での頁・文脈を確認する。現状は二次情報のみで confidence medium。
+2. **Bohm 川の渦比喩の一次確認**: → **解決（W1, 2026-07-09）**。原著（Routledge 1980）pp.12-13, 24, 38 で一次確認。§3 参照。
 3. **「発見」か「事後的当てはめ」か**: 五段階との対応（特に候補4）の循環性。接地が事実の発見なのか、モデルに合わせた事後的整形なのかを切り分ける枠組みが要る。
 4. **Švančara 2024 の独立追試状況**: 発表から日が浅い。独立グループによる追試を監視対象とする。
 5. **SVT の LIV 制約との定量整合**: 「創発的ローレンツ対称性」戦略と個々の LIV 観測制約の定量照合は未実施。[S] low のまま保持する。
@@ -120,7 +120,8 @@ critic が挙げた5件を、解かずに保持する。
 - PBS NOVA "Beautiful Losers"; Butler Scholarly Journal "Kelvin's Aethereal Knots" — citation-only
 - arXiv 1906.00453 "Vortices and atoms in the Maxwellian era" — citation-only
 - SEP / IEP "Process Philosophy" — citation-only
-- Essentia Foundation "Whirlpools in Universal Consciousness"; Infinite Potential (Bohm) — citation-only（Bohm 原著頁未確認、§5 保持論点2）
+- Bohm『Wholeness and the Implicate Order』(Routledge 1980) — **本文確認済み**（archive.org 公開アイテム `bohm-wholeness-and-the-implicate-order` 全文テキスト。W1 2026-07-09。渦の比喩 pp.12-13, 24, 38）
+- Essentia Foundation "Whirlpools in Universal Consciousness"; Infinite Potential (Bohm) — citation-only（W1 で原著一次確認済みのため補助扱いに降格）
 - NobelPrize.org 1977 Chemistry press release（プリゴジン）— citation-only
 - ScienceDirect "Are field quanta real objects?" — citation-only
 - Epoché Magazine / Technophany（Simondon）— citation-only
