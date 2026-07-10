@@ -73,6 +73,7 @@
 **対応概念（例）**:
 - 個体化: Simondon
 - 渦: 自己組織化
+- 川の渦: Bohm『Wholeness and the Implicate Order』(1980) pp.12-13, 24, 38 — 渦は流れの安定パターン、過程が一次・形が二次（原著一次確認済み、TH-001 W1。cs#261 X2 昇格 = pjdhiro 承認 2026-07-11）
 - （数理側の補助線）スピノルの位相・符号反転
 
 ### Stage 5: 束（Bundle）
