@@ -62,7 +62,7 @@ Steinhauer らの BEC 音響ブラックホール系列は、この分野が一�
 
 **層の信頼度**: 概念史の系譜は複数の独立二次ソースが一致し [P] high。ただし一次文献の頁確認は未実施（citation-only）。
 
-**概念史（触発関係として）**: 渦で宇宙を捉える見方はデカルトの渦動論（tourbillon, 1637/1644）に遡り、川の乱流との類比から来ている [P]。ヘルムホルツが 1858 年に渦定理（渦度保存）を確立し、渦動論が数学的に復活した [P]。これに依拠し、ケルビンは 1867 年、Tait の煙の輪の実演に触発されて『On Vortex Atoms』を発表——原子はエーテル中の渦輪で、結び目の違いが元素の違いに対応する、という仮説である。Tait は交差数 10 までの結び目を分類し、これが結び目理論を創始した。渦原子論は慣性・重力を説明できず 1883 年頃に破綻したが、その分類作業から結び目理論という数学が派生した [P]。ここは触発関係に留める。「棄却された渦が数学という束を残した」という因果的物語化は、五段階モデルを裏書きする方向に事実を整形する危険があり、かつ後述の接地候補4の根拠にもなって循環する（§5 保持論点3）。因果は弱め、[M] として扱う。
+**概念史（触発関係として）**: 渦で宇宙を捉える見方はデカルトの渦動論（tourbillon, 1637/1644）に遡り、川の乱流との類比から来ている [P]。**W7（2026-07-10）で系譜の連鎖を一次確認した**（Kelvin 原著全文 = zapatopi.net 公開、および Moffatt "Vortex Dynamics: The Legacy of Helmholtz and Kelvin", Springer 2008 の権威的レビュー全文）: ヘルムホルツ 1858（"Über Integrale der hydrodynamischen Gleichungen"）は (i) 渦線・渦フィラメントの概念を導入し、(ii) 理想流体の渦度方程式を導き、(iii) **渦線は流体とともに輸送され、線素の伸長に比例して強化される**ことを示した——すなわち完全流体では渦は生成・消滅せず永続する（frozen-in）[P]。これに依拠し、ケルビンは 1867 年、Tait の煙の輪の実演に触発されて『On Vortex Atoms』を発表——原子はエーテル中の渦輪で、結び目の違いが元素の違いに対応する、という仮説である。原著の核心表現: 「渦運動を生成・消滅させうるのは創造の御業のみ（To generate or to destroy Wirbelbewegung ... can only be an act of creative power）」「Helmholtz's rings are the only true atoms」[P]。Tait はこの仮説に促されて低交差数の結び目分類技法を開発し、これが**結び目理論＝現代トポロジーの萌芽**となった（Moffatt が明示）[P]。渦原子論は慣性・重力を説明できず 1880 年代に破綻したが、その分類作業から結び目理論という数学が派生した [P]。ここは触発関係に留める。「棄却された渦が数学という束を残した」という因果的物語化は、五段階モデルを裏書きする方向に事実を整形する危険があり、かつ後述の接地候補4の根拠にもなって循環する（§5 保持論点3）。因果は弱め、[M] として扱う。
 
 **接地の中心 — モノでなくパターンの持続**: 本層で最も堅い接地は、「モノではなくパターンの持続」が三方面で独立に定式化されている事実である。層をまたがずに [P] で立つ、数少ない土台である。**W5（2026-07-10）で三方面すべての代表原典を一次確認し、citation-only から昇格した**:
 
@@ -174,6 +174,9 @@ critic が挙げた5件を、解かずに保持する。
 - 「Pavel Kandyba 2025」超流体時空仮説 — **確認不能で確定（2026-07-10 断念）**。academia.edu ID 33870747 / 165768305 / 68319087 は全て 403。viXra:2403.0142 は Albers 著（別内容・反証済）、RG 396903025 は Thangamani 著（別内容・反証済）。pjdhiro のログイン済み手動タイトル検索（2026-07-10）でもヒット10件すべて別人（Florenskij 伊訳関連・Cătălin Pavel 等）で該当なし。書誌は確認不能のまま閉じ、内容は流通させない（§5 保持論点1）
 
 **思想・系譜層（R3）**
+- Kelvin (W. Thomson), "On Vortex Atoms", Proc. R. Soc. Edinburgh VI, 94 (1867) — **本文確認済み**（W7 全文確認 2026-07-10、zapatopi.net 公開全文）
+- Moffatt, "Vortex Dynamics: The Legacy of Helmholtz and Kelvin"（IUTAM Symposium, Springer 2008）— **本文確認済み**（W7 全文精読 2026-07-10。Helmholtz 三定理・Kelvin 渦原子・Tait 結び目分類の連鎖を権威的に記述）
+- Helmholtz, "Über Integrale der hydrodynamischen Gleichungen, welche den Wirbelbewegungen entsprechen", J. reine angew. Math. 55, 25 (1858) — 内容は Moffatt レビュー経由で一次確認（Tait 英訳 1867 が存在）
 - Springer『History of Knot Theory from Gauss to Jones』, 『Theorems of Helmholtz and Kelvin』— citation-only
 - Wikipedia "Vortex theory of the atom", "Process and Reality" — citation-only
 - PBS NOVA "Beautiful Losers"; Butler Scholarly Journal "Kelvin's Aethereal Knots" — citation-only
