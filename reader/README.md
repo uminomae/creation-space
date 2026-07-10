@@ -2,6 +2,8 @@
 
 **このディレクトリ内の HTML は生成物。直接編集禁止。**
 
+> **新規 READER を作る／既存を大きく更新するときは、まず生成レシピ正本を読む: [`transform/reader/reader-recipe.md`](../transform/reader/reader-recipe.md)**（page_type・固定パイプライン・オプションメニュー・不変条件・frontmatter スケルトン）。本 README はビルド手順とデザイン制約の詳細。
+
 | ページ | 正本（編集はこちら） |
 |---|---|
 | `wave-vortex.html` | `evidence/themes/TH-001-wave-vortex-ontology/READER-wave-vortex.md` |

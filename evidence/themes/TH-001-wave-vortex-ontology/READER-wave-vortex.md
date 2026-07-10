@@ -6,40 +6,19 @@ issue: cs#258 / cs#259 / cs#261
 source_of_truth: evidence/themes/TH-001-wave-vortex-ontology/output.md
 note: 本ファイルが READER の正本。reader/wave-vortex.html は生成物（直接編集禁止）
 
-# --- 生成レシピ（build_recipe）: 同型ページの生成・更新時に LLM が参照する再現手引き ---
+# --- 生成レシピ: 詳細は正本 transform/reader/reader-recipe.md に委譲（DRY）。ここは選択したオプションのみ宣言 ---
 build_recipe:
-  page_type: READER（一般読者向け探究解説。調査の正本 output.md を万人向けに投影したもの）
-  goal: 難しい概念（物理・思想）を平易に解説して読者が学ぶこと。正誤判定でなく、他者の知識・研究を発想のヒント／基礎として知ること（cs#261 pjdhiro 方針）
-  pipeline:
-    source_of_truth: evidence/themes/TH-001-wave-vortex-ontology/output.md（調査成果の正本）
-    reader_canonical: 本 MD（READER の正本。HTML は直接編集禁止）
-    build: python3 scripts/build-reader-th.py（正本 MD → reader/wave-vortex.html）
-    template: scripts/reader-th-template.html（VI 継承・独自テーマ新造禁止。<!--TOC--> は h2 から自動生成）
-    preview: bash server.sh 3002 → http://127.0.0.1:3002/reader/wave-vortex.html
-    publish: develop 検証 → develop→main merge push（GitHub Pages）
-  skills_used:
-    - name: agent-team-workflow（正本 pd）
-      role: 調査ラウンドの基本フロー。SURVEY→REVIEW→…。初回調査は full 実行（CONSENSUS-3）
-    - name: adversarial-review（正本 pd, cs#260）
-      role: 係争的主張の敵対的パネル検証。W8 で「三方面収束は真に独立か」を裁定。REVIEW の Adversarial モードとして統合。外部CLI不可時は別モデル+方法論分岐に縮退し証拠力を格下げ報告
-    - name: reader-comprehension（正本 pd）
-      role: 公開解説ページの推敲＋文脈ゼロ読解テスト。Litt 三技法（Explanations 実装 / Micro-worlds・Shared Spaces 未実装）＋ speed regulator。誤読は原則ページ側を直す
-    - name: model-dispatch（正本 pd）
-      role: Fable5=設計・統合判断、Opus/Sonnet/Haiku=調査・実行の振り分け。budget-check 枠ゲート連動
-  comprehension_devices:
-    - 目次（index）: h2 見出しから自動生成（reader-toc）
-    - アコーディオン「くわしく」: 3レベル分離（本文=本筋／畳み=深掘り）。主題外の言い訳・ルールは冒頭「はじめに読む」に集約
-    - 埋め込みクイズ「たしかめ」: 各節末。答えを畳んで隠す＝Litt の speed regulator（details.reader-quiz）
-    - 確からしさバッジ [P]/[M]/[S]: 正誤ジャッジでなく確信度の正直な目印
-    - Three.js 背景埋め込み: createEmbeddedGraphic（?graphic=…）。可読性はガラス面で担保
-  investigation_cycle: 調査ラウンド実行（agent-team-workflow + model-dispatch）→ output.md 改訂 → READER 更新（§調査のいまに現在地）→ build → 3002 で人間チェック → 公開判断は pjdhiro
-  invariants:
-    - 鎖の不変条件（cs#252）: 取得不能原典の上に公開解釈を置かない。全文精読した原典のみ [P]
-    - 声の帰属: 文責は Claude(Fable5)。pjdhiro 直観は引用として扱う
-    - 検証結果は verdict でなく学習素材に翻訳して公開（cs#260 W8 所見）
-  quality_gates:
-    - 読解テスト（RC 系, reader-comprehension）: 中核誤読ゼロを公開前に確認（RC1/RC2 通過済、RC3 は枠回復後）
-    - 敵対的パネル（adversarial-review）: 高スティクスな係争的主張に随時
+  recipe: transform/reader/reader-recipe.md   # ← レシピ正本。生成・更新時はまずこれを読む
+  page_type: READER
+  goal: 「創造は波間の渦」という直観を出発点に、物理・思想が「モノでなくパターン」をどう捉えたかを平易に学ぶ
+  options:
+    devices: [toc, fold_details, quizzes, badges, three_js_bg]   # 全デバイス採用
+    skills: [agent-team-workflow, adversarial-review, reader-comprehension, model-dispatch]
+    quality_gates: [comprehension_test, adversarial_panel]
+  page_notes:
+    - adversarial_panel: W8 で「三方面収束は真に独立か」を裁定（外部CLI不可→別モデル+方法論分岐に縮退）
+    - comprehension_test: RC1/RC2 通過済、RC3 は枠回復後
+    - three_js_bg: ?graphic=… で背景シーン埋め込み
 # --- build_recipe 終わり ---
 ---
 
