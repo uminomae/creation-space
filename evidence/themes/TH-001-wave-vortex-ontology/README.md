@@ -67,6 +67,10 @@ TH-001-wave-vortex-ontology/
   output.md                      ← 統合成果物（本テーマの正本）
   review.md                      ← critic レビュー記録（Phase 2/6）
   READER-wave-vortex.md          ← 万人向け解説の正本（output.md の投影。HTML は reader/ に生成）
+  TEST-w4b-rc1-20260710.md       ← 盲検テスト・読解テストの記録
+  sources/                       ← 出典アーカイブ（READER 脚注 [1]-[26] の無料公開版ローカル控え。
+                                    LLM 照合ハーネス用。メタデータ = sources/sources.json、詳細 = sources/README.md。
+                                    30 領域台帳 knowledge/raw/manifest.md には登録しない）
 ```
 
 ## スコープガード

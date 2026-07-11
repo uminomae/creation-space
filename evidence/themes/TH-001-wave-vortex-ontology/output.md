@@ -78,7 +78,7 @@ Steinhauer らの BEC 音響ブラックホール系列は、この分野が一�
 
 - **確認できた史実 [P]**: (a) 散逸構造と (c) オートポイエーシスは 1950s-60s のサイバネティクス／一般システム理論／自己組織化ディスコースという共通源流を共有する。象徴的なのは、争点で (c) の定式化として挙げた **Varela-Maturana-Uribe 1974 論文そのものを Heinz von Foerster が学界へ橋渡し**した事実（論文謝辞に BCL・von Foerster への感謝が明記。Main が原論文で一次確認）。von Foerster の "order from noise"(1960) と Prigogine の "order out of chaos" は同じ自己組織化の議論の分枝。(b) 場の量子論の存在論は Faraday→Maxwell→第二量子化の物理学内部系譜で、この流れとは別系統。
 - **裁定（ファシリテータ）**: 「互いに独立な三分野」は文字通りには成立しない。真に独立な収束点は 3 でなく **2**（＝共通源流由来の (a)+(c) と、独立した (b)）。ただしこれは主張の**格下げ材料ではなく学びの素材**である（pjdhiro 方針 2026-07-10）——「モノでなくパターン」は 20 世紀科学の複数分野で育った一つの思想潮流であり、アイデアが分野の壁を越えて伝播した事例として READER に活かす。
-- **パネル副産物**: 反証専任パネリストは Hobson QFT 存在論が物理学内で少数説（Stenger の直接反論 arXiv:1204.6384）である点も指摘。READER に「粒か波か論争」の [くわしく] として反映（正誤断定を避ける趣旨に合致）。
+- **パネル副産物**: 反証専任パネリストは Hobson QFT 存在論が物理学内で少数説（~~Stenger~~ **Sassoli de Bianchi** の直接反論 arXiv:1204.6384 = Am. J. Phys. 81, 707 (2013), DOI:10.1119/1.4811240。2026-07-11 に原典 PDF 1 ページ目照合＋Crossref で誤帰属を検出し訂正）である点も指摘。READER に「粒か波か論争」の [くわしく] として反映（正誤断定を避ける趣旨に合致）。
 - **スキル試行の所見（cs#260）**: 方法論分岐＋別モデルの縮退構成でも、検証可能な史実への収束は機能した。ただし「独立でない＝弱い証拠」という verdict 出力は、公開 READER には不適（pjdhiro 方針）。スキルは epistemic チェックには有効だが、**公開物への出力は判定でなく解説に変換する**工程が要る。この所見を cs#260 に返す。
 
 **過程哲学と近縁思想**: ホワイトヘッドの過程哲学は actual occasion を実在の最終単位とし、実体形而上学を過程の形而上学に置換した [P]。ただし「渦」を明示的比喩に使った記述は今回のソースでは確認できなかった。pjdhiro の直観に系譜的に最も近い先行思想は David Bohm の川の渦の像である——**W1（2026-07-09）で原著『Wholeness and the Implicate Order』（Routledge 1980、archive.org 公開全文）を一次確認した** [P]。(a) pp.12-13（Figure 1.2）: 波形を「流れる川の中の渦構造」とみなし、渦は「流体の流れの安定パターン」であり「抽象」、「鋭い区分はなく」「別々に独立して存在する実体とみなしてはならない」。(b) p.24: 川の流れが「渦構造の全体を作り、維持し、最終的に溶かし消す」のであり、渦は流れの形成活動と不可分。(c) p.38: 「静的で独立に存在するように見えるものは、続く運動の比較的不変な状態とみなされる（渦の例を思い出せ）」——過程が一次、形が二次であることを明言。比喩の存在と内容は一次確認済み [P] に昇格。ただし Bohm は本層の中心には置かない。系譜がホーリズム／ニューエイジ隣接系に集中するためで、「pjdhiro の直観に最も近い」という位置づけ自体は解釈 [M] のままである。Bohm・Capra・Peter Reason はあくまで「pjdhiro の直観に系譜的に最も近い先行思想」の近縁枠として位置づける。シモンドンの個体化理論も準安定場からの transduction を描くが、代表例は結晶で渦ではない [P]。
@@ -188,6 +188,7 @@ critic が挙げた5件を、解かずに保持する。
 - Essentia Foundation "Whirlpools in Universal Consciousness"; Infinite Potential (Bohm) — citation-only（W1 で原著一次確認済みのため補助扱いに降格）
 - Prigogine, "Time, Structure and Fluctuations", Nobel Lecture 1977-12-08 — **本文確認済み**（W5 全文精読 2026-07-10。散逸構造＝「外界とのエネルギー交換で安定化された巨大ゆらぎ」）
 - Hobson, "There are no particles, there are only fields", Am. J. Phys. 81, 211 (2013)（arXiv:1204.4616）— **本文確認済み**（W5 全文精読 2026-07-10。粒子＝場の随伴現象）
+- Sassoli de Bianchi, "Quantum fields are not fields", Am. J. Phys. 81, 707 (2013)（arXiv:1204.6384, DOI:10.1119/1.4811240）— 1頁目書誌照合済み（2026-07-11。W8 時点の「Stenger」帰属は誤りと判明し訂正）
 - Varela, Maturana & Uribe, "Autopoiesis: The organization of living systems", BioSystems 5, 187 (1974) — **本文確認済み**（W5 精読 2026-07-10、Monoskop スキャン公開。物質の恒常的入れ替わりのもとで組織が持続）
 - NobelPrize.org 1977 Chemistry press release（プリゴジン）— citation-only（W5 で原典一次確認済みのため補助扱いに降格）
 - ScienceDirect "Are field quanta real objects?" — citation-only

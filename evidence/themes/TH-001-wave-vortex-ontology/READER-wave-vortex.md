@@ -83,7 +83,7 @@ build_recipe:
 <summary>くわしく: 場の量子論の「粒か波か」論争</summary>
 <div class="fold-body">
 
-「粒子は場のさざ波」という見方（ホブソン 2013）<sup class="refnote"><a href="#ref-3">[3]</a></sup>は、物理の**教え方**としては非常に見通しがよいのですが、「これが唯一の正解」ではありません。同じ 2013 年に物理学者ステンガーが「**場ですらない**——場というのは計算の道具（演算子）であって、実在する何かではない」という、もっと踏み込んだ反論を書いています<sup class="refnote" id="cite-5"><a href="#ref-5">[5]</a></sup>。実験や計算はどちらの言葉でも同じ答えを出すので、「では**本当は**何が実在するのか」は、いまも決着していません。このページで「粒子は場の励起」を紹介するのは、それが**正解だから**ではなく、「モノでなくパターン」という見方が物理の最先端でも真剣に議論されている、という**一例**だからです。
+「粒子は場のさざ波」という見方（ホブソン 2013）<sup class="refnote"><a href="#ref-3">[3]</a></sup>は、物理の**教え方**としては非常に見通しがよいのですが、「これが唯一の正解」ではありません。同じ 2013 年に物理学者サッソーリ・デ・ビアンキが「**場ですらない**——場というのは計算の道具（演算子）であって、実在する何かではない」という、もっと踏み込んだ反論を書いています<sup class="refnote" id="cite-5"><a href="#ref-5">[5]</a></sup>。実験や計算はどちらの言葉でも同じ答えを出すので、「では**本当は**何が実在するのか」は、いまも決着していません。このページで「粒子は場の励起」を紹介するのは、それが**正解だから**ではなく、「モノでなくパターン」という見方が物理の最先端でも真剣に議論されている、という**一例**だからです。
 
 </div>
 </details>
@@ -351,6 +351,7 @@ Bohm は著者自身の図がほぼそのまま対応する（ひねりが小さ
 
 ### 更新履歴
 
+- **2026-07-11 (22)**: 出典アーカイブ（sources/）の整備＋脚注 5 の誤帰属を訂正 — 無料公開版が存在する出典 16 件を `evidence/themes/TH-001-wave-vortex-ontology/sources/` に取得日・sha256 付きで保管（LLM が原典照合ハーネスとして使うため。メタデータは sources/sources.json）。保管時の 1 ページ目書誌照合で、「場ですらない」反論（脚注 5）の著者が Stenger ではなく **Sassoli de Bianchi**（Am. J. Phys. 81, 707, 2013）だと判明し、本文・脚注を訂正（誤りは調査記録 W8 の副産物メモに由来。原典 PDF との突き合わせが誤帰属を実際に捕まえた実例）
 - **2026-07-11 (21)**: 出典の脚注化 — 本文の引用箇所に脚注番号リンク（[1]〜[26]）を付け、末尾に「出典（脚注）」を新設。全 26 件の書誌を照合し、誰でも無料で読める公開版（arXiv 著者版・NobelPrize.org・Internet Archive・PubMed Central・Monoskop・Stanford Encyclopedia of Philosophy 等）への直リンクを整備（全リンク到達確認済み）。本文のまとめを読者自身が原典と突き合わせられるようにした
 - **2026-07-11 (20)**: 第4・5章の精査（pjdhiro 指摘: 指示語・固有名詞の不明瞭、流れの飛び、位置づけの誤解） — (1) ページの自己定義を「五段階モデルの中核比喩を確かめるテーマ調査」から「**物理学領域の調査から枝分かれした寄り道の深掘り**」へ修正。モデルへの反映はこのページが行うのでなく、本体の 30 領域調査がこのページを**部品として参照する**形で行われることをリード・第5章・「調査のいま」で一貫させた。(2) 第5章を「本体の30領域調査へ持ち帰る」に改題し、「どの領域に引き渡されうるか」（物理学・哲学・複雑性科学・数学）を新設。(3) 第4章の三区分を「三つの層」として明示し、二つの理論に固定の呼び名（「真空＝超流体」説／「超流体ダークマター」説）を導入、巨大だった「関門」引用ブロックを定義（callout）と判定（本文）に分割、「先ほどの二つの理論」「彼自身」等の曖昧な指示語を解消。(4) 内部ラウンド記号（W4/W4b）を本文から畳みの中の注記に退避し、ものさし5を第1章の W8 の結論（共通源流により割り引く）と整合させた
 - **2026-07-11 (19)**: リードに creation-space 調査との関係を明記 — 本ページが「創造とは」プロジェクトのテーマ調査であり、五段階モデル（場→波→縁→渦→束）の中核比喩「波」「渦」を確かめる調査でもあることを、引用直後の一等地に追加。プロジェクト本体（../）と第5章へのアンカーリンクを設置
@@ -386,7 +387,7 @@ Bohm は著者自身の図がほぼそのまま対応する（ひねりが小さ
 <li id="ref-2">Prigogine, I.「Time, Structure and Fluctuations」1977年ノーベル化学賞記念講演。<a href="https://www.nobelprize.org/prizes/chemistry/1977/prigogine/lecture/">ノーベル賞公式サイトで全文公開（英語）</a>。 <a class="backref" href="#cite-2" aria-label="本文の引用箇所へ戻る">↩</a></li>
 <li id="ref-3">Hobson, A.「There are no particles, there are only fields」<em>American Journal of Physics</em> 81, 211 (2013)。<a href="https://arxiv.org/abs/1204.4616">arXiv で著者版を全文公開</a>。 <a class="backref" href="#cite-3" aria-label="本文の引用箇所へ戻る">↩</a></li>
 <li id="ref-4">Varela, F. G., Maturana, H. R. &amp; Uribe, R.「Autopoiesis: The organization of living systems, its characterization and a model」<em>BioSystems</em> 5, 187 (1974)。<a href="https://monoskop.org/images/d/dd/Varela_Maturana_Uribe_1974_Autopoiesis.pdf">公開スキャン（Monoskop・PDF）</a>／<a href="https://doi.org/10.1016/0303-2647(74)90031-8">出版社版（有料）</a>。 <a class="backref" href="#cite-4" aria-label="本文の引用箇所へ戻る">↩</a></li>
-<li id="ref-5">Stenger, V. J.「Quantum fields are not fields」<em>American Journal of Physics</em> 81, 707 (2013)。ホブソン（脚注 3）への直接の反論。<a href="https://arxiv.org/abs/1204.6384">arXiv で著者版を全文公開</a>。 <a class="backref" href="#cite-5" aria-label="本文の引用箇所へ戻る">↩</a></li>
+<li id="ref-5">Sassoli de Bianchi, M.「Quantum fields are not fields」<em>American Journal of Physics</em> 81, 707 (2013)。ホブソン（脚注 3）への直接の反論。※当初 Stenger 名義と誤記していましたが、保管した原典 PDF の 1 ページ目照合で誤帰属に気づき訂正しました（2026-07-11）。<a href="https://arxiv.org/abs/1204.6384">arXiv で著者版を全文公開</a>。 <a class="backref" href="#cite-5" aria-label="本文の引用箇所へ戻る">↩</a></li>
 <li id="ref-6">Slowik, E.「Descartes’ Physics」<em>Stanford Encyclopedia of Philosophy</em>。デカルトの渦宇宙論についての定評ある解説（英語）。<a href="https://plato.stanford.edu/entries/descartes-physics/">全文公開</a>。 <a class="backref" href="#cite-6" aria-label="本文の引用箇所へ戻る">↩</a></li>
 <li id="ref-7">Helmholtz, H.「Über Integrale der hydrodynamischen Gleichungen, welche den Wirbelbewegungen entsprechen」<em>Journal für die reine und angewandte Mathematik</em> 55, 25 (1858)。渦定理の原論文。<a href="https://doi.org/10.1515/crll.1858.55.25">出版社版（ドイツ語・有料）</a>。内容は脚注 9 のレビューでも確かめられます。 <a class="backref" href="#cite-7" aria-label="本文の引用箇所へ戻る">↩</a></li>
 <li id="ref-8">Thomson, W.（ケルビン卿）「On Vortex Atoms」<em>Proceedings of the Royal Society of Edinburgh</em> 6, 94 (1867)。<a href="https://zapatopi.net/kelvin/papers/on_vortex_atoms.html">有志アーカイブで全文公開（英語）</a>。 <a class="backref" href="#cite-8" aria-label="本文の引用箇所へ戻る">↩</a></li>

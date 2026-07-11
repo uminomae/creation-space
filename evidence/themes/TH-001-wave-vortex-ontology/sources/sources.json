@@ -1,0 +1,301 @@
+{
+  "theme": "TH-001-wave-vortex-ontology",
+  "purpose": "READER-wave-vortex.md の脚注 [1]-[26] の出典のうち、無料公開版をローカル保管したアーカイブ。LLM が本文の主張を原典と突き合わせる検証ハーネスとして使う（ネットワーク不通・リンク切れ・egress ブロック時も照合を再現できるようにする）。",
+  "created": "2026-07-11",
+  "retrieved_date": "2026-07-11",
+  "ref_numbering": "READER-wave-vortex.md の「出典（脚注）」の番号と一致（reader/wave-vortex.html の [n] と同じ）",
+  "usage_notes": [
+    "照合手順: 脚注 n の主張 → refNN_*.pdf を Read（テキスト層なしのものは PDF 画像モード）→ 該当ページと本文を突き合わせる",
+    "text_layer=false のファイル（ref04）は pdftotext では読めない。Read の pages 指定で画像として読むこと",
+    "このディレクトリは TH-001 テーマ調査専用。knowledge/raw/manifest.md（30 領域台帳）には登録せず、source-note 生成義務も発生しない（cs/pd 役割分離と同型の分離）",
+    "実績: 2026-07-11 の取得時 1 ページ目照合で、脚注 5 の著者が Stenger でなく Sassoli de Bianchi である誤帰属を検出・訂正した"
+  ],
+  "files": [
+    {
+      "ref": 1,
+      "citation": "Barceló, C., Liberati, S. & Visser, M. \"Analogue Gravity\", Living Reviews in Relativity 14, 3 (2011)",
+      "version_note": "arXiv v4（2024-11-29 改訂版）",
+      "retrieved_from": "https://arxiv.org/pdf/gr-qc/0505065",
+      "landing_url": "https://arxiv.org/abs/gr-qc/0505065",
+      "doi": "10.12942/lrr-2011-3",
+      "license": "arXiv 著者版（出版社版は CC オープンアクセス）",
+      "text_layer": true,
+      "file": "ref01_barcelo-liberati-visser-2011_analogue-gravity_arxiv-v4.pdf",
+      "bytes": 3640558,
+      "sha256": "78a12ecca758552297d305f8c964502ead3e39fa842394a8d5a4f3aba17f4759",
+      "pages": 212
+    },
+    {
+      "ref": 3,
+      "citation": "Hobson, A. \"There are no particles, there are only fields\", American Journal of Physics 81, 211 (2013)",
+      "version_note": "arXiv 著者版",
+      "retrieved_from": "https://arxiv.org/pdf/1204.4616",
+      "landing_url": "https://arxiv.org/abs/1204.4616",
+      "doi": "10.1119/1.4789885",
+      "license": "arXiv 著者版",
+      "text_layer": true,
+      "file": "ref03_hobson-2013_no-particles-only-fields_arxiv.pdf",
+      "bytes": 730287,
+      "sha256": "71e759eaebc9a7c0c1cc837daf08567cd65f616fd4174b6814d99f49b5c0df44",
+      "pages": 32
+    },
+    {
+      "ref": 4,
+      "citation": "Varela, F. G., Maturana, H. R. & Uribe, R. \"Autopoiesis: The organization of living systems, its characterization and a model\", BioSystems 5, 187-196 (1974)",
+      "version_note": "Monoskop 公開スキャン（画像・OCRテキスト層なし。LLM は Read の PDF 画像モードで読む）",
+      "retrieved_from": "https://monoskop.org/images/d/dd/Varela_Maturana_Uribe_1974_Autopoiesis.pdf",
+      "landing_url": "https://monoskop.org/images/d/dd/Varela_Maturana_Uribe_1974_Autopoiesis.pdf",
+      "doi": "10.1016/0303-2647(74)90031-8",
+      "license": "公開スキャン（著作権は出版社/著者に帰属）",
+      "text_layer": false,
+      "file": "ref04_varela-maturana-uribe-1974_autopoiesis_monoskop.pdf",
+      "bytes": 1195955,
+      "sha256": "f5b8ae7ff67dd1cc95672455a86979d5c64e592b12941360d41b145f8946ac27",
+      "pages": 10
+    },
+    {
+      "ref": 5,
+      "citation": "Sassoli de Bianchi, M. \"Quantum fields are not fields\", American Journal of Physics 81, 707 (2013)",
+      "version_note": "arXiv v2。※取得時の1頁目照合で、それまでの「Stenger」帰属が誤りと判明（本ファイルが誤帰属を検出した）",
+      "retrieved_from": "https://arxiv.org/pdf/1204.6384",
+      "landing_url": "https://arxiv.org/abs/1204.6384",
+      "doi": "10.1119/1.4811240",
+      "license": "arXiv 著者版",
+      "text_layer": true,
+      "file": "ref05_sassoli-de-bianchi-2013_quantum-fields-are-not-fields_arxiv.pdf",
+      "bytes": 70167,
+      "sha256": "2f5d765f1b15848f79e597805329505d91f41e2752d1f5c5198e9d3472329d52",
+      "pages": 2
+    },
+    {
+      "ref": 8,
+      "citation": "Thomson, W. (Lord Kelvin) \"On Vortex Atoms\", Proceedings of the Royal Society of Edinburgh 6, 94-105 (1867)",
+      "version_note": "zapatopi.net の全文 HTML 転写",
+      "retrieved_from": "https://zapatopi.net/kelvin/papers/on_vortex_atoms.html",
+      "landing_url": "https://zapatopi.net/kelvin/papers/on_vortex_atoms.html",
+      "doi": null,
+      "license": "パブリックドメイン（1867年刊行）",
+      "text_layer": true,
+      "file": "ref08_kelvin-1867_on-vortex-atoms_zapatopi.html",
+      "bytes": 33038,
+      "sha256": "438fdda9bc79d790fd045fb5019bfe1af47391a87f370ce0c01ebaaf7320c74c"
+    },
+    {
+      "ref": 10,
+      "citation": "Bohm, D. \"Wholeness and the Implicate Order\" (Routledge, 1980)",
+      "version_note": "archive.org 公開アイテム（access-restricted: None）。テキスト層あり306頁。川の渦の比喩は pp.12-13, 24, 38",
+      "retrieved_from": "https://archive.org/download/bohm-wholeness-and-the-implicate-order/BOHM_Wholeness%20And%20The%20Implicate%20Order.pdf",
+      "landing_url": "https://archive.org/details/bohm-wholeness-and-the-implicate-order",
+      "doi": null,
+      "license": "archive.org 公開アイテム（書籍の著作権は存続。調査・検証用）",
+      "text_layer": true,
+      "file": "ref10_bohm-1980_wholeness-implicate-order_archive-org.pdf",
+      "bytes": 903416,
+      "sha256": "2bcf532ad1efb35023da206f883f950b6d1c5091e083d40b987b7b5f88c8ed4e",
+      "pages": 306
+    },
+    {
+      "ref": 13,
+      "citation": "Steinhauer, J. \"Observation of quantum Hawking radiation and its entanglement in an analogue black hole\", Nature Physics 12, 959 (2016)",
+      "version_note": "arXiv 著者版",
+      "retrieved_from": "https://arxiv.org/pdf/1510.00621",
+      "landing_url": "https://arxiv.org/abs/1510.00621",
+      "doi": "10.1038/nphys3863",
+      "license": "arXiv 著者版",
+      "text_layer": true,
+      "file": "ref13_steinhauer-2016_quantum-hawking-radiation-entanglement_arxiv.pdf",
+      "bytes": 1062244,
+      "sha256": "bf5194b7c9036eb196a63324798aa5660c3f75cac2210d451a119fd96223354d",
+      "pages": 23
+    },
+    {
+      "ref": 14,
+      "citation": "Leonhardt, U. \"Questioning the recent observation of quantum Hawking radiation\" (arXiv:1609.03803, 2016/v3 2018)",
+      "version_note": "arXiv v3（雑誌未掲載のプレプリント）",
+      "retrieved_from": "https://arxiv.org/pdf/1609.03803",
+      "landing_url": "https://arxiv.org/abs/1609.03803",
+      "doi": null,
+      "license": "arXiv 著者版",
+      "text_layer": true,
+      "file": "ref14_leonhardt-2018_questioning-observation_arxiv.pdf",
+      "bytes": 1859717,
+      "sha256": "4abce23ff1893341fde4d96aa2035257d532b386d785b0d0292fc2984c0b1be4",
+      "pages": 17
+    },
+    {
+      "ref": 15,
+      "citation": "Muñoz de Nova, J. R., Golubkov, K., Kolobov, V. I. & Steinhauer, J. \"Observation of thermal Hawking radiation and its temperature in an analogue black hole\", Nature 569, 688 (2019)",
+      "version_note": "arXiv 著者版（arXiv 版の題は \"...at the Hawking temperature...\"）",
+      "retrieved_from": "https://arxiv.org/pdf/1809.00913",
+      "landing_url": "https://arxiv.org/abs/1809.00913",
+      "doi": "10.1038/s41586-019-1241-0",
+      "license": "arXiv 著者版",
+      "text_layer": true,
+      "file": "ref15_munoz-de-nova-2019_thermal-hawking-radiation_arxiv.pdf",
+      "bytes": 696791,
+      "sha256": "d86954ac0a4a9bec72921a8b091c06c5f76221aa323f799166ca80303c235665",
+      "pages": 11
+    },
+    {
+      "ref": 16,
+      "citation": "Kolobov, V. I., Golubkov, K., Muñoz de Nova, J. R. & Steinhauer, J. \"Observation of stationary spontaneous Hawking radiation and the time evolution of an analogue black hole\", Nature Physics 17, 362 (2021)",
+      "version_note": "arXiv 著者版（CC-BY）",
+      "retrieved_from": "https://arxiv.org/pdf/1910.09363",
+      "landing_url": "https://arxiv.org/abs/1910.09363",
+      "doi": "10.1038/s41567-020-01076-0",
+      "license": "CC BY（arXiv 掲載）",
+      "text_layer": true,
+      "file": "ref16_kolobov-2021_stationary-hawking-radiation_arxiv.pdf",
+      "bytes": 1300736,
+      "sha256": "1e0c03fad52f7b9eacba6bd1b2f5792e77be20b50be2b4af7cdbd5a618080a73",
+      "pages": 15
+    },
+    {
+      "ref": 18,
+      "citation": "Švančara, P. et al. \"Rotating curved spacetime signatures from a giant quantum vortex\", Nature 628, 66 (2024)",
+      "version_note": "arXiv:2308.10773 著者版（出版社 OA 版は PMC10990935）",
+      "retrieved_from": "https://arxiv.org/pdf/2308.10773",
+      "landing_url": "https://arxiv.org/abs/2308.10773",
+      "doi": "10.1038/s41586-024-07176-8",
+      "license": "arXiv 著者版（出版社版はオープンアクセス）",
+      "text_layer": true,
+      "file": "ref18_svancara-2024_giant-quantum-vortex_arxiv.pdf",
+      "bytes": 5978993,
+      "sha256": "5712a56b3d13b36a150a9807db5f0c70d636cdced09201639e8c1307c0f495c2",
+      "pages": 9
+    },
+    {
+      "ref": 20,
+      "citation": "Zloshchastiev, K. G. \"An Alternative to Dark Matter and Dark Energy: Scale-Dependent Gravity in Superfluid Vacuum Theory\", Universe 6, 180 (2020)",
+      "version_note": "arXiv 版（出版社 MDPI 版は CC BY 4.0）",
+      "retrieved_from": "https://arxiv.org/pdf/2011.12565",
+      "landing_url": "https://arxiv.org/abs/2011.12565",
+      "doi": "10.3390/universe6100180",
+      "license": "arXiv 著者版（出版社版 CC BY 4.0）",
+      "text_layer": true,
+      "file": "ref20_zloshchastiev-2020_svt-scale-dependent-gravity_arxiv.pdf",
+      "bytes": 351820,
+      "sha256": "59175b3b79463974bef766606b53a7b51dd2bf3028b0bf491994947c554f7a90",
+      "pages": 17
+    },
+    {
+      "ref": 21,
+      "citation": "Berezhiani, L. & Khoury, J. \"Theory of Dark Matter Superfluidity\", Physical Review D 92, 103510 (2015)",
+      "version_note": "arXiv 著者版（付録 \"A Relativistic Completion\" 含む）",
+      "retrieved_from": "https://arxiv.org/pdf/1507.01019",
+      "landing_url": "https://arxiv.org/abs/1507.01019",
+      "doi": "10.1103/PhysRevD.92.103510",
+      "license": "arXiv 著者版",
+      "text_layer": true,
+      "file": "ref21_berezhiani-khoury-2015_dark-matter-superfluidity_arxiv.pdf",
+      "bytes": 1065934,
+      "sha256": "c0b8797cdf78a5a43b32bde7f96a61afdc83522cd11b27d677cf9ec99b61c9f8",
+      "pages": 44
+    },
+    {
+      "ref": 22,
+      "citation": "Liberati, S. \"Tests of Lorentz invariance: a 2013 update\", Classical and Quantum Gravity 30, 133001 (2013)",
+      "version_note": "arXiv v3 著者版",
+      "retrieved_from": "https://arxiv.org/pdf/1304.5795",
+      "landing_url": "https://arxiv.org/abs/1304.5795",
+      "doi": "10.1088/0264-9381/30/13/133001",
+      "license": "arXiv 著者版",
+      "text_layer": true,
+      "file": "ref22_liberati-2013_tests-lorentz-invariance_arxiv.pdf",
+      "bytes": 673991,
+      "sha256": "4cf6208298db2232b86cef3e9896f98b1fad9c96fcfefe4b2f0f4ff1ee8e9735",
+      "pages": 62
+    },
+    {
+      "ref": 23,
+      "citation": "Volovik, G. E. \"Emergent physics: Fermi point scenario\", Philosophical Transactions of the Royal Society A 366, 2935 (2008)",
+      "version_note": "arXiv v5 著者版",
+      "retrieved_from": "https://arxiv.org/pdf/0801.0724",
+      "landing_url": "https://arxiv.org/abs/0801.0724",
+      "doi": "10.1098/rsta.2008.0070",
+      "license": "arXiv 著者版",
+      "text_layer": true,
+      "file": "ref23_volovik-2008_fermi-point-scenario_arxiv.pdf",
+      "bytes": 341456,
+      "sha256": "9d94ab906a437456ca6c2c5433d443f9b05e751b439b84bc1828eef9cfb2cf97",
+      "pages": 16
+    },
+    {
+      "ref": 24,
+      "citation": "Volovik, G. E. \"Reentrant violation of special relativity in the low-energy corner\", JETP Letters 73, 162 (2001)",
+      "version_note": "arXiv v1 著者版",
+      "retrieved_from": "https://arxiv.org/pdf/hep-ph/0101286",
+      "landing_url": "https://arxiv.org/abs/hep-ph/0101286",
+      "doi": null,
+      "license": "arXiv 著者版",
+      "text_layer": true,
+      "file": "ref24_volovik-2001_reentrant-violation_arxiv.pdf",
+      "bytes": 102384,
+      "sha256": "402a569a319a488349c7bb1f28acea6f53f119fac281591666b7b5b2fd2679b1",
+      "pages": 5
+    }
+  ],
+  "not_archived": [
+    {
+      "ref": 2,
+      "reason": "repo 内に既存の同一原典があるため重複保管しない",
+      "local_pointer": "knowledge/raw/D29_prigogine_1977_time-structure-fluctuations.pdf",
+      "citation": "Prigogine, I. \"Time, Structure and Fluctuations\", Nobel Lecture (1977)",
+      "landing_url": "https://www.nobelprize.org/prizes/chemistry/1977/prigogine/lecture/"
+    },
+    {
+      "ref": 6,
+      "reason": "Web 百科事典（SEP）。安定機関のためリンク参照で足りる",
+      "citation": "Slowik, E. \"Descartes' Physics\", Stanford Encyclopedia of Philosophy",
+      "landing_url": "https://plato.stanford.edu/entries/descartes-physics/"
+    },
+    {
+      "ref": 7,
+      "reason": "無料の全文公開版が確認できていない（内容は ref09 Moffatt レビュー経由で一次確認）",
+      "citation": "Helmholtz, H. \"Über Integrale der hydrodynamischen Gleichungen...\", J. reine angew. Math. 55, 25 (1858)",
+      "landing_url": "https://doi.org/10.1515/crll.1858.55.25"
+    },
+    {
+      "ref": 9,
+      "reason": "出版社（Springer）有料のみ。無料公開版が確認できていない",
+      "citation": "Moffatt, H. K. \"Vortex Dynamics: The Legacy of Helmholtz and Kelvin\" (Springer IUTAM, 2008)",
+      "landing_url": "https://doi.org/10.1007/978-1-4020-6744-0_1"
+    },
+    {
+      "ref": 11,
+      "reason": "出版社（Nature 1974）有料のみ",
+      "citation": "Hawking, S. W. \"Black hole explosions?\", Nature 248, 30 (1974)",
+      "landing_url": "https://doi.org/10.1038/248030a0"
+    },
+    {
+      "ref": 12,
+      "reason": "出版社（APS）有料のみ。OA 版なし（unpaywall 確認 2026-07-09）",
+      "citation": "Unruh, W. G. \"Experimental Black-Hole Evaporation?\", Phys. Rev. Lett. 46, 1351 (1981)",
+      "landing_url": "https://doi.org/10.1103/PhysRevLett.46.1351"
+    },
+    {
+      "ref": 17,
+      "reason": "商業メディア記事（著作権）。リンク参照で足りる",
+      "citation": "Physics World \"Thermal spectrum of analogue black hole puts Hawking radiation in a new light\" (2019)",
+      "landing_url": "https://physicsworld.com/a/thermal-spectrum-of-analogue-black-hole-puts-hawking-radiation-in-a-new-light/"
+    },
+    {
+      "ref": 19,
+      "reason": "書籍（OUP）有料のみ",
+      "citation": "Volovik, G. E. \"The Universe in a Helium Droplet\" (OUP, 2003)",
+      "landing_url": "https://doi.org/10.1093/acprof:oso/9780199564842.001.0001"
+    },
+    {
+      "ref": 25,
+      "reason": "無料の全文公開版が確認できていない",
+      "citation": "Simondon, G. \"L'individuation à la lumière des notions de forme et d'information\" (1958/2005)",
+      "landing_url": null
+    },
+    {
+      "ref": 26,
+      "reason": "Web 百科事典（SEP）。安定機関のためリンク参照で足りる",
+      "citation": "\"Process Philosophy\", Stanford Encyclopedia of Philosophy",
+      "landing_url": "https://plato.stanford.edu/entries/process-philosophy/"
+    }
+  ]
+}
