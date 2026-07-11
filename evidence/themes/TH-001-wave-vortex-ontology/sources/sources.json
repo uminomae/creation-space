@@ -23,7 +23,8 @@
       "file": "ref01_barcelo-liberati-visser-2011_analogue-gravity_arxiv-v4.pdf",
       "bytes": 3640558,
       "sha256": "78a12ecca758552297d305f8c964502ead3e39fa842394a8d5a4f3aba17f4759",
-      "pages": 212
+      "pages": 212,
+      "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref01_barcelo-liberati-visser-2011_analogue-gravity_arxiv-v4.pdf"
     },
     {
       "ref": 3,
@@ -37,7 +38,8 @@
       "file": "ref03_hobson-2013_no-particles-only-fields_arxiv.pdf",
       "bytes": 730287,
       "sha256": "71e759eaebc9a7c0c1cc837daf08567cd65f616fd4174b6814d99f49b5c0df44",
-      "pages": 32
+      "pages": 32,
+      "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref03_hobson-2013_no-particles-only-fields_arxiv.pdf"
     },
     {
       "ref": 4,
@@ -51,7 +53,8 @@
       "file": "ref04_varela-maturana-uribe-1974_autopoiesis_monoskop.pdf",
       "bytes": 1195955,
       "sha256": "f5b8ae7ff67dd1cc95672455a86979d5c64e592b12941360d41b145f8946ac27",
-      "pages": 10
+      "pages": 10,
+      "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref04_varela-maturana-uribe-1974_autopoiesis_monoskop.pdf"
     },
     {
       "ref": 5,
@@ -65,7 +68,8 @@
       "file": "ref05_sassoli-de-bianchi-2013_quantum-fields-are-not-fields_arxiv.pdf",
       "bytes": 70167,
       "sha256": "2f5d765f1b15848f79e597805329505d91f41e2752d1f5c5198e9d3472329d52",
-      "pages": 2
+      "pages": 2,
+      "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref05_sassoli-de-bianchi-2013_quantum-fields-are-not-fields_arxiv.pdf"
     },
     {
       "ref": 7,
@@ -79,7 +83,8 @@
       "file": "ref07_helmholtz-1858_wirbelbewegungen_zenodo.pdf",
       "bytes": 5241971,
       "sha256": "ef97e9abba2b74422f9bb3529b9f6b585fc5427f1580dded68acebd6640ab36e",
-      "pages": 31
+      "pages": 31,
+      "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref07_helmholtz-1858_wirbelbewegungen_zenodo.pdf"
     },
     {
       "ref": 8,
@@ -92,7 +97,8 @@
       "text_layer": true,
       "file": "ref08_kelvin-1867_on-vortex-atoms_zapatopi.html",
       "bytes": 33038,
-      "sha256": "438fdda9bc79d790fd045fb5019bfe1af47391a87f370ce0c01ebaaf7320c74c"
+      "sha256": "438fdda9bc79d790fd045fb5019bfe1af47391a87f370ce0c01ebaaf7320c74c",
+      "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref08_kelvin-1867_on-vortex-atoms_zapatopi.html"
     },
     {
       "ref": 9,
@@ -107,7 +113,8 @@
       "file": "ref09alt_moffatt-2006_vortex-dynamics-legacy_rcd.pdf",
       "bytes": 163358,
       "sha256": "e1a0d3bd04b7f4767dbaf45d85c6e633ce56ea0008aa0841637ed9389497bf5a",
-      "pages": 10
+      "pages": 10,
+      "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref09alt_moffatt-2006_vortex-dynamics-legacy_rcd.pdf"
     },
     {
       "ref": 10,
@@ -121,7 +128,8 @@
       "file": "ref10_bohm-1980_wholeness-implicate-order_archive-org.pdf",
       "bytes": 903416,
       "sha256": "2bcf532ad1efb35023da206f883f950b6d1c5091e083d40b987b7b5f88c8ed4e",
-      "pages": 306
+      "pages": 306,
+      "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref10_bohm-1980_wholeness-implicate-order_archive-org.pdf"
     },
     {
       "ref": 12,
@@ -136,7 +144,8 @@
       "file": "ref12alt_unruh-2014_has-hawking-radiation-been-measured_arxiv.pdf",
       "bytes": 293866,
       "sha256": "af9168f2ac1ced6b7bf285a07e89e564ed7c209d4b2bf4b940925324bb87c153",
-      "pages": 10
+      "pages": 10,
+      "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref12alt_unruh-2014_has-hawking-radiation-been-measured_arxiv.pdf"
     },
     {
       "ref": 13,
@@ -150,7 +159,8 @@
       "file": "ref13_steinhauer-2016_quantum-hawking-radiation-entanglement_arxiv.pdf",
       "bytes": 1062244,
       "sha256": "bf5194b7c9036eb196a63324798aa5660c3f75cac2210d451a119fd96223354d",
-      "pages": 23
+      "pages": 23,
+      "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref13_steinhauer-2016_quantum-hawking-radiation-entanglement_arxiv.pdf"
     },
     {
       "ref": 14,
@@ -164,7 +174,8 @@
       "file": "ref14_leonhardt-2018_questioning-observation_arxiv.pdf",
       "bytes": 1859717,
       "sha256": "4abce23ff1893341fde4d96aa2035257d532b386d785b0d0292fc2984c0b1be4",
-      "pages": 17
+      "pages": 17,
+      "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref14_leonhardt-2018_questioning-observation_arxiv.pdf"
     },
     {
       "ref": 15,
@@ -178,7 +189,8 @@
       "file": "ref15_munoz-de-nova-2019_thermal-hawking-radiation_arxiv.pdf",
       "bytes": 696791,
       "sha256": "d86954ac0a4a9bec72921a8b091c06c5f76221aa323f799166ca80303c235665",
-      "pages": 11
+      "pages": 11,
+      "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref15_munoz-de-nova-2019_thermal-hawking-radiation_arxiv.pdf"
     },
     {
       "ref": 16,
@@ -192,7 +204,8 @@
       "file": "ref16_kolobov-2021_stationary-hawking-radiation_arxiv.pdf",
       "bytes": 1300736,
       "sha256": "1e0c03fad52f7b9eacba6bd1b2f5792e77be20b50be2b4af7cdbd5a618080a73",
-      "pages": 15
+      "pages": 15,
+      "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref16_kolobov-2021_stationary-hawking-radiation_arxiv.pdf"
     },
     {
       "ref": 18,
@@ -206,7 +219,8 @@
       "file": "ref18_svancara-2024_giant-quantum-vortex_arxiv.pdf",
       "bytes": 5978993,
       "sha256": "5712a56b3d13b36a150a9807db5f0c70d636cdced09201639e8c1307c0f495c2",
-      "pages": 9
+      "pages": 9,
+      "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref18_svancara-2024_giant-quantum-vortex_arxiv.pdf"
     },
     {
       "ref": 19,
@@ -221,7 +235,8 @@
       "file": "ref19alt_volovik-2001_superfluid-analogies-cosmological_arxiv.pdf",
       "bytes": 2053255,
       "sha256": "bcb49ad4530c588cb6019d9dd2c808606b8bffe92b9af9568805a0d871b4f17c",
-      "pages": 113
+      "pages": 113,
+      "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref19alt_volovik-2001_superfluid-analogies-cosmological_arxiv.pdf"
     },
     {
       "ref": 20,
@@ -235,7 +250,8 @@
       "file": "ref20_zloshchastiev-2020_svt-scale-dependent-gravity_arxiv.pdf",
       "bytes": 351820,
       "sha256": "59175b3b79463974bef766606b53a7b51dd2bf3028b0bf491994947c554f7a90",
-      "pages": 17
+      "pages": 17,
+      "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref20_zloshchastiev-2020_svt-scale-dependent-gravity_arxiv.pdf"
     },
     {
       "ref": 21,
@@ -249,7 +265,8 @@
       "file": "ref21_berezhiani-khoury-2015_dark-matter-superfluidity_arxiv.pdf",
       "bytes": 1065934,
       "sha256": "c0b8797cdf78a5a43b32bde7f96a61afdc83522cd11b27d677cf9ec99b61c9f8",
-      "pages": 44
+      "pages": 44,
+      "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref21_berezhiani-khoury-2015_dark-matter-superfluidity_arxiv.pdf"
     },
     {
       "ref": 22,
@@ -263,7 +280,8 @@
       "file": "ref22_liberati-2013_tests-lorentz-invariance_arxiv.pdf",
       "bytes": 673991,
       "sha256": "4cf6208298db2232b86cef3e9896f98b1fad9c96fcfefe4b2f0f4ff1ee8e9735",
-      "pages": 62
+      "pages": 62,
+      "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref22_liberati-2013_tests-lorentz-invariance_arxiv.pdf"
     },
     {
       "ref": 23,
@@ -277,7 +295,8 @@
       "file": "ref23_volovik-2008_fermi-point-scenario_arxiv.pdf",
       "bytes": 341456,
       "sha256": "9d94ab906a437456ca6c2c5433d443f9b05e751b439b84bc1828eef9cfb2cf97",
-      "pages": 16
+      "pages": 16,
+      "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref23_volovik-2008_fermi-point-scenario_arxiv.pdf"
     },
     {
       "ref": 24,
@@ -291,7 +310,8 @@
       "file": "ref24_volovik-2001_reentrant-violation_arxiv.pdf",
       "bytes": 102384,
       "sha256": "402a569a319a488349c7bb1f28acea6f53f119fac281591666b7b5b2fd2679b1",
-      "pages": 5
+      "pages": 5,
+      "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref24_volovik-2001_reentrant-violation_arxiv.pdf"
     },
     {
       "ref": 25,
@@ -306,7 +326,8 @@
       "file": "ref25alt_simondon-1992_genesis-of-the-individual_monoskop.pdf",
       "bytes": 1367600,
       "sha256": "df0ec495250ff2c2698d24e6a9f210c0172bd2b2338d819218b6856b8ffa9447",
-      "pages": 24
+      "pages": 24,
+      "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref25alt_simondon-1992_genesis-of-the-individual_monoskop.pdf"
     },
     {
       "ref": 27,
@@ -320,7 +341,8 @@
       "file": "ref27_herrmann-2009_rotating-optical-cavity-lorentz_arxiv.pdf",
       "bytes": 1017017,
       "sha256": "e72ecfa80830c7997c4ca982583e9aeaf7caf5fe1c87176ddfba27ea7a4c5ea1",
-      "pages": 8
+      "pages": 8,
+      "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref27_herrmann-2009_rotating-optical-cavity-lorentz_arxiv.pdf"
     }
   ],
   "not_archived": [
@@ -423,5 +445,194 @@
       "note": "サイバネティクスの原典。本体で精読済み（source-note D07-S01）。sources/ には重複保管しない"
     }
   ],
-  "reviewed": "2026-07-11 全 16 件（当時）を全文テキスト化し READER の主張と全数照合。記録は VERIFICATION-20260711.md。訂正 3 件＋脚注 27 新設"
+  "reviewed": "2026-07-11 全 16 件（当時）を全文テキスト化し READER の主張と全数照合。記録は VERIFICATION-20260711.md。訂正 3 件＋脚注 27 新設",
+  "footnote_pdf_index": {
+    "1": [
+      {
+        "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref01_barcelo-liberati-visser-2011_analogue-gravity_arxiv-v4.pdf",
+        "kind": "archived"
+      }
+    ],
+    "2": [
+      {
+        "repo_path": "knowledge/raw/D29_prigogine_1977_time-structure-fluctuations.pdf",
+        "kind": "domain-raw",
+        "manifest_id": "D29-S01"
+      }
+    ],
+    "3": [
+      {
+        "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref03_hobson-2013_no-particles-only-fields_arxiv.pdf",
+        "kind": "archived"
+      }
+    ],
+    "4": [
+      {
+        "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref04_varela-maturana-uribe-1974_autopoiesis_monoskop.pdf",
+        "kind": "archived"
+      },
+      {
+        "repo_path": "knowledge/raw/D13_varela-maturana-uribe_1974_autopoiesis.pdf",
+        "kind": "domain-raw",
+        "manifest_id": "D13-S14"
+      }
+    ],
+    "5": [
+      {
+        "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref05_sassoli-de-bianchi-2013_quantum-fields-are-not-fields_arxiv.pdf",
+        "kind": "archived"
+      }
+    ],
+    "6": [
+      {
+        "repo_path": null,
+        "kind": "web-or-paywalled",
+        "note": "SEP（Web のみ）"
+      }
+    ],
+    "7": [
+      {
+        "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref07_helmholtz-1858_wirbelbewegungen_zenodo.pdf",
+        "kind": "archived"
+      }
+    ],
+    "8": [
+      {
+        "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref08_kelvin-1867_on-vortex-atoms_zapatopi.html",
+        "kind": "archived"
+      }
+    ],
+    "9": [
+      {
+        "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref09alt_moffatt-2006_vortex-dynamics-legacy_rcd.pdf",
+        "kind": "substitute"
+      }
+    ],
+    "10": [
+      {
+        "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref10_bohm-1980_wholeness-implicate-order_archive-org.pdf",
+        "kind": "archived"
+      }
+    ],
+    "11": [
+      {
+        "repo_path": null,
+        "kind": "web-or-paywalled",
+        "note": "有料のみ。代替は Project Euclid リンク（脚注参照）"
+      }
+    ],
+    "12": [
+      {
+        "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref12alt_unruh-2014_has-hawking-radiation-been-measured_arxiv.pdf",
+        "kind": "substitute"
+      }
+    ],
+    "13": [
+      {
+        "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref13_steinhauer-2016_quantum-hawking-radiation-entanglement_arxiv.pdf",
+        "kind": "archived"
+      }
+    ],
+    "14": [
+      {
+        "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref14_leonhardt-2018_questioning-observation_arxiv.pdf",
+        "kind": "archived"
+      }
+    ],
+    "15": [
+      {
+        "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref15_munoz-de-nova-2019_thermal-hawking-radiation_arxiv.pdf",
+        "kind": "archived"
+      }
+    ],
+    "16": [
+      {
+        "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref16_kolobov-2021_stationary-hawking-radiation_arxiv.pdf",
+        "kind": "archived"
+      }
+    ],
+    "17": [
+      {
+        "repo_path": null,
+        "kind": "web-or-paywalled",
+        "note": "報道記事（Web のみ）"
+      }
+    ],
+    "18": [
+      {
+        "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref18_svancara-2024_giant-quantum-vortex_arxiv.pdf",
+        "kind": "archived"
+      }
+    ],
+    "19": [
+      {
+        "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref19alt_volovik-2001_superfluid-analogies-cosmological_arxiv.pdf",
+        "kind": "substitute"
+      }
+    ],
+    "20": [
+      {
+        "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref20_zloshchastiev-2020_svt-scale-dependent-gravity_arxiv.pdf",
+        "kind": "archived"
+      }
+    ],
+    "21": [
+      {
+        "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref21_berezhiani-khoury-2015_dark-matter-superfluidity_arxiv.pdf",
+        "kind": "archived"
+      }
+    ],
+    "22": [
+      {
+        "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref22_liberati-2013_tests-lorentz-invariance_arxiv.pdf",
+        "kind": "archived"
+      }
+    ],
+    "23": [
+      {
+        "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref23_volovik-2008_fermi-point-scenario_arxiv.pdf",
+        "kind": "archived"
+      }
+    ],
+    "24": [
+      {
+        "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref24_volovik-2001_reentrant-violation_arxiv.pdf",
+        "kind": "archived"
+      }
+    ],
+    "25": [
+      {
+        "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref25alt_simondon-1992_genesis-of-the-individual_monoskop.pdf",
+        "kind": "substitute"
+      }
+    ],
+    "26": [
+      {
+        "repo_path": "knowledge/raw/D13_whitehead_1929_process-and-reality.pdf",
+        "kind": "domain-raw",
+        "manifest_id": "D13-S10"
+      }
+    ],
+    "27": [
+      {
+        "repo_path": "evidence/themes/TH-001-wave-vortex-ontology/sources/ref27_herrmann-2009_rotating-optical-cavity-lorentz_arxiv.pdf",
+        "kind": "archived"
+      }
+    ],
+    "28": [
+      {
+        "repo_path": "knowledge/raw/D02_rayleigh_1916_problem-thermal-convection-horizontal-layer-fluid-heated-below.pdf",
+        "kind": "domain-raw",
+        "manifest_id": "D02-S08"
+      }
+    ],
+    "29": [
+      {
+        "repo_path": "knowledge/raw/D07_wiener_1948_cybernetics.pdf",
+        "kind": "domain-raw",
+        "manifest_id": "D07-S01"
+      }
+    ]
+  },
+  "footnote_pdf_index_note": "READER 脚注番号 → repo 内 PDF 保存先。kind: archived=sources/ 正規保管 / substitute=読めない原典の代替 / domain-raw=30 領域台帳(knowledge/raw)の確保分 / web-or-paywalled=repo 内 PDF なし"
 }

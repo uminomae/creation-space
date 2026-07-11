@@ -11,7 +11,7 @@
 1. 検証したい主張の脚注番号 n を READER で特定する
 2. `refNN_*.pdf` を Read で開く（`text_layer: false` のものは pages 指定の**画像モード**で読む）。`refNNalt_*` はその脚注の読めない原典の**代替文献**（同一講演の訳・後継完全版・本人の後年レビュー等。sources.json の `substitute: true`）
 3. 該当ページと本文・脚注の記述を突き合わせる
-4. 機械可読メタデータは [`sources.json`](sources.json)（書誌・DOI・取得元 URL・取得日・sha256・頁数・ライセンス・30 領域台帳とのクロス参照）
+4. 機械可読メタデータは [`sources.json`](sources.json)（書誌・DOI・取得元 URL・取得日・sha256・頁数・ライセンス・**repo 内保存パス**・30 領域台帳とのクロス参照）。**脚注番号から repo 内 PDF を一発で引くには `footnote_pdf_index`** を使う（全 29 脚注をカバー。sources/ 保管分・代替・knowledge/raw の 30 領域確保分・repo 内に無いものの別を `kind` で示す）
 
 > **実績**: 取得時の 1 ページ目照合で脚注 5 の誤帰属（Stenger→Sassoli de Bianchi）を検出（2026-07-11）。全文照合レビューでさらに 3 件の精度不足（Leonhardt 批判の中身／「リングダウンの初の証拠」→「最初の兆候」／SdB の論旨）と 10⁻¹⁷ の Wikipedia 孫引きを検出・訂正した。詳細は VERIFICATION-20260711.md。
 
