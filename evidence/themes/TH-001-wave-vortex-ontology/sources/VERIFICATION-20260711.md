@@ -49,3 +49,14 @@
 | [25] | Simondon 主著（OA なし） | 導入部の正典的英訳 "The Genesis of the Individual"（Incorporations 1992、Monoskop 公開） | ref25alt |
 
 （[6][17][26] は Web で読める安定ページのため対象外。[2] は knowledge/raw/D29 に既存）
+
+## R2（第2巡・全文読解）追記 — 2026-07-11
+
+**条件**: 「原典は全文を読む」。前回（上表）abstract/部分照合だった原典も含め、ref01〜ref28 を全文通読（Liberati 2013 レビュー全 62 頁、Bohm 該当章、Varela 全 10 頁画像、Helmholtz 独語原文 1794 行 等）し、READER の全主張・引用・数値を原文と再照合した（逐次ログ: scratchpad/R2-review-log.md）。
+
+- **新規 FIX 1 件**: 脚注 [17] Leonhardt の評価転換。旧引用「これは私が信じ始めてもよい最初のものだ」は Physics World 記事にも Nature news にも**存在しない**。同記事で実際に確認できる発言 "I really congratulate Jeff on his work, which is an important step for the community"（「ジェフの仕事を心から祝福する。研究コミュニティにとって重要な一歩だ」）に差し替え。READER 本文・output.md の両方を訂正。
+- **出所判明 1 件（本文非掲載は維持）**: 撤回済みの「21 回の改良」は Physics World 記事 "Steinhauer's team made 21 improvements to the experiment" 由来と判明（ハルシネーションではなく二次報道由来）。論文本文にない数字のため非掲載を維持し、output.md に出所を注記。
+- **微調整 1 件**: 脚注 [23] Volovik の [くわしく] 内「素粒子の対称性が説の**証拠**」→ 原文 "This scenario agrees with the fermionic content" / "in favor of emergent gravity" に合わせ「説と**よく合う**」に緩和（[M] 内の語調を原文へ忠実化）。
+- **残り全件（ref01/02/03/04/05/07/08/13/14/15/16/18/20/21/22/24/27/28）**: 全文レベルで逐語一致を再確認。追加の不一致なし。
+
+上表の round(23) 訂正 3 件は全文読解でも妥当性を再確認済み。
