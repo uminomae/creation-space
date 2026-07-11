@@ -178,6 +178,17 @@
   .reader-toc a{color:var(--link);text-decoration:none;}
   .reader-toc a:hover{text-decoration:underline;}
 
+  /* 出典脚注: 本文の [n] 上付きリンクと末尾の出典リストを結ぶ */
+  sup.refnote{font-size:.72em;line-height:0;scroll-margin-top:24px;}
+  sup.refnote a{color:var(--link);text-decoration:none;padding:0 1px;font-weight:700;}
+  sup.refnote a:hover{text-decoration:underline;}
+  ol.refs{margin:0;padding:12px 16px 12px 2.6em;font-size:.9em;color:var(--muted);}
+  ol.refs li{margin:.55em 0;line-height:1.75;scroll-margin-top:24px;
+    padding:2px 6px;border-radius:var(--ds-radius-sm);}
+  ol.refs li:target{background:rgba(var(--ds-color-accent),.12);}
+  ol.refs em{color:var(--cs-md-em);}
+  ol.refs .backref{text-decoration:none;margin-left:.35em;}
+
   footer{margin-top:44px;font-size:12px;color:var(--faint);
     border-top:1px solid var(--line);padding-top:14px;}
   footer a{color:var(--link);text-decoration:none;}
@@ -244,19 +255,19 @@
 <li><strong><span class="badge-m">解釈 [M]</span></strong> — 事実に基づくが、まとめ方にこちらの解釈が入るもの</li>
 <li><strong><span class="badge-s">推測 [S]</span></strong> — 形が似ている、という理由で言ってみている推測。まちがっているかもしれない</li>
 </ul>
-<p><strong>「そっくり」と「同じ」は違う</strong>（全編に効く読み方）。このあと「実験室でブラックホールそっくりの現象を作った」話が出ます。この分野の代表的レビュー（Barceló・Liberati・Visser、以下 BLV）は当事者でありながら「<strong>アナロジーは同一性ではない</strong>」と釘を刺しています。水流がブラックホールと同じ方程式に従うことと、宇宙が実際に流体であることは別の主張です。ただし BLV が否定したのは「実験室で数式をいじれば本物の重力が変わる」という特定の主張だけで、「時空を流体と考える理論は全部ダメ」ではありません。つまりこのページは、「そっくり」に驚きつつ「同じ」とは言わない、その線引きを守って進みます。</p>
+<p><strong>「そっくり」と「同じ」は違う</strong>（全編に効く読み方）。このあと「実験室でブラックホールそっくりの現象を作った」話が出ます。この分野の代表的レビュー（Barceló・Liberati・Visser、以下 BLV）は当事者でありながら「<strong>アナロジーは同一性ではない</strong>」と釘を刺しています<sup class="refnote" id="cite-1"><a href="#ref-1">[1]</a></sup>。水流がブラックホールと同じ方程式に従うことと、宇宙が実際に流体であることは別の主張です。ただし BLV が否定したのは「実験室で数式をいじれば本物の重力が変わる」という特定の主張だけで、「時空を流体と考える理論は全部ダメ」ではありません。つまりこのページは、「そっくり」に驚きつつ「同じ」とは言わない、その線引きを守って進みます。</p>
 </div>
 </details>
 
-<nav class="reader-toc reader-card" aria-label="目次"><p class="reader-toc-title">目次</p><ol><li><a href="#第1章-モノでなく流れが作る形--台所体素粒子">第1章 「モノ」でなく「流れが作る形」 — 台所・体・素粒子</a></li><li><a href="#第2章-渦で宇宙を作ろうとした人たち--300年の物語">第2章 渦で宇宙を作ろうとした人たち — 300年の物語</a></li><li><a href="#第3章-実験室にブラックホールを作る--中身が器の数学に従う">第3章 実験室にブラックホールを作る — 中身が「器の数学」に従う</a></li><li><a href="#第4章-器そのものは超流体か--いちばん高い段">第4章 器そのものは超流体か — いちばん高い段</a></li><li><a href="#第5章-本体の30領域調査へ持ち帰る--発見と当てはめを見分ける">第5章 本体の30領域調査へ持ち帰る — 「発見」と「当てはめ」を見分ける</a></li><li><a href="#第6章-で器はどうなのか--いまの答え">第6章 で、器はどうなのか — いまの答え</a></li><li><a href="#調査のいま">調査のいま</a></li></ol></nav>
+<nav class="reader-toc reader-card" aria-label="目次"><p class="reader-toc-title">目次</p><ol><li><a href="#第1章-モノでなく流れが作る形--台所体素粒子">第1章 「モノ」でなく「流れが作る形」 — 台所・体・素粒子</a></li><li><a href="#第2章-渦で宇宙を作ろうとした人たち--300年の物語">第2章 渦で宇宙を作ろうとした人たち — 300年の物語</a></li><li><a href="#第3章-実験室にブラックホールを作る--中身が器の数学に従う">第3章 実験室にブラックホールを作る — 中身が「器の数学」に従う</a></li><li><a href="#第4章-器そのものは超流体か--いちばん高い段">第4章 器そのものは超流体か — いちばん高い段</a></li><li><a href="#第5章-本体の30領域調査へ持ち帰る--発見と当てはめを見分ける">第5章 本体の30領域調査へ持ち帰る — 「発見」と「当てはめ」を見分ける</a></li><li><a href="#第6章-で器はどうなのか--いまの答え">第6章 で、器はどうなのか — いまの答え</a></li><li><a href="#調査のいま">調査のいま</a></li><li><a href="#出典脚注">出典（脚注）</a></li></ol></nav>
 <h2 class="reader-heading" id="第1章-モノでなく流れが作る形--台所体素粒子">第1章 「モノ」でなく「流れが作る形」 — 台所・体・素粒子</h2>
 <p><strong>この章で学ぶこと</strong>: 「モノではなく、流れが作り続けるパターンこそが実在の単位だ」という見方が、化学・物理・生物学という遠く離れた三つの分野で、それぞれ独自に形になっている——という事実です。冒頭の二段の問いで言えば、まず「<strong>中身</strong>」の側（対流の模様・素粒子・生きもの、つまり器の中に現れるものたち）について、「波間の渦のよう」がどこまで本当かを確かめます。難しく聞こえますが、三つとも芯は同じ一つのことを言っています。いちばん身近なところ——台所——から始めましょう。</p>
 <p><strong>1. 散逸構造（プリゴジン、1977 年ノーベル化学賞）— 流れが作る秩序</strong></p>
-<p>浅い鍋に油を張って、下から静かに温めることを想像してください。温度差が小さいうちは何も起きません。ところが<strong>ある境目を超えた瞬間</strong>、油が自分から動きだし、上から見ると蜂の巣のような<strong>六角形の対流の模様</strong>がびっしり整列します（ベナール対流と呼ばれる、実験室でも台所でも見られる現象です）。誰も型を押し当てていないのに、秩序が<strong>ひとりでに立ち上がる</strong>。しかも火を止めれば模様は消える。つまりこの秩序は「モノ」ではなく、<strong>熱が流れ続けている間だけ維持される形</strong>なのです。プリゴジンはノーベル講演でこれを「<strong>外界とのエネルギー交換によって安定化された、巨大なゆらぎ</strong>」と表現し、「<strong>非平衡（かたより）は秩序の源になりうる</strong>」と言い切りました。放っておけば全ては崩れて散らばる、という熱力学の常識に、「流れがあれば逆に秩序が生まれる」という裏面を書き加えたのです。<span class="badge-p">実証済み [P]</span>（ノーベル講演の原文で確認）</p>
+<p>浅い鍋に油を張って、下から静かに温めることを想像してください。温度差が小さいうちは何も起きません。ところが<strong>ある境目を超えた瞬間</strong>、油が自分から動きだし、上から見ると蜂の巣のような<strong>六角形の対流の模様</strong>がびっしり整列します（ベナール対流と呼ばれる、実験室でも台所でも見られる現象です）。誰も型を押し当てていないのに、秩序が<strong>ひとりでに立ち上がる</strong>。しかも火を止めれば模様は消える。つまりこの秩序は「モノ」ではなく、<strong>熱が流れ続けている間だけ維持される形</strong>なのです。プリゴジンはノーベル講演でこれを「<strong>外界とのエネルギー交換によって安定化された、巨大なゆらぎ</strong>」と表現し、「<strong>非平衡（かたより）は秩序の源になりうる</strong>」と言い切りました。放っておけば全ては崩れて散らばる、という熱力学の常識に、「流れがあれば逆に秩序が生まれる」という裏面を書き加えたのです。<span class="badge-p">実証済み [P]</span>（ノーベル講演の原文で確認）<sup class="refnote" id="cite-2"><a href="#ref-2">[2]</a></sup></p>
 <p><strong>2. 場の量子論（現代物理の土台）— 粒子は「場のさざ波」</strong></p>
-<p>私たちは電子や光を「小さな粒」だと習います。でも現代物理のいちばん基礎的な枠組み（場の量子論）では、話が逆さまです。まず空間いっぱいに広がった「<strong>場</strong>」があり、<strong>粒子はその場に立つ波（さざ波）<strong>だ、と考えます。ギターの弦を思い浮かべてください。「ド」の音は、弦の上に乗っている</strong>モノ</strong>ではなく、弦全体の<strong>振動のしかた</strong>ですよね。それと同じで、電子とは「電子の場」の振動の一形態、と見ることができます。物理学者ホブソンはこれをさらに踏み込んで「<strong>粒子は場から生じる随伴現象</strong>」「<strong>電子の場が電子そのものだ</strong>」と表現し、二重スリット実験で「ひとつの電子が両方のスリットに同時に広がる」のは、電子が粒でなく場の波だからだ、と説明します。ただし「では<strong>本当に</strong>実在するのは場か」は物理学者の間でも決着していない解釈上の論点で、ホブソンの言い方はその中の強い一つの立場です（異論は次の[くわしく]参照）。<span class="badge-p">実証済み [P]</span>（＝「粒子は場の励起」という枠組み自体は査読論文で確認。実在論としての読みは<span class="badge-m">解釈 [M]</span>）</p>
+<p>私たちは電子や光を「小さな粒」だと習います。でも現代物理のいちばん基礎的な枠組み（場の量子論）では、話が逆さまです。まず空間いっぱいに広がった「<strong>場</strong>」があり、<strong>粒子はその場に立つ波（さざ波）<strong>だ、と考えます。ギターの弦を思い浮かべてください。「ド」の音は、弦の上に乗っている</strong>モノ</strong>ではなく、弦全体の<strong>振動のしかた</strong>ですよね。それと同じで、電子とは「電子の場」の振動の一形態、と見ることができます。物理学者ホブソンはこれをさらに踏み込んで「<strong>粒子は場から生じる随伴現象</strong>」「<strong>電子の場が電子そのものだ</strong>」と表現し、二重スリット実験で「ひとつの電子が両方のスリットに同時に広がる」のは、電子が粒でなく場の波だからだ、と説明します。ただし「では<strong>本当に</strong>実在するのは場か」は物理学者の間でも決着していない解釈上の論点で、ホブソンの言い方はその中の強い一つの立場です（異論は次の[くわしく]参照）。<span class="badge-p">実証済み [P]</span>（＝「粒子は場の励起」という枠組み自体は査読論文で確認。実在論としての読みは<span class="badge-m">解釈 [M]</span>）<sup class="refnote" id="cite-3"><a href="#ref-3">[3]</a></sup></p>
 <p><strong>3. オートポイエーシス（生物学）— 材料は入れ替わり、組織が続く</strong></p>
-<p>あなたの体をつくる細胞や分子は、数年でほぼ全部入れ替わります。それでも「あなた」は続いている。生物学者マトゥラーナとヴァレラは、生きものの本質は「どんな材料でできているか」ではなく「<strong>自分で自分の部品を作り続ける、その仕組み（組織）が回り続けていること</strong>」だと考えました。これがオートポイエーシス（自己産出）です。創始論文（1974）の原文では、細胞は「<strong>物質が絶え間なく入れ替わるもとで</strong>、組織が連続的に実現され続ける限りにおいてのみ、形が変わっても<strong>そのものとして留まる</strong>」と定式化されています。生命とは物質ではなく、物質を通り抜けていく<strong>過程のパターン</strong>だ、という見方です。<span class="badge-p">実証済み [P]</span>（創始論文の原文で確認）</p>
+<p>あなたの体をつくる細胞や分子は、数年でほぼ全部入れ替わります。それでも「あなた」は続いている。生物学者マトゥラーナとヴァレラは、生きものの本質は「どんな材料でできているか」ではなく「<strong>自分で自分の部品を作り続ける、その仕組み（組織）が回り続けていること</strong>」だと考えました。これがオートポイエーシス（自己産出）です。創始論文（1974）の原文では、細胞は「<strong>物質が絶え間なく入れ替わるもとで</strong>、組織が連続的に実現され続ける限りにおいてのみ、形が変わっても<strong>そのものとして留まる</strong>」と定式化されています。生命とは物質ではなく、物質を通り抜けていく<strong>過程のパターン</strong>だ、という見方です。<span class="badge-p">実証済み [P]</span>（創始論文の原文で確認）<sup class="refnote" id="cite-4"><a href="#ref-4">[4]</a></sup></p>
 <details class="reader-fold">
 <summary>くわしく: 「パターンの持続」を身近な例で</summary>
 <div class="fold-body">
@@ -269,7 +280,7 @@
 <summary>くわしく: 場の量子論の「粒か波か」論争</summary>
 <div class="fold-body">
 
-<p>「粒子は場のさざ波」という見方（ホブソン 2013）は、物理の<strong>教え方</strong>としては非常に見通しがよいのですが、「これが唯一の正解」ではありません。同じ 2013 年に物理学者ステンガーが「<strong>場ですらない</strong>——場というのは計算の道具（演算子）であって、実在する何かではない」という、もっと踏み込んだ反論を書いています。実験や計算はどちらの言葉でも同じ答えを出すので、「では<strong>本当は</strong>何が実在するのか」は、いまも決着していません。このページで「粒子は場の励起」を紹介するのは、それが<strong>正解だから</strong>ではなく、「モノでなくパターン」という見方が物理の最先端でも真剣に議論されている、という<strong>一例</strong>だからです。</p>
+<p>「粒子は場のさざ波」という見方（ホブソン 2013）<sup class="refnote"><a href="#ref-3">[3]</a></sup>は、物理の<strong>教え方</strong>としては非常に見通しがよいのですが、「これが唯一の正解」ではありません。同じ 2013 年に物理学者ステンガーが「<strong>場ですらない</strong>——場というのは計算の道具（演算子）であって、実在する何かではない」という、もっと踏み込んだ反論を書いています<sup class="refnote" id="cite-5"><a href="#ref-5">[5]</a></sup>。実験や計算はどちらの言葉でも同じ答えを出すので、「では<strong>本当は</strong>何が実在するのか」は、いまも決着していません。このページで「粒子は場の励起」を紹介するのは、それが<strong>正解だから</strong>ではなく、「モノでなくパターン」という見方が物理の最先端でも真剣に議論されている、という<strong>一例</strong>だからです。</p>
 </div>
 </details>
 
@@ -287,19 +298,19 @@
 
 <h2 class="reader-heading" id="第2章-渦で宇宙を作ろうとした人たち--300年の物語">第2章 渦で宇宙を作ろうとした人たち — 300年の物語</h2>
 <p><strong>この章で学ぶこと</strong>: 第1章の「流れが作る形」という見方には、長い歴史があります。渦で宇宙を説明しようとした人たちの300年の物語——大胆な閃きと、美しい失敗と、思わぬ置き土産——をたどります。<strong>この章の確かさ</strong>: 「誰が何を言ったか」という系譜は複数の独立資料が一致していて<span class="badge-p">実証済み [P]</span>。主要人物（ケルビン・Bohm）は原著の該当ページまで確認済みです。</p>
-<p>渦で宇宙を説明しようとした人たちには、はっきりした系譜があります。17 世紀のデカルトは、川の乱流のイメージから「惑星は空間を満たす渦に運ばれている」と考えました。そして19 世紀、この発想を科学に変えたのが<strong>ヘルムホルツ</strong>（1858）です。</p>
+<p>渦で宇宙を説明しようとした人たちには、はっきりした系譜があります。17 世紀のデカルトは、川の乱流のイメージから「惑星は空間を満たす渦に運ばれている」と考えました<sup class="refnote" id="cite-6"><a href="#ref-6">[6]</a></sup>。そして19 世紀、この発想を科学に変えたのが<strong>ヘルムホルツ</strong>（1858）です<sup class="refnote" id="cite-7"><a href="#ref-7">[7]</a></sup>。</p>
 <p>ヘルムホルツは、摩擦のない理想的な流体の中では、渦がとても頑丈にふるまうことを数学で証明しました。核心はこうです——<strong>渦の芯（渦線）は流体の流れに乗って一緒に運ばれ、決して途中で切れたり消えたりしない</strong>。いったんできた渦の輪は、輪のまま、こわれずに漂い続ける。摩擦がなければ、渦は生まれも消えもしない「永続するもの」なのです。</p>
-<p>この「渦は消えない」という結果に、物理学者<strong>ケルビン</strong>が飛びつきました。当時の物理学者を悩ませていたのは「なぜ原子はこんなに安定していて、決して壊れないのか」という難問です。ケルビンは、友人テイトが実演した煙の輪（口をすぼめて吐き出すドーナツ型の煙）に触発され、こう閃きます——<strong>もし原子が、空間を満たすエーテルという流体の中の「渦の輪」だとしたら？</strong> 渦は消えないというヘルムホルツの定理が、そのまま「原子はなぜ壊れないか」の答えになる。ケルビンは原著でこれを「渦の運動を生んだり消したりできるのは、<strong>創造の御業だけ</strong>だ」とまで書いています。さらに、渦の輪の<strong>結び目のちがい</strong>が元素のちがいに対応する、と考えました。<span class="badge-p">実証済み [P]</span>（このバッジは「彼らがそう考え、そう唱えた」という系譜の事実に付いています。仮説の中身が正しかったという意味ではありません）</p>
+<p>この「渦は消えない」という結果に、物理学者<strong>ケルビン</strong>が飛びつきました。当時の物理学者を悩ませていたのは「なぜ原子はこんなに安定していて、決して壊れないのか」という難問です。ケルビンは、友人テイトが実演した煙の輪（口をすぼめて吐き出すドーナツ型の煙）に触発され、こう閃きます——<strong>もし原子が、空間を満たすエーテルという流体の中の「渦の輪」だとしたら？</strong> 渦は消えないというヘルムホルツの定理が、そのまま「原子はなぜ壊れないか」の答えになる。ケルビンは原著でこれを「渦の運動を生んだり消したりできるのは、<strong>創造の御業だけ</strong>だ」とまで書いています。さらに、渦の輪の<strong>結び目のちがい</strong>が元素のちがいに対応する、と考えました。<span class="badge-p">実証済み [P]</span>（このバッジは「彼らがそう考え、そう唱えた」という系譜の事実に付いています。仮説の中身が正しかったという意味ではありません）<sup class="refnote" id="cite-8"><a href="#ref-8">[8]</a></sup></p>
 <details class="reader-fold">
 <summary>くわしく: 渦原子論はどう失敗し、何を残したか</summary>
 <div class="fold-body">
 
-<p>渦原子論は、原子の重さや重力をうまく説明できず、1880 年代に見捨てられました。けれど思わぬ置き土産がありました。「渦の輪にできる<strong>結び目</strong>が元素のちがいなら、まず結び目を全種類分類しなければ」——そう考えたテイトが、結び目を交差の数で整理する作業に取りかかります。この作業が、<strong>結び目理論</strong>という数学の一分野の出発点になりました（結び目理論は現代では DNA の絡まりや量子コンピュータの理論にまで使われています）。物理の仮説は捨てられたのに、そのために生まれた数学は生き残った——アイデアが思わぬ形で実を結んだ一例です。</p>
+<p>渦原子論は、原子の重さや重力をうまく説明できず、1880 年代に見捨てられました。けれど思わぬ置き土産がありました。「渦の輪にできる<strong>結び目</strong>が元素のちがいなら、まず結び目を全種類分類しなければ」——そう考えたテイトが、結び目を交差の数で整理する作業に取りかかります。この作業が、<strong>結び目理論</strong>という数学の一分野の出発点になりました（結び目理論は現代では DNA の絡まりや量子コンピュータの理論にまで使われています）。物理の仮説は捨てられたのに、そのために生まれた数学は生き残った——アイデアが思わぬ形で実を結んだ一例です<sup class="refnote" id="cite-9"><a href="#ref-9">[9]</a></sup>。</p>
 <p>なお、ここで「捨てられた渦が数学という束を残した。ほら、渦→束だ」と<strong>物語</strong>にしてしまうと、第5章で出てくる五段階モデルに都合よく事実を整形する危険があります。確かな事実は「渦原子論が結び目理論のきっかけになった」という触発関係まで。それを「渦→束の実例」と読むのはこちらの<span class="badge-m">解釈 [M]</span> です。</p>
 </div>
 </details>
 
-<p>では、冒頭の直観にいちばん近い先行思想は誰か。物理学者 David Bohm の<strong>川の渦</strong>のイメージです。原著『Wholeness and the Implicate Order』（1980）を直接確認したところ、Bohm は本のかなり早い場所（12〜13 ページ、図版つき）でこの比喩を導入していました——渦は「流れの安定したパターン」であって、「鋭い区分はなく」「独立して存在する実体とみなしてはならない」。さらに 24 ページでは、川の流れが「渦構造の全体を<strong>作り、維持し、最終的に溶かし消す</strong>」と書き、38 ページでは「静止して独立に存在するように見えるものは、続く運動の比較的不変な状態である（渦の例を思い出してほしい）」とまで言い切っています。流れ（過程）が先で、形は後——冒頭の直観と同じ向きの考えを、Bohm が明確に書いていたことは、原著で確認できた事実です。<span class="badge-p">実証済み [P]</span>（原著ページ確認済み）。ただし「この系譜が冒頭の直観に一番近い」という位置づけの方は、こちらの解釈です。<span class="badge-m">解釈 [M]</span></p>
+<p>では、冒頭の直観にいちばん近い先行思想は誰か。物理学者 David Bohm の<strong>川の渦</strong>のイメージです。原著『Wholeness and the Implicate Order』（1980）を直接確認したところ、Bohm は本のかなり早い場所（12〜13 ページ、図版つき）でこの比喩を導入していました——渦は「流れの安定したパターン」であって、「鋭い区分はなく」「独立して存在する実体とみなしてはならない」。さらに 24 ページでは、川の流れが「渦構造の全体を<strong>作り、維持し、最終的に溶かし消す</strong>」と書き、38 ページでは「静止して独立に存在するように見えるものは、続く運動の比較的不変な状態である（渦の例を思い出してほしい）」とまで言い切っています。流れ（過程）が先で、形は後——冒頭の直観と同じ向きの考えを、Bohm が明確に書いていたことは、原著で確認できた事実です。<span class="badge-p">実証済み [P]</span>（原著ページ確認済み）<sup class="refnote" id="cite-10"><a href="#ref-10">[10]</a></sup>。ただし「この系譜が冒頭の直観に一番近い」という位置づけの方は、こちらの解釈です。<span class="badge-m">解釈 [M]</span></p>
 <details class="reader-quiz">
 <summary>なぜケルビンは「原子＝渦の輪」というアイデアに飛びついたのですか？</summary>
 <div class="quiz-body">
@@ -314,11 +325,11 @@
 <summary>くわしく: そもそもホーキング放射とは？</summary>
 <div class="fold-body">
 
-<p>ブラックホールは「何でも吸い込んで、何も出てこない」天体だと思われていました。ところが 1974 年、ホーキングは理論計算で「ブラックホールの縁（地平線）からは、ごくかすかな光が漏れ出す」と予言しました。これがホーキング放射です。あまりに弱すぎて、本物のブラックホールでは一度も観測されたことがありません。「本物では見えない。じゃあ実験室で似た状況を作って見よう」——それがこの節の話の出発点です。</p>
+<p>ブラックホールは「何でも吸い込んで、何も出てこない」天体だと思われていました。ところが 1974 年、ホーキングは理論計算で「ブラックホールの縁（地平線）からは、ごくかすかな光が漏れ出す」と予言しました。これがホーキング放射です<sup class="refnote" id="cite-11"><a href="#ref-11">[11]</a></sup>。あまりに弱すぎて、本物のブラックホールでは一度も観測されたことがありません。「本物では見えない。じゃあ実験室で似た状況を作って見よう」——それがこの節の話の出発点です。</p>
 </div>
 </details>
 
-<p>出発点は 1981 年の Unruh のひらめきです。川の流れがどんどん速くなって、ついに<strong>音より速く</strong>なる場所を想像してください。その場所より下流から、音は上流へ戻れません。「音にとっての、逃げられない縁」ができるわけです。Unruh は、この「音の地平線」のまわりでも、ブラックホールのホーキング放射と<strong>同じ数学</strong>が成り立つことを示しました。つまりホーキング放射は、ブラックホール専用の現象ではなく、「地平線」がありさえすれば起こる、もっと一般的な現象だった——BLV のレビューはこの論文をそう位置づけています。<span class="badge-p">実証済み [P]</span></p>
+<p>出発点は 1981 年の Unruh のひらめきです。川の流れがどんどん速くなって、ついに<strong>音より速く</strong>なる場所を想像してください。その場所より下流から、音は上流へ戻れません。「音にとっての、逃げられない縁」ができるわけです。Unruh は、この「音の地平線」のまわりでも、ブラックホールのホーキング放射と<strong>同じ数学</strong>が成り立つことを示しました<sup class="refnote" id="cite-12"><a href="#ref-12">[12]</a></sup>。つまりホーキング放射は、ブラックホール専用の現象ではなく、「地平線」がありさえすれば起こる、もっと一般的な現象だった——BLV のレビューはこの論文をそう位置づけています<sup class="refnote"><a href="#ref-1">[1]</a></sup>。<span class="badge-p">実証済み [P]</span></p>
 <details class="reader-fold">
 <summary>くわしく: BEC（ボース・アインシュタイン凝縮）って何？</summary>
 <div class="fold-body">
@@ -327,8 +338,8 @@
 </div>
 </details>
 
-<p>では実際に観測できたのか。Steinhauer らは超低温の原子気体（BEC）で「音のブラックホール」を作り、2016 年に「自発的なホーキング放射を観測した」と報告しました。ところが別の研究者（Leonhardt）が「それはデータ処理の見かけの効果では？」と再解析で反論します。チームは装置を大きく作り直し（磁場のノイズ低減、光学系の再設計など）、2019 年の論文では実験を <strong>7,400 回</strong>繰り返して、放射のスペクトルが理論の予測どおり「熱的」であり、その温度（0.35 ナノケルビン——絶対零度より 10 億分の 1 度も高くない世界です）がホーキングの予測と一致することを示しました。さらに 2021 年の論文では、実験を <strong>97,000 回・連続 124 日分</strong>繰り返し、放射が時間が経っても変わらず出続けること（定常性）を 6 つの時点で確認しています。当初批判していた Leonhardt も、2019 年の結果には「これは私が信じ始めてもよい最初のものだ」と公に述べ、評価を変えました。一発の大発見ではなく、反論と改良の往復で固まっていく——科学が確かさを積む、教科書のような経過です。<span class="badge-p">実証済み [P]</span>（2019/2021 の論文本文を確認済み）</p>
-<p>最新の到達点が、2024 年の Švančara らの実験です（Nature 誌。こちらは本文を確認済み）。超流動ヘリウムの中に、ふつうならバラバラに散らばるはずの小さな渦を<strong>約 1 万個、一本の芯に束ねた巨大な量子渦</strong>を安定して作りました。そして、その渦のまわりを伝わる波に、回転するブラックホールのまわりの波とよく似た振る舞いを測定しました。逆回転のモードでは、論文自身が「ブラックホールの<strong>リングダウン</strong>の初の証拠」と呼ぶ信号も記録しています。リングダウンとは、ブラックホール同士が合体した直後に、鐘を叩いたときのように決まった高さと減衰で「鳴る」振動のこと。その振動パターンとよく似たものが、巨大な渦のまわりの波にも現れた、というわけです。<span class="badge-p">実証済み [P]</span></p>
+<p>では実際に観測できたのか。Steinhauer らは超低温の原子気体（BEC）で「音のブラックホール」を作り、2016 年に「自発的なホーキング放射を観測した」と報告しました<sup class="refnote" id="cite-13"><a href="#ref-13">[13]</a></sup>。ところが別の研究者（Leonhardt）が「それはデータ処理の見かけの効果では？」と再解析で反論します<sup class="refnote" id="cite-14"><a href="#ref-14">[14]</a></sup>。チームは装置を大きく作り直し（磁場のノイズ低減、光学系の再設計など）、2019 年の論文では実験を <strong>7,400 回</strong>繰り返して、放射のスペクトルが理論の予測どおり「熱的」であり、その温度（0.35 ナノケルビン——絶対零度より 10 億分の 1 度も高くない世界です）がホーキングの予測と一致することを示しました<sup class="refnote" id="cite-15"><a href="#ref-15">[15]</a></sup>。さらに 2021 年の論文では、実験を <strong>97,000 回・連続 124 日分</strong>繰り返し、放射が時間が経っても変わらず出続けること（定常性）を 6 つの時点で確認しています<sup class="refnote" id="cite-16"><a href="#ref-16">[16]</a></sup>。当初批判していた Leonhardt も、2019 年の結果には「これは私が信じ始めてもよい最初のものだ」と公に述べ、評価を変えました<sup class="refnote" id="cite-17"><a href="#ref-17">[17]</a></sup>。一発の大発見ではなく、反論と改良の往復で固まっていく——科学が確かさを積む、教科書のような経過です。<span class="badge-p">実証済み [P]</span>（2019/2021 の論文本文を確認済み）</p>
+<p>最新の到達点が、2024 年の Švančara らの実験です（Nature 誌。こちらは本文を確認済み）<sup class="refnote" id="cite-18"><a href="#ref-18">[18]</a></sup>。超流動ヘリウムの中に、ふつうならバラバラに散らばるはずの小さな渦を<strong>約 1 万個、一本の芯に束ねた巨大な量子渦</strong>を安定して作りました。そして、その渦のまわりを伝わる波に、回転するブラックホールのまわりの波とよく似た振る舞いを測定しました。逆回転のモードでは、論文自身が「ブラックホールの<strong>リングダウン</strong>の初の証拠」と呼ぶ信号も記録しています。リングダウンとは、ブラックホール同士が合体した直後に、鐘を叩いたときのように決まった高さと減衰で「鳴る」振動のこと。その振動パターンとよく似たものが、巨大な渦のまわりの波にも現れた、というわけです。<span class="badge-p">実証済み [P]</span></p>
 <details class="reader-fold">
 <summary>くわしく: 「量子渦」と、この実験のすごさ</summary>
 <div class="fold-body">
@@ -359,14 +370,14 @@
 </div>
 </details>
 
-<p><strong>第一の層（いちばん堅い）— 超流体を「時空のシミュレーター」として使う研究</strong>。物理学者 Volovik（ヴォロヴィク）は、超流動ヘリウム 3 の中に、素粒子や力の場や「曲がった時空」にそっくりの構造が<strong>自然に生まれてくる</strong>様子を体系的にまとめました（2003 年の教科書）。土台の論文群は主流の学術誌に載っており、確かな足場があります。<span class="badge-p">実証済み [P]</span>。ただしこの層は「時空は本当に超流体だ」という主張ではありません。「超流体の中には時空のミニチュアができる。だから研究材料に使える」という、慎重な位置づけです。</p>
-<p><strong>第二の層（査読は通っているが、少数派）— 「本当に超流体だ」と踏み込む理論</strong>。ここには二つの理論が登場します。あとで何度も参照するので、呼び名を決めておきます。ひとつめは<strong>「真空＝超流体」説</strong>——真空（時空そのもの）を特殊な凝縮体として扱い、低いエネルギーでは通常の一般相対性理論を再現するモデルです（物理学者 Zloshchastiev（ズロシチャスチエフ）が代表）。ふたつめは<strong>「超流体ダークマター」説</strong>——こちらは時空そのものではなく、銀河を包む見えない物質（ダークマター）が超流体のように振る舞う、と考える理論です（Berezhiani（ベレジアニ）と Khoury（クーリー））。どちらも査読つきの学術誌に載り続けており、トンデモ扱いはできません。ただ、宇宙論の標準理論に対しては<strong>少数派</strong>の立場に留まります。<span class="badge-m">解釈 [M]</span></p>
+<p><strong>第一の層（いちばん堅い）— 超流体を「時空のシミュレーター」として使う研究</strong>。物理学者 Volovik（ヴォロヴィク）は、超流動ヘリウム 3 の中に、素粒子や力の場や「曲がった時空」にそっくりの構造が<strong>自然に生まれてくる</strong>様子を体系的にまとめました（2003 年の教科書）<sup class="refnote" id="cite-19"><a href="#ref-19">[19]</a></sup>。土台の論文群は主流の学術誌に載っており、確かな足場があります。<span class="badge-p">実証済み [P]</span>。ただしこの層は「時空は本当に超流体だ」という主張ではありません。「超流体の中には時空のミニチュアができる。だから研究材料に使える」という、慎重な位置づけです。</p>
+<p><strong>第二の層（査読は通っているが、少数派）— 「本当に超流体だ」と踏み込む理論</strong>。ここには二つの理論が登場します。あとで何度も参照するので、呼び名を決めておきます。ひとつめは<strong>「真空＝超流体」説</strong>——真空（時空そのもの）を特殊な凝縮体として扱い、低いエネルギーでは通常の一般相対性理論を再現するモデルです（物理学者 Zloshchastiev（ズロシチャスチエフ）が代表）<sup class="refnote" id="cite-20"><a href="#ref-20">[20]</a></sup>。ふたつめは<strong>「超流体ダークマター」説</strong>——こちらは時空そのものではなく、銀河を包む見えない物質（ダークマター）が超流体のように振る舞う、と考える理論です（Berezhiani（ベレジアニ）と Khoury（クーリー））<sup class="refnote" id="cite-21"><a href="#ref-21">[21]</a></sup>。どちらも査読つきの学術誌に載り続けており、トンデモ扱いはできません。ただ、宇宙論の標準理論に対しては<strong>少数派</strong>の立場に留まります。<span class="badge-m">解釈 [M]</span></p>
 <p><strong>第三の層（周縁）— 書誌が確認できないもの</strong>。同じ発想を、査読を経ない自己公開の場で展開する一群もあります。この調査では、そのうち出どころが確認できていない文献について、<strong>内容を紹介しません</strong>（確認できていない情報を広めないため）。</p>
 <blockquote class="reader-card reader-callout">
-<p><strong>関門 — 宇宙は「向き」を選ばない（ローレンツ不変性）</strong> ここからは検問所の話です。検問に掛かるのは、第二の層のうち「<strong>時空そのものが超流体だ</strong>」と主張するタイプ——つまり「真空＝超流体」説——だけです（第3章の実験室の話には掛かりません。あちらは「そっくり」を実証しただけで、「時空が本当に流体だ」とは主張していないからです）。 検問の中身はこうです。もし時空が水のような媒質（何かの物質のようなもの）なら、光の速さは進む向きによってほんのわずかに変わるはずです。ところが<strong>光速の向きによる違いを測る精密実験</strong>では、そのズレは——10 のマイナス 17 乗（1 を 10 で 17 回割った、途方もない細かさ）というレベルまで探しても——見つかっていません。この「向きによって物理が変わらない」性質を、ローレンツ不変性と呼びます。「時空＝媒質」型の理論は、まずこの観測事実と両立しなければなりません。 「ズレが現れるのは、観測できないほど極端に小さいスケールだけだ」という逃げ道も、ふさがれつつあります。この分野の専門レビュー（第3章に登場した BLV レビューの著者の一人、物理学者 Liberati（リベラーティ）による 2013 年のレビュー、全文確認済み）が指摘するのは——極端なスケールの小さなズレは、理論の計算を通じて<strong>観測できる低いエネルギーへ漏れ出してくる</strong>（浸透問題）、という厳しい事実です。よほど不自然な調整をしない限り、「極端なスケールだけです」では逃げ切れません。なお同じレビューは、対称性でこの漏れを防ぐ理論上の仕組みも紹介していて、そのお手本として挙がるのが、第3章の実験室のアナログ重力系を複数組み合わせた理論モデルです。実験室の系は、検問に引っかかる側でなく「検問を通り抜ける設計図」の参考例として登場する——という面白い脇役ぶりです。<span class="badge-m">解釈 [M]</span></p>
+<p><strong>関門 — 宇宙は「向き」を選ばない（ローレンツ不変性）</strong> ここからは検問所の話です。検問に掛かるのは、第二の層のうち「<strong>時空そのものが超流体だ</strong>」と主張するタイプ——つまり「真空＝超流体」説——だけです（第3章の実験室の話には掛かりません。あちらは「そっくり」を実証しただけで、「時空が本当に流体だ」とは主張していないからです）。 検問の中身はこうです。もし時空が水のような媒質（何かの物質のようなもの）なら、光の速さは進む向きによってほんのわずかに変わるはずです。ところが<strong>光速の向きによる違いを測る精密実験</strong>では、そのズレは——10 のマイナス 17 乗（1 を 10 で 17 回割った、途方もない細かさ）というレベルまで探しても——見つかっていません。この「向きによって物理が変わらない」性質を、ローレンツ不変性と呼びます。「時空＝媒質」型の理論は、まずこの観測事実と両立しなければなりません。 「ズレが現れるのは、観測できないほど極端に小さいスケールだけだ」という逃げ道も、ふさがれつつあります。この分野の専門レビュー（第3章に登場した BLV レビューの著者の一人、物理学者 Liberati（リベラーティ）による 2013 年のレビュー、全文確認済み）<sup class="refnote" id="cite-22"><a href="#ref-22">[22]</a></sup>が指摘するのは——極端なスケールの小さなズレは、理論の計算を通じて<strong>観測できる低いエネルギーへ漏れ出してくる</strong>（浸透問題）、という厳しい事実です。よほど不自然な調整をしない限り、「極端なスケールだけです」では逃げ切れません。なお同じレビューは、対称性でこの漏れを防ぐ理論上の仕組みも紹介していて、そのお手本として挙がるのが、第3章の実験室のアナログ重力系を複数組み合わせた理論モデルです。実験室の系は、検問に引っかかる側でなく「検問を通り抜ける設計図」の参考例として登場する——という面白い脇役ぶりです。<span class="badge-m">解釈 [M]</span></p>
 </blockquote>
 <p>では、第二の層の二つの理論は、この関門をどう通るのでしょうか。両方の論文全文を確認したところ、結果は対照的でした——そして対照の正体は、まさにこの読み物の背骨である<strong>器と中身の違い</strong>でした。まず<strong>「超流体ダークマター」説</strong>は、そもそも検問に掛かりません。この説は器（時空そのもの）は普通のままにして、「<strong>中身</strong>（ダークマター）が超流体だ」と言っているからです。水の中では音の伝わり方に「向き」ができますが、それは物理法則が向きを選んだのではなく、水がそこにあるだけのこと。中身の主張は、器の検問所を通らなくてよいのです。一方の<strong>「真空＝超流体」説</strong>は器そのものへの主張なので検問の対象ですが、Zloshchastiev の論文には浸透問題への答えが見当たりませんでした。つまり現時点では、「器＝超流体」を正面から主張して、なおこの関門を通り抜けた理論は、この調査の範囲では<strong>見つかっていません</strong>。<span class="badge-p">実証済み [P]</span>（論文に書かれていない、ということの確認）</p>
-<p>追加の探索で、この関門に<strong>最も正面から向き合っている</strong>理論家も特定できました。第一の層の教科書を書いた Volovik 本人です。Volovik 自身の理論（フェルミ点シナリオ、査読誌 2008 年）は、次の[くわしく]で紹介するように独創的で、しかも「この関門こそ最も重大なテストだ」と本人が明言しています。答えの一部（粒子の質量がゼロなのは数学的なトポロジーで守られていて、微調整が要らない）は用意されているのですが、肝心の浸透問題への正面からの答えはなく、皮肉なことに Volovik 自身の別の論文が「実物のヘリウムでは、低エネルギー側でも対称性は破れて戻ってくる」と示しています。<strong>関門を真剣に受け止める理論はある。しかし通り抜けた理論はまだ無い</strong>——これが調査の現在地です。<span class="badge-p">実証済み [P]</span>（各論文に書かれていること・いないことの確認）</p>
+<p>追加の探索で、この関門に<strong>最も正面から向き合っている</strong>理論家も特定できました。第一の層の教科書を書いた Volovik 本人です。Volovik 自身の理論（フェルミ点シナリオ、査読誌 2008 年）<sup class="refnote" id="cite-23"><a href="#ref-23">[23]</a></sup>は、次の[くわしく]で紹介するように独創的で、しかも「この関門こそ最も重大なテストだ」と本人が明言しています。答えの一部（粒子の質量がゼロなのは数学的なトポロジーで守られていて、微調整が要らない）は用意されているのですが、肝心の浸透問題への正面からの答えはなく、皮肉なことに Volovik 自身の別の論文が「実物のヘリウムでは、低エネルギー側でも対称性は破れて戻ってくる」と示しています<sup class="refnote" id="cite-24"><a href="#ref-24">[24]</a></sup>。<strong>関門を真剣に受け止める理論はある。しかし通り抜けた理論はまだ無い</strong>——これが調査の現在地です。<span class="badge-p">実証済み [P]</span>（各論文に書かれていること・いないことの確認）</p>
 <details class="reader-fold">
 <summary>くわしく: Volovik の「宇宙は一滴のヘリウムに似ている」という発想</summary>
 <div class="fold-body">
@@ -414,35 +425,35 @@
 </thead>
 <tbody>
 <tr>
-<td>Bohm の川の渦</td>
+<td>Bohm の川の渦<sup class="refnote"><a href="#ref-10">[10]</a></sup></td>
 <td>波→渦</td>
 <td>流れから、相対的に安定な渦が立ち上がる。過程が先、形が後（比喩の存在は原著確認済み。段階への対応づけは解釈）</td>
 <td><span class="badge-m">解釈 [M]</span></td>
 <td><strong>発見寄り</strong></td>
 </tr>
 <tr>
-<td>プリゴジンの散逸構造</td>
+<td>プリゴジンの散逸構造<sup class="refnote"><a href="#ref-2">[2]</a></sup></td>
 <td>渦→束</td>
 <td>エネルギーの流れの下で秩序が保たれ続ける</td>
 <td><span class="badge-m">解釈 [M]</span></td>
 <td><strong>裏書き</strong>（「束」への対応は後述の盲検で再現されず、留保つき）</td>
 </tr>
 <tr>
-<td>シモンドンの個体化</td>
+<td>シモンドンの個体化<sup class="refnote" id="cite-25"><a href="#ref-25">[25]</a></sup></td>
 <td>縁→渦</td>
 <td>不安定さを抱えた場から「個」が立ち上がる。対応そのものは強い——ただしモデル自身がもともとシモンドンを参照して作られているため、独立な証拠には数えない（彼の代表例が結晶で渦でない点も同じ留保）</td>
 <td><span class="badge-m">解釈 [M]</span></td>
 <td><strong>裏書き</strong></td>
 </tr>
 <tr>
-<td>ケルビン渦原子＋結び目理論</td>
+<td>ケルビン渦原子＋結び目理論<sup class="refnote"><a href="#ref-8">[8]</a></sup></td>
 <td>渦→束</td>
 <td>渦が結び目＝束として編み合わさり、分類できる構造として残る（「きっかけになった」という歴史そのものは実証済みの事実。バッジ [S] が付いているのは歴史ではなく、それを「渦→束」の実例と<strong>読む</strong>こちらの解釈の方）</td>
 <td><span class="badge-s">推測 [S]</span>・弱い対応</td>
 <td><strong>当てはめ</strong></td>
 </tr>
 <tr>
-<td>ホワイトヘッドの過程哲学</td>
+<td>ホワイトヘッドの過程哲学<sup class="refnote" id="cite-26"><a href="#ref-26">[26]</a></sup></td>
 <td>波→渦→束</td>
 <td>出来事が生まれては消え、痕跡が次へ引き継がれて持続する</td>
 <td><span class="badge-s">推測 [S]</span>・弱い対応</td>
@@ -595,6 +606,7 @@
 </table></div>
 <h3 class="reader-heading" id="更新履歴">更新履歴</h3>
 <ul>
+<li><strong>2026-07-11 (21)</strong>: 出典の脚注化 — 本文の引用箇所に脚注番号リンク（[1]〜[26]）を付け、末尾に「出典（脚注）」を新設。全 26 件の書誌を照合し、誰でも無料で読める公開版（arXiv 著者版・NobelPrize.org・Internet Archive・PubMed Central・Monoskop・Stanford Encyclopedia of Philosophy 等）への直リンクを整備（全リンク到達確認済み）。本文のまとめを読者自身が原典と突き合わせられるようにした</li>
 <li><strong>2026-07-11 (20)</strong>: 第4・5章の精査（pjdhiro 指摘: 指示語・固有名詞の不明瞭、流れの飛び、位置づけの誤解） — (1) ページの自己定義を「五段階モデルの中核比喩を確かめるテーマ調査」から「<strong>物理学領域の調査から枝分かれした寄り道の深掘り</strong>」へ修正。モデルへの反映はこのページが行うのでなく、本体の 30 領域調査がこのページを<strong>部品として参照する</strong>形で行われることをリード・第5章・「調査のいま」で一貫させた。(2) 第5章を「本体の30領域調査へ持ち帰る」に改題し、「どの領域に引き渡されうるか」（物理学・哲学・複雑性科学・数学）を新設。(3) 第4章の三区分を「三つの層」として明示し、二つの理論に固定の呼び名（「真空＝超流体」説／「超流体ダークマター」説）を導入、巨大だった「関門」引用ブロックを定義（callout）と判定（本文）に分割、「先ほどの二つの理論」「彼自身」等の曖昧な指示語を解消。(4) 内部ラウンド記号（W4/W4b）を本文から畳みの中の注記に退避し、ものさし5を第1章の W8 の結論（共通源流により割り引く）と整合させた</li>
 <li><strong>2026-07-11 (19)</strong>: リードに creation-space 調査との関係を明記 — 本ページが「創造とは」プロジェクトのテーマ調査であり、五段階モデル（場→波→縁→渦→束）の中核比喩「波」「渦」を確かめる調査でもあることを、引用直後の一等地に追加。プロジェクト本体（../）と第5章へのアンカーリンクを設置</li>
 <li><strong>2026-07-11 (18)</strong>: 読み物的教科書として章立てを再構成（pjdhiro 指示） — タイトルを平易化（「モノ」でできているか、「流れ」でできているか）。理解の順番（身近→抽象）で6章に再配列: 第1章 台所・体・素粒子の「流れが作る形」→ 第2章 渦で宇宙を作ろうとした300年の物語 → 第3章 実験室のブラックホール（中身が器の数学に従う）→ 第4章 器そのものは超流体か → 第5章 五段階モデルとつなぐ → 第6章 答え。各章冒頭に「この章で学ぶこと」を置き、第2章に章末クイズを追加（計5問）</li>
@@ -619,8 +631,41 @@
 </div>
 </details>
 
+<h2 class="reader-heading" id="出典脚注">出典（脚注）</h2>
+<p>本文の「[1]」のような番号から、この一覧に飛べます（各項目末尾の「↩︎」で本文の該当箇所に戻れます）。ここに並べたのは、この読み物が実際に拠り所にした文献です。<strong>誰でも無料で全文を読める公開版</strong>（arXiv の著者版・公式アーカイブなど）があるものには、そこへ直接リンクしています——本文のまとめが原典と合っているかどうかを、読者自身の目で確かめられるようにするためです。リンクと書誌は 2026-07-11 にすべて到達・一致を確認しました（無料版が無いものは「有料」と明記しています）。アクセス状態の調査記録は <code>output.md</code> §6 が正本です。</p>
+<div class="reader-card">
+<ol class="refs">
+<li id="ref-1">Barceló, C., Liberati, S. &amp; Visser, M.「Analogue Gravity」<em>Living Reviews in Relativity</em> 14, 3 (2011)。アナログ重力分野の代表的レビュー（本文の「BLV」）。<a href="https://arxiv.org/abs/gr-qc/0505065">arXiv で全文公開（2024年11月改訂版）</a>／<a href="https://doi.org/10.12942/lrr-2011-3">出版社版（オープンアクセス）</a>。 <a class="backref" href="#cite-1" aria-label="本文の引用箇所へ戻る">↩</a></li>
+<li id="ref-2">Prigogine, I.「Time, Structure and Fluctuations」1977年ノーベル化学賞記念講演。<a href="https://www.nobelprize.org/prizes/chemistry/1977/prigogine/lecture/">ノーベル賞公式サイトで全文公開（英語）</a>。 <a class="backref" href="#cite-2" aria-label="本文の引用箇所へ戻る">↩</a></li>
+<li id="ref-3">Hobson, A.「There are no particles, there are only fields」<em>American Journal of Physics</em> 81, 211 (2013)。<a href="https://arxiv.org/abs/1204.4616">arXiv で著者版を全文公開</a>。 <a class="backref" href="#cite-3" aria-label="本文の引用箇所へ戻る">↩</a></li>
+<li id="ref-4">Varela, F. G., Maturana, H. R. &amp; Uribe, R.「Autopoiesis: The organization of living systems, its characterization and a model」<em>BioSystems</em> 5, 187 (1974)。<a href="https://monoskop.org/images/d/dd/Varela_Maturana_Uribe_1974_Autopoiesis.pdf">公開スキャン（Monoskop・PDF）</a>／<a href="https://doi.org/10.1016/0303-2647(74)90031-8">出版社版（有料）</a>。 <a class="backref" href="#cite-4" aria-label="本文の引用箇所へ戻る">↩</a></li>
+<li id="ref-5">Stenger, V. J.「Quantum fields are not fields」<em>American Journal of Physics</em> 81, 707 (2013)。ホブソン（脚注 3）への直接の反論。<a href="https://arxiv.org/abs/1204.6384">arXiv で著者版を全文公開</a>。 <a class="backref" href="#cite-5" aria-label="本文の引用箇所へ戻る">↩</a></li>
+<li id="ref-6">Slowik, E.「Descartes’ Physics」<em>Stanford Encyclopedia of Philosophy</em>。デカルトの渦宇宙論についての定評ある解説（英語）。<a href="https://plato.stanford.edu/entries/descartes-physics/">全文公開</a>。 <a class="backref" href="#cite-6" aria-label="本文の引用箇所へ戻る">↩</a></li>
+<li id="ref-7">Helmholtz, H.「Über Integrale der hydrodynamischen Gleichungen, welche den Wirbelbewegungen entsprechen」<em>Journal für die reine und angewandte Mathematik</em> 55, 25 (1858)。渦定理の原論文。<a href="https://doi.org/10.1515/crll.1858.55.25">出版社版（ドイツ語・有料）</a>。内容は脚注 9 のレビューでも確かめられます。 <a class="backref" href="#cite-7" aria-label="本文の引用箇所へ戻る">↩</a></li>
+<li id="ref-8">Thomson, W.（ケルビン卿）「On Vortex Atoms」<em>Proceedings of the Royal Society of Edinburgh</em> 6, 94 (1867)。<a href="https://zapatopi.net/kelvin/papers/on_vortex_atoms.html">有志アーカイブで全文公開（英語）</a>。 <a class="backref" href="#cite-8" aria-label="本文の引用箇所へ戻る">↩</a></li>
+<li id="ref-9">Moffatt, H. K.「Vortex Dynamics: The Legacy of Helmholtz and Kelvin」（Springer IUTAM Bookseries, 2008）。ヘルムホルツ→ケルビン→テイトの系譜をまとめた専門レビュー。<a href="https://doi.org/10.1007/978-1-4020-6744-0_1">出版社版（有料）</a>。 <a class="backref" href="#cite-9" aria-label="本文の引用箇所へ戻る">↩</a></li>
+<li id="ref-10">Bohm, D.<em>Wholeness and the Implicate Order</em>（Routledge, 1980）。川の渦の比喩は pp.12–13, 24, 38。<a href="https://archive.org/details/bohm-wholeness-and-the-implicate-order">Internet Archive で全文公開</a>。 <a class="backref" href="#cite-10" aria-label="本文の引用箇所へ戻る">↩</a></li>
+<li id="ref-11">Hawking, S. W.「Black hole explosions?」<em>Nature</em> 248, 30 (1974)。ホーキング放射の最初の予言。<a href="https://doi.org/10.1038/248030a0">出版社版（有料）</a>。 <a class="backref" href="#cite-11" aria-label="本文の引用箇所へ戻る">↩</a></li>
+<li id="ref-12">Unruh, W. G.「Experimental Black-Hole Evaporation?」<em>Physical Review Letters</em> 46, 1351 (1981)。<a href="https://doi.org/10.1103/PhysRevLett.46.1351">出版社版（有料）</a>。無料の公開版は見つかっておらず、本文の内容は脚注 1 のレビュー経由で確認しています。 <a class="backref" href="#cite-12" aria-label="本文の引用箇所へ戻る">↩</a></li>
+<li id="ref-13">Steinhauer, J.「Observation of quantum Hawking radiation and its entanglement in an analogue black hole」<em>Nature Physics</em> 12, 959 (2016)。<a href="https://arxiv.org/abs/1510.00621">arXiv で著者版を全文公開</a>。 <a class="backref" href="#cite-13" aria-label="本文の引用箇所へ戻る">↩</a></li>
+<li id="ref-14">Leonhardt, U.「Questioning the recent observation of quantum Hawking radiation」arXiv:1609.03803（2016、改訂2018）。<a href="https://arxiv.org/abs/1609.03803">arXiv で全文公開</a>。 <a class="backref" href="#cite-14" aria-label="本文の引用箇所へ戻る">↩</a></li>
+<li id="ref-15">Muñoz de Nova, J. R., Golubkov, K., Kolobov, V. I. &amp; Steinhauer, J.「Observation of thermal Hawking radiation and its temperature in an analogue black hole」<em>Nature</em> 569, 688 (2019)。7,400 回の実験。<a href="https://arxiv.org/abs/1809.00913">arXiv で著者版を全文公開</a>。 <a class="backref" href="#cite-15" aria-label="本文の引用箇所へ戻る">↩</a></li>
+<li id="ref-16">Kolobov, V. I., Golubkov, K., Muñoz de Nova, J. R. &amp; Steinhauer, J.「Observation of stationary spontaneous Hawking radiation and the time evolution of an analogue black hole」<em>Nature Physics</em> 17, 362 (2021)。97,000 回・124 日分の実験。<a href="https://arxiv.org/abs/1910.09363">arXiv で著者版を全文公開</a>。 <a class="backref" href="#cite-16" aria-label="本文の引用箇所へ戻る">↩</a></li>
+<li id="ref-17">Physics World「Thermal spectrum of analogue black hole puts Hawking radiation in a new light」（2019）。Leonhardt の評価転換のコメントの出どころ（科学メディアの取材記事）。<a href="https://physicsworld.com/a/thermal-spectrum-of-analogue-black-hole-puts-hawking-radiation-in-a-new-light/">記事を公開中（英語）</a>。 <a class="backref" href="#cite-17" aria-label="本文の引用箇所へ戻る">↩</a></li>
+<li id="ref-18">Švančara, P. ほか「Rotating curved spacetime signatures from a giant quantum vortex」<em>Nature</em> 628, 66 (2024)。<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10990935/">PubMed Central で全文公開</a>／<a href="https://doi.org/10.1038/s41586-024-07176-8">出版社版</a>。 <a class="backref" href="#cite-18" aria-label="本文の引用箇所へ戻る">↩</a></li>
+<li id="ref-19">Volovik, G. E.<em>The Universe in a Helium Droplet</em>（Oxford University Press, 2003）。<a href="https://doi.org/10.1093/acprof:oso/9780199564842.001.0001">出版社ページ（有料）</a>。 <a class="backref" href="#cite-19" aria-label="本文の引用箇所へ戻る">↩</a></li>
+<li id="ref-20">Zloshchastiev, K. G.「An Alternative to Dark Matter and Dark Energy: Scale-Dependent Gravity in Superfluid Vacuum Theory」<em>Universe</em> 6, 180 (2020)。<a href="https://doi.org/10.3390/universe6100180">出版社版（オープンアクセス）</a>／<a href="https://arxiv.org/abs/2011.12565">arXiv</a>。 <a class="backref" href="#cite-20" aria-label="本文の引用箇所へ戻る">↩</a></li>
+<li id="ref-21">Berezhiani, L. &amp; Khoury, J.「Theory of Dark Matter Superfluidity」<em>Physical Review D</em> 92, 103510 (2015)。<a href="https://arxiv.org/abs/1507.01019">arXiv で著者版を全文公開</a>。 <a class="backref" href="#cite-21" aria-label="本文の引用箇所へ戻る">↩</a></li>
+<li id="ref-22">Liberati, S.「Tests of Lorentz invariance: a 2013 update」<em>Classical and Quantum Gravity</em> 30, 133001 (2013)。本文の「10 のマイナス 17 乗」の制約と浸透問題の出どころ。<a href="https://arxiv.org/abs/1304.5795">arXiv で著者版を全文公開</a>。 <a class="backref" href="#cite-22" aria-label="本文の引用箇所へ戻る">↩</a></li>
+<li id="ref-23">Volovik, G. E.「Emergent physics: Fermi point scenario」<em>Philosophical Transactions of the Royal Society A</em> 366, 2935 (2008)。<a href="https://arxiv.org/abs/0801.0724">arXiv で著者版を全文公開</a>。 <a class="backref" href="#cite-23" aria-label="本文の引用箇所へ戻る">↩</a></li>
+<li id="ref-24">Volovik, G. E.「Reentrant violation of special relativity in the low-energy corner」<em>JETP Letters</em> 73, 162 (2001)。<a href="https://arxiv.org/abs/hep-ph/0101286">arXiv で著者版を全文公開</a>。 <a class="backref" href="#cite-24" aria-label="本文の引用箇所へ戻る">↩</a></li>
+<li id="ref-25">Simondon, G.<em>L’individuation à la lumière des notions de forme et d’information</em>（1958 年提出の学位論文。全体の刊行は Millon, 2005）。無料の全文公開版は確認できていないため、書誌のみ記します。 <a class="backref" href="#cite-25" aria-label="本文の引用箇所へ戻る">↩</a></li>
+<li id="ref-26">「Process Philosophy」<em>Stanford Encyclopedia of Philosophy</em>。ホワイトヘッドを含む過程哲学の定評ある解説（英語）。主著は <em>Process and Reality</em>（1929）。<a href="https://plato.stanford.edu/entries/process-philosophy/">全文公開</a>。 <a class="backref" href="#cite-26" aria-label="本文の引用箇所へ戻る">↩</a></li>
+</ol>
+</div>
+
 <hr />
-<p><em>文責: Claude (Fable 5)。pjdhiro の直観は引用として扱っています。出典の一次資料・アクセス状態の全リストは <code>output.md</code> §6 を参照。</em></p>
+<p><em>文責: Claude (Fable 5)。pjdhiro の直観は引用として扱っています。出典は上の「出典（脚注）」に一覧しています（調査時のアクセス記録の正本は <code>output.md</code> §6）。</em></p>
 
   </article>
 

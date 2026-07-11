@@ -178,6 +178,17 @@
   .reader-toc a{color:var(--link);text-decoration:none;}
   .reader-toc a:hover{text-decoration:underline;}
 
+  /* 出典脚注: 本文の [n] 上付きリンクと末尾の出典リストを結ぶ */
+  sup.refnote{font-size:.72em;line-height:0;scroll-margin-top:24px;}
+  sup.refnote a{color:var(--link);text-decoration:none;padding:0 1px;font-weight:700;}
+  sup.refnote a:hover{text-decoration:underline;}
+  ol.refs{margin:0;padding:12px 16px 12px 2.6em;font-size:.9em;color:var(--muted);}
+  ol.refs li{margin:.55em 0;line-height:1.75;scroll-margin-top:24px;
+    padding:2px 6px;border-radius:var(--ds-radius-sm);}
+  ol.refs li:target{background:rgba(var(--ds-color-accent),.12);}
+  ol.refs em{color:var(--cs-md-em);}
+  ol.refs .backref{text-decoration:none;margin-left:.35em;}
+
   footer{margin-top:44px;font-size:12px;color:var(--faint);
     border-top:1px solid var(--line);padding-top:14px;}
   footer a{color:var(--link);text-decoration:none;}
