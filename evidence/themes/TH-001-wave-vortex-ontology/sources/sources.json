@@ -68,6 +68,20 @@
       "pages": 2
     },
     {
+      "ref": 7,
+      "citation": "Helmholtz, H. \"Über Integrale der hydrodynamischen Gleichungen, welche den Wirbelbewegungen entsprechen\", J. reine angew. Math. 55, 25-55 (1858)",
+      "version_note": "Zenodo 公開の原論文スキャン（ドイツ語）。unpaywall で OA 判明",
+      "retrieved_from": "https://zenodo.org/record/1448878/files/article.pdf?download=1",
+      "landing_url": "https://zenodo.org/record/1448878",
+      "doi": "10.1515/crll.1858.55.25",
+      "license": "パブリックドメイン（1858年刊行）",
+      "text_layer": true,
+      "file": "ref07_helmholtz-1858_wirbelbewegungen_zenodo.pdf",
+      "bytes": 5241971,
+      "sha256": "ef97e9abba2b74422f9bb3529b9f6b585fc5427f1580dded68acebd6640ab36e",
+      "pages": 31
+    },
+    {
       "ref": 8,
       "citation": "Thomson, W. (Lord Kelvin) \"On Vortex Atoms\", Proceedings of the Royal Society of Edinburgh 6, 94-105 (1867)",
       "version_note": "zapatopi.net の全文 HTML 転写",
@@ -79,6 +93,21 @@
       "file": "ref08_kelvin-1867_on-vortex-atoms_zapatopi.html",
       "bytes": 33038,
       "sha256": "438fdda9bc79d790fd045fb5019bfe1af47391a87f370ce0c01ebaaf7320c74c"
+    },
+    {
+      "ref": 9,
+      "substitute": true,
+      "citation": "Моффатт, К. \"Вихревая динамика: наследие Гельмгольца и Кельвина\", Нелинейная динамика 2(4), 401-414 (2006)",
+      "version_note": "脚注 9（Moffatt 2008 Springer 章）と同一講演のロシア語訳・並行出版。英語版は有料のみ",
+      "retrieved_from": "http://nd.ics.org.ru/upload/iblock/443/ND_2006_v2_n4_02.pdf",
+      "landing_url": "http://nd.ics.org.ru/upload/iblock/443/ND_2006_v2_n4_02.pdf",
+      "doi": "10.20537/nd0604002",
+      "license": "学術誌公開 PDF",
+      "text_layer": true,
+      "file": "ref09alt_moffatt-2006_vortex-dynamics-legacy_rcd.pdf",
+      "bytes": 163358,
+      "sha256": "e1a0d3bd04b7f4767dbaf45d85c6e633ce56ea0008aa0841637ed9389497bf5a",
+      "pages": 10
     },
     {
       "ref": 10,
@@ -93,6 +122,21 @@
       "bytes": 903416,
       "sha256": "2bcf532ad1efb35023da206f883f950b6d1c5091e083d40b987b7b5f88c8ed4e",
       "pages": 306
+    },
+    {
+      "ref": 12,
+      "substitute": true,
+      "citation": "Unruh, W. G. \"Has Hawking radiation been measured?\" (2014, arXiv:1401.6612)",
+      "version_note": "脚注 12（Unruh 1981、OAなし）の代替: 本人による実験検証レビュー",
+      "retrieved_from": "https://arxiv.org/pdf/1401.6612",
+      "landing_url": "https://arxiv.org/abs/1401.6612",
+      "doi": null,
+      "license": "arXiv 著者版",
+      "text_layer": true,
+      "file": "ref12alt_unruh-2014_has-hawking-radiation-been-measured_arxiv.pdf",
+      "bytes": 293866,
+      "sha256": "af9168f2ac1ced6b7bf285a07e89e564ed7c209d4b2bf4b940925324bb87c153",
+      "pages": 10
     },
     {
       "ref": 13,
@@ -165,6 +209,21 @@
       "pages": 9
     },
     {
+      "ref": 19,
+      "substitute": true,
+      "citation": "Volovik, G. E. \"Superfluid analogies of cosmological phenomena\", Physics Reports 351, 195-348 (2001)",
+      "version_note": "脚注 19（OUP 教科書、有料）の代替: 前身の長編レビュー",
+      "retrieved_from": "https://arxiv.org/pdf/gr-qc/0005091",
+      "landing_url": "https://arxiv.org/abs/gr-qc/0005091",
+      "doi": "10.1016/S0370-1573(00)00139-3",
+      "license": "arXiv 著者版",
+      "text_layer": true,
+      "file": "ref19alt_volovik-2001_superfluid-analogies-cosmological_arxiv.pdf",
+      "bytes": 2053255,
+      "sha256": "bcb49ad4530c588cb6019d9dd2c808606b8bffe92b9af9568805a0d871b4f17c",
+      "pages": 113
+    },
+    {
       "ref": 20,
       "citation": "Zloshchastiev, K. G. \"An Alternative to Dark Matter and Dark Energy: Scale-Dependent Gravity in Superfluid Vacuum Theory\", Universe 6, 180 (2020)",
       "version_note": "arXiv 版（出版社 MDPI 版は CC BY 4.0）",
@@ -233,6 +292,35 @@
       "bytes": 102384,
       "sha256": "402a569a319a488349c7bb1f28acea6f53f119fac281591666b7b5b2fd2679b1",
       "pages": 5
+    },
+    {
+      "ref": 25,
+      "substitute": true,
+      "citation": "Simondon, G. \"The Genesis of the Individual\", in Incorporations (Zone Books, 1992), 297-319",
+      "version_note": "脚注 25（主著 L'individuation...、OAなし）の代替: 導入部の正典的英訳",
+      "retrieved_from": "https://monoskop.org/images/b/bc/Simondon_Gilbert_1964_1992_The_Genesis_of_the_Individual.pdf",
+      "landing_url": "https://monoskop.org/images/b/bc/Simondon_Gilbert_1964_1992_The_Genesis_of_the_Individual.pdf",
+      "doi": null,
+      "license": "公開スキャン（著作権は出版社/著者に帰属）",
+      "text_layer": true,
+      "file": "ref25alt_simondon-1992_genesis-of-the-individual_monoskop.pdf",
+      "bytes": 1367600,
+      "sha256": "df0ec495250ff2c2698d24e6a9f210c0172bd2b2338d819218b6856b8ffa9447",
+      "pages": 24
+    },
+    {
+      "ref": 27,
+      "citation": "Herrmann, S., Senger, A., Möhle, K., Nagel, M., Kovalchuk, E. V. & Peters, A. \"Rotating optical cavity experiment testing Lorentz invariance at the 10^-17 level\", Physical Review D 80, 105011 (2009)",
+      "version_note": "READER の「10⁻¹⁷」の一次出典（レビュー時に Wikipedia 孫引きを解消して新設した脚注）",
+      "retrieved_from": "https://arxiv.org/pdf/1002.1284",
+      "landing_url": "https://arxiv.org/abs/1002.1284",
+      "doi": "10.1103/PhysRevD.80.105011",
+      "license": "arXiv 著者版",
+      "text_layer": true,
+      "file": "ref27_herrmann-2009_rotating-optical-cavity-lorentz_arxiv.pdf",
+      "bytes": 1017017,
+      "sha256": "e72ecfa80830c7997c4ca982583e9aeaf7caf5fe1c87176ddfba27ea7a4c5ea1",
+      "pages": 8
     }
   ],
   "not_archived": [
@@ -250,28 +338,25 @@
       "landing_url": "https://plato.stanford.edu/entries/descartes-physics/"
     },
     {
-      "ref": 7,
-      "reason": "無料の全文公開版が確認できていない（内容は ref09 Moffatt レビュー経由で一次確認）",
-      "citation": "Helmholtz, H. \"Über Integrale der hydrodynamischen Gleichungen...\", J. reine angew. Math. 55, 25 (1858)",
-      "landing_url": "https://doi.org/10.1515/crll.1858.55.25"
-    },
-    {
       "ref": 9,
       "reason": "出版社（Springer）有料のみ。無料公開版が確認できていない",
       "citation": "Moffatt, H. K. \"Vortex Dynamics: The Legacy of Helmholtz and Kelvin\" (Springer IUTAM, 2008)",
-      "landing_url": "https://doi.org/10.1007/978-1-4020-6744-0_1"
+      "landing_url": "https://doi.org/10.1007/978-1-4020-6744-0_1",
+      "substitute_archived": "ref09alt_moffatt-2006_vortex-dynamics-legacy_rcd.pdf（同一講演のロシア語訳）"
     },
     {
       "ref": 11,
       "reason": "出版社（Nature 1974）有料のみ",
       "citation": "Hawking, S. W. \"Black hole explosions?\", Nature 248, 30 (1974)",
-      "landing_url": "https://doi.org/10.1038/248030a0"
+      "landing_url": "https://doi.org/10.1038/248030a0",
+      "substitute_link": "Hawking 1975 \"Particle creation by black holes\" CMP 43, 199 — https://projecteuclid.org/journals/communications-in-mathematical-physics/volume-43/issue-3/Particle-creation-by-black-holes/cmp/1103899181.full（Project Euclid OA。Semantic Scholar の OA 記録で確認。bot 遮断のためアーカイブ不可）"
     },
     {
       "ref": 12,
       "reason": "出版社（APS）有料のみ。OA 版なし（unpaywall 確認 2026-07-09）",
       "citation": "Unruh, W. G. \"Experimental Black-Hole Evaporation?\", Phys. Rev. Lett. 46, 1351 (1981)",
-      "landing_url": "https://doi.org/10.1103/PhysRevLett.46.1351"
+      "landing_url": "https://doi.org/10.1103/PhysRevLett.46.1351",
+      "substitute_archived": "ref12alt_unruh-2014_has-hawking-radiation-been-measured_arxiv.pdf"
     },
     {
       "ref": 17,
@@ -283,13 +368,15 @@
       "ref": 19,
       "reason": "書籍（OUP）有料のみ",
       "citation": "Volovik, G. E. \"The Universe in a Helium Droplet\" (OUP, 2003)",
-      "landing_url": "https://doi.org/10.1093/acprof:oso/9780199564842.001.0001"
+      "landing_url": "https://doi.org/10.1093/acprof:oso/9780199564842.001.0001",
+      "substitute_archived": "ref19alt_volovik-2001_superfluid-analogies-cosmological_arxiv.pdf"
     },
     {
       "ref": 25,
       "reason": "無料の全文公開版が確認できていない",
       "citation": "Simondon, G. \"L'individuation à la lumière des notions de forme et d'information\" (1958/2005)",
-      "landing_url": null
+      "landing_url": null,
+      "substitute_archived": "ref25alt_simondon-1992_genesis-of-the-individual_monoskop.pdf"
     },
     {
       "ref": 26,
@@ -297,5 +384,32 @@
       "citation": "\"Process Philosophy\", Stanford Encyclopedia of Philosophy",
       "landing_url": "https://plato.stanford.edu/entries/process-philosophy/"
     }
-  ]
+  ],
+  "manifest_cross_references": [
+    {
+      "ref": 2,
+      "manifest": "D29-S01 raw-confirmed",
+      "raw": "knowledge/raw/D29_prigogine_1977_time-structure-fluctuations.pdf",
+      "note": "同一原典。sources/ には重複保管しない"
+    },
+    {
+      "ref": 4,
+      "manifest": "D13-S14 raw-confirmed（2026-07-11 に blocked-access から解除）",
+      "raw": "knowledge/raw/D13_varela-maturana-uribe_1974_autopoiesis.pdf",
+      "note": "TH-001 の取得（ref04）を D13 に引き渡し。D13 source-note は全文精読の上で再生成待ち"
+    },
+    {
+      "ref": 25,
+      "manifest": "D13-S01 blocked-access [no-oa]",
+      "raw": null,
+      "note": "主著は 30 領域側も取得不能。ref25alt（導入部英訳）が部分代替"
+    },
+    {
+      "ref": 26,
+      "manifest": "D13-S10 raw-confirmed",
+      "raw": "knowledge/raw/D13_whitehead_1929_process-and-reality.pdf",
+      "note": "『Process and Reality』本体は 30 領域側に raw あり"
+    }
+  ],
+  "reviewed": "2026-07-11 全 16 件（当時）を全文テキスト化し READER の主張と全数照合。記録は VERIFICATION-20260711.md。訂正 3 件＋脚注 27 新設"
 }

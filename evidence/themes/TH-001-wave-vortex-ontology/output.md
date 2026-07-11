@@ -154,31 +154,32 @@ critic が挙げた5件を、解かずに保持する。
 
 **実証層（R1）**
 - Barceló, Liberati, Visser, "Analogue Gravity"（Living Reviews in Relativity, arXiv:gr-qc/0505065v4, 2024-11 改訂）— 本文確認済み（raw-confirmed 相当）
-- Švančara et al. 2024, Nature 628, 66-70（PMC10990935）— 本文確認済み
-- Unruh 1981, Phys. Rev. Lett. 46, 1351 — citation-only（unpaywall で OA なしを確認 2026-07-09。内容は BLV レビュー（raw 確認済）経由で担保）
-- Steinhauer 2016, Nature Physics 12, 959 — citation-only
+- Švančara et al. 2024, Nature 628, 66-70（PMC10990935）— 本文確認済み（arXiv:2308.10773 著者版を sources/ref18 に保管。出版版の自己表現は "the very first hints of this process taking place in a quantum fluid" — READER の「初の証拠」を「最初の兆候」に訂正 2026-07-11）
+- Unruh 1981, Phys. Rev. Lett. 46, 1351 — citation-only（unpaywall で OA なしを確認 2026-07-09→2026-07-11 再確認も OA なし。内容は BLV レビュー（raw 確認済）経由で担保）。**代替 OA 確保**: Unruh 本人の後年レビュー "Has Hawking radiation been measured?"（2014, arXiv:1401.6612、sources/ref12alt）
+- Steinhauer 2016, Nature Physics 12, 959 — **本文確認済み**（arXiv:1510.00621。2026-07-11 sources/ 保管・全文テキスト照合。"We observe spontaneous Hawking radiation, stimulated by quantum vacuum fluctuations" を確認）
 - Muñoz de Nova et al. 2019, Nature 569, 688 — **本文確認済み**（arXiv:1809.00913, GREEN OA。W2 で全文精読 2026-07-09）
 - Kolobov et al. 2021, Nature Physics 17, 362 — **本文確認済み**（arXiv:1910.09363, CC-BY。W2 で全文精読 2026-07-09）
 - Leonhardt 評価転換の引用 — Physics World "Thermal spectrum of analogue black hole puts Hawking radiation in a new light" (2019) — url-verified（二次報道）
-- Leonhardt（arXiv:1609.03803）— citation-only
+- Leonhardt（arXiv:1609.03803）— **本文確認済み**（2026-07-11 sources/ 保管。批判の実体は公表データの統計的有意性と理論限界との整合への疑義（"raises severe doubts"）。「データ処理の見かけ」という旧要約は不正確→READER 訂正）
 - Onsager 1949 / Feynman 1955（循環量子化）— citation-only（二次情報のみ）
 
 **仮説層（R2）**
-- Volovik『The Universe in a Helium Droplet』（OUP 2003）— 書誌確認（内容は二次・arXiv ベース）
+- Volovik『The Universe in a Helium Droplet』（OUP 2003）— 書誌確認（内容は二次・arXiv ベース）。**代替 OA 確保**: 前身の長編レビュー "Superfluid analogies of cosmological phenomena", Phys. Rep. 351, 195 (2001)（arXiv:gr-qc/0005091、sources/ref19alt、113頁）
 - Volovik, "Emergent physics: Fermi-point scenario", Phil. Trans. R. Soc. A 366, 2935 (2008)（arXiv:0801.0724）— **本文確認済み**（W3b 全文精読 2026-07-10。PoS 版 arXiv:0709.1258 も全文確認）
 - Volovik, "Reentrant violation of special relativity in the low-energy corner"（arXiv:hep-ph/0101286, 2001）— **本文確認済み**（W3b 2026-07-10）
 - Klinkhamer & Risse, Phys. Rev. D 77, 016002 (2008)（arXiv:0709.2502、UHECR による modified-Maxwell 制約）— citation-only（Volovik 経由）
 - Zloshchastiev, Universe 6, 180 (2020)（arXiv:2011.12565）— **本文確認済み**（W3 残余で全文精読 2026-07-10。LIV 関連記述の網羅 grep 含む）
 - Berezhiani & Khoury, Phys. Rev. D 92, 103510 (2015)（arXiv:1507.01019v2）— **本文確認済み**（W3 残余で全文精読 2026-07-10。付録 "A Relativistic Completion" 含む）; Phys. Rev. D 107, 123010 (2023) — 書誌確認（要約ベース）
 - LIV 制約（Wikipedia "Tests of special relativity" 他）— citation-only
+- Herrmann, Senger, Möhle, Nagel, Kovalchuk & Peters, "Rotating optical cavity experiment testing Lorentz invariance at the 10^-17 level", Phys. Rev. D 80, 105011 (2009)（arXiv:1002.1284）— **本文確認済み**（2026-07-11 取得・1頁目照合、sources/ref27。光速異方性 10⁻¹⁷ の一次出典。Wikipedia 孫引きだった数字を一次文献化し READER 脚注 27 に設定）
 - Liberati, "Tests of Lorentz invariance: a 2013 update"（CQG 30, 133001 = arXiv:1304.5795）— **本文確認済み**（W3 で全文取得・§1/§5 精読 2026-07-09）
 - Scientific Reports 14, 19427 (2024), DOI: 10.1038/s41598-024-70286-w — citation-only（本文未読、要約ベース）
 - 「Pavel Kandyba 2025」超流体時空仮説 — **確認不能で確定（2026-07-10 断念）**。academia.edu ID 33870747 / 165768305 / 68319087 は全て 403。viXra:2403.0142 は Albers 著（別内容・反証済）、RG 396903025 は Thangamani 著（別内容・反証済）。pjdhiro のログイン済み手動タイトル検索（2026-07-10）でもヒット10件すべて別人（Florenskij 伊訳関連・Cătălin Pavel 等）で該当なし。書誌は確認不能のまま閉じ、内容は流通させない（§5 保持論点1）
 
 **思想・系譜層（R3）**
 - Kelvin (W. Thomson), "On Vortex Atoms", Proc. R. Soc. Edinburgh VI, 94 (1867) — **本文確認済み**（W7 全文確認 2026-07-10、zapatopi.net 公開全文）
-- Moffatt, "Vortex Dynamics: The Legacy of Helmholtz and Kelvin"（IUTAM Symposium, Springer 2008）— **本文確認済み**（W7 全文精読 2026-07-10。Helmholtz 三定理・Kelvin 渦原子・Tait 結び目分類の連鎖を権威的に記述）
-- Helmholtz, "Über Integrale der hydrodynamischen Gleichungen, welche den Wirbelbewegungen entsprechen", J. reine angew. Math. 55, 25 (1858) — 内容は Moffatt レビュー経由で一次確認（Tait 英訳 1867 が存在）
+- Moffatt, "Vortex Dynamics: The Legacy of Helmholtz and Kelvin"（IUTAM Symposium, Springer 2008）— **本文確認済み**（W7 全文精読 2026-07-10。Helmholtz 三定理・Kelvin 渦原子・Tait 結び目分類の連鎖を権威的に記述）。**代替 OA 確保**: 同一講演のロシア語訳（Нелинейная динамика 2(4), 2006, DOI:10.20537/nd0604002、sources/ref09alt）
+- Helmholtz, "Über Integrale der hydrodynamischen Gleichungen, welche den Wirbelbewegungen entsprechen", J. reine angew. Math. 55, 25 (1858) — 内容は Moffatt レビュー経由で一次確認（Tait 英訳 1867 が存在）。**原論文スキャン確保**（Zenodo record 1448878 = unpaywall 判明の OA、2026-07-11、sources/ref07。1頁目照合済み）
 - Springer『History of Knot Theory from Gauss to Jones』, 『Theorems of Helmholtz and Kelvin』— citation-only
 - Wikipedia "Vortex theory of the atom", "Process and Reality" — citation-only
 - PBS NOVA "Beautiful Losers"; Butler Scholarly Journal "Kelvin's Aethereal Knots" — citation-only
@@ -193,4 +194,5 @@ critic が挙げた5件を、解かずに保持する。
 - NobelPrize.org 1977 Chemistry press release（プリゴジン）— citation-only（W5 で原典一次確認済みのため補助扱いに降格）
 - ScienceDirect "Are field quanta real objects?" — citation-only
 - Epoché Magazine / Technophany（Simondon）— citation-only
+- Simondon, "The Genesis of the Individual"（*Incorporations*, Zone Books, 1992。主著 *L'individuation...* 導入部の英訳）— **取得済み**（Monoskop 公開スキャン、2026-07-11、sources/ref25alt。表題頁照合済み）
 - cs リポジトリ `knowledge/five-stages-guide.md`（Stage4 渦・Stage5 束の対応概念）— cs 内部正本

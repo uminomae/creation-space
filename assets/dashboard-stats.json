@@ -1,14 +1,14 @@
 {
-  "generated": "2026-06-26",
+  "generated": "2026-07-11",
   "source": "scripts/generate-dashboard-stats.mjs",
   "manifest": {
-    "raw_confirmed": 134,
+    "raw_confirmed": 135,
     "url_verified": 185,
-    "blocked_access": 87,
+    "blocked_access": 86,
     "citation_only": 33,
     "total": 439,
-    "readable": 319,
-    "unread": 120
+    "readable": 320,
+    "unread": 119
   },
   "source_notes": 303,
   "cs_domains": 30
