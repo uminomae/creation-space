@@ -60,3 +60,25 @@
 - **残り全件（ref01/02/03/04/05/07/08/13/14/15/16/18/20/21/22/24/27/28）**: 全文レベルで逐語一致を再確認。追加の不一致なし。
 
 上表の round(23) 訂正 3 件は全文読解でも妥当性を再確認済み。
+
+## R3（Bohm 全文通読）追記 — 2026-07-11
+
+**条件**: 「HTML 掲載は原典全文参照が原則。読み切れない量は独立セッションに分割し、次回も全文読了状態で記述」（pjdhiro 恒久ルール）。R2 では ref10 Bohm は分量が大きいため「該当章のみ」照合だった。本セッションで **ref10 全文（全10章・約9.5万語、pdftotext で抽出）を通読**し、READER の Bohm の使い方を原典全体と照合した。
+
+### 通読で確認したこと
+
+| 観点 | 原文での確認 | 判定 |
+|---|---|---|
+| 3引用の逐語性 | pp.12-13 "two vortices correspond to stable patterns of flow" / "no sharp division between them, nor are they to be regarded as separately or independently existent entities"（fig 1.2）、p.24 "the flowing stream, which creates, maintains, and ultimately dissolves the totality of vortex structures"、p.38 "apparently static and separately existent things are seen as relatively invariant states of continuing movement (e.g., recall the example of the vortex)"、p.14 "flow is, in some sense, prior to that of the 'things'..." — いずれも全文中で逐語一致 | ✓ |
+| 「流れが先・形は後」という READER の読み | Bohm の**中心命題**として全編で反復。第1章（相対論+量子論→"Undivided Wholeness in Flowing Movement"）、第2章（rheomode = 動詞優位言語）、第3章（"what is is the process of becoming itself; all objects... are forms that can be abstracted from this process"、p.62 "The best image of process is perhaps that of the flowing stream... vortices, ripples, waves... abstracted from the flowing movement"）、第5章（"the 'object' is an abstraction of a relatively invariant form... more like a pattern of movement than... a solid separate thing", p.157）、第6-7章（"what is is the holomovement"、粒子=recurrent/relatively stable sub-totalities of movement）。**本文引用より強い定式化が第3章 p.62 に存在** | ✓ 支持を強化 |
+| 「発見寄り／ひねりが小さい」の妥当性（第5章表・本文 line 283） | Bohm 自身の図 1.2 が渦=流れの安定パターンを直接図示し、p.62 も「過程の最良の像=流れる川」と明言。渦比喩と過程優位の対応は Bohm 側の明示的定式で、READER の低ひねり評価は過大でない（なお「波→**渦**」という段階の**方向**は Bohm 側にはない——彼は vortices/ripples/waves を同格の抽象として併置。ただし段階化は READER 側で [M] 明記済みなので齟齬なし） | ✓ 過大でない |
+| 後続章での否認・限定の有無 | 内蔵秩序（implicate order）・全運動（holomovement）は流れ像を**否認せず深化**（holomovement 自体が enfolding-unfolding の movement）。流れを「機械的すぎる」と退ける箇所は無し。よって「渦比喩は後で捨てられる」型の齟齬は無い | ✓ 齟齬なし |
+
+### 通読で見えた文脈上の留意点（誤りではないが忠実性のため READER に反映）
+
+1. **p.24 引用の局所文脈は「思考の断片化」**。原著巻末索引も "vortex: image of fragmentation 24" と記す。READER は宇宙論的存在論の列に置くが、Bohm は心と物質を「一つの不可分な運動の別側面」とするため、命題自体（流れが渦を作り・保ち・溶かす）は同一の存在論で誤りではない。ただし Bohm の本の**主眼が渦でなく断片化批判＋内蔵秩序**である点を READER が一切示していなかったため、第2章に一段追記して補った。
+2. **Bohm の反・固定化の戒め**（p.22「理論は不変の記述でなく ever-changing forms of insight」／p.63「『全ては流れ』という命題すら絶対不変の知識にはできない」）。これは READER の第5章 Stage 4 採用が「モデル側の [M] 解釈」であり「後づけ整形の罠」を自ら警戒している姿勢と**整合**する（むしろ Bohm の戒めが READER の [M] hedge を裏書き）。追記でこの点も明示。
+
+### 結論
+
+**全文照合で追加の不一致・訂正なし。** 3引用は逐語一致、「流れが先・形は後」の読みは原典全編が支持（第3章 p.62 に本文より強い定式）、第5章の「発見寄り」位置づけも過大でない。忠実性の補強として、渦比喩が Bohm の本全体の入口の像にすぎず主眼は断片化批判＋内蔵秩序である旨を第2章に一段追記した（バッジ・モデル・第5章の判定は不変更）。反映先: READER-wave-vortex.md 第2章本文＋W1 ラウンド行＋更新履歴 (26)。
