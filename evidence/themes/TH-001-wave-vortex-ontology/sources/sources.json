@@ -409,6 +409,18 @@
       "manifest": "D13-S10 raw-confirmed",
       "raw": "knowledge/raw/D13_whitehead_1929_process-and-reality.pdf",
       "note": "『Process and Reality』本体は 30 領域側に raw あり"
+    },
+    {
+      "ref": 28,
+      "manifest": "D02-S08 raw-confirmed",
+      "raw": "knowledge/raw/D02_rayleigh_1916_problem-thermal-convection-horizontal-layer-fluid-heated-below.pdf",
+      "note": "ベナール対流の原論文。本体で全文精読済み（source-note D02-S08）。sources/ には重複保管しない"
+    },
+    {
+      "ref": 29,
+      "manifest": "D07-S01 raw-confirmed",
+      "raw": "knowledge/raw/D07_wiener_1948_cybernetics.pdf",
+      "note": "サイバネティクスの原典。本体で精読済み（source-note D07-S01）。sources/ には重複保管しない"
     }
   ],
   "reviewed": "2026-07-11 全 16 件（当時）を全文テキスト化し READER の主張と全数照合。記録は VERIFICATION-20260711.md。訂正 3 件＋脚注 27 新設"

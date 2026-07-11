@@ -2,7 +2,7 @@
 
 ## 背景・ゴール・現在地
 
-- **背景**: `READER-wave-vortex.md`（公開ページ `reader/wave-vortex.html`）の脚注 [1]〜[27] は Web の公開版にリンクしているが、リンク切れ・egress ブロック・ネットワーク不通のとき LLM が原典照合を再現できない。
+- **背景**: `READER-wave-vortex.md`（公開ページ `reader/wave-vortex.html`）の脚注 [1]〜[29] は Web の公開版にリンクしているが、リンク切れ・egress ブロック・ネットワーク不通のとき LLM が原典照合を再現できない。
 - **ゴール**: 無料公開版が存在する出典のローカル控えを取得日・sha256 付きで保管し、**LLM が「本文の主張 ⇄ 原典」の突き合わせをオフラインで再現できる**ようにする。
 - **現在地**: 2026-07-11 時点で 22 件を保管（正規 18＋代替 4）。**全件の全文照合レビューを完了**（[`VERIFICATION-20260711.md`](VERIFICATION-20260711.md)。誤帰属 1 件・精度不足 3 件を検出し READER を訂正）。残る非保管 9 件は理由と代替つきで記録。
 
@@ -60,6 +60,8 @@
 - **[4]** ↔ D13-S14 raw-confirmed（2026-07-11 に blocked-access から解除）（`knowledge/raw/D13_varela-maturana-uribe_1974_autopoiesis.pdf`） — TH-001 の取得（ref04）を D13 に引き渡し。D13 source-note は全文精読の上で再生成待ち
 - **[25]** ↔ D13-S01 blocked-access [no-oa] — 主著は 30 領域側も取得不能。ref25alt（導入部英訳）が部分代替
 - **[26]** ↔ D13-S10 raw-confirmed（`knowledge/raw/D13_whitehead_1929_process-and-reality.pdf`） — 『Process and Reality』本体は 30 領域側に raw あり
+- **[28]** ↔ D02-S08 raw-confirmed（`knowledge/raw/D02_rayleigh_1916_problem-thermal-convection-horizontal-layer-fluid-heated-below.pdf`） — ベナール対流の原論文。本体で全文精読済み（source-note D02-S08）。sources/ には重複保管しない
+- **[29]** ↔ D07-S01 raw-confirmed（`knowledge/raw/D07_wiener_1948_cybernetics.pdf`） — サイバネティクスの原典。本体で精読済み（source-note D07-S01）。sources/ には重複保管しない
 
 ## 運用ルール
 
