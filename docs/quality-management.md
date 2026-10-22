@@ -107,6 +107,7 @@ bash scripts/qc-all.sh --deep   # PDF抽出測定など時間のかかる検査�
 | manifest 整合 + 原典重複 | `bash scripts/validate-manifest-sync.sh` | taxonomy/progress 整合(C1,4,5)・source-note≥5(C6)・書誌ドリフト(C8)・dashboard鮮度(C9)・**原典重複(C10)** | source-note / manifest / progress 変更時 | ✅ |
 | 配信 JSON 整合 | `node scripts/generate-domains-json.mjs --check` | index.json → domains.json の同期 | index.json 変更時 | ✅(pjdhiro時) |
 | dashboard 鮮度 | `node scripts/generate-dashboard-stats.mjs --check` | dashboard-stats.json の手集計ドリフト | manifest/source-note 増減時 | ✅ |
+| 報告ページへの静的リンク鮮度 | `node scripts/generate-static-nav.mjs --check` | トップ `<noscript>`・`llms.txt`・`sitemap.xml` の素のリンクが pjdhiro manifest と一致（JS を実行しないクローラー向け, cs#264） | 報告の公開・追加時／cs 静的ページ追加時 | ✅(pjdhiro時) |
 | hooks 健全性 | `bash scripts/verify-hooks.sh` | hooks の存在・実行権・_common 依存・hooks.json 整合 | hook 追加/改名時 | ✅(main時) |
 | ドメイン日付一致 | `bash scripts/verify-domain-dates.sh --all` | レポート内日付の整合 (cs#128) | レポート再生成時 | ✅ |
 | ガイド evidence 制約 | `bash scripts/validate-guide-evidence.sh` | ガイドが evidence 制約を満たすか | ガイド生成時 | ✅(pjdhiro時) |
