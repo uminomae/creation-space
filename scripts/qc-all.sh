@@ -68,8 +68,11 @@ run "dashboard-stats 鮮度 (generate-dashboard-stats --check)" \
 if [[ -d "$PJDHIRO_DIR" ]]; then
     run "domains.json 整合 (generate-domains-json --check)" \
         node scripts/generate-domains-json.mjs --check
+    run "報告ページへの静的リンク鮮度 (generate-static-nav --check)" \
+        node scripts/generate-static-nav.mjs --check
 else
     skip_msg "domains.json 整合 — 配信先 pjdhiro repo が無い(worktree等)"
+    skip_msg "報告ページへの静的リンク鮮度 — 配信先 pjdhiro repo が無い(worktree等)"
 fi
 
 # --- 3. hooks 健全性 (相対symlink依存のため main checkout でのみ意味を持つ) ---
