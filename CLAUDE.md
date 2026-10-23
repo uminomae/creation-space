@@ -73,6 +73,15 @@ CSS（`src/styles/` 配下）を変更する前に:
 | リポジトリ | 関係 |
 |---|---|
 | `pjdhiro` | GitHub Pages 側の公開先。`assets/creation/` の manifest・Markdown・PDF をホスティングする |
+| `project-design` | pd wiki の正本。`wiki/sources/D{NN}/D{NN}-S{##}_*.md` に cs raw PDF から生成した原典解説を格納。cs が品質チェック用に参照する |
+
+## pd wiki へのアクセス
+
+- **LOCAL**: `${REPO_ROOT}/../project-design/wiki/sources/D{NN}/D{NN}-S{##}_*.md` を直接読む
+- **WEB セッション**: GitHub MCP で `uminomae/project-design` にアクセス（セッションのリポジトリスコープに project-design を追加する必要がある）
+- WEB で project-design が未追加の場合はアクセス不可 → 突合せをスキップし cs 原典精読のみで完結させる
+
+詳細: `.claude/rules/pd-wiki-reference.md`
 
 ## 公開 MD の正本ルール
 
