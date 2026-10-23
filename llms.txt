@@ -74,7 +74,7 @@ Each domain is accessible as a slide via `/?slide=D{nn}`.
 
 - [創造の5段階——構造の説明](https://uminomae.github.io/pjdhiro/assets/creation/guides/ja/md/creation-general/) · [The Structure of Creation — Five Stages](https://uminomae.github.io/pjdhiro/assets/creation/guides/en/md/creation-general/)
 - [創造の5段階——プロセスの診断](https://uminomae.github.io/pjdhiro/assets/creation/guides/ja/md/creation-designer/) · [The Unnamed Place Between Divergence and Convergence](https://uminomae.github.io/pjdhiro/assets/creation/guides/en/md/creation-designer/)
-- [創造の5段階——先行研究との構造比較](https://uminomae.github.io/pjdhiro/assets/creation/guides/ja/md/creation-academic/) · [Guide to the Five-Stage Model of Creation (Academic)](https://uminomae.github.io/pjdhiro/assets/creation/guides/en/md/creation-academic/)
+- [創造の5段階——先行研究との構造比較](https://uminomae.github.io/pjdhiro/assets/creation/guides/ja/md/creation-academic/) · [Structural Comparison of the Five-Stage Model and Prior Theories](https://uminomae.github.io/pjdhiro/assets/creation/guides/en/md/creation-academic/)
 
 ### 30 Domain Reports（30領域調査報告）
 
@@ -141,6 +141,10 @@ Each domain is accessible as a slide via `/?slide=D{nn}`.
 
 - [全分野構造類似探索: 領域索引](https://uminomae.github.io/pjdhiro/assets/creation/survey/ja/md/survey-domain-index/)
 - [全分野構造類似探索: 調査概要](https://uminomae.github.io/pjdhiro/assets/creation/survey/ja/md/survey-status/) · [Cross-Domain Structural Similarity Survey: Overview](https://uminomae.github.io/pjdhiro/assets/creation/survey/en/md/survey-status/)
+
+### Theme Readers（テーマ解説）
+
+- [波間の渦 — 宇宙は「モノ」でできているか、「流れ」でできているか（調査中の草稿）](https://uminomae.github.io/creation-space/reader/wave-vortex.html)
 
 <!-- static-nav:end -->
 
