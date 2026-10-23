@@ -12,7 +12,8 @@
 
 `wave-vortex.html` は **TH-001 wave-vortex-ontology（波間の渦）調査の万人向け解説ページ（草稿）**。
 調査の進行（cs#258 / cs#259）に合わせて正本 MD が更新され、本ページはそれに追随する。
-草稿のため `<meta name="robots" content="noindex">` を付与している。
+草稿だが検索には出す（2026-10-23 pjdhiro 判断で noindex を外した・cs#264）。草稿であることは題名の「（調査中の草稿）」で示す。
+トップの `<noscript>`・`sitemap.xml`・`llms.txt` からのリンクは `node scripts/generate-static-nav.mjs` が自動で張る（noindex のページは sitemap・llms.txt に載らない）。
 
 ## 更新手順
 
